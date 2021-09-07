@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_KakaHiguain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_KakaHiguain.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] d={{0,1},{1,0},{0,-1},{-1,0}};
+    public int swimInWater(int[][] grid</B></FONT>) {
+        int n=grid.length;
+        int[][] dis=new int[n][n];
+        for (int i=0;i&lt;n;i++)
+            for (int j=0;j&lt;n;j++)
+                dis[i][j]=10000000;
+        dis[0][0]=grid[0][0];
+        Queue&lt;int[]&gt; q=new ArrayDeque&lt;&gt;();
+        q.offer(new int[]{0,0});
+        boolean[][] bo=new boolean[n][n];
+        bo[0][0]=true;
+        while (!q.isEmpty())
+        {
+            int[] now=q.poll();
+            bo[now[0]][now[1]]=false;
+            for (int i=0;i&lt;4;i++)
+            {
+                int x=now[0]+d[i][0],y=now[1]+d[i][1];
+                if (x&gt;=0 &amp;&amp; y&gt;=0 &amp;&amp; x&lt;n &amp;&amp; y&lt;n)
+                {
+                    int o=Math.max(dis[now[0]][now[1]],grid[x][y]);
+                    if (o&lt;dis[x][y])
+                    {
+                        dis[x][y]=o;
+<A NAME="1"></A>                        if (!bo[x][y]) q.offer(new int[]{x,y});
+                        bo[x][y]=true;
+                    }
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return dis[n-1][n-1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_hamlet_fiis.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54_hamlet_fiis.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool visited[101][101];
+    
+    vector&lt;vector&lt;int&gt; &gt;v;
+    int di[4]={-1,1,0,0};
+    int dj[4]={0,0,1,-1};
+    int R,C;
+    
+    void dfs(int x,int y,int level){
+        visited[x][y]=1;
+        
+        for(int i=0;i&lt;4;i++){
+            int X=x+di[i];
+            int Y=y+dj[i];
+            if(X&gt;=0 &amp;&amp; X&lt;R &amp;&amp; Y&gt;=0 &amp;&amp; Y&lt;C){
+                if(!visited[X][Y] &amp;&amp; v[X][Y]&lt;=level)
+                    dfs(X,Y,level);
+            }
+        }
+    }
+    
+    int swimInWater(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        v=grid;
+        int lo=v[0][0];int hi=2500;
+        R=grid.size();
+        C=grid[0].size();
+<A NAME="0"></A>        
+        for(int caso=0;caso&lt;15;caso++){
+            memset(visited,0,sizeof(visited));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int me=(lo+hi)/2;
+            dfs(0,0,me);
+            if(visited[R-1][C-1]){
+                hi=me;
+            }else{
+                lo=me+1;
+            }
+            
+        }
+        
+        return lo;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

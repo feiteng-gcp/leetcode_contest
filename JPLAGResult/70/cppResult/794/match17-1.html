@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_frostfrog.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>43_frostfrog.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int dir[4][2] = {{-1,0}, {1,0}, {0, 1}, {0, -1}};
+class Solution {
+public:</B></FONT>
+    struct P{
+        int x;
+        int y;
+        P(int i, int j) : x(i), y(j) { }
+    };
+    
+    int swimInWater(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+       vector&lt;P&gt; next_move;
+    
+       next_move.emplace_back(0, 0);
+        
+        auto compare = [&amp;] (const P &amp;l, const P &amp;r) {
+            return grid[l.x][l.y] &gt; grid[r.x][r.y];
+        };
+       
+       while (!next_move.empty()) {
+            pop_heap(next_move.begin(), next_move.end(), compare);
+            P p = next_move.back();
+           next_move.pop_back();
+           
+            max_min = max(grid[p.x][p.y], max_min);
+             if (p.x == grid.size() - 1 &amp;&amp; p.y == grid[0].size() - 1) return max_min;
+           
+            for (int i = 0; i &lt; 4; ++i) {
+                int x = p.x + dir[i][0];
+                int y = p.y + dir[i][1];
+                if (x &lt; 0 || y &lt; 0 || x == grid.size() || y == grid[0].size()) {
+                    continue;
+                }
+                if (visited.count(x * 50 + y)) continue;
+                
+                next_move.emplace_back(x, y);
+                push_heap(next_move.begin(), next_move.end(), compare);
+                visited.insert(x * 50 + y);
+            }
+       }
+        
+        return max_min;
+    }
+    
+    set&lt;int&gt; visited;
+    int max_min = 0;
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_albaniliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>52_albaniliu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+int n;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dir = new int[][] {{0,1},{1,0},{0,-1},{-1,0}};
+
+    public int swimInWater(int[][] grid) {</B></FONT>
+        n = grid.length;
+        int l = 0;
+        int r = n * n;
+
+        while (l &lt; r) {
+            int m = l + (r - l) / 2;
+            boolean ok = solve(grid, m);
+            if (ok) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        return r;
+    }
+
+    private boolean solve(int[][] grid, int m) {
+        boolean[][] visited = new boolean[n][n];
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        if (grid[0][0] &gt; m) return false;
+        q.add(new int[]{0, 0});
+        visited[0][0] = true;
+        while (!q.isEmpty()) {
+            int[] c = q.poll();
+<A NAME="1"></A>            int i = c[0];
+            int j = c[1];
+            if (i == n-1 &amp;&amp; j == n-1) return true;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = 0; k &lt; 4; k++) {
+                int ni = i + dir[k][0];
+                int nj = j + dir[k][1];
+
+                if (ni &lt; 0 || ni &gt;= n || nj &lt; 0 || nj &gt;= n || visited[ni][nj]) continue;
+                if (grid[ni][nj] &gt; m) continue;</B></FONT>
+                if (ni == n-1 &amp;&amp; nj == n-1) return true;
+                q.add(new int[]{ni, nj});
+                visited[ni][nj] = true;
+            }
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

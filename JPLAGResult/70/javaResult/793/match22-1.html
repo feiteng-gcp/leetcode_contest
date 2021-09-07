@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_jhuang101.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_jhuang101.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean canTransform(String start, String end) {
+<A NAME="0"></A>        if(start.equals(end))return true;
+        String a = &quot;&quot;;
+        String b= &quot;&quot;;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int countX1 = 0;
+        int countX2 = 0;
+        List&lt;Integer&gt; RP = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; LP = new ArrayList&lt;&gt;();
+        for(int i = 0; i &lt; start.length(); i++){</B></FONT>
+            char x = start.charAt(i);
+            if(x == 'R'){a+=&quot;R&quot;;RP.add(i);}
+            else if(x == 'L'){a+=&quot;L&quot;;LP.add(i);}
+            else if(x == 'X')countX1++;
+        }
+        int rindex = 0;
+        int lindex = 0;
+        for(int i = 0; i &lt; end.length(); i++){
+            char x = end.charAt(i);
+            if(x == 'R'){
+                b+=&quot;R&quot;;
+                if(rindex &lt; RP.size()) {
+                    if(RP.get(rindex) &gt; i){
+                        return false;
+                    }
+                    else{
+                        rindex++;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            else if(x == 'L'){
+                b+=&quot;L&quot;;
+                if(lindex &lt; LP.size()){
+                    if(LP.get(lindex) &lt; i){
+                        return false;
+                    }
+                    else {
+                        lindex++;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            else if(x == 'X')countX2++;
+        }
+        return a.equals(b) &amp;&amp; countX1 == countX2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

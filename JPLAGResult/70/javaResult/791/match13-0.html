@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>381_hrwang0726.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>381_hrwang0726.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+<A NAME="0"></A>    public TreeNode[] splitBST(TreeNode root, int V) {
+        if (root == null || (root.left == null &amp;&amp; root.right == null)) return new TreeNode[]{root, null};
+        TreeNode parent = helper(root, V);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (parent == null) {
+            return new TreeNode[]{root, null};
+        }
+<A NAME="1"></A>        if (parent.left.val == V) {
+            TreeNode small = parent.left</B></FONT>;
+            parent.left = small.right;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>small.right = null;
+            return new TreeNode[]{small, root};
+<A NAME="2"></A>        } else {
+            TreeNode large = parent.right</B></FONT>;
+            parent.right = large.left;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>large.left = null;
+            return new TreeNode[]{root, large};
+        }
+    }</B></FONT>
+    
+    //helper function
+    public TreeNode helper(TreeNode root, int V) {
+        if (root == null) return null;
+        if (root.left != null &amp;&amp; root.left.val == V || root.right != null &amp;&amp; root.right.val == V) return root;
+        TreeNode left = helper(root.left, V);
+        TreeNode right = helper(root.right, V);
+        if (left != null) return left;
+        else return right;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

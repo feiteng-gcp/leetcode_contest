@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>35_lixx2100.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>35_lixx2100.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.Arrays;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+
+    public boolean canTransform(String start, String end) {
+        if (start.length() != end.length()) {
+            return false;
+        }
+
+        int nextL = -1;
+        char[] a = start.toCharArray()</B></FONT>;
+        char[] b = end.toCharArray();
+
+        for (int i = a.length - 1, j = b.length - 1; i &gt;= 0 &amp;&amp; j &gt;= 0; j--) {
+            if (b[j] == 'R') {
+                i = Math.min(i, j);
+                while (i &gt;= 0 &amp;&amp; a[i] == 'X') {
+                    i--;
+                }
+                if (i &gt;= 0 &amp;&amp; a[i] == 'R') {
+                    a[i] = 'X';
+                    a[j] = 'R';
+                    i--;
+                } else {
+                    break;
+                }
+            }
+        }
+//        System.out.println(String.valueOf(a));
+
+
+        for (int i = 0, j = 0; i &lt; a.length &amp;&amp; j &lt; b.length; j++) {
+            if (b[j] == 'L') {
+                i = Math.max(i, j);
+                while (i &lt; a.length &amp;&amp; a[i] == 'X') {
+                    i++;
+                }
+                if (i &lt; a.length &amp;&amp; a[i] == 'L') {
+                    a[i] = 'X';
+                    a[j] = 'L';
+                    i++;
+                } else {
+                    break;
+                }
+            }
+        }
+
+
+//        for (int i = 0; i &lt; a.length; i++) {
+//            if (b[i] == 'X') {
+//                if (a[i] == 'X') continue;
+//                else if (a[i] == 'R') {
+//                    if (i + 1 &lt; a.length &amp;&amp; a[i + 1] == 'X') {
+//                        a[i] = 'X';
+//                        a[i + 1] = 'R';
+//                    } else {
+//                        break;
+//                    }
+//                } else {
+//                    break;
+//                }
+//            } else if (b[i] == 'R') {
+//                if (a[i] != 'R') {
+//                    break;
+//                }
+//            } else if (b[i] == 'L') {
+//                if (a[i] == 'R') {
+//                    break;
+//                } else if (a[i] == 'X') {
+//                    nextL = Math.max(nextL, i + 1);
+//                    while (nextL &lt; a.length &amp;&amp; a[nextL] == 'X') {
+//                        nextL++;
+//                    }
+//
+//                    if (nextL &lt; a.length &amp;&amp; a[nextL] == 'L') {
+//                        a[i] = 'L';
+//                        a[nextL] = 'X';
+//                    } else {
+//                        break;
+//                    }
+//                }
+//            }
+//            System.out.println(String.valueOf(a));
+//            System.out.println(String.valueOf(b));
+//        }
+//        System.out.println();
+        return String.valueOf(a).equals(String.valueOf(b));
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.canTransform(&quot;XXRXXLXXXX&quot;, &quot;XXXXRXXLXX&quot;));
+        System.out.println(sol.canTransform(&quot;RXXLRXRXL&quot;, &quot;XRLXXRRLX&quot;));
+        System.out.println(sol.canTransform(&quot;LXR&quot;, &quot;XLR&quot;));
+        System.out.println(sol.canTransform(&quot;LXR&quot;, &quot;LRX&quot;));
+    }
+}
+
+
+//RXXLRXRXL
+//XRLXXRRLX
+//
+//
+
+</PRE>
+
+</BODY>
+</HTML>
