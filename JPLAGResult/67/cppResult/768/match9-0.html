@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_nikanorov.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>446_nikanorov.cpp</CENTER></H3><HR>
+<PRE>
+
+class Solution {
+public:
+    vector&lt;int&gt; partitionLabels(string S) {
+        typedef pair&lt;int,int&gt; pii;
+        vector&lt;pii&gt; ints;
+        for (char c='a'; c &lt;='z'; c++) {
+            int i;
+            for (i =0; i&lt; S.length();i++)
+                if (S[i]==c)
+                    break;
+            if (i&lt;S.length())
+                ints.push_back(make_pair(i,-1));
+            for (i =S.length()-1; i&gt;=0;i--)
+                if (S[i]==c)
+                    break;
+            if (i&gt;=0)
+                ints[ints.size()-1].second = i;
+        }
+        
+<A NAME="0"></A>        sort(ints.begin(),ints.end(),[](const pii&amp; a, const pii&amp; b) {return a.first &lt; b.first;});
+        vector&lt;int&gt; res;
+        int st = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int max = 0;
+        for (int i = 0; i &lt; ints.size();i++) {
+            bool fl = true;
+            max = ints[i].second;
+            for (int j = 0; j &lt; i; j++) {</B></FONT>
+                if (ints[j].second &gt; max)
+                    max = ints[j].second;
+                if (ints[i].first &lt; ints[j].second)
+                    fl = false;
+            }
+            if (fl &amp;&amp; i &gt; 0) {
+                res.push_back(ints[i].first-st);
+                st = ints[i].first;
+            }
+        }
+        res.push_back(max+1-st);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

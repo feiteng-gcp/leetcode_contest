@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_KakaHiguain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>16_KakaHiguain.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int orderOfLargestPlusSign(int N, int[][] mines) {
+        boolean[][] bo=new boolean[N][N];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] up=new int[N][N];
+        int[][] down=new int[N][N];
+        int[][] left=new int[N][N];
+        int[][] right=new int[N][N];
+        for (int[] m</B></FONT>:mines) bo[m[0]][m[1]]=true;
+        int ans=-1;
+        for (int i=0;i&lt;N;i++)
+            for (int j=0;j&lt;N;j++)
+            {
+                if (bo[i][j]) left[i][j]=-1;
+                else left[i][j]=(j==0)?0:left[i][j-1]+1;
+            }
+        for (int i=0;i&lt;N;i++)
+            for (int j=0;j&lt;N;j++)
+            {
+                if (bo[i][j]) up[i][j]=-1;
+                else up[i][j]=(i==0)?0:up[i-1][j]+1;
+            }
+        for (int i=0;i&lt;N;i++)
+            for (int j=N-1;j&gt;=0;j--)
+            {
+                if (bo[i][j]) right[i][j]=-1;
+                else right[i][j]=(j==N-1)?0:right[i][j+1]+1;
+            }
+        for (int i=N-1;i&gt;=0;i--)
+            for (int j=0;j&lt;N;j++)
+            {
+                if (bo[i][j]) down[i][j]=-1;
+                else down[i][j]=(i==N-1)?0:down[i+1][j]+1;
+            }
+        for (int i=0;i&lt;N;i++)
+            for (int j=0;j&lt;N;j++)
+            {
+                int o=Math.min(up[i][j],down[i][j]);
+                o=Math.min(o,left[i][j]);
+                o=Math.min(o,right[i][j]);
+                ans=Math.max(ans,o);
+            }
+        return ans+1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

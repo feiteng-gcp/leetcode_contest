@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1054_HinderKing.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1054_HinderKing.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;int&gt; partitionLabels(string S) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;char, int&gt; beginindex, endindex;
+        for (int i = 0; i&lt;S.size(); i++) {
+            if (beginindex.count(S[i]) == 0) {
+                beginindex[S[i]] = i;
+            }
+            endindex[S[i]] = i;</B></FONT>
+        }
+        auto it1 = beginindex.begin();
+        auto it2 = endindex.begin();
+        vector&lt;pair&lt;int, int&gt;&gt; ranges;
+        while (it1 != beginindex.end() &amp;&amp; it2 != endindex.end()) {
+            ranges.push_back(make_pair(it1-&gt;second, it2-&gt;second));
+            it1++;
+            it2++;
+        }
+        sort(ranges.begin(), ranges.end(), [](const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b) {
+            return (a.first&lt;b.first || (a.first == b.first &amp;&amp; a.second&lt;b.second));
+        });
+        vector&lt;int&gt; res;
+        int leftside = 0, rightside = 0;
+        int i = 0;
+        for (; i&lt;ranges.size(); i++) {
+            if (rightside&lt;ranges[i].first) {
+                res.push_back(rightside - leftside + 1);
+                leftside = ranges[i].first;
+                rightside = ranges[i].second;
+            }
+            else {
+                rightside = max(rightside, ranges[i].second);
+            }
+        }
+        if (ranges.size() &gt; 0) {
+            res.push_back(S.size()- leftside);
+        }
+
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

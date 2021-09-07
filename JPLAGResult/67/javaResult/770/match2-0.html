@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_fun4LeetCode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minSwapsCouples(int[] row) {
+        int res = 0, n = row.length;
+        
+        int[] idx = new int[n];
+        
+        for (int i = 0; i &lt; n; i++) {
+			idx[row[i]] = i;
+		}
+        
+        for (int k = 0; k &lt; n; k += 2) {
+			for (int i = k, j = partner(i), p = partner(row[i]); p != row[j]; 
+                                            i = idx[p], j = partner(i), p = partner(row[i])) {
+				swap(row, j, idx[p]);
+				res++;
+			}
+		}
+        
+        return res;
+    }
+<A NAME="0"></A>    
+    private int partner(int k) {
+		return (k &amp; 1) == 0 ? k + 1 : k - 1;
+	}<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                 
+    private void swap(int[] nums, int i, int j) {
+		int t = nums[i];
+		nums[i] = nums[j];
+		nums[j] = t;
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

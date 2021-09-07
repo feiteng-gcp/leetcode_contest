@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>3_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int g[505][505];
+<A NAME="0"></A>    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        for(int i=0;i&lt;N;i++)
+	{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		for(int j=0;j&lt;N;j++)
+		{
+			g[i][j]=1;
+		}
+	}
+	int cnt=mines.size();
+	for(int i=0;i&lt;cnt;i++)
+	{</B></FONT>
+		g[mines[i][0]][mines[i][1]]=0;
+	}
+	int ans=0;
+	for(int i=0;i&lt;N;i++)
+	{
+		for(int j=0;j&lt;N;j++)
+		{
+			for(int c=0;;c++)
+			{
+				if(i-c&gt;=0&amp;&amp;j-c&gt;=0&amp;&amp;i+c&lt;N&amp;&amp;j+c&lt;N&amp;&amp;g[i-c][j]&amp;&amp;g[i][j-c]&amp;&amp;g[i+c][j]&amp;&amp;g[i][j+c])continue;
+				ans=max(ans,c);
+				break;
+			}
+		}
+	}
+	return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

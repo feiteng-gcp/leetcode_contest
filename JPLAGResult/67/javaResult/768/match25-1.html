@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1044_codoge1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1044_codoge1.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; partitionLabels(String S) {
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        int[] alpha = new int[26];
+        for (char c : S.toCharArray()) {
+            alpha[c - 'a']++;
+        }
+        int start = 0;
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        int count = 0;
+        for (int i = 0; i &lt; S.length(); i++) {
+            char c = S.charAt(i);
+            if (!map.containsKey(c)) {
+                count++;
+            }
+<A NAME="0"></A>            map.put(c, map.getOrDefault(c, 0) + 1);
+            if (map.get(c) == alpha[c - 'a']) {
+                count--;
+                if (count == 0) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    res.add(i - start + 1);
+                    start = i + 1;
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
