@@ -89,7 +89,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
             print(err)
             break
 
-def parseSubmissions(contest):
+def parseSubmissions(contest, page_end):
 
     # print('parsing..')
 
@@ -125,7 +125,7 @@ def parseSubmissions(contest):
     with open(processedJSON) as file:
         processedID = json.load(file)
     # assuming 500 pages, usually around 200
-    for i in range(1, 500):
+    for i in range(1, page_end):
         # try:
         Ranking_Page = Ranking_Folder + str(i) + '.json'
         Ranking_Page_JSON = {}
@@ -326,14 +326,16 @@ def update_indexMD():
 
 if __name__ == '__main__':
 
+    page_end = 3
     while True:
         contest = loadContest()
         contest_int = (int)(contest)
 
+
         print(contest)
         
         fetchContestRankingPage(contest)
-        parseSubmissions(contest)
+        parseSubmissions(contest, page_end)
         
         jplag(contest)
 
@@ -347,6 +349,6 @@ if __name__ == '__main__':
 
         writeContest(contest_int)
 
-        break   
+        if page_end < 500: break   
 
 
