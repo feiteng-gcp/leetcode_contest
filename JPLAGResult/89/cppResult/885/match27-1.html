@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_Jay_1204.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_Jay_1204.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class ExamRoom {
+private:
+    set&lt;int&gt; s;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int n;
+public:
+    ExamRoom(int N) {
+        n = N;
+    }
+    
+    int seat() {
+        if(s.empty()){
+            s.insert(0);
+            return 0;
+        }</B></FONT>
+        
+        auto cur_index = s.begin();
+        int max_length = 0;
+        int index;
+        if(*cur_index != 0){
+            max_length = *cur_index - 0;
+            index = 0;
+        }
+        auto next_index = s.upper_bound(*cur_index);
+        while(next_index != s.end()){
+            int length = (*next_index - *cur_index)/2;
+            if(length &gt; max_length){
+                max_length = length;
+                index = *cur_index + length;
+            }
+            cur_index = next_index;
+            next_index = s.upper_bound(*cur_index);
+        }
+        if(*cur_index &lt; n - 1){
+            int length = n - 1 - *cur_index;
+            if(length &gt; max_length)
+                index = n - 1;
+        }
+        s.insert(index);
+        return index;
+    }
+    
+    void leave(int p) {
+        s.erase(p);
+        return;
+    }
+};
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(N);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
+</PRE>
+</BODY>
+</HTML>

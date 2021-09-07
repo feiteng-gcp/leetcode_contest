@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>408_wanderlustyc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>408_wanderlustyc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int N = position.length, count = position.length;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] cars = new int[N][2];
+        for (int i = 0; i &lt; N; i++) {
+            cars[i][0] = position[i];
+            cars[i][1] = speed[i];
+        }
+        Arrays.sort(cars, new Comparator&lt;int[]&gt;() {
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
+
+        int lead = N - 1</B></FONT>;
+        for (int i = N - 2; i &gt;= 0; i--) {
+            if (cars[i][1] &gt;= cars[lead][1]) {
+                if (canCatchUp(target, cars[i], cars[lead])) {
+                    count -= 1;
+                } else {
+                    lead = i;
+                }
+            } else {
+                lead = i;
+            }
+<A NAME="0"></A>        }
+        return count;
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public boolean canCatchUp(int target, int[] car1, int[] car2) {
+        if (car1[0] == car2[0]) {
+            return car1[0] == target || car1[1] &gt;= car2[1];
+        }</B></FONT> else if (car1[1] == car2[1]) {
+            return car1[0] == car2[0];
+        } else if (car1[1] &lt;= car2[1]) {
+            return false;
+        }
+        // System.out.println(car1[0] + &quot;,&quot; + car2[1] + &quot; : &quot; + car2[0] + &quot;,&quot; + car2[1]);
+        double timeToTarget = (double)(target - car2[0]) / car2[1];
+        double timeToCatchUp = (double)(car2[0] - car1[0]) / (car1[1] - car2[1]);
+        // System.out.println(timeToTarget + &quot;, &quot; + timeToCatchUp + &quot;, &quot; + (timeToTarget &gt;= timeToCatchUp));
+        return timeToTarget &gt;= timeToCatchUp;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

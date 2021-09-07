@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_yzeng61987.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_yzeng61987.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int kSimilarity(String A, String B) {
+        Map&lt;String, Integer&gt; memo = new HashMap();
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return helper(A, B, memo);
+    }
+    
+    public int helper(String a, String b, Map&lt;String, Integer&gt; memo){
+        if</B></FONT>(a.equals(b)){
+            return 0;
+        }
+        
+        if(a.compareTo(b) &gt; 0){
+            String temp = b;
+            b = a;
+            a = temp;
+        }
+        String key = a+&quot;&amp;&quot;+b;
+        
+        if(memo.containsKey(key)){
+            return memo.get(key);
+        }
+        int res = b.charAt(0) == a.charAt(0)? helper(a.substring(1), b.substring(1), memo): Integer.MAX_VALUE;
+        
+        for(int j = 1; j&lt; b.length(); j++){
+            if(b.charAt(j) == a.charAt(0)){
+                res = Math.min(res, helper(a.substring(1), b.substring(1, j)+ b.charAt(0) + b.substring(j+1), memo)+1);
+            }
+        }
+        
+        memo.put(key, res);
+        
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

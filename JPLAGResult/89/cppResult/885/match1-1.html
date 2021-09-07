@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>107_democoffee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>107_democoffee.cpp</CENTER></H3><HR>
+<PRE>
+class ExamRoom {
+    set&lt;int&gt; taken;
+    int n;
+public:
+    ExamRoom(int N) {
+        n = N;
+    }   
+    
+    int seat() {
+        int ans;
+        if (taken.empty()) {
+            ans = 0;
+        } else {
+<A NAME="0"></A>            int last = 0, mx = *taken.begin(), pick = 0;
+            for (auto t: taken) {
+                int p = (t+last) / 2;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int d = p - last;
+                if (d &gt; mx) {
+                    pick = p;
+                    mx = d;
+                }   
+                last = t;
+            }   
+            if (last &lt; n-1) {
+                int d = n-1 - last;
+                if (d &gt; mx) {
+                    mx = d;
+                    pick = n-1;
+                }   </B></FONT>
+            }   
+            ans = pick;
+        }   
+        taken.insert(ans);
+        return ans;
+    }   
+    
+    void leave(int p) {
+        taken.erase(p);
+    }   
+};
+</PRE>
+</BODY>
+</HTML>

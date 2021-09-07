@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_pyeprog.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_pyeprog.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import bisect
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ExamRoom:
+
+    def __init__(self, N):
+        &quot;&quot;&quot;
+        :type N: int
+        &quot;&quot;&quot;
+        self.n = N
+        self.seat_pos = []
+
+    def seat(self):
+        &quot;&quot;&quot;
+        :rtype: int
+        &quot;&quot;&quot;
+        if len(self.seat_pos) == 0:
+            self.seat_pos.append(0)
+            return</B></FONT> 0
+        
+        else:
+            max_dist = self.seat_pos[0] - 0
+            insert_pos = 0
+            
+            if max_dist &lt; self.n - 1 - self.seat_pos[-1]:
+                insert_pos = self.n - 1
+                
+            for i in range(len(self.seat_pos)-1):
+                if (self.seat_pos[i+1] - self.seat_pos[i]) // 2 &gt; max_dist:
+                    max_dist = (self.seat_pos[i+1] - self.seat_pos[i]) // 2
+                    insert_pos = self.seat_pos[i] + max_dist
+            
+            idx = bisect.bisect_left(self.seat_pos, insert_pos)
+            self.seat_pos[idx:idx] = [insert_pos]
+            return insert_pos
+
+    def leave(self, p):
+        &quot;&quot;&quot;
+        :type p: int
+        :rtype: void
+        &quot;&quot;&quot;
+        self.seat_pos.remove(p)
+
+
+# Your ExamRoom object will be instantiated and called as such:
+# obj = ExamRoom(N)
+# param_1 = obj.seat()
+# obj.leave(p)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>330_flyg.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>330_flyg.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int carFleet(int target, vector&lt;int&gt;&amp; position, vector&lt;int&gt;&amp; speed) {
+        int n = speed.size();
+        if (0 == n)
+        {
+            return 0;
+        }
+        vector&lt;tuple&lt;int, int&gt;&gt;input;
+        for (int i = 0; i &lt; n; ++i)
+        {
+            input.push_back(make_tuple(target - position[i], speed[i]));
+        }
+        sort(input.begin(), input.end(), [](const tuple&lt;int, int&gt;&amp; a, const tuple&lt;int, int&gt;&amp; b) -&gt; bool
+        {
+<A NAME="0"></A>            return get&lt;0&gt;(a) &lt; get&lt;0&gt;(b);
+        });
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int total = 0;
+        int lastFleet = 0;
+        for (int i = 1; i &lt; n; ++i)
+        {
+            if ((int64_t)get&lt;0&gt;(input[i]) * (int64_t)get&lt;1&gt;(input[lastFleet]) &gt; (int64_t)get&lt;0&gt;(input[lastFleet]) * (int64_t)get&lt;1&gt;(input[i]))
+            {
+                total++;
+                lastFleet = i;
+            }
+        }
+        return total + 1;
+    }
+
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

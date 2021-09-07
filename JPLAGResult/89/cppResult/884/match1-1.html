@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_user9026b.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_user9026b.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    unordered_map&lt;string, int&gt; hash;
+    string target;
+    
+    int kSimilarity(string A, string B) {
+        
+        if (A == B) return 0;
+        
+        int len = A.size();
+        deque&lt; pair&lt;string, int&gt; &gt; Q;
+        Q.push_back( {A, 0} );
+        
+        while (Q.size() &gt; 0)
+        {
+            pair&lt;string, int&gt; cur = Q.front();
+            Q.pop_front();
+            
+            int diffNum = Diff(cur.first, B);    
+            string&amp; str = cur.first;
+            
+            int start = 0;
+            for (int i = 0; i &lt; len; ++i)
+                if (str[i] != B[i])
+                {
+                    start = i; 
+                    break;
+                }
+                              
+            for (int t = start + 1; t &lt; len; ++t)
+            {
+                    if (str[t] == B[start])
+                    {
+                        string newStr = str;
+                        swap(newStr[start], newStr[t]);                        
+                        if (hash.count(newStr) == 0)
+                        {
+                            int num = Diff(newStr, B);    
+                            if (num == 0) return cur.second + 1;
+                            
+                            if (num &lt; diffNum)
+                            {
+                                Q.push_back( {newStr, cur.second + 1} );
+                                hash[newStr] = cur.second + 1;
+                            }
+                        }
+                    }
+            }
+        }
+    }
+<A NAME="0"></A>    
+    int Diff(string&amp; a, string&amp; b)
+    {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int count = 0;
+        for (int i = 0; i &lt; a.size(); ++i)
+        {
+            if (a[i] != b[i]) ++count;
+        }
+        return count;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

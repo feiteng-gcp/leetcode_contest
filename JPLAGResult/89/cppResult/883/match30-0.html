@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_cd2903.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_cd2903.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int carFleet(int target, vector&lt;int&gt;&amp; position, vector&lt;int&gt;&amp; speed) {
+        vector&lt;pair&lt;int,int&gt;&gt; comb;
+        for(int i=0; i&lt;position.size(); i++)</B></FONT>
+            comb.emplace_back(position[i], speed[i]);
+        sort(comb.begin(), comb.end(), [](pair&lt;int,int&gt;&amp; l, pair&lt;int,int&gt;&amp; r){
+           return l.first&gt;r.first; 
+        });
+        vector&lt;double&gt; time;
+        for(int i=0; i&lt;position.size(); i++)
+        {
+            double t = target - comb[i].first;
+            t/=(1.0*comb[i].second);
+            time.push_back(t);
+        }
+        double cur_t = -1.0;
+        int count =0;
+        for(int i=0; i&lt;position.size(); i++)
+        {
+            if(time[i]&gt;cur_t)
+            {
+                count++;
+                cur_t = time[i];
+            }
+        }
+        return count;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

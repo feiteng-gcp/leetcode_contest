@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_emmazjh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>153_emmazjh.cpp</CENTER></H3><HR>
+<PRE>
+class ExamRoom {
+public:
+    ExamRoom(int N) {
+        max = N - 1;
+    }
+    
+    int seat() {
+        if (students.empty()) {
+            students.insert(0);
+            return 0;
+        }
+        
+        int can = 0;
+        int b = -1;
+        int m = 0;
+
+        for (set&lt;int&gt;::iterator ite = students.begin(); ite != students.end(); ++ite) {
+<A NAME="0"></A>            //std::cout&lt;&lt;&quot;ite=&quot;&lt;&lt;*ite&lt;&lt;std::endl;
+            if (b == -1) {
+                m = *ite;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            } else {
+                if (((*ite - b) /2) &gt; m) {
+                    m = (*ite - b) /2;
+                    can = b + m;
+                }
+            }
+            b = *ite;
+        }
+        //std::cout&lt;&lt;&quot;b=&quot;&lt;&lt;b&lt;&lt;&quot;max=&quot;&lt;&lt;max&lt;&lt;std::endl;
+        if (b != max) {
+            if (max - b &gt; m) {
+                can = max;</B></FONT>
+            }
+        }
+        students.insert(can);
+        return can;
+    }
+    
+    void leave(int p) {
+        students.erase(p);
+    }
+private:
+    set&lt;int&gt; students;
+    int max;
+};
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(N);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
+</PRE>
+</BODY>
+</HTML>

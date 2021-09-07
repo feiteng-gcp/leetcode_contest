@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_LooserCty.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>444_LooserCty.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+
+    struct car{
+        double pos,v;
+        car(){}
+        car(double pos,double v):pos(pos),v(v){}
+        bool operator&lt;(car &amp;c){return pos&lt;c.pos;}    
+    };
+    
+    int count_set=0;
+    
+    
+    void set_set(vector&lt;int&gt; &amp;s){
+        count_set=s.size();
+        for (int i=0;i&lt;s.size();i++)
+            s[i]=i;
+    }
+    
+    void union_set(vector&lt;int&gt; &amp;s,int root1,int root2){
+        s[root2]=root1;
+        count_set--;
+    }
+    
+    int find_set(vector&lt;int&gt; &amp;s,int x){
+        if (s[x]==x)
+            return x;
+        else {
+            s[x]=find_set(s,s[x]);
+            return s[x];
+        }
+    }
+    
+    
+    int carFleet(int target, vector&lt;int&gt;&amp; position, vector&lt;int&gt;&amp; speed) {
+        vector&lt;car&gt; c;
+        for (int i=0;i&lt;speed.size();i++)
+            c.push_back(car(target-position[i],speed[i]));
+        sort(c.begin(),c.end());
+        vector&lt;int&gt; s(c.size(),0);
+        set_set(s);
+        for (int i=1;i&lt;c.size();i++){
+            int pc=find_set(s,i-1);
+            if (c[i].v&lt;c[pc].v)
+                continue;
+            if (c[i].v==c[pc].v){
+                 if (c[i].pos==c[pc].pos)
+                     union_set(s,pc,i);
+                continue;
+            }
+            if ((c[i].pos-c[pc].pos)/(c[i].v-c[pc].v)&lt;=(c[pc].pos/c[pc].v))
+                union_set(s,pc,i);
+        }
+        return count_set;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

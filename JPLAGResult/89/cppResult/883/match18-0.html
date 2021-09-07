@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_hustacle.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_hustacle.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int carFleet(int target, vector&lt;int&gt;&amp; position, vector&lt;int&gt;&amp; speed) {
+        int n = position.size();
+        
+        if (n == 0) return 0;
+        
+        map&lt;int, int&gt; myMap;
+        
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            myMap.insert(std::make_pair(position[i], speed[i]));
+        }
+        
+        int res = 0;
+        float spentLimit = -1.0f;
+        
+        for (auto iter = myMap.rbegin(); iter != myMap.rend(); ++iter) {
+            float spent = 1.0f * (target - iter-&gt;first) / iter-&gt;second;
+            
+            if (spentLimit &lt; 0 || spent &gt; spentLimit) {
+                ++res;
+                spentLimit = spent;
+            }
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

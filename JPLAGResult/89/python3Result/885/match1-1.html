@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>157_Aimar88.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>157_Aimar88.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import heapq
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ExamRoom:
+
+    def __init__(self, N):
+        self.pq = []        
+        self.N = N
+
+    def seat(self):                  
+        if not self.pq:
+            self.pq.append(</B></FONT>0)
+            st = 0
+        else:            
+            prev_i = -1
+            opt_prev_i = -1
+            d = 0
+            for i, x in enumerate(self.pq):
+                cand = (self.pq[i] - self.pq[prev_i])//2 if prev_i &gt;= 0 else self.pq[i]
+                if cand &gt; d:
+                    d = cand
+                    opt_prev_i = prev_i if prev_i &gt;= 0 else -1                                    
+                prev_i = i                                    
+                                   
+            cand = self.N - self.pq[-1] - 1
+            if cand &gt; d:
+                d = cand
+                opt_prev_i = i
+            
+            # print(self.pq)
+            # print(opt_prev_i, d)                         
+            if opt_prev_i != -1:
+                st = self.pq[opt_prev_i] + d if opt_prev_i &lt; len(self.pq)-1 else self.N-1
+                self.pq.append(st)        
+            else:
+                self.pq.append(0)        
+                st = 0                
+            self.pq = sorted(self.pq)                    
+            # print(self.pq)
+        return st
+        
+    def leave(self, p):
+        # print(self.pq)
+        self.pq.remove(p)
+        # self.N -= 1
+        
+
+
+# Your ExamRoom object will be instantiated and called as such:
+# obj = ExamRoom(N)
+# param_1 = obj.seat()
+# obj.leave(p)
+</PRE>
+
+</BODY>
+</HTML>
