@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>280_bananasplits.cpp</TITLE>
+ <TITLE>5_magila.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>280_bananasplits.cpp</CENTER></H3><HR>
+<H3><CENTER>5_magila.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    string boldWords(vector&lt;string&gt; &amp; words, string S) {
-        int n = S.size();
-        vector&lt;bool&gt; bold(n, false);
-        unordered_set&lt;string&gt; dict(words.begin(), words.end());
-        for(int i = 0; i &lt; n; i++) {
-<A NAME="1"></A>            for(int j = i; j &lt; n; j++) {</B></FONT>
-                if(dict.find(S.substr(i, j - i + 1)) != dict.end()) {
-                    for(int k = i; k &lt;= j; k++) bold[k] = true;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        unordered_set&lt;string&gt; all(words.begin(), words.end());
+        vector&lt;bool&gt; bold(S.size(), false);
+        for(int i = 0; i &lt; S.size(); i++)
+        {
+<A NAME="0"></A>            for(int j = 1; j + i &lt;= S.size() &amp;&amp; j &lt;= 10; j++)
+            {
+                auto temp = S.substr(i, j);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (all.count(temp))
+                {
+                    for(int k = i; k &lt; i + j; k++)
+                        bold[k] = true;
+                }
             }
         }
-        string ret = &quot;&quot;;
-        for(int i = 0; i &lt; n; i++) {
-            if((i == 0 || !bold[i - 1]) &amp;&amp; bold[i]) {
-                ret += &quot;&lt;b&gt;&quot;;
-            }</B></FONT>
-            ret += S[i];
-            if(bold[i] &amp;&amp; (i == n - 1 || !bold[i + 1])) {
-                ret += &quot;&lt;/b&gt;&quot;;
+        string ans;
+        bool current_bold = false;
+        for(int i = 0; i &lt; S.size(); i++)
+        {
+            if (bold[i] &amp;&amp; !current_bold)
+            {
+                ans += &quot;&lt;b&gt;&quot;;</B></FONT>
+                current_bold = true;
             }
+            if (!bold[i] &amp;&amp; current_bold)
+            {
+                ans += &quot;&lt;/b&gt;&quot;;
+                current_bold = false;
+            }
+            ans += S[i];
         }
-        return ret;
+        if (current_bold) ans += &quot;&lt;/b&gt;&quot;;
+        return ans;
     }
 };
 </PRE>

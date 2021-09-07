@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>411_Sofia18.java</TITLE>
+ <TITLE>223_mayitbeelc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>411_Sofia18.java</CENTER></H3><HR>
+<H3><CENTER>223_mayitbeelc.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,45 +23,51 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
-<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-<A NAME="1"></A>        List&lt;Interval&gt; inter = new ArrayList&lt;&gt;();
-        for (List&lt;Interval&gt; in: avails) {
-            for (int i = 0</B></FONT>; i &lt; in.size(); i++) {
-                inter.add(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>in.get(i));
-<A NAME="2"></A>            }
-        }
-        Collections.sort(inter, new Comparator&lt;Interval&gt;() {
-            public </B></FONT>int compare(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Interval i1, Interval i2) {
-                return i1.start - i2.start;
+        Set&lt;Integer&gt; set = new HashSet&lt;Integer&gt;();
+        for(List&lt;Interval&gt; intervals : avails){
+            for(Interval interval: intervals){
+                set.add(interval.start);
+                set.add(interval.end);
             }
-        });
-        List&lt;Interval&gt; merge = new</B></FONT> ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; inter.size();) {
-            int start = inter.get(i).start;
-            int end = inter.get(i).end;
-            i++;
-            while (i &lt; inter.size() &amp;&amp; end &gt;= inter.get(i).start) {
-                end = Math.max(end, inter.get(i).end);
-                i++;
+        }
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;(set);
+        Collections.sort(list);
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0; i&lt;list.size(); i++){
+            map.put(list.get(i), i);
+        }
+        boolean[] mark = new boolean[list.size()-1];
+        for(List&lt;Interval&gt; intervals : avails){
+            for(Interval interval: intervals){
+                int start = map.get(interval.start);
+                int end = map.get(interval.end);
+                for(int i =start; i&lt;end; i++){
+                    mark[i] = true;
+                }
             }
-            merge.add(new Interval(start, end));
+<A NAME="0"></A>        }
+        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
+        boolean isLastIntervalBusy = true;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int beginFree = 0;
+        for(int i = 0; i&lt; mark.length; i++){
+            if(isLastIntervalBusy&amp;&amp;!mark[i]){
+                beginFree = i;
+                isLastIntervalBusy = false;
+            } else if(!</B></FONT>isLastIntervalBusy&amp;&amp;mark[i]){
+                Interval interval = new Interval(list.get(beginFree), list.get(i));
+                result.add(interval);
+                isLastIntervalBusy = true;
+            }
         }
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if (merge.size() == 0) {
-            return res;
+        if(!isLastIntervalBusy){
+            Interval interval = new Interval(list.get(beginFree), list.get(list.size()-1));
         }
-        
-        int pre = merge.get(0).end;
-        for (int i = 1; i &lt; merge.size(); i++) {
-            // System.out.println(merge.get(i).start + &quot; &quot; + merge.get(i).end);
-            res.add(new Interval(pre, merge.get(i).start));
-            pre = merge.get(i).end;
-        }
-        return res;
+        return result;
     }
 }
 </PRE>

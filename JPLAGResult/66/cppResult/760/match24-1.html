@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_magica.cpp</TITLE>
+ <TITLE>121_abq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>22_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>121_abq.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  string boldWords(vector&lt;string&gt;&amp; words, string S) {
-    int n = S.length();
-<A NAME="0"></A>    vector&lt;bool&gt; bold(n, false);
-    for (auto&amp; word: words) {
-      int l = word.length();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for (int i = 0; i &lt;= n - l; ++i) {
-        if (S.substr(i, l) == word) {
-          for (int j = i; j &lt; i + l; ++j) {
-            bold[j] = true;
-          }
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        vector&lt;bool&gt; bs(S.size());
+        for (int i = 0; i &lt; S.size(); i++) {
+            for (int j = 0; j &lt; words.size(); j++) {
+                auto&amp; s = words[j];
+                int k = s.size();
+<A NAME="0"></A>                if (S.substr(i, k) == s) {
+                    fill(bs.begin() + i, bs.begin() + i + k, true);
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
         }
-      }
-    }
-    string ans = &quot;&quot;;
-    for (int i = 0; i &lt; n;) {
-      if (!bold[i]) {
-        ans += S[i];
-        ++i;</B></FONT>
-      } else {
-        ans += &quot;&lt;b&gt;&quot;;
-        for (; i &lt; n &amp;&amp; bold[i]; ++i) {
-          ans += S[i];
+//        d(bs);
+        string res;
+        for (int i = 0; i &lt; S.size(); i++) {
+            if (bs[i]) {
+                if (i == 0 || !bs[i-1]) res += &quot;&lt;b&gt;&quot;;
+            } else {
+                if (i &gt; 0 &amp;&amp; bs[i-1]) res += &quot;&lt;/b&gt;&quot;;</B></FONT>
+            }
+            res.push_back(S[i]);
         }
-        ans += &quot;&lt;/b&gt;&quot;;
-      }
+        if (bs[S.size() - 1]) res += &quot;&lt;/b&gt;&quot;;
+        return res;
     }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

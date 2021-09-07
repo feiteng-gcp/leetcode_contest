@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_Poohdxx.cpp</TITLE>
+ <TITLE>121_abq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>20_Poohdxx.cpp</CENTER></H3><HR>
+<H3><CENTER>121_abq.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        int n = S.size();
-<A NAME="0"></A>        vector&lt;bool&gt; bold(n, 0);
-        for (auto &amp;w : words) {
-            int size = w.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt;= n-size; i++) {
-                if (S.substr(i,size) == w) {
-                    for (int j = i; j &lt; i+size; j++) {
-                        bold[j] = 1;
-                    }</B></FONT>
+        vector&lt;bool&gt; bs(S.size());
+        for (int i = 0; i &lt; S.size(); i++) {
+            for (int j = 0; j &lt; words.size(); j++) {
+                auto&amp; s = words[j];</B></FONT>
+                int k = s.size();
+                if (S.substr(i, k) == s) {
+                    fill(bs.begin() + i, bs.begin() + i + k, true);
                 }
             }
         }
-        // cout&lt;&lt;&quot;fff&quot;&lt;&lt;endl;
+//        d(bs);
         string res;
-        if (bold[0] == 1) {
-            res += &quot;&lt;b&gt;&quot;;
-        }
-        res += S[0];
-        for (int i = 1; i &lt; n; i++) {
-            if ((bold[i-1] == 1 &amp;&amp; bold[i] == 1) || (bold[i-1] == 0 &amp;&amp; bold[i] == 0)) {
-                res += S[i];
+        for (int i = 0; i &lt; S.size(); i++) {
+            if (bs[i]) {
+                if (i == 0 || !bs[i-1]) res += &quot;&lt;b&gt;&quot;;
+            } else {
+                if (i &gt; 0 &amp;&amp; bs[i-1]) res += &quot;&lt;/b&gt;&quot;;
             }
-            else if (bold[i-1] == 1 &amp;&amp; bold[i] == 0) {
-<A NAME="1"></A>                res += &quot;&lt;/b&gt;&quot;;
-                res += S[i];
-            }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else {
-                res += &quot;&lt;b&gt;&quot;;
-                res += S[i];
-            }
+            res.push_back(S[i]);
         }
-        if (bold[n-1] == 1) {
-            res += &quot;&lt;/b&gt;&quot;;
-        }
+        if (bs[S.size() - 1]) res += &quot;&lt;/b&gt;&quot;;
         return res;
-        
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

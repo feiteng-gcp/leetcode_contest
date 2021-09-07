@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>439_krain033.java</TITLE>
+ <TITLE>223_mayitbeelc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>439_krain033.java</CENTER></H3><HR>
+<H3><CENTER>223_mayitbeelc.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean[] appear = new boolean[S.length()];
-        for(int i=0;i</B></FONT>&lt;S.length();i++){
-            String x = S.substring(i);
-            for(String s : words){
-                if(x.startsWith(s)){
-                    for(int n=i;n&lt;i+s.length();n++){
-                        appear[n] = true;
-<A NAME="1"></A>                    }
+        boolean[] mark = new boolean[S.length()];
+        for(String w</B></FONT>: words){
+            String sub = S;
+            int i = sub.indexOf(w);
+            while(i!=-1){
+                for(int j = i; j&lt; i+w.length(); j++){
+                    mark[j]=true;
                 }
-            }
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        StringBuffer ans = new StringBuffer();
-        for(int i=0;i&lt;S.length();i++){
-            if(appear[i]){</B></FONT>
-                int index = i;
-                while(index&lt;S.length()&amp;&amp;appear[index]){
-                    index++;
-                }
-                ans.append(&quot;&lt;b&gt;&quot;);
-                for(int t=i;t&lt;index;t++){
-                    ans.append(S.charAt(t));
-<A NAME="2"></A>                }
-                ans.append(&quot;&lt;/b&gt;&quot;);
-                i = index - 1;
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}else{
-                ans.append(S.charAt(i));
+                i = sub.indexOf(w, i+1);
             }
         }
-        return ans.toString</B></FONT>();
+        String tagBegin = &quot;&lt;b&gt;&quot;;
+        String tagEnd = &quot;&lt;/b&gt;&quot;;
+        StringBuilder sb = new StringBuilder();
+        boolean isLastCharBold = false;
+        for(int i=0; i&lt;mark.length; i++){
+            if(!isLastCharBold&amp;&amp;mark[i]){
+                sb.append(tagBegin);
+                sb.append(S.charAt(i));
+                isLastCharBold = true;
+            } else if(isLastCharBold&amp;&amp;!mark[i]){
+                sb.append(tagEnd);
+                sb.append(S.charAt(i));
+<A NAME="1"></A>                isLastCharBold = false;
+            } else {
+                sb.append(S.charAt(i));
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        if(isLastCharBold){
+            sb.append(tagEnd);
+        }
+        return sb.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

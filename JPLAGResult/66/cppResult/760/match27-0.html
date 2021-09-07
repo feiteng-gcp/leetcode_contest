@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>536_stormouse.cpp</TITLE>
+ <TITLE>64_cuiaoxiang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>536_stormouse.cpp</CENTER></H3><HR>
+<H3><CENTER>64_cuiaoxiang.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        if(S.size() == 0) return S;
-        vector&lt;bool&gt; bold(S.size());
-        for(auto&amp; t : words)
-<A NAME="0"></A>            bolden(S, t, bold);
-        
-        string ret = &quot;&quot;;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;S.size();i++){
-            if(bold[i] == 1){
-                if(i == 0 || !bold[i-1]) ret += &quot;&lt;b&gt;&quot;;
+        int n = S.size();
+<A NAME="0"></A>        vector&lt;bool&gt; visit(n);
+        for (auto&amp; s : words) {
+            int m = s.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i + m &lt;= n; ++i) {
+                if (S.substr(i, m) == s) {
+                    for (int j = 0; j &lt; m; ++j) {
+                        visit[i + j] = true;
+                    }
+                }
             }
-            else{
-                if(i &gt; 0 &amp;&amp; bold[i-1]) ret += &quot;&lt;/b&gt;&quot;;
-            }
-            ret += S[i];
+        }</B></FONT>
+        string ret;
+        for (int i = 0, j; i &lt; n; i = j) {
+            for (; i &lt; n &amp;&amp; !visit[i]; ++i) ret += S[i];
+            if (i == n) break;
+            for (j = i; j &lt; n &amp;&amp; visit[j]; ++j);
+            ret += &quot;&lt;b&gt;&quot;;
+            ret += S.substr(i, j - i);
+            ret += &quot;&lt;/b&gt;&quot;;
         }
-        if (bold[S.size() - 1]) ret += &quot;&lt;/b&gt;&quot;;
-        
         return ret;
-    }</B></FONT>
-private:
-    void bolden(string&amp; s, string&amp; t, vector&lt;bool&gt;&amp; mark){
-        size_t found = s.find(t);
-        while(found != string::npos){
-            for(int i=found;i&lt;found+t.size();i++){
-                mark[i] = true;
-            }
-            found = s.find(t, found+1);
-        }
     }
 };
 </PRE>

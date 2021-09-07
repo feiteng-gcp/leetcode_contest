@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>233_limitless_.cpp</TITLE>
+ <TITLE>349_pacozhong.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>233_limitless_.cpp</CENTER></H3><HR>
+<H3><CENTER>349_pacozhong.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        if (S.size() == 0) {
-<A NAME="0"></A>            return &quot;&quot;;
-        }
-        bool indexes[S.size()] = {false};
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto word: words) {
-            for( int i = 0; i &lt; S.size() - word.size() + 1; i++) {    
-                if(S.substr(i, word.size()) == word) {
-<A NAME="1"></A>                    for(int k = i; k &lt; i+ word.size(); k++) {</B></FONT>
-                        indexes[k] = true;
+        unordered_set&lt;string&gt; mm(words.begin(), words.end());
+        int N = S.size();
+        vector&lt;int&gt; index(N, 0);
+        for(int i = 0; i &lt; N; i ++){
+<A NAME="0"></A>            for(int j = 1; j &lt;= N; j ++){
+                if(i + j &lt;= N){
+                    string str = S.substr(i, j);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(mm.find(str) != mm.end()){
+                        for(int k = i; k &lt; i + j; k ++){
+                            index[k] = 1;
+                        }
                     }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
-            }
-        }
-        string res = &quot;&quot;;
-        for( int i = 0; i &lt; S.size(); i++) {
-            if (indexes[i] == true) {
-                res += &quot;&lt;b&gt;&quot;;</B></FONT>
-                res += S[i];
-                i++;
-                while(i &lt; S.size() &amp;&amp; indexes[i] == true) {
-                    res += S[i];
-                    i++;
                 }
-                res += &quot;&lt;/b&gt;&quot;;
-                i--;
-            } else {
-                res += S[i];
-            }
-            
+            }</B></FONT>
         }
-        return res;
+        index.insert(index.begin(), 0);
+        index.push_back(0);
+        for(int i = 0; i &lt; index.size(); i ++){
+            cout &lt;&lt; index[i] &lt;&lt; '\t';
+        }
+        cout &lt;&lt;endl;
+        string ret = &quot;&quot;;
+        for(int i = 0; i &lt; N + 2; i ++){
+            if(i != 0 &amp;&amp; i != N + 1) ret.append(1, S[i - 1]);
+            if(index[i] == 0){
+                
+                if(i &lt; N + 1 &amp;&amp; index[i + 1] == 1){
+                    ret.append(&quot;&lt;b&gt;&quot;);
+                }
+            }else{
+                
+                if(i &lt; N + 1 &amp;&amp; index[i + 1] == 0){
+                    ret.append(&quot;&lt;/b&gt;&quot;);
+                    
+                }
+                
+            }
+        }
+        
+        return ret;
     }
 };
 </PRE>

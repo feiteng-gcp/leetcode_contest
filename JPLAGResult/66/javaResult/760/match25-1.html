@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>288_hdchen.java</TITLE>
+ <TITLE>1_uwi.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>288_hdchen.java</CENTER></H3><HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public String boldWords(String[] words, String S) {
-<A NAME="2"></A>        boolean[] tag = new boolean[S.length()];
-        for (String w : words) {</B></FONT>
-            int from = 0, index = -1;
-            while (-1 != (index = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.indexOf(w, from))) {
-                for (int i = 0; i &lt; w.length(); ++i) {
-                    tag[index + i] = true;
-                }
-                from++;
-            }</B></FONT>            
-<A NAME="1"></A>        }
-        int i = 0;
-        StringBuilder sb = new StringBuilder();
-        while (i &lt; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.length()) {
-            if (tag[i]) {
-                sb.append(&quot;&lt;b&gt;&quot;);
-                while (i &lt; S.length() &amp;&amp; tag[i]) {
-                    sb.append(S.charAt(i));
-                    i++;
-                }
-                sb.append(&quot;&lt;/b&gt;&quot;);
-            }</B></FONT> else {
-                sb.append(S.charAt(i));
-                i++;
-            }
-        }
-        return sb.toString();
-    }
-}
+<A NAME="0"></A>	class S<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>olution {
+	    public String boldWords(String[] words, String S) {
+	    	int[] hit = new int[S.length()+1];
+	    	for(String w : words){</B></FONT>
+	    		for(int i = 0;i+w.length()-1 &lt; S.length();i++){
+	    			if(S.substring(i, i+w.length()).equals(w)){
+	    				hit[i]++;
+	    				hit[i+w.length()]--;
+	    			}
+	    		}
+	    	}
+	    	for(int i = 0;i &lt; S.length();i++){
+	    		hit[i+1] += hit[i];
+	    	}
+<A NAME="1"></A>	    	StringBuilder sb = new StringBuilder();
+	    	for(int i = 0;i &lt; S.length();i++){
+	    		if(hit[i] &gt; 0){
+	    			sb.append(&quot;&lt;b&gt;&quot; + S.charAt(i) + &quot;&lt;/b&gt;&quot;);<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	    		}else{
+	    			sb.append(S.charAt(i));
+	    		}
+	    	}</B></FONT>
+	    	return sb.toString().replace(&quot;&lt;/b&gt;&lt;b&gt;&quot;, &quot;&quot;);
+	    }
+	}	
 </PRE>
 
 </BODY>

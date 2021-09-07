@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>174_anandh2410.java</TITLE>
+ <TITLE>1_uwi.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>174_anandh2410.java</CENTER></H3><HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for an interval.
- * public class Interval {
- *     int start;
- *     int end;
- *     Interval() { start = 0; end = 0; }
-<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
- * }
- */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; intervals = new ArrayList&lt;Interval&gt;();
-        for(List&lt;Interval&gt; emp: avails)
-<A NAME="1"></A>        {
-            for(Interval i</B></FONT>: emp)
-            {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>intervals.add(i);
-            }
-<A NAME="2"></A>        }
-        Collections.sort(intervals, new Comparator&lt;Interval&gt;(){
-           @Overri</B></FONT>de
-            public int compare(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Interval o1, Interval o2)
-            {
-                return o1.start-o2.start;
-            }
-        });
-        List&lt;Interval&gt; cInterval = new</B></FONT> ArrayList&lt;Interval&gt;();
-        Interval temp1=intervals.get(0),temp2=null;
-        for(int i=1;i&lt;intervals.size();i++)
-        {
-            temp2= intervals.get(i);
-            if(temp2.start&gt;temp1.end)
-            {
-                cInterval.add(new Interval(temp1.end,temp2.start));
-                temp1=temp2;
-            }
-            else if(temp2.end&gt;temp1.end)
-            {
-                temp1.end=temp2.end;
-            }
-        }
-        return cInterval;
-    }
-}
+	class Solution {
+	    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+	    	int n = 0;
+	    	for(List&lt;Interval&gt; li : avails){
+	    		n += li.size();
+	    	}
+	        int[][] xs = new int[n][];
+	        int p = 0;
+	    	for(List&lt;Interval&gt; li : avails){
+	    		for(Interval i : li){
+	    			xs[p++] = new int[]{i.start, i.end};
+	    		}
+	    	}
+	    	int[][] or = or(xs);
+	    	List&lt;Interval&gt; ret = new ArrayList&lt;&gt;();
+	    	for(int i = 0;i + 1 &lt; or.length;i++){
+	    		ret.add(new Interval(or[i][1], or[i+1][0]));
+	    	}
+	    	return ret;
+	    }
+	    
+		public int[][] or(int[][] a)
+		{
+			int n = a.length;
+			Arrays.sort(a, new Comparator&lt;int[]&gt;() {
+				public int compare(int[] a, int[] b) {
+					return a[0] &lt; b[0] ? -1 : 1;
+<A NAME="0"></A>				}
+			});
+			
+			int p = 0;<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			for(int i = 0;i &lt; n;i++){
+				if(i == 0 || a[p-1][1] &lt; a[i][0]){
+					a[p][0] = a[i][0]; a[p][1] = a[i][1]; p++;
+				}else{</B></FONT>
+					a[p-1][1] = Math.max(a[p-1][1], a[i][1]);
+				}
+			}
+			return Arrays.copyOf(a, p);
+		}
+	}	
 </PRE>
 
 </BODY>

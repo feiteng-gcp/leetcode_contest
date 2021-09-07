@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>177_leonw007.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>177_leonw007.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String boldWords(String[] words, String S) {
         boolean[] bold = new boolean[S.length()];
-		for (String word: words) {</B></FONT>
-			int pos = 0;
-			while (S.indexOf(word, pos) &gt;= 0) {
-				int start = S.indexOf(word, pos);
-				for (int i = start; i &lt; start + word.length(); i++) {
-					bold[i] = true;
-<A NAME="1"></A>				}
-				pos = start + 1;
-			}
-		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		//System.out.println(Arrays.toString(bold));
-		StringBuffer sb = new StringBuffer();
-<A NAME="2"></A>		for (int i = 0; i &lt; S.length(); i++) {
-			if (!bold[i]) {</B></FONT>
-				sb.append(S.charAt(i));
-			} else {<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-				sb.append(&quot;&lt;b&gt;&quot;);
-				while (i &lt; S.length() &amp;&amp; bold[i]) {
-					sb.append(S.charAt(i));
-					i++;
-				}
-				sb.append(&quot;&lt;/b&gt;&quot;);
-				i--;
-			}</B></FONT>
-		}
-		return sb.toString();
+        for (String word: words) {</B></FONT>
+            setBold(word, S, bold);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i &lt; bold.length;) {
+            int j = i;
+            while (j &lt; bold.length &amp;&amp; bold[j] == bold[i]) j++;
+            if (bold[i]) {
+                sb.append(&quot;&lt;b&gt;&quot;);
+                sb.append(S.substring(i, j));
+                sb.append(&quot;&lt;/b&gt;&quot;);
+            } else {
+                sb.append(S.substring(i, j));
+            }
+            i = j;
+        }
+        return sb.toString();
+    }
+    
+    private void setBold(String key, String S, boolean[] bold) {
+        for (int i = 0; i &lt;= S.length() - key.length(); i++) {
+            boolean isBold = true;
+            for (int j = 0; j &lt; key.length(); j++) {
+                if (S.charAt(i + j) != key.charAt(j)) {
+                    isBold = false;
+<A NAME="1"></A>                    break;
+                }
+            }
+            if (isBold) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                for (int j = 0; j &lt; key.length(); j++) {
+                    bold[i + j] = true;
+                }
+            }</B></FONT>
+        }
     }
 }
 </PRE>

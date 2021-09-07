@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>584_yououhan.java</TITLE>
+ <TITLE>159_hydrogen2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>584_yououhan.java</CENTER></H3><HR>
+<H3><CENTER>159_hydrogen2.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean [] setBold = new boolean[S.length() + 2];
-        for (String word : words) {
-            int index = S.indexOf(word, 0);
-            while (index != -1) {
-                Arrays.fill(setBold, index + 1, index + word.length() + 1, true);
-                index = S.indexOf(word, index + 1);
+        final int n = S.length();
+        boolean[] mark = new boolean[n];
+        
+        for (String word: words) {
+            final int wlen = word.length();
+            for (int i = 0</B></FONT>; i+wlen &lt;= n; ++i) {
+                boolean match = true;
+                for (int j = 0; j &lt; wlen; ++j) {
+                    if (S.charAt(i+j) != word.charAt(j)) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+<A NAME="1"></A>                    for (int j = 0; j &lt; wlen; ++j) {
+                        mark[i+j] = true;
+                    }
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
-<A NAME="1"></A>        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i &lt; setBold.length; i++) {</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (setBold[i] &amp;&amp; !setBold[i - 1]) {
-                sb.append(&quot;&lt;b&gt;&quot;);
-            }
-            if (!setBold[i] &amp;&amp; setBold[i - 1]) {
-                sb.append(&quot;&lt;/b&gt;&quot;);
-            }</B></FONT>
-            if (i &lt; S.length() + 1) sb.append(S.charAt(i - 1));
         }
+        
+        StringBuilder sb = new StringBuilder();
+        boolean inB = false</B></FONT>;
+        for (int i = 0; i &lt; n; ++i) {
+            if (mark[i]) {
+                if (!inB) {
+                    inB = true;
+                    sb.append(&quot;&lt;b&gt;&quot;);
+                }
+            } else {
+                if (inB) {
+                    inB = false;
+                    sb.append(&quot;&lt;/b&gt;&quot;);
+<A NAME="2"></A>                }
+            }
+            sb.append(S.charAt(i));
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (inB) sb.append(&quot;&lt;/b&gt;&quot;);
         return sb.toString();
-    }
+    }</B></FONT>
 }
 </PRE>
 

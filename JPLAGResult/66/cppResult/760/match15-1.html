@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>272_allen505378.cpp</TITLE>
+ <TITLE>257_jiananz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>272_allen505378.cpp</CENTER></H3><HR>
+<H3><CENTER>257_jiananz.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;vector&lt;string&gt;&gt; Map(26, vector&lt;string&gt;());
-        for (auto &amp;word : words) {
-            Map[word[0] - 'a'].push_back(word);
-        }
-        // cout&lt;&lt;Map[0][0]&lt;&lt;&quot;   &quot;&lt;&lt;Map[1][0]&lt;&lt;endl;
-        vector&lt;bool&gt; bolded(S.size(), false);
-<A NAME="0"></A>        for (int i = 0; i &lt; S.size(); i++) {
-            if (Map[S[i] - 'a'].empty()) continue;
-            // cout&lt;&lt;i&lt;&lt;endl;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j = 0; j &lt; Map[S[i] - 'a'].size(); j++) {
-                // cout&lt;&lt;Map[S[i] - 'a'][j]&lt;&lt;&quot;    &quot;&lt;&lt;S.substr(i, Map[S[i] - 'a'][j].size())&lt;&lt;endl;
-                if (Map[S[i] - 'a'][j] == S.substr(i, Map[S[i] - 'a'][j].size())) {
-                    for (int k = 0; k &lt; Map[S[i] - 'a'][j].size(); k++) {
-                        bolded[i + k] = true;
+        int n = S.size();
+        if (n == 0)
+<A NAME="0"></A>            return &quot;&quot;;
+        vector&lt;int&gt; bold(n, 0);
+        for (auto word : words) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt;= n - word.size(); i++) {
+                if (S.substr(i, word.size()) == word) {
+                    for (int j = i; j &lt; i + word.size(); j++) {
+                        bold[j] = 1;
                     }
                 }
             }
+        }</B></FONT>
+        string result = &quot;&quot;;
+        if (bold[0] == 1) {
+            result += &quot;&lt;b&gt;&quot;;
+            
         }
-        // cout&lt;&lt;bolded[0]&lt;&lt;bolded[1]&lt;&lt;bolded[2]&lt;&lt;bolded[3]&lt;&lt;bolded[4]&lt;&lt;endl;
-        for (int c = bolded.size() - 1; c &gt;= 0; c--) {</B></FONT>
-            if (bolded[c] &amp;&amp; (c == bolded.size() - 1 || !bolded[c + 1])) S.insert(c + 1, &quot;&lt;/b&gt;&quot;);
-            if (bolded[c] &amp;&amp; (c == 0 || !bolded[c - 1])) S.insert(c, &quot;&lt;b&gt;&quot;);
+        result.push_back(S[0]);
+        for (int i = 1; i &lt; n; i++) {
+            if (bold[i - 1] == 1 &amp;&amp; bold[i] == 0) {
+                result += &quot;&lt;/b&gt;&quot;;
+                result.push_back(S[i]);
+            } else
+            if (bold[i - 1] == 0 &amp;&amp; bold[i] == 1) {
+                result += &quot;&lt;b&gt;&quot;;
+                result.push_back(S[i]);
+            } else {
+                result.push_back(S[i]);
+            }
         }
-        return S;
+        if (bold[n - 1]) {
+            result += &quot;&lt;/b&gt;&quot;;
+        }
+        return result;
     }
 };
 </PRE>

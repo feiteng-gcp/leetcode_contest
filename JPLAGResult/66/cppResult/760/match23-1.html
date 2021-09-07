@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>231_migun.cpp</TITLE>
+ <TITLE>309_gsu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>231_migun.cpp</CENTER></H3><HR>
+<H3><CENTER>309_gsu.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;bool&gt; bold(S.length(), false);
-        for( const auto &amp;keyword: words ) {
-            if( keyword.empty() )
-                continue;
-            int start_on = 0;            
-            while( start_on &lt; S.length() ) {
-                const auto r = S.find(keyword, start_on);
-                if( r == string::npos )
-                    break;
-//                cout &lt;&lt; r &lt;&lt; &quot; &quot; &lt;&lt; keyword &lt;&lt; endl;
-<A NAME="0"></A>                for( int i = r; i &lt; r + keyword.length(); ++i )
-                    bold[i] = true;
-//                start_on = r + keyword.length();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                start_on = r + 1;
+        unordered_set&lt;string&gt; dict(words.begin(),words.end());
+        bool isKeywords[S.size()];
+        for(int i=0;i&lt;S.size();i++)
+        {
+            isKeywords[i]=false;
+        }
+        for(int len=1;len&lt;=min(10,(int)S.size());len++)
+<A NAME="0"></A>        {
+            for(int i=0;i&lt;=S.size()-len;i++)
+            {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                string str=S.substr(i,len);
+//                cout&lt;&lt;&quot;str:&quot;&lt;&lt;str&lt;&lt;endl;
+                if(dict.count(str)&gt;0)
+                {
+                    for(int j=0;j&lt;len;j++)
+                        isKeywords[i+j]=true;
+                }
             }
         }
-        
-        string output;
-        bool is_bold = false;
-        for( int i = 0; i &lt; S.length(); ++i ) {
-            if( bold[i] &amp;&amp; !is_bold ) {
-                output += &quot;&lt;b&gt;&quot;;
-                is_bold = true;
+//        for(int i=0;i&lt;S.size();i++)
+//            cout&lt;&lt;isKeywords[i]&lt;&lt;&quot;\t&quot;;
+//        cout&lt;&lt;endl;
+        string rslt=S,ltag=&quot;&lt;b&gt;&quot;,rtag=&quot;&lt;/b&gt;&quot;;</B></FONT>
+        bool flag=false;
+        int cnt=0;
+        for(int i=0;i&lt;rslt.size();i++)
+        {
+            if(isKeywords[i-cnt])
+            {
+                rslt.insert(i,ltag);
+                i=i+ltag.size();
+                cnt+=ltag.size();
+//                cout&lt;&lt;&quot;before: &quot;&lt;&lt;i&lt;&lt;endl;
+                while(i&lt;rslt.size() &amp;&amp; isKeywords[i-cnt]) i++;
+//                cout&lt;&lt;&quot;after: &quot;&lt;&lt;i&lt;&lt;endl;
+                rslt.insert(i,rtag);
+                i=i+rtag.size();
+                cnt+=rtag.size();
             }
-            else if( !bold[i] &amp;&amp; is_bold ) {
-                output += &quot;&lt;/b&gt;&quot;;
-                is_bold = false;                
-            }            
-            output += S[i];
         }
-        
-        if( is_bold )</B></FONT>
-            output += &quot;&lt;/b&gt;&quot;;            
-
-        return output;    
+        return rslt;
     }
 };
 </PRE>

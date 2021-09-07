@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>64_cuiaoxiang.cpp</TITLE>
+ <TITLE>349_pacozhong.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>64_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>349_pacozhong.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        int n = S.size();
-        vector&lt;bool&gt; visit(n);
-        for (auto&amp; s : words) {
-            int m = s.size();
-            for (int i = 0; i + m &lt;= n; ++i) {
-                if (S.substr(i, m) == s) {
-                    for (int j = 0; j &lt; m; ++j) {
-                        visit[i + j] = true;
+<A NAME="0"></A>        unordered_set&lt;string&gt; mm(words.begin(), words.end());
+        int N = S.size();
+        vector&lt;int&gt; index(N, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; N; i ++){
+            for(int j = 1; j &lt;= N; j ++){
+                if(i + j &lt;= N){</B></FONT>
+                    string str = S.substr(i, j);
+                    if(mm.find(str) != mm.end()){
+                        for(int k = i; k &lt; i + j; k ++){
+                            index[k] = 1;
+                        }
                     }
                 }
             }
-        }</B></FONT>
-        string ret;
-        for (int i = 0, j; i &lt; n; i = j) {
-            for (; i &lt; n &amp;&amp; !visit[i]; ++i) ret += S[i];
-            if (i == n) break;
-            for (j = i; j &lt; n &amp;&amp; visit[j]; ++j);
-            ret += &quot;&lt;b&gt;&quot;;
-            ret += S.substr(i, j - i);
-            ret += &quot;&lt;/b&gt;&quot;;
         }
+        index.insert(index.begin(), 0);
+        index.push_back(0);
+        for(int i = 0; i &lt; index.size(); i ++){
+            cout &lt;&lt; index[i] &lt;&lt; '\t';
+        }
+        cout &lt;&lt;endl;
+        string ret = &quot;&quot;;
+        for(int i = 0; i &lt; N + 2; i ++){
+            if(i != 0 &amp;&amp; i != N + 1) ret.append(1, S[i - 1]);
+            if(index[i] == 0){
+                
+                if(i &lt; N + 1 &amp;&amp; index[i + 1] == 1){
+                    ret.append(&quot;&lt;b&gt;&quot;);
+                }
+            }else{
+                
+                if(i &lt; N + 1 &amp;&amp; index[i + 1] == 0){
+                    ret.append(&quot;&lt;/b&gt;&quot;);
+                    
+                }
+                
+            }
+        }
+        
         return ret;
     }
 };

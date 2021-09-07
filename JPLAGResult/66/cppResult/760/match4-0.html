@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>90_democoffee.cpp</TITLE>
+ <TITLE>80_txingml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>90_democoffee.cpp</CENTER></H3><HR>
+<H3><CENTER>80_txingml.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    string boldWords(vector&lt;string&gt;&amp; words, string s) {
-        int len = s.length(), sz = words.size();
-        vector&lt;bool&gt; b(len, false);
-        for (int i=0; i&lt;sz; ++i) {
-            int wlen = words[i].length();
-            for (int j=0; j&lt;len; ++j) {
-                bool ok = true;
-                for (int k=0; k&lt;wlen; ++k) {
-                    if (s[j+k] != words[i][k]) {
-                        ok = false;
-                        break;
-                    }   
-                }   
-<A NAME="0"></A>
-                if (!ok) { continue; }
-                for (int k=0; k&lt;wlen; ++k) { b[j+k] = true; }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }   
-        }   
-
-        string ans;
-        bool in = false;
-        for (int i=0; i&lt;len; ++i) {
-            if (b[i] &amp;&amp; !in) {
-                ans += &quot;&lt;b&gt;&quot;;
-                in = true;
-            } else if (!b[i] &amp;&amp; in) {
-                ans += &quot;&lt;/b&gt;&quot;;
-                in = false;
-            }   
-
-            ans += s[i];
-        }   
-
-        if (in) { ans += &quot;&lt;/b&gt;&quot;; }
-
-        return ans;
-    }   
-};</B></FONT>
+<A NAME="0"></A>public:
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        vector&lt;bool&gt; bold(S.size(), false);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (string &amp; word : words) {
+            for (int i = 0; i+word.size() &lt;= S.size(); i++) {
+                if (word == S.substr(i, word.size())) {
+                    for (int j = 0; j &lt; word.size(); j++) {</B></FONT>
+                        bold[i+j] = true;
+                    }
+                }
+            }
+        }
+        bool flag = false;
+        string ret;
+        for (int i = 0; i &lt; S.size(); i++) {
+            if (bold[i] &amp;&amp; !flag) {
+                ret.append(&quot;&lt;b&gt;&quot;);
+                flag = true;
+            }
+            if (!bold[i] &amp;&amp; flag) {
+                ret.append(&quot;&lt;/b&gt;&quot;);
+                flag = false;
+            }
+            ret.push_back(S[i]);
+        }
+        if (flag) ret.append(&quot;&lt;/b&gt;&quot;);
+        return ret;
+        
+    }
+};
 </PRE>
 </BODY>
 </HTML>

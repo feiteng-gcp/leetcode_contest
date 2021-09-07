@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>732_vraval48.java</TITLE>
+ <TITLE>288_hdchen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>732_vraval48.java</CENTER></H3><HR>
+<H3><CENTER>288_hdchen.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String boldWords(String[] words, String S) {
-        
-<A NAME="1"></A>        int mark[] = new int[S.length()];
-        for(String w: words) {</B></FONT>
-            markChars(S, w, mark);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        
-<A NAME="2"></A>        StringBuffer ans = new StringBuffer();
-        
-        for(int i=0; i&lt;S.length(); i++) {
-            if</B></FONT>(mark[i] == 1) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                ans.append(&quot;&lt;b&gt;&quot;);
-
-                while(i&lt;S.length() &amp;&amp; mark[i] == 1) {
-                    ans.append(S.charAt(i));
+<A NAME="1"></A>        boolean[] tag = new boolean[S.length()];
+        for (String w : words) {</B></FONT>
+            int from = 0, index = -1;
+            while (-1 != (index = S.indexOf(w, from))) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                for (int i = 0; i &lt; w.length(); ++i) {
+                    tag[index + i] = true;
+                }
+                from++;
+            }</B></FONT>            
+        }
+        int i = 0;
+        StringBuilder sb = new StringBuilder();
+        while (i &lt; S.length()) {
+            if (tag[i]) {
+                sb.append(&quot;&lt;b&gt;&quot;);
+                while (i &lt; S.length() &amp;&amp; tag[i]) {
+                    sb.append(S.charAt(i));
                     i++;
                 }
-            
-                ans.append(&quot;&lt;/b&gt;&quot;);
-            }</B></FONT>
-            
-            if(i&lt;S.length())
-                ans.append(S.charAt(i));
-     
-        }
-        
-        return ans.toString();
-    }
-    
-    void markChars(String S, String w, int mark[]) {
-        
-        for(int i=0; i&lt;=S.length()-w.length(); i++) {
-            if(S.substring(i, i+w.length()).equals(w)) {
-                for(int j=i; j&lt;i+w.length(); j++) {
-                    mark[j] = 1;
-                }
+                sb.append(&quot;&lt;/b&gt;&quot;);
+            } else {
+                sb.append(S.charAt(i));
+                i++;
             }
         }
+        return sb.toString();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>722_nobugplease.java</TITLE>
+ <TITLE>1_uwi.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>722_nobugplease.java</CENTER></H3><HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public String boldWords(String[] words, String S) {
-        int[] flags = new int[S.length()];
-        for (String w : words) {
-            helper(w, S, flags);
-        }
-        
-        boolean open = false</B></FONT>;
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i&lt;S.length(); i++) {
-            if (flags[i] == 0 &amp;&amp; open) {
-                sb.append(&quot;&lt;/b&gt;&quot;);
-                open = false;
-            }
-            if (flags[i] == 1 &amp;&amp; !open) {
-                open = true;
-                sb.append(&quot;&lt;b&gt;&quot;);
-            }
-            sb.append(S.charAt(i));
-        }
-        if (open) {
-<A NAME="1"></A>            sb.append(&quot;&lt;/b&gt;&quot;);
-        }
-        
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return sb.toString();
-    }
-    
-    private void helper(String w, String S, int[] flags) {
-<A NAME="2"></A>        for (int i=0; i&lt;S.length</B></FONT>(); i++) {
-            if (i+w.length()-1 &lt; S.length()) {
-                String temp = S.substring(i, i+w.length());
-                if (<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>temp.equals(w)) {
-                    for (int j=i; j&lt;i+w.length(); j++) {
-                        flags[j] = 1;
-                    }
-                }
-            }</B></FONT>
-        }
-    }
-}
+	class Solution {
+	    public String boldWords(String[] words, String S) {
+<A NAME="0"></A>	    	int[] hit = new int[S.length()+1];
+	    	for(String w : words){
+	    		for(int i = 0;i+w.length()-1 &lt; S.length();i++){
+	    			if(S.substring(i, i+w.length()).equals(w)){<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	    				hit[i]++;
+	    				hit[i+w.length()]--;
+	    			}
+	    		}
+	    	}</B></FONT>
+	    	for(int i = 0;i &lt; S.length();i++){
+	    		hit[i+1] += hit[i];
+	    	}
+<A NAME="1"></A>	    	StringBuilder sb = new StringBuilder();
+	    	for(int i = 0;i &lt; S.length();i++){
+	    		if(hit[i] &gt; 0){
+	    			sb.append(&quot;&lt;b&gt;&quot; + S.charAt(i) + &quot;&lt;/b&gt;&quot;);<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	    		}else{
+	    			sb.append(S.charAt(i));
+	    		}
+	    	}
+	    	return sb.toString().replace(&quot;&lt;/b&gt;&lt;b&gt;&quot;</B></FONT>, &quot;&quot;);
+	    }
+	}	
 </PRE>
 
 </BODY>

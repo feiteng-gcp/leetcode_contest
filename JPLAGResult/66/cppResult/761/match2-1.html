@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>125_zoulc.cpp</TITLE>
+ <TITLE>144_niobium.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>125_zoulc.cpp</CENTER></H3><HR>
+<H3><CENTER>144_niobium.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -24,32 +24,36 @@
  *     int end;
  *     Interval() : start(0), end(0) {}
  *     Interval(int s, int e) : start(s), end(e) {}
-<A NAME="0"></A> * };
+ * };
  */
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    static bool comp(Interval a, Interval b) {
-        if (a.start == b.start)
-            return a.end &lt;= b.end;
-        return a.start &lt; b.start;
+    static bool cmp(Interval x, Interval y) {
+        return x.start == y.start ? x.end &gt; y.end : x.start &lt; y.start;
     }
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;Interval&gt; intervals, ret;
-        for (int i = 0; i &lt; avails.size(); ++i)</B></FONT>
-            for (int j = 0; j &lt; avails[i].size(); ++j)
-                intervals.push_back(avails[i][j]);
-        sort(intervals.begin(), intervals.end(), comp);
-        Interval cur = intervals[0];
-        for (int i = 1; i &lt; intervals.size(); ++i)
-            if (cur.end &lt; intervals[i].start) {
-                ret.push_back(Interval(cur.end, intervals[i].start));
-                cur = intervals[i];
+        vector&lt;Interval&gt; flat;
+        for (vector&lt;Interval&gt;&amp; vi : avails) {
+            for (Interval in : vi) {
+                flat.push_back(in);
             }
-            else
-                cur.end = max(cur.end, intervals[i].end);
-        return ret;
-    }
+        }
+        
+<A NAME="0"></A>        sort(flat.begin(), flat.end(), cmp);
+        
+        vector&lt;Interval&gt; ans; int start = flat[0].start, end = flat[0].end;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (Interval in : flat) {
+            if (in.start &lt;= end) {
+                end = max(end, in.end);
+            } else {
+                ans.push_back(Interval(end, in.start));
+                start = in.start;
+                end = in.end;
+            }
+        }
+        
+        return ans;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

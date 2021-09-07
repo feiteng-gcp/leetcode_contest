@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>73_jian_lee.cpp</TITLE>
+ <TITLE>287_kangbb.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>73_jian_lee.cpp</CENTER></H3><HR>
+<H3><CENTER>287_kangbb.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string boldWords(vector&lt;string&gt;&amp; words, string S) {        
-        vector&lt;bool&gt; b(S.size(), 0);
-        unordered_set&lt;string&gt; dic(words.begin(), words.end());
-        
-        for(int i = 0; i &lt; S.size(); ++i)
-        {
-<A NAME="0"></A>            for(int j = 1; i + j &lt;= S.size(); ++j)
-            {
-                string t = S.substr(i, j);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (dic.count(t))
-                {
-                    for(int k = i; k &lt; i + j; ++k)
-                        b[k] = 1;
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        // violent
+        int k[510] = {0};
+        for (auto w: words) {
+            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
+                
+                bool match = true;
+                for (int j = 0; j &lt; w.length(); ++j) {
+                    if (S[i + j] != w[j]) {
+                        match = false;
+                        break;
+                    }
                 }
-            }            
+                if (match) {
+<A NAME="0"></A>                    for (int j = 0; j &lt; w.length(); ++j) {
+                        k[i + j] = 1;
+                    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
         }
         
         string ans;
-        bool bb = 0;
-        for(int i = 0; i &lt; S.size(); ++i)
-        {
-            if (b[i])</B></FONT>
-            {
-                if (!bb)
-                    ans += &quot;&lt;b&gt;&quot;;                
-                bb = 1;
+        bool isink = false;
+        for (int i = 0; i &lt; S.length(); ++i) {
+            cout &lt;&lt; k[i];
+            if (!isink &amp;&amp; k[i]) {
+                ans += &quot;&lt;b&gt;&quot;;</B></FONT>
+                isink = true;
             }
-            else if (bb)
-            {
-                bb = 0;
+            else if (isink &amp;&amp; !k[i]) {
                 ans += &quot;&lt;/b&gt;&quot;;
+                isink = false;
             }
-            
             ans += S[i];
         }
-        
-        if (bb)
+        if (isink) {
             ans += &quot;&lt;/b&gt;&quot;;
-        
+        }
         return ans;
     }
 };

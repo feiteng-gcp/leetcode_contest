@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_magila.cpp</TITLE>
+ <TITLE>280_bananasplits.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>5_magila.cpp</CENTER></H3><HR>
+<H3><CENTER>280_bananasplits.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        unordered_set&lt;string&gt; all(words.begin(), words.end());
-        vector&lt;bool&gt; bold(S.size(), false);
-        for(int i = 0; i &lt; S.size(); i++)
-<A NAME="1"></A>        {
-            for(int j = 1; j + i &lt;= S.size() &amp;&amp; j &lt;= 10; j++)
-            {</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                auto temp = S.substr(i, j);
-                if (all.count(temp))
-                {
-                    for(int k = i; k &lt; i + j; k++)
-                        bold[k] = true;
-                }
+    string boldWords(vector&lt;string&gt; &amp; words, string S) {
+<A NAME="0"></A>        int n = S.size();
+        vector&lt;bool&gt; bold(n, false);
+        unordered_set&lt;string&gt; dict(words.begin(), words.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; i++) {
+<A NAME="1"></A>            for(int j = i; j &lt; n; j++) {
+                if(dict.find(S.substr(i, j - i + 1)) != dict.end()) {
+                    for(int k = i; k &lt;= j; k++) bold[k] = true;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
             }
         }
-        string ans;
-        bool current_bold = false;
-        for(int i = 0; i &lt; S.size(); i++)
-        {
-            if (bold[i] &amp;&amp; !current_bold)
-            {</B></FONT>
-<A NAME="2"></A>                ans += &quot;&lt;b&gt;&quot;;
-                current_bold = true;
+        string ret = &quot;&quot;;
+        for(int i = 0; i &lt; n; i++) {
+            if((i == 0 || !bold[i - 1]) &amp;&amp; bold[i]) {
+                ret += &quot;&lt;b&gt;&quot;;
+            }</B></FONT>
+            ret += S[i];
+            if(bold[i] &amp;&amp; (i == n - 1 || !bold[i + 1])) {
+                ret += &quot;&lt;/b&gt;&quot;;
             }
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (!bold[i] &amp;&amp; current_bold)
-            {
-                ans += &quot;&lt;/b&gt;&quot;;
-                current_bold = false;
-            }
-            ans += S[i];
         }
-        if (current_bold) ans += &quot;&lt;/b&gt;&quot;;
-        return ans;
+        return ret;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

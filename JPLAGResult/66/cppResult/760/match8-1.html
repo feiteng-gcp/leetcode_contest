@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>280_bananasplits.cpp</TITLE>
+ <TITLE>331_lxymmd.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>280_bananasplits.cpp</CENTER></H3><HR>
+<H3><CENTER>331_lxymmd.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string boldWords(vector&lt;string&gt; &amp; words, string S) {
-<A NAME="0"></A>        int n = S.size();
-        vector&lt;bool&gt; bold(n, false);
-        unordered_set&lt;string&gt; dict(words.begin(), words.end());
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; i++) {
-            for(int j = i; j &lt; n; j++) {
-                if(dict.find(S.substr(i, j - i + 1)) != dict.end()) {
-                    for(int k = i; k &lt;= j; k++) bold[k] = true;
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        int len = S.length();
+        if(len == 0) return S;
+        
+        if(words.size() == 0) return S;
+        
+        vector&lt;int&gt; flag(len, 0);
+        
+        for(int i = 0; i &lt; len; i++){
+            for(int j = 0; j &lt; words.size(); j++){
+                string word = words[j];
+                if(S[i] != word[0]) continue;
+                
+                string tmp = S.substr(i, word.length());
+                if(tmp != word) continue;
+<A NAME="0"></A>                
+                for(int k = 0; k &lt; word.length(); k++){
+                    flag[i+k] = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        
+        string res = &quot;&quot;;
+        for(int i = 0; i &lt; len; i++){
+            if(flag[i] == 1){
+                res += &quot;&lt;b&gt;&quot;;</B></FONT>
+                int j = i;
+                while(j &lt; len &amp;&amp; flag[j] == 1){
+                    res += S[j];
+                    j++;
                 }
+                res += &quot;&lt;/b&gt;&quot;;
+                i = j-1;
+            }
+            else{
+                res += S[i];
             }
         }
-        string ret = &quot;&quot;;
-        for(int i = 0; i &lt; n; i++) {
-            if((i == 0 || !bold[i - 1]) &amp;&amp; bold[i]) {</B></FONT>
-                ret += &quot;&lt;b&gt;&quot;;
-            }
-            ret += S[i];
-            if(bold[i] &amp;&amp; (i == n - 1 || !bold[i + 1])) {
-                ret += &quot;&lt;/b&gt;&quot;;
-            }
-        }
-        return ret;
+        
+        return res;
     }
 };
 </PRE>

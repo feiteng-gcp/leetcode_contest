@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>115_hamlet_fiis.cpp</TITLE>
+ <TITLE>11_wcwswswws.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>115_hamlet_fiis.cpp</CENTER></H3><HR>
+<H3><CENTER>11_wcwswswws.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string boldWords(vector&lt;string&gt;&amp; words, string s) {
-        if(s.size()==0)return s;
-        vector&lt;bool&gt;visited(s.size(),0);
-        
-        for(int i=0;i&lt;words.size();i++){
-            string h=words[i];
-            
-            for(int j=0;j&lt;s.size();j++){
-                if(h[0]==s[j]){
-                    int pos=0;
-                    while(pos&lt;h.size() &amp;&amp; j+pos&lt;s.size()&amp;&amp; h[pos]==s[j+pos]){
-                        pos++;
-                    }
-                    
-                    if(pos==h.size()){
-                        for(int k=j;k&lt;j+h.size();k++)
-                            visited[k]=1;
-                    }
-                }
-            }
-            
-<A NAME="0"></A>        }
-        
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string dev=&quot;&quot;;
-        
-        for(int i=0;i&lt;s.size();i++){
-<A NAME="1"></A>            if(visited[i]==0){
-                dev+=s[i];
-            }else{</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dev+=&quot;&lt;b&gt;&quot;;
-                while(i&lt;s.size() &amp;&amp; visited[i]==1){
-                    dev+=s[i];
-                    i++;
-                }
-                dev+=&quot;&lt;/b&gt;&quot;;
-                i--;
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        vector&lt;pair&lt;int, int&gt;&gt; f;
+        for (int i = 0; i &lt; S.length(); i++) {
+<A NAME="0"></A>            for (const auto&amp; iter : words) {
+                if (iter.length() &lt;= i + 1 &amp;&amp; S.substr(i - iter.length() + 1, iter.length()) == iter) {
+                    f.push_back(make_pair(i - iter.length() + 1, i));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
             }
         }
-        
-        return dev;
+        sort(f.begin(), f.end(), [](const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b) {
+            return (a.first &lt; b.first);
+        });
+        string ans;
+        int cur = 0;</B></FONT>
+        for (int i = 0; i &lt; S.length(); i++) {
+            if (cur &gt;= f.size() || i &lt; f[cur].first) {
+                ans += S[i];
+            } else {
+                int last = f[cur].second;
+                while (cur &lt; f.size() &amp;&amp; f[cur].first &lt;= last + 1) {
+                    last = max(last, f[cur++].second);
+                }
+                ans += &quot;&lt;b&gt;&quot; + S.substr(i, last - i + 1) + &quot;&lt;/b&gt;&quot;;
+                i = last;
+            }
+        }
+        return ans;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

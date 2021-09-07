@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>90_democoffee.cpp</TITLE>
+ <TITLE>2_dreamoon.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,106 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>90_democoffee.cpp</CENTER></H3><HR>
+<H3><CENTER>2_dreamoon.cpp</CENTER></H3><HR>
 <PRE>
+/*{{{*/
+#include&lt;cstdio&gt;
+#include&lt;cstdlib&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+#include&lt;iostream&gt;
+#include&lt;sstream&gt;
+#include&lt;set&gt;
+#include&lt;map&gt;
+#include&lt;queue&gt;
+#include&lt;bitset&gt;
+#include&lt;vector&gt;
+#include&lt;limits.h&gt;
+#include&lt;assert.h&gt;
+#define SZ(X) ((int)(X).size())
+#define ALL(X) (X).begin(), (X).end()
+#define REP(I, N) for (int I = 0; I &lt; (N); ++I)
+#define REPP(I, A, B) for (int I = (A); I &lt; (B); ++I)
+#define FOR(I, A, B) for (int I = (A); I &lt;= (B); ++I)
+#define FORS(I, S) for (int I = 0; S[I]; ++I)
+#define RS(X) scanf(&quot;%s&quot;, (X))
+#define SORT_UNIQUE(c) (sort(c.begin(),c.end()), c.resize(distance(c.begin(),unique(c.begin(),c.end()))))
+#define GET_POS(c,x) (lower_bound(c.begin(),c.end(),x)-c.begin())
+#define CASET int ___T; scanf(&quot;%d&quot;, &amp;___T); for(int cs=1;cs&lt;=___T;cs++)
+#define MP make_pair
+#define PB push_back
+#define MS0(X) memset((X), 0, sizeof((X)))
+#define MS1(X) memset((X), -1, sizeof((X)))
+#define LEN(X) strlen(X)
+#define F first
+#define S second
+using namespace std;
+typedef int64_t LL;
+typedef uint64_t ULL;
+typedef long double LD;
+typedef pair&lt;int,int&gt; PII;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;LL&gt; VL;
+typedef vector&lt;PII&gt; VPII;
+typedef pair&lt;LL,LL&gt; PLL;
+typedef vector&lt;PLL&gt; VPLL;
+template&lt;class T&gt; void _R(T &amp;x) { cin &gt;&gt; x; }
+void _R(int &amp;x) { scanf(&quot;%d&quot;, &amp;x); }
+void _R(int64_t &amp;x) { scanf(&quot;%lld&quot;, &amp;x); }
+void _R(double &amp;x) { scanf(&quot;%lf&quot;, &amp;x); }
+void _R(char &amp;x) { scanf(&quot; %c&quot;, &amp;x); }
+void _R(char *x) { scanf(&quot;%s&quot;, x); }
+void R() {}
+template&lt;class T, class... U&gt; void R(T &amp;head, U &amp;... tail) { _R(head); R(tail...); }
+template&lt;class T&gt; void _W(const T &amp;x) { cout &lt;&lt; x; }
+void _W(const int &amp;x) { printf(&quot;%d&quot;, x); }
+void _W(const int64_t &amp;x) { printf(&quot;%lld&quot;, x); }
+void _W(const double &amp;x) { printf(&quot;%.16f&quot;, x); }
+void _W(const char &amp;x) { putchar(x); }
+void _W(const char *x) { printf(&quot;%s&quot;, x); }
+template&lt;class T,class U&gt; void _W(const pair&lt;T,U&gt; &amp;x) {_W(x.F); putchar(' '); _W(x.S);}
+template&lt;class T&gt; void _W(const vector&lt;T&gt; &amp;x) { for (auto i = x.begin(); i != x.end(); _W(*i++)) if (i != x.cbegin()) putchar(' '); }
+void W() {}
+template&lt;class T, class... U&gt; void W(const T &amp;head, const U &amp;... tail) { _W(head); putchar(sizeof...(tail) ? ' ' : '\n'); W(tail...); }
+template&lt;class T, class... U&gt; void DEBUG(const T &amp;head, const U &amp;... tail) { 
+#ifdef HOME
+    _W('#'); _W(head); putchar(sizeof...(tail) ? ' ' : '\n'); W(tail...);
+#endif
+}
+int MOD = 1e9+7;
+void ADD(LL&amp; x,LL v){x=(x+v)%MOD;if(x&lt;0)x+=MOD;}
+/*}}}*/
+const int SIZE = 1e6+10;
 class Solution {
 public:
-    string boldWords(vector&lt;string&gt;&amp; words, string s) {
-        int len = s.length(), sz = words.size();
-        vector&lt;bool&gt; b(len, false);
-        for (int i=0; i&lt;sz; ++i) {
-            int wlen = words[i].length();
-            for (int j=0; j&lt;len; ++j) {
-                bool ok = true;
-                for (int k=0; k&lt;wlen; ++k) {
-                    if (s[j+k] != words[i][k]) {
-                        ok = false;
-                        break;
-                    }   
-<A NAME="0"></A>                }   
-
-                if (!ok) { continue; }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int k=0; k&lt;wlen; ++k) { b[j+k] = true; }
-            }   
-        }   
-
-        string ans;
-<A NAME="1"></A>        bool in = false;
-        for (int i=0; i&lt;len; ++i) {
-            if (b[i] &amp;&amp; !in) {</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                ans += &quot;&lt;b&gt;&quot;;
-                in = true;
-            } else if (!b[i] &amp;&amp; in) {
-                ans += &quot;&lt;/b&gt;&quot;;
-                in = false;
-            }   
-
-            ans += s[i];
-        }   
-
-        if (in) { ans += &quot;&lt;/b&gt;&quot;; }</B></FONT>
-
-        return ans;
-    }   
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        int n=SZ(S);
+        VI d(n);
+<A NAME="0"></A>        for(string s: words){
+            FOR(i,0,SZ(S)-SZ(s)){
+                if(S.substr(i,SZ(s))==s){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    REP(j,SZ(s))d[i+j]=1;
+                }
+            }
+        }
+        string an=&quot;&quot;;
+        for(int i=0,j;i&lt;SZ(S);i=j){
+            if(!d[i]){
+                an+=S[i];</B></FONT>
+                j=i+1;
+            }
+            else{
+                an+=&quot;&lt;b&gt;&quot;;
+                for(j=i;j&lt;n&amp;&amp;d[j];j++){
+                    an+=S[j];
+                }
+                an+=&quot;&lt;/b&gt;&quot;;
+            }
+        }
+        return an;
+    }
 };
 </PRE>
 </BODY>

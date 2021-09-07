@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>807_virizarr.cpp</TITLE>
+ <TITLE>376_romilgadia.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>807_virizarr.cpp</CENTER></H3><HR>
+<H3><CENTER>376_romilgadia.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        string result;
-        
-        bool* array = new bool[S.size()];
-        memset(&amp;array[0], false, sizeof(bool) * S.size());
-        
-        int pos = 0;
-        for (const auto &amp;w : words)
-        {
-            pos = 0;
-            while ((pos = S.find(w, pos)) != string::npos)
-<A NAME="0"></A>            {
-                memset(&amp;array[pos], true, sizeof(bool) * w.size());
-                ++pos;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        vector&lt;bool&gt; boldMap(S.size(),false);
+        int maxLen;
+        bool isMatch;
+        for(int i=0 ; i&lt;S.size() ; i++){
+            maxLen = 0;
+            for(int j=0 ; j&lt;words.size() ; j++){
+                isMatch = true;
+                for(int k=0 ; k&lt;words[j].size() ; k++){
+                    if(S[i+k] != words[j][k]){
+                        isMatch = false;
+                    }
+                }
+                if(isMatch and maxLen&lt;words[j].size()) maxLen = words[j].size();
+<A NAME="0"></A>            }
+            for(int j=i ; ((j&lt;i+maxLen)and j&lt;S.size()) ; j++)
+                boldMap[j] = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+
+        /*
+        for(int i=0 ; i&lt;S.size() ; i++){
+            cout &lt;&lt; boldMap[i] &lt;&lt; &quot;-&quot;;
         }
-        
-        bool add = false;
-        for (int i = 0; i &lt; S.size(); ++i)
-        {
-            if (array[i] &amp;&amp; !add)
-            {
-                result += &quot;&lt;b&gt;&quot;;
-                add = true;
+        cout &lt;&lt; endl;
+        */
+        string ans;
+        bool boldOn = false;
+        for(int i=0 ; i&lt;boldMap.size() ; i++){
+            if(boldMap[i]){
+                if(!boldOn) {
+                    boldOn = true;
+                    ans += &quot;&lt;b&gt;&quot;;
+                }</B></FONT>
+                ans += S[i];
             }
-            if (!array[i] &amp;&amp; add)
-            {
-                add = false;
-                result += &quot;&lt;/b&gt;&quot;;
+            else{
+                if(boldOn){
+                    boldOn = false;
+                    ans+= &quot;&lt;/b&gt;&quot;;
+                }
+                ans += S[i];
             }
-            result += S[i];
         }
-        
-        if (add)</B></FONT>
-        {
-            result += &quot;&lt;/b&gt;&quot;;
-        }
-        
-        delete[] array;
-        array = 0;
-        
-        return result;
+        if(boldOn)
+            ans+= &quot;&lt;/b&gt;&quot;;
+        return ans;
     }
 };
 </PRE>

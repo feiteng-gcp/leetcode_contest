@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_2wsx2wsx2wsx.cpp</TITLE>
+ <TITLE>144_niobium.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>6_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
+<H3><CENTER>144_niobium.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
+public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;bool&gt; bold(S.length(), false);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto &amp; w : words) {
-            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
-                if (S.substr(i, w.length()) == w) {
-                    for (int j = i; j &lt; i + w.length(); ++j)
-                        bold[j] = true;
+        int a[505];
+        for (int i = 0; i &lt; 505; i++) {
+<A NAME="0"></A>            a[i] = 0;
+        }
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (string s : words) {
+            for (int i = 0; i + s.length() - 1 &lt; S.length(); i++) {
+                bool match = true;
+                for (int j = 0; j &lt; s.length(); j++) {
+                    if (S[i+j] != s[j]) {
+                        match = false;
+                        break;
+                    }
+                }
+                
+                if (match) {
+                    for (int j = 0; j &lt; s.length(); j++) {
+                        a[i+j] = 1;
+                    }
                 }
             }
         }
-        string ret = &quot;&quot;;
-        for (int i = 0; i &lt; S.length(); ++i) {</B></FONT>
-            if (bold[i] &amp;&amp; (i == 0 || !bold[i-1]))
-                ret = ret + &quot;&lt;b&gt;&quot;;
-            ret = ret + S[i];
-            if (bold[i] &amp;&amp; (i == S.length() - 1 || !bold[i+1]))
-                ret = ret + &quot;&lt;/b&gt;&quot;;
+
+        string ans = &quot;&quot;;</B></FONT>
+        if (a[0] == 1) {
+            ans = ans + &quot;&lt;b&gt;&quot; + S[0];
+        } else {
+            ans = ans + S[0];
         }
-        return ret;
+        
+        for (int i = 1; i &lt; S.length(); i++) {
+            if (a[i] == 1 &amp;&amp; a[i-1] == 0) {
+                ans = ans + &quot;&lt;b&gt;&quot; + S[i];
+            } else if (a[i] == 0 &amp;&amp; a[i-1] == 1) {
+                ans = ans + &quot;&lt;/b&gt;&quot; + S[i];
+            } else {
+                ans = ans + S[i];
+            }
+        }
+        
+        if (a[S.length() - 1] == 1) {
+            ans = ans + &quot;&lt;/b&gt;&quot;;
+        }
+        
+        return ans;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>288_hdchen.java</TITLE>
+ <TITLE>409_anhooca.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>288_hdchen.java</CENTER></H3><HR>
+<H3><CENTER>409_anhooca.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public String boldWords(String[] words, String S) {
-<A NAME="1"></A>        boolean[] tag = new boolean[S.length()];
-        for (String w : words) {</B></FONT>
-            int from = 0, index = -1;
-            while (-1 != (index = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.indexOf(w, from))) {
-                for (int i = 0; i &lt; w.length(); ++i) {
-                    tag[index + i] = true;
+        Arrays.sort(words, (a, b)-&gt; Integer.compare(b.length(), a.length()));
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; matchLengthAtIdx = new HashMap&lt;&gt;();
+
+        for (int i = 0; i &lt; S.length(); i++) {
+            for (int j = 0; j &lt; words.length; j++) {
+                if (i + words[j].length() &lt;= S.length() &amp;&amp; 
+                        S.substring(i, i + words[j].length()).equals(words[j])) {</B></FONT>
+                    matchLengthAtIdx.put(i, i + words[j].length());
+                    break;
                 }
-                from++;
-            }</B></FONT>            
-<A NAME="2"></A>        }
-        int i = 0;
-        StringBuilder sb = new StringBuilder();
-        while (i &lt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.length()) {
-            if (tag[i]) {
-                sb.append(&quot;&lt;b&gt;&quot;);
-                while (i &lt; S.length() &amp;&amp; tag[i]) {
-                    sb.append(S.charAt(i));
-                    i++;
-                }
-                sb.append(&quot;&lt;/b&gt;&quot;);
-            } else {
-                sb.append(S.charAt(i));
-                i++;
             }
-        }</B></FONT>
+        }
+
+        StringBuilder sb = new StringBuilder();
+<A NAME="1"></A>        int matchUntilIdx = -1;
+        for (int i = 0; i &lt; S.length(); i++) {
+            if (matchLengthAtIdx.containsKey(i)) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (matchUntilIdx &lt; i) {
+                    sb.append(&quot;&lt;b&gt;&quot;);
+<A NAME="2"></A>                }
+                matchUntilIdx = Math.max(matchUntilIdx, matchLengthAtIdx.get(i));
+            }</B></FONT>
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (matchUntilIdx == i) {
+                sb.append(&quot;&lt;/b&gt;&quot;);
+            }
+            sb.append(S.charAt(i));
+        }
+
+        if (matchUntilIdx == S.length()) {
+            sb.append(&quot;&lt;/b&gt;&quot;);
+        }
+
         return sb.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

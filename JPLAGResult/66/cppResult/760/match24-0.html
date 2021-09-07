@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>308_lostworld21.cpp</TITLE>
+ <TITLE>75_tomhsu1990.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>308_lostworld21.cpp</CENTER></H3><HR>
+<H3><CENTER>75_tomhsu1990.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-<A NAME="0"></A>        int size = S.size();
-        bool match[size] = {false};
-        for(int i = 0; i &lt; words.size(); i++){
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 0; j &lt;= size - words[i].size(); j++){
-                if(S.substr(j,words[i].size()) == words[i]){
-                    for(int k = j; k &lt; j + words[i].size(); k++){
-                        match[k] = true;
-                    }
+        int n(S.size()), m(words.size());
+        vector&lt;bool&gt; bold(n, false);
+        for(int i=0;i&lt;n;++i){
+            for(int j=0;j&lt;m;++j){
+                bool find(true);
+                int len(words[j].size());
+                if(i+len &gt; n) find = false;
+                for(int k=0;k&lt;len&amp;&amp;find;++k)
+<A NAME="0"></A>                    if(words[j][k] != S[i+k]) find = false;
+                if(find)
+                    for(int k=0;k&lt;len;++k) bold[i+k] = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        bool ok(false);
+        string ans(&quot;&quot;);
+        for(int i=0;i&lt;n;++i){
+            if(!bold[i]){
+                if(ok) ans.append(&quot;&lt;/b&gt;&quot;);
+                ans.append(1, S[i]);
+                ok = false;
+            }
+            else{
+                if(!ok){</B></FONT>
+                    ans.append(&quot;&lt;b&gt;&quot;);
+                    ans.append(1, S[i]);
+                    ok = true;
                 }
+                else ans.append(1, S[i]);
             }
         }
-        string output = &quot;&quot;;
-        for(int i = 0; i &lt; size;){
-            if(match[i]){
-                output += &quot;&lt;b&gt;&quot;;
-                output += S[i];</B></FONT>
-                i++;
-                while(i &lt; size &amp;&amp; match[i] == true){
-                    output += S[i];
-                    i++;
-                }
-                output += &quot;&lt;/b&gt;&quot;;
-            } else {
-                output += S[i];
-                i++;
-            }
-        }
-        return output;
+        if(ok) ans.append(&quot;&lt;/b&gt;&quot;);
+        return ans;
     }
 };
 </PRE>

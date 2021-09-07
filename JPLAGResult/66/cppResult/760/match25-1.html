@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_magica.cpp</TITLE>
+ <TITLE>323_from0tohero.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>22_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>323_from0tohero.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-  string boldWords(vector&lt;string&gt;&amp; words, string S) {
-    int n = S.length();
-    vector&lt;bool&gt; bold(n, false);
-    for (auto&amp; word: words) {
-      int l = word.length();
-      for (int i = 0; i &lt;= n - l; ++i) {
-        if (S.substr(i, l) == word) {
-          for (int j = i; j &lt; i + l; ++j) {</B></FONT>
-            bold[j] = true;
-          }
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        vector&lt;pair&lt;int, bool&gt;&gt; events;  // {index, isStart}
+        for (int i = 0; i &lt; S.size(); ++i) {
+            for (int j = 0; j &lt; words.size(); ++j) {</B></FONT>
+                if (i + words[j].size() &lt;= S.size() &amp;&amp; S.substr(i, words[j].size()) == words[j]) {
+                    events.push_back({i, true});
+                    events.push_back({i + words[j].size(), false});
+                }
+            }
         }
-      }
-    }
-    string ans = &quot;&quot;;
-    for (int i = 0; i &lt; n;) {
-      if (!bold[i]) {
-        ans += S[i];
-        ++i;
-      } else {
-        ans += &quot;&lt;b&gt;&quot;;
-        for (; i &lt; n &amp;&amp; bold[i]; ++i) {
-          ans += S[i];
+        sort(events.begin(), events.end(), [](const pair&lt;int, int&gt;&amp; lhs, const pair&lt;int, int&gt;&amp; rhs){
+            return lhs.first &lt; rhs.first || lhs.first == rhs.first &amp;&amp; lhs.second;
+        });
+        string res;
+        int isBold = 0;
+        int prev = 0;
+        for (const pair&lt;int, bool&gt;&amp; event : events) {
+            //cout &lt;&lt; &quot;event: [&quot; &lt;&lt; event.first &lt;&lt; &quot;, &quot; &lt;&lt; event.second &lt;&lt; &quot;]\n&quot;;
+            if (event.first != prev) {
+                res += S.substr(prev, event.first - prev);
+                prev = event.first;
+            }
+            if (event.second) {
+                if (isBold++ == 0) {
+                    res += &quot;&lt;b&gt;&quot;;
+                }
+            }
+            else {
+                if (--isBold == 0) {
+                    res += &quot;&lt;/b&gt;&quot;;
+                }
+            }
         }
-        ans += &quot;&lt;/b&gt;&quot;;
-      }
+        res += S.substr(prev);
+        return res;
     }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

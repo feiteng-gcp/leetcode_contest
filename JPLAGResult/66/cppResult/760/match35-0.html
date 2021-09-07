@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_zikostav.cpp</TITLE>
+ <TITLE>58_SlavaSSU.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>33_zikostav.cpp</CENTER></H3><HR>
+<H3><CENTER>58_SlavaSSU.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        sort(words.begin(), words.end());
-        reverse(words.begin(), words.end());
-        bool bold[S.size() + 1];
-        memset(bold, false, sizeof(bold));
-        int last_idx = 0, len;
-        for (int i = 0; i &lt; S.size(); i++) {
-            bool match = false;
-            for (int j  = 0; j &lt; words.size(); j++) {
-                int pos = 0;
-                while(i + pos &lt; S.size() &amp;&amp; pos &lt; words[j].size() &amp;&amp; S[i + pos] == words[j][pos]) pos++;
-                if (pos &lt; words[j].size()) continue;
-                match = true;
-                len = words[j].size();
-                break;
+        int n = S.size();
+        vector&lt;pair&lt;int, int&gt; &gt; v;
+        for(int i = 0; i &lt; n; i++) {
+            int mx = -1;
+            for(int j = 0; j &lt; words.size(); j++) {
+                if(i + words[j].size() - 1 &gt;= n) continue;
+                bool ok = true;
+                for(int k = 0; k &lt; words[j].size(); k++) if(S[i + k] != words[j][k]) ok = false;
+                if(ok) mx = max(mx, i + int(words[j].size()) - 1);
             }
-            if (!match)  {
-                continue;
-            }
-            for (int j = 0; j &lt; len; j++)   {
-                bold[i + j] = true;
-            }
-<A NAME="0"></A>            
+            
+            if(mx != -1) v.push_back(make_pair(i, mx + 1));
         }
+        
+        if(v.size() == 0) return S;
+        vector&lt;int&gt; open(555, 0), close(555, 0);
+        int l = v[0].first, r = v[0].second;
+        for(int i = 1; i &lt; v.size(); i++) {
+            if(v[i].first &lt;= r) r = max(r, v[i].second);
+            else {
+                open[l] = 1;
+                close[r] = 1;
+                l = v[i].first;
+                r = v[i].second;
+<A NAME="0"></A>            }
+        }
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        open[l] = close[r] = 1;
+        
         string res = &quot;&quot;;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool outside = true;
-         for (int i = 0; i &lt; S.size(); i++) {
-            if (bold[i] &amp;&amp; outside) {
-                res += &quot;&lt;b&gt;&quot;;
-                outside = false;
-            } else if (!bold[i] &amp;&amp; !outside) {
-                res += &quot;&lt;/b&gt;&quot;;
-                outside = true;
-            }
-             res += S[i];
-         }
-        if (!outside) res += &quot;&lt;/b&gt;&quot;;
+        for(int i = 0; i &lt; n + 1; i++) {
+            if(open[i]) res += &quot;&lt;b&gt;&quot;;
+            if(close[i]) res += &quot;&lt;/b&gt;&quot;;</B></FONT>
+            if(i &gt;= 0 &amp;&amp; i &lt; n) res += S[i];
+            //if(close[i] &amp;&amp; !open[i + 1]) res += &quot;&lt;/b&gt;&quot;;
+            //if(close[i] &amp;&amp; !open[i + 1]) 
+        }
+        
         return res;
     }
-
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

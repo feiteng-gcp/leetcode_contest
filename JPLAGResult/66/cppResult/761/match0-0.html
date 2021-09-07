@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_fsqhxrcjw.cpp</TITLE>
+ <TITLE>315_shuangkitty.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>28_fsqhxrcjw.cpp</CENTER></H3><HR>
+<H3><CENTER>315_shuangkitty.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,31 +23,52 @@
  *     int start;
  *     int end;
  *     Interval() : start(0), end(0) {}
-<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        map&lt;int, int&gt; event;
-        for (auto &amp; times : avails)
-            for (auto&amp; itv : times) {
-                ++event[itv.start];
-                --event[itv.end];
+        vector&lt;Interval&gt; ss;
+        vector&lt;Interval&gt; svec;
+        for(int i = 0; i &lt; avails.size(); i++)
+        {
+            for(int j = 0; j &lt; avails[i].size(); j++)
+            {
+                svec.push_back(avails[i][j]);
             }
-        
-        int cnt = 0, pre = INT_MIN;
-        vector&lt;Interval&gt; ans;
-        for (auto&amp; kv : event) {
-            // cout &lt;&lt; kv.first &lt;&lt; &quot; &quot; &lt;&lt; kv.second &lt;&lt; endl;
-            if (cnt==0 &amp;&amp; kv.second&gt;0) {</B></FONT>
-                if (pre!=INT_MIN) ans.push_back(Interval(pre, kv.first));
-            } else if (cnt&gt;0 &amp;&amp; cnt+kv.second==0) 
-                pre = kv.first;
-            cnt += kv.second;
         }
-        
-        return ans;
+        sort(svec.begin(), svec.end(), [](Interval a, Interval b){ if(a.start &lt; b.start) return true;
+<A NAME="0"></A>                                                                 if(a.start == b.start &amp;&amp; a.end &gt; b.end)
+                                                                 return true;
+                                                                 return false;});
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int current1 = svec[0].start;
+        int current2 = svec[0].end;
+        for(int i = 0; i &lt; svec.size(); i++)
+        {
+            if(svec[i].end &lt; current2)
+            {
+                continue;
+            }
+            if(svec[i].start &lt; current2)
+            {
+                current2 = svec[i].end;</B></FONT>
+                continue;
+            }
+            else
+            {
+                Interval tmp;
+                tmp.start = current2;
+                tmp.end = svec[i].start;
+                if(tmp.start != tmp.end)
+                {
+                    ss.push_back(tmp);
+                }
+                current1 = svec[i].start;
+                current2 = svec[i].end;
+            }
+        }
+        return ss;
     }
 };
 </PRE>

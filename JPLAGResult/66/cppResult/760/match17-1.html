@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>429_streammy.cpp</TITLE>
+ <TITLE>126_polesun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>429_streammy.cpp</CENTER></H3><HR>
+<H3><CENTER>126_polesun.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        int n = S.size();
-<A NAME="0"></A>        vector&lt;bool&gt; r(n, false);
-        for (string w : words) {
-            int d = w.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt;= n - d; ++i) {
-                if (S.substr(i, d) == w) {
-                    for (int k = i; k &lt; i + d; ++k) r[k] = true;
+        vector&lt;bool&gt; dp(S.size(), false);
+
+        for (int i = 0; i &lt; S.size(); ++i)
+        {
+<A NAME="0"></A>            for (string str : words)
+            {
+                if (i + str.size() &lt;= S.size())
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                {
+                    if (S.substr(i, str.size()) == str)
+                    {
+                        for (int j = i; j &lt; i + str.size(); ++j)
+                        {
+                            dp[j] = true;
+                        }
+                    }
                 }
+            }</B></FONT>
+        }
+        
+        bool flag = false;
+        string ret;
+        for (int i = 0; i &lt; S.size(); ++i)
+        {
+            if (flag)
+            {
+                if (!dp[i])
+                {
+                    flag = false;
+                    ret += &quot;&lt;/b&gt;&quot;;
+                }
+                ret.push_back(S[i]);
+            }
+            else
+            {
+                if (dp[i])
+                {
+                    flag = true;
+                    ret += &quot;&lt;b&gt;&quot;;
+                }
+                ret.push_back(S[i]);
             }
         }
-        string res = &quot;&quot;;
-        for (int i = 0; i &lt; n; ++i) {
-            if (r[i]) {</B></FONT>
-                res += &quot;&lt;b&gt;&quot;;
-                while (i &lt; n &amp;&amp; r[i])
-                    res += S[i++];  
-                --i;
-                res += &quot;&lt;/b&gt;&quot;;
-            }
-            else res += S[i];
+        if (flag)
+        {
+            ret += &quot;&lt;/b&gt;&quot;;
         }
-        return res;
+        
+        return ret;
     }
 };
 </PRE>

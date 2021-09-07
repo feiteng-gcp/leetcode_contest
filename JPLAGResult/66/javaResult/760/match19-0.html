@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>687_simplysivu.java</TITLE>
+ <TITLE>244_gges5110.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>687_simplysivu.java</CENTER></H3><HR>
+<H3><CENTER>244_gges5110.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public String boldWords(String[] words, String S) {
- 
-        
-        boolean []wordArr = new boolean[S.length()];
-        for( String word</B></FONT> : words){
-<A NAME="1"></A>            int wordLen = word.length();
-            for(int i = 0; i &lt;= S.length() - wordLen;i++){
-                if(S.substring(i, i + wordLen).equals(word)){
-                    for( int j = i ; j &lt; i+wordLen; j++)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                        wordArr[j] = true;
-                    }
-                }
-            }
+class Solution {
+    public String boldWords(String[] words, String S) {        
+        if (words.length == 0 || S.length() == 0) {
+            return S;
         }
         
-        StringBuilder boldWords = new StringBuilder();
-        for(int i=0; i &lt;S.length();){
-            if(!wordArr[i]){</B></FONT>
-                boldWords.append(S.charAt(i));
-                i++;
-            }
-            else{
-                String tmp = &quot;&quot;;
-                while( i &lt; S.length() &amp;&amp; wordArr[i]){
-<A NAME="2"></A>                    tmp = tmp + S.charAt(i);
-                    i++;
-                }
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boldWords.append(&quot;&lt;b&gt;&quot;).append(tmp).append(&quot;&lt;/b&gt;&quot;);
-            }
-            
+        // TODO: turn words into a set.
+        boolean[] bold = new boolean[S.length()];
+        for (int i = 0; i &lt; words.length; ++i) {
+            markBold(S, bold, words[i]);
         }
         
-        return boldWords.toString();
+        return transform(S, bold);
+    }
+    
+    private void markBold(String S, boolean[] bold, String word) {
+        for (int index = S.indexOf(word); index &gt;= 0; index = S.indexOf(word, index + 1)) {
+            bold(bold, index, index + word.length());
+        }
+    }
+    
+    private void bold(boolean[] bold, int start, int end) {
+        for (int i = start; i &lt; end; ++i) {
+            bold[i] = true;
+        }
+    }
+    
+    private String transform(String S, boolean[] bold) {
+        StringBuilder sb = new StringBuilder();
+        int boldIndex = -1;
+        for (int i = 0; i &lt; S.length(); ++i) {
+            if (bold[i] == true &amp;&amp; boldIndex == -1) {
+                // Start a bold tag
+                sb.append(&quot;&lt;b&gt;&quot;);
+                sb.append(S.charAt(i));
+                boldIndex = i;
+<A NAME="0"></A>            } else if (bold[i] == true &amp;&amp; boldIndex != -1) {
+                // Continue a bold tag
+                sb.append(S.charAt(i));
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else if (bold[i] == false &amp;&amp; boldIndex != -1) {
+                // End a bold tag
+                sb.append(&quot;&lt;/b&gt;&quot;);
+                sb.append(S.charAt(i));
+                boldIndex = -1;
+<A NAME="1"></A>            } else {
+                sb.append(S.charAt(i));
+            }</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        if (boldIndex != -1) {
+            sb.append(&quot;&lt;/b&gt;&quot;);
+        }
+        return sb.toString();
     }
 }</B></FONT>
 </PRE>

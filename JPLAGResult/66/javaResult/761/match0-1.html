@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>174_anandh2410.java</TITLE>
+ <TITLE>347_C91CBQ.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>174_anandh2410.java</CENTER></H3><HR>
+<H3><CENTER>347_C91CBQ.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,39 +28,30 @@
  */
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; intervals = new ArrayList&lt;Interval&gt;();
-        for(List&lt;Interval&gt; emp: avails)
-        {
-            for(Interval i: emp)
-            {
-                intervals.add(i);
+        List&lt;Interval&gt; res = new LinkedList&lt;&gt;();
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        // int min = Integer.MAX_VALUE;
+        for (int i = 0</B></FONT>; i &lt; avails.size(); i++) {
+            for (int j = 0; j &lt; avails.get(i).size(); j++) {
+                // if (j == 0) min = Math.min(min, avails.get(i).get(j).start);
+                list.add(avails.get(i).get(j));
             }
         }
-        Collections.sort(intervals, new Comparator&lt;Interval&gt;(){
-           @Override
-            public int compare(Interval o1, Interval o2)
-            {
-                return o1.start-o2.start;
-            }
-        });
-        List&lt;Interval&gt; cInterval = new ArrayList&lt;Interval&gt;()</B></FONT>;
-        Interval temp1=intervals.get(0),temp2=null;
-        for(int i=1;i&lt;intervals.size();i++)
-        {
-            temp2= intervals.get(i);
-<A NAME="1"></A>            if(temp2.start&gt;temp1.end)
-            {
-                cInterval.add(new Interval(temp1.end,temp2.start));
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>temp1=temp2;
-            }
-            else if(temp2.end&gt;temp1.end)
-            {
-                temp1.end=temp2.end;
+        Collections.sort(list, (l1, l2) -&gt; (l1.start - l2.start));
+        for (int i = 0; i &lt; list.size(); i++) {
+            if (i + 1 &lt; list.size() &amp;&amp; list.get(i + 1).start &lt;= list.get(i).end) {
+                list.get(i).end = Math.max(list.get(i).end, list.get(i + 1).end);
+                list.remove(i + 1);
+                i--;
             }
         }
-        return cInterval;
+        for (int i = 1; i &lt; list.size(); i++) {
+            res.add(new Interval(list.get(i - 1).end, list.get(i).start));
+        }
+        
+        return res;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

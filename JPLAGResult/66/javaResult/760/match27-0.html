@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>732_vraval48.java</TITLE>
+ <TITLE>270_lily4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>732_vraval48.java</CENTER></H3><HR>
+<H3><CENTER>270_lily4ever.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public String boldWords(String[] words, String S) {
+        if (words == null || words.length == 0) return &quot;&quot;;
         
-<A NAME="1"></A>        int mark[] = new int[S.length()];
-        for</B></FONT>(String w: words) {
-            markChars(S, w, mark);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+<A NAME="0"></A>        Set&lt;Integer&gt; indices = new HashSet&lt;&gt;();
+        for (String word : words) {
+            markIndices(S, word, indices);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}    
         
-        StringBuffer ans = new StringBuffer();
-        
-        for(int i=0; i&lt;S.length(); i++) {
-            if(mark[i] == 1) {
-                ans.append</B></FONT>(&quot;&lt;b&gt;&quot;);
-
-                while(i&lt;S.length() &amp;&amp; mark[i] == 1) {
-                    ans.append(S.charAt(i));
-                    i++;
-                }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; S.length(); i++) {
+            if</B></FONT> (indices.contains(i) &amp;&amp; (i == 0 || !indices.contains(i - 1))) {
+                sb.append(&quot;&lt;b&gt;&quot;);
+<A NAME="1"></A>            }
+            sb.append(S.charAt(i));
             
-                ans.append(&quot;&lt;/b&gt;&quot;);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (indices.contains(i) &amp;&amp; (i == S.length() - 1 || !indices.contains(i + 1))) {
+                sb.append(&quot;&lt;/b&gt;&quot;);
             }
-            
-            if(i&lt;S.length())
-                ans.append(S.charAt(i));
-     
-        }
-        
-<A NAME="2"></A>        return ans.toString();
+        }</B></FONT>
+        return sb.toString();
     }
     
-    void markChars(String S, String w, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int mark[]) {
-        
-        for(int i=0; i&lt;=S.length()-w.length(); i++) {
-            if(S.substring(i, i+w.length()).equals(w)) {</B></FONT>
-                for(int j=i; j&lt;i+w.length(); j++) {
-                    mark[j] = 1;
+    void markIndices(String S, String word, Set&lt;Integer&gt; indices) {
+        for (int i = 0; i &lt;= S.length() - word.length(); i++) {
+            String substr = S.substring(i, i + word.length());
+            if (substr.equals(word)) {
+                for (int j = i; j &lt; i + word.length(); j++) {
+                    indices.add(j);
                 }
             }
         }

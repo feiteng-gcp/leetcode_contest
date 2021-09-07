@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>732_vraval48.java</TITLE>
+ <TITLE>3_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>732_vraval48.java</CENTER></H3><HR>
+<H3><CENTER>3_nevergiveup.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
+private boolean isMatch(String S , int startIndex , String word) {
+		
+		int i = startIndex , j = 0;
+		while (i &lt; S.length() &amp;&amp; j &lt; word.length() &amp;&amp; (S.charAt(i) == word.charAt(j))) {
+			i ++;
+			j ++;
+		}
+		return j == word.length();
+		
+	}
+	
     public String boldWords(String[] words, String S) {
-        
-        int mark[] = new int[S.length()];
-        for(String w: words) {
-            markChars(S, w, mark);
-        }
-        
-        StringBuffer ans = new StringBuffer()</B></FONT>;
-        
-        for(int i=0; i&lt;S.length(); i++) {
-            if(mark[i] == 1) {
-                ans.append(&quot;&lt;b&gt;&quot;);
-
-                while(i&lt;S.length() &amp;&amp; mark[i] == 1) {
-                    ans.append(S.charAt(i));
-                    i++;
-                }
-            
-                ans.append(&quot;&lt;/b&gt;&quot;);
-            }
-            
-            if(i&lt;S.length())
-                ans.append(S.charAt(i));
-<A NAME="1"></A>     
-        }
-        
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans.toString();
+        	
+    	int i , length = S.length();
+    	int[] cnt = new int[length + 100];
+<A NAME="0"></A>    	boolean[] flag = new boolean[length];
+    	for (i = 0;i &lt; length;i ++) {
+    		for (String word : words) {
+    			if (isMatch(S , i , w<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ord)) {
+    				cnt[i] ++;
+    				cnt[i + word.length()] --;
+    			}
+    		}
+    	}</B></FONT>
+    	int value = 0;
+    	for (i = 0;i &lt; length;i ++) {
+    		value += cnt[i];
+    		if (value &gt; 0) {
+    			flag[i] = true;
+    		}
+    	}
+    	StringBuilder builder = new StringBuilder();
+    	for (i = 0;i &lt; length;i ++) {
+    		if (flag[i]) {
+    			builder.append(&quot;&lt;b&gt;&quot;);
+    			while (i &lt; length &amp;&amp; flag[i]) {
+    				builder.append(S.charAt(i));
+<A NAME="1"></A>    				i ++;
+    			}
+    			i --;
+    			builder.append(&quot;&lt;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>/b&gt;&quot;);
+    		} else {
+    			builder.append(S.charAt(i));
+    		}
+    	}
+    	return builder.toString();</B></FONT>
+    	
     }
-    
-<A NAME="2"></A>    void markChars(String S, String w, int mark[]) {
-        
-        for(int i=0; i&lt;=S.length</B></FONT>()-w.length(); i++) {
-            if(S.substring(i, i+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>w.length()).equals(w)) {
-                for(int j=i; j&lt;i+w.length(); j++) {
-                    mark[j] = 1;
-                }
-            }
-        }</B></FONT>
-    }
+	
 }
 </PRE>
 

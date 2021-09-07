@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>262_supermannba.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>262_supermannba.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public String boldWords(String[] words, String S) {
-        boolean[] bold = new boolean[S.length()];
-		for (String word: words) {</B></FONT>
-			int pos = 0;
-			while (S.indexOf(word, pos) &gt;= 0) {
-				int start = S.indexOf(word, pos);
-				for (int i = start; i &lt; start + word.length(); i++) {
-					bold[i] = true;
-<A NAME="1"></A>				}
-				pos = start + 1;
-			}
-		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-		//System.out.println(Arrays.toString(bold));
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i &lt; S.length(); i++) {
-			if (!bold[i]) {
-				sb.append(S.charAt(i));
-			} else {
-				sb.append(&quot;&lt;b&gt;&quot;);</B></FONT>
-				while (i &lt; S.length() &amp;&amp; bold[i]) {
-					sb.append(S.charAt(i));
-					i++;
-				}
-				sb.append(&quot;&lt;/b&gt;&quot;);
-				i--;
-			}
-		}
-		return sb.toString();
+        if(words==null||words.length==0){
+            return S;
+        }       
+        char[] array=S.toCharArray();
+<A NAME="0"></A>        boolean[] b=new boolean[array.length];
+       
+        for(String str:words){
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int index=S.indexOf(str);
+            while(index&gt;=0){
+                
+                for(int i=index;i&lt;=index+str.length()-1;i++){
+                    b[i]=true;
+                }
+                index=S.indexOf(str, index+1);
+            }
+        }
+        
+        int i=0;
+        StringBuilder sb=new StringBuilder();</B></FONT>
+        boolean flag=false;
+        while(i&lt;array.length){
+            if(!b[i]){
+                if(flag){
+                    sb.append(&quot;&lt;/b&gt;&quot;);
+                    flag=false;
+                }
+                sb.append(array[i]);
+            }else{
+                if(!flag){
+                    sb.append(&quot;&lt;b&gt;&quot;);
+                    flag=true;
+                }
+                sb.append(array[i]);
+            }
+<A NAME="1"></A>            i++;
+        }
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(flag){
+            sb.append(&quot;&lt;/b&gt;&quot;);
+        }
+        
+        return sb.toString();
+        
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

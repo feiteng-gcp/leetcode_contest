@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>584_yououhan.java</TITLE>
+ <TITLE>347_C91CBQ.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>584_yououhan.java</CENTER></H3><HR>
+<H3><CENTER>347_C91CBQ.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public String boldWords(String[] words, String S) {
-        boolean [] setBold = new boolean[S.length() + 2];
-        for (String word : words) {</B></FONT>
-            int index = S.indexOf(word, 0);
-            while (index != -1) {
-                Arrays.fill(setBold, index + 1, index + word.length() + 1, true);
-                index = S.indexOf(word, index + 1);
-            }
+class Solution {
+<A NAME="0"></A>    class Interval {
+        int start;
+        int end;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public Interval(int s, int e) {
+            start = s;
+            end = e;
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i &lt; setBold.length; i++) {
-            if (setBold[i] &amp;&amp; !setBold[i - 1]) {
-<A NAME="1"></A>                sb.append(&quot;&lt;b&gt;&quot;);
+    }
+    public String boldWords(String[] words, String S) {
+        int ls = S.length()</B></FONT>;
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        for (String word : words) {
+            int lw = word.length();
+            for (int i = 0; i &lt; ls - lw + 1; i++) {
+                if (S.substring(i, i + lw).equals(word)) list.add(new Interval(i, i + lw));
             }
-            if (!setBold[i] &amp;&amp; setBold[i - 1]) {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.append(&quot;&lt;/b&gt;&quot;);
+<A NAME="1"></A>        }
+        Collections.sort(list, (l1, l2) -&gt; (l1.start - l2.start));
+        for (int i = 0; i &lt; list.size(); i++) {
+            if (i + 1 &lt; list.size() &amp;&amp; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.get(i + 1).start &lt;= list.get(i).end) {
+                list.get(i).end = Math.max(list.get(i).end, list.get(i + 1).end);
+                list.remove(i + 1);
+                i--;
             }
-            if (i &lt; S.length() + 1) sb.append(S.charAt(i - 1));
+        }</B></FONT>
+        StringBuilder sb = new StringBuilder(S);
+        for (int i = 0; i &lt; list.size(); i++) {
+            int start = list.get(i).start + i * 7, end = list.get(i).end + i * 7 + 3;
+            sb.insert(start, &quot;&lt;b&gt;&quot;).insert(end, &quot;&lt;/b&gt;&quot;);
         }
         return sb.toString();
-    }</B></FONT>
+    }
 }
 </PRE>
 

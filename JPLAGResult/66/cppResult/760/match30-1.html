@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>73_jian_lee.cpp</TITLE>
+ <TITLE>280_bananasplits.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>73_jian_lee.cpp</CENTER></H3><HR>
+<H3><CENTER>280_bananasplits.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string boldWords(vector&lt;string&gt;&amp; words, string S) {        
-        vector&lt;bool&gt; b(S.size(), 0);
-        unordered_set&lt;string&gt; dic(words.begin(), words.end());
-        
-        for(int i = 0; i &lt; S.size(); ++i)
-        {
-            for(int j = 1; i + j &lt;= S.size(); ++j)
-            {
-                string t = S.substr(i, j);
-<A NAME="0"></A>                if (dic.count(t))
-                {
-                    for(int k = i; k &lt; i + j; ++k)
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        b[k] = 1;
+    string boldWords(vector&lt;string&gt; &amp; words, string S) {
+        int n = S.size();
+        vector&lt;bool&gt; bold(n, false);
+        unordered_set&lt;string&gt; dict(words.begin(), words.end());
+<A NAME="0"></A>        for(int i = 0; i &lt; n; i++) {
+            for(int j = i; j &lt; n; j++) {
+                if(dict.find(S.substr(i, j - i + 1)) != dict.end()) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    for(int k = i; k &lt;= j; k++) bold[k] = true;
                 }
-            }            
-        }
-        
-        string ans;
-        bool bb = 0;
-        for(int i = 0; i &lt; S.size(); ++i)
-        {
-<A NAME="1"></A>            if (b[i])
-            {</B></FONT>
-                if (!bb)
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    ans += &quot;&lt;b&gt;&quot;;                
-                bb = 1;
             }
-            else if (bb)
-            {
-                bb = 0;
-                ans += &quot;&lt;/b&gt;&quot;;
-            }
-            
-            ans += S[i];
         }
-        
-        if (bb)</B></FONT>
-            ans += &quot;&lt;/b&gt;&quot;;
-        
-        return ans;
+        string ret = &quot;&quot;;
+        for(int i = 0; i &lt; n; i++) {
+            if((i == 0 || !bold[i - 1]) &amp;&amp; bold[i]) {
+                ret += &quot;&lt;b&gt;&quot;;</B></FONT>
+            }
+            ret += S[i];
+            if(bold[i] &amp;&amp; (i == n - 1 || !bold[i + 1])) {
+                ret += &quot;&lt;/b&gt;&quot;;
+            }
+        }
+        return ret;
     }
 };
 </PRE>

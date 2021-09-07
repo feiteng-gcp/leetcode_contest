@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>595_jjecii.cpp</TITLE>
+ <TITLE>5_magila.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>595_jjecii.cpp</CENTER></H3><HR>
+<H3><CENTER>5_magila.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;bool&gt; mark(S.size(), false);
-        for (int i = 0; i &lt; words.size(); ++i) {
-            const string &amp;sub = words[i];
-            size_t pos = S.find(sub);
-            while( pos != std::string::npos) {
-<A NAME="0"></A>                for (int j = 0; j &lt; sub.size(); ++j) {
-                    mark[pos+j] = true;
+        unordered_set&lt;string&gt; all(words.begin(), words.end());
+        vector&lt;bool&gt; bold(S.size(), false);
+        for(int i = 0; i &lt; S.size(); i++)
+<A NAME="0"></A>        {
+            for(int j = 1; j + i &lt;= S.size() &amp;&amp; j &lt;= 10; j++)
+            {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto temp = S.substr(i, j);
+                if (all.count(temp))
+                {
+                    for(int k = i; k &lt; i + j; k++)
+                        bold[k] = true;
                 }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                pos = S.find(sub, pos + 1);
-            }            
-        }
-        string ret;
-        bool beg = false;
-        for (int i = 0; i &lt; S.size(); ++i) {
-            if (mark[i] == true &amp;&amp; beg == false) {
-                ret += &quot;&lt;b&gt;&quot;;
-                beg = true;
-            } else if (mark[i] == false &amp;&amp; beg == true) {
-                ret += &quot;&lt;/b&gt;&quot;;
-                beg = false;
             }
-            ret += S[i];
         }
-        if(mark.back() == true) {</B></FONT>
-            ret+=&quot;&lt;/b&gt;&quot;;
+        string ans;
+        bool current_bold = false;</B></FONT>
+        for(int i = 0; i &lt; S.size(); i++)
+        {
+            if (bold[i] &amp;&amp; !current_bold)
+            {
+                ans += &quot;&lt;b&gt;&quot;;
+                current_bold = true;
+            }
+            if (!bold[i] &amp;&amp; current_bold)
+            {
+                ans += &quot;&lt;/b&gt;&quot;;
+                current_bold = false;
+            }
+            ans += S[i];
         }
-        return ret;
+        if (current_bold) ans += &quot;&lt;/b&gt;&quot;;
+        return ans;
     }
 };
 </PRE>

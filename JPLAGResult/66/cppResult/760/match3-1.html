@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_zikostav.cpp</TITLE>
+ <TITLE>257_jiananz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>33_zikostav.cpp</CENTER></H3><HR>
+<H3><CENTER>257_jiananz.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        sort(words.begin(), words.end());
-<A NAME="0"></A>        reverse(words.begin(), words.end());
-        bool bold[S.size() + 1];
-        memset(bold, false, sizeof(bold));
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int last_idx = 0, len;
-        for (int i = 0; i &lt; S.size(); i++) {
-            bool match = false;
-            for (int j  = 0; j &lt; words.size(); j++) {</B></FONT>
-                int pos = 0;
-                while(i + pos &lt; S.size() &amp;&amp; pos &lt; words[j].size() &amp;&amp; S[i + pos] == words[j][pos]) pos++;
-                if (pos &lt; words[j].size()) continue;
-<A NAME="1"></A>                match = true;
-                len = words[j].size();
-                break;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-            if (!match)  {
-                continue;
+        int n = S.size();
+<A NAME="0"></A>        if (n == 0)
+            return &quot;&quot;;
+        vector&lt;int&gt; bold(n, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto word : words) {
+            for (int i = 0; i &lt;= n - word.size(); i++) {
+                if (S.substr(i, word.size()) == word) {
+                    for (int j = i; j &lt; i + word.size(); j++) {
+                        bold[j] = 1;
+                    }
+                }
             }
-            for (int j = 0; j &lt; len; j++)   {
-                bold[i + j] = true;
+        }
+        string result = &quot;&quot;;</B></FONT>
+        if (bold[0] == 1) {
+            result += &quot;&lt;b&gt;&quot;;
+            
+        }
+        result.push_back(S[0]);
+        for (int i = 1; i &lt; n; i++) {
+            if (bold[i - 1] == 1 &amp;&amp; bold[i] == 0) {
+                result += &quot;&lt;/b&gt;&quot;;
+                result.push_back(S[i]);
+            } else
+            if (bold[i - 1] == 0 &amp;&amp; bold[i] == 1) {
+                result += &quot;&lt;b&gt;&quot;;
+                result.push_back(S[i]);
+            } else {
+                result.push_back(S[i]);
             }
-<A NAME="2"></A>            
-        }</B></FONT>
-        string res = &quot;&quot;;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        bool outside = true;
-         for (int i = 0; i &lt; S.size(); i++) {
-            if (bold[i] &amp;&amp; outside) {
-                res += &quot;&lt;b&gt;&quot;;
-                outside = false;
-            } else if (!bold[i] &amp;&amp; !outside) {
-                res += &quot;&lt;/b&gt;&quot;;
-                outside = true;
-            }
-             res += S[i];
-         }
-        if (!outside) res += &quot;&lt;/b&gt;&quot;;</B></FONT>
-        return res;
+        }
+        if (bold[n - 1]) {
+            result += &quot;&lt;/b&gt;&quot;;
+        }
+        return result;
     }
-
 };
 </PRE>
 </BODY>

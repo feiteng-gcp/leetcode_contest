@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_2wsx2wsx2wsx.cpp</TITLE>
+ <TITLE>80_txingml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>6_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
+<H3><CENTER>80_txingml.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
+public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;bool&gt; bold(S.length(), false);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto &amp; w : words) {
-            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
-                if (S.substr(i, w.length()) == w) {
-                    for (int j = i; j &lt; i + w.length(); ++j)
-                        bold[j] = true;
-                }
+        vector&lt;bool&gt; bold(S.size(), false);
+        for (string &amp; word : words) {
+            for (int i = 0; i+word.size() &lt;= S.size(); i++) {
+                if (word == S.substr(i, word.size())) {
+<A NAME="0"></A>                    for (int j = 0; j &lt; word.size(); j++) {
+                        bold[i+j] = true;
+                    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
             }
         }
-        string ret = &quot;&quot;;
-        for (int i = 0; i &lt; S.length(); ++i) {
-            if (bold[i] &amp;&amp; (i == 0 || !bold[i-1]))</B></FONT>
-                ret = ret + &quot;&lt;b&gt;&quot;;
-            ret = ret + S[i];
-            if (bold[i] &amp;&amp; (i == S.length() - 1 || !bold[i+1]))
-                ret = ret + &quot;&lt;/b&gt;&quot;;
+        bool flag = false;
+        string ret;
+        for (int i = 0; i &lt; S.size(); i++) {
+            if (bold[i] &amp;&amp; !flag) {
+                ret.append(&quot;&lt;b&gt;&quot;);
+                flag = true;</B></FONT>
+            }
+            if (!bold[i] &amp;&amp; flag) {
+                ret.append(&quot;&lt;/b&gt;&quot;);
+                flag = false;
+            }
+            ret.push_back(S[i]);
         }
+        if (flag) ret.append(&quot;&lt;/b&gt;&quot;);
         return ret;
+        
     }
 };
 </PRE>

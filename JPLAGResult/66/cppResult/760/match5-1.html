@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>233_limitless_.cpp</TITLE>
+ <TITLE>126_polesun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>233_limitless_.cpp</CENTER></H3><HR>
+<H3><CENTER>126_polesun.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        if (S.size() == 0) {
-<A NAME="0"></A>            return &quot;&quot;;
-        }
-        bool indexes[S.size()] = {false};
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto word: words) {
-            for( int i = 0; i &lt; S.size() - word.size() + 1; i++) {    
-                if(S.substr(i, word.size()) == word) {
-                    for(int k = i; k &lt; i+ word.size(); k++) {
-                        indexes[k] = true;
+        vector&lt;bool&gt; dp(S.size(), false);
+
+        for (int i = 0; i &lt; S.size(); ++i)
+        {
+<A NAME="0"></A>            for (string str : words)
+            {
+                if (i + str.size() &lt;= S.size())
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                {
+                    if (S.substr(i, str.size()) == str)
+                    {
+                        for (int j = i; j &lt; i + str.size(); ++j)
+                        {
+                            dp[j] = true;
+                        }
                     }
                 }
-<A NAME="1"></A>            }
+            }</B></FONT>
         }
-        string res = &quot;&quot;;
-        for( int i = 0; i &lt; S.size(); i++) {</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-            if (indexes[i] == true) {
-                res += &quot;&lt;b&gt;&quot;;
-                res += S[i];
-                i++;
-                while(i &lt; S.size() &amp;&amp; indexes[i] == true) {
-                    res += S[i];
-                    i++;
+        
+        bool flag = false;
+        string ret;
+        for (int i = 0; i &lt; S.size(); ++i)
+        {
+            if (flag)
+            {
+                if (!dp[i])
+                {
+                    flag = false;
+                    ret += &quot;&lt;/b&gt;&quot;;
                 }
-                res += &quot;&lt;/b&gt;&quot;;</B></FONT>
-                i--;
-            } else {
-                res += S[i];
+                ret.push_back(S[i]);
             }
-            
+            else
+            {
+                if (dp[i])
+                {
+                    flag = true;
+                    ret += &quot;&lt;b&gt;&quot;;
+                }
+                ret.push_back(S[i]);
+            }
         }
-        return res;
+        if (flag)
+        {
+            ret += &quot;&lt;/b&gt;&quot;;
+        }
+        
+        return ret;
     }
 };
 </PRE>

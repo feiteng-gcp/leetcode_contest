@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>439_krain033.java</TITLE>
+ <TITLE>193_cxw19960131.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>439_krain033.java</CENTER></H3><HR>
+<H3><CENTER>193_cxw19960131.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean[] appear = new boolean[S.length()];
-<A NAME="2"></A>        for(int i=0;i</B></FONT>&lt;S.length();i++){
-            String x = S.substring(i);
-            for(String s : words){
-                if(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>x.startsWith(s)){
-                    for(int n=i;n&lt;i+s.length();n++){
-                        appear[n] = true;
-<A NAME="1"></A>                    }
+        // 应该是尽可能的长吧...
+        //这个不就是昨天做过的那个题么...
+        int n = S.length();
+<A NAME="1"></A>        boolean[] contained = new boolean[n];
+        for (int i = 0</B></FONT>; i &lt; n; i++) {
+            int len = 0;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String word : words) {
+                if (S.startsWith(word, i)) {
+                    len = Math.max(len, word.length());
                 }
-            }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}</B></FONT>
-        StringBuffer ans = new StringBuffer();
-        for(int i=0;i&lt;S.length();i++){
-            if(appear[i]){</B></FONT>
-                int index = i;
-                while(index&lt;S.length()&amp;&amp;appear[index]){
-                    index++;
-                }
-                ans.append(&quot;&lt;b&gt;&quot;);
-                for(int t=i;t&lt;index;t++){
-                    ans.append(S.charAt(t));
-                }
-                ans.append(&quot;&lt;/b&gt;&quot;);
-                i = index - 1;
-            }else{
-                ans.append(S.charAt(i));
+            }</B></FONT>
+            for (int j = i; j &lt; len + i; j++) {
+                contained[j] = true;
             }
         }
-        return ans.toString();
+        for (int i = 0; i &lt; n; i++) {
+            System.out.print(contained[i] + &quot;| &quot;);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; n; i++) {
+            if (contained[i] &amp;&amp; (i == 0 || !contained[i - 1])) sb.append(&quot;&lt;b&gt;&quot;);
+            
+            
+            sb.append(S.charAt(i));
+            
+            if ((i == n - 1 &amp;&amp; contained[i]) || (contained[i] &amp;&amp; i &lt; n - 1 &amp;&amp; !contained[i + 1])) sb.append(&quot;&lt;/b&gt;&quot;);
+        }
+        return sb.toString();
     }
 }
 </PRE>

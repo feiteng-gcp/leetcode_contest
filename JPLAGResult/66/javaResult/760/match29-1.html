@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>334_smttsp.java</TITLE>
+ <TITLE>117_wwzzll.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>334_smttsp.java</CENTER></H3><HR>
+<H3><CENTER>117_wwzzll.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean [] chars = new boolean[S.length()];
-        
-        for(int w = 0; w &lt; words.length; w++ ){
-            String word = words[w]</B></FONT>;
-            int w_len = word.length();
-            int index = S.indexOf(word);
-            
-            
-            while(index &gt;= 0) {
-                for(int l = 0; l &lt; w_len; l++){
-<A NAME="1"></A>                    chars[l+index] = true;
+        int[] bold = new int[S.length()];
+<A NAME="1"></A>        for (int i = 0</B></FONT>; i &lt; S.length(); ++i) {
+            for (int j = 0; j &lt; words.length; ++j) {
+                if (S.length() - i &gt;= words[j].length()) {
+                    if (S.substring(i, i + <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>words[j].length()).equals(words[j])) {
+                        for (int k = i; k &lt; i + words[j].length(); ++k) {
+                            bold[k] = 1;
+                        }
+                    }</B></FONT>
                 }
-           //     System.out.println(index);
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>index = S.indexOf(word, index+1);
             }
         }
-        
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i &lt; chars.length; i++){
-            if</B></FONT>(!chars[i])
-                sb.append(S.charAt(i));
-            else{
-                sb.append(&quot;&lt;b&gt;&quot;);
-                while(i &lt; chars.length &amp;&amp; chars[i]){
-                    sb.append(S.charAt(i));
-                    i++;
+        StringBuilder result = new StringBuilder();
+        boolean inbold = false;
+        for (int i = 0; i &lt; S.length(); ++i) {
+            if (bold[i] == 1) {
+                if (inbold) {
+                } else {
+                    result.append(&quot;&lt;b&gt;&quot;);
+                    inbold = true;
                 }
-                i--;
-                sb.append(&quot;&lt;/b&gt;&quot;);
+                result.append(S.charAt(i));
+            } else {
+                if (inbold) {
+                    result.append(&quot;&lt;/b&gt;&quot;);
+                    inbold = false;
+                } else {
+                }
+                result.append(S.charAt(i));
             }
         }
-        
-        return sb.toString();
+        if (inbold) {
+            result.append(&quot;&lt;/b&gt;&quot;);
+        }
+        return result.toString();
     }
 }
 </PRE>

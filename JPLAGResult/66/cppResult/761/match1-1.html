@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>457_sharexu.cpp</TITLE>
+ <TITLE>315_shuangkitty.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>457_sharexu.cpp</CENTER></H3><HR>
+<H3><CENTER>315_shuangkitty.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -25,53 +25,50 @@
  *     Interval() : start(0), end(0) {}
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
-<A NAME="0"></A> */
+ */
 class Solution {
 public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    static int cmp(Interval a, Interval b){
-        if(a.start==b.start)return a.end&lt;b.end;
-        return a.start&lt;b.start;
-    }
-    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-<A NAME="1"></A>        //先合在一起
-        vector&lt;Interval&gt;allnums;
-        for(int i=0;i&lt;avails.size();i++){
-            for(int j=0;j&lt;avails[i].size();j++){</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-                allnums.push_back(avails[i][j]);
+<A NAME="0"></A>    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
+        vector&lt;Interval&gt; ss;
+        vector&lt;Interval&gt; svec;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; avails.size(); i++)
+        {
+            for(int j = 0; j &lt; avails[i].size(); j++)
+            {
+                svec.push_back(avails[i][j]);
             }
-        }
-        sort(allnums.begin(),allnums.end(),cmp);
-        vector&lt;Interval&gt;nums;
-        //vector&lt;Interval&gt;tmp;
-        //tmp.start=allnums[0].start;
-        //tmp.start=allnums[0].end;
-        nums.push_back(Interval(allnums[0].start, allnums[0].end));
-        int index=0;
-        for(int i=1;i&lt;allnums.size();i++){
-            if(allnums[i].start&lt;=nums[index].end){</B></FONT>
-                if(allnums[i].end&gt;nums[index].end){      
-                    nums[index].end=allnums[i].end;
+        }</B></FONT>
+        sort(svec.begin(), svec.end(), [](Interval a, Interval b){ if(a.start &lt; b.start) return true;
+                                                                 if(a.start == b.start &amp;&amp; a.end &gt; b.end)
+                                                                 return true;
+                                                                 return false;});
+        int current1 = svec[0].start;
+        int current2 = svec[0].end;
+        for(int i = 0; i &lt; svec.size(); i++)
+        {
+            if(svec[i].end &lt; current2)
+            {
+                continue;
+            }
+            if(svec[i].start &lt; current2)
+            {
+                current2 = svec[i].end;
+                continue;
+            }
+            else
+            {
+                Interval tmp;
+                tmp.start = current2;
+                tmp.end = svec[i].start;
+                if(tmp.start != tmp.end)
+                {
+                    ss.push_back(tmp);
                 }
-            }else{
-                nums.push_back(Interval(allnums[i].start, allnums[i].end));
-                index++;
+                current1 = svec[i].start;
+                current2 = svec[i].end;
             }
         }
-        vector&lt;Interval&gt;result;
-        for(int i=0;i&lt;nums.size();i++){
-            if(i==0){
-                ;
-                //if(nums[i].start&gt;1){
-                //    result.push_back(Interval(1,nums[i].start));
-                //}
-            }else{
-                if(nums[i].start&gt;nums[i-1].end){
-                    result.push_back(Interval(nums[i-1].end,nums[i].start));
-                }
-            }
-        }
-        return result;
-        
+        return ss;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>111_ZYCSwing.cpp</TITLE>
+ <TITLE>287_kangbb.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>111_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>287_kangbb.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-<A NAME="0"></A>        int len = S.length();
-        vector&lt;bool&gt; bold(len, false);
-        for (int i = 0; i &lt; len; ++i) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (string str : words) {
-                if (i + str.length() &lt;= len &amp;&amp; S.substr(i, str.length()) == str) {
-                    for (int j = i; j &lt; i + str.length(); ++j) {
-                        bold[j] = true;
-<A NAME="1"></A>                    }
+        // violent
+        int k[510] = {0};
+        for (auto w: words) {
+            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
+                
+                bool match = true;
+                for (int j = 0; j &lt; w.length(); ++j) {
+                    if (S[i + j] != w[j]) {
+                        match = false;
+                        break;
+                    }
                 }
-            }</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-
-        string res;
-        bool ok = false;
-        for (int i = 0; i &lt; len; ++i) {
-            if (bold[i] &amp;&amp; !ok) {
-                ok = true;
-                res.append(&quot;&lt;b&gt;&quot;);
-            } else if (!bold[i] &amp;&amp; ok) {
-                ok = false;</B></FONT>
-                res.append(&quot;&lt;/b&gt;&quot;);
+                if (match) {
+<A NAME="0"></A>                    for (int j = 0; j &lt; w.length(); ++j) {
+                        k[i + j] = 1;
+                    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
             }
-            res.push_back(S[i]);
         }
-        if (ok) {
-            res.append(&quot;&lt;/b&gt;&quot;);
+        
+        string ans;
+        bool isink = false;
+        for (int i = 0; i &lt; S.length(); ++i) {
+            cout &lt;&lt; k[i];
+            if (!isink &amp;&amp; k[i]) {
+                ans += &quot;&lt;b&gt;&quot;;
+                isink = true;
+            }</B></FONT>
+            else if (isink &amp;&amp; !k[i]) {
+                ans += &quot;&lt;/b&gt;&quot;;
+                isink = false;
+            }
+            ans += S[i];
         }
-
-        return res;
+        if (isink) {
+            ans += &quot;&lt;/b&gt;&quot;;
+        }
+        return ans;
     }
 };
 </PRE>

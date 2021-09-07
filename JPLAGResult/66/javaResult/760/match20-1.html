@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>439_krain033.java</TITLE>
+ <TITLE>223_mayitbeelc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>439_krain033.java</CENTER></H3><HR>
+<H3><CENTER>223_mayitbeelc.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean[] appear = new boolean[S.length()];
-        for(int i=0;i&lt;S.length();i++){
-            String x = S.substring(i);
-            for(String s : words){
-                if(x.startsWith(s)){
-                    for(int n=i;n&lt;i+s.length();n++){
-                        appear[n] = true;
-                    }
-                }
+        boolean[] mark = new boolean[S.length()];
+        for(String w: words){
+            String sub = S;
+            int i = sub.indexOf(w);
+            while(i!=-1){
+                for(int j = i; j&lt; i+w.length(); j++){
+                    mark[j]=true;
+                }</B></FONT>
+                i = sub.indexOf(w, i+1);
             }
         }
-        StringBuffer ans = new</B></FONT> StringBuffer();
-        for(int i=0;i&lt;S.length();i++){
-            if(appear[i]){
-                int index = i;
-                while(index&lt;S.length()&amp;&amp;appear[index]){
-                    index++;
-                }
-                ans.append(&quot;&lt;b&gt;&quot;);
-                for(int t=i;t&lt;index;t++){
-                    ans.append(S.charAt(t));
-                }
-                ans.append(&quot;&lt;/b&gt;&quot;);
-                i = index - 1;
-            }else{
-                ans.append(S.charAt(i));
+        String tagBegin = &quot;&lt;b&gt;&quot;;
+        String tagEnd = &quot;&lt;/b&gt;&quot;;
+        StringBuilder sb = new StringBuilder();
+        boolean isLastCharBold = false;
+        for(int i=0; i&lt;mark.length; i++){
+            if(!isLastCharBold&amp;&amp;mark[i]){
+                sb.append(tagBegin);
+                sb.append(S.charAt(i));
+                isLastCharBold = true;
+            } else if(isLastCharBold&amp;&amp;!mark[i]){
+                sb.append(tagEnd);
+                sb.append(S.charAt(i));
+                isLastCharBold = false;
+            } else {
+                sb.append(S.charAt(i));
             }
         }
-        return ans.toString();
+        if(isLastCharBold){
+            sb.append(tagEnd);
+        }
+        return sb.toString();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>788_sundyli.cpp</TITLE>
+ <TITLE>287_kangbb.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>788_sundyli.cpp</CENTER></H3><HR>
+<H3><CENTER>287_kangbb.cpp</CENTER></H3><HR>
 <PRE>
- class Solution {
-<A NAME="0"></A> public:
-     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        vector&lt;int&gt; bold(S.size(),0);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(string word: words){
-            for(int i=0;i+word.size() &lt;= S.size();i++){
-                if(S.substr(i, word.size()) == word){
-                    for(int j=i;j&lt;i+word.size();j++) bold[j] =1;
+class Solution {
+public:
+<A NAME="0"></A>    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        // violent
+        int k[510] = {0};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto w: words) {
+            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
+                
+                bool match = true;
+                for (int j = 0; j &lt; w.length(); ++j) {
+                    if (S[i + j] != w[j]) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+                    for (int j = 0; j &lt; w.length(); ++j) {
+                        k[i + j] = 1;
+                    }
                 }
             }
         }
         
-        string res = &quot;&quot;;
-        for(int i=0;i&lt;S.size();){</B></FONT>
-            if(bold[i]){
-                res = res + &quot;&lt;b&gt;&quot;;
-                while(i &lt; S.size() &amp;&amp; bold[i]) res = res + S[i++];
-                res = res + &quot;&lt;/b&gt;&quot;;
-            }else{
-                res = res + S[i++];
+        string ans;
+        bool isink = false;</B></FONT>
+        for (int i = 0; i &lt; S.length(); ++i) {
+            cout &lt;&lt; k[i];
+            if (!isink &amp;&amp; k[i]) {
+                ans += &quot;&lt;b&gt;&quot;;
+                isink = true;
             }
+            else if (isink &amp;&amp; !k[i]) {
+                ans += &quot;&lt;/b&gt;&quot;;
+                isink = false;
+            }
+            ans += S[i];
         }
-        return res;
-        
-     }
-} ;
+        if (isink) {
+            ans += &quot;&lt;/b&gt;&quot;;
+        }
+        return ans;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_uwi.java</TITLE>
+ <TITLE>223_mayitbeelc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<H3><CENTER>223_mayitbeelc.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class S<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>olution {
-	    public String boldWords(String[] words, String S) {
-	    	int[] hit = new int[S.length()+1];
-	    	for(String w : words){</B></FONT>
-	    		for(int i = 0;i+w.length()-1 &lt; S.length();i++){
-	    			if(S.substring(i, i+w.length()).equals(w)){
-	    				hit[i]++;
-	    				hit[i+w.length()]--;
-	    			}
-	    		}
-<A NAME="1"></A>	    	}
-	    	for(int i = 0;i &lt; S.length();i++){
-	    		hit[i+1] += hit[i];
-	    	}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-	    	StringBuilder sb = new StringBuilder();
-	    	for(int i = 0;i &lt; S.length();i++){
-	    		if(hit[i] &gt; 0){
-	    			sb.append(&quot;&lt;b&gt;&quot; + S.charAt(i) + &quot;&lt;/b&gt;&quot;);
-	    		}else{
-	    			sb.append(S.charAt(i));</B></FONT>
-	    		}
-	    	}
-	    	return sb.toString().replace(&quot;&lt;/b&gt;&lt;b&gt;&quot;, &quot;&quot;);
-	    }
-	}	
+class Solution {
+    public String boldWords(String[] words, String S) {
+<A NAME="0"></A>        boolean[] mark = new boolean[S.length()];
+        for(String w: words){
+            String sub = S;
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i = sub.indexOf(w);
+            while(i!=-1){
+                for(int j = i; j&lt; i+w.length(); j++){
+                    mark[j]=true;
+                }
+                i = sub.indexOf(w, i+1);
+            }
+        }
+        String tagBegin = &quot;&lt;b&gt;&quot;;
+        String tagEnd = &quot;&lt;/b&gt;&quot;</B></FONT>;
+        StringBuilder sb = new StringBuilder();
+        boolean isLastCharBold = false;
+        for(int i=0; i&lt;mark.length; i++){
+            if(!isLastCharBold&amp;&amp;mark[i]){
+                sb.append(tagBegin);
+                sb.append(S.charAt(i));
+                isLastCharBold = true;
+            } else if(isLastCharBold&amp;&amp;!mark[i]){
+                sb.append(tagEnd);
+                sb.append(S.charAt(i));
+                isLastCharBold = false;
+            } else {
+<A NAME="1"></A>                sb.append(S.charAt(i));
+            }
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(isLastCharBold){
+            sb.append(tagEnd);
+        }
+        return sb.toString();
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

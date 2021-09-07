@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>64_cuiaoxiang.cpp</TITLE>
+ <TITLE>6_2wsx2wsx2wsx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>64_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>6_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
+class Solution {
+<A NAME="0"></A>public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        int n = S.size();
-        vector&lt;bool&gt; visit(n);
-        for (auto&amp; s : words) {
-            int m = s.size();
-            for (int i = 0; i + m &lt;= n; ++i) {
-                if (S.substr(i, m) == s) {
-                    for (int j = 0; j &lt; m; ++j) {</B></FONT>
-                        visit[i + j] = true;
-                    }
+        vector&lt;bool&gt; bold(S.length(), false);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto &amp; w : words) {
+            for (int i = 0; i &lt; S.length() - w.length() + 1; ++i) {
+                if (S.substr(i, w.length()) == w) {
+                    for (int j = i; j &lt; i + w.length(); ++j)</B></FONT>
+                        bold[j] = true;
                 }
             }
         }
-        string ret;
-        for (int i = 0, j; i &lt; n; i = j) {
-            for (; i &lt; n &amp;&amp; !visit[i]; ++i) ret += S[i];
-            if (i == n) break;
-            for (j = i; j &lt; n &amp;&amp; visit[j]; ++j);
-            ret += &quot;&lt;b&gt;&quot;;
-            ret += S.substr(i, j - i);
-            ret += &quot;&lt;/b&gt;&quot;;
+        string ret = &quot;&quot;;
+        for (int i = 0; i &lt; S.length(); ++i) {
+            if (bold[i] &amp;&amp; (i == 0 || !bold[i-1]))
+                ret = ret + &quot;&lt;b&gt;&quot;;
+            ret = ret + S[i];
+            if (bold[i] &amp;&amp; (i == S.length() - 1 || !bold[i+1]))
+                ret = ret + &quot;&lt;/b&gt;&quot;;
         }
         return ret;
     }

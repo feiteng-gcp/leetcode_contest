@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>337_Barca37.java</TITLE>
+ <TITLE>322_decal.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>337_Barca37.java</CENTER></H3><HR>
+<H3><CENTER>322_decal.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public String boldWords(String[] words, String S) {
-<A NAME="1"></A>        boolean[] bold = new boolean[S.length()];
-        for (String s</B></FONT> : words) {
-            for (int i = 0; i &lt;= S.length() - s.length(); i++) {
-                if (S.substring(i, i + <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.length()).equals(s)) {
-                    for (int j = i; j &lt; i + s.length(); j++) {
-                        bold[j] = true;
-                    }
+        boolean[] bold = new boolean[S.length()];
+        for (int i = 0, end = 0; i &lt; S.length(); i++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            for (String word : words) {
+                if (S.startsWith(word, i)) {
+                    end = Math.max(end, i + word.length());
                 }
             }
+            bold[i] = end &gt; i;
         }
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i &lt; S.length();) {
-            if (bold[i]) {</B></FONT>
-                res.append(&quot;&lt;b&gt;&quot;);
-                while (i &lt; S.length() &amp;&amp; bold[i]) {
-<A NAME="2"></A>                    res.append(S.charAt(i++));
-                }
-                res.append(&quot;&lt;/b&gt;&quot;);
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
-                res.append(S.charAt(i++));
+        
+        StringBuilder result = new StringBuilder();
+        for (int i = 0</B></FONT>; i &lt; S.length(); i++) {
+            if (!bold[i]) {
+                result.append(S.charAt(i));
+                continue;
             }
+            int j = i;
+            while (j &lt; S.length() &amp;&amp; bold[j]) j++;
+            result.append(&quot;&lt;b&gt;&quot; + S.substring(i, j) + &quot;&lt;/b&gt;&quot;);
+            i = j - 1;
         }
-        return res.toString();
+        
+        return result.toString();
     }
-    
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

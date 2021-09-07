@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>611_Awperstar.java</TITLE>
+ <TITLE>325_luckybug38.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>611_Awperstar.java</CENTER></H3><HR>
+<H3><CENTER>325_luckybug38.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public String boldWords(String[] words, String S) {
-        boolean[] mark = new boolean[S.length()];
-        for (int i = 0; i &lt; S.length(); i++) {
-            String tmp = S.substring(i);
-            for (String s : words) {
-                if (tmp.startsWith(s)) {
-                    for (int k = 0; k &lt; s.length(); k++) {
-                        mark[i + k] = true;
-                    }
+        boolean[] bold = new boolean[S.length()];
+        for(String word:words){
+            int totalAway= 0;
+            int index = S.indexOf(word);
+            totalAway+=index;
+            while(index!=-1){
+                for(int i = index; i&lt;word.length()+index; i++){
+                    bold[i] = true;
+                }</B></FONT>
+                int nextInd = S.substring(index+1).indexOf(word);
+                if(nextInd==-1){
+                    index = -1;
+                }
+                else{
+                    index = nextInd + index+1;
                 }
             }
         }
-
-        StringBuilder sb = new</B></FONT> StringBuilder();
-        if (mark[0]) {
-            sb.append(&quot;&lt;b&gt;&quot;);
-        }
-        sb.append(S.charAt(0));
-        for (int i = 1; i &lt; S.length(); i++) {
-            if (!mark[i - 1] &amp;&amp; mark[i]) {
-                sb.append(&quot;&lt;b&gt;&quot;);
-            } else if (mark[i - 1] &amp;&amp; !mark[i]) {
-                sb.append(&quot;&lt;/b&gt;&quot;);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i&lt;S.length(); i++){
+            int cur = i;
+            while(cur&lt;S.length()&amp;&amp;bold[cur]){
+                cur++;
             }
-            sb.append(S.charAt(i));
-        }
-        if (mark[mark.length - 1]) {
-            sb.append(&quot;&lt;/b&gt;&quot;);
+            if(cur==i){
+                sb.append(S.charAt(i));
+            }
+            else{
+                sb.append(&quot;&lt;b&gt;&quot;);
+                for(int j = i; j&lt;cur; j++){
+                    sb.append(S.charAt(j));
+                }
+                sb.append(&quot;&lt;/b&gt;&quot;);
+                i = cur-1;
+            }
         }
         return sb.toString();
     }

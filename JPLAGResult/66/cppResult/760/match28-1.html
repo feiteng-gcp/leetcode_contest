@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_magila.cpp</TITLE>
+ <TITLE>126_polesun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>5_magila.cpp</CENTER></H3><HR>
+<H3><CENTER>126_polesun.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string boldWords(vector&lt;string&gt;&amp; words, string S) {
-        unordered_set&lt;string&gt; all(words.begin(), words.end());
-        vector&lt;bool&gt; bold(S.size(), false);
-        for(int i = 0; i &lt; S.size(); i++)
+        vector&lt;bool&gt; dp(S.size(), false);
+
+        for (int i = 0; i &lt; S.size(); ++i)
         {
-            for(int j = 1; j + i &lt;= S.size() &amp;&amp; j &lt;= 10; j++)
+            for (string str : words)
             {
-                auto temp = S.substr(i, j);
-                if (all.count(temp))
+                if (i + str.size() &lt;= S.size())
                 {
-<A NAME="0"></A>                    for(int k = i; k &lt; i + j; k++)
-                        bold[k] = true;
+                    if (S.substr(i, str.size()) == str)
+                    {
+                        for (int j = i; j &lt; i + str.size(); ++j)
+                        {
+                            dp[j] = true;
+                        }
+<A NAME="0"></A>                    }
                 }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        string ans;
-        bool current_bold = false;
-        for(int i = 0; i &lt; S.size(); i++)
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        bool flag = false;
+        string ret;
+        for (int i = 0; i &lt; S.size(); ++i)
         {
-            if (bold[i] &amp;&amp; !current_bold)
+            if (flag)
             {
-                ans += &quot;&lt;b&gt;&quot;;
-                current_bold = true;
+                if (!dp[i])
+                {
+                    flag = false;
+                    ret += &quot;&lt;/b&gt;&quot;;
+                }</B></FONT>
+                ret.push_back(S[i]);
             }
-            if (!bold[i] &amp;&amp; current_bold)
+            else
             {
-                ans += &quot;&lt;/b&gt;&quot;;
-                current_bold = false;
+                if (dp[i])
+                {
+                    flag = true;
+                    ret += &quot;&lt;b&gt;&quot;;
+                }
+                ret.push_back(S[i]);
             }
-            ans += S[i];
         }
-        if (current_bold) ans += &quot;&lt;/b&gt;&quot;;</B></FONT>
-        return ans;
+        if (flag)
+        {
+            ret += &quot;&lt;/b&gt;&quot;;
+        }
+        
+        return ret;
     }
 };
 </PRE>
