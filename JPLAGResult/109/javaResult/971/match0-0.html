@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>67_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+     public int shortestBridge(int[][] A) {
+        int m = A.length;
+        int n = A[0].length;
+        int[][] color = new int[m][n];
+
+        int finalColor = 1;
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (A[i][j] == 1 &amp;&amp; color[i][j] == 0) {
+                    dfs(A, i, j, color, finalColor++);
+                }
+            }
+        }
+
+        List&lt;int[]&gt; color2 = new ArrayList&lt;&gt;()</B></FONT>;
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (color[i][j] == 2) {
+                    color2.add(new int[]{i, j});
+                }
+            }
+        }
+        int[][] c2 = new int[color2.size()][2];
+        int len= 0;
+        for (int[] e : color2) {
+            c2[len][0] = e[0];
+            c2[len][1] = e[1];
+            len++;
+<A NAME="1"></A>        }
+
+        int ans = Integer.MAX_VALUE;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (color[i][j] == 1) {
+                    for (int k = 0; k &lt; c2.length; k++) {</B></FONT>
+                        int x = c2[k][0];
+<A NAME="2"></A>                        int y = c2[k][1];
+                        int t = Math.abs(i - x) + Math.abs(j - y);
+                        ans = Math.min(ans, t);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        return ans - 1;
+    }
+
+    void dfs(int[][] A, int i, int j, int[][] color, int finalColor) {
+<A NAME="3"></A>        int m = A.length;
+        int n = A[0].length;
+        if</B></FONT> (!(i &gt;= 0 &amp;&amp; i &lt; m &amp;&amp; j &gt;= 0 &amp;&amp; j &lt; n)) return;
+        if (A[i][j] != 1 || color[i][j] &gt; 0) return<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match0-1.html#3',3,'match0-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        color[i][j] = finalColor;
+
+        dfs(A, i + 1, j, color, finalColor);
+        dfs(A, i - 1, j, color, finalColor);
+        dfs(A, i, j + 1, color, finalColor);
+        dfs(A, i, j - 1, color, finalColor);
+    }
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

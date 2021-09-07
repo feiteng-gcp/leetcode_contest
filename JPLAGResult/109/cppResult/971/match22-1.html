@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>374_Berwyn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>374_Berwyn.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    vector&lt;vector&lt;int&gt;&gt; color;
+    int n;
+<A NAME="0"></A>    int shift_x[4] = {0, 0, 1, -1};
+    int shift_y[4] = {1, -1, 0, 0};
+    vector&lt;vector&lt;int&gt;&gt; dist;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(int x, int y, int cur_color, vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        color[x][y] = cur_color;
+        for(int i = 0; i &lt; 4; ++i) {
+            int x_new = x + shift_x[i];
+            int y_new = y + shift_y[i];
+            if(x_new &lt; 0 || x_new &gt;= n</B></FONT>
+              || y_new &lt; 0 || y_new &gt;= n) {
+                continue;
+            }
+            if(color[x_new][y_new] != -1) {
+                continue;
+            }
+            if(A[x_new][y_new] != 1) {
+                continue;
+            }
+            dfs(x_new, y_new, cur_color, A);
+        }
+    }
+    int bfs(int x, int y) {
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        int pos = x * 1000 + y;
+        q.push(make_pair(pos, 0));
+        vector&lt;vector&lt;int&gt;&gt; visit(n, vector&lt;int&gt;(n, -1));
+        visit[x][y] = 1;
+<A NAME="3"></A>        while(!q.empty()) {
+            auto top = q.front();
+            q.pop();
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            y = top.first % 1000;
+            x = top.first / 1000;
+            
+            if(color[x][y] == 1) {
+                return top.second - 1;
+            }
+            for(int i = 0; i &lt; 4; ++i) {
+                int x_new = x + shift_x[i];
+                int y_new = y + shift_y[i];
+                if(x_new &lt; 0 || x_new &gt;= n</B></FONT>
+                  || y_new &lt; 0 || y_new &gt;= n) {
+                    continue;
+                }
+                if(color[x_new][y_new] == 1) {
+                    return top.second;
+                }
+                if(color[x_new][y_new] == 0) {
+                    continue;
+                }
+                if(visit[x_new][y_new] == 1) {
+                    continue;
+                }
+                pos = x_new * 1000 + y_new;
+                q.push(make_pair(pos, top.second + 1));
+                visit[x_new][y_new] = 1;
+            }
+        }
+        return -1;
+    }
+public:
+    int shortestBridge(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+<A NAME="1"></A>        n = A.size();
+        color = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n, -1));
+        dist = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n, -1));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cur_color = 0;
+        for(int i = 0; i &lt; n; ++i) {
+            for(int j = 0; j &lt; n; ++j) {
+                if(A[i][j] != 1) {</B></FONT>
+                    continue;
+                }
+                if(color[i][j] != -1) {
+                    continue;
+                }
+                dfs(i, j, cur_color, A);
+                ++cur_color;
+<A NAME="2"></A>            }
+        }
+        
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = INT_MAX;
+        for(int i = 0; i &lt; n; ++i) {
+            for(int j = 0; j &lt; n; ++j) {
+                if(color[i][j] == 0) {</B></FONT>
+                    int res = bfs(i, j);
+                    if(res != -1) {
+                        ans = min(ans, res);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>263_yuxiangmusic.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>263_yuxiangmusic.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+
+    public int shortestBridge(int[][] A) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int x = 0, y = 0;
+        for (int r = 0; r &lt; A.length; r++) {
+            for (int c = 0; c &lt; A[0].length; c++) {
+                if (A[r][c] == 1) {</B></FONT>
+                    x = r;
+                    y = c;
+                    break;
+                }
+            }
+        }
+        for (int move = 1; ; move++) {
+<A NAME="0"></A>            boolean[][] visited = new boolean[A.length][A[0].length];
+            visit(x, y, A, visited);
+
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int r = 0; r &lt; A.length; r++) {
+                for (int c = 0; c &lt; A[0].length; c++) {
+                    if (visited[r][c]) {
+                        expand(r, c, A);
+                    }
+                }
+            }</B></FONT>
+            if (connected(x, y, A)) {
+                return move;
+            }
+        }
+    }
+
+    private void expand(int x, int y, int[][] A) {
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] dir : dirs) {
+            int r = x + dir[0];
+            int c = y + dir[1];
+            if (r &gt;= 0 &amp;&amp; r &lt; A.length &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; A[0].length) {
+                A[r][c] = 1;
+            }
+        }
+    }
+
+    private boolean connected(int x, int y, int[][] A) {
+        boolean[][] visited = new boolean[A.length][A[0].length];
+        visit(x, y, A, visited);
+        for (int r = 0; r &lt; A.length; r++) {
+<A NAME="2"></A>            for (int c = 0; c &lt; A[0].length; c++) {
+                if (A[r][c] == 1 &amp;&amp; !visited[r][c]) {
+                    return false;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return true;
+<A NAME="3"></A>    }
+
+    private void visit(int r, int c, int[][] A, boolean[][] visited</B></FONT>) {
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#3',2,'match1-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (r &lt; 0 || r &gt;= A.length || c &lt; 0 || c &gt;= A[0].length || A[r][c] == 0 || visited[r][c]) {
+            return;
+        }
+        visited[r][c] = true;
+        visit(r - 1, c, A, visited);
+        visit(r + 1, c, A, visited);
+        visit(r, c - 1, A, visited);
+        visit(r, c + 1, A, visited);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>373_zeyuantan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>373_zeyuantan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int shortestBridge(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int s = A.size();
+        set&lt;pair&lt;int, int&gt;&gt; island[2];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0; i&lt;s; i++) {
+            for (int j=0; j&lt;s; j++) {
+                if (A[i][j]==1) {
+                    dfs(A, s, i, j, island, 0);
+                    i=s;
+                    break;
+<A NAME="1"></A>                }
+                
+            }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for (int i=0; i&lt;s; i++) {
+            for (int j=0; j&lt;s; j++) {
+                if (A[i][j]==1&amp;&amp;island[0].find(pair&lt;int, int&gt;(i, j))==island[0].end()) {</B></FONT>
+                    dfs(A, s, i, j, island, 1);
+                    i=s;
+                    break;
+                }
+            }
+        }
+        int m = 2 * s;
+        for (auto p1:island[0]) {
+            for (auto p2:island[1]) {
+                int t = abs(p1.first-p2.first)-1 + abs(p1.second-p2.second);
+                m = min(m, t);
+            }
+        }
+        return m;
+    }
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; A, int s, int row, int col, set&lt;pair&lt;int, int&gt;&gt;* island, int is) {
+        if (A[row][col]==0 || island[is].find(pair&lt;int, int&gt;(row, col)) != island[is].end()) {
+<A NAME="2"></A>            return;
+        }
+        island[is].insert(pair&lt;int, int&gt;(row, col));
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (row&gt;0) {
+            dfs(A, s, row-1, col, island, is);
+        }
+        if (col&gt;0) {
+            dfs(A, s, row, col-1, island, is);
+        }
+        if (row&lt;s-1) {
+            dfs(A, s, row+1, col, island, is);
+        }
+        if (col&lt;s-1) {
+            dfs(A, s, row, col+1, island, is);
+        }
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>219_Severoe.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>219_Severoe.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[][] direct = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+    public int shortestBridge(int[][] A) {
+        List&lt;int[]&gt; island1 = new ArrayList();
+        List&lt;int[]&gt; island2 = new</B></FONT> ArrayList();
+        for(int i = 0;i &lt; A.length;i++) {
+<A NAME="1"></A>            for(int j = 0;j &lt; A[0].length;j++) {
+                if(A[i][j] == 0 ||A[i][j] == 2) continue;
+                dfs(A, i, j, island1.size() == 0?island1:island2);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        int dis = Integer.MAX_VALUE;
+        for(int[] i: island1) {
+            for(int[] j: island2) {
+                dis = Math.min(dis, Math.abs(i[0]-j[0])+Math.abs(i[1]-j[1]));
+            }
+        }
+        return dis-1;     
+    }
+    public void dfs(int[][] A, int i, int j, List&lt;int[]&gt; island) {</B></FONT>
+        if(isEdge(A, i, j)) island.add(new int[]{i,j});
+        A[i][j] = 2;
+        for(int[] d: direct) {
+            int x = d[0]+i;
+            int y = d[1]+j;
+            if(x &lt; 0 || y &lt; 0 || x &gt;= A.length || y &gt;= A[0].length ||A[x][y] == 0 || A[x][y] == 2) continue;
+            dfs(A, x, y, island);
+        }
+    }
+    public boolean isEdge(int[][] A, int r, int c) {
+        for(int[] d: direct) {
+            int x = d[0]+r;
+            int y = d[1]+c;
+            if(x &lt; 0 || y &lt; 0 || x &gt;= A.length || y &gt;= A[0].length) continue;
+            if(A[x][y] == 0) return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

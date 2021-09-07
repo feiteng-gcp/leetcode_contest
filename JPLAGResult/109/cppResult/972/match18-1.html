@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>229_b727787721-BhsJQZvEDT.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>229_b727787721-BhsJQZvEDT.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int knightDialer(int N) {
+        vector&lt;vector&lt;long long&gt;&gt; dp(10, vector&lt;long long&gt;(N + 1, 0));
+        int mod = 1000000007;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0;i &lt; 10;i++)
+            dp[i][1] = 1;
+        for(int j = 2;j &lt;= N;j++){
+            dp[0][j] = (dp[4][j - 1] + dp[6][j - 1]) % mod;
+            dp[1][j] = (dp[6][j - 1] + dp[8][j - 1]) % mod;
+            dp[2][j] = (dp[7][j - 1] + dp[9][j - 1]) % mod;
+            dp[3][j] = (dp[4][j - 1] + dp[8][j - 1]) % mod;
+            dp[4][j] = (dp[3][j - 1] + dp[9][j - 1] + dp[0][j - 1]) % mod;
+            dp[6][j] = (dp[1][j - 1] + dp[7][j - 1] + dp[0][j - 1]) % mod;
+            dp[7][j] = (dp[2][j - 1] + dp[6][j - 1]) % mod;
+            dp[8][j] = (dp[1][j - 1] + dp[3][j - 1]) % mod;
+            dp[9][j] = (dp[2][j - 1] + dp[4][j - 1]) % mod;
+        }
+        long long res = 0;
+        for(int i = 0;i &lt; 10;i++)
+            res = (res + dp[i][N]) % mod;
+        return (int)res;</B></FONT>
+    }
+};
+</PRE>
+</BODY>
+</HTML>

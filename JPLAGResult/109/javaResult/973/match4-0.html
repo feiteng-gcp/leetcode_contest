@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_bking2015.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_bking2015.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] movesToStamp(String stamp, String target) {
+        char[] ntarget = new char[target.length()];
+        char[] nstamp = new char[stamp.length()];
+        for (int i = 0; i &lt; ntarget.length; i++) {
+            ntarget[i] = target.charAt(i);
+        }
+        for (int i = 0; i &lt; nstamp.length; i++) {
+            nstamp[i] = stamp.charAt(i);
+        }
+        int [] ret = new int[10*ntarget.length];
+        int count = 0;
+        while (true) {
+            if (checkDone(ntarget)) {
+                break;
+            }
+            int x = findStamp(ntarget, nstamp);
+            // System.out.println(Arrays.toString(ntarget));
+            ret[count++] = x;
+            if (x == -1)
+<A NAME="0"></A>                return new int[]{};
+        }
+        int[] rr = new int[count];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int y = 0;
+        for (int i = count - 1; i &gt;= 0; i--) {
+            rr[y++] = ret[i];
+        }
+        return rr;
+        
+    }</B></FONT>
+    
+    public boolean checkDone(char[] arr) {
+        for (int  i = 0; i &lt; arr.length; i++) {
+            if (arr[i] != '?') {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public int findStamp(char[] arr, char[] stamp) {
+        // optimization
+        boolean optimize = true;
+        for (int i = 0; i &lt; stamp.length; i++) {
+            if (arr[i] != '?')
+                optimize = false;
+        }
+        int start = 0;
+        if (optimize) {
+            while(true) {
+                if (arr[start + stamp.length] == '?') {
+                    start++;
+                } else {
+                    break;
+                }
+            }
+        }
+        System.out.println(&quot;start&quot; + start);
+        for (int i = start; i &lt; arr.length - stamp.length + 1; i++) {
+            if (arr[i] == stamp[0] || arr[i] == '?') {
+                // System.out.println(i + &quot;poop&quot;);
+                boolean valid = false;
+                if (arr[i] != '?')
+                    valid = true;
+                int j = 1;
+                boolean fail = false;
+                while (j &lt; stamp.length) {
+                    if (stamp[j] != arr[i + j] &amp;&amp; arr[i + j] != '?') {
+                        fail = true;
+                        break;
+                    } else {
+                        if (arr[i + j] != '?') {
+                            valid = true;
+                        }
+                    }
+                    j++;
+                }
+                // System.out.println(fail + &quot; &quot; + valid);
+                if (!fail &amp;&amp; valid) {
+                    for (int k = i; k &lt; i + j; k++) {
+                        arr[k] = '?';
+                    }
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

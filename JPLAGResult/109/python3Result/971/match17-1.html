@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>28_saarixx.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>28_saarixx.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestBridge(self, A):
+        &quot;&quot;&quot;
+        :type A: List[List[int]]
+        :rtype: int
+<A NAME="0"></A>        &quot;&quot;&quot;
+        q = []
+        n = len(A)
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n):
+            for j in range(n):
+                if A[i][j]:
+                    q.append((i, j))
+                    break
+            if</B></FONT> q:
+                break
+        marked = [[False] * n for _ in range(n)]
+        marked[q[0][0]][q[0][1]] = True
+        while q:
+            cy, cx = q.pop()
+            for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                nx = cx + dx
+                ny = cy + dy
+                if 0 &lt;= nx &lt; n and 0 &lt;= ny &lt; n:
+                    if A[ny][nx] and not marked[ny][nx]:
+                        marked[ny][nx] = True
+                        q.append((ny, nx))
+        res = 0
+        for i in range(n):
+            for j in range(n):
+                if marked[i][j]:
+                    q.append((i, j))
+        while True:
+            q2 = []
+            while q:
+                cy, cx = q.pop()
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+<A NAME="1"></A>                    nx = cx + dx
+                    ny = cy + dy
+                    if 0 &lt;= nx &lt; n and 0 &lt;= ny &lt; n:
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if A[ny][nx] and not marked[ny][nx]:
+                            return res
+                        if not A[ny][nx] and not marked[ny][</B></FONT>nx]:
+                            marked[ny][nx] = True
+                            q2.append((ny, nx))
+            res += 1
+            q = q2
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

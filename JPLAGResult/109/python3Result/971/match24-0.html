@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_kuroniko.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>400_kuroniko.py</CENTER></H3><HR>
+<PRE>
+import queue
+
+class Solution:
+    def shortestBridge(self, A):
+        &quot;&quot;&quot;
+        :type A: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        m = len(A)
+        n = len(A[0])
+        directions = [(0,1),(0,-1),(1,0),(-1,0)]
+        modified = False
+        for ii in range(m):
+            for jj in range(n):
+                if A[ii][jj] == 1 and not modified:
+                    q = queue.Queue()
+                    A[ii][jj] = 2
+                    q.put((ii,jj))
+                    while not q.empty():
+                        x,y = q.get()
+                        for dx,dy in directions:
+                            if 0&lt;=x+dx&lt;m and 0&lt;=y+dy&lt;n:
+                                if A[x+dx][y+dy] == 1:
+                                    q.put((x+dx,y+dy))
+                                    A[x+dx][y+dy] = 2
+                    modified = True
+        
+        
+<A NAME="0"></A>        output = None
+        
+        q = queue.Queue()
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for ii in range(m):
+            for jj in range(n):
+                if A[ii][jj] == 2:
+                    q.put((ii,jj,0))
+        visited =</B></FONT> set()
+        while not q.empty():
+            x,y,d = q.get()
+            for dx,dy in directions:
+                if 0&lt;=x+dx&lt;m and 0&lt;=y+dy&lt;n and (x+dx,y+dy) not in visited:
+                    if A[x+dx][y+dy] == 0:
+                        visited.add((x+dx,y+dy))
+                        q.put((x+dx,y+dy,d+1))
+                    elif A[x+dx][y+dy] == 1:
+                        return d
+                    
+                    
+                            
+                        
+</PRE>
+
+</BODY>
+</HTML>

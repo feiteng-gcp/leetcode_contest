@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_yangmei555.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_yangmei555.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int shortestBridge(int[][] A) {
+        Queue&lt;int[]&gt; list = new LinkedList&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean flag = false;
+        for (int i = 0; i &lt; A.length; i++) {
+            for (int j = 0; j &lt; A[0].length; j++) {
+                if (A[i][j] == 1) {</B></FONT>
+                    helper(A, i, j, list);
+                    // System.out.println(list.size());
+                    flag = true;
+                    break;
+                }
+<A NAME="1"></A>            }
+            if (flag)
+                break;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int res = 0;
+        // System.out.println(list.size());
+<A NAME="2"></A>        int[][] dir = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while (!list.isEmpty()) {</B></FONT>
+            for (int s = list.size(); s &gt; 0; s--) {
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#2',2,'match32-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] node = list.poll();
+                for (int[] d : dir) {
+                    int r = node[0] + d[0], c = node[1] + d[1];
+                    if (r &gt;= 0 &amp;&amp; r &lt; A.length &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; A[0].length) {</B></FONT>
+                        if (A[r][c] == 1) {
+                            return res;
+                        } else if (A[r][c] == 0) {
+<A NAME="3"></A>                            list.offer(new int[]{r, c});
+                            A[r][c] = 2;
+                        }
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#3',2,'match32-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+            }
+            res++;
+        }
+        return -1;
+    }
+    
+    public void helper(int[][] A, int i, int j, Queue&lt;int[]&gt; list</B></FONT>) {
+        int row = A.length, col = A[0].length;
+        if (i &lt; 0 || i &gt;= row || j &lt; 0 || j &gt;= col || A[i][j] != 1)
+            return;
+        list.offer(new int[]{i, j});
+        A[i][j] = 2;
+        helper(A, i+1, j, list);
+        helper(A, i, j+1, list);
+        helper(A, i-1, j, list);
+        helper(A, i, j-1, list);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

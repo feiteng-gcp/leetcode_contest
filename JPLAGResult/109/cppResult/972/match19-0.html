@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>416_saki7180.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>416_saki7180.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    //0,1,2,3,7,8,9,0 - 2, 4,6 - 3
+<A NAME="0"></A>    
+    int knightDialer(int N) {
+        vector&lt;vector&lt;long&gt;&gt; mem_vec(N, vector&lt;long&gt;(10,0));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, vector&lt;int&gt;&gt; hop_map;
+        hop_map[0] = {4,6};
+        hop_map[1] = {6,8};
+        hop_map[2] = {7,9};
+        hop_map[3] = {4,8};
+        hop_map[4] = {3,9,0};
+        hop_map[5] = {};
+        hop_map[6] = {1,7,0};
+<A NAME="1"></A>        hop_map[7] = {2,6};
+        hop_map[8] = {1,3};
+        hop_map[9] = {4,2};</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; 10; ++i){
+            mem_vec[0][i] = 1;
+        }
+        for(int i = 1; i &lt; N; ++i){
+            for(int j = 0; j &lt; 10; ++j){
+                for(auto each : hop_map[j]){</B></FONT>
+                    mem_vec[i][j] = (mem_vec[i][j] + mem_vec[i-1][each])%(1000000000 + 7) ;
+                }
+            }
+        }
+        long val_sum = 0;
+        for(int i = 0; i &lt; 10; ++i){
+            val_sum = (val_sum + mem_vec[N-1][i])%(1000000000 + 7);
+        }
+        return val_sum;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

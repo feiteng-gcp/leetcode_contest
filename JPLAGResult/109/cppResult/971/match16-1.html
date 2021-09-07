@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_tylerwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_tylerwang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+ public:
+  int shortestBridge(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+    const int n = A.size();
+<A NAME="0"></A>    vector&lt;int&gt; dx = {-1, 1, 0, 0};
+    vector&lt;int&gt; dy = {0, 0, -1, 1};
+    auto find_first = [&amp;]() -&gt; pair&lt;int, int&gt; {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for (int i = 0; i &lt; n; ++i) {
+        for (int j = 0; j &lt; n; ++j) {
+          if (A[i][j] == 1) {</B></FONT>
+            return {i, j};
+          }
+        }
+      }
+    };
+    auto p = find_first();
+    queue&lt;pair&lt;int, int&gt;&gt; prv, cur;
+    cur.push(p);
+    vector&lt;vector&lt;bool&gt;&gt; vis(n, vector&lt;bool&gt;(n));
+    vis[p.first][p.second] = true;
+<A NAME="1"></A>    while (!cur.empty()) {
+      queue&lt;pair&lt;int, int&gt;&gt; nxt;
+      while (!cur.empty()) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        pair&lt;int, int&gt; u = cur.front();
+        prv.push(u);
+        cur.pop();
+        for (int i = 0; i &lt; 4; ++i) {
+          int x = u.first + dx[i];
+          int y = u.second + dy[i];
+          if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= n) {
+            continue;
+          }
+          if (vis[x][y] || A[x][y] == 0) {
+            continue;
+          }
+          vis[x][y] = true;
+          nxt.emplace(x, y);
+        }
+      }</B></FONT>
+      cur = move(nxt);
+    }
+    int ans = 0;
+    bool endgame = false;
+    while (!prv.empty()) {
+<A NAME="2"></A>      while (!prv.empty()) {
+        pair&lt;int, int&gt; u = prv.front();
+        prv.pop();
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 4; ++i) {
+          int x = u.first + dx[i];
+          int y = u.second + dy[i];
+          if (x &lt; 0 || x &gt;= n || y &lt; 0 || y &gt;= n) {
+            continue;
+          }
+          if (vis[x][y]) {
+            continue;
+          }</B></FONT>
+          vis[x][y] = true;
+          cur.emplace(x, y);
+          if (A[x][y] == 1) {
+            endgame = true;
+          }
+        }
+      }
+      if (endgame) {
+        return ans;
+      }
+      ++ans;
+      swap(prv, cur);
+    }
+  }
+};
+</PRE>
+</BODY>
+</HTML>

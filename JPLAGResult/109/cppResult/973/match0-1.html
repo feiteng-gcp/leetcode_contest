@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>30_rohitjv.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>30_rohitjv.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; movesToStamp(string stamp, string target) {
+        vector&lt;int&gt; res;
+<A NAME="0"></A>        int n = target.size();
+        int m = stamp.size();
+        int cnt=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while(cnt!=n) {
+            int flag1=true;
+            for(int i=0;i&lt;n-m+1;i++) {
+                bool flag=true, check=false;
+                for(int j=0;j&lt;m;j++) {
+                    if(target[i+j]!='?' &amp;&amp; target[i+j]!=stamp[j]) {
+                        flag = false;</B></FONT>
+                        break;
+                    }
+                    if(target[i+j]==stamp[j]) {
+                        check=true;
+                    }
+                }
+                if(flag &amp;&amp; check) {
+                    flag1=false;
+                    res.push_back(i);
+                    for(int j=0;j&lt;m;j++) {
+                        if(target[i+j]!='?') {
+                            cnt++;
+                            target[i+j]='?';
+                        }
+                    }
+                    i=i+m;
+                }
+            }
+            if(flag1==true) {
+                vector&lt;int&gt; e;
+                return e;
+            }
+            
+        }
+        vector&lt;int&gt; a;
+        for(int i=res.size()-1;i&gt;=0;i--)
+            a.push_back(res[i]);
+        return a;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

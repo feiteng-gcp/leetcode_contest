@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_sheepforever.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_sheepforever.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; movesToStamp(string stamp, string target) {
+<A NAME="0"></A>        int n = stamp.size();
+        int m = target.size();
+        vector&lt;int&gt; res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (true) {
+            int pos = -1;
+            for (int i = 0; i + n - 1 &lt; m; ++i) {
+                bool match = true;
+                bool character = false;
+                for (int j = 0; j &lt; n; ++j) {
+                    if (target[i + j] != '.') {
+                        character = true;</B></FONT>
+                        if (stamp[j] != target[i + j]) {
+                            match = false;
+                            break;
+                        }
+                    }
+                }
+                if (!character) continue;
+                if (!match) continue;
+                pos = i;
+                break;
+            }
+            if (pos == -1) break;
+            // cout &lt;&lt; target &lt;&lt; endl;
+            res.push_back(pos);
+            for (int i = 0; i &lt; n; ++i) {
+                target[i + pos] = '.';
+            }
+        }
+        for (int i = 0; i &lt; m; ++i) {
+            if (target[i] != '.') {
+                return vector&lt;int&gt;();
+            }
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

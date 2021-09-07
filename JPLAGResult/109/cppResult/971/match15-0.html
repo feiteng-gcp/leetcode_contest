@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_frostfrog.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_frostfrog.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int d[4][2] = {
+    {1,0},
+    {-1,0},
+    {0,1},
+    {0,-1},
+};
+class Solution {
+public:
+    int shortestBridge(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int n = A.size();</B></FONT>
+        int m = A.back().size();
+        
+        vector&lt;vector&lt;bool&gt;&gt; v(n, vector&lt;bool&gt;(m, false));
+<A NAME="1"></A>        deque&lt;tuple&lt;int,int,int&gt;&gt; q;
+        
+        function&lt;void (int, int)&gt; update = [&amp;](int a, int b) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; 4; ++i) {
+                int x = a + d[i][0];
+                int y = b + d[i][1];
+                
+                if (x &lt; 0 || y &lt; 0) continue;
+                if (x &gt;= n || y &gt;= m) continue;
+                
+                if (A[x][y] &amp;&amp; !v[x][y]) {</B></FONT>
+                    v[x][y] = 1;
+                    q.emplace_back(x, y, 0);
+                    update(x, y);
+                }
+            }
+        };
+        
+        
+        for (int i = 0; i &lt; n; ++i) {
+            if (!q.empty()) break;
+            for (int j = 0; j &lt; m; ++j) {
+                if (A[i][j]) {
+                    q.emplace_back(i, j, 0);
+                    v[i][j] = true;
+                    update(i, j);
+                    break;
+                }
+            }
+        }
+        
+        
+        
+        
+        while (!q.empty()) {
+            int a, b, dep;
+<A NAME="2"></A>            tie(a,b, dep) = q.front();
+            q.pop_front();
+            
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; 4; ++i) {
+                int x = a + d[i][0];
+                int y = b + d[i][1];
+                
+                if (x &lt; 0 || y &lt; 0) continue;
+                if (x &gt;= n || y &gt;= m) continue;</B></FONT>
+                
+                if (!v[x][y]) {
+                    if (A[x][y] == 1) {
+                        return dep;
+                    }
+                    v[x][y] = 1;
+                    q.emplace_back(x, y, dep + 1);
+                }
+            } 
+        }
+     
+        return -1;
+    }
+    
+};
+</PRE>
+</BODY>
+</HTML>

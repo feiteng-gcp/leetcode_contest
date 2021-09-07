@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>236_jcaoso1a.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>236_jcaoso1a.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    set&lt;vector&lt;int&gt;&gt; change(vector&lt;vector&lt;int&gt;&gt;&amp; A, int r0, int c0, int value) {
+        int n = A.size();
+        int m = A[0].size();
+        vector&lt;pair&lt;int, int&gt;&gt; dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        vector&lt;pair&lt;int, int&gt;&gt; dq = {{r0, c0}};
+        set&lt;vector&lt;int&gt;&gt; seen;
+        seen.insert({r0, c0});
+        int dr, dc, rr, cc;
+        while(!dq.empty()) {
+            vector&lt;pair&lt;int, int&gt;&gt; new_dq;            
+            for(auto&amp; p: dq) {
+                for(auto&amp; dir: dirs) {
+                    tie(dr, dc) = dir;
+                    rr = p.first + dr;
+                    cc = p.second + dc;
+                    if (rr &lt; 0 || rr &gt;= n || cc &lt; 0 || cc &gt;= m) continue;
+                    if (A[rr][cc] == 1 &amp;&amp; seen.count({rr, cc}) == 0) {
+                        seen.insert({rr, cc});
+                        new_dq.push_back({rr, cc});
+                    }
+                }                
+            }
+            dq.swap(new_dq);
+        }
+        set&lt;vector&lt;int&gt;&gt; ans;
+        for(auto&amp; p: seen) {
+            A[p[0]][p[1]] = value;
+            for(auto&amp; dir : dirs) {
+                tie(dr, dc) = dir;
+                rr = p[0] + dr;
+                cc = p[1] + dc;
+                if (rr &lt; 0 || rr &gt;= n || cc &lt; 0 || cc &gt;= m) continue;
+                if (A[rr][cc] == 0) {
+                    ans.insert(p);
+                    break;
+                }    
+            }        
+        }
+        return ans;
+<A NAME="0"></A>    }
+    int shortestBridge(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int n = A.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = A[0].size();
+        vector&lt;set&lt;vector&lt;int&gt;&gt;&gt; grp;
+        int value;
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; m; j++) {
+<A NAME="1"></A>                if (A[i][j] == 1) {</B></FONT>
+                    grp.push_back(change(A, i, j, ++value));
+                    break;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        int ans = INT_MAX;
+        for(auto&amp; p1: grp[0]) {
+            for(auto&amp; p2: grp[1]) {
+                ans = min(ans, abs(p1[0] - p2[0]) + abs(p1[1] - p2[1]) - 1);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

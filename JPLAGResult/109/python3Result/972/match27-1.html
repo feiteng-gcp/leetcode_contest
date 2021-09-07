@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>382_hwei002.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>382_hwei002.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def knightDialer(self, N):
+        &quot;&quot;&quot;
+        :type N: int
+        :rtype: int
+        &quot;&quot;&quot;
+        
+        
+        
+        MOD = 10**9 + 7
+        dic = {}
+        def helper(N):                      # return tuple (cnt0, cnt1, ... cnt9)
+            if N in dic:
+                return dic[N]
+            if N == 1:
+                dic[N] = (1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+            else:
+                res = [0]*10
+<A NAME="0"></A>                tup = helper(N-1)
+                for prev in range(10):
+                    if prev == 0:
+                        res<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[prev] = (tup[4] + tup[6]) % MOD
+                    elif prev == 1:
+                        res[prev] = (tup[6] + tup[8]) % MOD
+                    elif prev == 2:
+                        res[prev] = (tup[7] + tup[9]) % MOD
+                    elif prev == 3:
+                        res[prev] = (tup[4] + tup[</B></FONT>8]) % MOD
+                    elif prev == 4:
+                        res[prev] = (tup[0] + tup[3] + tup[9]) % MOD
+<A NAME="1"></A>                    elif prev == 5:
+                        res[prev] = 0
+                    elif prev == 6:
+                        res[prev] = (tup[0] + tup[1] + tup<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[7]) % MOD
+                    elif prev == 7:
+                        res[prev] = (tup[2] + tup[6]) % MOD
+                    elif prev == 8:
+                        res[prev] = (tup[1] + tup[3]) % MOD
+                    elif prev == 9:
+                        res[prev] = (tup[</B></FONT>2] + tup[4]) % MOD
+                dic[N] = res
+            return dic[N]
+        
+        return sum(helper(N)) % MOD
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

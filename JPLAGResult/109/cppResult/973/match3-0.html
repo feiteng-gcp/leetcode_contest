@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_googlweknoall.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>31_googlweknoall.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    //if the sequence can be stamped, then we ought to be able to recognize at least one occurrence of the stamp in the target
+    //so we reconstruct the steps from the last one
+    //stamping can never exclude any possibilities, so we can try to greedily stamp
+    int N,M;
+    string S,T;
+    vector&lt;int&gt; movesToStamp(string stamp, string target) {
+        S=stamp; T=target;
+        N=S.size();
+        M=T.size();
+<A NAME="0"></A>        if(N&gt;M)return {};
+        vector&lt;int&gt; A;
+        for(int moves=0;;++moves){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool found=false;
+            for(int i=0;i&lt;M-N+1;++i){
+                bool f=true;
+                bool nonzero=false;
+                for(int s=0;s&lt;N &amp;&amp; i+s&lt;M;++s){
+                    if(T[i+s]!='@') nonzero=true;</B></FONT>
+                    if(T[i+s]!='@' &amp;&amp; S[s]!=T[i+s]){
+                        f=false;
+                        break;
+                    }
+                }
+                if(f &amp;&amp; nonzero){
+                    //for(int s=0;s&lt;N;++s){
+                    for(int s=0;s&lt;N &amp;&amp; i+s&lt;M;++s){
+                        T[i+s]='@';
+                    }
+                    A.push_back(i);
+                    found=true;
+                }
+            }
+            //printf(&quot;%s %s\n&quot;,S.c_str(),T.c_str());
+            //printf(&quot;%d\n&quot;,moves);
+            if(!found)break;
+        }
+        for(auto x:T){
+            if(x!='@')return {};
+        }
+        reverse(A.begin(),A.end());
+        return A;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

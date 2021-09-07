@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_hupili.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_hupili.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestBridge(self, A):
+        &quot;&quot;&quot;
+        :type A: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        # BFS
+        # When in need, run bidirectional BFS
+        
+        from collections import deque
+        
+        m = len(A)
+        n = len(A[0])
+        visited = [[0] * n for _ in range(m)]
+        # print(m, n)
+        
+        # for connected component
+        q1 = deque()
+<A NAME="0"></A>        # for BFS
+        q2 = deque()
+        
+        directions <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [
+            (1, 0),
+            (0, 1),
+            (-1, 0),
+            (0, -1)
+        ]
+        
+        # find first connected component (via 1's)
+        find = False
+        for i in range(m):
+            for j in range(n):
+                # print(i, j)
+                if A[i][j] == 1:
+                    # print('find', i, j)
+                    find =</B></FONT> True
+                    break
+            if find:
+                # find (i, j) with 1
+                break
+        # print(i, j)
+        q1.append((i, j))
+        visited[i][j] = 1
+        while q1:
+            (i, j) = q1.popleft()
+            for d in directions:
+                ii = i + d[0]
+                jj = j + d[1]
+                if 0 &lt;= ii and ii &lt; m and 0 &lt;= jj and jj &lt; n:
+                    if not visited[ii][jj]:
+                        visited[ii][jj] = 1
+                        if A[ii][jj] == 1:
+                            q1.append((ii, jj))
+                        else:
+                            q2.append((ii, jj, 1))
+        
+        # print(q2)
+        # find the bridge (via 0's)
+        while q2:
+            (i, j, l) = q2.popleft()
+            for d in directions:
+                ii = i + d[0]
+                jj = j + d[1]
+                if 0 &lt;= ii and ii &lt; m and 0 &lt;= jj and jj &lt; n:
+                    if not visited[ii][jj]:
+                        # print(i, j, l, '/', ii, jj)
+                        visited[ii][jj] = 1
+                        if A[ii][jj] == 1:
+                            return l
+                        else:
+                            q2.append((ii, jj, l + 1))
+                    
+        # not reaching here
+        assert False
+  
+        
+            
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>
