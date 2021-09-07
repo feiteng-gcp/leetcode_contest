@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>170_iamshu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>170_iamshu.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxSubarraySumCircular(self, A):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        max_subArr = self.max_subarray(A) 
+<A NAME="0"></A>        if max_subArr &lt; 0:
+            return max_subArr
+        max_wrap = 0
+        for i in range(len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(A)): 
+            max_wrap += A[i] 
+            A[i] = -A[i] 
+        max_wrap = max_wrap + self.max_subarray(A) 
+        if max_wrap &gt; max_subArr: 
+            return max_wrap 
+        else: 
+            return max_subArr
+        
+    def max_subarray(self, A):
+        max_ending_here, max_so_far =</B></FONT> A[0], A[0]
+        for x in A[1:]:
+            max_ending_here = max(x, max_ending_here + x)
+            max_so_far = max(max_so_far, max_ending_here)
+        return max_so_far
+</PRE>
+
+</BODY>
+</HTML>

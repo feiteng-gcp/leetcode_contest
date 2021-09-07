@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_zhihuzheye.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_zhihuzheye.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class CBTInserter {
+
+    TreeNode root;
+    List&lt;TreeNode&gt; list = new ArrayList&lt;TreeNode&gt;();
+    public CBTInserter(TreeNode root) {
+        this.root =root;
+        List&lt;TreeNode&gt; l = new ArrayList&lt;TreeNode&gt;();
+        l.add(root);
+        
+        while(!l.isEmpty())
+        {
+            TreeNode node = l.get</B></FONT>(0);
+            l.remove(0);
+            if(node.left != null &amp;&amp; node.right != null)
+            {
+                l.add(node.left);
+                l.add(node.right);
+            }
+            else if(node.left == null &amp;&amp; node.right == null)
+            {
+                list.add(node);
+            }
+            else if(node.right == null)
+<A NAME="1"></A>            {
+                list.add(node);
+                l.add(node.left);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+    }
+    
+    public int insert(int v) {
+        TreeNode n = new TreeNode(v);
+        TreeNode node = list.get(0);
+        if(node.left == null)
+        {
+            n</B></FONT>ode.left = n;
+            list.add(n);
+        }
+        else
+        {
+            node.right = n;
+<A NAME="2"></A>            list.remove(0);
+            list.add(n);
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return node.val;
+    }
+    
+    public TreeNode get_root() {
+        return root;
+    }
+}</B></FONT>
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * CBTInserter obj = new CBTInserter(root);
+ * int param_1 = obj.insert(v);
+ * TreeNode param_2 = obj.get_root();
+ */
+</PRE>
+
+</BODY>
+</HTML>

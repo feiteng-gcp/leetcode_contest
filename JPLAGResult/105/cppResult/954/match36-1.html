@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>397_MeL0dy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>397_MeL0dy.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxSubarraySumCircular(vector&lt;int&gt;&amp; A) {
+        int res = A[0];
+        for(int i = 1; i &lt; A.size(); i++)</B></FONT>
+        {
+            if(res &lt; A[i])
+                res = A[i];
+        }
+        
+        int len = A.size();
+        for(int i = 0; i &lt; len - 1; i++)
+            A.push_back(A[i]);
+        
+        int sum = 0;
+        int st = 0;        
+        for(int i = 0; i &lt; A.size(); i++)
+        {
+            sum = sum + A[i];
+            if(i - st + 1 &gt; len)
+            {
+                int index = st;
+                int tmp;
+                sum -= A[st ++];
+                tmp = sum;
+                while(st &lt; i)
+                {
+                    tmp -= A[st];
+                    if(tmp &gt; sum)
+                    {
+                        sum = tmp;
+                        index = st;
+                    }
+                    st ++;
+                }
+                st = index + 1;
+            }
+            if(sum &gt; res)
+                res = sum;
+            if(sum &lt; 0)
+            {
+                st = i + 1;
+                sum = 0;
+            }
+            
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

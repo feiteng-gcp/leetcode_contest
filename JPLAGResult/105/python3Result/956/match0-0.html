@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_crazymerlyn.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_crazymerlyn.py</CENTER></H3><HR>
+<PRE>
+from math import factorial
+
+def comb(n, r):
+    mod = 10 ** 9 + 7
+    num = factorial(n) % mod
+    denom = factorial(n-r) * factorial(r) % mod
+    return num * pow(denom, mod-2, mod) % mod
+
+<A NAME="0"></A>class Solution:
+    def x(self, N, L, K):
+        res = 1
+        tot <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= N
+        mod = 10 ** 9 + 7
+        for i in range(L):
+            res = res * tot % mod
+            if i &lt; K: tot -= 1
+        return res
+
+    def numMusicPlaylists(self, N, L, K):
+        &quot;&quot;&quot;
+        :type N: int
+        :type L: int
+        :type K: int
+        :rtype: int
+        &quot;&quot;&quot;
+        mod = 10 ** 9 + 7
+        res =</B></FONT> self.x(N, L, K)
+        for n in range(N-1, K-1, -1):
+            res += self.x(n, L, K) * comb(N, n) * (-1) ** (N - n)
+            res = (res % mod + mod) % mod
+        return res
+</PRE>
+
+</BODY>
+</HTML>

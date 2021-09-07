@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394_abhyudayasrinet.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>394_abhyudayasrinet.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class CBTInserter {
+public:
+    TreeNode *head_root;
+    TreeNode *arr[2000];
+    int tree_size;
+    
+    void buildTree(TreeNode *root)
+    {
+        deque&lt;TreeNode*&gt; q,q2;
+        q.push_back(root);
+        tree_size = 0;
+        while(!q.empty())
+        {
+            while(!q.empty())
+            {
+                TreeNode *curr = q.front();
+                q.pop_front();
+                arr[tree_size] = curr;
+                tree_size++;
+                if(curr-&gt;left != NULL)
+                    q2.push_back(curr-&gt;left);
+                if(curr-&gt;right != NULL)
+                    q2.push_back(curr-&gt;right);
+                
+            }
+            q.swap(q2);
+            q2.clear();
+        }
+    }
+    
+    CBTInserter(TreeNode* root) {
+        head_root = root;
+        buildTree(root);
+    }
+    
+    int parent(int i)
+    {
+        return (i-1)/2;
+    }
+    
+<A NAME="0"></A>    int insert(int v) {
+        TreeNode *node = new TreeNode(v);
+        arr[tree_size] = node;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        tree_size++;
+        int p_i = parent(tree_size-1);
+        if(p_i*2+1 == tree_size-1)
+            arr[p_i]-&gt;left = node;
+        else
+            arr[p_i]-&gt;right = node;
+        return arr[p_i]-&gt;val;
+    }
+    
+    TreeNode* get_root() {
+        return head_root;
+    }
+};</B></FONT>
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * CBTInserter obj = new CBTInserter(root);
+ * int param_1 = obj.insert(v);
+ * TreeNode* param_2 = obj.get_root();
+ */
+</PRE>
+</BODY>
+</HTML>

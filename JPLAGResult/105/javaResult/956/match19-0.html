@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_merryl.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>6_merryl.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int numMusicPlaylists(int N, int L, int K) {
+        final long MOD = 1000000007;
+        long[][] cnt = new</B></FONT> long[N + 1][L + 1];
+        for (int nsong = 1; nsong &lt;= N; nsong++) {
+            cnt[nsong][1] = nsong; 
+            for (int ilen = 2; ilen &lt;= L; ilen++) {
+                int nbanned = Math.min(nsong, Math.min(ilen - 1, K));
+                cnt[nsong][ilen] = cnt[nsong][ilen - 1] * (nsong - nbanned);
+                cnt[nsong][ilen] %= MOD;
+            }
+        }
+        
+        long[][] cnk = new long[N + 1][N + 1];
+        cnk[1][0] = 1;
+        cnk[1][1] = 1;
+        for (int i = 2; i &lt;= N; i++) {
+            cnk[i][0] = 1;
+            cnk[i][i] = 1;
+            for (int j = 1; j &lt; i; j++) {
+                cnk[i][j] = cnk[i - 1][j - 1] + cnk[i - 1][j];
+                cnk[i][j] %= MOD;
+            }
+        }
+        
+        long ret = cnt[N][L];
+        for (int i = N - 1; i &gt; 0; i--) {
+            if ((N - i) % 2 == 1) {
+                ret = (ret - (cnk[N][i] * cnt[i][L]) % MOD + MOD) % MOD;
+            } else {
+                ret += (cnk[N][i] * cnt[i][L]) % MOD;
+                ret %= MOD;
+            }
+        }
+        return (int)ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

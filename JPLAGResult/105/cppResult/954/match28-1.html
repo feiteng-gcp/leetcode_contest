@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_swordfeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_swordfeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxSubarraySumCircular(vector&lt;int&gt;&amp; A) {
+        vector&lt;int&gt; B = A;
+        B.insert(B.end(), A.begin(), A.end());
+        for (int i = 1; i &lt; B.size(); i++) B[i] += B[i - 1];</B></FONT>
+        vector&lt;pair&lt;int, int&gt;&gt; maxa, mina;
+        maxa.push_back({0,-1});
+        mina.push_back({0,-1});
+        int maxc = 0, minc = 0;
+        int result = A[0];
+        for (int i = 0; i &lt; B.size(); i++) {
+            while (!maxa.empty() &amp;&amp; maxa.back().first &lt;= B[i]) {
+                maxa.pop_back();
+            }
+            maxa.push_back({B[i], i});
+            if (maxc &gt;= maxa.size()) maxc = maxa.size() - 1;
+            while (maxa[maxc].second &lt;= i - (int)A.size()) maxc++;
+            if (i &lt; A.size()) continue;
+            int t = maxa[maxc].first - B[i - A.size()];
+            if (t &gt; result) result = t;
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

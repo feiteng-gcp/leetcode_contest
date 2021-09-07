@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_xmlyqing00.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>268_xmlyqing00.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxSubarraySumCircular(vector&lt;int&gt;&amp; A) {
+        vector&lt;int&gt; B = A;
+        for (int i = 0; i &lt; A.size(); i++) {</B></FONT>
+            B.push_back(A[i]);
+        }
+        
+        vector&lt;int&gt; sum(B.size(), 0);
+        sum[0] = B[0];
+        for (int i = 1; i &lt; B.size(); i++) {
+            sum[i] = sum[i-1] + B[i];
+            // cout &lt;&lt; sum[i] &lt;&lt; endl;
+        }
+        // cout &lt;&lt; endl;
+        
+        int max_val = -100000000;
+        vector&lt; pair&lt;int, int&gt; &gt; min_sum(B.size(), make_pair(0,0));
+        int front = 0;
+        int rear = 1;
+        for (int i = 0; i &lt; sum.size(); i++) {
+            
+            while (front &lt; rear &amp;&amp; (i - min_sum[front].second &gt;= A.size())) {
+                // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; min_sum[front].second &lt;&lt; endl;
+                front++;
+            }
+            
+            // cout &lt;&lt;&quot;f &quot; &lt;&lt; front &lt;&lt; endl;
+            
+            int tmp = sum[i] - min_sum[front].first;
+            
+            // cout &lt;&lt; tmp &lt;&lt; &quot; &quot; &lt;&lt; sum[i] &lt;&lt; &quot; &quot; &lt;&lt; min_sum[front].first &lt;&lt; &quot; &quot; &lt;&lt; min_sum[front].second &lt;&lt; endl;
+            max_val = max(max_val, tmp);
+            
+            while (front &lt; rear &amp;&amp; sum[i] &lt;= min_sum[rear-1].first) {
+                rear--;
+            }
+            
+            min_sum[rear++] = make_pair(sum[i], i);
+        }
+                
+        return max_val;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

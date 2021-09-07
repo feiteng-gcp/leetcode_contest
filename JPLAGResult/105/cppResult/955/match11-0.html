@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>393_ptolemy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>393_ptolemy.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class CBTInserter {
+public:
+    CBTInserter(TreeNode* root) {
+        m_root = root;
+        enq(root);
+    }
+    
+    int insert(int v) {
+        while(fathers.size() &gt; 0 &amp;&amp; (fathers.front()-&gt;left &amp;&amp; fathers.front() -&gt; right)){
+            fathers.pop();
+        }
+        if(fathers.size() == 0)
+            return -1;
+<A NAME="0"></A>        
+        TreeNode *f = fathers.front();
+        //cout &lt;&lt; &quot;cur &quot; &lt;&lt; f-&gt;val&lt;&lt;endl;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(f-&gt;left == NULL){
+            f-&gt;left = new TreeNode(v);
+            fathers.push(f-&gt;left);
+        }
+            
+        else{
+            f-&gt;right = new TreeNode(v);
+            fathers.push(f-&gt;right);
+            fathers.pop();
+        }
+        return f-&gt;val;
+    }
+    
+    TreeNode* get_root() {
+        return m_root;
+    }</B></FONT>
+    
+private:
+    queue&lt;TreeNode *&gt; fathers;
+    TreeNode *m_root;
+    
+    void enq(TreeNode *root){
+        if(root == NULL)
+            return;
+        
+        queue&lt;TreeNode *&gt; q;
+        q.push(root);
+        while(q.size() &gt; 0){
+            if(q.front()-&gt;left)
+                q.push(q.front()-&gt;left);
+            if(q.front()-&gt;right)
+                q.push(q.front()-&gt;right);
+            //cout &lt;&lt; &quot;enqueue &quot; &lt;&lt; q.front()-&gt;val&lt;&lt;endl;
+            fathers.push(q.front());
+            q.pop();
+        }
+    }
+};
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * CBTInserter obj = new CBTInserter(root);
+ * int param_1 = obj.insert(v);
+ * TreeNode* param_2 = obj.get_root();
+ */
+</PRE>
+</BODY>
+</HTML>

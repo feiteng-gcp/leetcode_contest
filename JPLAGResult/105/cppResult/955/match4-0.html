@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>78_ralf_tianyi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>78_ralf_tianyi.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class CBTInserter {
+private:
+    vector&lt;TreeNode*&gt; v;
+    
+public:
+    CBTInserter(TreeNode* root) {
+        v.clear();
+        queue&lt;TreeNode*&gt; que;
+<A NAME="0"></A>        que.push(root);
+        v.push_back(root);
+        while (que.size()) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto cur = que.front();
+            que.pop();
+            if (cur-&gt;left) {
+                que.push(cur-&gt;left);
+                v.push_back(cur-&gt;left);
+            }
+            if (cur-&gt;right) {
+                que.push(cur-&gt;right);
+                v.push_back(cur-&gt;right);
+            }
+        }
+    }
+    
+    int insert(int val) {</B></FONT>
+        int idx = v.size();
+        v.push_back(new TreeNode(val));
+        if (idx % 2) {
+            v[idx / 2]-&gt;left = v.back();
+            return v[idx / 2]-&gt;val;
+        } else {
+            v[(idx - 2) / 2]-&gt;right = v.back();
+            return v[(idx - 2) / 2]-&gt;val;
+        }
+    }
+    
+    TreeNode* get_root() {
+        return v[0];
+    }
+};
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * CBTInserter obj = new CBTInserter(root);
+ * int param_1 = obj.insert(v);
+ * TreeNode* param_2 = obj.get_root();
+ */
+</PRE>
+</BODY>
+</HTML>
