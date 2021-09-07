@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>293_nnbs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>293_nnbs.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; addToArrayForm(vector&lt;int&gt;&amp; A, int K) {
+        int jin = 0;
+        for (int i = A.size() - 1; i &gt;= 0; i --) {
+            A[i] = (A[i] + K % 10 + jin);
+            K /= 10;
+            jin = A[i] / 10;</B></FONT>
+            A[i] %= 10;
+        }
+        vector&lt;int&gt; ans;
+        while (K != 0 || jin != 0) {
+            ans.push_back((jin + K % 10) % 10);
+            jin = (jin + K % 10) / 10;
+            K /= 10;
+        }
+        std::reverse(ans.begin(), ans.end());
+        ans.insert(ans.end(), A.begin(), A.end());
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

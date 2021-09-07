@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>261_shiyinong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>261_shiyinong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool equationsPossible(vector&lt;string&gt;&amp; equations) {
+        vector&lt;unordered_set&lt;char&gt;&gt; e(26),ne(26);
+        for(int i=0;i&lt;26;i++) e[i].insert('a'+i);
+<A NAME="0"></A>        int len=equations.size();
+        for(auto str:equations){
+            if(str[1]=='='){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(int i=0;i&lt;26;i++){
+                    if(e[i].find(str[0])!=e[i].end()){
+                        e[i].insert(str[3]);
+                    }
+                }
+                for(int i=0;i&lt;26;i++){
+                    if(e[i].find(str[3])!=e[i].end()){</B></FONT>
+                        e[i].insert(str[0]);
+                    }
+                }
+            }else{
+                for(int i=0;i&lt;26;i++){
+                    if(e[i].find(str[0])!=e[i].end()){
+                        ne[i].insert(str[3]);
+                    }
+                }
+                for(int i=0;i&lt;26;i++){
+                    if(e[i].find(str[3])!=e[i].end()){
+                        ne[i].insert(str[0]);
+                    }
+                }
+            }
+        }
+        for(int i=0;i&lt;26;i++){
+            for(char c:e[i]){
+                if(ne[i].find(c)!=ne[i].end()) return false;
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

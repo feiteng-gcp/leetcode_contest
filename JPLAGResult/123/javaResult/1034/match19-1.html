@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_wengames.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_wengames.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int subarraysWithKDistinct(int[] A, int K) {
+        Map&lt;Integer, Integer&gt; counts_j = new HashMap&lt;&gt;();
+        int resul</B></FONT>t = 0, i = 0, j = 0, len = A.length;
+        while (counts_j.size() &lt; K &amp;&amp; j &lt; len) {
+            counts_j.compute(A[j++], (k, v) -&gt; v == null ? 1 : v + 1);
+        }
+        if (counts_j.size() != K) return 0;
+
+        int r = 1, a, c;
+        Map&lt;Integer, Integer&gt; counts_i = new HashMap&lt;&gt;();
+        while (true) {
+            a = A[i];
+            if (counts_i.getOrDefault(a, 0) == counts_j.get(a) - 1) break;
+            r++;
+            counts_i.compute(a, (k, v) -&gt; v == null ? 1 : v + 1);
+            i++;
+        }
+        result += r;
+
+        while (j &lt; len) {
+            c = counts_j.compute(A[j++], (k, v) -&gt; v == null ? 1 : v + 1);
+            if (c == 1) {
+                r = 1;
+                a = A[i++];
+                counts_i.compute(a, (k, v) -&gt; v == null ? 1 : v + 1);
+                counts_i.forEach((key, value) -&gt; counts_j.computeIfPresent(key, (k, v) -&gt; v.equals(value) ? null : v - value));
+                counts_i.clear();
+            }
+            while (true) {
+                a = A[i];
+                if (counts_i.getOrDefault(a, 0) == counts_j.get(a) - 1) break;
+                r++;
+                counts_i.compute(a, (k, v) -&gt; v == null ? 1 : v + 1);
+                i++;
+            }
+            result += r;
+        }
+
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

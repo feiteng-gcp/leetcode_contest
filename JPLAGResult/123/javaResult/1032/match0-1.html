@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>447_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>447_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean equationsPossible(String[] equations) {
+        List&lt;String&gt; equalEquations = new ArrayList&lt;String&gt;();
+        List&lt;String&gt; unequalEquations = new ArrayList&lt;String&gt;();
+        for (String equation : equations) {
+            char variable1 = equation.charAt(0);
+            char variable2 = equation.charAt(3);
+            String relation = equation.substring(1, 3);
+            if (variable1 &gt; variable2) {
+                char temp = variable1;
+                variable1 = variable2;
+                variable2 = temp;
+            }
+            String newEquation = &quot;&quot; + variable1 + relation + variable2;
+            if (relation.equals(&quot;==&quot;))
+                equalEquations.add(newEquation);
+            else
+                unequalEquations.add(newEquation);
+        }
+        int variableCount = 0;
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;Character, Integer&gt;();
+        int previousSize = 0;
+        while (!equalEquations.isEmpty()) {
+            int size = equalEquations.size();
+            boolean flag = previousSize == size;
+            for (int i = size - 1; i &gt;= 0; i--) {
+                String equation = equalEquations.get(i);
+                char variable1 = equation.charAt(0);
+                char variable2 = equation.charAt(3);
+                if (variable1 &gt; variable2) {
+                    char temp = variable1;
+                    variable1 = variable2;
+                    variable2 = temp;
+                }
+                int value1 = map.getOrDefault(variable1, 0);
+                int value2 = map.getOrDefault(variable2, 0);
+                if (value1 != 0 || value2 != 0) {
+                    if (value2 == 0) {
+                        value2 = value1;
+                        map.put(variable2, value2);
+                    } else if (value1 == 0) {
+                        value1 = value2;
+                        map.put(variable1, value1);
+                    } else if (value1 != value2)
+                        return false;
+                    equalEquations.remove(i);
+                } else {
+                    if (flag) {
+                    	flag = false;
+                        variableCount++;
+                        value1 = variableCount;
+                        value2 = variableCount;
+                        map.put(variable1, value1);
+                        map.put(variable2, value2);
+                        equalEquations.remove(i);
+                    }
+                }
+            }
+            previousSize = size;
+        }
+        for (String equation : unequalEquations) {
+            char variable1 = equation.charAt(0);
+            char variable2 = equation.charAt(3);
+            if (variable1 == variable2)
+            	return false;
+            if (variable1 &gt; variable2) {
+                char temp = variable1;
+                variable1 = variable2;
+                variable2 = temp;
+            }
+            int value1 = map.getOrDefault(variable1, 0);
+            int value2 = map.getOrDefault(variable2, 0);
+            if (value1 != 0 &amp;&amp; value2 != 0) {
+                if (value1 == value2)
+                    return false;
+                else if (value2 == 0) {
+                    variableCount++;
+                    value2 = variableCount;
+                    map.put(variable2, value2);
+                } else if (value1 == 0) {
+                    variableCount++;
+                    value1 = variableCount;
+                    map.put(variable1, value1);
+                }
+            }
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

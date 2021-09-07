@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_IrisGuo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>161_IrisGuo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int subarraysWithKDistinct(int[] A, int K) {
+        Map&lt;Integer, Integer&gt; lastIndex = new HashMap&lt;&gt;();
+        TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int result = 0;
+        int left = -1;
+        for (int right = 0; right &lt; A.length; right++) {
+            int prevLastIndex = lastIndex.getOrDefault(A[right], -1);
+            if (prevLastIndex != -1) {
+                treeMap.remove(prevLastIndex);
+            }
+            treeMap.put(right, A[right]);
+            lastIndex.put(A[right], right);
+            int count = map.getOrDefault(A[right], 0);
+            if (count == 0) {
+                K--;
+            }
+            map.put(A[right], count + 1);
+            while (K &lt; 0) {
+                left++;
+                count = map.getOrDefault(A[left], 0);
+                if (count == 1) { // the last one
+                    K++;
+                    lastIndex.remove(A[left]);
+<A NAME="0"></A>                    treeMap.remove(left);
+                }
+                map.put(A[left], count - 1);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            
+            if (K == 0) {
+                // System.out.println(left + &quot; &quot; + right + &quot;  &quot; + treeMap.firstKey());
+                int temp = treeMap.firstKey();
+                result += temp - left;
+            }
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

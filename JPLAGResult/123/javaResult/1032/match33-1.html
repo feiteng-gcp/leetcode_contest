@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_alphacarrot.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>213_alphacarrot.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	private static int[] parent, size;
+	private static int N = 26;
+
+	public boolean equationsPossible(String[] equations) {
+		int curr = 1;
+		parent = new int[N];
+		size = new int[N];
+		for (int i = 0; i &lt; N; i++) {
+			parent[i] = i;
+		}
+<A NAME="0"></A>		for (int i = 0; i &lt; N; i++) {
+			size[i] = 1;
+		}
+		for (int i = 0<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; i &lt; equations.length; i++) {
+			String str = equations[i];
+			int first = str.charAt(0) - 'a';
+<A NAME="1"></A>			int second = str.charAt(3) - 'a';
+			if (str.charAt(1) == '=') {</B></FONT>
+				join(first, second);
+			}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		}
+		for (int i = 0; i &lt; equations.length; i++) {
+			String str = equations[i];
+			int first = str.charAt(0) - 'a';
+			int second = str.charAt(3) - 'a';
+<A NAME="2"></A>			if (str.charAt(1) == '!') {</B></FONT>
+				if (find(first) == find(second)) {
+					return false;
+				}<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			}
+		}
+		return true;
+	}
+
+	public static int sizeOf(int target) {</B></FONT>
+		return size[find(target)];
+	}
+
+	public static int find(int target) {
+		int parentIndex = target;
+		while (parent[parentIndex] != parentIndex) {
+			parentIndex = parent[parentIndex];
+		}
+		int i = target;
+		while (i != parentIndex) {
+			i = parent[i];
+			parent[i] = parentIndex;
+		}
+		return parentIndex;
+	}
+
+	public static void join(int target1, int target2) {
+		int root1 = find(target1);
+		int root2 = find(target2);
+		if (root1 != root2) {
+			parent[root1] = root2;
+			size[root2] += size[root1];
+		}
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

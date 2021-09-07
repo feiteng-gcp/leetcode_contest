@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	private int[] cnt = new int[20010];
+	private int[] lastIndex = new int[20010];	
+	private TreeSet&lt;Integer&gt; set = new TreeSet&lt;&gt;();
+	
+    public int subarraysWithKDistinct(int[] A, int K) {
+     
+    	int i , j = 0 , n = A.length , total = 0 , ans = 0;
+    	Arrays.fill(lastIndex , - 1);
+    	Arrays.fill(cnt , 0);
+    	set.clear();
+    	for (i = 0;i &lt; n;i ++) {
+    		if (cnt[A[i]] == 0) {
+    			total ++;
+    			cnt[A[i]] ++;    			
+    			lastIndex[A[i]] = i;
+    			set.add(i);
+    		} else {
+    			set.remove(lastIndex[A[i]]);
+    			cnt[A[i]] ++;    			
+    			lastIndex[A[i]] = i;
+    			set.add(i);    			
+    		}    	
+    		while (total &gt; K) {
+    			cnt[A[j]] --;
+    			if (j == lastIndex[A[j]]) {
+    				set.remove(j);
+    			}
+    			if (cnt[A[j]] == 0) {
+    				total --;    				
+    			}
+<A NAME="0"></A>    			j ++;    			
+    		}
+    		if (total == K) {
+    			int temp = set.first() - j +<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> 1;
+    			ans += temp;
+    		}
+    	}    	
+    	return ans;    	
+    	
+    }
+	
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

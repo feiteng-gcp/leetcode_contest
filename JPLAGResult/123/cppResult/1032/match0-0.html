@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>442_luchy0120.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>442_luchy0120.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;vector&gt;
+<A NAME="0"></A>#include &lt;numeric&gt;
+using namespace std;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>vector&lt;int&gt; id;
+vector&lt;int&gt; sz;
+int groups;
+
+
+inline void init(int n) {
+	groups = n;
+	id.resize(n);
+	sz.resize(n, 1);
+	for (int i = 0; i &lt; n; ++i) {
+		id[i] = i;
+	}
+}
+
+inline int findRoot(int p) {
+	while (p != id[p]) {
+		id[p] = id[id[p]];
+		p = id[p];
+	}
+	return p;
+}
+
+inline void comb(int p, int q) {
+	int i = findRoot(p);
+	int j = findRoot(q);
+	if (i == j) {
+		return;
+	}
+	if (sz[i] &lt; sz[j]) {
+		id[i] = j;
+		sz[j] += sz[i];
+	} else {
+		id[j] = i;
+		sz[i] += sz[j];
+	}
+	--groups;
+}
+class Solution {
+public:
+    bool equationsPossible(vector&lt;string&gt;&amp; e) {
+        vector&lt;string&gt; eq1;
+        init(26);
+        for(string &amp;p:e){
+            if(p[1]=='!'){
+                eq1.push_back(p);
+            }else{
+                comb(p[0]-'a',p[3]-'a');
+            }
+        }
+        for(string &amp;p:eq1){
+            if(findRoot(p[0]-'a')==findRoot(p[3]-'a')){
+                return false;
+            }   
+            
+        }
+        return true;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>406_sarmantak.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>406_sarmantak.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public boolean equationsPossible(String[] equations) {
+        List[] l = new ArrayList[26];
+        for (int i = 0; i &lt; 26; i++) l[i] = new ArrayList()<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        for (String eq : equations) {
+            int c1 = eq.charAt(0) - 'a', c2 = eq.charAt(3) - 'a';
+            if (eq.charAt(1) == '=') {</B></FONT>
+                l[c1].add(c2);
+                l[c2].add(c1);
+            }
+        }
+        boolean[] seen = new boolean[26];
+        int[] g = new int[26];
+        int j = 0;
+        for (int i = 0; i &lt; 26; i++) {
+<A NAME="1"></A>            dfs(i, seen, l, i, g);
+        }
+        //System.out.println(Arrays.toString(g));
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String eq : equations) {
+            int c1 = eq.charAt(0) - 'a', c2 = eq.charAt(3) - 'a';
+            if (eq.charAt(1) == '!' &amp;&amp; g[c1] == g[c2]) return false;
+        }
+        return true;
+    }</B></FONT>
+    
+    private void dfs(int i, boolean[] seen, List&lt;Integer&gt;[] l, int j, int[] g) {
+        if (!seen[i]) {
+            seen[i] = true;
+            g[i] = j;
+            for (Integer k : l[i]) {
+                dfs(k, seen, l, j, g);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

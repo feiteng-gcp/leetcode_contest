@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_Jesko.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>254_Jesko.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] root;
+    public boolean equationsPossible(String[] equations) {
+        int id = 0;
+        HashMap&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        for(String x : equations) {
+            char a = x.charAt(0);
+            char b = x.charAt(3);
+            if(!map.containsKey(a)) map.put(a, id++);
+<A NAME="0"></A>            if(!map.containsKey(b)) map.put(b, id++);
+        }
+        root = new int[id];
+        for(int i = 0; i &lt; id; ++i) root[i] = i<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        for(String x : equations) {
+<A NAME="1"></A>            char a = x.charAt(0);
+            char b = x.charAt(3);
+            if(x.charAt(1) == '=') {</B></FONT>
+                union(map.get(a), <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(b));
+            }
+        }
+        for(String x : equations) {
+            char a = x.charAt(0);
+            char b = x.charAt(3);
+            if(x.charAt(1) == '!') {
+                if(find(map.get</B></FONT>(a)) == find(map.get(b))) return false;
+            }
+<A NAME="2"></A>        }
+        return true;
+    }
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>void union(int a, int b) {
+<A NAME="3"></A>        int ra = find(a);
+        int rb = find(b);
+        if</B></FONT>(ra != rb) root[ra] = rb;
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match15-1.html#3',3,'match15-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    int find(int x) {
+        while(x != root[x]) {
+            root[x] = root[root[x]];
+            x = root[x];
+        }
+        return x;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>
