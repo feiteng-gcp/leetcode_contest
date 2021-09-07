@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_facelessvoid.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_facelessvoid.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string findReplaceString(string S, vector&lt;int&gt;&amp; indexes, vector&lt;string&gt;&amp; sources, vector&lt;string&gt;&amp; targets) {
+        vector&lt;pair&lt;int, pair&lt;string, string&gt;&gt;&gt; inp;
+        int n = indexes.size();
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            inp.push_back({indexes[i],{sources[i], targets[i]}});
+        }
+        sort(inp.begin(), inp.end());
+        int n2 = S.size(), j = 0;
+        string res;
+        for(int i=0;i&lt;n2;i++){
+            if(j &lt; n){
+                if(inp[j].first &gt; i) res.push_back(S[i]);
+                else{
+                    bool found = false;
+                    while(j &lt; n &amp;&amp; inp[j].first == i){
+                        string t = inp[j].second.first;
+                        if(S.substr(i, t.size()) == t) { found = true; res += inp[j].second.second; i += (int)t.size() - 1;}
+                        j++;
+                    }
+                    if(!found) res.push_back(S[i]);
+                }
+            }else res.push_back(S[i]);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

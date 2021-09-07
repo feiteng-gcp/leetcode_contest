@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_acdart.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_acdart.cpp</CENTER></H3><HR>
+<PRE>
+int c[10010], d[10010];
+vector&lt;int&gt; w[10010];
+void work(int x, int p) {
+    int sz = w[x].size();
+    d[x] = 0;
+    c[x] = 1;
+    for (int i = 0; i &lt; sz; i++) {
+        int v = w[x][i];
+        if (v == p) continue;
+        work(v, x);
+        d[x] += c[v] + d[v];
+        c[x] += c[v];
+    }
+}
+int pp;
+void done(int x, int p) {
+<A NAME="0"></A>    int sz = w[x].size();
+    for (int i = 0; i &lt; sz; i++) {
+        int v = w[x][i];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (v == p) continue;
+        d[v] = d[x] + pp - 2 * c[v];
+        done(v, x);
+    }
+}
+class Solution {
+public:
+    vector&lt;int&gt; sumOfDistancesInTree(int N, vector&lt;vector&lt;int&gt;&gt;&amp; edges) {</B></FONT>
+        int n = N;
+        int m = edges.size();
+        for (int i = 0; i &lt; n; i++) w[i].clear();
+        for (int i = 0; i &lt; m; i++) {
+            int u = edges[i][0], v = edges[i][1];
+            w[u].push_back(v);
+            w[v].push_back(u);
+        }
+        memset(d, 0, sizeof d);
+        memset(c, 0, sizeof c);
+        pp = n;
+        work(0, -1);
+        int sz = w[0].size();
+        for (int i = 0; i &lt; sz; i++) {
+            int v = w[0][i];
+            d[v] = d[0] + n - 2 * c[v];
+            done(v, 0);
+        }
+        vector&lt;int&gt; res;
+        for (int i = 0; i &lt; n; i++) res.push_back(d[i]);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

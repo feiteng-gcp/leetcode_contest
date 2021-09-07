@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>229_lakeshore1986.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>229_lakeshore1986.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int largestOverlap(int[][] A, int[][] B) {
+        if (A.length == 0 || A[0].length == 0 || B.length == 0 || B[0].length == 0)
+            return 0;
+        List&lt;Integer&gt; listA = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; listB = new ArrayList&lt;&gt;();
+        for (int[] array : A)
+            listA.add(convertToBinary(array));
+        for (int[] array : B)
+<A NAME="0"></A>            listB.add(convertToBinary(array));
+        int m = A.length, n = A[0].length;
+        int mask = (1 &lt;&lt; n) - 1;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int max = 0;
+        for (int i = -m + 1; i &lt; m; i++) {
+            for (int j = -n + 1; j &lt; n; j++) {
+                int count = 0;
+                for (int k = 0</B></FONT>; k &lt; listA.size(); k++) {
+                    if (k + i &lt; 0 || k + i &gt;= m)
+                        continue;
+                    int numA = listA.get(k + i);
+                    int numB = listB.get(k);
+                    if (numA == 0 || numB == 0)
+                        continue;
+                    if (j &lt; 0) 
+<A NAME="1"></A>                        count += Integer.bitCount((numA &lt;&lt; (-j)) &amp; mask &amp; numB);
+                    else
+                        count += Integer.bitCount((numA &gt;&gt; j) &amp; mask &amp; numB);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                max = Math.max(max, count);
+            }
+        }
+        return max;
+    }
+    
+    public int convertToBinary(int[] array) {
+        int num = 0;
+        for (int i = 0</B></FONT>; i &lt; array.length; i++)
+            if (array[i] == 1)
+                num |= 1 &lt;&lt; i;
+        return num;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

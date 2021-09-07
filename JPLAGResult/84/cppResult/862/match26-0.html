@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>316_monotone.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>316_monotone.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string findReplaceString(string s, vector&lt;int&gt;&amp; idx, vector&lt;string&gt;&amp; src, vector&lt;string&gt;&amp; trg) {
+        if(s.size()==0)
+        {
+            return s;
+        }
+        
+<A NAME="0"></A>        int m = idx.size();
+        
+        string result;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, int&gt; ops;
+        for(int i =0; i&lt;m; i++)
+        {
+            ops[idx[i]] = i;
+        }
+        
+        int pre = 0;
+        for(auto &amp; kv : ops)
+        {</B></FONT>
+            int index = kv.first;
+            int opi = kv.second;
+            
+            if(s.substr(index, src[opi].size()) == src[opi])
+            {
+                result += s.substr(pre, index - pre);
+                result += trg[opi];
+                
+                index += src[opi].size();
+                pre = index;
+            }
+        }
+        
+        if(pre != s.size())
+        {
+             result += s.substr(pre, s.size() - pre);
+        }
+        
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

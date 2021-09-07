@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>174_narut.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>174_narut.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  string findReplaceString(string S, vector&lt;int&gt;&amp; indexes, vector&lt;string&gt;&amp; sources, vector&lt;string&gt;&amp; targets) {            
+    int n = indexes.size();
+    vector&lt;int&gt; tmpi(n);
+    iota(tmpi.begin(), tmpi.end(), 0);
+    sort(tmpi.begin(), tmpi.end(), [&amp;] (auto i, auto j) { return indexes[i] &lt; indexes[j]; });
+    string result = &quot;&quot;;
+    result.reserve(2*n);
+    int cur = 0;    
+    for (int i = 0; i &lt; n; i++){
+<A NAME="0"></A>      int ix = indexes[tmpi[i]];
+      auto&amp; src = sources[tmpi[i]];
+      auto&amp; tar = targets[tmpi[i]];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      if (cur &lt; ix) result += S.substr(cur, (ix-cur));
+      int m = src.length();
+      bool rep = true;
+      for (int j = 0; j &lt; m; j++) {
+        if (S[ix+j] != src[j]) { rep = false; break; }
+      }</B></FONT>
+      cur = ix;
+      if (rep) {
+        cur += m;
+        result += tar;
+      }    
+    }
+    result += S.substr(cur, (S.length()-cur));
+    return result;      
+  }
+};
+</PRE>
+</BODY>
+</HTML>
