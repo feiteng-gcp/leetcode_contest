@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_asdf3332.cpp</TITLE>
+ <TITLE>138_blackskygg.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>23_asdf3332.cpp</CENTER></H3><HR>
+<H3><CENTER>138_blackskygg.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -28,24 +28,45 @@
  */
 class Solution {
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int t) {
-<A NAME="0"></A>        vector&lt;TreeNode*&gt; res(2, NULL);
-        if (!root)
-            return res;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (root-&gt;val &lt;= t) {
-            vector&lt;TreeNode*&gt; v = splitBST(root-&gt;right, t);
-            root-&gt;right = v[0];
-            res[0] = root;
-            res[1] = v[1];
-        } else {
-            vector&lt;TreeNode*&gt; v = splitBST(root-&gt;left, t);
-            root-&gt;left = v[1];
-            res[0] = v[0];
-            res[1] = root;
+    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        if (root == nullptr) return {nullptr, nullptr};
+        TreeNode *curr = root, *p = nullptr;
+        
+        while (curr &amp;&amp; curr-&gt;val != V) {
+            p = curr;
+            if (V &gt; curr-&gt;val) {
+                curr = curr-&gt;right;
+            } else {
+                curr = curr-&gt;left;
+            }
         }
-        return res;
-    }
-};</B></FONT>
+
+        if (p == nullptr) {
+            if (root-&gt;val &lt;= V) {
+                TreeNode *r = root-&gt;right;
+                root-&gt;right = nullptr;
+                return {root, r};
+            } else {
+                TreeNode *l = root-&gt;left;
+                root-&gt;left = nullptr;
+                return {l, root};
+            }
+        } else if (curr == nullptr) {
+<A NAME="0"></A>            if (root-&gt;val &gt; V) return {nullptr, root};
+            else return {root, nullptr};
+        } else {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (curr-&gt;val &lt; p-&gt;val) {
+                p-&gt;left = curr-&gt;right;
+                curr-&gt;right = nullptr;
+                return {curr, root};
+            } else {
+                p-&gt;right = curr-&gt;left;
+                curr-&gt;left = nullptr;
+                return {root, curr};
+            }
+        }
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

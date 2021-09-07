@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_milu.cpp</TITLE>
+ <TITLE>85_wjli.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>88_milu.cpp</CENTER></H3><HR>
+<H3><CENTER>85_wjli.cpp</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
-<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+class Solution {
+	vector&lt;TreeNode*&gt; ans;
+	bool solved;
+
+	void solve(TreeNode* root, int V, TreeNode* t1, TreeNode* t2) {
+		if (root == NULL) return;
+		struct TreeNode* p = new struct TreeNode(root-&gt;val);
+		if (root-&gt;val &lt;= V) {
+			// insert to n1
+			if (t1-&gt;val &gt; root-&gt;val) {
+				t1-&gt;left = p;
+				solve(root-&gt;left, V, p, t2);
+				solve(root-&gt;right, V, p, t2);
+			}
+			else {
+<A NAME="0"></A>				t1-&gt;right = p;
+				solve(root-&gt;left, V, p, t2);
+				solve(root-&gt;right, V, p, t2);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			}
+		}
+		else {
+			if (t2-&gt;val &gt; root-&gt;val) {
+				t2-&gt;left = p;
+				solve(root-&gt;left, V, t1, p);
+				solve(root-&gt;right, V, t1, p);
+			}
+			else {
+				t2-&gt;right = p;
+				solve(root-&gt;left, V, t1, p);
+				solve(root-&gt;right, V, t1, p);
+			}</B></FONT>
+		}
+	}
+
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (!root)
-            return vector&lt;TreeNode *&gt;{NULL, NULL};
-        if (root-&gt;val == V) {
-            TreeNode *tmp = root-&gt;right;</B></FONT>
-            root-&gt;right = NULL;
-            return vector&lt;TreeNode *&gt;{root, tmp};
-        }
-        if (root-&gt;val &gt; V) {
-            vector&lt;TreeNode *&gt; sub_ans = splitBST(root-&gt;left, V);
-            root-&gt;left = sub_ans[1];
-            return vector&lt;TreeNode *&gt;{sub_ans[0], root};
-        }
-        else {
-            vector&lt;TreeNode *&gt; sub_ans = splitBST(root-&gt;right, V);
-            root-&gt;right = sub_ans[0];
-            return vector&lt;TreeNode *&gt;{root, sub_ans[1]};
-        }
-    }
+	vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+		struct TreeNode* n1 = new struct TreeNode(V + 1);
+		struct TreeNode* n2 = new struct TreeNode(V - 1);
+		solve(root, V, n1, n2);
+		
+		ans.clear();
+		ans.push_back(n1-&gt;left);
+		ans.push_back(n2-&gt;right);
+		return ans;
+	}
 };
 </PRE>
 </BODY>

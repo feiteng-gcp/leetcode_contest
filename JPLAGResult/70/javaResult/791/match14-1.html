@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>125_fanhai.java</TITLE>
+ <TITLE>183_swimmingfish.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>125_fanhai.java</CENTER></H3><HR>
+<H3><CENTER>183_swimmingfish.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -23,24 +23,46 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
-<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ *     TreeNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        if(root == null) return new TreeNode[]{null, null};</B></FONT>
-<A NAME="1"></A>        if(root.val &lt;= V){
-            TreeNode left = root;
-            TreeNode[] child = splitBST(root.right, V);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.right = child[0];
-            return new TreeNode[]{root, child[1]};
-<A NAME="2"></A>        }else{
-            TreeNode right = root</B></FONT>;
-            TreeNode[] child = splitBST(root.left, V);
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.left = child[1];
-            return new TreeNode[]{child[0], root};
+        TreeNode node = root;
+        TreeNode preNode = null;
+        TreeNode[] re = new TreeNode[2];
+        boolean flag = true;
+        
+        if (root == null) {
+            re[0] = null;
+            re[1] = null;
+            
+            return re;
         }
-    }</B></FONT>
+        
+        if (root.val == V) {
+            re[0] = root;
+            re[1] = root.right;
+            root.right = null;
+<A NAME="0"></A>            return re;
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (root.val &lt;= V) {
+            TreeNode[] subTree = splitBST(root.right, V);
+            root.right = subTree[0];
+            re[0] = root;
+            re[1] = subTree[1];
+        }
+        
+        else {
+            TreeNode[] subTree = splitBST(root.left, V);
+            re[0] = subTree[0];
+            root.left = subTree[1];
+            re[1] = root;
+        }</B></FONT>
+        
+        return re;
+    }
 }
 </PRE>
 

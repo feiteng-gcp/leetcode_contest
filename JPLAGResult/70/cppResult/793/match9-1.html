@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_fuziqianlu.cpp</TITLE>
+ <TITLE>120_hiiwave.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>33_fuziqianlu.cpp</CENTER></H3><HR>
+<H3><CENTER>120_hiiwave.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+// #include &quot;myutil.h&quot;
+
+<A NAME="0"></A>class Solution {
 public:
-<A NAME="0"></A>    bool canTransform(string start, string end) {
-        if(start.size()!=end.size()) return false;
-        int len = start.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int i=0, j=0;
-        while(i&lt;len&amp;&amp;j&lt;len){
-            while(i&lt;len&amp;&amp;start[i] == 'X') i++;
-            while(j&lt;len&amp;&amp;end[j] == 'X') j++;
-            if(start[i]!=end[j]) return false;
-            if(start[i] == 'L'&amp;&amp;i&lt;j){
-                return false;
-            }</B></FONT>
-            if(start[i] == 'R'&amp;&amp;i&gt;j){
-                return false;
-            }
-            i++;
-            j++;
-        }
-        return true;
+  bool canTransform(string start, string end) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    if (start.size() != end.size()) return false;
+    init(start, end);
+    for (int i = 0; i &lt; start.size(); ++i) {
+      if (!matchIndex(i)) return false;
     }
+    return true;
+  }</B></FONT>
+
+  bool matchIndex(int i) {
+    if (current_[i] == end_[i]) return true;
+    // now current_[i] != end_[i]
+    if (current_[i] == 'L') return false;
+    if (end_[i] == 'R') return false;
+    // left can be {X, R}, right can be {X, L}
+    // note that R -&gt; L not possible
+    if (current_[i] == 'R' &amp;&amp; end_[i] == 'L') return false;
+    // only possible combination:
+    // X -&gt; L, R -&gt; X
+    // 1. X-&gt;L
+    if (current_[i] == 'X') {
+      if (end_[i] != 'L') return false;
+      return bubbleSwapL(i);
+    // 2. R-&gt;X
+    } else {
+      assert(current_[i] == 'R');
+      if (end_[i] != 'X') return false;
+      return bubbleSwapR(i);
+    }
+  }
+
+  bool bubbleSwapL(int idx) {
+    assert(current_[idx] == 'X');
+    for (int i = idx + 1; i &lt; size_; ++i) {
+      switch(current_[i]) {
+        case 'R':
+          return false;
+        case 'X':
+          break;
+        case 'L':
+          swap(current_[i], current_[idx]);
+          return true;
+      }
+    }
+    return false;
+  }
+
+  bool bubbleSwapR(int idx) {
+    assert(current_[idx] == 'R');
+    for (int i = idx + 1; i &lt; size_; ++i) {
+      switch(current_[i]) {
+        case 'L':
+          return false;
+        case 'R':
+          break;
+        case 'X':
+          swap(current_[i], current_[idx]);
+          return true;
+      }
+    }
+    return false;
+  }
+  
+
+private:
+  void init(string start, string end) {
+    current_ = start;
+    end_ = end;
+    size_ = start.size();
+  }
+  string current_;
+  string end_;
+  int size_;
 };
 </PRE>
 </BODY>

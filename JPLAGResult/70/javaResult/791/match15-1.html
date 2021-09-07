@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_xn1990114.java</TITLE>
+ <TITLE>237_rzhang40.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>237_rzhang40.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -23,30 +23,45 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        if(root==null){
-            return new TreeNode[2];
+        TreeNode[] nodes = new TreeNode[2];
+        if (root == null) {</B></FONT>
+            return nodes;
         }
-        //0-less 1 bigger
-        TreeNode[] l=splitBST(root.left,V);
-        TreeNode[] r=splitBST(root.right,V);
-<A NAME="0"></A>        root.left=null;
-        root.right=null;
-        if(root.val&gt;V){
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.right=r[1];
-            root.left=l[1];
-<A NAME="1"></A>            return new TreeNode[]{l[0],root};
+        if (root.val == V) {
+            nodes[0] = root;
+            nodes[1] = root.right;
+            root.right = null;
+        } else if (root.val &lt; V) {
+            nodes[0] = root;
+            while (root.right != null &amp;&amp; root.right.val &lt;= V) {
+<A NAME="1"></A>                root = root.right;
+            }
+            if (root.right == null || root.right.val == V)  {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>nodes[1] = root.right;
+                root.right = null;
+            } else {
+                TreeNode[] tmp = splitBST(root.right, V);
+                root.right = tmp[0];
+                n</B></FONT>odes[1] = tmp[1];
+            }
+        } else {
+            nodes[1] = root;
+            while (root.left != null &amp;&amp; root.left.val &gt; V) {
+                root = root.left;
+            }
+            if (root.left != null) {
+                TreeNode[] tmp = splitBST(root.left, V);
+                root.left = tmp[1];
+                nodes[0] = tmp[0];
+            }
         }
-        else{</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.left=l[0];
-            root.right=r[0];
-            return new TreeNode[]{root,r[1]};
-        }
-    }</B></FONT>
+        return nodes;
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>270_cygnus.cpp</TITLE>
+ <TITLE>140_bdhmwz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>270_cygnus.cpp</CENTER></H3><HR>
+<H3><CENTER>140_bdhmwz.cpp</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Solution {
+	TreeNode* tgt, *tgtp;
+	int MinDis = INT_MAX;
+	bool found = false;
+	vector&lt;TreeNode*&gt; path;
+	vector&lt;TreeNode*&gt; bestPath;
+	void dfs(TreeNode* root, TreeNode* p, int v) {
+		if (root == NULL)
+			return;
+		path.push_back(root);
+		dfs(root-&gt;left, root, v);
+		if (root-&gt;val &lt;= v &amp;&amp; v - root-&gt;val &lt;= MinDis) {
+			found = true;
+			MinDis = v - root-&gt;val;
+			tgt = root;
+			tgtp = p;
+			bestPath = path;
+		}
+		dfs(root-&gt;right, root, v);
+		path.pop_back();
+	}
 public:
-<A NAME="0"></A>    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (root == nullptr)
-        {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            return {nullptr, nullptr};
-        }
-        if (root-&gt;val &gt; V)
-        {
-            vector&lt;TreeNode*&gt; res = splitBST(root-&gt;left, V);
-            root-&gt;left = res[1];
-            return {res[0], root};
-        }</B></FONT>
-        vector&lt;TreeNode*&gt; res = splitBST(root-&gt;right, V);
-        root-&gt;right = res[0];
-        return {root, res[1]};
-    }
+	vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+		vector&lt;TreeNode*&gt; result;
+		tgt = tgtp = NULL;
+		dfs(root, NULL, V);
+		if (!found) {
+			result.push_back(NULL);
+			result.push_back(root);
+			return result;
+		}
+<A NAME="0"></A>        V = tgt-&gt;val;
+		vector&lt;TreeNode*&gt; ltree, rtree;
+		int size = bestPath.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i &lt; size; ++i) {
+			if (bestPath[i]-&gt;val &gt; V) {
+				rtree.push_back(bestPath[i]);
+				rtree.back()-&gt;left = NULL;
+			}
+			else if (bestPath[i]-&gt;val &lt; V){
+				ltree.push_back(bestPath[i]);
+				ltree.back()-&gt;right = NULL;
+			}</B></FONT>
+			else {
+				ltree.push_back(bestPath[i]);
+				rtree.push_back(bestPath[i]-&gt;right);
+				ltree.back()-&gt;right = NULL;
+			}
+		}
+		for (int i = 0; i &lt; rtree.size() - 1; ++i) {
+			rtree[i]-&gt;left = rtree[i + 1];
+		}
+		for (int i = 0; i &lt; ltree.size() - 1; ++i) {
+			ltree[i]-&gt;right = ltree[i + 1];
+		}
+		result.push_back(rtree[0]);
+		result.push_back(ltree[0]);
+        return result;
+	}
 };
 </PRE>
 </BODY>

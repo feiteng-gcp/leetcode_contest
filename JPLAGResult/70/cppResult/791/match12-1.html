@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_i_love_xiaoshagua_cpp.cpp</TITLE>
+ <TITLE>120_hiiwave.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<H3><CENTER>120_hiiwave.cpp</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
-<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+// #include &quot;myutil.h&quot;
+
+class Solution {
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (!root) return vector&lt;TreeNode*&gt; {NULL, NULL};
-        if (root-&gt;val == V) {
-            vector&lt;TreeNode*&gt; rtn;
-            rtn.push_back(root);
-            rtn.push_back(root-&gt;right);
-            root-&gt;right = NULL;</B></FONT>
-            return rtn;
-        }
-        if (root-&gt;val &lt; V) {
-            vector&lt;TreeNode*&gt; split_right = splitBST(root-&gt;right, V);
-            root-&gt;right = split_right[0];
-            return vector&lt;TreeNode*&gt; {root, split_right[1]};
-        }
-        vector&lt;TreeNode*&gt; split_left = splitBST(root-&gt;left, V);
-        root-&gt;left = split_left[1];
-        return vector&lt;TreeNode*&gt; {split_left[0], root};
+  vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int val) {
+    if (!root) return {NULL, NULL};
+    TreeNode *firstsubroot = findClosest(root, val);
+    if (!firstsubroot) return {NULL, root};
+    TreeNode *replaced_node = firstsubroot-&gt;right;
+    TreeNode *parent = findParent(root, firstsubroot-&gt;val);
+<A NAME="0"></A>
+    firstsubroot-&gt;right = NULL;
+    if (!parent) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      return {firstsubroot, replaced_node};
+    } else {
+      if (parent-&gt;right == firstsubroot) {
+        parent-&gt;right = replaced_node;
+      } else {
+        assert(parent-&gt;left == firstsubroot);
+        parent-&gt;left = replaced_node;
+      }</B></FONT>
+      return {firstsubroot, root};
     }
+  }
+  TreeNode* findClosest(TreeNode* node, int val,
+                        TreeNode* closest = NULL) {
+    if (!node) return closest;
+    if (node-&gt;val == val) {
+      return node;
+    } else if (node-&gt;val &gt; val) {
+      return findClosest(node-&gt;left, val, closest);
+    } else if (node-&gt;val &lt; val) {
+      closest = node;
+      return findClosest(node-&gt;right, val, closest);
+    }
+  }
+  TreeNode* findParent(TreeNode *node, int val, TreeNode *parent = NULL) {
+    if (node-&gt;val == val) {
+      return parent;
+    } else if (node-&gt;val &gt; val) {
+      parent = node;
+      return findParent(node-&gt;left, val, parent);
+    } else if (node-&gt;val &lt; val) {
+      parent = node;
+      return findParent(node-&gt;right, val, parent);
+    }
+  }
 };
 </PRE>
 </BODY>

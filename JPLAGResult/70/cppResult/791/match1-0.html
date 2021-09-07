@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>79_ZYCSwing.cpp</TITLE>
+ <TITLE>8_pmnoxx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>79_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>8_pmnoxx.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -27,18 +27,31 @@
  * };
  */
 class Solution {
-<A NAME="0"></A>public:
+public:
     vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (root == nullptr) return {nullptr, nullptr};
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (root-&gt;val &lt;= V) {
-            auto res = splitBST(root-&gt;right, V);
-            root-&gt;right = res[0];
-            return {root, res[1]};
-        } else {
-            auto res = splitBST(root-&gt;left, V);
-            root-&gt;left = res[1];
-            return {res[0], root};
+        vector&lt;TreeNode*&gt; res(2);
+        if (root == nullptr) return res;
+        
+        if (root-&gt;val == V) {
+            res[0] = root;
+            res[1] = root-&gt;right;
+            root-&gt;right = nullptr;
         }
+        else if (V &lt; root-&gt;val)  {
+<A NAME="0"></A>            vector&lt;TreeNode*&gt; split = splitBST(root-&gt;left, V);
+            
+            res[0] = split[0];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            res[1] = root;
+            root-&gt;left = split[1];
+        }
+        else {
+            vector&lt;TreeNode*&gt; split = splitBST(root-&gt;right, V);
+            
+            res[0] = root;
+            res[1] = split[1];
+            root-&gt;right = split[0];
+        }
+        return res;
     }
 };</B></FONT>
 </PRE>

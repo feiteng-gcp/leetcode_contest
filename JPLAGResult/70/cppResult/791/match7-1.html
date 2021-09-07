@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>46_flowmemo.cpp</TITLE>
+ <TITLE>182_txingml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>46_flowmemo.cpp</CENTER></H3><HR>
+<H3><CENTER>182_txingml.cpp</CENTER></H3><HR>
 <PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
- public:
-<A NAME="0"></A>  vector&lt;TreeNode *&gt; splitBST(TreeNode *root, const int V) {
-    if (!root) return {NULL, NULL};
-    const int c = root-&gt;val;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    if (c &lt;= V) {
-      auto rr = splitBST(root-&gt;right, V);
-      root-&gt;right = rr[0];
-      return {root, rr[1]};
-    } else {
-      auto rr = splitBST(root-&gt;left, V);
-      root-&gt;left = rr[1];
-      return {rr[0], root};
+    void solve (TreeNode*root, int v, TreeNode* &amp; root1, TreeNode* &amp; root2) {
+<A NAME="0"></A>        root1 = NULL;
+        root2 = NULL;
+        if (root == NULL) return;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (root-&gt;val &lt;= v) {
+            root1 = root;
+            TreeNode *tmp1, *tmp2;
+            solve(root-&gt;right, v, tmp1, tmp2);
+            root2 = tmp2;
+            root-&gt;right = tmp1;
+        }
+        else {
+            root2 = root;
+            TreeNode *tmp1, *tmp2;
+            solve(root-&gt;left, v, tmp1, tmp2);
+            root1 = tmp1;
+            root-&gt;left = tmp2;
+        }
+        
+    }</B></FONT>
+public:
+    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        TreeNode* ret1, *ret2;
+        solve(root, V, ret1, ret2);
+        vector&lt;TreeNode*&gt; ret;
+        ret.push_back(ret1); ret.push_back(ret2);
+        return ret;
+        
     }
-  }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

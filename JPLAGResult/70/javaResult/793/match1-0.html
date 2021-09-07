@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_uwi.java</TITLE>
+ <TITLE>386_luchy0120.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<H3><CENTER>386_luchy0120.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public boolean canTransform(String start, String end) {
-	    	if(!start.replace(&quot;X&quot;, &quot;&quot;).equals(end.replace(&quot;X&quot;, &quot;&quot;)))return false;
-	    	int n = start.length();
-	    	int p = 0;
-	    	for(int i = 0;i &lt; n;i++){
-	    		if(start.charAt(i) != 'X'){
-<A NAME="0"></A>	    			while(p &lt; n &amp;&amp; end.charAt(p) == 'X'){
-	    				p++;
-	    			}
-	    			if(start.charAt(i) == 'R<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>'){
-	    				if(i &gt; p)return false;
-	    			}else{
-	    				if(i &lt; p)return false;
-	    			}
-	    			p++;
-	    		}</B></FONT>
-	    	}
-	    	return true;
-	    }
-	}	
+class Solution {
+    public boolean canTransform(String s, String e) {
+        
+        char[] ss = s.toCharArray();
+        char[] es = e.toCharArray();
+        if(s.length()!=e.length()) return false;
+        List&lt;Integer&gt; sl = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; sr = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; esl = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; esr = new ArrayList&lt;&gt;();
+        String ns = &quot;&quot;;
+        String ens = &quot;&quot;;
+        
+        for(int i=0;i&lt;ss.length;i++){
+            if(ss[i]=='L'){
+                sl.add(i);
+                ns += ss[i];
+            }else if(ss[i]=='R'){
+                sr.add(i);
+                ns += ss[i];
+            }
+            
+            if(es[i]=='L'){
+                esl.add(i);
+                ens += es[i];
+            }else if(es[i]=='R'){
+                esr.add(i);
+                ens += es[i];
+            }
+            
+            
+        }
+        if(!ns.equals(ens)) return false;
+<A NAME="0"></A>        if(sl.size()!=esl.size()) return false;
+        if(sr.size()!=esr.size()) return false;
+        
+        for(int i=0;i&lt;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sl.size();i++){
+            if(sl.get(i)&lt;esl.get(i)){
+<A NAME="1"></A>                return false;
+            }
+        }</B></FONT>
+        for(int i=0;i&lt;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sr.size();i++){
+            if(sr.get(i)&gt;esr.get(i)){
+                return false;
+            }
+        }</B></FONT>
+        return true;
+        
+    }
+}
 </PRE>
 
 </BODY>

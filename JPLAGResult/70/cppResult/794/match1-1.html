@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>36_lovedsp210.cpp</TITLE>
+ <TITLE>245_flyg.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>36_lovedsp210.cpp</CENTER></H3><HR>
+<H3><CENTER>245_flyg.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int genK32(int x, int y) {
-        return (x &lt;&lt; 16) | y;
-    }
-    bool check(vector&lt; vector&lt;int&gt; &gt; &amp; vv, int x) {
-        if(vv[0][0] &gt; x) return false;
-        int N = vv.size();
-        queue&lt;int&gt; qi;
-<A NAME="0"></A>        vector&lt; vector&lt;bool&gt; &gt; visited(N, vector&lt;bool&gt;(N, false));
-        qi.push(genK32(0, 0));
-        visited[0][0] = true;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int move[][2] = {
-            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
-        };
-        while(!qi.empty()) {
-            int cur = qi.front();</B></FONT>
-            qi.pop();
-            int px = (cur &gt;&gt; 16) &amp; 0xFFFF;
-            int py = cur &amp; 0xFFFF;
-            for(int i = 0; i &lt; 4; i ++) {
-                int nx = px + move[i][0];
-                int ny = py + move[i][1];
-                if(nx &lt; 0 || nx &gt;= N || ny &lt; 0 || ny &gt;= N || visited[nx][ny]) continue;
-                if(vv[nx][ny] &gt; x) continue;
-                if(nx == N - 1 &amp;&amp; ny == N - 1) return true;
-                qi.push(genK32(nx, ny));
-                visited[nx][ny] = true;
+    int swimInWater(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int height[n][n];
+        for(int i=0;i&lt;n;i++)
+        {
+            for(int j=0;j&lt;n;j++)
+            {
+                height[i][j]=3000;
             }
-<A NAME="1"></A>        }
-        return false;
-    }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int swimInWater(vector&lt; vector&lt;int&gt; &gt; &amp; grid) {
-        int N = grid.size();
-        int lo = 0, hi = N * N - 1;
-        while(lo &lt; hi) {
-            int mid = lo + (hi - lo) / 2;
-            if(!check(grid, mid)) lo = mid + 1;</B></FONT>
-            else hi = mid;
         }
-        return lo;
+        bool changed;
+        height[0][0]=grid[0][0];
+<A NAME="0"></A>        do
+        {
+            changed=false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i=0;i&lt;n;i++)
+            {
+                for(int j=0;j&lt;n;j++)
+                {
+                    if(i&gt;0&amp;&amp;height[i-1][j]&gt;height[i][j])
+                    {</B></FONT>
+                        if(grid[i-1][j]&lt;grid[i][j])
+                        {
+                            height[i-1][j]=height[i][j];
+                            changed=true;
+                        }
+                        else if(height[i-1][j]&gt;max(height[i][j],grid[i-1][j]))
+                        {
+                            height[i-1][j]=max(height[i][j],grid[i-1][j]);
+                            changed=true;
+                        }
+                    }
+                    if(i+1&lt;n&amp;&amp;height[i+1][j]&gt;height[i][j])
+                    {
+                        if(grid[i+1][j]&lt;grid[i][j])
+                        {
+                            height[i+1][j]=height[i][j];
+                            changed=true;
+                        }
+                        else if(height[i+1][j]&gt;max(height[i][j],grid[i+1][j]))
+                        {
+                            height[i+1][j]=max(height[i][j],grid[i+1][j]);
+                            changed=true;
+                        }
+                    }
+                    if(j&gt;0&amp;&amp;height[i][j-1]&gt;height[i][j])
+                    {
+                        if(grid[i][j-1]&lt;grid[i][j])
+                        {
+                            height[i][j-1]=height[i][j];
+                            changed=true;
+                        }
+                        else if(height[i][j-1]&gt;max(height[i][j],grid[i][j-1]))
+                        {
+                            height[i][j-1]=max(height[i][j],grid[i][j-1]);
+                            changed=true;
+                        }
+                    }
+                    if(j+1&lt;n&amp;&amp;height[i][j+1]&gt;height[i][j])
+                    {
+                        if(grid[i][j+1]&lt;grid[i][j])
+                        {
+                            height[i][j+1]=height[i][j];
+                            changed=true;
+                        }
+                        else if(height[i][j+1]&gt;max(height[i][j],grid[i][j+1]))
+                        {
+                            height[i][j+1]=max(height[i][j],grid[i][j+1]);
+                            changed=true;
+                        }
+                    }
+                }
+            }
+        }while(changed);
+        return height[n-1][n-1];
     }
 };
 </PRE>

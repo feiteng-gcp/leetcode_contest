@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>46_flowmemo.cpp</TITLE>
+ <TITLE>270_cygnus.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>46_flowmemo.cpp</CENTER></H3><HR>
+<H3><CENTER>270_cygnus.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
- public:
-<A NAME="0"></A>  vector&lt;TreeNode *&gt; splitBST(TreeNode *root, const int V) {
-    if (!root) return {NULL, NULL};
-    const int c = root-&gt;val;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    if (c &lt;= V) {
-      auto rr = splitBST(root-&gt;right, V);
-      root-&gt;right = rr[0];
-      return {root, rr[1]};
-    } else {
-      auto rr = splitBST(root-&gt;left, V);
-      root-&gt;left = rr[1];
-      return {rr[0], root};
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        if (root == nullptr)
+        {
+            return {nullptr, nullptr};
+        }
+        if (root-&gt;val &gt; V)
+        {
+            vector&lt;TreeNode*&gt; res = splitBST(root-&gt;left, V);
+            root-&gt;left = res[1];
+            return {res[0], root};
+        }</B></FONT>
+        vector&lt;TreeNode*&gt; res = splitBST(root-&gt;right, V);
+        root-&gt;right = res[0];
+        return {root, res[1]};
     }
-  }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

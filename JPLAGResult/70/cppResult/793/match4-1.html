@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_blademamama.cpp</TITLE>
+ <TITLE>402_anindyadas.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_blademamama.cpp</CENTER></H3><HR>
+<H3><CENTER>402_anindyadas.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    bool canTransform(string s, string e) {
-        string s0, e0;
-        for(char c : s) if(c != 'X') s0.push_back(c);
-        for(char c : e) if(c != 'X') e0.push_back(c);
-        if(s0 != e0) return false;
-        vector&lt;int&gt; sl, sr, el, er;
-        for(int i = 0; i &lt; s.size(); ++i) {
-            if(s[i] == 'L') sl.push_back(i);
-            if(s[i] == 'R') sr.push_back(i);
-            if(e[i] == 'L') el.push_back(i);
-<A NAME="0"></A>            if(e[i] == 'R') er.push_back(i);
+    string process(string now, vector&lt; pair&lt;char, int&gt; &gt;&amp; list_char) {
+        string ret = &quot;&quot;;
+        for (int i = 0; i &lt; now.size(); i++) {
+            if (now[i] == 'R')
+                ret += &quot;R&quot;, list_char.push_back(make_pair('R', i));
+            if (now[i] == 'L')
+                ret += &quot;L&quot;, list_char.push_back(make_pair('L', i));
         }
+        return ret;
+    }
+    
+    
+    
+    bool canTransform(string start, string end) {
+        if (start.size() != end.size())
+            return false;        
+<A NAME="0"></A>        vector&lt; pair&lt;char, int&gt; &gt; vpci_st, vpci_nd;
+        string st = process(start, vpci_st), nd = process(end, vpci_nd);
+                
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (st != nd || vpci_st.size() != vpci_nd.size())
+            return false;
         
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; sl.size(); ++i) {
-            if(sl[i] &lt; el[i]) return false;
+        for (int i = 0; i &lt; vpci_st.size(); i++) {
+            if ( vpci_st[i].first == 'R' &amp;&amp; vpci_st[i].second &gt; vpci_nd[i].second)
+                return false;
+            if ( vpci_st[i].first == 'L' &amp;&amp; vpci_st[i].second &lt; vpci_nd[i].second)
+                return false;
         }
-        
-        for(int i = 0; i &lt; sr.size(); ++i) {
-            if(sr[i] &gt; er[i]) return false;
-        }  
-        
         return true;
     }
 };</B></FONT>

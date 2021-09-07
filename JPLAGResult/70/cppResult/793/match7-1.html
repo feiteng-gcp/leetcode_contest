@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_blademamama.cpp</TITLE>
+ <TITLE>130_merryl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,80 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_blademamama.cpp</CENTER></H3><HR>
+<H3><CENTER>130_merryl.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    bool canTransform(string s, string e) {
-        string s0, e0;
-        for(char c : s) if(c != 'X') s0.push_back(c);
-        for(char c : e) if(c != 'X') e0.push_back(c);
-        if(s0 != e0) return false;
-        vector&lt;int&gt; sl, sr, el, er;</B></FONT>
-        for(int i = 0; i &lt; s.size(); ++i) {
-            if(s[i] == 'L') sl.push_back(i);
-            if(s[i] == 'R') sr.push_back(i);
-            if(e[i] == 'L') el.push_back(i);
-            if(e[i] == 'R') er.push_back(i);
+    bool canTransform(string start, string end) {
+        string rlstart, rlend;
+        int len = start.size();
+        if (len == 0) {
+            return true;
         }
         
-        for(int i = 0; i &lt; sl.size(); ++i) {
-            if(sl[i] &lt; el[i]) return false;
+        vector&lt;int&gt; Lstart, Lend, Rstart, Rend;
+        
+        for (int i = 0; i &lt; len; i++) {
+            if (start[i] != 'X') {
+                rlstart += start[i];
+                if (start[i] == 'L') {
+                    Lstart.push_back(i);
+                } else {
+                    Rstart.push_back(i);
+                }
+            } 
+            if (end[i] != 'X') {
+                rlend += end[i];
+                if (end[i] == 'L') {
+                    Lend.push_back(i);
+                } else {
+                    Rend.push_back(i);
+                }
+                
+<A NAME="0"></A>            } 
         }
         
-        for(int i = 0; i &lt; sr.size(); ++i) {
-            if(sr[i] &gt; er[i]) return false;
-        }  
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (rlstart != rlend) {
+            return false;
+        }
+        
+        
+        for (int i = 0; i &lt; Lstart.size(); i++) {
+            if (Lstart[i] &lt; Lend[i]) {
+                return false;
+            }</B></FONT>
+        }
+        
+        for (int i = 0; i &lt; Rstart.size(); i++) {
+            if (Rstart[i] &gt; Rend[i]) {
+                return false;
+            }
+        }
+        
+     /*   int xlen = xpos_start.size();
+        for (int i = 0; i &lt; xlen; i++) {
+            if (xpos_start[i] == xpos_end[i]) {
+                continue;
+            } else if (xpos_start[i] &lt; xpos_end[i]) {
+                int istart = xpos_start[i] + 1;
+                for (int j = istart; j &lt;= xpos_end[i]; i++) {
+                    if (start[j] != 'L') {
+                        return false;
+                    }
+                }
+            } else {
+                int istart = xpos_start[i] - 1;
+                for (int j = istart; j &gt;= xpos_end[i]; j--) {
+                    if (start[j] != 'R') {
+                        return false;
+                    }
+                }
+            }
+        }*/
         
         return true;
+        
+        
     }
 };
 </PRE>

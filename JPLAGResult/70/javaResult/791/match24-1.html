@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_xn1990114.java</TITLE>
+ <TITLE>183_swimmingfish.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>183_swimmingfish.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -28,24 +28,40 @@
  */
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        if(root==null){
-            return new</B></FONT> TreeNode[2];
+        TreeNode node = root;
+        TreeNode preNode = null;
+        TreeNode[] re = new</B></FONT> TreeNode[2];
+        boolean flag = true;
+        
+        if (root == null) {
+            re[0] = null;
+            re[1] = null;
+            
+            return re;
         }
-        //0-less 1 bigger
-        TreeNode[] l=splitBST(root.left,V);
-        TreeNode[] r=splitBST(root.right,V);
-        root.left=null;
-        root.right=null;
-        if(root.val&gt;V){
-            root.right=r[1];
-            root.left=l[1];
-            return new TreeNode[]{l[0],root};
+        
+        if (root.val == V) {
+            re[0] = root;
+            re[1] = root.right;
+            root.right = null;
+            return re;
+        }
+        
+        if (root.val &lt;= V) {
+            TreeNode[] subTree = splitBST(root.right, V);
+            root.right = subTree[0];
+            re[0] = root;
+            re[1] = subTree[1];
 <A NAME="1"></A>        }
-        else{
-            root.left=l[0];
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.right=r[0];
-            return new TreeNode[]{root,r[1]};
+        
+        else {
+            TreeNode[] subTree = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>splitBST(root.left, V);
+            re[0] = subTree[0];
+            root.left = subTree[1];
+            re[1] = root;
         }
+        
+        return re;
     }
 }</B></FONT>
 </PRE>

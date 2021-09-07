@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_blademamama.cpp</TITLE>
+ <TITLE>465_mureal.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_blademamama.cpp</CENTER></H3><HR>
+<H3><CENTER>465_mureal.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    bool canTransform(string s, string e) {
-        string s0, e0;
-        for(char c : s) if(c != 'X') s0.push_back(c);
-        for(char c : e) if(c != 'X') e0.push_back(c);
-        if(s0 != e0) return false;
-        vector&lt;int&gt; sl, sr, el, er;
-        for(int i = 0; i &lt; s.size(); ++i) {
-            if(s[i] == 'L') sl.push_back(i);
-            if(s[i] == 'R') sr.push_back(i);
-            if(e[i] == 'L') el.push_back(i);
-<A NAME="0"></A>            if(e[i] == 'R') er.push_back(i);
+    bool canTransform(string start, string end) {
+        int i;
+        int ind_start=0;
+        int ind_end=0;
+        int scntl=0,scntr=0,ecntl=0,ecntr=0;
+        if (start == end) return true;
+        if (start.length() != end.length()) return false;
+        for (i=0; i&lt;start.length(); i++)
+            if (start[i] == 'L')
+                scntl++;
+            else if (start[i] == 'R')
+                scntr++;
+        
+        for (i=0; i&lt;end.length(); i++)
+            if (end[i] == 'L')
+                ecntl++;
+            else if (end[i] == 'R')
+                ecntr++;
+<A NAME="0"></A>        
+        if (scntl != ecntl || scntr != ecntr) return false;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (i=0; i&lt;end.length(); i++) {
+            while (ind_start &lt; start.length() &amp;&amp; start[ind_start] == 'X') ind_start++;
+            while (ind_end &lt; end.length() &amp;&amp; end[ind_end] == 'X') ind_end++;
+        
+            if (ind_start == start.length() &amp;&amp; ind_end == end.length()) return true;
+            if (ind_start == start.length() || ind_end == end.length()) return false;
+            
+            if (start[ind_start] != end[ind_end]) return false;
+            if (start[ind_start] == 'R') {</B></FONT>
+                if (ind_start&gt;ind_end) return false;
+            } else {
+                if (ind_start&lt;ind_end) return false;
+            }
+            ind_start++;
+            ind_end++;
         }
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; sl.size(); ++i) {
-            if(sl[i] &lt; el[i]) return false;
-        }
-        
-        for(int i = 0; i &lt; sr.size(); ++i) {
-            if(sr[i] &gt; er[i]) return false;
-        }  
-        
         return true;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

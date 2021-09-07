@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>83_pffy233.cpp</TITLE>
+ <TITLE>46_flowmemo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>83_pffy233.cpp</CENTER></H3><HR>
+<H3><CENTER>46_flowmemo.cpp</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
-<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (root == nullptr) return {root, root};
-        if (root-&gt;val &gt; V) {
-            auto t = splitBST(root-&gt;left, V);
-            root-&gt;left = t[1];
-            return {t[0], root};
-        }</B></FONT>
-        auto t = splitBST(root-&gt;right, V);
-        root-&gt;right = t[0];
-        return {root, t[1]};
+class Solution {
+ public:
+<A NAME="0"></A>  vector&lt;TreeNode *&gt; splitBST(TreeNode *root, const int V) {
+    if (!root) return {NULL, NULL};
+    const int c = root-&gt;val;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    if (c &lt;= V) {
+      auto rr = splitBST(root-&gt;right, V);
+      root-&gt;right = rr[0];
+      return {root, rr[1]};
+    } else {
+      auto rr = splitBST(root-&gt;left, V);
+      root-&gt;left = rr[1];
+      return {rr[0], root};
     }
-};
+  }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

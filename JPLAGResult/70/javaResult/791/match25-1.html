@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>137_lexizhu.java</TITLE>
+ <TITLE>183_swimmingfish.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>137_lexizhu.java</CENTER></H3><HR>
+<H3><CENTER>183_swimmingfish.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -26,44 +26,43 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-<A NAME="1"></A>class Solution {
-    public TreeNode[] splitBST(TreeNode root, int k) {
-        TreeNode root2 = null;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeNode tmp = root;
-        TreeNode parent1 = null;
-        TreeNode parent2 = null;
-        // Determine at which side of the root we will travel
-        boolean toLeft = root != null &amp;&amp; k &lt; root.val;
-
-        while (root != null) {
-            while (root != null &amp;&amp; (k &lt; root.val) == toLeft) {
-                parent1 = root;
-                root = toLeft ? root.left : root.right;
-            }</B></FONT>
-            setChild(parent1, toLeft, null); // Cut out the edge. root is now detached
-            toLeft = !toLeft; // toggle direction
-            if (root2 == null) {
-                root2 = root; // This is the root of the other tree.
-            } else if (parent2 != null) {
-                setChild(parent2, toLeft, root); // re-attach the detached subtree
-            }
-            parent2 = parent1;
-            parent1 = null;
+class Solution {
+    public TreeNode[] splitBST(TreeNode root, int V) {
+        TreeNode node = root;
+        TreeNode preNode = null;
+        TreeNode[] re = new TreeNode[2];
+        boolean flag = true;
+        
+        if (root == null) {
+            re[0] = null;
+            re[1] = null;
+            
+            return re;
         }
-<A NAME="0"></A>        TreeNode[] res = new TreeNode[2];
-        res[0] = tmp;
-        res[1] = root2;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+        
+        if (root.val == V) {
+            re[0] = root;
+            re[1] = root.right;
+            root.right = null;
+<A NAME="0"></A>            return re;
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (root.val &lt;= V) {
+            TreeNode[] subTree = splitBST(root.right, V);
+            root.right = subTree[0];
+            re[0] = root;
+            re[1] = subTree[1];
+        }
+        
+        else {
+            TreeNode[] subTree = splitBST(root.left, V);
+            re[0] = subTree[0];
+            root.left = subTree[1];
+            re[1] = root;
+        }</B></FONT>
+        
+        return re;
     }
-    
-    public void setChild(TreeNode node, boolean toLeft, TreeNode child){
-        // Assign child node to the indicated direction: left or right
-        if (toLeft) {
-            node.left = child;
-        } else {
-            node.right = child;
-        }
-    }</B></FONT>
 }
 </PRE>
 

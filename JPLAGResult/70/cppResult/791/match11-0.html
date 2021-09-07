@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_milu.cpp</TITLE>
+ <TITLE>51_szp14.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>88_milu.cpp</CENTER></H3><HR>
+<H3><CENTER>51_szp14.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -28,26 +28,24 @@
  */
 class Solution {
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (!root)
-            return vector&lt;TreeNode *&gt;{NULL, NULL};
-<A NAME="0"></A>        if (root-&gt;val == V) {
-            TreeNode *tmp = root-&gt;right;
-            root-&gt;right = NULL;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return vector&lt;TreeNode *&gt;{root, tmp};
-        }
-        if (root-&gt;val &gt; V) {
-            vector&lt;TreeNode *&gt; sub_ans = splitBST(root-&gt;left, V);
-            root-&gt;left = sub_ans[1];
-            return vector&lt;TreeNode *&gt;{sub_ans[0], root};
-        }
-        else {
-            vector&lt;TreeNode *&gt; sub_ans = splitBST(root-&gt;right, V);
-            root-&gt;right = sub_ans[0];
-            return vector&lt;TreeNode *&gt;{root, sub_ans[1]};
-        }
+<A NAME="0"></A>    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        TreeNode *L = root, *R = root;
+    if(root == NULL) return {L, R};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    else if(root-&gt;val &lt;= V)
+    {
+        vector&lt;TreeNode*&gt; ans = splitBST(root-&gt;right, V);
+        root-&gt;right = ans[0];
+        R = ans[1];
     }
-};</B></FONT>
+    else
+    {
+        vector&lt;TreeNode*&gt; ans = splitBST(root-&gt;left, V);
+        root-&gt;left = ans[1];
+        L = ans[0];
+    }</B></FONT>
+    return {L, R};
+    }
+};
 </PRE>
 </BODY>
 </HTML>

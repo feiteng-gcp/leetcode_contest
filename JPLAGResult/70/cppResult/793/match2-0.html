@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>78_ibrahim4.cpp</TITLE>
+ <TITLE>6_gerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>78_ibrahim4.cpp</CENTER></H3><HR>
+<H3><CENTER>6_gerwang.cpp</CENTER></H3><HR>
 <PRE>
+
 class Solution {
-public:
-<A NAME="0"></A>    bool canTransform(string start, string end) {
-        string a1=&quot;&quot;, a2=&quot;&quot;;
-        vector&lt;int&gt; S, E;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;start.length();i++){
-            if(start[i]!='X') {a1+=start[i]; S.push_back(i);}
-            if(end[i]!='X'){ a2+=end[i]; E.push_back(i);}</B></FONT>
+<A NAME="0"></A>public:
+    bool canTransform(string start, string end) {
+        int n = start.length();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int s = 0, e = 0;
+        while (true) {
+            while (s &lt; n &amp;&amp; start[s] == 'X') {
+                s++;
+            }
+            while (e &lt; n &amp;&amp; end[e] == 'X') {
+                e++;
+            }
+            if (s &gt;= n &amp;&amp; e &gt;= n) {
+                return true;
+            }
+            if (s &lt; n &amp;&amp; e &lt; n &amp;&amp; start[s] == end[e]) {</B></FONT>
+                if (start[s] == 'R') {
+                    if (s &gt; e) {
+                        return false;
+                    }
+                } else {
+                    if (s &lt; e) {
+                        return false;
+                    }
+                }
+                s++;
+                e++;
+            } else {
+                return false;
+            }
         }
-        
-    
-        if (a1!=a2) return false;
-        for(int i =0;i&lt;S.size();i++){
-            if(a1[i]=='L' &amp;&amp; S[i] &lt; E[i]) return false;
-            if(a1[i]=='R' &amp;&amp; S[i] &gt; E[i]) return false;
-
-        }
-        return true;
-        
-        /*int i =0,j=0;
-        while(i&lt;start.length() &amp;&amp; j&lt;end.length()){
-            if(start[i]=='X') i++;
-            else if(end[j]=='X') j++;
-            else if(end[j]!=start[i]) return false;
-            else {i++;j++;}
-        }
-        while(i&lt;start.length() &amp;&amp; start[i]=='X') i++;
-        while(j&lt;end.length() &amp;&amp; end[j]=='X') j++;
-        return (i==start.length() &amp;&amp; j==end.length());*/
-
     }
 };
 </PRE>

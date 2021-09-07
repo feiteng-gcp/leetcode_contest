@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>319_botao2018.java</TITLE>
+ <TITLE>271_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>319_botao2018.java</CENTER></H3><HR>
+<H3><CENTER>271_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -23,27 +23,34 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
-<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ *     TreeNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        TreeNode[] ret = new TreeNode[2];
-
-        if(root == null) return ret;
-        if(root.val &lt;= V){
-            r</B></FONT>et[0] = root;
-            TreeNode[] next = splitBST(root.right,V);
-            ret[0].right = next[0];
-            ret[1] = next[1];
-        }else{
-            ret[1] = root;
-            TreeNode[] next = splitBST(root.left,V);
-            ret[1].left = next[1];
-            ret[0] = next[0];
+        TreeNode[] res = new TreeNode[2];
+        
+        if (root == null) {
+            return res;
         }
-
-        return ret;
+        
+        if (root.val == V) {
+<A NAME="0"></A>            res[0] = root;
+            res[1] = root.right;
+            root.right = null;
+        } else <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (root.val &gt; V) {
+            TreeNode[] tn = splitBST(root.left, V);
+            root.left = tn[1];
+            res[0] = tn[0];
+            res[1] = root;
+        } else {
+            TreeNode[] tn = splitBST(root.right, V);
+            root.right = tn[0];
+            res[0] = root;
+            res[1] = tn[1];
+        }</B></FONT>
+        
+        return res;
     }
 }
 </PRE>

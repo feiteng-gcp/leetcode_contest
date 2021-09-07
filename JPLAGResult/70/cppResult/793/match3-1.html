@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_Netario36.cpp</TITLE>
+ <TITLE>142_zhanzq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_Netario36.cpp</CENTER></H3><HR>
+<H3><CENTER>142_zhanzq.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     bool canTransform(string start, string end) {
-        vector&lt;int&gt; l1, l2, r1, r2;
-        string s1 = &quot;&quot;, s2 = &quot;&quot;;
-        for (int i = 0; i &lt; start.size(); ++ i) {
-            if (start[i] == 'L') l1.push_back(i);</B></FONT>
-            if (start[i] == 'R') r1.push_back(i);
-            if (start[i] != 'X') s1 += start[i];
+        int sz = start.size();
+        vector&lt;pair&lt;char, int&gt;&gt; v1;
+        vector&lt;pair&lt;char, int&gt;&gt; v2;
+        for(int i=0; i&lt;sz; i++){
+            if(start[i] == 'R'){
+                v1.push_back({'R', i});
+            }else if(start[i] == 'L'){
+                v1.push_back({'L', i});
+            }
+            if(end[i] == 'R'){
+                v2.push_back({'R', i});
+            }else if(end[i] == 'L'){
+                v2.push_back({'L', i});
+            }
         }
-        for (int i = 0; i &lt; end.size(); ++ i) {
-            if (end[i] == 'L') l2.push_back(i);
-            if (end[i] == 'R') r2.push_back(i);
-            if (end[i] != 'X') s2 += end[i];
+        int v_sz1 = v1.size();
+        int v_sz2 = v2.size();
+        if(v_sz1 != v_sz2){
+            return false;
         }
-        if (s1 != s2) return false;
-        if (l1.size() != l2.size() || r1.size() != r2.size()) return false;
-        for (int i = 0; i &lt; l1.size(); ++ i)
-            if (l2[i] &gt; l1[i]) return false;
-        for (int i = 0; i &lt; r1.size(); ++ i)
-            if (r2[i] &lt; r1[i]) return false;
+<A NAME="0"></A>        for(int i=0; i&lt;v_sz1; i++){
+            if(v1[i].first != v2[i].first){
+                return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }else{
+                if(v1[i].first == 'L'){
+                    if(v1[i].second &lt; v2[i].second){
+                        return false;
+                    }
+                }else{
+                    if(v1[i].second &gt; v2[i].second){
+                        return false;
+                    }
+                }</B></FONT>
+            }
+        }
         return true;
     }
 };

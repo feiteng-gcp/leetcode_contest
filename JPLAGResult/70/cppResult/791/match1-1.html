@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_cchao.cpp</TITLE>
+ <TITLE>336_yexinyutony.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>21_cchao.cpp</CENTER></H3><HR>
+<H3><CENTER>336_yexinyutony.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -27,19 +27,37 @@
  * };
  */
 class Solution {
+    TreeNode* target;
+    TreeNode* parent;
 public:
-<A NAME="0"></A>    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int v) {
-        if (root == nullptr) {
-            return {nullptr, nullptr};
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        } else if (root-&gt;val &lt;= v) {
-            auto a = splitBST(root-&gt;right, v);
-            root-&gt;right = a[0];
-            return {root, a[1]};
-        } else {
-            auto a = splitBST(root-&gt;left, v);
-            root-&gt;left = a[1];
-            return {a[0], root};
+    void find(TreeNode* tmp,TreeNode* p ,int V){
+        if(!tmp) return;
+        if(tmp-&gt;val&lt;=V){
+            target = tmp;
+            parent = p;
+            return;
         }
+        find(tmp-&gt;left,tmp,V);
+        find(tmp-&gt;right,tmp,V);
+    }
+    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        vector&lt;TreeNode*&gt; result(2,nullptr);
+        find(root, nullptr,V);
+        if(!target) {
+            result[0]=root;
+<A NAME="0"></A>            result[1]=nullptr;
+        }
+        else if(!parent){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            result[0]=nullptr;
+            result[1]=root;
+        
+        }else{
+            parent-&gt;left = target-&gt;right;
+            target-&gt;right=nullptr;
+            result[0]=root;
+            result[1]=target;
+        }
+        return result;
     }
 };</B></FONT>
 </PRE>

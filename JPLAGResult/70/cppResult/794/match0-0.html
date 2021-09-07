@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>36_lovedsp210.cpp</TITLE>
+ <TITLE>367_quanxie.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>36_lovedsp210.cpp</CENTER></H3><HR>
+<H3><CENTER>367_quanxie.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int genK32(int x, int y) {
-        return (x &lt;&lt; 16) | y;
+    void explore(vector&lt;vector&lt;int&gt;&gt;&amp; reach, vector&lt;vector&lt;int&gt;&gt;&amp; grid, int ii, int jj, int res){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (ii&gt;0 &amp;&amp; grid[ii-1][jj] &lt;= res &amp;&amp; reach[ii-1][jj] == 0){
+            reach[ii-1][jj] = 1;
+            explore(reach, grid, ii-1, jj, res);
+        }
+        if (ii&lt;grid.size()-1 &amp;&amp; grid[ii+1][jj] &lt;= res &amp;&amp; reach[ii+1][jj] == 0){
+            reach[ii+1][jj] = 1;
+            explore(reach, grid, ii+1, jj, res);
+        }
+        if (jj&gt;0 &amp;&amp; grid[ii][jj-1] &lt;= res &amp;&amp; reach[ii][jj-1] == 0){
+            reach[ii][jj-1] = 1;
+            explore(reach, grid, ii, jj-1, res);
+        }
+        if (jj&lt;grid.size()-1 &amp;&amp; grid[ii][jj+1] &lt;= res &amp;&amp; reach[ii][jj+1] == 0){
+            reach[ii][jj+1] = 1;
+            explore(reach, grid, ii, jj+1, res);
+        }</B></FONT>
+        return;
     }
-    bool check(vector&lt; vector&lt;int&gt; &gt; &amp; vv, int x) {
-        if(vv[0][0] &gt; x) return false;
-        int N = vv.size();
-        queue&lt;int&gt; qi;
-        vector&lt; vector&lt;bool&gt; &gt; visited(N, vector&lt;bool&gt;(N, false));
-        qi.push(genK32(0, 0));
-        visited[0][0] = true;
-        const int move[][2] = {
-            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
-        };
-        while(!qi.empty()) {
-<A NAME="0"></A>            int cur = qi.front();
-            qi.pop();
-            int px = (cur &gt;&gt; 16) &amp; 0xFFFF;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int py = cur &amp; 0xFFFF;
-            for(int i = 0; i &lt; 4; i ++) {
-                int nx = px + move[i][0];
-                int ny = py + move[i][1];
-                if(nx &lt; 0 || nx &gt;= N || ny &lt; 0 || ny &gt;= N || visited[nx][ny]) continue;</B></FONT>
-                if(vv[nx][ny] &gt; x) continue;
-                if(nx == N - 1 &amp;&amp; ny == N - 1) return true;
-                qi.push(genK32(nx, ny));
-                visited[nx][ny] = true;
+    int swimInWater(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int res = 0;
+        int n = grid.size();
+        bool found = false;
+        vector&lt;vector&lt;int&gt;&gt; reach(n, vector&lt;int&gt;(n,0));
+        reach[0][0] = 1;
+        res = grid[0][0];
+        // cout&lt;&lt;&quot;okay&quot;&lt;&lt;endl;
+        while(!found){
+            for (int i = 0; i &lt; n; i++){
+                for (int j = 0; j &lt; n; j++){
+                    if (reach[i][j] == 1 &amp;&amp; grid[i][j] &lt;= res){
+                        // cout&lt;&lt;res&lt;&lt;&quot; &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; okay&quot;&lt;&lt;endl;
+                        explore(reach, grid, i, j, res);
+                    }
+                }
             }
+            if (reach[n-1][n-1] == 1){
+                found = true;
+                break;
+            }
+            res++;
         }
-        return false;
-<A NAME="1"></A>    }
-    int swimInWater(vector&lt; vector&lt;int&gt; &gt; &amp; grid) {
-        int N = grid.size();
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int lo = 0, hi = N * N - 1;
-        while(lo &lt; hi) {
-            int mid = lo + (hi - lo) / 2;
-            if(!check(grid, mid)) lo = mid + 1;
-            else hi = mid;
-        }
-        return lo;
+        return res;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

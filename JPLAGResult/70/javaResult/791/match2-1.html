@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>26_seraph1212.java</TITLE>
+ <TITLE>271_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>26_seraph1212.java</CENTER></H3><HR>
+<H3><CENTER>271_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -26,23 +26,31 @@
 <A NAME="0"></A> *     TreeNode(int x) { val = x; }
  * }
  */
-<A NAME="1"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        TreeNode[] ans = new TreeNode[2];
-        if (root == null) return</B></FONT> ans<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-        if (root.val &lt;= V) {
-            TreeNode[] child = splitBST(root.right, V);
-            ans[0] = root;
-            root.right = child[0];
-            ans[1] = child[1];
+        TreeNode[] res = new TreeNode[2];
+        
+        if (root == null) {
+            return res;
+<A NAME="1"></A>        }
+        
+        if (root.val == V) {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res[0] = root;
+            res[1] = root.right;
+            root.right = null;
+        } else if (root.val &gt; V) {
+            TreeNode[] tn = splitBST(root.left, V);
+            root.left = tn[1];
+            res[0] = tn[0];
+<A NAME="2"></A>            res[1] = root;
+        } else {</B></FONT>
+            TreeNode[] tn = splitBST(root.right, V);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.right = tn[0];
+            res[0] = root;
+            res[1] = tn[1];
         }
-        else {
-            TreeNode[] child = splitBST(root.left, V);
-            ans[1] = root;
-            root.left = child[1];
-            ans[0] = child[0];
-        }
-        return ans;
+        
+        return res;
     }
 }</B></FONT>
 </PRE>

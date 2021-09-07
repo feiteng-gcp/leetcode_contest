@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_prakhar15.java</TITLE>
+ <TITLE>248_merayxu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>22_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>248_merayxu.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -23,26 +23,44 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
-<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ *     TreeNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public TreeNode[] splitBST(TreeNode root, int V) {
-        if (root == null) return new TreeNode[] {null, null};</B></FONT>
-        TreeNode[] left = splitBST(root.left, V);
-        TreeNode[] right = splitBST(root.right, V);
-        TreeNode r = new TreeNode(root.val);
-        if (root.val &lt;= V) {
-            r.left = left[0];
-            r.right = right[0];
-<A NAME="1"></A>            return new TreeNode[] {r, right[1]};
-        } else {
-            r.left = left[1];
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>r.right = right[1];
-            return new TreeNode[] {left[0], r};
+class Solution {
+<A NAME="0"></A>    public TreeNode[] splitBST(TreeNode root, int V) {
+        if(root == null) return new TreeNode[2];
+        TreeNode[] res = new TreeNode[2];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(root.val == V){
+            res[0] = root.left;
+            res[1] = root;
+            root.left = null;
+            return res;
         }
+        if(root.left == null &amp;&amp; root.right == null){
+            if(root.val &gt; V){
+                r</B></FONT>es[1] = root;
+<A NAME="1"></A>                res[0] = null;
+            }else{
+                res[0] = root;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>res[1] = null;
+            }
+            return res;
+        }
+        if(root.val &gt; V){
+            res[1] = root;
+            TreeNode[] temp = splitBST(root.left,V);
+            root.left = temp[1];
+            res[0] = temp[0];
+        }else{</B></FONT>
+            //root.val &lt; V
+            res[0] = root;
+            TreeNode[] temp = splitBST(root.right,V);
+            root.right = temp[0];
+            res[1] = temp[1];
+        }
+        return res;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

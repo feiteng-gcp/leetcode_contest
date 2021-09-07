@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>67_xuchengwen.cpp</TITLE>
+ <TITLE>7_zxononame.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,89 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>67_xuchengwen.cpp</CENTER></H3><HR>
+<H3><CENTER>7_zxononame.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    void swap(char &amp; a, char&amp; b){
-        char t = a;
-        a =b;
-        b=t;
-    }
-    bool canTransform(string start, string end) {
-        if(start==end) return true;
-        vector&lt;int&gt; R;
-        vector&lt;int&gt; L;
-        string RL;
-        for(int i=0;i&lt;start.size();i++){
-            if(start[i]=='R') {
-                R.push_back(i);
-                RL+='R';
-            }
-            if(start[i]=='L') {
-                L.push_back(i);
-                RL+='L';
-            }
-            
-        }
-        vector&lt;int&gt; R2;
-        vector&lt;int&gt; L2;
-        string RL2;
-        for(int i=0;i&lt;end.size();i++){
-            if(end[i]=='R') {
-                R2.push_back(i);
-                RL2+='R';
-            }
-            if(end[i]=='L') {
-                L2.push_back(i);
-                RL2+='L';
-            }
-        }
-<A NAME="0"></A>        if(R.size()!=R2.size()) return false;
-        if(L.size()!=L2.size()) return false;
-        if(RL!=RL2) return false;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;R.size();i++){
-            if(R[i]&gt;R2[i]) return false;
-        }
-        for(int i=0;i&lt;L.size();i++){
-            if(L[i]&lt;L2[i]) return false;
+<A NAME="0"></A>    bool canTransform(string start, string end) {
+        int x = 0, y = 0, ls = start.size(), le = end.size();
+        while (x &lt; ls || y &lt; le)
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        {
+            while (x &lt; ls &amp;&amp; start[x] == 'X') x++;
+            while (y &lt; le &amp;&amp; end[y] == 'X') y++;
+            if (x &gt;= ls &amp;&amp; y &gt;= le) return true;
+            if (x &gt;= ls || y &gt;= le) return false;
+            if (start[x] != end[y]) return false;
+            if (start[x] == 'L' &amp;&amp; x &lt; y) return false;</B></FONT>
+            if (start[x] == 'R' &amp;&amp; x &gt; y) return false;
+            x++, y++;
         }
         return true;
-        
-        
-        /*
-        unordered_set&lt;string&gt; dp;
-        queue&lt;string&gt; que;
-        que.push(start);
-        dp.insert(start);
-        while(!que.empty()){
-            string tmp = que.front();
-            que.pop();
-            for(int i=0;i&lt;tmp.size()-1;i++){
-                if(tmp[i]=='X'&amp;&amp;tmp[i+1]=='L'){
-                    swap(tmp[i],tmp[i+1]);
-                    if(tmp==end) return true;
-                    if(dp.find(tmp)==dp.end()){
-                        que.push(tmp);
-                        dp.insert(tmp);
-                    } 
-                    swap(tmp[i],tmp[i+1]);
-                }
-                if(tmp[i]=='R'&amp;&amp;tmp[i+1]=='X'){
-                    swap(tmp[i],tmp[i+1]);
-                    if(tmp==end) return true;
-                    if(dp.find(tmp)==dp.end()){
-                        que.push(tmp);
-                        dp.insert(tmp);
-                    } 
-                    swap(tmp[i],tmp[i+1]);
-                }
-            }
-        }
-        return false;
-        */
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

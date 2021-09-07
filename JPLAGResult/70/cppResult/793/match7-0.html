@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>61_facelessvoid.cpp</TITLE>
+ <TITLE>142_zhanzq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>61_facelessvoid.cpp</CENTER></H3><HR>
+<H3><CENTER>142_zhanzq.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     bool canTransform(string start, string end) {
-        string s1; for(char c : start) if(c != 'X') s1.push_back(c);
-        string s2; for(char c : end) if(c != 'X') s2.push_back(c);
-        
-        if(s1!=s2) return false;
-        
-        int i=0,j=0, n=start.size();</B></FONT>
-        while(j &lt; n &amp;&amp; i &lt; n){
-            while(j &lt; n &amp;&amp; end[j] == 'X') ++j;
-            while(i &lt; n &amp;&amp; start[i] == 'X') ++i;
-            if(start[i] != end[j]) return false;
-            if(start[i] == 'R' &amp;&amp; i &gt; j){  return false; }
-            else if(start[i] == 'L' &amp;&amp; i &lt; j) {  return false; }
-            ++i; ++j;
+        int sz = start.size();
+        vector&lt;pair&lt;char, int&gt;&gt; v1;
+        vector&lt;pair&lt;char, int&gt;&gt; v2;
+        for(int i=0; i&lt;sz; i++){
+            if(start[i] == 'R'){
+                v1.push_back({'R', i});
+            }else if(start[i] == 'L'){
+                v1.push_back({'L', i});
+            }
+            if(end[i] == 'R'){
+                v2.push_back({'R', i});
+            }else if(end[i] == 'L'){
+                v2.push_back({'L', i});
+            }
+<A NAME="0"></A>        }
+        int v_sz1 = v1.size();
+        int v_sz2 = v2.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(v_sz1 != v_sz2){
+            return false;
         }
-        
+        for(int i=0; i&lt;v_sz1; i++){
+            if(v1[i].first != v2[i].first){
+                return false;
+            }else{</B></FONT>
+                if(v1[i].first == 'L'){
+                    if(v1[i].second &lt; v2[i].second){
+                        return false;
+                    }
+                }else{
+                    if(v1[i].second &gt; v2[i].second){
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
-        
-//         unordered_set&lt;string&gt; set1, set2;
-//         set1.insert(start); set2.insert(end);
-//         queue&lt;string&gt; que1, que2;
-//         que1.push(start); que2.push(end);
-//         while(!que1.empty()){
-//             if(que1.size() &gt; que2.size()){
-//                 swap(que1, que2); swap(set1, set2);
-//             }
-            
-//             int sz = que1.size();
-//             for(int k=0;k&lt;sz;k++){
-//                 auto cur = que1.front(); que1.pop();
-//                 for(int i=1;i&lt;cur.size();i++){
-                    
-//                 }
-//             }
-//         }
     }
 };
 </PRE>

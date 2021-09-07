@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>48_potato1996.cpp</TITLE>
+ <TITLE>78_ibrahim4.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>48_potato1996.cpp</CENTER></H3><HR>
+<H3><CENTER>78_ibrahim4.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     bool canTransform(string start, string end) {
-        if(start.length()!=end.length())return false;
-        vector&lt;int&gt; l1;
-        vector&lt;int&gt; r1;
-        vector&lt;int&gt; l2;
-        vector&lt;int&gt; r2;
-        string s1;
-        string s2;
-        int len = start.length();
-        for(int i = 0;i&lt;len;++i){
-            if(start[i] == 'L'){
-                l1.push_back(i);
-                s1.push_back('L');
-            }
-            else if(start[i] == 'R'){
-                r1.push_back(i);
-                s1.push_back('R');
-            }
-            if(end[i] == 'L'){
-                l2.push_back(i);
-                s2.push_back('L');
-            }
-            else if(end[i] == 'R'){
-                r2.push_back(i);
-                s2.push_back('R');
-<A NAME="0"></A>            }
-        }
-        if(s1 != s2)return false;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0;i&lt;l1.size();++i){
-            if(l1[i] &lt; l2[i])return false;
-        }
-        for(int i = 0;i&lt;r1.size();++i){
-            if(r1[i] &gt; r2[i])return false;
+        string a1=&quot;&quot;, a2=&quot;&quot;;
+        vector&lt;int&gt; S, E;
+        for(int i=0;i&lt;start.length();i++){
+            if(start[i]!='X') {a1+=start[i]; S.push_back(i);}
+            if(end[i]!='X'){ a2+=end[i]; E.push_back(i);}
+<A NAME="0"></A>        }
+        
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (a1!=a2) return false;
+        for(int i =0;i&lt;S.size();i++){
+            if(a1[i]=='L' &amp;&amp; S[i] &lt; E[i]) return false;
+            if(a1[i]=='R' &amp;&amp; S[i] &gt; E[i]) return false;
+
         }
         return true;
+        
+        /*int i =0,j=0;
+        while(i&lt;start.length() &amp;&amp; j&lt;end.length()){
+            if(start[i]=='X') i++;
+            else if(end[j]=='X') j++;
+            else if(end[j]!=start[i]) return false;
+            else {i++;j++;}
+        }
+        while(i&lt;start.length() &amp;&amp; start[i]=='X') i++;
+        while(j&lt;end.length() &amp;&amp; end[j]=='X') j++;
+        return (i==start.length() &amp;&amp; j==end.length());*/
+
     }
 };</B></FONT>
 </PRE>

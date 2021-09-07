@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_WilsonWang.cpp</TITLE>
+ <TITLE>301_jiananz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,94 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>40_WilsonWang.cpp</CENTER></H3><HR>
+<H3><CENTER>301_jiananz.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     bool canTransform(string start, string end) {
-        string a, b;
-        for (auto c: start) {
-            if (c == 'L' || c == 'R') {
-                a.push_back(c);
-            }
-        }
-        for (auto c: end) {
-            if (c == 'L' || c == 'R') {
-                b.push_back(c);
-            }
-        }
-<A NAME="0"></A>        if (a != b) {
+        unordered_set&lt;string&gt; exist;
+        vector&lt;string&gt; curr, next;
+        curr.push_back(start);
+        int n = start.size();
+        if (start.size() != end.size())
             return false;
+        
+        if (invariance(start, end) == 0)
+            return false;
+        
+        string s1, e1;
+        for (int i = 0; i &lt; n; i++) {
+            if (start[i] == 'R' || start[i] == 'L') {
+                s1.push_back(start[i]);
+            }
+            if (end[i] == 'R' || end[i] == 'L') {
+                e1.push_back(end[i]);
+            }
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int x = 0, y = 0;
-        for (int i = 0; i &lt; start.size(); i++) {
-            if (start[i] == 'L') {
-                x++;
+        
+        if (s1 == e1)
+            return true;
+        else
+            return false;
+        
+        
+        while (!curr.empty()) {
+            for (auto str : curr) {
+                if (str == end)
+                    return true;
+                exist.insert(str);
+                // flip R
+                for (int i = 0; i &lt; n - 1; i++) {
+                    if (str[i] == 'R' &amp;&amp; str[i + 1] == 'X') {
+                        swap(str[i], str[i + 1]);
+                        if (exist.find(str) == exist.end() &amp;&amp; invariance(str, end)) {
+                            next.push_back(str);
+                        }
+                        swap(str[i], str[i + 1]);
+                    }
+                }
+                
+                for (int i = 1; i &lt; n; i++) {
+                    if (str[i] == 'L' &amp;&amp; str[i - 1] == 'X') {
+                        swap(str[i], str[i - 1]);
+                        if (exist.find(str) == exist.end() &amp;&amp; invariance(str, end)) {
+                            next.push_back(str);
+                        }
+                        swap(str[i], str[i - 1]);
+                    }
+                }
+                
             }
-            if (end[i] == 'L') {
-                y++;
-            }</B></FONT>
-            if (x &gt; y) {
-                return false;
-<A NAME="1"></A>            }
+            
+            curr = next;
+            next.clear();
         }
-        x = 0; y = 0;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = start.size() - 1; i &gt;= 0; i--) {
-            if (start[i] == 'R') {
-                x++;
-            }
-            if (end[i] == 'R') {
-                y++;
-            }</B></FONT>
-            if (x &gt; y) {
+        return false;
+<A NAME="0"></A>    }
+    
+    bool invariance(string a, string b) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int suma = 0, sumb = 0;
+        for (int i = 0; i &lt; a.size(); i++) {
+            if (a[i] == 'R')
+                suma++;
+            if (b[i] == 'R')
+                sumb++;
+<A NAME="1"></A>            if (suma &lt; sumb)
                 return false;
-            }
+        }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        suma = 0; sumb = 0;
+        for (int i = a.size() - 1; i &gt;= 0; i--) {
+            if (a[i] == 'L')
+                suma++;
+            if (b[i] == 'L')
+                sumb++;
+            if (suma &lt; sumb)
+                return false;
         }
         return true;
+        
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

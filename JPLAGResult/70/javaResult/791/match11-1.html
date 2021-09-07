@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>173_codoge1.java</TITLE>
+ <TITLE>37_Zhangbq5858.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>173_codoge1.java</CENTER></H3><HR>
+<H3><CENTER>37_Zhangbq5858.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -29,20 +29,22 @@
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
         TreeNode[] res = new TreeNode[2];
-        if (root == null) {</B></FONT>
-            return res;
-<A NAME="1"></A>        }
-        if (V &gt;= root.val) {
-            TreeNode[] temp = splitBST(root.right, V);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root.right = temp[0];
-            res[0] = root;
-            res[1] = temp[1];
-        } else {
-            TreeNode[] temp = splitBST(root.left, V);
-            root.left = temp[1];
-            res[0] = temp[0];
-            res[1] = root;
-        }</B></FONT>
+        if(root == null){
+<A NAME="1"></A>            res[0] = null;
+            res[1] = null;
+        }else{</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(root.val&gt;V){
+                TreeNode[] tmp = splitBST(root.left,V);
+                root.left = tmp[1];
+                res[0] = tmp[0];
+                res[1] = root;
+            }else{
+                TreeNode[] tmp = splitBST(root.right,V);
+                root.right = tmp[0];
+                res[0] = root;
+                res[1] = tmp[1];
+            }</B></FONT>
+        }
         return res;
     }
 }

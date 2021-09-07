@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>121_matchalatte.java</TITLE>
+ <TITLE>103_jamesyang2333.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>121_matchalatte.java</CENTER></H3><HR>
+<H3><CENTER>103_jamesyang2333.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>import java.util.*;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+import com.sun.org.apache.xml.internal.utils.res.IntArrayWrapper;
+
+import java.util.ArrayList;
+<A NAME="0"></A>
+public class Solution {
     public boolean canTransform(String start, String end) {
-        if (start.length() != end.length())  return false;
-        int i = 0</B></FONT>, j = 0;
-        int n = start.length();
-        while (i &lt; n &amp;&amp; j &lt; n) {
-            while (i &lt; n &amp;&amp; start.charAt(i) == 'X') i++;
-            while (j &lt; n &amp;&amp; end.charAt(j) == 'X') j++;
-            if (i == n &amp;&amp; j == n)  break;
-            if (i == n || j == n)  return false;
-            if (start.charAt(i) != end.charAt(j))  return false;
-            if (start.charAt(i) == 'R') {
-                if (j &lt; i)  return false;
-            } else {
-                if (i &lt; j)  return false;
-            }
-            i++; j++;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ArrayList&lt;Integer&gt; inir = new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; inil = new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; finr = new ArrayList&lt;&gt;();
+        ArrayList&lt;Integer&gt; finl = new ArrayList&lt;&gt;();
+        int len1 = start.length()</B></FONT>;
+        int len2 = end.length();
+        if(len1 != len2)
+            return false;
+        for(int i = 0; i &lt; len1; i++){
+            if(start.charAt(i) == 'R')
+                inir.add(i);
+            if(start.charAt(i) == 'L')
+                inil.add(i);
+            if(end.charAt(i) == 'R')
+                finr.add(i);
+            if(end.charAt(i) == 'L')
+                finl.add(i);
         }
-        return true;        
+        if(inir.size() != finr.size() || inil.size() != finl.size())
+            return false;
+        else{
+            int len = inir.size();
+            for(int i = 0; i &lt; len; i++){
+                if(inir.get(i) &gt; finr.get(i))
+                    return false;
+            }
+            len = inil.size();
+            for(int i = 0; i &lt; len; i++){
+                if(inil.get(i) &lt; finl.get(i))
+                    return false;
+            }
+            return true;
+        }
     }
 }
 </PRE>

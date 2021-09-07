@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>96_qwnjc.cpp</TITLE>
+ <TITLE>412_alptekingenc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>96_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>412_alptekingenc.cpp</CENTER></H3><HR>
 <PRE>
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+
+
 class Solution {
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (root == NULL) {
-<A NAME="0"></A>            return {NULL, NULL};
-        }    
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (root-&gt;val &lt;= V) {
-            auto rs = splitBST(root-&gt;right, V);
-            root-&gt;right = rs[0];
-            return {root, rs[1]};
-        } else {
-            auto ls = splitBST(root-&gt;left, V);
-            root-&gt;left = ls[1];
-            return {ls[0], root};
+	vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+		TreeNode *it = root;
+		TreeNode *prev = root;
+		bool side = true;
+        vector&lt;TreeNode *&gt; result;
+
+<A NAME="0"></A>		while (it != nullptr) {
+			if (it-&gt;val == V)
+				break;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			if (V&gt;it-&gt;val) {
+				prev = it;
+				it = it-&gt;right;
+				side = false;
+			}
+			else {
+				prev = it;
+				it = it-&gt;left;
+				side = true;
+			}
+		}</B></FONT>
+         if(it==nullptr){
+            result.push_back(root);
+            return result;
         }
-    }
-};</B></FONT>
+        if(it-&gt;val!=V){
+            result.push_back(root);
+            return result;
+        }
+        if(root-&gt;val==it-&gt;val){
+            result.push_back(root);
+            return result;
+        }
+		if (side) {
+			prev-&gt;left = it-&gt;right;
+			it-&gt;right = nullptr;
+		}
+		else {
+			prev-&gt;right = it-&gt;right;
+			it-&gt;right = nullptr;
+		}
+		result.push_back(it);
+		result.push_back(root);
+		return result;
+	}
+};
 </PRE>
 </BODY>
 </HTML>

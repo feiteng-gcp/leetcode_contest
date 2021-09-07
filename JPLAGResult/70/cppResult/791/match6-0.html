@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>96_qwnjc.cpp</TITLE>
+ <TITLE>51_szp14.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>96_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>51_szp14.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -28,22 +28,24 @@
  */
 class Solution {
 public:
-    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
-        if (root == NULL) {
-<A NAME="0"></A>            return {NULL, NULL};
-        }    
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (root-&gt;val &lt;= V) {
-            auto rs = splitBST(root-&gt;right, V);
-            root-&gt;right = rs[0];
-            return {root, rs[1]};
-        } else {
-            auto ls = splitBST(root-&gt;left, V);
-            root-&gt;left = ls[1];
-            return {ls[0], root};
-        }
+<A NAME="0"></A>    vector&lt;TreeNode*&gt; splitBST(TreeNode* root, int V) {
+        TreeNode *L = root, *R = root;
+    if(root == NULL) return {L, R};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    else if(root-&gt;val &lt;= V)
+    {
+        vector&lt;TreeNode*&gt; ans = splitBST(root-&gt;right, V);
+        root-&gt;right = ans[0];
+        R = ans[1];
     }
-};</B></FONT>
+    else
+    {
+        vector&lt;TreeNode*&gt; ans = splitBST(root-&gt;left, V);
+        root-&gt;left = ans[1];
+        L = ans[0];
+    }</B></FONT>
+    return {L, R};
+    }
+};
 </PRE>
 </BODY>
 </HTML>

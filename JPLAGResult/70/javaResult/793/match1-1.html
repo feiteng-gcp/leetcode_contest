@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>121_matchalatte.java</TITLE>
+ <TITLE>274_BoJack_W.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,70 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>121_matchalatte.java</CENTER></H3><HR>
+<H3><CENTER>274_BoJack_W.java</CENTER></H3><HR>
 <PRE>
-import java.util.*;
 class Solution {
     public boolean canTransform(String start, String end) {
-        if (start.length() != end.length())  return false;
-        int i = 0, j = 0;
-        int n = start.length();
-        while (i &lt; n &amp;&amp; j &lt; n) {
-            while (i &lt; n &amp;&amp; start.charAt(i) == 'X') i++;
-            while (j &lt; n &amp;&amp; end.charAt(j) == 'X') j++;
-<A NAME="0"></A>            if (i == n &amp;&amp; j == n)  break;
-            if (i == n || j == n)  return false;
-            if (start.charAt(i) != end.charAt(j))  return false;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (start.charAt(i) == 'R') {
-                if (j &lt; i)  return false;
-            } else {
-                if (i &lt; j)  return false;
+        String S = &quot;&quot;;
+        String E = &quot;&quot;;
+        char[] St = start.toCharArray();
+        char[] En = end.toCharArray();
+        int l1 = start.length();
+        int l2 = end.length();
+        if (l1 != l2) {
+            return false;
+        }
+
+        for (int i = 0; i &lt; l1; i++) {
+            if (St[i] != 'X') {
+                S = S + St[i];
             }
-            i++; j++;
+            if (En[i] != 'X') {
+                E = E + En[i];
+            }
+        }
+        if (!E.equals(S)) {
+            return false;
+        }
+
+        Stack&lt;Integer&gt; ss = new Stack&lt;&gt;();
+        Stack&lt;Integer&gt; es = new Stack&lt;&gt;();
+
+        for (int i = 0; i &lt; l1; i++) {
+            if (St[i] == 'R') {
+                ss.push(i);
+            }
+            if (En[i] == 'R') {
+                es.push(i);
+            }
+<A NAME="0"></A>
+        }
+
+        while (!<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ss.isEmpty()) {
+            if (ss.pop() &gt; es.pop()) {
+                return false;
+            }
         }</B></FONT>
-        return true;        
+
+
+        for (int i = 0; i &lt; l1; i++) {
+            if (St[i] == 'L') {
+                ss.push(i);
+            }
+            if (En[i] == 'L') {
+                es.push(i);
+            }
+<A NAME="1"></A>
+        }
+
+        while (!<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ss.isEmpty()) {
+            if (ss.pop() &lt; es.pop()) {
+                return false;
+            }
+        }</B></FONT>
+
+
+        return true;
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>121_matchalatte.java</TITLE>
+ <TITLE>214_kangtaku.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>121_matchalatte.java</CENTER></H3><HR>
+<H3><CENTER>214_kangtaku.java</CENTER></H3><HR>
 <PRE>
-import java.util.*;
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean canTransform(String start, String end) {
-<A NAME="0"></A>        if (start.length() != end.length())  return false;
-        int i = 0, j = 0;
-        int n = start.length();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (i &lt; n &amp;&amp; j &lt; n) {
-            while (i &lt; n &amp;&amp; start.charAt(i) == 'X') i++;
-            while (j &lt; n &amp;&amp; end.charAt(j) == 'X') j++;
-<A NAME="1"></A>            if</B></FONT> (i == n &amp;&amp; j == n)  break;
-            if (i == n || j == n)  return false;
-            if (start.charAt(i) != end.charAt(j))  return false;
-            if (start.charAt(i) == 'R') <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if (j &lt; i)  return false;
-            } else {
-                if (i &lt; j)  return false;
+        String s1 = &quot;&quot;, s2 = &quot;&quot;;
+        char[] sc = start.toCharArray();
+        int n = sc.length</B></FONT>;
+        int[] sci = new int[n];
+        int[] eci = new int[n];
+        char[] ec = end.toCharArray();
+        int i=0, j=0;
+        while (i &lt; n &amp;&amp; j &lt; n) {
+            // System.out.println(i+&quot;,&quot;+j);
+            while (i&lt;n&amp;&amp;sc[i] == 'X') {
+                i++;
             }
-            i++; j++;
+            while (j&lt;n&amp;&amp;ec[j] == 'X') {
+                j++;
+            }
+            if ((i == n &amp;&amp; j &lt; n )||(i &lt; n &amp;&amp; j == n ))return false;
+            if (i ==n &amp;&amp; j == n) return true;
+            if(sc[i]!=ec[j]) return false;
+<A NAME="1"></A>            if(sc[i]=='R'&amp;&amp;i&gt;j) {
+                return false;
+            }
+            if(sc[i]=='L'&amp;&amp;i&lt;j) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                return false;
+            }
+            i++;
+            j++;
         }
-        return true;        
+        
+        return true;
     }
 }</B></FONT>
 </PRE>

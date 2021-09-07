@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>91_jwf.java</TITLE>
+ <TITLE>37_Zhangbq5858.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>91_jwf.java</CENTER></H3><HR>
+<H3><CENTER>37_Zhangbq5858.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for a binary tree node.
@@ -28,49 +28,24 @@
  */
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public TreeNode[] splitBST(TreeNode root, int V) {
-        TreeNode[] result = new TreeNode[2];
-        if (root == null) return result;</B></FONT>
-<A NAME="1"></A>        TreeNode target = null, parent = null;
-        if (root.val == V) {
-            // root
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>result[0] = root;
-            result[1] = root.right;
-            root.right = null;
-            return result;
-        } else {
-            TreeNode[] findResults = findTarget</B></FONT>(root, V, parent);
-            if (findResults == null) {
-                result[0] = root;
-                result[1] = null;
-                return result;
+        TreeNode[] res = new TreeNode[2];
+        if(root == null){</B></FONT>
+            res[0] = null;
+            res[1] = null;
+        }else{
+<A NAME="1"></A>            if(root.val&gt;V){
+                TreeNode[] tmp = splitBST(root.left,V);
+                root.left = tmp[1];
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>res[0] = tmp[0];
+                res[1] = root;
+            }else{
+                TreeNode[] tmp = splitBST(root.right,V);
+                root.right = tmp[0];
+                r</B></FONT>es[0] = root;
+                res[1] = tmp[1];
             }
-            target = findResults[0];
-            parent = findResults[1];
         }
-        result[0] = target;
-        result[1] = root;
-        if (parent.val &gt; target.val) {
-            // left
-            parent.left = target.right;
-            target.right = null;
-        } else {
-            // right
-            parent.right = target.left;
-            target.left = null;
-        }
-        return result;
-    }
-    
-    TreeNode[] findTarget(TreeNode node, int V, TreeNode parent) {
-        if (V == node.val) {
-            return new TreeNode[] {node, parent};
-        } else if (node.left != null &amp;&amp; V &lt; node.val) {
-            return findTarget(node.left, V, node);
-        } else if (node.right != null) {
-            return findTarget(node.right, V, node);
-        } else {
-            return null;
-        }
+        return res;
     }
 }
 </PRE>
