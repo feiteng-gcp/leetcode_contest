@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>309_khoot.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>309_khoot.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public  ArrayList&lt;TreeNode&gt; findTarget(TreeNode root, TreeNode target,ArrayList&lt;TreeNode&gt; cur){
+		 if(root==null) return null;</B></FONT>
+		 cur.add(root);
+		 if(root==target) {
+			 return cur;
+		 }
+		 
+		 ArrayList&lt;TreeNode&gt; p=findTarget(root.left,target,cur);
+		 if(p!=null) {
+			 return p;
+		 }
+		 p=findTarget(root.right,target,cur);
+		 if(p!=null) {
+			 return p;
+		 }else {
+			 cur.remove(cur.size()-1);
+		 }
+<A NAME="1"></A>		 return null;
+	 }
+	 
+	 public void findDis(TreeNod<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>e root,int k,ArrayList&lt;Integer&gt; res) {
+         if(root==null) return;
+		 if(k==0) {
+			 res.add(root.val);
+			 return;
+		 }
+		 Queue&lt;TreeNode&gt; q=new LinkedList&lt;TreeNode&gt;();</B></FONT>
+		 q.add(root);
+		 int c=0;
+		 while(!q.isEmpty()) {
+			 if(c==k) {
+				 while(!q.isEmpty()) {
+					 res.add(q.poll().val);
+				 }
+			 }else {
+				 int n=q.size();
+				 for(int i=0;i&lt;n;i++) {
+					 TreeNode p=q.poll();
+					 if(p.left!=null)  q.add(p.left);
+					 if(p.right!=null) q.add(p.right);
+				 }
+<A NAME="2"></A>			 }
+			 c+=1;
+		 }
+	 }<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	 public List&lt;Integer&gt; distanceK(TreeNode root, TreeNode target, int K) {
+		 ArrayList&lt;TreeNode&gt; cur=new ArrayList&lt;&gt;()</B></FONT>;
+		 ArrayList&lt;TreeNode&gt; p=findTarget(root,target,cur);
+		 ArrayList&lt;Integer&gt; res=new ArrayList&lt;&gt;();
+		 int n=p.size(),i,j;
+		 for(i=0;i&lt;Math.min(n, K+1);i++) {
+			 j=n-1-i;
+			 if(i==0) {
+				 findDis(p.get(j),K,res);
+			 }else if(i==K){
+				 res.add(p.get(j).val);
+			 }else {
+				 if(p.get(j).left==p.get(j+1)) {
+					 findDis(p.get(j).right,K-i-1,res);
+				 }else {
+					 findDis(p.get(j).left,K-i-1,res);
+				 }
+			 }
+		 }
+		 return res;
+	  }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_deadRabbit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_deadRabbit.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+  int T[222222];
+  void tadd(int v, int L, int R, int x, int val) {
+    if (L==R) {
+      T[v]=max(val,T[v]);
+    } else {
+      int m = (L+R)/2;
+      if (x&lt;=m) tadd(v&lt;&lt;1, L, m, x, val);
+      else tadd(v&lt;&lt;1|1, m+1,R, x, val);
+      T[v]=max(T[v&lt;&lt;1],T[v&lt;&lt;1|1]);
+    }
+  }
+  int tget(int v, int L, int R, int l, int r) {
+    if (L==l &amp;&amp; R==r) return T[v];
+    else {
+      int m = (L+R)/2;
+      int best = -1;
+      if (l&lt;=m) {
+        best = max(best, tget(v&lt;&lt;1,L,m,l, min(r,m)));
+      }
+      if (r&gt;m) {
+        best = max(best, tget(v&lt;&lt;1|1, m+1,R, max(l,m+1), r));
+      }
+      return best;
+    }
+  }
+public:
+<A NAME="0"></A>  int shortestSubarray(vector&lt;int&gt;&amp; A, int K) {
+    int n = A.size();
+    vector&lt;int&gt; S(n+1);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    S[0]=0;
+    for (int i = 0; i &lt; n*4; ++i) T[i] = -1;
+    for (int i = 0; i &lt; n; ++i) S[i+1] = S[i]+A[i];
+    vector&lt;int&gt; X;</B></FONT>
+    for (int i = 0; i &lt;= n; ++i) X.push_back(S[i]);
+    sort(X.begin(), X.end());
+    X.erase(unique(X.begin(),X.end()), X.end());
+    int res = 1&lt;&lt;30;
+    for (int i = 0; i &lt;=n; ++i) {
+      int need = S[i]-K;
+      int x = lower_bound(X.begin(),X.end(), need)-X.begin();
+      if (x&gt;=X.size()) x = X.size()-1;
+      if (X[x]&gt;need) --x;
+      if (x&gt;=0) {
+        int v = tget(1,0,X.size()-1, 0, x);
+        if (v!=-1) res = min(res, i - v);
+      }
+      tadd(1,0,X.size()-1,lower_bound(X.begin(),X.end(), S[i])-X.begin(), i);
+    }
+    if (res == 1&lt;&lt;30) res = -1;
+    return res;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_3jerryliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>361_3jerryliu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int matrixScore(int[][] A) {
+<A NAME="0"></A>        int answer = 0;
+        int rows = A.length;
+        int cols = A[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int x=0;x&lt;rows;x++){
+            if(A[x][0] != 1){
+                for(int y=0;y&lt;cols;y++){
+                    A[x][y] = A[x][y]^1;
+                }
+<A NAME="1"></A>            }
+        }</B></FONT>
+        answer += rows*Math.pow(2, cols-1);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int x=1;x&lt;cols;x++){
+            int sum = 0;
+            for(int y=0;y&lt;rows;y++){
+                if(A[y][x] == 1){
+                    sum++;
+                }
+            }</B></FONT>
+            if(sum &lt; (rows+1)/2){
+                for(int y=0;y&lt;rows;y++){
+                    A[y][x] = A[y][x]^1;
+                }
+                sum = rows-sum;
+            }
+            answer+=sum*Math.pow(2, cols-1-x);
+        }
+        //for(int x=0;x&lt;rows;x++){
+        //    for(int y=0;y&lt;cols;y++){
+        //        System.out.print(A[x][y] + &quot; &quot;);
+        //    }
+        //    System.out.println();
+        //}
+        return answer;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

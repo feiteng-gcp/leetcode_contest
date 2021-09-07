@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_x____x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_x____x.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int shortestSubarray(vector&lt;int&gt;&amp; a, int k) {
+        int n = a.size();
+        vector&lt;long long&gt; s(n + 1);
+        for (int i = 0; i &lt; n; ++i) s[i + 1] = s[i] + a[i];</B></FONT>
+        vector&lt;long long&gt; ss(s.begin(), s.end());
+        sort(ss.begin(), ss.end());
+        int ns = unique(ss.begin(), ss.end()) - ss.begin();
+        // for (long long x : s) cout &lt;&lt; x &lt;&lt; &quot; &quot;; cout &lt;&lt; endl;
+        // for (int i = 0; i &lt; ns; ++i) cout &lt;&lt; ss[i] &lt;&lt; &quot; &quot;; cout &lt;&lt; endl;
+        vector&lt;int&gt; best(ns + 10, -1);
+        {
+            int i = lower_bound(ss.begin(), ss.begin() + ns, 0) - ss.begin();
+            for (int u = i + 1; u &lt;= ns; u += u &amp; -u) best[u] = max(best[u], 0);
+        }
+        int ans = 1000010000;
+        for (int i = 1; i &lt;= n; ++i) {
+            int j = upper_bound(ss.begin(), ss.begin() + ns, s[i] - k) - ss.begin();
+            // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; s[i] &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+            if (j &gt; 0) {
+                int t = -1;
+                for (int u = j; u &gt; 0; u -= u &amp; -u) t = max(t, best[u]);
+                // cout &lt;&lt; s[i] &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; t &lt;&lt; endl;
+                if (t &gt;= 0) {
+                    ans = min(ans, i - t);
+                }
+            }
+            {
+                int x = lower_bound(ss.begin(), ss.begin() + ns, s[i]) - ss.begin();
+                // cout &lt;&lt; &quot;updating &quot; &lt;&lt; x + 1 &lt;&lt; &quot; with &quot; &lt;&lt; i &lt;&lt; endl;
+                for (int u = x + 1; u &lt;= ns; u += u &amp; -u) best[u] = max(best[u], i);
+            }
+        }
+        return (ans &gt; n ? -1 : ans);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

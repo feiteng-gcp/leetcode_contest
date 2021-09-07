@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394_OhMyGoodness.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>394_OhMyGoodness.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int matrixScore(int[][] A) {
+        // adj 1st col =&gt; all 1
+        for (int i = 0; i &lt; A.length; i++) {
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (A[i][0] == 0) {
+                // flip all row
+                for (int j = 0; j &lt; A[i].length; j++) {
+                    if(A[i][j] == 0) {
+                        A[i][j] = 1;
+                    } else {
+                        A[i][j] = 0;
+                    }
+                }
+            }
+        }</B></FONT>
+        // for (int i = 0; i &lt; A.length; i++) {
+        //     for (int j = 0; j &lt; A[i].length; j++) {
+        //         System.out.print(A[i][j]+&quot; &quot;);
+        //     }
+        //     System.out.print(&quot;\n&quot;);
+        // }
+        // check all other col
+        for (int j = 1; j &lt; A[0].length; j++) {
+            int count = 0;
+<A NAME="1"></A>            for (int i = 0; i &lt; A.length; i++) {
+                count += A[i][j];
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (count * 2 &lt; A.length) {
+                // flip col j
+                for (int i = 0; i &lt; A.length; i++) {
+                    if(A[i][j] == 0) {
+                        A[i][j] = 1;
+                    } else {
+                        A[i][j] = 0;
+                    }
+                }
+            }
+            // for (int s = 0; s &lt; A.length; s++) {
+            //     for (int t = 0; t &lt; A[s].length; t++) {
+            //         System.out.print(A[s][t]+&quot; &quot;);
+            //     }
+            //     System.out.print(&quot;\n&quot;);
+            // }
+        }
+        // get result
+        int res = 0;
+        for (int i = 0; i &lt; A.length; i++) {
+            int curr = 0;
+            for (int j = 0; j &lt; A[i].length; j++) {</B></FONT>
+                curr = curr &lt;&lt; 1;
+                //System.out.println(curr);
+                if (A[i][j] &gt; 0) {
+                    curr++;
+                    //System.out.println(curr);
+                }
+            }
+            res += curr;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

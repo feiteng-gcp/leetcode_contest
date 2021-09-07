@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>330_Mengwen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>330_Mengwen.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+<A NAME="0"></A> */
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; distanceK(TreeNode* root, TreeNode* target, int K) {
+        if(root == nullptr) {
+            return {};
+        }
+        if(K == 0) {
+            return {target-&gt;val};
+        }</B></FONT>
+        unordered_map&lt;TreeNode*, int&gt; hm;
+        dfsCnt(root, hm, 0);
+        int targetCnt = hm[target];
+        vector&lt;int&gt; rtn;
+        for(auto&amp; entry : hm) {
+            TreeNode* lca = findLCA(root, target, entry.first);
+            int lcaCnt = hm[lca];
+            int entryCnt = hm[entry.first];
+            if(targetCnt - lcaCnt + entryCnt - lcaCnt == K) {
+                rtn.push_back(entry.first-&gt;val);
+            }
+        }
+        return rtn;
+    }
+    void dfsCnt(TreeNode* node, unordered_map&lt;TreeNode*, int&gt;&amp; hm, int cnt) {
+        if(node == nullptr) {
+            return;
+        }
+        hm[node] = cnt;
+        dfsCnt(node-&gt;left, hm, cnt + 1);
+        dfsCnt(node-&gt;right, hm, cnt + 1);
+    }
+    TreeNode* findLCA(TreeNode* root, TreeNode* p1, TreeNode* p2) {
+        if(root == nullptr) {
+            return nullptr;
+        } else if(root == p1 || root == p2) {
+            return root;
+        } else {
+            TreeNode* lRtn = findLCA(root-&gt;left, p1, p2);
+            TreeNode* rRtn = findLCA(root-&gt;right, p1, p2);
+            if(lRtn != nullptr &amp;&amp; rRtn != nullptr) {
+                return root;
+            } else if(lRtn != nullptr) {
+                return lRtn;
+            } else if(rRtn != nullptr) {
+                return rRtn;
+            } else {
+                return nullptr;
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

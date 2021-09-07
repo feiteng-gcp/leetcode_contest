@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_zl1zl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>29_zl1zl.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<A NAME="0"></A>unordered_map&lt;TreeNode*, unordered_set&lt;TreeNode*&gt; &gt; g;
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(TreeNode* root) {
+        if (!root) return;
+        if (root-&gt;left) {
+            g[root-&gt;left].insert(root);
+            g[root].insert(root-&gt;left);
+            dfs(root-&gt;left);
+        }
+        if (root-&gt;right) {
+            g[root].insert(root-&gt;right);
+            g[root-&gt;right].insert(root);
+            dfs(root-&gt;right);
+        }
+    }
+    vector&lt;int&gt; distanceK(TreeNode* root, TreeNode* target, int K) {</B></FONT>
+        if (!root || !target) return {};
+        if (K == 0) return {target-&gt;val};
+        g.clear();
+        dfs(root);
+        queue&lt;TreeNode*&gt; q; q.push(target); unordered_set&lt;TreeNode*&gt; s; s.insert(target);
+        for(int i=0; i&lt;K; ++i) {
+            int sz = q.size();
+            for(int j=0; j&lt;sz; ++j) {
+                auto node = q.front(); q.pop();
+                for(auto nn: g[node]) {
+                    if (s.find(nn) == s.end()) {
+                        q.push(nn);
+                        s.insert(nn);
+                    }
+                }
+            }
+        }
+        vector&lt;int&gt; res;
+        while(!q.empty()) {res.push_back(q.front()-&gt;val); q.pop();}
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

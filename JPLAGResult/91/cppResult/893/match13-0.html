@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_monotone.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_monotone.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+<A NAME="0"></A>    unordered_map&lt;int, unordered_set&lt;int&gt;&gt; g;
+    unordered_set&lt;int&gt; visit;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; distanceK(TreeNode* root, TreeNode* target, int K) {
+        if(!root || !target || K&lt;0)
+        {
+            return {};
+        }
+
+        if(K == 0)
+        {
+            return {target-&gt;val};
+        }</B></FONT>
+
+        g = unordered_map&lt;int, unordered_set&lt;int&gt;&gt;();
+        visit = unordered_set&lt;int&gt;();
+
+        genG(root, NULL);
+
+        queue&lt;int&gt; q;
+        q.push(target-&gt;val);
+        visit.insert(target-&gt;val);
+
+        while(q.size()&gt;0 &amp;&amp; K&gt;0)
+        {
+            int size = q.size();
+
+            while(size--)
+            {
+                auto cur = q.front(); q.pop();
+
+                for(auto next : g[cur])
+                {
+                    if(visit.find(next) != visit.end())
+                    {
+                        continue;
+                    }
+
+                    q.push(next);
+                    visit.insert(next);
+                }
+                
+            }
+
+            K--;
+
+            if(K==0)
+            {
+                vector&lt;int&gt; result;
+
+                while(q.size() &gt; 0)
+                {
+                    result.push_back(q.front());
+                    q.pop();
+                }
+
+                return  result;
+            }
+        }
+
+        return {};
+    }
+
+    void genG(TreeNode* root, TreeNode * pre)
+    {
+        if(!root)
+        {
+            return;
+        }
+
+        if(pre)
+        {
+            g[pre-&gt;val].insert(root-&gt;val);
+            g[root-&gt;val].insert(pre-&gt;val);
+        }
+
+        genG(root-&gt;left, root);
+        genG(root-&gt;right, root);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

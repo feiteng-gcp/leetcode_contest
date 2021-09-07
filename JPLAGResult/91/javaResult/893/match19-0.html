@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>415_allister.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>415_allister.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+<A NAME="0"></A>    public List&lt;Integer&gt; distanceK(TreeNode root, TreeNode target, int K) {
+        List&lt;TreeNode&gt; path = new ArrayList&lt;&gt;();
+        getPath(root, target, path);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;TreeNode&gt; tp = new ArrayList&lt;&gt;(path);
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        path.clear();
+        dfs(root, K, path, tp, result);
+        return result;
+    }
+    
+    void dfs(TreeNode root, int K, List&lt;TreeNode&gt; path, List&lt;TreeNode&gt; tp, List&lt;Integer&gt; result) {
+        if(root == null) {
+            return;
+        }</B></FONT>
+        path.add(root);
+        if(getDistance(path, tp) == K) {
+            result.add(root.val);
+        }
+        dfs(root.left, K, path, tp, result);
+        dfs(root.right, K, path, tp, result);
+        path.remove(path.size() - 1);
+    }
+    
+    int getDistance(List&lt;TreeNode&gt; p1, List&lt;TreeNode&gt; p2) {
+        int same = 0;
+        for(int i = 0; i &lt; p1.size() &amp;&amp; i &lt; p2.size(); ++ i) {
+            if(p1.get(i) == p2.get(i)) {
+                ++ same;
+<A NAME="1"></A>            }
+        }
+        return p1.size() + p2.size() - same * 2;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    boolean getPath(TreeNode root, TreeNode target, List&lt;TreeNode&gt; path) {
+        if(root == null) {
+            return false;
+        }</B></FONT>
+        path.add(root);
+        if(root == target) {
+            return true;
+        }
+        if(getPath(root.left, target, path)) {
+            return true;
+        }
+        if(getPath(root.right, target, path)) {
+            return true;
+        }
+        path.remove(path.size() - 1);
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

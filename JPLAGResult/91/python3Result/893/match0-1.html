@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_sevenhe716.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_sevenhe716.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def distanceK(self, root, target, K):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :type target: TreeNode
+        :type K: int
+        :rtype: List[TreeNode]
+        &quot;&quot;&quot;
+
+        if not root:
+            return []
+
+        visits, parents = {}, {}
+        visits[root.val] = False
+        parents[root.val] = None
+
+        def init(cur):
+            if cur.left:
+                visits[cur.left.val] = False
+                parents[cur.left.val] = cur
+
+                init(cur.left)
+            if cur.right:
+                visits[cur.right.val] = False
+                parents[cur.right.val] = cur
+
+                init(cur.right)
+
+        init(root)
+        # find target
+        def find_target(cur, val):
+            if cur == val:
+                return cur
+            else:
+                if cur.left:
+                    t1 = find_target(cur.left, val)
+                    if t1:
+                        return t1
+                if cur.right:
+                    t2 = find_target(cur.right, val)
+                    if t2:
+                        return t2
+
+            return None
+
+        cur = find_target(root, target)
+        
+        visits[cur.val] = True
+        stack = [cur]
+        
+        # BFS
+        for _ in range(K):
+<A NAME="0"></A>            new_stack = []
+            for node in stack:
+                if node.left and not visits[node.left.val]:
+                    visits<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[node.left.val] = True
+                    new_stack.append(node.left)
+                if node.right and not visits[node.</B></FONT>right.val]:
+                    visits[node.right.val] = True
+                    new_stack.append(node.right)
+                parent = parents[node.val]
+                if parent and not visits[parent.val]:
+                    visits[parent.val] = True
+                    new_stack.append(parent)
+
+            stack = new_stack
+
+        return [node.val for node in stack]
+</PRE>
+
+</BODY>
+</HTML>

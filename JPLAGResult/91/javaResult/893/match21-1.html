@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>315_hczhong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>315_hczhong.java</CENTER></H3><HR>
+<PRE>
+
+public class Solution {
+
+    private final Map&lt;Integer, Set&lt;Integer&gt;&gt; neighbor = new HashMap&lt;&gt;();
+
+    private void addEdge(int u, int v) {
+        neighbor.putIfAbsent(u, new HashSet&lt;&gt;());
+        neighbor.get(u).add(v);
+    }
+
+    private void traverse(TreeNode current) {
+        if (current.left != null) {
+            addEdge(current.val, current.left.val);
+            addEdge(current.left.val, current.val);
+            traverse(current.left);
+<A NAME="1"></A>        }
+        if (current.right != null) {
+            addEdge(current.val, current.right.val);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>addEdge(current.right.val, current.val);
+            traverse(current.right);
+        }
+    }
+
+    private void search(int current, int left, Set&lt;Integer&gt; result, Set&lt;Integer&gt; seen</B></FONT>) {
+        if (seen.contains(current)) {
+            return;
+        }
+        seen.add(current);
+        if (left == 0) {
+            result.add(current);
+            return;
+        }
+        if (neighbor.containsKey(current)) {
+            for (int v : neighbor.get(current)) {
+                search(v, left - 1, result, seen);
+            }
+<A NAME="0"></A>        }
+    }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Integer&gt; distanceK(TreeNode root, TreeNode target, int K) {
+        Set&lt;Integer&gt; result = new HashSet&lt;&gt;();
+        Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        traverse(root);
+        search(target.val, K, result, seen);
+        return</B></FONT> new ArrayList&lt;&gt;(result);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

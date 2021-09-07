@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>390_lrus.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>390_lrus.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    target = None
+    node = None
+    ls = None
+
+<A NAME="0"></A>    def buildTree(self, root):
+        if root == None:
+            return
+        if root<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.left:
+            root.left.parent = root
+            self.buildTree(root.left)
+        if root.right:
+            root.right.</B></FONT>parent = root
+            self.buildTree(root.right)
+
+    def dfsTree(self, node, K, fromNode):
+        if node == None:
+            return
+        if K &lt; 0:
+            return
+        if K == 0:
+            self.ls.append(node.val)
+            return
+        if node.parent != fromNode:
+            self.dfsTree(node.parent, K - 1, node)
+        if node.left != fromNode:
+            self.dfsTree(node.left, K - 1, node)
+        if node.right != fromNode:
+            self.dfsTree(node.right, K - 1, node)
+
+    def distanceK(self, root, target, K):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :type target: TreeNode
+        :type K: int
+        :rtype: List[TreeNode]
+        &quot;&quot;&quot;
+        # init
+        TreeNode.parent = None
+        self.buildTree(root)
+
+        self.ls = []
+        self.dfsTree(target, K, None)
+        return self.ls
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_cjoa.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>25_cjoa.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long llong;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;VI&gt; VVI;
+
+const int INF = 1000000010;
+
+class BinaryIndexedTree {
+   int N;
+   VI tree;
+public:
+   BinaryIndexedTree(int _N) : N(_N), tree(_N+1, -INF) {}
+
+   int query(int idx) {
+      int res = -INF;
+      for (int i = idx; i &gt; 0; i -= (i &amp; -i))
+         res = max(res, tree[i]);
+      return res;
+   }
+
+   void update(int idx, int val = 1) {
+      for (int i = idx; i &lt;= N; i += (i &amp; -i))
+         tree[i] = max(tree[i], val);
+   }
+};
+
+class Solution {
+
+public:
+<A NAME="0"></A>   int shortestSubarray(vector&lt;int&gt;&amp; A, int K) {
+      int N = A.size();
+      vector&lt;llong&gt; PS(N+1);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int i = 1; i &lt;= N; ++i)
+         PS[i] = PS[i-1] + A[i-1];
+
+      vector&lt;llong&gt; SPS(PS);
+      SPS.push_back(INF * -1LL * INF);
+      sort(SPS.begin(), SPS.end());
+      SPS.erase( unique(SPS.begin(), SPS.end()), SPS.end() );
+
+      // for (llong x : SPS) cerr &lt;&lt; x &lt;&lt; ' '; cerr &lt;&lt; endl;
+
+      int best = INF;
+      BinaryIndexedTree bit(SPS.size()+1);
+
+      for (int i = 0; i &lt;= N; ++i) {</B></FONT>
+         int q = upper_bound(SPS.begin(), SPS.end(), PS[i] - K) - SPS.begin() -1;
+         int r = bit.query(q);
+         
+      // cerr &lt;&lt; &quot;i: &quot; &lt;&lt; i &lt;&lt; &quot;  q: &quot; &lt;&lt; q &lt;&lt; &quot;  r: &quot; &lt;&lt; r &lt;&lt; endl;
+         
+         best = min(best, i - r);
+
+         int p = lower_bound(SPS.begin(), SPS.end(), PS[i]) - SPS.begin();
+         bit.update(p, i);
+      }
+      return best &gt;= INF ? -1 : best;
+   }
+};
+</PRE>
+</BODY>
+</HTML>
