@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_Kmcode.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_Kmcode.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	vector&lt;pair&lt;int, int&gt; &gt; vv;
+	vector&lt;int&gt; star[6002];
+	vector&lt;int&gt; en[6002];
+	map&lt;int, int&gt; mp;
+	set&lt;int&gt; one;
+	set&lt;int&gt; two;
+
+	int intersectionSizeTwo(vector&lt;vector&lt;int&gt;&gt;&amp; v) {
+		for (int i = 0; i&lt;v.size(); i++) {
+			mp[v[i][0]] = 0;
+			mp[v[i][1]] = 0;
+		}
+		int sz = 0;
+		for (auto it = mp.begin(); it != mp.end(); it++) {
+			(*it).second = sz;
+			sz++;
+		}
+		for (int i = 0; i&lt;v.size(); i++) {
+			v[i][0] = mp[v[i][0]];
+			v[i][1] = mp[v[i][1]];
+		}
+		for (int i = 0; i&lt;6002; i++) {
+			star[i].clear();
+			en[i].clear();
+		}
+		for (int i = 0; i&lt;v.size(); i++) {
+			vv.push_back(make_pair(v[i][0], v[i][1]));
+		}
+		sort(vv.begin(), vv.end());
+		for (int i = 0; i&lt;vv.size(); i++) {
+			star[vv[i].first].push_back(i);
+			en[vv[i].second].push_back(i);
+		}
+		one.clear();
+		two.clear();
+		int ans = 0;
+		for (int i = 0; i&lt;mp.size(); i++) {
+			for (int j : star[i]) {
+<A NAME="0"></A>				two.insert(j);
+			}
+			int mx = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for (int j : en[i]) {
+				if (two.count(j)) {
+					mx = 2;
+					two.erase(j);
+				}
+				if (one.count(j)) {
+					mx = max(mx, 1);
+					one.erase(j);
+				}
+			}
+			if (mx == 2) {</B></FONT>
+				two.clear();
+				one.clear();
+				ans += 2;
+				for (int j : star[i]) {
+					one.insert(j);
+				}
+				continue;
+			}
+			if (mx == 1) {
+				one = two;
+				two.clear();
+				ans++;
+				continue;
+			}
+		}
+		return ans;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

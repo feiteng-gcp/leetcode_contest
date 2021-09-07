@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_KakaHiguain.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_KakaHiguain.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int findLeft(int[] heights,int K)
+    {
+        int left=-1,min=10000000;
+        for (int j=K-1;j&gt;=0;j--)
+<A NAME="0"></A>        {
+            if (heights[j+1]&lt;heights[j]) break;
+            if (heights[j+1]&gt;heights[j]) left=j;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return left;
+    }
+    int findRight(int[] heights,int K)
+    {</B></FONT>
+        int right=-1,min=10000000;
+        for (int j=K+1;j&lt;heights.length;j++)
+        {
+            if (heights[j-1]&lt;heights[j]) break;
+            if (heights[j-1]&gt;heights[j]) right=j;
+        }
+        return right;
+    }
+    public int[] pourWater(int[] heights, int V, int K) {
+        int n=heights.length,left=findLeft(heights,K),right=findRight(heights,K);
+        for (int i=0;i&lt;V;i++)
+        {
+            if (left&gt;=0)
+            {
+                heights[left]++;
+                left=findLeft(heights,K);
+            }
+            else
+            {
+                if (right&gt;=0)
+                {
+                    heights[right]++;
+                    right=findRight(heights,K);
+                }
+                else 
+                {
+                    heights[K]++;
+                    left=findLeft(heights,K);
+                    right=findRight(heights,K);
+                }
+            }
+        }
+        return heights;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_Eternal_Answer.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>3_Eternal_Answer.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
+        swap(V, K);
+        for (int i = 0;i &lt; K;++i) {</B></FONT>
+            bool flag = false;
+            int index = -1;
+            for (int j = V - 1;j &gt;= 0;--j) {
+                if (heights[j] &gt; heights[j + 1]) break;
+                if (heights[j] &lt; heights[j + 1]) {
+                    flag = true;
+                    index = j;
+                }
+            }
+            if (flag) {
+                ++ heights[index];
+                continue;
+            }
+            for (int j = V + 1;j &lt; heights.size();++j) {
+                if (heights[j] &gt; heights[j - 1]) break;
+                if (heights[j] &lt; heights[j - 1]) {
+                    flag = true;
+                    index = j;
+                }
+            }
+            if (flag) {
+                ++ heights[index];
+            }
+            else ++heights[V];
+        }
+        
+        return heights;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

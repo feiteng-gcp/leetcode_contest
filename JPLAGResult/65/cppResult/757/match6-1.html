@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_gerwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_gerwang.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 110;
+
+bool dp[maxn][maxn][7];
+
+class Solution {
+<A NAME="0"></A>
+public:
+    bool pyramidTransition(string bottom, vector&lt;string&gt; &amp;allowed) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = bottom.size();
+        for (int i = n - 1; i &gt;= 0; i--) {
+            for (int j = 0; j &lt;= i; j++) {</B></FONT>
+                for (int k = 0; k &lt; 7; k++) {
+                    if (i == n - 1) {
+                        dp[i][j][k] = bottom[j] == 'A' + k;
+                    } else {
+                        dp[i][j][k] = false;
+                        for (auto &amp;str:allowed) {
+                            if (str[2] == 'A' + k) {
+                                if (dp[i + 1][j][str[0] - 'A'] &amp;&amp; dp[i + 1][j + 1][str[1] - 'A']) {
+                                    dp[i][j][k] = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (int k = 0; k &lt; 7; k++) {
+            if (dp[0][0][k]) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
