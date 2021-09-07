@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_democoffee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>33_democoffee.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	struct State {
+		int x, y, s, c;
+		State(int xx, int yy, int ss, int cc) {
+			x = xx; y = yy; s = ss; c = cc;
+		}
+<A NAME="0"></A>	};
+	int shortestPathAllKeys(vector&lt;string&gt;&amp; g) {
+		int rsz = g.size(), csz = g[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		int sx, sy, k = -1;
+		for (int i=0; i&lt;rsz; ++i) {
+			for (int j=0; j&lt;csz; ++j) {
+				if (g[i][j] == '@') {
+					sx = i; sy = j;
+				} else if (g[i][j]&gt;='a' &amp;&amp; g[i][j]&lt;'z') {
+					k = max(k, g[i][j]-'a');
+				}
+			}
+		}</B></FONT>
+		++k;
+		int ssz = 1 &lt;&lt; k, full = (1&lt;&lt;k) - 1;;
+		vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dist(rsz, vector&lt;vector&lt;int&gt;&gt;(csz, vector&lt;int&gt;(ssz, -1)));
+		dist[sx][sy][0] = 0;
+		auto cmp = [](const State &amp;s1, const State &amp;s2) { return s1.c &gt; s2.c; };
+		priority_queue&lt;State, vector&lt;State&gt;, decltype(cmp)&gt; pq(cmp);
+		pq.emplace(sx, sy, 0, 0);
+		int ans = -1;
+		const int mov[4][2] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+
+		while (!pq.empty()) {
+			auto cs = pq.top(); pq.pop();
+			if (cs.c &gt; dist[cs.x][cs.y][cs.s]) { continue; }
+			if (cs.s == full) {
+				if (ans==-1 || cs.c&lt;ans) { ans = cs.c; }
+				continue;
+			}
+			int xx, yy, ss, cc = cs.c + 1;
+			for (int i=0; i&lt;4; ++i) {
+				xx = cs.x + mov[i][0], yy = cs.y + mov[i][1];
+				ss = cs.s;
+				if (xx&lt;0||xx&gt;=rsz||yy&lt;0||yy&gt;=csz||g[xx][yy]=='#') { continue; }
+				if (g[xx][yy]&gt;='A' &amp;&amp; g[xx][yy]&lt;='Z') {
+					int l = g[xx][yy] - 'A';
+					if ((cs.s &amp; (1&lt;&lt;l)) == 0) { continue; }
+				}
+				if (g[xx][yy]&gt;='a' &amp;&amp; g[xx][yy]&lt;='z') {
+					int key = g[xx][yy] - 'a';
+					ss |= 1 &lt;&lt; key;
+				}
+
+				if (dist[xx][yy][ss]!=-1 &amp;&amp; cc&gt;=dist[xx][yy][ss]) { continue; }
+				dist[xx][yy][ss] = cc;
+				pq.emplace(xx, yy, ss, cc);
+			}
+		}
+
+		return ans;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

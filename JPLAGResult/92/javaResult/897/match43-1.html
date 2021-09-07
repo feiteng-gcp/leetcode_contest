@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_00000.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>122_00000.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+class Solution {
+    public int primePalindrome(int N) {
+        if (N == 1)
+            return 2;
+        N--;
+        while (true) {
+            N = nextPalindrome(N);
+            if (isPrime(N))
+                return N;
+        }
+    }
+    
+    int nextPalindrome(int N) {
+        if (N == 0)
+            return 1;
+        N++;
+        ArrayList&lt;Integer&gt; digits = new ArrayList&lt;&gt;();
+        while (N != 0) {
+            digits.add(N % 10);
+            N /= 10;
+        }
+        int left = 0;
+        int right = digits.size() - 1;
+        while (left &lt; right) {
+            int ld = digits.get(left);
+            int rd = digits.get(right);
+            if (ld == rd) {
+                left++;
+                right--;
+                continue;
+            }
+            if (ld &lt; rd) {
+                digits.set(left, rd);
+                left++;
+                right--;
+                continue;
+            }
+            // following: ld &gt; rd
+            if (left + 1 == right) {
+                digits.set(left, rd + 1);
+                digits.set(right, rd + 1);
+                break;
+            }
+            int next = digits.get(left + 1);
+            if (next != 9) {
+                digits.set(left, rd);
+                digits.set(left + 1, next + 1);
+                left++;
+                right--;
+                continue;
+            }
+            int i = left + 2;
+            int num = 0;
+            while ((num = digits.get(i)) == 9)
+                i++;
+            digits.set(i, num + 1);
+            int factor = 1;
+            for (int j = 0; j &lt; i; j++)
+                factor *= 10;
+            int sum = 0;
+            for (int j = i; j &lt; digits.size(); j++) {
+                sum += factor * digits.get(j);
+                factor *= 10;
+            }
+            return nextPalindrome(sum);
+        }
+        int sum = 0;
+        int factor = 1;
+        for (int j = 0; j &lt; digits.size(); j++) {
+            sum += factor * digits.get(j);
+            factor *= 10;
+        }
+        return sum;
+    }
+<A NAME="0"></A>    
+    boolean isPrime(int N) {
+        int sqrt = (int) Math.sqrt(N);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match43-0.html#0',2,'match43-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 2; i &lt;= sqrt; i++)
+            if (N % i == 0)
+                return false;
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

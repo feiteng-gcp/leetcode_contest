@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_catalin7.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_catalin7.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    char used[31][31][64];
+    int dist[31][31][64];
+    
+    struct State {
+        int r, c, msk;  
+    }; 
+    
+    int shortestPathAllKeys(vector&lt;string&gt;&amp; grid) {
+        int N = grid.size();
+        int M = grid[0].size();
+        
+        int sr = -1, sc = -1;
+        
+        int K = 0;
+        
+<A NAME="0"></A>        memset(used, 0, sizeof(used));
+        memset(dist, 0, sizeof(dist));
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; M; j++) {
+                if (grid[i][j] == '@') {
+                    sr = i, sc = j;
+                } else if (islower(grid[i][j])) {
+                    K = max(K, int(grid[i][j] - 'a' + 1));  </B></FONT>
+                }
+            }
+        }
+        
+        int target_msk = (1&lt;&lt;K) - 1;
+        
+        queue&lt;State&gt; Q;
+        
+        for (Q.push(State{sr, sc, 0}); !Q.empty(); Q.pop()) {
+            auto el = Q.front();
+            used[el.r][el.c][el.msk] = 1;
+            
+            if (el.msk == target_msk)
+                return dist[el.r][el.c][el.msk];
+            
+            for (int dx = -1; dx &lt;= 1; dx++) {
+                for (int dy = -1; dy &lt;= 1; dy++) {
+                    if (dx * dx + dy * dy == 1) {
+                        auto nr = el.r + dx;
+                        auto nc = el.c + dy;
+                        auto nmsk = el.msk;
+                        
+<A NAME="1"></A>                        if (nr &gt;= 0 &amp;&amp; nr &lt; N &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; M) {
+                            if (grid[nr][nc] == '#')
+                                continue;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                            if (isupper(grid[nr][nc])) {
+                                int idx = grid[nr][nc] - 'A';
+                                if (!(el.msk &gt;&gt; idx &amp; 1)) {
+                                    continue;
+                                }
+                            }
+                            if (islower(grid[nr][nc])) {
+                                int idx = grid[nr][nc] - 'a';
+                                nmsk |= (1&lt;&lt;idx);
+                            }
+                            
+                            if (!used[nr][nc][nmsk]) {</B></FONT>
+                                dist[nr][nc][nmsk] = dist[el.r][el.c][el.msk] + 1;
+                                Q.push(State{nr, nc, nmsk});
+                                used[nr][nc][nmsk] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

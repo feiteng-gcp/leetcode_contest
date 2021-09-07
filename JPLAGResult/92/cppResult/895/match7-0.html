@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_hank55663.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_hank55663.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[35][35][1&lt;&lt;6];
+    int shortestPathAllKeys(vector&lt;string&gt;&amp; grid) {
+<A NAME="0"></A>        int n=grid.size();
+        int m=grid[0].size();
+        pair&lt;int,int&gt; start;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int tot=0;
+        for(int i=0;i&lt;grid.size();i++)
+            for(int j=0;j&lt;grid[0].size();j++){
+                if(grid[i][j]=='@'){
+                    start=make_pair(i,j);
+                }
+                if(grid[i][j]&gt;='A'&amp;&amp;grid[i][j]&lt;='Z'){
+                    tot++;
+<A NAME="1"></A>                }
+            }</B></FONT>
+        memset(dp,-1,sizeof(dp));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        typedef pair&lt;pair&lt;int,int&gt;,int&gt; pii;
+        #define mp make_pair
+        #define x first
+        #define y second
+        queue&lt;pii&gt; q;
+        dp[start.x][start.y][0]=0;
+        q.push(mp(mp(start.x,start.y),0));
+        int X[4]={0,0,1,-1};
+        int Y[4]={1,-1,0,0};
+        while(!q.empty()){</B></FONT>
+            pii p =q.front();
+            if(p.y==((1&lt;&lt;tot)-1)){
+                return dp[p.x.x][p.x.y][p.y];
+            }
+            q.pop();
+            for(int i=0;i&lt;4;i++){
+                int xx=X[i]+p.x.x;
+                int yy=Y[i]+p.x.y;
+                int zz=p.y;
+                int ok=1;
+                if(xx&lt;0||xx&gt;=n||yy&lt;0||yy&gt;=m)
+                    continue;
+                if(grid[xx][yy]&gt;='a'&amp;&amp;grid[xx][yy]&lt;='z')
+                    zz|=1&lt;&lt;(grid[xx][yy]-'a');
+                else if(grid[xx][yy]&gt;='A'&amp;&amp;grid[xx][yy]&lt;='Z'){
+                    ok=zz&amp;(1&lt;&lt;(grid[xx][yy]-'A'));
+                }
+                if(dp[xx][yy][zz]==-1&amp;&amp;ok&amp;&amp;grid[xx][yy]!='#'){
+                    dp[xx][yy][zz]=dp[p.x.x][p.x.y][p.y]+1;
+                    q.push(mp(mp(xx,yy),zz));
+                }
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

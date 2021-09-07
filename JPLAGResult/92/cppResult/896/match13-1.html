@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_ianchew.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>218_ianchew.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    pair&lt;TreeNode*, int&gt; rec(TreeNode* root) {
+        if (root-&gt;right &amp;&amp; root-&gt;left) {
+            auto p1 = rec(root-&gt;right);
+<A NAME="0"></A>            auto p2 = rec(root-&gt;left);
+            if (p1.second == p2.second) {
+                return {root, p2.second+1};
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            } else if (p1.second &gt; p2.second) {
+                p1.second += 1;
+                return p1;
+            } else {
+                p2.second += 1;
+                return p2;
+            }
+        } else if (root-&gt;right) {</B></FONT>
+            auto p = rec(root-&gt;right);
+            p.second += 1;
+            return p;
+        } else if (root-&gt;left) {
+            auto p = rec(root-&gt;left);
+            p.second += 1;
+            return p;
+        } else {
+            return {root, 0};
+        }
+    }
+    
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        if (!root) {
+            return nullptr;
+        }
+        return rec(root).first;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

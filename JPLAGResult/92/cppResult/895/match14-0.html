@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_david111.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_david111.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+struct State {
+    int r, c;
+    int keys, keyCount;
+    int steps;
+
+    State(int R, int C, int k, int kc, int s): r(R), c(C), keys(k), keyCount(kc), steps(s) {}
+
+    int encode() {
+        return keys * 900 + r * 30 + c;
+    }
+};
+
+class Solution {
+    private:
+        int dr[4] = {1, -1, 0, 0};
+        int dc[4] = {0, 0, 1, -1};
+        queue&lt;State&gt; Q;
+        bool visited[90000];
+
+        void enqueue(int r, int c, int keys, int keyCount, int steps = 0) {
+            State s(r, c, keys, keyCount, steps);
+            int code = s.encode();
+            if (!visited[code]) {
+                visited[code] = true;
+                Q.push(s);
+            }
+        }
+
+<A NAME="0"></A>    public:
+        int shortestPathAllKeys(vector&lt;string&gt;&amp; grid) {
+            int startingR, startingC;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int totalKeys = 0;
+
+            for (int i = 0; i &lt; grid.size(); ++i) {
+                for (int j = 0; j &lt; grid[i].size(); ++j) {
+                    if (grid[i][j] == '@') {
+                        startingR = i, startingC = j;
+                    } else if (grid[i][j] &lt;= 'z' &amp;&amp; grid[i][j] &gt;= 'a') {
+                        totalKeys++;
+                    }
+                }
+            }</B></FONT>
+
+            enqueue(startingR, startingC, 0, 0);
+
+            while (!Q.empty()) {
+                State current = Q.front();
+                Q.pop();
+
+                //cout &lt;&lt; '(' &lt;&lt; current.r &lt;&lt; ',' &lt;&lt; current.c &lt;&lt; &quot;), keys=&quot; &lt;&lt; current.keys &lt;&lt; &quot;, keyCount=&quot; &lt;&lt; current.keyCount &lt;&lt; &quot;, steps=&quot; &lt;&lt; current.steps &lt;&lt; endl;
+                ++current.steps;
+
+                for (int k = 0; k &lt; 4; ++k) {
+                    int nr = current.r + dr[k], nc = current.c + dc[k];
+
+                    if (nr &lt; 0 || nr &gt;= grid.size() || nc &lt; 0 || nc &gt;= grid[nr].size()) {
+                        continue;
+                    }
+
+                    char ch = grid[nr][nc];
+                    int newKeys = current.keys;
+                    int newKeyCount = current.keyCount;
+
+                    if (ch == '#') {
+                        continue;
+                    } else if (ch &lt;= 'Z' &amp;&amp; ch &gt;= 'A') {
+                        int lock = ch - 'A';
+                        if (!(current.keys &amp; (1 &lt;&lt; lock))) {
+                            continue;
+                        }
+                    } else if (ch &lt;= 'z' &amp;&amp; ch &gt;= 'a') {
+                        int key = ch - 'a';
+                        if (!(current.keys &amp; (1 &lt;&lt; key))) {
+                            newKeys |= (1 &lt;&lt; key);
+                            ++newKeyCount;
+                            if (newKeyCount == totalKeys) {
+                                return current.steps;
+                            }
+                        }
+                    }
+
+                    enqueue(nr, nc, newKeys, newKeyCount, current.steps);
+                }
+            }
+
+            return -1;
+        }
+};
+</PRE>
+</BODY>
+</HTML>

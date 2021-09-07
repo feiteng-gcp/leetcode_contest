@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>6_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+<A NAME="0"></A>	private int[] dx = new int[] {- 1 , 0 , 1 , 0};
+	private int[] dy = new int[] {0 , 1 , 0 , - 1};
+	
+	private<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> static class Element {		
+		public int x , y , bitmap , dist;
+		public Element(int x , int y , int bitmap , int dist) {</B></FONT>
+			this.x = x;
+			this.y = y;
+			this.bitmap = bitmap;
+			this.dist = dist;
+		}
+		@Override
+		public int hashCode() {
+			int ans = 31;
+			ans = ans * 37 + x;
+			ans = ans * 37 + y;
+			ans = ans * 37 + bitmap;
+			return ans;
+		}
+		public boolean equals(Object object) {
+			Element e = (Element) object;
+			return this.x == e.x &amp;&amp; this.y == e.y &amp;&amp; this.bitmap == e.bitmap;
+		}
+	}
+	
+	private Set&lt;Element&gt; vis = new HashSet&lt;&gt;();
+	
+    public int shortestPathAllKeys(String[] grid) {
+     
+    	int i , j , n = grid.length , m = grid[0].length() , cnt = 0;
+    	Set&lt;Character&gt; set = new HashSet&lt;&gt;();
+    	int x = 0 , y = 0;
+    	for (i = 0;i &lt; n;i ++) {
+    		for (j = 0;j &lt; m;j ++) {
+    			if (grid[i].charAt(j) == '@') {
+    				x = i;
+    				y = j;
+    			} else if (grid[i].charAt(j) &gt;= 'a' &amp;&amp; grid[i].charAt(j) &lt;= 'z') {
+    				set.add(grid[i].charAt(j));
+    			}
+    		}
+    	}
+    	// key number
+    	cnt = set.size();
+    	if (cnt == 0) {
+    		return 0;
+    	}
+    	
+    	Queue&lt;Element&gt; queue = new LinkedList&lt;&gt;();
+    	vis.add(new Element(x , y , 0 , 0));
+    	queue.add(new Element(x , y , 0 , 0));
+    	while (!queue.isEmpty()) {
+    		Element current = queue.poll();
+    		for (i = 0;i &lt; 4;i ++) {
+    			int tx = current.x + dx[i];
+    			int ty = current.y + dy[i];
+    			if (tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m) {
+    				if (grid[tx].charAt(ty) != '#') {
+    					if (grid[tx].charAt(ty) &gt;= 'a' &amp;&amp; grid[tx].charAt(ty) &lt;= 'z') {
+    						int index = grid[tx].charAt(ty) - 'a';
+    						int nextBitmap = current.bitmap;
+    						if ((nextBitmap &amp; (1 &lt;&lt; index)) == 0){
+    							nextBitmap = nextBitmap | (1 &lt;&lt; index);
+    						}
+<A NAME="1"></A>    						int nextDist = current.dist + 1;
+    						Element e = new Element(tx , ty , nextBitmap , nextDist);
+    						
+    						if (e.bitmap == (1 &lt;&lt; cnt) - 1) {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+    							return e.dist;
+    						}
+    						
+    						if (!vis.contains(e)) {
+    							vis.add(e);
+    							queue.add(e);
+    						}
+    					} else if (grid[tx].charAt(ty) &gt;</B></FONT>= 'A' &amp;&amp; grid[tx].charAt(ty) &lt;= 'Z') {
+    						int index = grid[tx].charAt(ty) - 'A';
+    						if ((current.bitmap &amp; (1 &lt;&lt; index)) != 0) {
+    							Element e = new Element(tx , ty , current.bitmap , current.dist + 1);
+    							
+    							if (!vis.contains(e)) {
+    								vis.add(e);
+    								queue.add(e);
+    							}
+    						}
+    					} else {
+    						Element e = new Element(tx , ty , current.bitmap , current.dist + 1);
+    						if (!vis.contains(e)) {
+    							vis.add(e);
+    							queue.add(e);
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return - 1;
+    	
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

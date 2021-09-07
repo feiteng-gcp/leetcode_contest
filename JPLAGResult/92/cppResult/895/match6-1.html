@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_monotone.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_monotone.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+
+	int dirs[4][2] = { { 0,1 },{ 0, -1 },{ 1,0 },{ -1, 0 } };
+
+	int shortestPathAllKeys(vector&lt;string&gt;&amp; grid) {
+		if (grid.size() == 0 || grid[0].size() == 0)
+		{
+			return -1;
+		}
+
+		int m = grid.size();
+		int n = grid[0].size();
+
+		int need = 0;
+
+<A NAME="0"></A>		int sx = -1;
+		int sy = -1;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i&lt;m; i++)
+		{
+			for (int j = 0; j&lt;n; j++)
+			{
+				if (grid[i][j] == '@')
+				{
+					sx = i;
+					sy = j;
+				}
+				else if (grid[i][j] &gt;= 'A' &amp;&amp; grid[i][j] &lt;= 'F')
+				{</B></FONT>
+					int idx = grid[i][j] - 'A';
+					need |= (1 &lt;&lt; idx);
+				}
+			}
+		}
+
+		if (sx == -1)
+		{
+			return -1;
+		}
+
+		if (need == 0)
+		{
+			return 0;
+		}
+
+		queue&lt;pair&lt;int, int&gt;&gt; q;
+		unordered_map&lt;int, unordered_set&lt;int&gt;&gt; visit;
+
+		q.push({ sx*n + sy, 0 });
+		visit[sx*n + sy].insert(0);
+
+		int dist = 0;
+
+		while (q.size() &gt; 0)
+		{
+			int size = q.size();
+			while (size--)
+			{
+				auto f = q.front(); q.pop();
+
+				int x = f.first / n;
+				int y = f.first % n;
+				int keys = f.second;
+
+				if (keys == need)
+				{
+					return dist;
+				}
+
+				for (int d = 0; d&lt;4; d++)
+				{
+					int nx = x + dirs[d][0];
+					int ny = y + dirs[d][1];
+
+					if (nx &lt;0 || nx &gt;= m || ny&lt;0 || ny &gt;= n)
+					{
+						continue;
+					}
+
+					if (grid[nx][ny] == '#')
+					{
+						continue;
+					}
+
+					//get keys
+					if (grid[nx][ny] &gt;= 'a' &amp;&amp; grid[nx][ny] &lt;= 'f')
+					{
+						int idx = grid[nx][ny] - 'a';
+						int nk = keys | (1 &lt;&lt; idx);
+
+						int nxy = nx * n + ny;
+						if (visit[nxy].find(nk) != visit[nxy].end())
+						{
+							continue;
+						}
+
+						if (nk == need)
+						{
+							return dist + 1;
+						}
+
+						q.push({ nxy, nk });
+						visit[nxy].insert(nk);
+
+						continue;
+					}
+
+					if (grid[nx][ny] == '.'|| grid[nx][ny] == '@')
+					{
+						int nxy = nx * n + ny;
+						if (visit[nxy].find(keys) != visit[nxy].end())
+						{
+							continue;
+						}
+						q.push({ nxy, keys });
+						visit[nxy].insert(keys);
+
+						continue;
+					}
+
+					//A - F
+					int idx = grid[nx][ny] - 'A';
+					if (keys &amp; (1 &lt;&lt; idx))
+					{
+						int nxy = nx * n + ny;
+						if (visit[nxy].find(keys) != visit[nxy].end())
+						{
+							continue;
+						}
+						q.push({ nxy, keys });
+						visit[nxy].insert(keys);
+					}
+				}
+			}
+
+			dist++;
+		}
+
+		return -1;
+	}
+};
+</PRE>
+</BODY>
+</HTML>
