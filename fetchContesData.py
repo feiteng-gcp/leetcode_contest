@@ -27,11 +27,13 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
     CNBiweeklyURL = 'https://leetcode-cn.com/contest/api/ranking/biweekly-contest-%s/?pagination=%d&region=local'
 
     contest_str = str(contest)
+    # contest_int = int(contest_str)
 
-    if contest_str == '16A' or contest_str == '16B' or contest_str == '18A' or contest_str == '18B': url = urlOld
-    elif contest_str == '1': url = urlOne
-    elif contest_str == '62': url = url62
-    elif contest_str <= '57': url = urlOld
+
+    # if contest_str == '16A' or contest_str == '16B' or contest_str == '18A' or contest_str == '18B': url = urlOld
+    # elif contest_str == '1': url = urlOne
+    # elif contest_str == '62': url = url62
+    # elif contest_int <= 57: url = urlOld
 
     # if biweeklyContest: url = biweeklyURL
     # if CNRegion: url = CNurl
@@ -69,25 +71,28 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         if contest_str == '1' or contest_str == '62': curURL = url % page_num
         else: curURL = url % (contest_str, page_num)
 
-        try:
-            # if file exists pass
-            if not os.path.exists(target_folder):
-                os.makedirs(target_folder)
-            target_file = target_folder + str(page_num) + '.json'
-            if os.path.exists(target_file): continue
+        # try:
+        # if file exists pass
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
+        target_file = target_folder + str(page_num) + '.json'
+        if os.path.exists(target_file): continue
 
-            resp = requests.get(curURL)
-            str_response = resp.json()
-            user_num = str_response['user_num']
+        # print(curURL)
+        resp = requests.get(curURL)
+        # print(resp)
+        str_response = resp.json()
+        
+        user_num = str_response['user_num']
 
-            if page_num > user_num / 25 + 1: break
-            if(len(str_response) < 1): break
+        if page_num > user_num / 25 + 1: break
+        if(len(str_response) < 1): break
 
-            with open(target_file, 'a') as outputFile_:
-                json.dump(str_response, outputFile_)
-        except Exception as err:
-            print(err)
-            break
+        with open(target_file, 'a') as outputFile_:
+            json.dump(str_response, outputFile_)
+        # except Exception as err:
+        #     print(err)
+        #     break
 
 def parseSubmissions(contest, page_end):
 
@@ -289,7 +294,7 @@ def update_indexMD():
             lastModified = datetime.fromtimestamp(lastModified).strftime('%Y/%m/%d')
             text += str(lastModified) + '|'
             rowDict[contest] = text
-        contestTimeDict[contest_finish_time] = contest
+            # contestTimeDict[contest_finish_time] = contest
         except Exception as err:
             print("error msg... %s" % err)
             pass
