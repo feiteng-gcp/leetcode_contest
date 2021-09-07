@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>102_ryanwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>102_ryanwang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+
+	string extend(string str) {
+		string ret=&quot;&quot;;
+        string rep=&quot;&quot;;
+		int len=str.length();
+        int pos, pos2;
+		for(int i=0; i&lt;len; i++) if (str[i]=='(') pos=i;
+		for(int i=0; i&lt;len; i++) if (str[i]==')') pos2=i;
+		for(int i=pos+1; i&lt;=pos2-1; i++) rep+=str[i];
+		for(int i=0; i&lt;len; i++) {
+			if (str[i]=='('||str[i]==')') continue;
+			else ret+=str[i];
+		}
+		if (rep==&quot;&quot;) rep=&quot;0&quot;;
+		for(int i=0; i&lt;1000; i++) ret+=rep;
+		return ret;
+	}
+
+	string dot(string str) {
+		int len=str.length();
+		for(int i=0; i&lt;len; i++) {
+			if (str[i]=='.') return str;
+		}
+		return str+&quot;.&quot;;
+	}
+
+	int Pos(string&amp; str, char ch) {
+		int len=str.length();
+		for(int i=0; i&lt;len; i++) {
+			if (str[i]==ch) return i;
+		}
+		return -1;
+	}
+
+	int norm(string&amp; str) {
+		string ret=&quot;&quot;;
+		int pos=Pos(str, '.');
+		int num=0;
+        int len=str.length();
+		for(int i=0; i&lt;pos; i++) {
+			num=num*10+str[i]-'0';
+		}
+		for(int i=pos+1; i&lt;len; i++) {
+			ret+=str[i];
+			if (ret.length()==500) break;
+		}
+		str=ret;
+		return num;
+	}
+
+	bool all(string&amp; str, char ch) {
+		int len=str.length();
+		for(int i=0; i&lt;len; i++) {
+			if (str[i]!=ch) return false;
+		}
+		return true;
+	}
+<A NAME="0"></A>    
+    bool all(string&amp; str, char ch, int st) {
+		int len=str.length();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for(int i=st; i&lt;len; i++) {
+			if (str[i]!=ch) return false;
+		}
+		return true;
+	}
+    
+    bool check(string s1, string s2) {
+        int pos1=-1, pos2=-1;</B></FONT>
+        for(int i=0; i&lt;500; i++) if (all(s1, '9', i)) {pos1=i;break;}
+        for(int i=0; i&lt;500; i++) if (all(s2, '0', i)) {pos2=i;break;}
+        if (pos1==-1||pos2==-1) return false;
+        if (pos1!=pos2) return false;
+        if (pos1&amp;&amp;pos2&amp;&amp;s2[pos2-1]-s1[pos1-1]==1) return true;
+    }
+
+    bool isRationalEqual(string S, string T) {
+        S=dot(S);
+        T=dot(T); 
+        cout&lt;&lt;S&lt;&lt;' '&lt;&lt;T&lt;&lt;endl;
+        S=extend(S);
+        T=extend(T);
+        int a=norm(S);
+        int b=norm(T);
+        if (a==b&amp;&amp;S==T) return true;
+        if (a-b==1&amp;&amp;all(S, '0')&amp;&amp;all(T, '9')) return true;
+        if (b-a==1&amp;&amp;all(T, '0')&amp;&amp;all(S, '9')) return true;
+        if (a==b) {
+            if (check(S, T)) return true;
+            if (check(T, S)) return true;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_nodgd.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_nodgd.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    typedef long long int64;
+    typedef pair&lt;int64, int64&gt; pll;
+public:
+    int64 gcd(int64 x, int64 y) {
+        while (y != 0) {
+            int64 t = x % y;
+            x = y;
+            y = t;
+        }
+        return x;
+    }
+    pll simple(pll x) {
+        int64 g = gcd(x.first, x.second);
+        return make_pair(x.first / g, x.second / g);
+    }
+    pll add(pll x, pll y) {
+        return simple(make_pair(x.first * y.second + x.second * y.first, x.second * y.second));
+<A NAME="0"></A>    }
+    pll trans(string s) {
+        int sp = -1, sq = -1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        pll sa = make_pair(0ll, 1ll);
+        pll sb = make_pair(0ll, 1ll);
+        pll sc = make_pair(0ll, 1ll);
+        for (int i = 0; i &lt; s.length(); i ++) {
+            if (s[i] == '.') {
+                sp = i;
+                break;
+            } else {</B></FONT>
+                sa.first = sa.first * 10 + (s[i] - '0');
+            }
+        }
+        printf(&quot;sa = %lld / %lld\n&quot;, sa.first, sa.second);
+        if (sp == -1) {
+            return sa;
+        }
+        for (int i = sp + 1; i &lt; s.length(); i ++) {
+            if (s[i] == '(') {
+                sq = i;
+                break;
+            } else {
+                sb.first = sb.first * 10 + (s[i] - '0');
+                sb.second *= 10;
+            }
+        }
+        printf(&quot;sb = %lld / %lld\n&quot;, sb.first, sb.second);
+        if (sq == -1) {
+            sb = simple(sb);
+            return add(sa, sb);
+        }
+        for (int i = sq + 1; i &lt; s.length(); i ++) {
+            if (s[i] == ')') {
+                break;
+            } else {
+                sc.first = sc.first * 10 + (s[i] - '0');
+                sc.second *= 10;
+            }
+        }
+        sc.second = (sc.second - 1) * sb.second;
+        printf(&quot;sc = %lld / %lld\n&quot;, sc.first, sc.second);
+        sb = simple(sb);
+        sc = simple(sc);
+        printf(&quot;sc = %lld / %lld\n&quot;, sc.first, sc.second);
+        return add(sa, add(sb, sc));
+        
+    }
+    bool isRationalEqual(string S, string T) {
+        pll s = trans(S);
+        printf(&quot;S = %lld / %lld\n&quot;, s.first, s.second);
+        pll t = trans(T);
+        printf(&quot;T = %lld / %lld\n&quot;, t.first, t.second);
+        return s == t;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

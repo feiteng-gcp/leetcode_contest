@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_naoya_t.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_naoya_t.cpp</CENTER></H3><HR>
+<PRE>
+
+
+typedef long long ll;
+typedef long double Double;
+typedef unsigned long long ull;
+typedef pair&lt;int,int&gt; ii;
+typedef pair&lt;ll,ll&gt; llll;
+typedef pair&lt;double,double&gt; dd;
+
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;vector&lt;int&gt;&gt; vvi;
+typedef vector&lt;ii&gt; vii;
+typedef vector&lt;vector&lt;ii&gt;&gt; vvii;
+typedef vector&lt;ll&gt; vll;
+typedef vector&lt;string&gt; vs;
+typedef vector&lt;double&gt; vd;
+typedef vector&lt;long double&gt; vD;
+
+#define sz(a)  int((a).size())
+#define pb  push_back
+#define FOR(var,from,to) for(int var=(from);var&lt;=(to);++var)
+#define rep(var,n)  for(int var=0;var&lt;(n);++var)
+#define rep1(var,n)  for(int var=1;var&lt;=(n);++var)
+#define repC2(vari,varj,n)  for(int vari=0;vari&lt;(n)-1;++vari)for(int varj=vari+1;varj&lt;(n);++varj)
+#define ALL(c)  (c).begin(),(c).end()
+#define RALL(c)  (c).rbegin(),(c).rend()
+#define tr(i,c)  for(auto i=(c).begin(); i!=(c).end(); ++i)
+#define found(s,e)  ((s).find(e)!=(s).end())
+#define mset(arr,val)  memset(arr,val,sizeof(arr))
+#define mid(x,y) ((x)+((y)-(x))/2)
+#define IN(x,a,b) ((a)&lt;=(x)&amp;&amp;(x)&lt;=(b))
+#define cons make_pair
+
+ll gcd(ll a, ll b) { while(a) swap(a, b%=a); return b; }
+
+
+typedef pair&lt;ll,ll&gt; R;
+
+R ts(R x) {
+    if (x.first == 0) return R(0,1);
+
+    ll g = gcd(x.first, x.second);
+    if (g == 0) return x;
+    return R(x.first/g, x.second/g);
+}
+bool eq(R x, R y) {
+    x = ts(x); y = ts(y);
+    return (x.first == y.first &amp;&amp; x.second == y.second);
+}
+<A NAME="0"></A>
+R type3(string&amp; s) {
+    // x.yyyy(zzzz)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int L = s.size(), op = -1, dot = -1;
+//    assert(s[L-1] == ')');
+    for (int i=2; i&lt;L-1; ++i) {
+        if (s[i] == '(') { op=i; break; }
+    }</B></FONT>
+    for (int i=1; i&lt;L; ++i) {
+        if (s[i] == '.') { dot = i; break; }
+    }
+    ll x = atoi(s.substr(0,dot).c_str());
+    int ly = op - 1-dot, lz = L-1-dot - 1 - ly - 1;
+
+    // ll x = s[0] - '0';
+    ll y = atoi(s.substr(1+dot, ly).c_str());
+    ll z = atoi(s.substr(1+dot+ly+1, lz).c_str());
+
+    ll denom1 = 1, denom2 = 1;
+    rep(i,ly) denom1 *= 10;
+    rep(i,lz) denom2 *= 10; denom2--;
+    ll numer = x * denom1 + y;
+    R r(numer*denom2 + z, denom1*denom2);
+#ifdef DEBUG
+    // R r(numer+denom2 + z, denom2*denom1);
+    cerr &lt;&lt; s &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; &quot; . &quot; &lt;&lt; y &lt;&lt; &quot; ( &quot; &lt;&lt; z &lt;&lt; &quot; ) &quot; &lt;&lt; r &lt;&lt; endl;
+#endif
+    return r;
+}
+
+R type2(string&amp; s) {
+    // x.yyyy
+    int L = s.size();
+    int dot = -1;
+//    ll x = s[0] - '0';
+    for (int i=1; i&lt;L; ++i) {
+        if (s[i] == '.') { dot = i; break; }
+    }
+    ll x = atoi(s.substr(0,dot).c_str());
+
+    int ly = L - 1 - dot;
+    ll y = atoi(s.substr(dot+1,ly).c_str());
+
+    ll denom = 1; rep(i,ly) denom *= 10;
+    ll numer = x * denom + y;
+    R r(numer, denom);
+#ifdef DEBUG
+    cerr &lt;&lt; s &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; &quot; . &quot; &lt;&lt; y &lt;&lt; r &lt;&lt; endl;
+#endif
+    return r;
+}
+
+R f(string&amp; s){
+    R x(0,1);
+    int L = s.size();
+
+    if (s[L-1] == ')') {
+        return type3(s);
+    }
+    if (s[L-1] == '.') {
+        int a = atoi(s.substr(0, L-1).c_str());
+        return R(a,1);
+    }
+    // 0  / 0.1
+    for (int i=1; i&lt;L; ++i) {
+        if (s[i] == '.') return type2(s);
+    }
+    // integer part only
+    int a = atoi(s.c_str());
+    return R(a,1);
+}
+
+class Solution {
+public:
+    bool isRationalEqual(string S, string T) {
+        R sa = f(S), sb = f(T);
+        return eq(sa, sb);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

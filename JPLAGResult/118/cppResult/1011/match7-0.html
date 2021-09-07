@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>455_hhr19970204.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>455_hhr19970204.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool helper(TreeNode* root, vector&lt;int&gt;&amp; pre, int&amp; cur, vector&lt;int&gt;&amp; res) {
+        if (!root || cur==pre.size()) return true;
+        
+        if (root-&gt;val != pre[cur]) return false;
+
+        int tmp = cur+1;
+        if (!(helper(root-&gt;left, pre, tmp, res))) {</B></FONT>
+            if (!root-&gt;right || root-&gt;right-&gt;val != pre[cur+1])
+                return false;
+            else {
+                TreeNode* tmp = root-&gt;left;
+                root-&gt;left = root-&gt;right;
+                root-&gt;right = tmp;
+                res.push_back(root-&gt;val);
+            }
+        }
+        cur += 1;
+        return helper(root-&gt;left, pre, cur, res) &amp;&amp; helper(root-&gt;right, pre, cur, res);
+    }
+    
+    vector&lt;int&gt; flipMatchVoyage(TreeNode* root, vector&lt;int&gt;&amp; voyage) {
+        vector&lt;int&gt; res;
+        int cur = 0;
+        if (helper(root, voyage, cur, res))
+            return res;
+        else
+            return {-1};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

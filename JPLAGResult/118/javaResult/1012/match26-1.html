@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	private static class Rational {
+		public int integerPart;
+		public String nonRepeatingPart = &quot;&quot;;
+		public String repeatingPart = &quot;&quot;;
+		public Rational(String string) {
+			if (string.contains(&quot;.&quot;)) {
+				String[] strs = string.split(&quot;[.]&quot;);
+				this.integerPart = Integer.parseInt(strs[0]);
+				if (strs.length &gt; 1) {
+					String s = strs[1];
+					if (s.isEmpty() == false) {
+						if (s.contains(&quot;(&quot;)) {
+							strs = s.split(&quot;[(]&quot;);
+							if (strs[0].isEmpty() == false) {
+								this.nonRepeatingPart = strs[0];
+							}
+							s = strs[1];
+							s = s.substring(0 , s.length() - 1);
+							this.repeatingPart = s;
+						} else {								
+							this.nonRepeatingPart = s;
+						}
+					}
+				}
+			} else {
+				this.integerPart = Integer.parseInt(string);
+			}
+		}
+	}
+	
+	private void update(Rational rational) {
+
+		// all 9
+		if (rational.repeatingPart.equals(&quot;&quot;) == false &amp;&amp; all(rational.repeatingPart , '9')) {
+			rational.repeatingPart = &quot;&quot;;
+<A NAME="1"></A>			if (rational.nonRepeatingPart.equals(&quot;&quot;) || all(rational.nonRepeatingPart , '9')) {
+				rational.integerPart ++;
+				rational.nonRepeatingPart = &quot;&quot;;
+			} else {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				// add one
+				rational.nonRepeatingPart = addOne(rational.nonRepeatingPart);
+			}			
+		}
+		
+	}
+	
+	private String addOne(String string) {</B></FONT>
+		
+		char[] array = string.toCharArray();
+		int i = array.length - 1;
+		while (array[i] == '9') {
+			i --;
+		}
+		array[i] ++;
+		i ++;
+		while (i &lt; array.length) {
+			array[i] = '0';
+			i ++;
+		}
+		return new String(array);
+		
+	}
+	
+	private boolean all(String string , char target) {
+		
+		if (string.isEmpty()) {
+			return false;
+		}
+		for (char ch : string.toCharArray()) {
+			if (ch != target) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	private boolean repeatingIsUseless(Rational rational) {
+		
+		return rational.repeatingPart.equals(&quot;&quot;) || all(rational.repeatingPart , '0');
+		
+	}
+	
+	private boolean check(String string , Rational rational) {
+		
+		int i = 0 , j;
+		for (j = 0;j &lt; rational.nonRepeatingPart.length();j ++) {
+			if (string.charAt(i) != rational.nonRepeatingPart.charAt(j)) {
+				return false;
+			}
+			i ++;
+		}
+		j = 0;
+		while (i &lt; string.length() &amp;&amp; (string.charAt(i) == rational.repeatingPart.charAt(j))) {
+<A NAME="0"></A>			i ++;
+			j = (j + 1) % rational.repeatingPart.length();			
+		}
+		return i == st<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ring.length();
+		
+	}
+	
+	private boolean check(Rational r1 , Rational r2) {
+		
+		StringBuilder builder = new StringBuilder</B></FONT>();
+		builder.append(r1.nonRepeatingPart);
+		for (int i = 0;i &lt; 10;i ++) {
+			builder.append(r1.repeatingPart);
+		}
+		String string = builder.toString();
+		
+		if (!check(string , r2)) {
+			return false;
+		}
+		
+		builder.setLength(0);
+		builder.append(r2.nonRepeatingPart);
+		for (int i = 0;i &lt; 10;i ++) {
+			builder.append(r2.repeatingPart);
+		}
+		string = builder.toString();
+		if (!check(string , r1)) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+    public boolean isRationalEqual(String S, String T) {
+    	
+    	Rational r1 = new Rational(S);
+    	Rational r2 = new Rational(T);    	
+    	
+    	update(r1);
+    	update(r2);    	
+    	
+    	// check two rational
+    	if (r1.integerPart == r2.integerPart) {
+    		if (repeatingIsUseless(r1) || repeatingIsUseless(r2)) {
+    			if (repeatingIsUseless(r1) &amp;&amp; repeatingIsUseless(r2)) {
+    				String s1 = r1.nonRepeatingPart , s2 = r2.nonRepeatingPart;
+    				int i = 0 , j = 0 , length1 = s1.length() , length2 = s2.length();
+    				while (length1 - 1 &gt;= 0 &amp;&amp; s1.charAt(length1 - 1) == '0') {
+    					length1 --;
+    				}
+    				while (length2 - 1 &gt;= 0 &amp;&amp; s2.charAt(length2 - 1) == '0') {
+    					length2 --;
+    				}
+    				while (i &lt; length1 &amp;&amp; j &lt; length2 &amp;&amp; s1.charAt(i) == s2.charAt(j)) {
+    					i ++;
+    					j ++;
+    				}
+    				return i == length1 &amp;&amp; j == length2;
+    			} else {
+    				return false;
+    			}    			
+    		} else {
+    			// repeating is important
+    			return check(r1 , r2);
+    		}
+    	} else {
+    		return false;
+    	}
+    	
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

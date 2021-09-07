@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>30_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>30_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean isRationalEqual(String S, String T) {
+        Rep repS = new Rep(S);
+        Rep repT = new Rep(T);
+        Fraction fracS = repS.value();
+        Fraction fracT = repT.value();
+        // System.out.format(&quot;%s ?= %s\n&quot;, repS, repT, fracS, fracT);
+        return fracS.n == fracT.n &amp;&amp; fracS.d == fracT.d;
+    }
+    
+    private static class Rep {
+        public Fraction intPart;
+        public Fraction fracPart;
+        public Fraction repPart;
+        public int repLen;
+        
+        public Rep(String S) {
+            int dotIdx = S.indexOf(&quot;.&quot;);
+            if (dotIdx &lt; 0) {
+                intPart = new Fraction(intParse(S), 1);
+                fracPart = Fraction.ZERO;
+                repPart = Fraction.ZERO;
+            } else {
+                intPart = new Fraction(intParse(S.substring(0, dotIdx)), 1);
+                int parenIdx = S.indexOf(&quot;(&quot;);
+                if (parenIdx &lt; 0) {
+                    String fracStr = S.substring(dotIdx + 1);
+                    fracPart = new Fraction(intParse(fracStr), pow10(fracStr.length()));
+                    repPart = Fraction.ZERO;
+                } else {
+                    String fracStr = S.substring(dotIdx + 1, parenIdx);
+                    fracPart = new Fraction(intParse(fracStr), pow10(fracStr.length()));
+                    String repStr = S.substring(parenIdx + 1, S.length() - 1);
+                    repLen = repStr.length();
+                    Fraction repBase = new Fraction(intParse(repStr), pow10(fracStr.length() + repLen));
+                    // System.out.format(&quot;repBase = %s\n&quot;, repBase);
+                    if (repLen &gt; 0) {
+                        repPart = repBase.mult(new Fraction(pow10(repLen), pow10(repLen) - 1));
+                    } else {
+                        repPart = Fraction.ZERO;
+                    }
+                }
+            }
+        }
+        
+        public Fraction value() {
+            return intPart.add(fracPart).add(repPart);
+        }
+        
+        @Override
+        public String toString() {
+            return String.format(&quot;(%s, %s, %s) %s&quot;, intPart, fracPart, repPart, value());
+        }
+    }
+    
+    private static int pow10(int p) {
+        int ans = 1;
+        for (int i = 0; i &lt; p; ++i) {
+<A NAME="0"></A>            ans *= 10;
+        }
+        return ans;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private static int intParse(String S) {
+        if (S == null || S.length() == 0) {
+            return</B></FONT> 0;
+        } else {
+            return Integer.parseInt(S);
+        }
+    }
+    
+    private static class Fraction {
+        public long n;
+        public long d;
+        
+        public Fraction(long num, long den) {
+            n = num;
+            d = den;
+            simplify();
+        }
+        
+        public void simplify() {
+            if (n == 0) {
+                d = 1;
+                return;
+            }
+            long g = gcd(n, d);
+            n /= g;
+            d /= g;
+        }
+        
+        public Fraction add(Fraction f) {
+            return new Fraction(n * f.d + f.n * d, d * f.d);
+        }
+        
+        public Fraction mult(Fraction f) {
+            return new Fraction(n * f.n, d * f.d);
+        }
+        
+        public Fraction inv() {
+            if (n == 0) {
+                return Fraction.ZERO;
+            }
+            return new Fraction(d, n);
+        }
+        
+        private static final Fraction ZERO = new Fraction(0, 1);
+        
+        @Override
+        public String toString() {
+            return String.format(&quot;%d / %d&quot;, n, d);
+        }
+    }
+    
+	public static long gcd(long a, long b) {
+		if (a &lt; b)
+			return gcd(b, a);
+
+		long r = a % b;
+		if (r == 0)
+			return b;
+
+		return gcd(b, r);
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

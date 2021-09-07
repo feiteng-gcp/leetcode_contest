@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_pobegaev.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>255_pobegaev.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+<A NAME="0"></A> * }
+ */
+class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[] voyage;
+    private List&lt;Integer&gt; res;
+    public List&lt;Integer&gt; flipMatchVoyage(TreeNode root, int[] voyage) {
+        res = new ArrayList&lt;&gt;();
+        t</B></FONT>his.voyage = voyage;
+        flip(root, 0);
+<A NAME="1"></A>        return res;
+    }
+    
+    private int flip(TreeNode node, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int pos) {
+        if(node == null) {
+            return pos;
+        }
+        if(node.val != voyage[pos]) {
+            res.clear</B></FONT>();
+            res.add(-1);
+            return -1;
+        }
+        pos++;
+        if(node.left != null &amp;&amp; node.right != null &amp;&amp; voyage[pos] == node.right.val) {
+            res.add(node.val);
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
+        }
+        pos = flip(node.left, pos);
+        if(pos == -1) {
+            return pos;
+        } else {
+            return flip(node.right, pos);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

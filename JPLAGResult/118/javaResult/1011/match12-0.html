@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_daltao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_daltao.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List&lt;Integer&gt; flipMatchVoyage(TreeNode root, int[] voyage) {
+        Map&lt;Integer, Integer&gt; indexMap = new HashMap();
+        for(int i = 0, until = voyage.length; i &lt; until; i++)
+        {
+            indexMap.put(
+                voyage[i],
+                (int)i
+            );
+        }
+        
+<A NAME="0"></A>        List&lt;Integer&gt; result = new ArrayList();
+        if(!rotate(root, indexMap, result))
+        {
+            return <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Arrays.asList(-1);
+        }
+        return result;
+    }
+    
+    public static boolean rotate(TreeNode root, Map&lt;Integer, Integer&gt; indexMap, List&lt;Integer&gt; result)
+<A NAME="1"></A>    {
+        if(root.left != null)
+        {</B></FONT>
+            if(indexMap.get(root.val) &gt; <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>indexMap.get(root.left.val))
+            {
+                return false;
+            }
+            if(!rotate(root.left, indexMap, result))
+            {
+                return false;
+            }
+        }</B></FONT>
+        if(root.right != null)
+        {
+            if(indexMap.get(root.val) &gt; indexMap.get(root.right.val))
+            {
+                return false;
+            }
+            if(!rotate(root.right, indexMap, result))
+            {
+                return false;
+            }
+        }
+        
+        if(root.left != null &amp;&amp; root.right != null)
+        {
+            if(indexMap.get(root.left.val) &gt; indexMap.get(root.right.val))
+            {
+                result.add(root.val);
+            }
+        }
+        
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

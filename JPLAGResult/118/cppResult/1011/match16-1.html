@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_teyuchang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_teyuchang.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    public:
+        vector&lt;int&gt; flipMatchVoyage(TreeNode* root, vector&lt;int&gt;&amp; voyage) {
+            if(helper(root, voyage, 0, voyage.size()))
+                return ans;
+            return {-1};
+
+        }
+    private:
+        vector&lt;int&gt; ans;
+        bool helper(TreeNode *root, vector&lt;int&gt;&amp; voyage, int start, int end) {
+            if(root == NULL &amp;&amp; start == end) return true;
+            else if(root == NULL || start &gt; end) return false;
+
+            if(root-&gt;val != voyage[start]) return false;
+<A NAME="0"></A>            if(root-&gt;left == NULL) return helper(root-&gt;right, voyage, start + 1, end);
+            if(root-&gt;right == NULL) return helper(root-&gt;left, voyage, start + 1, end);
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int leftroot = -1, rightroot = -1;
+            for(int i = start; i &lt; end; ++i) {
+                if(voyage[i] == root-&gt;left-&gt;val)
+                    leftroot = i;
+                if(voyage[i] == root-&gt;right-&gt;val)
+                    rightroot = i;
+            }
+            if(leftroot == -1 || rightroot == -1) return false;
+            if(leftroot &lt; rightroot)</B></FONT>
+                return helper(root-&gt;left, voyage, leftroot, rightroot) &amp;&amp; helper(root-&gt;right, voyage, rightroot, end);
+            else {
+                ans.push_back(root-&gt;val);
+                return helper(root-&gt;left, voyage, leftroot, end) &amp;&amp; helper(root-&gt;right, voyage, rightroot, leftroot);
+            }
+        }
+};
+</PRE>
+</BODY>
+</HTML>

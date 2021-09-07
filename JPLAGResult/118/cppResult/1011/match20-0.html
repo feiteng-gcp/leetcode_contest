@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_nyaruko.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_nyaruko.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; flipMatchVoyage(TreeNode* root, vector&lt;int&gt;&amp; voyage) {
+        vector&lt;int&gt; ans;
+        if(helper(root,0,voyage.size()-1,voyage,ans))return ans;
+        return vector&lt;int&gt;({-1});
+    }
+    
+    bool helper(TreeNode* root,int l,int r,vector&lt;int&gt;&amp; voyage,vector&lt;int&gt;&amp; ans)
+<A NAME="0"></A>    {
+        //cout&lt;&lt;root-&gt;val&lt;&lt;&quot; &quot;&lt;&lt;l&lt;&lt;&quot; &quot;&lt;&lt;r&lt;&lt;&quot; &quot;&lt;&lt;voyage[l]&lt;&lt;endl;
+        if(root-&gt;val!=voyage[l])return false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(l==r)return true;
+        int leftIndex=-1,rightIndex=-1;
+        for(int i=l+1;i&lt;=r;i++)
+        {
+            if(root-&gt;left&amp;&amp;voyage[i]==root-&gt;left-&gt;val)leftIndex=i;
+            if(root-&gt;right&amp;&amp;voyage[i]==root-&gt;right-&gt;val)rightIndex=i;
+        }
+        //cout&lt;&lt;root-&gt;val&lt;&lt;&quot; &quot;&lt;&lt;leftIndex&lt;&lt;&quot; &quot;&lt;&lt;rightIndex&lt;&lt;endl;
+        if(root-&gt;left&amp;&amp;leftIndex==-1||root-&gt;right&amp;&amp;rightIndex==-1)return false;
+        if(root-&gt;left==nullptr&amp;&amp;root-&gt;right==nullptr)return false;
+        else if(root-&gt;left==nullptr)</B></FONT>
+        {
+            if(rightIndex!=l+1)return false;
+            return helper(root-&gt;right,rightIndex,r,voyage,ans);
+        }
+        else if(root-&gt;right==nullptr)
+        {
+            if(leftIndex!=l+1)return false;
+            return helper(root-&gt;left,leftIndex,r,voyage,ans);
+        }
+        else
+        {
+            if(leftIndex==l+1)
+            {
+                return helper(root-&gt;left,leftIndex,rightIndex-1,voyage,ans)&amp;&amp;helper(root-&gt;right,rightIndex,r,voyage,ans);
+            }
+            else if(rightIndex==l+1)
+            {
+                ans.push_back(root-&gt;val);
+                //cout&lt;&lt;helper(root-&gt;left,rightIndex,leftIndex-1,voyage,ans)&lt;&lt;&quot; &quot;&lt;&lt;helper(root-&gt;right,leftIndex,r,voyage,ans)&lt;&lt;endl;
+                return helper(root-&gt;right,rightIndex,leftIndex-1,voyage,ans)&amp;&amp;helper(root-&gt;left,leftIndex,r,voyage,ans);
+                //return helper(root-&gt;left,leftIndex,rightIndex-1,voyage,ans)&amp;&amp;helper(root-&gt;right,rightIndex,r,voyage,ans);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

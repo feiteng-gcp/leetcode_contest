@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>178_zhou_zzz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>178_zhou_zzz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+bool isRationalEqual(string S, string T) {
+<A NAME="0"></A>	int repeattime = 16;
+	double snum, tnum;
+	string Snew, Tnew;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int left = -1, right = -1;
+	for (int i = 0; i &lt; S.size(); ++i)
+	{
+		if (S[i] == '(')
+		{
+			left = i;
+		}
+		else if (S[i] == ')')
+		{
+			right = i;
+		}
+		else</B></FONT>
+		{
+			Snew += S[i];
+		}
+	}
+	if (left != -1)
+	{
+		string repeat = S.substr(left + 1, right - left - 1);
+		for (int i = 0; i &lt; repeattime; ++i)
+		{
+			Snew += repeat;
+		}
+	}
+	left = -1, right = -1;
+	for (int i = 0; i &lt; T.size(); ++i)
+	{
+		if (T[i] == '(')
+		{
+			left = i;
+		}
+		else if (T[i] == ')')
+		{
+			right = i;
+		}
+		else
+		{
+			Tnew += T[i];
+		}
+	}
+	if (left != -1)
+	{
+		string repeat = T.substr(left + 1, right - left - 1);
+		for (int i = 0; i &lt; repeattime; ++i)
+		{
+			Tnew += repeat;
+		}
+	}
+	snum = stod(Snew);
+	tnum = stod(Tnew);
+	if (abs(snum - tnum) &lt; 2.2204460492503131e-016)
+	{
+		return true;
+	}
+	return false;
+}
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>17_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+struct fenshu
+{
+	int fenzi;
+	int fenmu;
+};
+int pows[5]={1,10,100,1000,10000};
+class Solution {
+public:
+    int gcd(int x,int y)
+{
+	return y==0?x:gcd(y,x%y);
+}
+fenshu normals(fenshu f)
+{
+	int g=gcd(f.fenzi,f.fenmu);
+	f.fenzi=f.fenzi/g;
+	f.fenmu=f.fenmu/g;
+	return f;
+<A NAME="0"></A>}
+fenshu adds(fenshu x,fenshu y)
+{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int g=gcd(x.fenmu,y.fenmu);
+	int l=x.fenmu/g*y.fenmu;
+	x.fenzi=x.fenzi*(l/x.fenmu);
+	y.fenzi=y.fenzi*(l/y.fenmu);
+	x.fenzi=x.fenzi+y.fenzi;
+	x.fenmu=l;
+	return x;
+}
+fenshu deal(string s)
+{
+	int len=s.size();</B></FONT>
+	int add=0;
+	int f=0;
+	for(f=0;f&lt;len;f++)
+	{
+		if(s[f]=='.')break;
+		add=add*10+(s[f]-'0');
+	}
+	fenshu res;
+	if(f&lt;len-1)
+	{
+		f++;
+		int fix=0;
+		int addf=0;
+		for(;f&lt;len;f++)
+		{
+			if(s[f]=='(')break;
+			fix++;
+			addf=addf*10+(s[f]-'0');
+		}
+		res.fenzi=addf;
+		res.fenmu=pows[fix];
+		//printf(&quot;res:%d %d\n&quot;,res.fenzi,res.fenmu);
+		res=normals(res);
+		//printf(&quot;res:%d %d\n&quot;,res.fenzi,res.fenmu);
+		if(f&lt;len-1)
+		{
+			f++;
+			int cyc=0,ll=0;
+			for(;f&lt;len;f++)
+			{
+				if(s[f]==')')break;
+				ll++;
+				cyc=cyc*10+(s[f]-'0');
+			}
+			fenshu more;
+			more.fenzi=cyc;
+			more.fenmu=(pows[ll]-1)*pows[fix];
+			//printf(&quot;more:%d %d\n&quot;,more.fenzi,more.fenmu);
+			more=normals(more);
+			//printf(&quot;more:%d %d\n&quot;,more.fenzi,more.fenmu);
+			res=adds(res,more);
+			//printf(&quot;res:%d %d\n&quot;,res.fenzi,res.fenmu);
+			res=normals(res);
+			//printf(&quot;res:%d %d\n&quot;,res.fenzi,res.fenmu);
+		}
+	}
+	else
+	{
+		res.fenzi=0;
+		res.fenmu=1;
+	}
+	res.fenzi=res.fenzi+res.fenmu*add;
+	//printf(&quot;res:%d %d\n&quot;,res.fenzi,res.fenmu);
+	return res;
+}
+    bool isRationalEqual(string S, string T) {
+        fenshu s=deal(S),t=deal(T);
+	//printf(&quot;%d %d\n%d %d\n&quot;,s.fenzi,s.fenmu,t.fenzi,t.fenmu);
+	return s.fenzi==t.fenzi&amp;&amp;s.fenmu==t.fenmu;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

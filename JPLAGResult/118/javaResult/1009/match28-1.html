@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>312_banzzaj.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>312_banzzaj.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;Integer&gt; pancakeSort(int[] A) {
+        int[] S = Arrays.copyOf(A, A.length);
+        Arrays.sort(S);
+        
+        // input: [5, -10, 20, 2, 5, 1]
+        
+        //  k=3:  [20, -10, 5, 2, 5, 1] ~ prepare 20 to move to the end
+        //  k=6:  [1, 5, 2, 5, -10, 20] ~ moved 20
+        
+        //  k=4:  [5, 2, 5, 1, -10, 20] ~ prepare 5 to move to the end
+        //  k=5:  [-10, 1, 5, 2, 5, 20] ~ moved 5
+        
+        //  k=3:  [5, 1, -10, 2, 5, 20] ~ prepare another 5
+        //  k=4:  [2, -10, 1, 5, 5, 20]
+        
+        //  k=3:  [1, -10, 2, 5, 5, 20] ~ just moved 2
+        
+        //  k=2:  [-10, 1, 2, 5, 5, 20] ~ moved 1
+        
+        // sorte: [-10, 1, 2, 5, 5, 20]
+        
+        List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+        
+        for(int last=A.length-1; last &gt;= 0; last--) {</B></FONT>
+            if (S[last] == A[last]) continue;
+            int idx = findIdx(A, S[last]);
+            
+            if (idx &gt; 0) {
+                int k = idx + 1;
+                ret.add(k);
+                flip(A, idx);
+<A NAME="1"></A>            }
+            
+            int k = last + 1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ret.add(k);
+            flip(A, last);
+        }
+        
+        return ret;
+    }
+<A NAME="2"></A>    
+    private int findIdx(int[] A, int el) {
+        for(int i=0; i&lt;A.length; i++) {
+            if</B></FONT> (A[i] == el) return i<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return -1;
+    }
+    
+    private void flip(int[] A, int en) {
+        int be = 0</B></FONT>;
+        while(be &lt; en) {
+            int tmp = A[be];
+            A[be] = A[en];
+            A[en] = tmp;
+            be++;
+            en--;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
