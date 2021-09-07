@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_figurative.cpp</TITLE>
+ <TITLE>307_randomnum2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>21_figurative.cpp</CENTER></H3><HR>
+<H3><CENTER>307_randomnum2.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    bool search(int sx, int sy, int tx, int ty) {
-        if (not ((tx &gt;= sx) &amp;&amp; (ty &gt;= sy))) return false;
-        if (sx == tx &amp;&amp; sy == ty) return true;
-        if (sx == tx &amp;&amp; ((ty - sy) % tx) == 0) return true;
-        if (sy == ty &amp;&amp; ((tx - sx) % ty) == 0) return true;
-        if (tx &gt; ty) {</B></FONT>
-            return search(sx, sy, tx % ty, ty);
-        } else {
-            return search(sx, sy, tx, ty % tx);
-        }
-    }
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        return search(sx, sy, tx, ty);
+        while(tx &gt;= sx &amp;&amp; ty &gt;= sy){
+            if(ty - sy == 0){
+                if((tx - sx) % sy == 0)
+                    return true;</B></FONT>
+                else
+                    return false;
+            }
+            if(tx - sx == 0){
+                if((ty - sy) % sx == 0)
+                    return true;
+                else
+                    return false;
+            }
+            if(ty &gt; tx)
+                ty = ty - tx;
+            else
+                tx = tx - ty;
+            if(ty == sy &amp;&amp; tx == sx)
+                return true;
+            //cout &lt;&lt; ty &lt;&lt; &quot; &quot; &lt;&lt; tx &lt;&lt; endl;
+        }
+        return (ty == sy &amp;&amp; tx == sx) ? true : false;
+        
     }
 };
 </PRE>

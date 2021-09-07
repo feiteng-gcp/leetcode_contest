@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>277_lluviay.java</TITLE>
+ <TITLE>124_connection_lost.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>277_lluviay.java</CENTER></H3><HR>
+<H3><CENTER>124_connection_lost.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        if (sx == tx &amp;&amp; sy == ty) {
-            return true;
-        }
-<A NAME="0"></A>        return check(sx, sy, tx, ty);
+    	
+    	if (sx == tx &amp;&amp; sy == ty) return true;
+    	if (sx &gt; tx || sy &gt; ty) return false;</B></FONT>
+    	
+    	if (sx == tx){
+    		int left = ty-sy;
+    		return (left/sx) * sx == left;
+    	} else if (sy == ty){
+    		int left = tx-sx;
+    		return (left/sy) * sy == left;
+    	}
+    	
+    	if (ty &gt; tx){
+    		int x = tx;
+    		int y = ty-tx;
+    		return reachingPoints(sx, sy, x, y);
+    	} else if (ty &lt; tx) {
+    		int x = tx-ty;
+    		int y = ty;
+    		return reachingPoints(sx, sy, x, y);
+    	} else {
+    		if ((ty / 2) * 2 != ty) return false;
+    		int x = ty/2;
+    		int y = ty/2;
+    		return reachingPoints(sx, sy, x, y);
+    	}
     }
     
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public boolean check(int sx, int sy, int tx, int ty) {
-        if (tx &lt; sx || ty &lt; sy) {
-            return false;
-        }
-        if (sx == tx &amp;&amp; sy == ty) {
-            return true;
-        }
-        if (tx &gt; ty) {</B></FONT>
-            if (sy == ty) {
-                if ((tx - sx) % sy == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            return check(sx, sy, tx - ty, ty);
-        } else {
-            if (sx == tx) {
-                if ((ty - sy) % sx == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            return check(sx, sy, tx, ty - tx);
-        }
-    }
 }
 </PRE>
 

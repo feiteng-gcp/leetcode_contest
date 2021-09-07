@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>433_democoffee.cpp</TITLE>
+ <TITLE>34_kottsone.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>433_democoffee.cpp</CENTER></H3><HR>
+<H3><CENTER>34_kottsone.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int numRabbits(vector&lt;int&gt;&amp; answers) {
-        map&lt;int, int&gt; ccnt;
-        for (auto a : answers) { ++ccnt[a]; }
-        int ans = 0;
-        for (auto &amp;p : ccnt) {
-            ans += (p.second+p.first) / (p.first+1) * (p.first+1);
-        }   
-
-        return ans;
-    }   
-};</B></FONT>
+        
+        unordered_map&lt;int,int&gt; mp;
+        for (int i = 0; i &lt; answers.size(); ++i) {
+            ++mp[answers[i]];
+        }
+        
+        int res = 0;</B></FONT>
+        for (auto&amp; m : mp) {
+            int num_group = (m.second-1) / (m.first+1) + 1;
+            res += num_group * (m.first + 1);
+        }
+        
+        return res;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>286_bribri.java</TITLE>
+ <TITLE>207_cooldown.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>286_bribri.java</CENTER></H3><HR>
+<H3><CENTER>207_cooldown.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        if (tx == sx) {
-            return ((ty - sy) % tx == 0);
-        }
-        if (ty == sy) {
-            return ((tx - sx) % ty == 0);
-        }
-        if (tx &lt; ty) {</B></FONT>
-            ty = ty % tx;
-            if (sx == tx &amp;&amp; sy == ty) return true;
-            if (sx &gt; tx || sy &gt; ty) return false;
-        }
-        else if (ty &lt; tx) {
-            tx = tx % ty;
-            if (sx == tx &amp;&amp; sy == ty) return true;
-            if (sx &gt; tx || sy &gt; ty) return false;
-        } else {
-            return false;
-        }
-        if (sx &gt; tx || sy &gt; ty) return false;
-        return reachingPoints(sx, sy, tx, ty);
+        
+        if(tx == sx &amp;&amp; sy == ty) return true;
+        while(!(sx &gt; tx || sy &gt; ty)) {
+            
+            if(tx == sx &amp;&amp; sy == ty) return true;
+            
+            if(tx &lt; ty) {
+                
+                int max = Math.max(sy, tx);
+                int k = (ty - max)/tx;
+                if(k == 0) k++;
+                ty = ty - k*tx;
+                
+            } else if(ty &lt; tx) {
+                int max = Math.max(sx, ty);
+                int k = (tx - max)/ty;
+<A NAME="0"></A>                if(k == 0) k++;
+                tx = tx - k*ty;
+                
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
+                return false;
+            }
+        }</B></FONT>
+        
+        if(tx == sx &amp;&amp; sy == ty) return true;
+        return false;
     }
 }
 </PRE>

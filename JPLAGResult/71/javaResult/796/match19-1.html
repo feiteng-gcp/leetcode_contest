@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>283_luchy0120.java</TITLE>
+ <TITLE>124_connection_lost.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>283_luchy0120.java</CENTER></H3><HR>
+<H3><CENTER>124_connection_lost.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        return g(sx,sy,tx,ty);
-    }</B></FONT>
-    
-    HashSet&lt;Long&gt; c = new HashSet&lt;&gt;();
-        
-        
-<A NAME="1"></A>    public boolean g(int sx, int sy, int tx, int ty){
-        if(c.contains((long)(tx*10000007+ty))){
-            return false;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        if(tx&lt;sx||ty&lt;sy) return false;
-        if(tx==sx&amp;&amp;ty==sy) return true;
-        if(tx&gt;ty){</B></FONT>
-            int n = tx/ty;
-            if(ty==sy&amp;&amp;((tx-sx)%ty)==0) return true;
-     //       for(int i=1;i&lt;=n;i++){
-    //            if(tx-i*ty==sx&amp;&amp;ty==sy) return true;
-    //        }
-            
-            
-       //     for(int i=1;i&lt;=n;i++){
-
-                if(g(sx,sy,tx-n*ty,ty)){
-                    return true;
-                }else{
-                    c.add((long)((tx-n*ty)*10000007+ty));
-                }
-        //    }
-        }else{
-            int n = ty/tx;
-            if(tx==sx&amp;&amp;((ty-sy)%tx)==0) return true;
-            
-      //      for(int i=1;i&lt;=n;i++){
-     //           if(tx==sx&amp;&amp;ty-i*tx==sy) return true;
-    //        }
-   //         for(int i=1;i&lt;=n;i++){
-                if(g(sx,sy,tx,ty-n*tx)){
-                    return true;
-                }else{
-                    c.add((long)(tx*10000007+ty-n*tx));
-                }
-  //          }
-        }
-        return false;
+    	
+    	if (sx == tx &amp;&amp; sy == ty) return true;
+    	if (s</B></FONT>x &gt; tx || sy &gt; ty) return false;
+    	
+    	if (sx == tx){
+    		int left = ty-sy;
+    		return (left/sx) * sx == left;
+    	} else if (sy == ty){
+    		int left = tx-sx;
+    		return (left/sy) * sy == left;
+    	}
+    	
+    	if (ty &gt; tx){
+    		int x = tx;
+    		int y = ty-tx;
+    		return reachingPoints(sx, sy, x, y);
+    	} else if (ty &lt; tx) {
+    		int x = tx-ty;
+    		int y = ty;
+    		return reachingPoints(sx, sy, x, y);
+    	} else {
+    		if ((ty / 2) * 2 != ty) return false;
+    		int x = ty/2;
+    		int y = ty/2;
+    		return reachingPoints(sx, sy, x, y);
+    	}
     }
+    
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>285_pbdpbd123.java</TITLE>
+ <TITLE>329_sevenlol.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>285_pbdpbd123.java</CENTER></H3><HR>
+<H3><CENTER>329_sevenlol.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int numRabbits(int[] answers) {
-        int count = 0;
-        if(answers == null || answers.length == 0) {
-            return count;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; freq = new HashMap&lt;&gt;();
+        for (int val : answers) {
+            freq.put(val, freq.getOrDefault(val, 0) + 1);
+        }</B></FONT>
+
+        int res = 0;
+        for (Map.Entry&lt;Integer, Integer&gt; entry : freq.entrySet()) {
+            int unit = entry.getKey() + 1;
+            res += (entry.getValue() / unit) * unit;
+            if (entry.getValue() % unit != 0) {
+                res += unit;
+            }
         }
-        
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for(int i =0; i &lt; answers.length; i++) {
-            if(answers[i] == 0) {
-                count++;
-<A NAME="0"></A>            } 
-            else {
-                int cur = answers[i];
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map.get(cur) == null) {
-                    count++;
-                    count+=answers[i];
-                    map.put(cur, 1);
-                }
-                else {
-                    int cc = map.get(cur);
-                    if(cc == cur) {
-                        map.remove(cur);
-                    }
-                    else {
-                        map.put(cur, cc+1);
-                    }
-                }
-            }</B></FONT>
-        }
-        
-        return count;
+        return res;
     }
 }
 </PRE>

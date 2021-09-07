@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>117_BitcoinEvangelist.java</TITLE>
+ <TITLE>212_QinlangC.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>117_BitcoinEvangelist.java</CENTER></H3><HR>
+<H3><CENTER>212_QinlangC.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        while (true)<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (sx == tx &amp;&amp; sy ==ty){
-                return true;
-            }
-            if (tx == ty){
-                return false;
-            }
-            if (sx &gt; tx || sy &gt; ty){
-                return false;
-            }
-            if (tx &gt; ty){</B></FONT>
-                int times = Math.max((tx - Math.max(sx,ty)) / ty, 1);
-                tx = tx - ty * times;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) {   
+        while ((sx != tx || sy != ty) &amp;&amp; tx &gt; 0 &amp;&amp; ty &gt; 0 &amp;&amp; sx &lt;= tx &amp;&amp; sy &lt;= ty) {
+            //System.out.println(tx);
+            //System.out.println(ty);
+            if</B></FONT> (tx &gt; ty) {
+                int k = (int)((tx - sx) / ty);
+                if (k == 0) {
+                    return false;
+                }
+                tx -= k * ty;
+            } else if (tx &lt; ty) {
+                int k = (int)((ty - sy) / tx);
+                if (k == 0) {
+                    return false;
+                }
+                ty -= k * tx;
             } else {
-                int times = Math.max((ty - Math.max(sy,tx)) / tx, 1);
-                ty = ty - tx * times;
+                return false;
             }
         }
-        // return false;
+        return sx == tx &amp;&amp; sy == ty;
     }
-
-    // boolean helper(int sx, int sy, int tx, int ty, String tgt, Set&lt;String&gt; set){
-    //     String src = &quot;&quot;+ sx + &quot; &quot; + sy;
-    //     if (src.equals(tgt)){
-    //         return true;
-    //     }
-    //     if (sx &gt; tx || sy &gt; ty){
-    //         return false;
-    //     }
-    //     set.add(src);
-    //     if (helper(sx, sx + sy, tx, ty, tgt, set)){
-    //         return true;
-    //     }
-    //     return helper(sx + sy, sy, tx, ty, tgt, set);
-    // }
 }
 </PRE>
 

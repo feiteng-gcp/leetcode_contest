@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_hiiwave.cpp</TITLE>
+ <TITLE>141_bb123n4.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_hiiwave.cpp</CENTER></H3><HR>
+<H3><CENTER>141_bb123n4.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-  bool reachingPoints(int sx, int sy, int tx, int ty) {
-
-    if (tx &lt; sx || ty &lt; sy) return false;
-    if (tx == sx &amp;&amp; ty == sy) return true;
-    if (tx &lt; ty) {</B></FONT>
-      int a = (ty - sy) / tx;
-      a = max(1, a - 1);
-      cout &lt;&lt; &quot;a &quot; &lt;&lt; a &lt;&lt; endl;
-      return reachingPoints(sx, sy, tx, ty - a * tx);
-    } else {
-      int a = (tx - sx) / ty;
-      a = max(1, a - 1);
-      cout &lt;&lt; &quot;a &quot; &lt;&lt; a &lt;&lt; endl;
-      return reachingPoints(sx, sy, tx - a * ty, ty);
+    unordered_map&lt;int, unordered_map&lt;int, int&gt;&gt; memory;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool reachingPoints(int sx, int sy, int tx, int ty) {
+        if (tx &lt; sx) return false;
+        if (ty &lt; sy) return false;
+        if (ty == sy &amp;&amp; tx == sx) return true;
+        
+        if (tx &gt; ty) {</B></FONT>
+            if (tx - ty &lt; sx) return false;
+            return reachingPoints(sx, sy, (tx - sx) % ty + sx, ty);
+        }
+        else {
+            if (ty - tx &lt; sy) return false;
+            return reachingPoints(sx, sy, tx, (ty - sy) % tx + sy);
+        }
     }
-  }
 };
 </PRE>
 </BODY>

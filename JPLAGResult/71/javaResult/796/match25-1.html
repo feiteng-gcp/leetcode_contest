@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_seraph1212.java</TITLE>
+ <TITLE>212_QinlangC.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_seraph1212.java</CENTER></H3><HR>
+<H3><CENTER>212_QinlangC.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
-            if</B></FONT> (tx == sx &amp;&amp; ty == sy) return true;
-            if (tx &gt; ty) {
-                if (ty == sy) {
-                    return (tx % ty) == (sx % sy);
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) {   
+        while ((sx != tx || sy != ty) &amp;&amp; tx &gt; 0 &amp;&amp; ty &gt; 0 &amp;&amp; sx &lt;= tx &amp;&amp; sy &lt;= ty) {
+            //System.out.println(tx);
+            //System.out.println(ty);
+            if (tx &gt; ty) {</B></FONT>
+                int k = (int)((tx - sx) / ty);
+                if (k == 0) {
+                    return false;
                 }
-                else {
-                    tx %= ty;
+                tx -= k * ty;
+            } else if (tx &lt; ty) {
+                int k = (int)((ty - sy) / tx);
+                if (k == 0) {
+                    return false;
                 }
-
+                ty -= k * tx;
+            } else {
+                return false;
             }
-            else {  // ty &gt; tx
-                if (tx == sx) {
-                    return (ty % tx) == (sy % sx);
-<A NAME="1"></A>                }
-                else {
-                    ty %= tx;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            }
-            
         }
-        return false;
+        return sx == tx &amp;&amp; sy == ty;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

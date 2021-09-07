@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>173_fsqhxrcjw.cpp</TITLE>
+ <TITLE>206_wmpeng.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>173_fsqhxrcjw.cpp</CENTER></H3><HR>
+<H3><CENTER>206_wmpeng.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution
+{
 public:
-    
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool dp(const int sx, const int sy, int tx, int ty) {
-        if (tx&lt;sx || ty&lt;sy)
-            return false;
-        
-        if (tx==sx &amp;&amp; ty==sy)
-            return true;
-        
-        if (tx==sx)
-            return (ty-sy) % tx==0;
-        if (ty==sy)
-            return (tx-sx) % ty==0;
-        
-        return dp(sx, sy, tx, ty-tx) || dp(sx, sy, tx-ty, ty);
-    }</B></FONT>
-    
-    bool reachingPoints(int sx, int sy, int tx, int ty) {
-        return dp(sx, sy, tx, ty);
+    bool reachingPoints(int sx, int sy, int tx, int ty)
+    {
+        while(!(tx&lt;sx || ty&lt;sy))
+        {
+        	//cout&lt;&lt;tx&lt;&lt;&quot; &quot;&lt;&lt;ty&lt;&lt;endl;
+        	if(sx==tx &amp;&amp; sy==ty)
+<A NAME="0"></A>        		return true;
+        	if(tx==ty)
+        		return (sx==tx &amp;&amp; sy==ty);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        	else if(tx&gt;ty)
+        	{
+        		if(sy==ty &amp;&amp; tx-sx&gt;=0 &amp;&amp; (tx-sx)/ty*ty==(tx-sx))
+        			return true;
+        		tx-=tx/ty*ty;
+        	}
+        	else
+        	{
+        		if(sx==tx &amp;&amp; ty-sy&gt;=0 &amp;&amp; (ty-sy)/tx*tx==(ty-sy))
+        			return true;
+        		ty-=ty/tx*tx;
+			}
+        }
+        return false;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

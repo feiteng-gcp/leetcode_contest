@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_uwi.java</TITLE>
+ <TITLE>68_dev_guo.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_uwi.java</CENTER></H3><HR>
+<H3><CENTER>68_dev_guo.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
-	    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-	    	return dfs(sx, sy, tx, ty);
-	    }</B></FONT>
-<A NAME="1"></A>	    
-	    boolean dfs(long sx, long sy, long tx, long ty)
-	    {
-	    	if(tx &lt; sx || ty &lt; sy)return false;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	    	if(sy == ty &amp;&amp; (tx-sx) % sy == 0)return true;
-	    	if(sx == tx &amp;&amp; (ty-sy) % sx == 0)return true;
-	    	if(tx &lt; ty){</B></FONT>
-	    		return dfs(sx, sy, tx, ty % tx);
-	    	}else{
-	    		return dfs(sx, sy, tx % ty, ty);
-	    	}
-	    }
-	}	
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution 
+{
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) 
+    {
+        if(tx == sx &amp;&amp; ty == sy) return true;
+        if</B></FONT>(tx &lt; 0 &amp;&amp; ty &lt; 0)
+        {
+            if(sx &lt; 0 &amp;&amp; sy &lt; 0)
+            {
+                tx = -tx;
+                ty = -ty;
+                sx = -sx;
+                sy = -sy;
+            }
+        }
+        while(tx &gt;= sx &amp;&amp; ty &gt;= sy)
+        {
+            if(tx &gt; ty) 
+            {
+                int p = tx - Math.max(ty, sx);
+                int n = Math.max(1, p/ty);
+                tx = tx - ty*n;
+            }
+            else 
+            {
+                int p = ty - Math.max(tx, sy);
+                int n = Math.max(1, p/tx);
+                ty = ty - tx*n;
+            }
+            if(tx == sx &amp;&amp; ty == sy) return true;
+        }
+        
+        
+        return false;
+        
+    }
+}
 </PRE>
 
 </BODY>

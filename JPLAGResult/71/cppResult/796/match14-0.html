@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>76_renpingao.cpp</TITLE>
+ <TITLE>94_lytton.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>76_renpingao.cpp</CENTER></H3><HR>
+<H3><CENTER>94_lytton.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    bool reachingPoints(int sx, int sy, int tx, int ty) {
-        cout&lt;&lt;sx&lt;&lt;&quot; &quot;&lt;&lt;sy&lt;&lt;&quot; &quot;&lt;&lt;tx&lt;&lt;&quot; &quot;&lt;&lt;ty&lt;&lt;endl;
-        if (tx &lt; sx || ty &lt; sy) return false;
-        if (sx == tx &amp;&amp; sy == ty) return true;
-        if (sx == tx) return (ty - sy) % tx == 0 ? true : false;</B></FONT>
-        if (sy == ty) return (tx - sx) % ty == 0 ? true : false;
-        if (tx &gt;= ty)
-            return reachingPoints(sx, sy, tx - ty, ty);
-        else
-            return reachingPoints(sx, sy, tx, ty - tx);
+<A NAME="0"></A>    bool reachingPoints(int sx, int sy, int tx, int ty) {
+        int k;
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (tx == sx &amp;&amp; ty == sy) return true;
+            if (ty &gt; tx) {
+                if (ty - sy &gt;= tx) ty -= (ty - sy) / tx * tx;
+                else ty -= tx;
+            }
+            else {
+                if (tx - sx &gt;= ty) tx -= (tx - sx) / ty * ty;
+                else tx -= ty;
+            }
+        }
+        
+        return false;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

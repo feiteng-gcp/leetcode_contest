@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>285_pbdpbd123.java</TITLE>
+ <TITLE>275_vegito2002.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>285_pbdpbd123.java</CENTER></H3><HR>
+<H3><CENTER>275_vegito2002.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-
-    public boolean reachingPoints(int sx, int sy, int tx, int ty) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-        
-        if(ty == sy) {
-            if(tx &gt;= sx &amp;&amp; (tx - sx) % sy == 0 ) {
-                return true;
-            }
-            else {
-<A NAME="1"></A>                return false;
-            }
-        }</B></FONT>
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(tx == sx) {
-            if(ty &gt;= sy &amp;&amp; (ty - sy) % sx == 0 ) {
-                return true;
-            }
-            else {
-<A NAME="2"></A>                return false;
-            }
-        }</B></FONT>
-        while(tx&gt;=1 &amp;&amp; ty &gt;=1 &amp;&amp; tx &gt;= sx &amp;&amp; ty &gt;= sy) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            if(tx == sx &amp;&amp; ty == sy) {
-                return true;
-            }
-            if(tx == ty) {
-                return false;
-            }</B></FONT>
-            else if(tx &gt; ty) {
-                tx = tx -ty;
-            }
-            else { //tx &lt; ty
-                ty = ty -tx;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
+        while (tx != ty) {
+            // System.out.printf (&quot;tx:(%d), ty:(%d)\n&quot;, tx, ty);///
+            if (tx &gt; ty) {</B></FONT>
+                if (tx % ty &gt; 0)
+                    tx %= ty;
+                else
+                    tx -= ty;
+            // System.out.printf (&quot;tx:(%d), ty:(%d)\n\n&quot;, tx, ty);///
+                if (sy == ty)
+                    return (sy == 1 &amp;&amp; tx &gt; sx) || sx == tx || Math.abs (sx - tx) == sy || (sy &gt; 1 &amp;&amp; (sx - tx) % sy == 0);
+            } else {
+                if (ty % tx &gt; 0)
+                    ty %= tx;
+                else
+                    ty -= tx;
+            // System.out.printf (&quot;tx:(%d), ty:(%d)\n\n&quot;, tx, ty);///
+                if (sx == tx)
+                    return (sx == 1 &amp;&amp; ty &gt; sy) || sy == ty || Math.abs (sy - ty) == sx || (sx &gt; 1 &amp;&amp; (sy - ty) % sx == 0);
             }
         }
-        
-        return false;
+        return sx == tx &amp;&amp; sy == ty;
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_xn1990114.java</TITLE>
+ <TITLE>250_leonw007.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,102 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>52_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>250_leonw007.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public boolean reachingPoints(int sx, int sy, int tx, int ty) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-        if(sx==tx&amp;&amp;sy==ty){
-            return true;
+class Solution {
+    
+    class Point {
+        int x, y;
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
-        if(sx&gt;tx||sy&gt;ty){
-            return false;
+        
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Point point = (Point) o;
+
+            if (x != point.x) return false;
+            return y == point.y;
+
         }
-        if(tx==sx){
-            return (ty-sy)%sx==0;
+
+        @Override
+        public int hashCode() {
+            int result = x;
+            result = 31 * result + y;
+            return result;
+<A NAME="0"></A>        }        
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public boolean reachingPoints(int sx, int sy, int tx, int ty) {
+        if (sx == tx) {
+            return (ty - sy) % sx == 0;
         }
-        if(ty==sy){
-            return (tx-sx)%sy==0;
+        if (sy == ty) {
+            return (tx - sx) % sy == 0;
+        }</B></FONT>
+        
+        Point start = new Point(sx, sy);
+        Set&lt;Point&gt; startSet = new HashSet&lt;&gt;();
+        startSet.add(start);
+        Point end = new Point(tx, ty);
+        Set&lt;Point&gt; endSet = new HashSet&lt;&gt;();
+        endSet.add(end);
+        
+        Set&lt;Point&gt; used = new HashSet&lt;&gt;();
+        
+        boolean forward = true;
+        while (startSet.size() &gt; 0 &amp;&amp; endSet.size() &gt; 0) {
+            // System.out.println(startSet.size() + &quot; &quot; + endSet.size() );
+            if (startSet.size() &gt; endSet.size()) {
+                Set&lt;Point&gt; temp = endSet;
+                endSet = startSet;
+                startSet = temp;
+                forward = !forward;
+            }
+            
+            Set&lt;Point&gt; nextStart = new HashSet&lt;&gt;();
+            for (Point cur: startSet) {
+                if (endSet.contains(cur)) {
+                    return true;
+                }
+                used.add(cur);
+                
+                if (forward) {
+                    if (cur.x &lt;= end.x &amp;&amp; cur.x + cur.y &lt;= end.y) {
+                        Point left = new Point(cur.x, cur.x + cur.y);
+                        if (!used.contains(left)) {
+                            nextStart.add(left);
+                        }
+                    }
+                    if (cur.x + cur.y &lt;= end.x &amp;&amp; cur.y &lt;= end.y) {
+                        Point right = new Point(cur.x + cur.y, cur.y);
+                        if (!used.contains(right)) {
+                            nextStart.add(right);
+                        }            
+                    }
+                } else {
+                    if (cur.x &gt;= start.x &amp;&amp; cur.y - cur.x &gt;= start.y) {
+                        Point left = new Point(cur.x, cur.y - cur.x);
+                        if (!used.contains(left)) {
+                            nextStart.add(left);
+                        }
+                    }
+                    if (cur.x - cur.y &gt;= start.x &amp;&amp; cur.y &gt;= start.y) {
+                        Point right = new Point(cur.x - cur.y, cur.y);
+                        if (!used.contains(right)) {
+                            nextStart.add(right);
+                        }            
+                    }
+                }
+            }
+            startSet = nextStart;
         }
-        if(tx&lt;ty){</B></FONT>
-            return reachingPoints(sx,sy,tx,ty-tx);
-        }
-        return reachingPoints(sx,sy,tx-ty,ty);
+        return false;
     }
 }
 </PRE>

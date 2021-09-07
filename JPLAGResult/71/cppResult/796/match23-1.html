@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_morningsyj.cpp</TITLE>
+ <TITLE>170_frostfrog.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_morningsyj.cpp</CENTER></H3><HR>
+<H3><CENTER>170_frostfrog.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    bool gcd(int tx, int ty, int sx, int sy)
-    {
-        if (tx &lt; sx || ty &lt; sy)
-            return false;
-        if (ty == sy)
-            return (tx - sx) % ty == 0;</B></FONT>
-        return gcd(ty, tx % ty, sy, sx);
+    bool reachingPoints(int sx, int sy, int tx, int ty) {
+      //   printf(&quot;%d %d %d %d\n&quot;, sx, sy, tx, ty );
+        if (tx &lt; sx) return false;
+        if (ty &lt; sy) return false;
+        if (sx == tx &amp;&amp; sy == ty) return true;
+        if (sx == tx) {</B></FONT>
+  //          printf(&quot;%d %d %d %d\n&quot;, sx, sy, tx, ty );
+            return (ty - sy) % sx == 0;
+        }
+
+        if (sy == ty) {
+    //        printf(&quot;%d %d %d %d\n&quot;, sx, sy, tx, ty );
+            return (tx - sx) % sy == 0;
+        }
+        
+        if (tx &gt; ty) return reachingPoints(sx, sy, tx - ty, ty);
+        else return reachingPoints(sx, sy, tx, ty - tx);
     }
     
-    bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if (tx &lt; ty)
-            swap(tx, ty), swap(sx, sy);
-        return gcd(tx, ty, sx, sy);
-    }
 };
 </PRE>
 </BODY>

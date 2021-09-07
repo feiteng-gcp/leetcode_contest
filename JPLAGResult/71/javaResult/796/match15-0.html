@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_xn1990114.java</TITLE>
+ <TITLE>73_XuhuiWang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>52_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>73_XuhuiWang.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public boolean reachingPoints(int sx, int sy, int tx, int ty) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-        if(sx==tx&amp;&amp;sy==ty){
-            return true;
-        }
-        if(sx&gt;tx||sy&gt;ty){
-            return false;
-        }
-        if(tx==sx){
-            return (ty-sy)%sx==0;
-        }
-        if(ty==sy){</B></FONT>
-            return (tx-sx)%sy==0;
-        }
-        if(tx&lt;ty){
-            return reachingPoints(sx,sy,tx,ty-tx);
-        }
-        return reachingPoints(sx,sy,tx-ty,ty);
-    }
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+	public boolean reachingPoints(int sx, int sy, int tx, int ty) {
+		while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+			if (tx == sx &amp;&amp; ty == s</B></FONT>y)
+				return true;
+			if (tx &gt;= ty) {
+				int floor = Math.max(ty, sx);
+				tx -= Math.max((tx - floor) / ty, 1) * ty;
+			} else {
+				int floor = Math.max(tx, sy);
+				ty -= Math.max((ty - floor) / tx, 1) * tx;
+			}
+		}
+		return false;
+	}
 }
 </PRE>
 

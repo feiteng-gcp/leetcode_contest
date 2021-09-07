@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>247_luckybug38.java</TITLE>
+ <TITLE>388_c0deb0t.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>247_luckybug38.java</CENTER></H3><HR>
+<H3><CENTER>388_c0deb0t.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int numRabbits(int[] answers) {
-        int[] arr = new int[1000];
-        for(int n : answers){
-            arr[n]++;
-        }
-        int totalRabbit = answers.length;
-        for(int i =1; i&lt;arr.length; i++){
-            if(arr[i]&gt;0){
-<A NAME="0"></A>                int mod = arr[i]%(i+1);
-                if(mod!=0){
-                totalRabbit+=(i+1-mod);
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numRabbits(int[] a) {
+        HashMap&lt;Integer, ArrayList&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; a.length; i++){
+            if(map.containsKey</B></FONT>(a[i] + 1)){
+                int idx = 0;
+                ArrayList&lt;Integer&gt; list = map.get(a[i] + 1);
+                while(idx &lt; list.size() &amp;&amp; list.get(idx) &lt;= 0){
+                    idx++;
+                }
+                if(idx &gt;= list.size()){
+                    ArrayList&lt;Integer&gt; temp = new ArrayList&lt;Integer&gt;();
+                    temp.add(a[i]);
+                    map.put(a[i] + 1, temp);
+                }else{
+                    list.set(idx, list.get(idx) - 1);
+<A NAME="1"></A>                }
+            }else{
+                ArrayList&lt;Integer&gt; temp = new ArrayList&lt;Integer&gt;();
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>temp.add(a[i]);
+                map.put(a[i] + 1, temp);
             }
         }
-        return totalRabbit;
+        int res = 0;
+        for(int key : map.keySet()){</B></FONT>
+            for(int val : map.get(key)){
+                res += val;
+            }
+        }
+        return res + a.length;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

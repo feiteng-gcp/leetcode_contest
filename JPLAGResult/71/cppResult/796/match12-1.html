@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>295_mountain_rain.cpp</TITLE>
+ <TITLE>6_Fr0benius.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,16 +15,21 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>295_mountain_rain.cpp</CENTER></H3><HR>
+<H3><CENTER>6_Fr0benius.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
+class Solution {
+<A NAME="0"></A>public:
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if(sx==tx&amp;&amp;sy==ty) return true;
-        if(sx&gt;tx||sy&gt;ty) return false;
-        if(sx==tx) return (ty-sy)%sx==0;</B></FONT>
-        if(sy==ty) return (tx-sx)%sy==0;
-        return reachingPoints(sx, sy, tx-ty, ty)||reachingPoints(sx, sy, tx, ty-tx);
+        while(tx &amp;&amp; ty){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(tx&gt;=ty){
+                if(ty==sy &amp;&amp; tx&gt;=sx &amp;&amp; (tx-sx)%ty==0) return 1;
+                tx%=ty;
+            }else{
+                if(tx==sx &amp;&amp; ty&gt;=sy &amp;&amp; (ty-sy)%tx==0) return 1;
+                ty%=tx;
+            }
+        }</B></FONT>
+        return 0;
     }
 };
 </PRE>

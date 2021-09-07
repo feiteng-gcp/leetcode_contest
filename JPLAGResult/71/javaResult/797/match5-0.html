@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>466_evanfang102.java</TITLE>
+ <TITLE>435_chnsht.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>466_evanfang102.java</CENTER></H3><HR>
+<H3><CENTER>435_chnsht.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public int numRabbits(int[] answers) {
-        Map&lt;Integer, Integer&gt; hashMap = new HashMap&lt;Integer, Integer&gt;();
-        int result = 0;
-        for(int ans: answers) {
-            if</B></FONT>(ans == 0) {
-<A NAME="1"></A>                result += 1;
-                continue;
-            }
-            if(hashMap.containsKey(ans)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                int value = hashMap.get(ans);
-                if(value == ans + 1) {
-                    result += (ans + 1);
-                    hashMap.put(ans, 1);
-                } else {
-                    hashMap.put(ans, value+1);
-                }
-            }</B></FONT> else {
-                hashMap.put(ans, 1);
+        int total = 0;
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int i = 0; i &lt; answers.length; i++) {
+            map.put(answers[i], map.getOrDefault(answers[i], 0) + 1);
+        }
+        for (int key : map.keySet()) {
+            int supposeSize = key + 1;
+<A NAME="0"></A>            int num = map.get(key);
+            if (num % supposeSize != 0) {
+                total = total + ((num / supposeSize) + 1) * supposeSize;
+            } else <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                total = total + num;
             }
         }
-        
-        for(Map.Entry&lt;Integer, Integer&gt; entry: hashMap.entrySet()) {
-            result += (entry.getKey() + 1);
-        }
-        
-        return result;
+        return total;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

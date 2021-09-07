@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>433_democoffee.cpp</TITLE>
+ <TITLE>450_hopelee.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>433_democoffee.cpp</CENTER></H3><HR>
+<H3><CENTER>450_hopelee.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int numRabbits(vector&lt;int&gt;&amp; answers) {
-        map&lt;int, int&gt; ccnt;
-        for (auto a : answers) { ++ccnt[a]; }
-        int ans = 0;
-        for (auto &amp;p : ccnt) {</B></FONT>
-            ans += (p.second+p.first) / (p.first+1) * (p.first+1);
-        }   
-
-        return ans;
-    }   
+        int num = 0;
+        map&lt;int, int&gt; dict;
+        for (int answer : answers) {
+            if (!dict.count(answer)) {
+                dict[answer] = 0;
+            }</B></FONT>
+            dict[answer]++;
+        }
+        for (map&lt;int, int&gt;::iterator it = dict.begin(); it != dict.end(); it++) {
+            num += ceil((float)it-&gt;second / (it-&gt;first + 1)) * (it-&gt;first + 1);
+        }
+        return num;
+    }
 };
 </PRE>
 </BODY>

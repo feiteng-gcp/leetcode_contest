@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>277_lluviay.java</TITLE>
+ <TITLE>146_woaihg.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>277_lluviay.java</CENTER></H3><HR>
+<H3><CENTER>146_woaihg.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        if (sx == tx &amp;&amp; sy == ty) {
-            return true;
+        if(sx==tx&amp;&amp;sy==ty) return true;
+        if</B></FONT>(tx==ty) return false;
+        while(tx&gt;=sx&amp;&amp;ty&gt;=sy){
+            if(sx==tx&amp;&amp;sy==ty) return true;
+            if(tx&gt;ty){
+                if(tx-ty&lt;sx) return false;
+                tx=(tx-sx)%ty+sx;
+            }
+            else if(tx==ty) return false;
+            else{
+                if(ty-tx&lt;sy) return false;
+                ty=(ty-sy)%tx+sy;
+            }
         }
-        return check(sx, sy, tx, ty);
-    }
-    
-    public boolean check(int sx, int sy, int tx, int ty) {
-        if (tx &lt; sx || ty &lt; sy) {
-            return false;
-        }
-<A NAME="0"></A>        if (sx == tx &amp;&amp; sy == ty) {
-            return true;
-        }
-        if (tx &gt; ty) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (sy == ty) {
-                if ((tx - sx) % sy == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }</B></FONT>
-<A NAME="1"></A>            return check(sx, sy, tx - ty, ty);
-        } else {
-            if (sx == tx) {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if ((ty - sy) % sx == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }</B></FONT>
-            return check(sx, sy, tx, ty - tx);
-        }
+        return false;
     }
 }
 </PRE>

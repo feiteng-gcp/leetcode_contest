@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_JOHNKRAM.cpp</TITLE>
+ <TITLE>189_quanxie.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_JOHNKRAM.cpp</CENTER></H3><HR>
+<H3><CENTER>189_quanxie.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if(tx==ty)return sx==sy&amp;&amp;tx==sx;
-        if(tx&lt;sx||ty&lt;sy)return 0;
-        if(tx&lt;ty)</B></FONT>
-        {
-            swap(tx,ty);
-            swap(sx,sy);
+        int x = tx;
+        int y = ty;
+<A NAME="0"></A>        while (x &gt; 0 &amp;&amp; y &gt; 0){
+            if (sx == x &amp;&amp; sy == y) return true;
+            if (x == y) return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (sx &gt; x || sy &gt; y) return false;
+            if (x &gt; y){
+                if (x - sx &lt; y)
+                    x = x - y;
+                else
+                    x = x - y * ((x - sx) / y);
+            }
+            else{
+                if (y - sy &lt; x)
+                    y = y - x;
+                else
+                    y = y - x * ((y - sy) / x);
+            }
         }
-        if((tx-sx)%ty==0&amp;&amp;ty==sy)return 1;
-        return reachingPoints(sx,sy,tx%ty,ty);
+        return false;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

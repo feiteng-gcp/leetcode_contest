@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>454_Berglenard.java</TITLE>
+ <TITLE>435_chnsht.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>454_Berglenard.java</CENTER></H3><HR>
+<H3><CENTER>435_chnsht.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int numRabbits(int[] answers) {
-<A NAME="0"></A>        HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();
         int total = 0;
-        for(int i = 0; i &lt; answers.length; i++) {
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(!map.containsKey(answers[i])) {
-                total += answers[i] + 1;
-                map.put(answers[i], 1);
-            }
-            else {
-                int count = map.get(answers[i]);
-                if(count == answers[i] + 1) {
-                    total += answers[i] + 1;
-                    map.put(answers[i], 1);
-                }
-                else {
-                    map.put(answers[i], count + 1);
-                }
-            }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int i = 0; i &lt; answers.length; i++) {
+            map.put(answers[i], map.getOrDefault(answers[i], 0) + 1);
         }</B></FONT>
+        for (int key : map.keySet()) {
+            int supposeSize = key + 1;
+            int num = map.get(key);
+            if (num % supposeSize != 0) {
+                total = total + ((num / supposeSize) + 1) * supposeSize;
+            } else {
+                total = total + num;
+            }
+        }
         return total;
     }
 }

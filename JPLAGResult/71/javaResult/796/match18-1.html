@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>294_nd63njit.java</TITLE>
+ <TITLE>124_connection_lost.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>294_nd63njit.java</CENTER></H3><HR>
+<H3><CENTER>124_connection_lost.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        return dfs(sx, sy, tx, ty);
+    	
+    	if (sx == tx &amp;&amp; sy == ty) return true;
+    	if (sx &gt; tx || sy &gt; ty) return false;</B></FONT>
+    	
+    	if (sx == tx){
+    		int left = ty-sy;
+    		return (left/sx) * sx == left;
+    	} else if (sy == ty){
+    		int left = tx-sx;
+    		return (left/sy) * sy == left;
+    	}
+    	
+    	if (ty &gt; tx){
+    		int x = tx;
+    		int y = ty-tx;
+    		return reachingPoints(sx, sy, x, y);
+    	} else if (ty &lt; tx) {
+    		int x = tx-ty;
+    		int y = ty;
+    		return reachingPoints(sx, sy, x, y);
+    	} else {
+    		if ((ty / 2) * 2 != ty) return false;
+    		int x = ty/2;
+    		int y = ty/2;
+    		return reachingPoints(sx, sy, x, y);
+    	}
     }
     
-    private boolean dfs(int sx, int sy, int tx, int ty) {
-        if (sx == tx &amp;&amp; sy == ty) return true;
-        if (sx &gt; tx || sy &gt; ty) return false;
-        
-        if</B></FONT> (tx &gt;= ty) {
-            return dfs(sx, sy, remainAbove(tx, ty, sx), ty);
-        } else {
-            return dfs(sx, sy, tx, remainAbove(ty, tx, sy));
-        }
-    }
-    
-    private int remainAbove(int a, int b, int c) {
-        int r = a % b;
-        int rc = c % b;
-        int res = c - rc + r;
-        while (res &lt; c) res += b;
-        return res == a ? 0 : res;
-    }
 }
 </PRE>
 

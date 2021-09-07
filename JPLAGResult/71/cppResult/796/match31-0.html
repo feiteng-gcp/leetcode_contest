@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>53_charliemeng.cpp</TITLE>
+ <TITLE>20_szfck.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>53_charliemeng.cpp</CENTER></H3><HR>
+<H3><CENTER>20_szfck.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-	bool reachingPoints(int sx, int sy, int tx, int ty) {
-		if (sx == tx &amp;&amp; sy == ty) return true;
-		if (sx &gt; tx || sy &gt; ty) return false;
-		if (tx == ty) return false;</B></FONT>
-		int k;
-		if (tx &gt; ty) {
-			k = min((tx - sx) / ty, (int)ceil((double)tx / ty) - 1);
-			if (k == 0) return false;
-			return reachingPoints(sx, sy, tx - k * ty, ty);
-		}
-		else {
-			k = min((ty - sy) / tx, (int)ceil((double)ty / tx) - 1);
-			if (k == 0) return false;
-			return reachingPoints(sx, sy, tx, ty - k * tx);
-		}
-	}
+    bool reachingPoints(int sx, int sy, int tx, int ty) {
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+            if (sx == tx &amp;&amp; sy == ty) return true;
+            if (ty &gt; tx) {</B></FONT>
+                int k = (ty - sy) / tx;
+                if (k &lt;= 0) break;
+                ty = ty - k * tx;
+            } else if (tx &gt; ty) {
+                int k = (tx - sx) / ty;
+                if (k &lt;= 0) break;
+                tx = tx - k * ty;
+            } else {
+                return false;
+            }
+            
+        }
+        return (sx == tx &amp;&amp; sy == ty);
+        
+    }
 };
 </PRE>
 </BODY>

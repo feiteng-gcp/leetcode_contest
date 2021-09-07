@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>282_rajkrishnan8.java</TITLE>
+ <TITLE>377_gjxhlan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,17 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>282_rajkrishnan8.java</CENTER></H3><HR>
+<H3><CENTER>377_gjxhlan.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
     public int numRabbits(int[] answers) {
-        int[] countPresent = new int[1000];
-        for(int i=0; i&lt;answers.length; i++)
-            countPresent[answers[i]]++;
-        
+        if (answers.length == 0) return 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] f= new int[1002];
         int sum = 0;
-        for(int i=0; </B></FONT>i&lt;countPresent.length; i++)
-            sum += Math.ceil((double)countPresent[i]/(i+1))*(i+1);
+        
+        for (int i : answers) {
+            i++;
+            f[i]++;
+            if (f[i] &gt;= i) {
+                f[i] = 0;
+                sum += i;
+            }
+        }</B></FONT>
+        
+        for (int i = 0; i &lt; f.length; i++) {
+            if (f[i] &gt; 0) {
+                sum += i;
+            }
+        }
         
         return sum;
     }

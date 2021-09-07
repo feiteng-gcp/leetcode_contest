@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>295_mountain_rain.cpp</TITLE>
+ <TITLE>21_figurative.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,16 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>295_mountain_rain.cpp</CENTER></H3><HR>
+<H3><CENTER>21_figurative.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
+    bool search(int sx, int sy, int tx, int ty) {
+        if (not ((tx &gt;= sx) &amp;&amp; (ty &gt;= sy))) return false;
+        if (sx == tx &amp;&amp; sy == ty) return true;
+        if (sx == tx &amp;&amp; ((ty - sy) % tx) == 0) return true;
+        if (sy == ty &amp;&amp; ((tx - sx) % ty) == 0) return true;</B></FONT>
+        if (tx &gt; ty) {
+            return search(sx, sy, tx % ty, ty);
+        } else {
+            return search(sx, sy, tx, ty % tx);
+        }
+    }
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if(sx==tx&amp;&amp;sy==ty) return true;
-        if(sx&gt;tx||sy&gt;ty) return false;</B></FONT>
-        if(sx==tx) return (ty-sy)%sx==0;
-        if(sy==ty) return (tx-sx)%sy==0;
-        return reachingPoints(sx, sy, tx-ty, ty)||reachingPoints(sx, sy, tx, ty-tx);
+        return search(sx, sy, tx, ty);
     }
 };
 </PRE>

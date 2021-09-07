@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_xn1990114.java</TITLE>
+ <TITLE>68_dev_guo.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>52_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>68_dev_guo.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        if(sx==tx&amp;&amp;sy==ty){
-            return true;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        if(sx&gt;tx||sy&gt;ty){
-            return false;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution 
+{
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) 
+    {
+        if(tx == sx &amp;&amp; ty == sy) return true;</B></FONT>
+        if(tx &lt; 0 &amp;&amp; ty &lt; 0)
+        {
+            if(sx &lt; 0 &amp;&amp; sy &lt; 0)
+            {
+                tx = -tx;
+                ty = -ty;
+                sx = -sx;
+                sy = -sy;
+            }
         }
-        if(tx==sx){
-            return (ty-sy)%sx==0;
+        while(tx &gt;= sx &amp;&amp; ty &gt;= sy)
+        {
+            if(tx &gt; ty) 
+            {
+                int p = tx - Math.max(ty, sx);
+                int n = Math.max(1, p/ty);
+                tx = tx - ty*n;
+            }
+            else 
+            {
+                int p = ty - Math.max(tx, sy);
+                int n = Math.max(1, p/tx);
+                ty = ty - tx*n;
+            }
+            if(tx == sx &amp;&amp; ty == sy) return true;
         }
-        if(ty==sy){</B></FONT>
-            return (tx-sx)%sy==0;
-        }
-        if(tx&lt;ty){
-            return reachingPoints(sx,sy,tx,ty-tx);
-        }
-        return reachingPoints(sx,sy,tx-ty,ty);
+        
+        
+        return false;
+        
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>211_edchen.cpp</TITLE>
+ <TITLE>289_JN091623.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>211_edchen.cpp</CENTER></H3><HR>
+<H3><CENTER>289_JN091623.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if(tx==sx &amp;&amp; ty==sy) return true;
-        if(tx&lt;sx || ty&lt;sy) return false;
-        if(ty&gt;=tx){
-            int ny=max(1,(ty-sy)/tx);</B></FONT>
-            return reachingPoints(sx,sy,tx,ty-ny*tx);
+        // queue&lt;pair&lt;int, int&gt;&gt; q;
+        // q.push(make_pair(sx, sy));
+        // while (!q.empty()) {
+        //     pair&lt;int, int&gt; p = q.front();
+        //     q.pop();
+        //     if (p.first == tx &amp;&amp; p.second == ty)return true;
+        //     if (p.first + p.second &lt;= tx) {
+        //         q.push(make_pair(p.first + p.second, p.second));
+        //     }
+        //     if (p.first + p.second &lt;= ty) {
+        //         q.push(make_pair(p.first, p.first + p.second));
+        //     }
+        // }
+        // return false;
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+            if (tx == sx &amp;&amp; ty == sy)return true;
+            if (tx &lt; sx || ty &lt; sy)return false;</B></FONT>
+            int tmpx = tx, tmpy = ty;
+            if (tx &gt; ty) {
+                if (tx - ty &lt; sx)return false;
+                int k = (tx - sx) / ty;
+                tx -= k * ty;
+            } else {
+                if (ty - tx &lt; sy)return false;
+                int k = (ty - sy) / tx;
+                ty -= k * tx;
+            }
         }
-        else{
-            int nx=max(1,(tx-sx)/ty);
-            return reachingPoints(sx,sy,tx-nx*ty,ty);
-        }
+        return false;
     }
 };
 </PRE>

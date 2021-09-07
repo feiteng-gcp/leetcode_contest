@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_JOHNKRAM.cpp</TITLE>
+ <TITLE>182_mzchen.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_JOHNKRAM.cpp</CENTER></H3><HR>
+<H3><CENTER>182_mzchen.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        if(tx==ty)return sx==sy&amp;&amp;tx==sx;
-        if(tx&lt;sx||ty&lt;sy)return 0;
-        if(tx&lt;ty)</B></FONT>
-        {
-            swap(tx,ty);
-            swap(sx,sy);
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+            if (tx == sx)
+                return (ty - sy) % tx == 0;
+            if (ty == sy)</B></FONT>
+                return (tx - sx) % ty == 0;
+            if (ty &gt; tx) {
+                ty %= tx;
+            }
+            else {
+                tx %= ty;
+            }
         }
-        if((tx-sx)%ty==0&amp;&amp;ty==sy)return 1;
-        return reachingPoints(sx,sy,tx%ty,ty);
+        return false;
     }
 };
 </PRE>

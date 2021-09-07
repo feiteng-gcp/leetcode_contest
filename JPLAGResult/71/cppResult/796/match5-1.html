@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_wmpeng.cpp</TITLE>
+ <TITLE>289_JN091623.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>206_wmpeng.cpp</CENTER></H3><HR>
+<H3><CENTER>289_JN091623.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution
-{
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    bool reachingPoints(int sx, int sy, int tx, int ty)
-    {
-        while(!(tx&lt;sx || ty&lt;sy))
-        {
-        	//cout&lt;&lt;tx&lt;&lt;&quot; &quot;&lt;&lt;ty&lt;&lt;endl;
-        	if(sx==tx &amp;&amp; sy==ty)
-        		return true;</B></FONT>
-        	if(tx==ty)
-        		return (sx==tx &amp;&amp; sy==ty);
-        	else if(tx&gt;ty)
-<A NAME="1"></A>        	{
-        		if(sy==ty &amp;&amp; tx-sx&gt;=0 &amp;&amp; (tx-sx)/ty*ty==(tx-sx))
-        			return true;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        		tx-=tx/ty*ty;
-        	}
-        	else
-        	{
-        		if(sx==tx &amp;&amp; ty-sy&gt;=0 &amp;&amp; (ty-sy)/tx*tx==(ty-sy))
-        			return true;
-        		ty-=ty/tx*tx;
-			}
+    bool reachingPoints(int sx, int sy, int tx, int ty) {
+        // queue&lt;pair&lt;int, int&gt;&gt; q;
+        // q.push(make_pair(sx, sy));
+        // while (!q.empty()) {
+        //     pair&lt;int, int&gt; p = q.front();
+        //     q.pop();
+        //     if (p.first == tx &amp;&amp; p.second == ty)return true;
+        //     if (p.first + p.second &lt;= tx) {
+        //         q.push(make_pair(p.first + p.second, p.second));
+        //     }
+        //     if (p.first + p.second &lt;= ty) {
+        //         q.push(make_pair(p.first, p.first + p.second));
+        //     }
+        // }
+        // return false;
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+            if (tx == sx &amp;&amp; ty == sy)return true;
+            if (tx &lt; sx || ty &lt; sy)return false;</B></FONT>
+            int tmpx = tx, tmpy = ty;
+            if (tx &gt; ty) {
+                if (tx - ty &lt; sx)return false;
+                int k = (tx - sx) / ty;
+                tx -= k * ty;
+            } else {
+                if (ty - tx &lt; sy)return false;
+                int k = (ty - sy) / tx;
+                ty -= k * tx;
+            }
         }
         return false;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

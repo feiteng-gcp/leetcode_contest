@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>433_democoffee.cpp</TITLE>
+ <TITLE>451_Code2G.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>433_democoffee.cpp</CENTER></H3><HR>
+<H3><CENTER>451_Code2G.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int numRabbits(vector&lt;int&gt;&amp; answers) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, int&gt; ccnt;
-        for (auto a : answers) { ++ccnt[a]; }
-        int ans = 0;
-        for (auto &amp;p : ccnt) {</B></FONT>
-            ans += (p.second+p.first) / (p.first+1) * (p.first+1);
-        }   
-
-        return ans;
-    }   
+        map&lt;int, int&gt; m;
+        
+        for (int k : answers)
+            m[k]++;
+        
+        int res = 0;
+        for (auto it : m)
+        {</B></FONT>
+            int cnt = it.first + 1;
+            int group = it.second/cnt;
+            if (it.second % cnt &gt; 0) group++;
+            
+            res += cnt*group;
+            
+            // printf(&quot;cnt %d group %d \n&quot;, cnt, group);
+        }
+        
+        return res;
+    }
 };
 </PRE>
 </BODY>

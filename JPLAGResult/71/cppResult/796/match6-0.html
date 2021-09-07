@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>78_Yunchuan.cpp</TITLE>
+ <TITLE>63_milu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,19 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>78_Yunchuan.cpp</CENTER></H3><HR>
+<H3><CENTER>63_milu.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     bool reachingPoints(int sx, int sy, int tx, int ty) {
-        
-        while(tx&gt;=sx &amp;&amp; ty&gt;= sy){
-            if(tx == sx &amp;&amp; ty == sy)
+        // do it backwards
+        while (tx &gt;= sx &amp;&amp; ty &gt;= sy) {
+            if (tx == sx &amp;&amp; ty == sy)
                 return true;
-            if(tx == ty)
-                return (tx == sx &amp;&amp; ty == sy);
-            else if(tx&gt;ty){</B></FONT>
-                tx = tx-ty*max((int)(tx-sx)/ty,1);
-            }
-            else{
-                ty = ty-tx*max(1,(int)(ty-sy)/tx);
-            }
+            if (tx &gt; ty)</B></FONT>
+                tx -= max((tx - sx) / ty * ty, ty);
+            else
+                ty -= max((ty - sy) / tx * tx, tx);
         }
         return false;
     }

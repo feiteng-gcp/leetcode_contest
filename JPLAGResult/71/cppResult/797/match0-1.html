@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_wellcs.cpp</TITLE>
+ <TITLE>189_quanxie.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>25_wellcs.cpp</CENTER></H3><HR>
+<H3><CENTER>189_quanxie.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int numRabbits(vector&lt;int&gt;&amp; answers) {
         map&lt;int, int&gt; m;
-        for(auto v : answers)
-        {
-            m[v]++;
+        for (int i = 0; i &lt; answers.size(); i++){
+            m[answers[i]]++;
         }
-        
-        int ret = 0;
-        for(auto p : m)
-        {
-            ret += (p.second + p.first)/ (p.first + 1) * (p.first + 1);
+        int res = 0;</B></FONT>
+        if (m.find(0) != m.end())
+            res += m[0];
+        for (map&lt;int, int&gt;::iterator it = m.begin(); it != m.end(); it++){
+            if (it-&gt;first != 0){
+                res += ((it-&gt;second - 1)/(it-&gt;first + 1) + 1) * (it-&gt;first + 1);
+            }
         }
-        
-        return ret;
+        return res;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>
