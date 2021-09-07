@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>67_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>67_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int largestComponentSize(int[] A) {
+        ArrayList&lt;Integer&gt; primes = new ArrayList&lt;Integer&gt;();
+        boolean[] sieve = new boolean[100001];
+        boolean[] nums = new boolean[100001];
+        for (int i : A)
+            nums[i] = true;
+        for (int i = 2; i &lt;= 100000; i++) {
+            if (!sieve[i]) {
+                primes.add(i);
+                if (i &gt; 1000)
+                    continue;
+                for (int j = i*i; j &lt;= 100000; j += i)
+                    sieve[j] = true;
+            }
+        }
+        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; g = new ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();
+        for (int i = 0; i &lt; primes.size(); i++)
+            g.add(new ArrayList&lt;&gt;());
+        for (int i = 0; i &lt; primes.size(); i++) {
+            int p1 = primes.get(i);
+            if (p1&gt;1000)
+                break;
+            for (int j = i+1; j &lt; primes.size(); j++) {
+                int p2 = primes.get(j);
+                if (p1*p2&gt;100000)
+                    break;
+                int mul = p1*p2;
+                for (int k = mul; k &lt;= 100000; k += mul) {
+                    if (nums[k]) {
+                        g.get(i).add(j);
+                        g.get(j).add(i);
+                        break;
+                    }
+                }
+<A NAME="1"></A>            }
+        }
+        int[] att = new int[primes.size()];
+        for (int i = 0; i &lt; primes.size(); i++) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            att[i] = -1;
+        }
+        for (int i = 0; i &lt; primes.size(); i++) {
+            if (att[i] == -1) {</B></FONT>
+                att[i] = i;
+                ArrayDeque&lt;Integer&gt; q = new ArrayDeque&lt;Integer&gt;();
+                q.add(i);
+                while (!q.isEmpty()) {
+                    int u = q.removeFirst();
+                    for (int v : g.get(u)) {
+                        if (att[v]==-1) {
+                            att[v] = i;
+                            q.add(v);
+                        }
+                    }
+                }
+            }
+        }
+        ArrayList&lt;HashSet&lt;Integer&gt;&gt; ng = new ArrayList();
+        for (int i = 0; i &lt; primes.size(); i++) {
+            ng.add(new HashSet&lt;Integer&gt;());
+        }
+<A NAME="0"></A>        int ans = 0;
+        for (int i = 0; i &lt; primes.size(); i++) {
+            int a = att[i];
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int p = primes.get(i);
+            for (int j = p; j &lt;= 100000; j += p) {
+                if (nums[j]) {
+                    ng.get</B></FONT>(a).add(j);
+                }
+            }
+            if (ng.get(a).size() &gt; ans)
+                ans = ng.get(a).size();
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

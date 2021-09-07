@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_kosakkun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>52_kosakkun.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; deckRevealedIncreasing(vector&lt;int&gt;&amp; deck) {
+<A NAME="0"></A>        sort(deck.begin(), deck.end());
+        reverse(deck.begin(), deck.end());
+        deque &lt; int &gt; ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; deck.size(); i++) {
+            if (ans.size() == 0) ans.push_back(deck[i]);
+            else {
+                int t = ans.back();
+                ans.pop_back();
+                ans.push_front(t);
+                ans.push_front(deck[i]);
+            }
+        }
+        vector &lt; int &gt; ret;
+        while (!ans.empty()) {
+            ret.push_back(ans.front());
+            ans.pop_front();
+        }
+        return ret; 
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

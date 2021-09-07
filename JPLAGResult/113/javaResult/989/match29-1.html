@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>123_albaniliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>123_albaniliu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>  List&lt;Set&lt;Integer&gt;&gt; graph = new ArrayList&lt;&gt;();
+	public int largestComponentSize(int[] A) {
+		for (int i = 0; i &lt; A.length; i++) graph.add(new TreeSet&lt;&gt;());
+		Map&lt;Integer, I<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>nteger&gt; map = new HashMap&lt;&gt;();
+		for (int i = 0; i &lt; A.length; i++) map.put(A[i], i);
+		int[] parent = new int[A.length];
+		for (int i = 0; i &lt; A.length; i++) parent[i] = i;</B></FONT>
+		for (int i = 2; i * i &lt;= 100000; i++) {
+			int first = -1;
+			for (int j = 0; j &lt; A.length; j++) {
+				if (A[j] % i == 0) {
+					if (first == -1) {
+						first = j;
+					} else {
+//						int p1 = find(parent, j);
+//						int p2 = find(parent, first);
+//						parent[p1] = p2;
+						graph.get(first).add(j);
+						graph.get(j).add(first);
+					}
+					int other = A[j] / i;
+					if (other &gt; 1 &amp;&amp; map.containsKey(other)) {
+						int index = map.get(other);
+						graph.get(index).add(j);
+						graph.get(j).add(index);
+//						int p1 = find(parent, j);
+//						int p2 = find(parent, index);
+//						parent[p1] = p2;
+					} else {
+						map.put(other, j);
+					}
+				}
+			}
+		}
+//		Map&lt;Integer, Integer&gt; cnt = new HashMap&lt;&gt;();
+//		int ans = 0;
+//		for (int i = 0; i &lt; A.length; i++) {
+//			int p = find(parent, i);
+//			cnt.put(p, cnt.getOrDefault(p, 0) + 1);
+//		}
+//		for (Map.Entry&lt;Integer, Integer&gt; entry: cnt.entrySet()) {
+//			if (entry.getValue() &gt; ans) ans = entry.getValue();
+//		}
+		int ans = 0;
+		boolean[] visited = new boolean[A.length];
+		for (int i = 0; i &lt; A.length; i++) if (!visited[i]) {
+			int tmp = dfs(i, visited);
+			ans = Math.max(ans, tmp);
+		}
+		return ans;
+	}
+
+	private int find(int[] parent, int index) {
+		if (parent[index] == index) return index;
+		else return parent[index] = find(parent, parent[index]);
+	}
+
+	private int dfs(int i, boolean[] visited) {
+		visited[i] = true;
+		int ans  = 1;
+		for (int next: graph.get(i)) {
+			if (!visited[next]) ans += dfs(next, visited);
+		}
+		return ans;
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

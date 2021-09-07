@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_luchy0120.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>57_luchy0120.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>typedef vector&lt;int&gt; vi;
+#define ll long long
+class Solution {
+public:
+    vi id;
+vi sz;
+int groups;
+
+    ll gcd(ll a, ll b) {
+	unsigned c = 0;
+	while (1)
+	{
+		if (a == 0)
+			return b &lt;&lt; c;
+		else if (b == 0)
+			return a &lt;&lt; c;
+		if (!(a &amp; 1) &amp;&amp; !(b &amp; 1))
+		{
+			a &gt;&gt;= 1; b &gt;&gt;= 1; ++c;
+		}
+		else if (!(a &amp; 1) &amp;&amp; (b &amp; 1))
+		{
+			a &gt;&gt;= 1;
+		}
+		else if ((a &amp; 1) &amp;&amp; !(b &amp; 1))
+		{
+			b &gt;&gt;= 1;
+		}
+		else if ((a &amp; 1) &amp;&amp; (b &amp; 1))
+		{
+			unsigned tmp = a &gt; b ? b : a;
+			a = a &gt; b ? a - b : (b - a);
+			b = tmp;
+		}
+	}
+}
+    
+void init(int n)
+{
+	groups = n;
+	id = vector&lt;int&gt;(n, 0);
+	for (int i = 0; i &lt; n; i++)
+	{
+		id[i] = i;
+	}
+	sz = vi(n, 1);
+}
+
+int findRoot(int p)
+{
+	while (p != id[p])
+	{
+		id[p] = id[id[p]];
+		p = id[p];
+	}
+	return p;
+}
+
+void comb(int p, int q) {
+	int i = findRoot(p);
+	int j = findRoot(q);
+	if (i == j)
+	{
+		return;
+	}
+	if (sz[i] &lt; sz[j])
+	{
+		id[i] = j;
+		sz[j] += sz[i];
+	}
+	else
+	{
+		id[j] = i;
+		sz[i] += sz[j];
+	}
+	groups--;
+}
+
+    
+    
+    int largestComponentSize(vector&lt;int&gt;&amp; A) {
+        int l  =A.size();
+        vector&lt;int&gt; AA= A;
+        init(100007);
+        vector&lt;int&gt; ss(100007,0);
+        for(int i=0;i&lt;l;i++){
+            vector&lt;int&gt; r;
+            r.push_back(A[i]);
+            for(int j=2;j*j&lt;=A[i];j++){
+                if((A[i]%j)==0){
+                    
+                    while((A[i]%j)==0){
+                        A[i]/=j;
+                    }
+                    
+                    r.push_back(j); 
+                    if(A[i]&gt;1){
+                        r.push_back(A[i]);
+                    }
+                }
+                
+            }
+            
+       
+            for(int u=1;u&lt;r.size();u++){
+                comb(r[0],r[u]);
+            }
+            
+            
+        }
+         int ma= -1;
+        for(int i=0;i&lt;l;i++){
+           ss[findRoot(AA[i])]++;
+            ma  =max(ma,ss[findRoot(AA[i])]);
+            
+        }
+        
+       
+       
+
+        
+        return ma;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

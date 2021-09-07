@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_baluteshih.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_baluteshih.cpp</CENTER></H3><HR>
+<PRE>
+#pragma GCC optimize(&quot;Ofast&quot;)
+#include &lt;bits/stdc++.h&gt;
+#define jizz ios::sync_with_stdio(0),cin.tie(0),cout.tie(0);
+#define pb push_back
+#define F first
+#define S second
+#define MEM(i,j) memset(i,j,sizeof i)
+#define ALL(v) v.begin(),v.end()
+#define MP make_pair
+#define ET cout &lt;&lt; &quot;\n&quot;
+#define DB(a,s,e) {for(int i=s;i&lt;e;i++) cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;ET;}
+using namespace std;
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+typedef pair&lt;ll,ll&gt; pll;
+class Solution {
+    int boss[20005],sz[20005],cnt[100005];
+    int finds(int x)
+    {
+        if(x==boss[x]) return x;
+        return boss[x]=finds(boss[x]);
+    }
+    void Union(int x,int y)
+    {
+        x=finds(x),y=finds(y);
+        if(x!=y) boss[x]=y,sz[y]+=sz[x];
+    }
+public:
+    int largestComponentSize(vector&lt;int&gt;&amp; A) {
+<A NAME="0"></A>        int mx=*max_element(ALL(A));
+        MEM(cnt,0);
+        for(int i=1;i&lt;=A.size();++i)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            boss[i]=i,sz[i]=1;
+        for(int i=0;i&lt;A.size();++i)
+            cnt[A[i]]=i+1;
+        for(int i=2;i&lt;=mx;++i)
+            for(int j=i,ls=0;j&lt;=mx;j+=i)</B></FONT>
+            {
+                if(cnt[j]==0) continue;
+                if(ls)
+                    Union(cnt[ls],cnt[j]);
+                ls=j;
+            }
+        return *max_element(sz+1,sz+A.size()+1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

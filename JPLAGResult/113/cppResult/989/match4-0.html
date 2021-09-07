@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>91_zzucainiao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>91_zzucainiao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int N = 100001;
+    map&lt;int, int&gt; count;
+        map&lt;int, int&gt; fa;
+    
+    void uniq(int x, int y) {
+        if(faa(x) != faa(y)) {
+            fa[faa(x)] = faa(y);
+        }
+    }
+    int faa(int x) {
+        return x == fa[x] ? x : (fa[x] = faa(fa[x]));
+    }
+    
+    int largestComponentSize(vector&lt;int&gt;&amp; A) {
+        int vi[N];
+        memset(vi, 0, sizeof(vi));
+        vector&lt;int&gt; v;
+        for(int i = 2; i &lt; 340; ++i) {
+            if(vi[i] == 0) {
+                for(int j = i*i; j &lt; N; j+=i) {
+                    vi[j] = 1;
+                }
+            }
+<A NAME="0"></A>        }
+        for(int i = 2; i &lt; N; ++i) {
+            if(vi[i] == 0) v.push_back(i);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        count.clear();
+        fa.clear();
+        for(int i = 0; i &lt; v.size(); ++i) {
+            fa[ v[i] ] = v[i];
+            count[ v[i] ] = 0;
+        }
+        for(int i = 0; i &lt; A.size(); ++i) {</B></FONT>
+            int first = -1;
+            while(A[i] != 1) {
+                if(vi[ A[i] ] == 0) {
+                    if(first != -1) {
+                        uniq(first, A[i]);
+                    } else {
+                        ++count[ A[i] ];
+                    }
+                    break;
+                }
+                for(int j = 0; j &lt; v.size(); ++j) {
+                    if(v[j] &gt; A[i]/2) {
+                        break;
+                    }
+                    if(A[i] % v[j] == 0) {
+                        if(first == -1) {
+                            first = v[j];
+                        } else {
+                            uniq(first, v[j]);
+                        }
+                        while(A[i] % v[j] == 0) {
+                            A[i] /= v[j];
+                        }
+<A NAME="1"></A>                    }
+                }
+                if(first != -1) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    ++count[ first ];
+                }
+            }
+        }
+        
+        
+        int re = 0;
+        for(int i = 0; i &lt; v.size(); ++i) {
+            if(faa(v[i]) != v[i]) {
+                count[ faa(v[i]) ] += count[v[i]];</B></FONT>
+                count[v[i]] = 0;
+            }
+            if(count[faa(v[i])] &gt; re) {
+                re = count[ faa(v[i]) ];
+            }
+        }
+        return re;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_cjoa.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>34_cjoa.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long llong;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;VI&gt; VVI;
+
+
+class DisjointSet {
+    int N;
+    vector&lt;int&gt; par;
+    vector&lt;int&gt; rank;
+
+public:
+    vector&lt;int&gt; comp_size;
+    DisjointSet(size_t _N)
+        : N(_N), par(_N, -1), rank(_N, 0), comp_size(_N, 1) {}
+    int find_rep(int u) {
+        return par[u] &lt; 0 ? u : par[u] = find_rep(par[u]);
+    }
+    bool union_rep(int u, int v) {
+    //  cerr &lt;&lt; &quot;UNION &quot; &lt;&lt; u &lt;&lt; ' ' &lt;&lt; v &lt;&lt; endl;
+        int u_root = find_rep(u);
+        int v_root = find_rep(v);
+        if (u_root == v_root)
+            return false;
+        if (rank[u_root] &gt; rank[v_root]) {
+            par[v_root] = u_root;
+            comp_size[u_root] += comp_size[v_root];
+        }
+        else {
+            par[u_root] = v_root;
+            if (rank[u_root] == rank[v_root])
+                rank[v_root] = rank[u_root] + 1;
+            comp_size[v_root] += comp_size[u_root];
+        }
+        return true;
+    }
+};
+
+class Solution {
+public:
+    int largestComponentSize(vector&lt;int&gt;&amp; A) {
+        if (A.size() == 1)
+            return 1;
+
+        vector&lt;bool&gt; vertex_exists(100001);
+        for (int x : A)
+            vertex_exists[x] = true;
+<A NAME="0"></A>
+        DisjointSet dset(100001);
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int d = 2; d &lt;= 100000; ++d) {
+            int first_vertex = -1;
+            for (int m = d; m &lt;= 100000; m += d) {
+                if (vertex_exists[m]) {</B></FONT>
+<A NAME="1"></A>                    if (first_vertex &lt; 0) {
+                        first_vertex = m;
+                    }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    else {
+                        dset.union_rep(first_vertex, m);
+                    }
+                }
+            }
+        }
+
+        int res = 0;
+        for (int u = 1; u &lt;= 100000; ++u) {</B></FONT>
+            res = max(res, dset.comp_size[u]);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

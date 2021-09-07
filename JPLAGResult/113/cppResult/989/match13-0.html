@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_kosakkun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>52_kosakkun.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>struct UnionFind {
+
+    vector &lt; int &gt; node;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    UnionFind(int n) : node(n, -1) {}
+
+    bool unite(int x, int y) {
+        x = root(x); 
+        y = root(y);
+        if (x != y) {
+            if (node[y] &lt; node[x]) swap(x, y);
+            node[x] += node[y]; 
+            node[y] = x;
+        }
+        return x != y;
+    }
+
+    bool same(int x, int y) {
+        return root(x) == root(y);
+    }
+
+    int root(int x) {
+        return node[x] &lt; 0 ? x : node[x] = root(node[x]);
+    }
+
+    int size(int x) {
+        return -node[root(x)];
+    }
+    
+};
+
+class Solution {
+public:
+    
+    vector &lt; int &gt; cnt[100040];
+    
+    int largestComponentSize(vector&lt;int&gt;&amp; A) {</B></FONT>
+        for (int i = 0; i &lt; A.size(); i++) {
+            cnt[A[i]].push_back(i); 
+        }
+        UnionFind inst(100040);
+        bool used[100040] = {};
+        for (int i = 2; i &lt; 100040; i++) {
+            if (used[i]) continue;
+            vector &lt; int &gt; node;
+            for (int j = i; j &lt; 100040; j += i) {
+                used[j] = true;
+                for (int k = 0; k &lt; cnt[j].size(); k++) {
+                    node.push_back(cnt[j][k]);
+                }
+            }
+            if (node.size() &lt;= 1) continue;
+            cout &lt;&lt; node.size() &lt;&lt; endl;
+            for (int j = 0; j &lt; node.size() - 1; j++) {
+                inst.unite(node[j], node[j + 1]);
+            }
+        }
+        int ans = 0;
+        for (int i = 1; i &lt;= 100005; i++) {
+            ans = max(ans, inst.size(i));
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

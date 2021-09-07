@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_yubowenok.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_yubowenok.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+typedef vector&lt;int&gt; VI;
+typedef pair&lt;int,int&gt; PII;
+
+#define REP(i,s,t) for(int i=(s);i&lt;(t);i++)
+#define FILL(x,v) memset(x,v,sizeof(x))
+
+const int INF = (int)1E9;
+#define MAXN 100005
+
+int rep[MAXN], cnt[MAXN];
+int find(int x) {
+  return rep[x] == x ? x : rep[x] = find(rep[x]);
+}
+void unionset(int x, int y) {
+  int rx = find(x), ry = find(y);
+  if (rx == ry) return;
+  rep[rx] = ry;
+  cnt[ry] += cnt[rx];
+}
+
+class Solution {
+public:
+  int largestComponentSize(vector&lt;int&gt;&amp; A) {
+    map&lt;int, VI&gt; fs;
+    int n = A.size();
+    REP(i,0,n) {
+<A NAME="0"></A>      rep[i] = i;
+      cnt[i] = 1;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    REP(i,0,n) {
+      int x = A[i];
+      for (int d = 2; d*d &lt;= x; d++) {
+        if (x % d == 0) {
+          while (x % d == 0) x /= d;
+          fs[d].push_back(i);
+        }
+      }
+      if (x &gt; 1) fs[x].push_back(i);
+    }
+    for (auto it = fs.begin(); it != fs.end(); it++) {</B></FONT>
+      VI &amp;v = it-&gt;second;
+      int k = v.size();
+      REP(i,0,k-1) {
+        unionset(v[i], v[i+1]);
+      }
+    }
+    int ans = 0;
+    REP(i,0,n) ans = max(ans, cnt[find(i)]);
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

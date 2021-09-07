@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_wannacry89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_wannacry89.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+class Solution {
+
+    class Node {
+        List&lt;Node&gt; neighbors = new ArrayList&lt;Node&gt;();
+        boolean visited = false;
+        boolean isNumberNode = false;
+    }
+
+    public int largestComponentSize(int[] A) {
+
+        Map&lt;Integer,Node&gt; factorToNode = new HashMap&lt;&gt;();
+        Node[] numberNodes = new Node[A.length];
+
+        for (int i = 0; i &lt; A.length; i++) {
+            int a = A[i];
+            numberNodes[i] = new Node();
+            numberNodes[i].isNumberNode = true;
+
+            // Discover the factors of a and connect.
+            for(int factor = 2; factor &lt;= (int)Math.sqrt(a); factor++) {
+
+                if (a % factor == 0) {
+
+                    int factor2 = a / factor;
+
+                    factorToNode.putIfAbsent(factor, new Node());
+                    factorToNode.putIfAbsent(factor2, new Node());
+
+                    Node factorNode = factorToNode.get(factor);
+                    Node factor2Node = factorToNode.get(factor2);
+
+                    factorNode.neighbors.add(numberNodes[i]);
+                    factor2Node.neighbors.add(numberNodes[i]);
+                    numberNodes[i].neighbors.add(factorNode);
+                    numberNodes[i].neighbors.add(factor2Node);
+                }
+            }
+
+            factorToNode.putIfAbsent(a, new Node());
+            factorToNode.get(a).neighbors.add(numberNodes[i]);
+            numberNodes[i].neighbors.add(factorToNode.get(a));
+        }
+
+        int maxGroupSize = 1;
+        int thisGroupSize = 0;
+        for (int i = 0; i &lt; A.length; i++) {
+
+<A NAME="0"></A>            if (numberNodes[i].visited) { continue; }
+
+            thisGroupSize = 0;
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Queue&lt;Node&gt; que = new ArrayDeque&lt;&gt;();
+            que.add(numberNodes[i]);
+            numberNodes[i].visited = true;
+            while (!que.isEmpty()) {
+
+                Node on = que.poll</B></FONT>();
+                if (on.isNumberNode) { thisGroupSize++; }
+
+                for(Node neighbor : on.neighbors) {
+                    if (!neighbor.visited) {
+                        neighbor.visited = true;
+<A NAME="1"></A>                        que.add(neighbor);
+                    }
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            maxGroupSize = Math.max(thisGroupSize, maxGroupSize);
+        }
+        return maxGroupSize;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
