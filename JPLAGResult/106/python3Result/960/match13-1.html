@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>294_shshwdr.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>294_shshwdr.py</CENTER></H3><HR>
+<PRE>
+import heapq
+import math
+from collections import defaultdict
+class Solution:
+    def minMalwareSpread(self, graph, initial):
+        l = len(graph)
+        d = [0]*l
+<A NAME="0"></A>        size = [1]*l
+        for i in range(l):
+            d[i] = i
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def find(x):
+            #print(i,d[i])
+            if d[x] == x:
+                return x
+            d[x] = find(d[x])
+            return d[</B></FONT>x]
+        for i in range(l):
+            for j in range(i+1,l):
+                if graph[i][j] ==1:
+                    ri = find(i)
+                    rj = find(j)
+                    if ri!=rj:
+                        d[ri] = rj
+                        size[j] = size[ri]+size[rj]
+        initial = sorted(initial)
+        res = initial[0]
+        best = 0
+        v = {}
+        #print(d)
+        #print(size)
+        for i in range(len(initial)):
+            if i in v:
+                continue
+            hasM = False
+            ri = find(initial[i])
+            if i == len(initial)-1:
+                if size[ri] &gt;best:
+                    best = size[ri]
+                    res = initial[i]
+            for j in range(i+1,len(initial)):
+                rj = find(initial[j])
+                if ri == rj:
+                    hasM = True
+                    v[i] = True
+                    v[j] = True
+            #print(&quot;ri&quot;,ri,hasM)
+            if hasM == False:
+                if size[ri] &gt;best:
+                    best = size[ri]
+                    res = initial[i]
+            #print(&quot;best&quot;,best)
+        return res
+</PRE>
+
+</BODY>
+</HTML>

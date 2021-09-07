@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_xiecong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_xiecong.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minMalwareSpread(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; initial) {
+        vector&lt;bool&gt; visited(graph.size(), false);
+        unordered_set&lt;int&gt; seeds;
+        int index = graph.size()+1;
+        int max_save = 0;</B></FONT>
+        for(int n: initial) {
+            index = min(n, index);
+            seeds.insert(n);
+        }
+        //cout&lt;&lt;index&lt;&lt;endl;
+        for(int n: initial){
+            if(visited[n]) continue;
+<A NAME="1"></A>            queue&lt;int&gt; bfs;
+            bfs.push(n);
+            visited[n] = true;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int count = 1;
+            int size = 0;
+            while(!bfs.empty()){
+                int front = bfs.front();
+                bfs.pop();
+                for(int i = 0; i&lt;graph.size(); i++){
+                    if(!visited[i]&amp;&amp;graph[i][front]){
+                        size++;
+                        bfs.push(i);
+                        visited[i] = true;</B></FONT>
+                        if(seeds.find(i)!=seeds.end()) count++;
+                    }
+                }
+            }
+            if(count==1&amp;&amp;size&gt;max_save){
+                max_save = size;
+                index = n;
+            }
+            //cout&lt;&lt;count&lt;&lt;&quot; &quot;&lt;&lt;max_save&lt;&lt;endl;
+        }
+        return index;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

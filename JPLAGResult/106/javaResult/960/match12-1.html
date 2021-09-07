@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>124_yefengxiao007.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>124_yefengxiao007.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	    public int minMalwareSpread(int[][] graph, int[] initial) {
+	    	int n = graph.length;
+	        ArrayList&lt;Integer&gt;[] g = new ArrayList[n];
+	        for(int i=0;i&lt;n;i++) g[i] = new ArrayList&lt;Integer&gt;();
+	        for(int i=0;i&lt;n;i++) {
+	        	for(int j=0;j&lt;n;j++) {
+	        		if(i!=j&amp;&amp;graph[i][j]==1) g[i].add(j);
+	        	}
+	        }
+	        int min = Integer.MAX_VALUE;
+	        int idx = 0;
+	        for(int i=0;i&lt;initial.length;i++) {
+	        	int tmp = bfs(i,initial,g);
+	        	if(tmp&lt;min) {
+	        		min = tmp;
+	        		idx = initial[i];
+	        	}else if(tmp==min){
+	        		idx = Math.min(idx, initial[i]);
+	        	}
+	        }
+<A NAME="0"></A>	        return idx;
+	    }
+	    int bfs(int p, int arr[], ArrayList&lt;Integer&gt;[] g) {
+	    	Queue&lt;Inte<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ger&gt; q = new LinkedList&lt;Integer&gt;();
+	    	boolean vis[] = new boolean[g.length];
+	    	for(int i=0;i&lt;arr.length;i++) {
+	    		if(i!=p) {
+	    			q.add(arr[i]);
+	    			vis[arr[i]] = true;
+	    		}
+	    	}
+	    	int ret = 0;
+	    	while(!q.isEmpty()) {
+	    		int x = q.poll();
+	    		ret++;
+	    		for(int i:g[x]) {
+	    			if(!vis[i]) {
+	    				q.add(i);
+	    				vis[i] = true;
+	    			}
+	    		}
+	    	}</B></FONT>
+	    	return ret;
+	    }
+}
+</PRE>
+
+</BODY>
+</HTML>

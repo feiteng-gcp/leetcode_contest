@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>429_chengzl.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>429_chengzl.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def threeSumMulti(self, A, target):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        :type target: int
+        :rtype: int
+        &quot;&quot;&quot;
+        # target = 0
+        # target = 1
+        # target = 2
+        
+        combo = set()
+        for i in range(0,int(target/3)+1):
+            for j in range(i, target+1):
+                k = target - i - j
+                if k &gt;= j:
+                    if (i,j,k) not in combo:
+                        combo.add((i,j,k))
+        freq = {}
+        for i in range(len(A)):
+            if A[i] not in freq:
+                freq[A[i]] = 1
+            else:
+                freq[A[i]] += 1
+        
+        total = 0
+<A NAME="0"></A>        for item in combo:
+            i, j, k = item[0], item[1], item[2]
+            if i == j == k:
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if i in freq and freq[i] &gt;= 3:
+                    total += freq[i]*(freq[i]-1)*(freq[i]-2) / 6 % (10**9+7)
+            elif i==j:
+                if i in freq and freq[i]&gt;=2 and k in freq:
+                    total += freq[i]*(freq[i]-1)/2*freq[</B></FONT>k] % (10**9+7)
+            elif i==k:
+                if i in freq and freq[i]&gt;=2 and j in freq: 
+                    total += freq[i]*(freq[i]-1)/2*freq[j] % (10**9+7)
+            elif j==k:
+                if j in freq and freq[j]&gt;=2 and i in freq:
+                    total += freq[j]*(freq[j]-1)/2*freq[i] % (10**9+7)
+            else:
+                if i in freq and j in freq and k in freq:
+                    total += freq[i]*freq[j]*freq[k] % (10**9+7)
+        return int(total)
+        
+</PRE>
+
+</BODY>
+</HTML>

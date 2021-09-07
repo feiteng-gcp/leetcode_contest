@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>287_chengair.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>287_chengair.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def ncm(self,n,m):
+        up=1
+        for i in range(n,n-m,-1):
+            up=up*i
+        for i in range(m,0,-1):
+            up=up//i
+        r</B></FONT>eturn up
+        
+    def threeSumMulti(self, A, target):
+        #print(self.ncm(5,2))
+        MAX=10**9+7
+        A.sort()
+        n1=0
+        ans=0
+        
+        lens=len(A)
+        cnums=[0]*101
+        for a in A:
+            cnums[a]+=1
+        
+        while n1&lt;lens-1:
+            if A[n1]==A[n1-1] and n1&gt;0:
+                n1+=1
+                continue
+            n2=n1+1
+            n3=lens-1
+            if A[n1]&gt;target:
+                break
+            tar=target-A[n1]
+            while n2&lt;n3:       
+                temp=A[n2]+A[n3]
+                if temp==tar:
+                    
+                    if A[n1]==A[n2] and A[n2]==A[n3]:
+                        ans+=self.ncm(cnums[A[n1]],3)
+<A NAME="1"></A>                    elif A[n1]==A[n2]:
+                        ans+=self.ncm(cnums[A[n1]],2)*cnums[A[n3]]
+                    elif A[n2]==A[n3]:
+                        ans+=self.ncm<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(cnums[A[n2]],2)*cnums[A[n1]]
+                    else:
+                        ans+=cnums[A[n1]]*cnums[A[n2]]*cnums[A[</B></FONT>n3]]
+                        
+                    if ans&gt;=MAX:
+                        ans=ans%MAX
+                    
+                    while n2&lt;n3 and A[n2]==A[n2+1]:
+                        n2+=1
+                    while n2&lt;n3 and A[n3]==A[n3-1]:
+                        n3-=1
+                    n2+=1
+                    n3-=1
+                elif temp&lt;tar:
+                    n2+=1
+                else:
+                    n3-=1
+            n1+=1
+        return ans
+        &quot;&quot;&quot;
+        :type A: List[int]
+        :type target: int
+        :rtype: int
+        &quot;&quot;&quot;
+        
+</PRE>
+
+</BODY>
+</HTML>

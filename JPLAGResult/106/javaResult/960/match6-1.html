@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_wangzi6147.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_wangzi6147.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int cand = -1, min = graph.length + 1, n = graph.length;
+        for (int i : initial) {
+            boolean[] visited = new boolean[n];
+            int infected = 0;
+            for (int remain : initial) {
+                if (remain == i) {
+                    continue;
+                }
+                infected += malware(graph, remain, visited);
+            }
+            // System.out.println(infected);
+<A NAME="0"></A>            if (infected == min &amp;&amp; i &lt; cand) {
+                cand = i;
+            }
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (infected &lt; min) {
+                cand = i;
+                min = infected;
+            }
+        }
+        return cand;
+    }
+    private int malware(int[][] graph, int n, boolean[] visited) {</B></FONT>
+        if (visited[n]) {
+            return 0;
+        }
+<A NAME="1"></A>        // System.out.println(&quot;n &quot; + n);
+        int result = 1;
+        visited[n] = true;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int next = 0; next &lt; graph.length; next++) {
+            if (graph[n][next] == 1) {
+                result += malware(graph, next, visited);
+            }
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

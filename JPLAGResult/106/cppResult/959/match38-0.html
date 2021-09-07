@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>343_kpark.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>343_kpark.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	int threeSumMulti(vector&lt;int&gt;&amp; A, int target) 
+	{
+		const int mod = 1000000007;
+		map&lt;int, int&gt; m;
+		vector&lt;long long&gt; key;
+		vector&lt;long long&gt; val;
+		for (auto a : A)m[a]++;
+		for (auto x : m)
+		{
+			key.push_back(x.first);
+<A NAME="0"></A>			val.push_back(x.second);
+		}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		int ret = 0;
+		for (int i = 0; i &lt; key.size(); i++)
+		{
+			for (int j = i ; j &lt; key.size(); j++)
+			{
+				int k_key = target - key[i] - key[j];
+				if (key[j] &gt; k_key) continue;</B></FONT>
+				int k_val = m[k_key];
+				if (k_val == 0)continue;
+				
+				if (i == j) 
+				{
+					
+					if (key[j] != k_key)
+					{
+						if (val[i] &lt; 2)continue;
+						ret = (ret + (val[i] * (val[i] - 1))/2 * k_val) % mod;
+						//cout &lt;&lt; key[i] &lt;&lt; &quot;,&quot; &lt;&lt; key[j] &lt;&lt; &quot;,&quot; &lt;&lt; k_key &lt;&lt; endl;
+						//cout &lt;&lt; (val[i] * (val[i] - 1)) / 2 * k_val &lt;&lt; endl;
+					}
+					else
+					{
+						if (val[i] &lt; 3)continue;
+						ret = (ret + (val[i] * (val[i] - 1) * (val[i] - 2)) / 6) % mod;
+						//cout &lt;&lt; key[i] &lt;&lt; &quot;,&quot; &lt;&lt; key[j] &lt;&lt; &quot;,&quot; &lt;&lt; k_key &lt;&lt; endl;
+						//cout &lt;&lt; (val[i] * (val[i] - 1) * (val[i] - 2)) / 6 &lt;&lt; endl;
+					}
+				}
+				else 
+				{
+					if (key[j] == k_key)
+					{
+						if (k_val &lt; 2)continue;
+						
+						ret = (ret + val[i] * ((k_val - 1)  * k_val) / 2) % mod;
+						//cout &lt;&lt; key[i] &lt;&lt; &quot;,&quot; &lt;&lt; key[j] &lt;&lt; &quot;,&quot; &lt;&lt; k_key &lt;&lt; endl;
+						//cout &lt;&lt; val[i] * ((k_val - 1)  * k_val) / 2 &lt;&lt; endl;
+					}
+					else
+					{
+						
+						ret = (ret + val[i] * val[j] * k_val) % mod;
+						//cout &lt;&lt; key[i] &lt;&lt; &quot;,&quot; &lt;&lt; key[j] &lt;&lt; &quot;,&quot; &lt;&lt; k_key &lt;&lt; endl;
+						//cout &lt;&lt;val[i] * val[j] * k_val&lt;&lt; endl;
+					}
+				}
+				
+				
+			}
+		}
+		return ret;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

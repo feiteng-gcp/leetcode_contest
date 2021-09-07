@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>462_scut_DELL.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>462_scut_DELL.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+     private void find(int res, Set&lt;Integer&gt;[] cache, int[][] graph, boolean[] find, Set&lt;Integer&gt; resSet) {
+
+        if (cache[res] != null) {
+            for (Integer x: cache[res]) {
+                find[x] = true;
+                resSet.add(x);
+            }
+<A NAME="0"></A>        }
+
+        resSet.add(res);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0;i &lt; graph[res].length;i++) {
+            if (graph[res][i] == 1 &amp;&amp; !find[i]) {
+                find[i] = true;
+                find(i, cache, graph, find, resSet);
+            }
+        }
+    }
+
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        Set&lt;Integer&gt;[] cache = new Set[graph.length]</B></FONT>;
+
+        boolean[] flag = new boolean[graph.length];
+        for (int i = 0;i &lt; graph.length;i++) {
+            Arrays.fill(flag, false);
+            flag[i] = true;
+            Set&lt;Integer&gt; s = new HashSet&lt;&gt;();
+            find(i, cache, graph, flag, s);
+            cache[i] = s;
+        }
+
+        int[] time = new int[graph.length];
+        Arrays.fill(time, 0);
+        for (int i = 0;i &lt; initial.length;i++) {
+            int x = initial[i];
+            for (Integer children: cache[x]) {
+                time[children]++;
+            }
+        }
+        int res = 0;
+        for (int i = 0;i &lt; graph.length;i++) {
+            if (time[i] &gt; 0) {
+                res++;
+            }
+        }
+        int minM = res;
+        int min = -1;
+
+        for (int i = 0;i &lt; initial.length;i++) {
+            int x = initial[i];
+            int t = res;
+<A NAME="1"></A>            for (Integer children: cache[x]) {
+                if (time[children] == 1) {
+                    t--;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            if (min == -1 || t &lt; minM || (t == minM &amp;&amp; x &lt; min)) {
+                minM = t;
+                min = x;
+            }
+        }
+        return min;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

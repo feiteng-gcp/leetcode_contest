@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>290_mcslane.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>290_mcslane.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int[] size = new int[graph.length];
+        HashMap&lt;Integer, HashSet&lt;Integer&gt;&gt; components = new HashMap&lt;&gt;();
+        for(int i = 0; i &lt; size.length; i++) {
+            if(size[i] == 0) {
+                HashSet&lt;Integer&gt; c = bfs(graph, i, size);
+                for(int n : c) {
+                    components.put(n, c);
+                }
+            }
+        }
+        
+        int node = -1;
+        int maxSize = -1;
+        for(int init : initial) {
+            int cSize = size[init];
+            HashSet&lt;Integer&gt; cComp = components.get(init);
+            for(int other : initial) {
+                if(other != init &amp;&amp; cComp.contains(other)) {
+                    cSize = 0;
+                    break;
+<A NAME="0"></A>                }
+            }
+            
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(cSize &gt; maxSize || (cSize == maxSize &amp;&amp; init &lt; node)) {
+                node = init;
+                maxSize = cSize;
+            }
+        }
+        
+        return node;
+    }
+    
+    public HashSet&lt;Integer&gt; bfs(int[][] graph, int start, int[] size) {</B></FONT>
+        int componentSize = 0;
+        HashSet&lt;Integer&gt; component = new HashSet&lt;&gt;();
+        
+        Queue&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+        q.add(start);
+        while(!q.isEmpty()) {
+            int top = q.remove();
+            if(component.contains(top)) {
+                continue;
+            }
+<A NAME="1"></A>            componentSize++;
+            component.add(top);
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; size.length; i++) {
+                if(graph[top][i] == 1) {
+                    q.add(i);
+                }
+            }</B></FONT>
+        }
+        
+        for(int n : component) {
+            size[n] = componentSize;
+        }
+        
+        return component;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
