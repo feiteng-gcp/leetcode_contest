@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Akatsuki_.cpp</TITLE>
+ <TITLE>456_danicazz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>37_Akatsuki_.cpp</CENTER></H3><HR>
+<H3><CENTER>456_danicazz.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     int rotatedDigits(int N) {
-        int ans = 0;
-        for(int i = 1; i &lt;= N; i++){
-            int now = i;</B></FONT>
-            bool flag = 0;
-            while(now){
-                if(now%10==2||now%10==5||now%10==6||now%10==9)flag = 1;
-                if(now%10==3||now%10==4||now%10==7){
-                    flag = 0;
-                    break;
-                }
-                now /= 10;
+<A NAME="1"></A>        int valid = 0;
+        set&lt;int&gt; validSet = {0, 1, 8, 2, 5, 6, 9};
+        set&lt;int&gt; selfSet = {0, 1, 8};
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= N ; ++i) {
+            if (isValid(i, validSet, selfSet)) {
+                valid++;
             }
-            ans += flag;
         }
-        return ans;
-    }
+<A NAME="0"></A>        return valid;
+    }</B></FONT>
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool isValid(int x, const set&lt;int&gt;&amp; validSet, const set&lt;int&gt;&amp; selfSet) {
+        bool hasNumberInNonSelfSet = false;
+        while ( x &gt; 0) {
+            int digit = x % 10;
+            if (validSet.find(digit) == validSet.end()) {
+                // Not found
+                return false;
+            }
+            if (selfSet.find(digit) == selfSet.end()) {
+                // Not Found;
+                hasNumberInNonSelfSet = true;
+            }
+            x = x / 10;
+        }
+        return hasNumberInNonSelfSet;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

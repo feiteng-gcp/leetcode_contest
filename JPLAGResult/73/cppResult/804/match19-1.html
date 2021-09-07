@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>158_xuchengwen.cpp</TITLE>
+ <TITLE>451_p00lmaster.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>158_xuchengwen.cpp</CENTER></H3><HR>
+<H3><CENTER>451_p00lmaster.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int rotatedDigits(int N) {
-        int res = 0;
-        for(int i=1;i&lt;=N;i++){
-            int cur = i;
-            bool valid = false;</B></FONT>
-            bool hasbad = false;
-            while(cur){
-                int lastbit = cur%10;
-                if(lastbit==0||lastbit==1||lastbit==8){
-                }
-                else if(lastbit==2||lastbit==5||lastbit==6||lastbit==9){
-                    valid = true;
-                }
-                else{
-                    hasbad = true;
-                    break;
-                }
-                cur = cur/10;
-            }
-            if(!hasbad&amp;&amp;valid){
-                res++;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int rotatedDigits(int N) {
+        int ret = 0;
+        for (int i = 1; i &lt;= N; i++) {
+            if (isValidRotate(i)) {
+                ret++;
             }
         }
-        return res;
+        return ret;
+    }</B></FONT>
+private:
+    bool isValidRotate(int x) {
+        string s = to_string(x);
+        bool flag = false;
+        for (auto c : s) {
+            if (c == '3' || c == '4' || c == '7') {
+                return false;
+            }
+            if (c != '0' &amp;&amp; c != '1' &amp;&amp; c != '8') {
+                flag = true;
+            }
+        }
+        return flag;
     }
 };
 </PRE>

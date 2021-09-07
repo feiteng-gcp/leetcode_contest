@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Akatsuki_.cpp</TITLE>
+ <TITLE>65_taobingxue.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>37_Akatsuki_.cpp</CENTER></H3><HR>
+<H3><CENTER>65_taobingxue.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int rotatedDigits(int N) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int rotatedDigits(int N) {
         int ans = 0;
-        for(int i = 1; i &lt;= N; i++){
-            int now = i;</B></FONT>
-            bool flag = 0;
-            while(now){
-                if(now%10==2||now%10==5||now%10==6||now%10==9)flag = 1;
-                if(now%10==3||now%10==4||now%10==7){
-                    flag = 0;
-                    break;
-                }
-                now /= 10;
-            }
-            ans += flag;
+        for (int i = 1; i &lt;= N; ++i) {
+            if (c(i)) ans++;
         }
         return ans;
+    }</B></FONT>
+    
+    bool c(int n) {
+        string s = to_string(n);
+        
+        int l = s.size();
+        int ans = 0;
+        for (int i = 0; i &lt; l; ++i) {
+            if (s[i] == '0' || s[i] == '1' || s[i] == '8') {
+                ans = ans * 10 + (s[i] - '0');
+            } else if (s[i] == '6') ans = ans * 10 + 9;
+            else if (s[i] == '9') ans = ans * 10 + 6;
+            else if (s[i] == '5') ans = ans * 10 + 2;
+            else if (s[i] == '2') ans = ans * 10 + 5;
+            else return false;
+        
+        }
+        
+        return ans != n;
     }
 };
 </PRE>

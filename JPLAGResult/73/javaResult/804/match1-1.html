@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>247_zc94zc.java</TITLE>
+ <TITLE>263_fallflame.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>247_zc94zc.java</CENTER></H3><HR>
+<H3><CENTER>263_fallflame.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int rotatedDigits(int N) {
-        int res = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            if (isValid(i))
-                res++;
+        
+        //  (0)  (1)  2,  5,  6, (8)  9, 
+        // (10) (11) 12, 15, 16, 18, 19
+        //  20   21  22  25  26  28  29
+        
+        int count = 0;
+        
+        for (int i = 0; i &lt;= N; i++) {
+            if (isValid(i)) {
+                count++;
+            }
         }
-        return res;
+        
+        
+        return count;
     }
-    private boolean isValid(int n) {
-        boolean res = false;
-        while (n != 0) {
-            int t = n % 10;
-            if (t == 3 || t == 4 || t == 7) return false;
-            if (t == 2 || t == 5 || t == 6 || t == 9) res = true;</B></FONT>
-            n = n / 10;
+    
+    boolean isValid(int i) {
+        
+        boolean changed = false;
+        
+        while (i &gt; 0) {
+            
+            int d = i % 10;
+            if (d != 0 &amp;&amp; d != 1 &amp;&amp; d != 2 &amp;&amp; d != 5 &amp;&amp; d != 6 &amp;&amp; d != 8 &amp;&amp; d != 9) {
+                return false;
+            } else if (d == 2 || d == 5 || d == 6 || d== 9) {
+                changed = true;
+            }</B></FONT>
+            
+            i = i / 10;
         }
-        return res;
+        return changed;
     }
 }
 </PRE>

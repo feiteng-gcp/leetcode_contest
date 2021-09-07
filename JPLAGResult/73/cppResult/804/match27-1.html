@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>24_lazyc97.cpp</TITLE>
+ <TITLE>202_frostfrog.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>24_lazyc97.cpp</CENTER></H3><HR>
+<H3><CENTER>202_frostfrog.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int rotatedDigits(int N) {
-        int res = 0;
-        for (int i = 1; i &lt;= N; ++i) {</B></FONT>
-            bool valid = true;
-            bool diff = false;
+    
+    bool isgood(int n) {
+        int nn = n;
+        int rn = 0;
+        int r[] = {0,1,5,-1,-1,2,9,-1,8,6};
+        int d = 1;
+        while (nn) {
+            int c = nn % 10;
             
-            for (int x = i; x &gt; 0; x /= 10) {
-                int y = x % 10;
-                if (y == 3 || y == 4 || y == 7) valid = false;
-                else
-                if (y == 2 || y == 5 || y == 6 || y == 9) diff = true;
-            }
-            
-            res += (valid &amp;&amp; diff);
-        }
+            if (r[c] &lt; 0) return false;
+            rn += r[c] * d;
+<A NAME="0"></A>            
+            nn /= 10;
+            d *= 10;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
         
-        return res;
+        
+        return rn != n;
     }
-};
+    
+    int rotatedDigits(int N) {
+        int count =0;
+       for (int i = 1; i &lt;= N; i++) {
+           count += isgood(i);
+       }
+        
+        return count;
+        
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

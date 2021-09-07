@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>470_nitesh90.java</TITLE>
+ <TITLE>25_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>470_nitesh90.java</CENTER></H3><HR>
+<H3><CENTER>25_allister.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int rotatedDigits(int N) {
-        Map&lt;Integer,Integer&gt; goodNumbers = new HashMap&lt;&gt;();
-        goodNumbers.put(0,0);        
-        goodNumbers.put(1,1);
-        goodNumbers.put(2,5);
-        goodNumbers.put(5,2);
-        goodNumbers.put(6,9);
-        goodNumbers.put(8,8);        
-        goodNumbers.put(9,6);
-        int count = 0 ;
-        for(int i=1;i&lt;=N;i++){
-            int num = i</B></FONT>;
-            int rotNum = 0;
-            int fact = 1;
-            while(num&gt;0){
-                int rem = num%10;
-                if(!goodNumbers.containsKey(rem)){
-                    break;
-                }
-                int val = goodNumbers.get(rem);
-                rotNum += fact*(val);
-                fact =fact*10;
-                num = num/10;
+        int count = 0;
+        for(int i = 1; i &lt;= N; ++ i) {
+            if(validNumber(i)) {
+                ++ count;
             }
-            if(num==0 &amp;&amp; i!=rotNum) count++;
         }
-        return count;    
+        return count;
+    }
+
+    boolean validNumber(int N) {
+        int diff = 0;
+        while(N &gt; 0) {
+            int last = N % 10</B></FONT>;
+            N /= 10;
+            switch (last) {
+                case 0:
+                case 1:
+                case 8:
+                    continue;
+                case 2:
+                case 5:
+                case 6:
+                case 9:
+                    ++ diff;
+                    break;
+                default:
+                    return false;
+            }
+        }
+        return diff &gt; 0;
     }
 }
 </PRE>

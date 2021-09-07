@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_LucasJorge.cpp</TITLE>
+ <TITLE>463_x9527.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>369_LucasJorge.cpp</CENTER></H3><HR>
+<H3><CENTER>463_x9527.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    int rotatedDigits(int N) {
-        int count = 0;
 
-<A NAME="1"></A>        for (int i = 0; i &lt;= N; i++) {</B></FONT>
-            int flag = 0;
-
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int n = i;
-            while (n &gt; 0) {
-                int d = n % 10;
-                if (d == 2 || d == 5 || d == 6 || d == 9) {
-                    flag = 1;
-                }
-                else if (d == 0 || d == 1 || d == 8) {</B></FONT>
-                    n /= 10;
-                    continue;
-                }
-                else {
-                    flag = 0;
-                    break;
-                }
-                n /= 10;
-            }
-
-            if (flag) count++;
+unordered_set&lt;int&gt; mySet = {0, 1, 8, 2, 5, 6, 9};
+unordered_set&lt;int&gt; my2569Set = {2, 5, 6, 9};
+    
+bool isGood(int x) {
+    bool has2569 = false;
+    while (x) {
+        int digit = x % 10;
+        if (mySet.count(digit) == 0) {
+            return false;
         }
-
-        return count;
+        
+        if (my2569Set.count(digit) &gt; 0) {
+            has2569 = true;
+        }
+        
+        x /= 10;
     }
+<A NAME="0"></A>    return has2569;
+}
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int rotatedDigits(int N) {
+    int cnt = 0;
+    for (int i = 1; i &lt;= N; i++) {
+        if (isGood(i)) {
+            cnt++;
+        }
+    }
+    return cnt;
+}</B></FONT>
 };
 </PRE>
 </BODY>

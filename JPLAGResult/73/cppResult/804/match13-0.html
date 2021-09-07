@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>9_billydou.cpp</TITLE>
+ <TITLE>396_doubleD.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>9_billydou.cpp</CENTER></H3><HR>
+<H3><CENTER>396_doubleD.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    bool isvalid(int x) {
-        int flag = 0;
-        while (x &gt; 0) {
-            if (x%10 == 3 || x%10 == 4 || x%10 == 7) return false;
-            if (x%10 != 0 &amp;&amp; x%10 != 1 &amp;&amp; x%10 != 8) flag = 1;
-<A NAME="0"></A>            x/=10;
-        }
-        if (!flag) return false;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return true;
-    }
 public:
     int rotatedDigits(int N) {
-        int ans = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            if(isvalid(i)) ++ans;
+        set&lt;int&gt; grot;
+        set&lt;int&gt; brot;
+<A NAME="0"></A>        grot.insert(2);grot.insert(5);
+        grot.insert(6);grot.insert(9);
+        brot.insert(0);brot.insert(1);brot.insert(8);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int count = 0;
+        for(int i =1; i &lt;= N; i++){
+            int g = i;
+            bool brot_found = false;
+            bool bad = false;
+            while(g &gt; 0){
+                int d = g % 10;</B></FONT>
+                g /= 10;
+                if(grot.find(d) == grot.end()
+                  &amp;&amp; brot.find(d) == brot.end()){
+                    bad = true;
+                    break;
+                }else if(grot.find(d) != grot.end()){
+                    brot_found = true;
+                }
+            }
+            if(!bad &amp;&amp; brot_found)count++;
         }
-        return ans;
+        return count;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

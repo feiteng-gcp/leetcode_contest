@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_allister.java</TITLE>
+ <TITLE>12_lixx2100.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>25_allister.java</CENTER></H3><HR>
+<H3><CENTER>12_lixx2100.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+import java.util.*;
+<A NAME="0"></A>import java.math.*;
+import java.util.stream.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+
+
     public int rotatedDigits(int N) {
-        int count = 0;
-        for(int i = 1; i &lt;= N; ++ i) {
-            if(validNumber(i)) {
-                ++ count;
-            }
+        int cnt = 0;
+<A NAME="1"></A>        for (int i = 1; i &lt;= N; i++) {
+            if (is</B></FONT>(i)) {
+                cnt++;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        return count;
+        return cnt;
     }
 
-    boolean validNumber(int N) {
-        int diff = 0;
-        while(N &gt; 0) {
-            int last = N % 10</B></FONT>;
-            N /= 10;
-            switch (last) {
-                case 0:
-                case 1:
-                case 8:
-                    continue;
-                case 2:
-                case 5:
-                case 6:
-                case 9:
-                    ++ diff;
-                    break;
-                default:
-                    return false;
-            }
+    boolean is(int x) {
+        int _x = x</B></FONT>, base = 1;
+        int xx = 0;
+        while (x &gt; 0) {
+            int digit = x % 10;
+            if (digit == 1 || digit == 0 || digit == 8) {
+            } else if (digit == 2) {
+                digit = 5;
+            } else if (digit == 5) {
+                digit = 2;
+            } else if (digit == 6) {
+                digit = 9;
+            } else if (digit == 9) {
+<A NAME="2"></A>                digit = 6;
+            } else {
+                return false;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+            xx += digit * base;
+            base *= 10;
+            x /= 10;
         }
-        return diff &gt; 0;
+//        if (_x != xx) {
+//            System.out.println(_x + &quot; &quot; + xx);
+//        }
+        return _x != xx;
+    }
+
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.rotatedDigits(1000));
+        System.out.println(sol.rotatedDigits</B></FONT>(10));
     }
 }
 </PRE>

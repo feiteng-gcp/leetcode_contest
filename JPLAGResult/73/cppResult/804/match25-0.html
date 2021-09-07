@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>461_KJer.cpp</TITLE>
+ <TITLE>451_p00lmaster.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>461_KJer.cpp</CENTER></H3><HR>
+<H3><CENTER>451_p00lmaster.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int rotatedDigits(int N) {
-        int count = 0;
-        for(int i = 1; i &lt;= N; i++)
-        {
-            int j = i;
-            int unvalid = 0;            </B></FONT>
-            int rotate = 0;
-            while(j &gt; 0)
-            {
-                if(j % 10 == 3 || j % 10 == 4 || j % 10 == 7)
-                {
-                    unvalid++;
-                    break;
-                }
-                if(j % 10 == 2 || j % 10 == 5 || j % 10 == 6 || j % 10 == 9) rotate++;
-                j /= 10;
+        int ret = 0;
+        for (int i = 1; i &lt;= N; i++) {
+            if (isValidRotate(i)) {
+                ret++;
             }
-            if(unvalid == 0 &amp;&amp; rotate &gt; 0) count++;
         }
-        return count;
+        return ret;
+    }</B></FONT>
+private:
+    bool isValidRotate(int x) {
+        string s = to_string(x);
+        bool flag = false;
+        for (auto c : s) {
+            if (c == '3' || c == '4' || c == '7') {
+                return false;
+            }
+            if (c != '0' &amp;&amp; c != '1' &amp;&amp; c != '8') {
+                flag = true;
+            }
+        }
+        return flag;
     }
 };
 </PRE>

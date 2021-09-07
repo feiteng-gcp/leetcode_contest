@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>82_flyman3046.java</TITLE>
+ <TITLE>389_ShuIvan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>82_flyman3046.java</CENTER></H3><HR>
+<H3><CENTER>389_ShuIvan.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int rotatedDigits(int N) {
-        int res = 0;
-<A NAME="1"></A>        for (int i = 1; i &lt;= N; i++) {
-            if (helper</B></FONT>(i)) {
-                res++;
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int count = 0;
+
+        for(int i = 1; i &lt;= N; i++) {
+            if(isValid(i)) {
+                count++;
+            }
         }
-
-        return res;
+        
+        return count;
     }
-
-    boolean helper(int value) {
-        String str = Integer.toString(value)</B></FONT>;
-        int n = str.length();
-        char[] arr = new char[n];
-        for (int i = 0; i &lt; n; i++) {
-            char c = str.charAt(i);
-            if (c == '0' || c == '1' || c == '8') {
-                arr[i] = c;
-            }
-            else if (c == '2'){
-                arr[i] = '5';
-            }
-            else if (c == '5') {
-                arr[i] = '2';
-            }
-            else if (c == '6') {
-                arr[i] = '9';
-            }
-            else if (c == '9') {
-                arr[i] = '6';
-            }
-            else {
+    
+    public boolean isValid(int num) {
+        boolean flag = false</B></FONT>;
+        
+        while(num &gt; 0) {
+            int rem = num % 10;
+            if (rem != 0 &amp;&amp; rem != 1 &amp;&amp; rem != 2 &amp;&amp; rem != 5 &amp;&amp; rem != 6 &amp;&amp; rem != 8 &amp;&amp; rem != 9) {
                 return false;
             }
+            
+            else if (rem == 2 || rem == 5 || rem == 6 || rem == 9) {
+                flag = true;
+            }
+            
+            num /= 10;
         }
-
-        String rotate = new String(arr);
-        return !rotate.equals(str);
+        
+        return flag;
     }
 }
 </PRE>

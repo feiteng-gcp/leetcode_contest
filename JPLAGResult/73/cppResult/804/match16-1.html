@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>296_yaoruoyang.cpp</TITLE>
+ <TITLE>292_chejianchao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>296_yaoruoyang.cpp</CENTER></H3><HR>
+<H3><CENTER>292_chejianchao.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
+class Solution {
+<A NAME="0"></A>public:
     int rotatedDigits(int N) {
-        int num = 0;
-        for (int i=1; i&lt;=N; i++) {
-            if (isGood(i)) {
-                num ++;
-                // cout &lt;&lt; i &lt;&lt; endl;
+        int num[10] = {0,1,5,-1,-1,2,9,-1,8,6};
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        for( int i = 1; i&lt;=N; i++){
+            int n = i;
+            int new_num = 0;
+            int bit=1;
+            
+            while(n&gt;0){
+                int a=n%10;</B></FONT>
+                n/=10;
+                if(num[a] &lt;0 ){
+                    new_num = i;
+                    break;
+                }
+                new_num = new_num+num[a]*(bit);
+                bit*=10;
             }
+           // printf(&quot;%d %d\n&quot;, new_num, i);
+            if( new_num != i )
+                ans++;
         }
-        return num;
-    }</B></FONT>
-private:
-    bool isGood(int n) {
-        int count = 0;
-        while (n &gt; 0) {
-            int num = n % 10;
-            if (num == 3 || num == 4 || num == 7)
-                return false;
-            if (num == 2 || num == 5 || num == 6 || num == 9)
-                count ++;
-            n /= 10;
-        }
-        return (count &gt; 0);
+        return ans;
     }
 };
 </PRE>

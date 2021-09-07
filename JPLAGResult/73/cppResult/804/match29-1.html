@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>103_Spin0za.cpp</TITLE>
+ <TITLE>181_rohansumant.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>103_Spin0za.cpp</CENTER></H3><HR>
+<H3><CENTER>181_rohansumant.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
     int rotatedDigits(int N) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        set&lt;char&gt; good = {'0','1','8','2','5','6','9'};
         int ans = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            string s = to_string(i);</B></FONT>
-            if (s.find_first_of(&quot;347&quot;) != string::npos) continue;
-            string t = s;
-            for (char &amp;c : s) {
-                if (c == '2') c = '5';
-                else if (c == '5') c = '2';
-                else if (c == '6') c = '9';
-                else if (c == '9') c = '6';
+        for(int i=1;i&lt;=N;i++) {
+            string s = to_string(i);
+            bool all_good = 1;
+            int c6925 = 0;
+            for(char ch:s) {</B></FONT>
+                all_good &amp;= good.find(ch) != good.end();
+                if(ch == '6' || ch == '9' || ch == '2' || ch == '5') c6925++;
             }
-            if (s != t) ans++;
+            if(all_good &amp;&amp; c6925) ans++;
         }
         return ans;
     }

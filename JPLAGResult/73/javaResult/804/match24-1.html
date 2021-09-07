@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>43_BitcoinEvangelist.java</TITLE>
+ <TITLE>153_ajlohr.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>43_BitcoinEvangelist.java</CENTER></H3><HR>
+<H3><CENTER>153_ajlohr.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-<A NAME="1"></A>    public int rotatedDigits(int N) {
-        int cnt = 0;
-        for (int i = 0; i &lt;= N; i++){
-            if</B></FONT> (valid(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Integer.toString(i))){
-                cnt++;
-            }
+    public int rotatedDigits(int N) {
+        int count =0;        
+        loop:
+        for(int i=1;i&lt;=N;i++)
+        {
+            boolean hasD=false;</B></FONT>
+            for(int q : digits(i) )
+            {
+<A NAME="1"></A>                if(!isGood(q))
+                    continue loop;
+                hasD = hasD ||isGoodD(q);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if(hasD)
+                count++;
         }
-        return cnt;
+        return count;
+    }</B></FONT>
+    public List&lt;Integer&gt; digits(int n)
+    {
+        List&lt;Integer&gt; r= new ArrayList&lt;Integer&gt;();
+            while(n&gt;=10)
+            {
+                r.add(n%10);
+                n/=10;
+            }
+        r.add(n);
+        return r;
     }
-    
-    boolean valid(String str){
-        boolean found = false</B></FONT>;
-        for (char c : str.toCharArray()){
-            if (c == '3' || c == '4' || c =='7'){
-                return false;
-            }
-            if (c == '2' || c == '5' || c == '6' || c == '9'){
-                found = true;
-            }
-        }
-        return found;
+    public boolean isGood(int d)
+    {
+        return (d!=3)&amp;&amp;(d!=4)&amp;&amp;(d!=7);
+    }
+    public boolean isGoodD(int d)
+    {
+        return isGood(d)&amp;&amp;(d!=0)&amp;&amp;(d!=1) &amp;&amp;(d!=8);
     }
 }
 </PRE>

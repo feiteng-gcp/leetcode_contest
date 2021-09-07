@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>162_mzchen.cpp</TITLE>
+ <TITLE>475_aalmamun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>162_mzchen.cpp</CENTER></H3><HR>
+<H3><CENTER>475_aalmamun.cpp</CENTER></H3><HR>
 <PRE>
+#define SZ 10005
+static int good[SZ] = {0};
 class Solution {
-    bool good(int i) {
-        int n = 0;
-        while (i &gt; 0) {
-            int j = i % 10;
-            if (j == 3 || j == 4 || j == 7)
-                return false;
-            if (j == 2 || j == 5 || j == 6 || j == 9)
-                n++;
-            i /= 10;
+    bool isgood(int n) {
+        if (good[n] != 0) {
+            return good[n] == 1;
         }
-<A NAME="0"></A>        return n &gt; 0;
+        char buf[10];
+        sprintf(buf, &quot;%d&quot;, n);
+        string s;
+        for (int i = 0; i &lt; strlen(buf); i++) {
+<A NAME="1"></A>            char ch = buf[i];
+            if (ch == '0' || ch == '1' || ch == '8')
+                s += ch;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else if (ch == '2')
+                s += '5';
+            else if (ch == '5')
+                s += '2';
+            else if (ch == '6')
+                s += '9';
+            else if (ch == '9')
+                s += '6';
+            else {</B></FONT>
+                good[n] = 2;
+                return false;
+            }
+        }
+<A NAME="0"></A>        good[n] = s == string(buf) ? 2 : 1;
+        return good[n] == 1;
     }
-public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int rotatedDigits(int N) {
-        int n = 0;
-        for (int i = 0; i &lt;= N; i++)
-            if (good(i))
-                n++;
-        return n;
-    }
-};</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int rotatedDigits(int N) {
+        int cnt = 0;
+        for (int i = 1; i &lt;=N; i++) {
+            if (isgood(i))
+                cnt++;
+        }
+        return cnt;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>404_ashish53v.java</TITLE>
+ <TITLE>304_kangtaku.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>404_ashish53v.java</CENTER></H3><HR>
+<H3><CENTER>304_kangtaku.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    //Map&lt;Intger&gt; map = new HashMap&lt;&gt;();
     public int rotatedDigits(int N) {
-<A NAME="1"></A>        int count = 0;
-        for(int i=1;i&lt;=N;i++){
-            if(isValid</B></FONT>(i))
-                count++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        int ans = 0;
+        for (int i = 0; i &lt;= N; i++) {
+            char[] str = String.valueOf(i).toCharArray</B></FONT>();
+            String newNum = &quot;&quot;;
+            boolean isOkay = true;
+            for (int j =0;j&lt;str.length;j++){
+                if (str[j] == '2') {
+                    str[j] = '5';
+                } else if (str[j] == '5') {
+                    str[j] = '2';
+                } else if(str[j] == '6') {
+                    str[j] = '9';
+                } else if(str[j] == '9') {
+                    str[j] = '6';
+                }
+                if (str[j] == '3' || str[j] == '7' || str[j] == '4') {
+                    isOkay = false;
+                    break;
+                }
+<A NAME="1"></A>                newNum += str[j];
+            }
+            if(!isOkay) continue;
+            if(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Integer.valueOf(newNum) == i) continue;
+            // System.out.println(newNum + &quot;, &quot; + i);
+            ans++;
+
         }
-        return count;
+        return ans;
     }
-    
-    public boolean isValid(int x){
-        int k = 0</B></FONT>;
-        boolean flag = false;
-        while(x &gt; 0){
-            k = x % 10;
-            if(k == 3 || k == 4 || k == 7)
-                return false;
-            if(k == 2 || k == 5 || k == 6 || k == 9)
-                flag = true;           
-            x /= 10;
-            
-        }
-        return flag;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>461_KJer.cpp</TITLE>
+ <TITLE>463_x9527.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>461_KJer.cpp</CENTER></H3><HR>
+<H3><CENTER>463_x9527.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    int rotatedDigits(int N) {
-        int count = 0;
-        for(int i = 1; i &lt;= N; i++)
-        {
-            int j = i;</B></FONT>
-            int unvalid = 0;            
-            int rotate = 0;
-            while(j &gt; 0)
-            {
-                if(j % 10 == 3 || j % 10 == 4 || j % 10 == 7)
-                {
-                    unvalid++;
-                    break;
-                }
-                if(j % 10 == 2 || j % 10 == 5 || j % 10 == 6 || j % 10 == 9) rotate++;
-                j /= 10;
-            }
-            if(unvalid == 0 &amp;&amp; rotate &gt; 0) count++;
+
+<A NAME="0"></A>unordered_set&lt;int&gt; mySet = {0, 1, 8, 2, 5, 6, 9};
+unordered_set&lt;int&gt; my2569Set = {2, 5, 6, 9};
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>bool isGood(int x) {
+    bool has2569 = false;
+    while (x) {
+        int digit = x % 10;
+        if (mySet.count(digit) == 0) {
+            return false;
         }
-        return count;
+        
+        if (my2569Set.count(digit) &gt; 0) {
+            has2569 = true;
+        }
+        
+        x /= 10;
     }
+    return has2569;
+}</B></FONT>
+<A NAME="1"></A>    
+int rotatedDigits(int N) {
+    int cnt = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 1; i &lt;= N; i++) {
+        if (isGood(i)) {
+            cnt++;
+        }
+    }
+    return cnt;
+}</B></FONT>
 };
 </PRE>
 </BODY>

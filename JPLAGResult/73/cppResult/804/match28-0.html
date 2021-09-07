@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_cuiaoxiang.cpp</TITLE>
+ <TITLE>295_quanxie.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>3_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>295_quanxie.cpp</CENTER></H3><HR>
 <PRE>
-int a[10] = {0, 1, 5, -1, -1, 2, 9, -1, 8, 6};
-
 class Solution {
 public:
-    int rotate(int n) {
-        int ret = 0;
-<A NAME="0"></A>        int p = 1;
-        for (; n; n /= 10) {
-            if (a[n % 10] &lt; 0) return -1;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            ret += p * a[n % 10];
-            p *= 10;
-        }
-        return ret;
+    bool isRotate(int x){
+        bool flag = false;
+        while (x&gt;0){
+            int a = x % 10;
+            if (a == 2 || a == 5 || a == 6 || a == 9){
+                x = x / 10;
+                flag = true;
+                continue;
+            }
+            if (a == 0 || a == 1 || a == 8){
+                x = x / 10;
+                continue;
+            }
+            return false;
+<A NAME="0"></A>        }
+        return flag;
     }
-    int rotatedDigits(int N) {
-        int ret = 0;
-        for (int i = 1; i &lt;= N; ++i) {</B></FONT>
-            int j = rotate(i);
-            if (j != -1 &amp;&amp; j != i) ++ret;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int rotatedDigits(int N) {
+        int res = 0;
+        for (int i = 1; i &lt;= N; i++){
+            if (isRotate(i))
+                res++;
         }
-        return ret;
-        
-    }
+        return res;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

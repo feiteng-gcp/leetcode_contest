@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_LucasJorge.cpp</TITLE>
+ <TITLE>354_jamelouis.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_LucasJorge.cpp</CENTER></H3><HR>
+<H3><CENTER>354_jamelouis.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int rotatedDigits(int N) {
-        int count = 0;
-
-        for (int i = 0; i &lt;= N; i++) {
-            int flag = 0;
-
-            int n = i;</B></FONT>
-            while (n &gt; 0) {
-                int d = n % 10;
-                if (d == 2 || d == 5 || d == 6 || d == 9) {
-                    flag = 1;
-                }
-                else if (d == 0 || d == 1 || d == 8) {
-                    n /= 10;
-                    continue;
-                }
-                else {
-                    flag = 0;
-                    break;
-                }
-                n /= 10;
+        int result = 0;
+        for(int i=1;i&lt;=N;++i){
+            if(rotate(i)){
+                 result++;
+                //cout &lt;&lt; i &lt;&lt; endl;
             }
-
-            if (flag) count++;
+              
         }
-
-        return count;
+        return result;
+    }</B></FONT>
+    
+    bool rotate(int num){
+        int n = num;
+        int r = 0;
+        int i = 1;
+        while(n&gt;0){
+            int a = n % 10;
+            n /= 10;
+            switch(a){
+                case 0:
+                case 1:
+                case 8:
+                    r = r + a*i;
+                    break;
+                case 2:
+                    r = r+5*i;
+                    break;
+                case 5:
+                    r = r+2*i;
+                    break;
+                case 6:
+                    r = r+9*i;
+                    break;
+                case 9:
+                    r=r+6*i;
+                    break;
+                default:
+                    return false;
+            }
+            i *= 10;
+        }
+        //cout &lt;&lt;&quot;r:&quot; &lt;&lt; r &lt;&lt; endl;
+        return r!=num;
     }
 };
 </PRE>

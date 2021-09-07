@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>242_ponerine.java</TITLE>
+ <TITLE>153_ajlohr.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>242_ponerine.java</CENTER></H3><HR>
+<H3><CENTER>153_ajlohr.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int rotatedDigits(int N) {
-        Map&lt;Integer, Integer&gt; map = new HashMap();
-        map.put(1, 1);
-        map.put(0, 0);
-        map.put(8, 8);
-        map.put(2, 5);
-        map.put(5, 2);
-        map.put(6, 9);
-        map.put(9, 6);
-        // Set&lt;Character&gt; set = new HashSet();
-        // set.add('1');
-        // set.add('0');
-        // set.add('8');
-        // set.add('2');
-        // set.add('5');
-        // set.add('6');
-        // set.add('9');
-        
-        int num = 0;
-        for (int i = 1; i &lt;= N; i++){
-            String str = Integer.toString(i)</B></FONT>;
-            //System.out.println(str.contains(&quot;2&quot;));
-            if (str.contains(&quot;3&quot;) || str.contains(&quot;4&quot;) || str.contains(&quot;7&quot;) || 
-                (!str.contains(&quot;2&quot;) &amp;&amp; !str.contains(&quot;5&quot;) &amp;&amp; !str.contains(&quot;6&quot;) &amp;&amp; !str.contains(&quot;9&quot;))) {
-                continue;
-            }
-            num++;
+        int count =0;        
+        loop:
+        for(int i=1;i&lt;=N;i++)
+        {
+            boolean hasD=false;</B></FONT>
+            for(int q : digits(i) )
+            {
+<A NAME="1"></A>                if(!isGood(q))
+                    continue loop;
+                hasD = hasD ||isGoodD(q);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if(hasD)
+                count++;
         }
-        return num;
+        return count;
+    }</B></FONT>
+    public List&lt;Integer&gt; digits(int n)
+    {
+        List&lt;Integer&gt; r= new ArrayList&lt;Integer&gt;();
+            while(n&gt;=10)
+            {
+                r.add(n%10);
+                n/=10;
+            }
+        r.add(n);
+        return r;
+    }
+    public boolean isGood(int d)
+    {
+        return (d!=3)&amp;&amp;(d!=4)&amp;&amp;(d!=7);
+    }
+    public boolean isGoodD(int d)
+    {
+        return isGood(d)&amp;&amp;(d!=0)&amp;&amp;(d!=1) &amp;&amp;(d!=8);
     }
 }
 </PRE>

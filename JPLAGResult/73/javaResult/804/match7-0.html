@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>470_nitesh90.java</TITLE>
+ <TITLE>210_trust-the-Process.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>470_nitesh90.java</CENTER></H3><HR>
+<H3><CENTER>210_trust-the-Process.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    // Good number - After 180 deg, Valid number &amp; Diff
+    // Good numbers = (2, 5), (6, 9)
+    // Non-Good numbers = (0, 1, 3, 4, 7, 8)
+    
     public int rotatedDigits(int N) {
-        Map&lt;Integer,Integer&gt; goodNumbers = new HashMap&lt;&gt;();
-        goodNumbers.put(0,0);        
-        goodNumbers.put(1,1);
-        goodNumbers.put(2,5);
-        goodNumbers.put(5,2);
-        goodNumbers.put(6,9);
-        goodNumbers.put(8,8);        
-        goodNumbers.put(9,6);
-        int count = 0 ;
-        for(int i=1;i&lt;=N;i++){
-            int num = i;
-            int rotNum = 0;
-            int fact = 1;
-            while(num&gt;0){
-                int rem = num%10;
-                if(!goodNumbers.containsKey(rem)){</B></FONT>
-                    break;
-                }
-<A NAME="1"></A>                int val = goodNumbers.get(rem);
-                rotNum += fact*(val);
-                fact =fact*10;
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>num = num/10;
-            }
-            if(num==0 &amp;&amp; i!=rotNum) count++;
+        int result = 0;
+<A NAME="1"></A>        
+        for (int n = 1; n &lt;= N; n++) {
+            if (isGoodNumber</B></FONT>(n))
+                result++<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
         }
-        return count;    
+        
+        return result;
     }
-}</B></FONT>
+    
+    public boolean isGoodNumber(int num) {
+        boolean isGood = false;
+        
+        while (num &gt; 0) {
+            int digit = num % 10;
+ 
+            if</B></FONT> (digit == 2 || digit == 5 || digit == 6 || digit == 9)
+                isGood = true;
+            
+            if (digit == 3 || digit == 4 || digit == 7)
+                return false;
+            
+            num /= 10;
+        }
+        
+        return isGood;
+    }
+}
 </PRE>
 
 </BODY>

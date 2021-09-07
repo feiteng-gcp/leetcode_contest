@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>348_xiaotdl.java</TITLE>
+ <TITLE>8_xuan18.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>348_xiaotdl.java</CENTER></H3><HR>
+<H3><CENTER>8_xuan18.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public int rotatedDigits(int N) {
-        int cnt = 0;
-        for (int i = 1; i &lt;= N; i++) {
-<A NAME="1"></A>            if (isGood</B></FONT>(i) &amp;&amp; rotated(i) != i) {
-                System.out.println(i + &quot; &quot; + rotated(i));
-                cnt++;
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    //Question : Why does 2 rotates to 5?
+    
+<A NAME="1"></A>    public int rotatedDigits(int N) {
+        int ret = 0;
+        for(int i=1;i&lt;=N;i++) {
+            if</B></FONT>(isGoodNumber(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Integer.toString(i))) {
+                ret += 1;
+            }
         }
-        return cnt;
+        return ret;
     }
-
-    private boolean isGood(int n) {
-<A NAME="2"></A>        Set&lt;Integer&gt; goodDigits = new HashSet&lt;&gt;(new ArrayList&lt;&gt;(Arrays.asList(0, 1, 8, 2, 5, 6, 9)))</B></FONT>;
-        while (n != 0) {
-            int digit = n % 10;
-            if (!goodDigits.contains(digit)) return false<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-            n /= 10;
-        }
-        return true;
+    
+    private boolean isGoodNumber(String s) {</B></FONT>
+        return isGoodNumber(s.toCharArray());
     }
-
-    private int rotated(int n) {
-        Map&lt;Integer, Integer&gt; m = new HashMap&lt;&gt;();
-        m.put(0, 0);
-        m.put(1, 1);
-        m.put(8, 8);
-        m.put</B></FONT>(2, 5);
-        m.put(5, 2);
-        m.put(6, 9);
-        m.put(9, 6);
-        int rotated = 0;
-        int base = 0;
-        while (n != 0) {
-            int digit = n % 10;
-            n /= 10;
-            rotated += m.get(digit) * Math.pow(10, base);
-            base++;
+    
+    private boolean isGoodNumber(char[] c) {
+        boolean ret = false;
+        for(int i=0;i&lt;c.length;i++) {
+            int t = getCategory(c[i]);
+            if(t==0) continue;
+            else if(t==1) {
+                ret = true;
+            } else {
+                return false;
+            }
         }
-        return rotated;
+        return ret;
+    }
+    
+    private int getCategory(char c) {
+        if(c=='0' || c=='1' || c=='8') return 0;
+        else if(c=='2' || c=='5' || c=='6' || c=='9') return 1;
+        else return -1;
     }
 }
-
 </PRE>
 
 </BODY>

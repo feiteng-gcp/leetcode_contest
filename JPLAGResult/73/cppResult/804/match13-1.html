@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>29_txingml.cpp</TITLE>
+ <TITLE>135_destroo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>29_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>135_destroo.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-    bool check(int n) {
-        string s = to_string(n);
-        int ret = 0;
-        for (char c : s) {
-            if (c == '0' || c == '1' || c == '8') ret = ret*10 + c - '0';
-            else if (c == '2') ret = ret*10 + 5;
-            else if (c == '5') ret = ret*10 + 2;
-            else if (c == '9') ret = ret*10 + 6;
-<A NAME="0"></A>            else if (c == '6') ret = ret*10 + 9;
-            else return false;
-        }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return ret!=n;
-    }
+<A NAME="0"></A>class Solution {
 public:
     int rotatedDigits(int N) {
-        int cnt = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            if (check(i)) cnt++;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for(int i = 1 ; i &lt;= N ; i++){
+            int temp = i;
+            bool flag1 = false;
+            bool flag2 = false;
+            while(temp!=0){
+                int rem = temp%10;</B></FONT>
+                if(rem==2 || rem == 5 || rem == 6 || rem == 9){
+                    flag1 = true;
+                }
+                else if(rem==3 || rem==4 || rem==7){
+                    flag2 = true;
+                }
+                temp = temp/10;
+            }
+            if(flag1 &amp;&amp; !flag2){
+                cnt+=1;
+            }
         }
         return cnt;
-        
-        
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

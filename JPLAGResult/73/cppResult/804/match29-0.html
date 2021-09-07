@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>24_lazyc97.cpp</TITLE>
+ <TITLE>95_democoffee.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>24_lazyc97.cpp</CENTER></H3><HR>
+<H3><CENTER>95_democoffee.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     int rotatedDigits(int N) {
-        int res = 0;
-        for (int i = 1; i &lt;= N; ++i) {
-            bool valid = true;</B></FONT>
-            bool diff = false;
-            
-            for (int x = i; x &gt; 0; x /= 10) {
-                int y = x % 10;
-                if (y == 3 || y == 4 || y == 7) valid = false;
-                else
-                if (y == 2 || y == 5 || y == 6 || y == 9) diff = true;
+        /*  
+        set&lt;int&gt; gn = {0, 1, 2, 5, 6, 8, 9};
+        int cnt[7] = { 1, };
+        for (int i=1; i&lt;7; ++i) { cnt[i] = cnt[i-1] * 7; }
+
+        string s = to_string(N);
+        int ans = 0;
+        for (int i=0, len=s.length(); i&lt;len; ++i) {
+            for (auto it=gn.begin(); it!=gn.end() &amp;&amp; *it&lt;s[i]-'0'; ++it) {
+                if (i == 0 &amp;&amp; *it == 0) { ans += cnt[len-1-i] / 7 * 6;
+                } else {
+                    ans += cnt[len-i-1];
+                }
             }
-            
-            res += (valid &amp;&amp; diff);
+
+            if (gn.find(s[i]-'0') == gn.end()) { break; }
+            if (i == 0 &amp;&amp; len == 1) { ++ans; }
         }
-        
-        return res;
-    }
+
+
+<A NAME="0"></A>        return ans;
+        */
+        set&lt;int&gt; gn = {0, 1, 2, 5, 6, 8, 9}; 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        set&lt;int&gt; cgn = { 2, 5, 6, 9 };
+        int ans = 0;
+        for (int i=1; i&lt;=N; ++i) {
+            string s = to_string(i);
+            bool ok = true;;
+            int ccnt = 0;
+            for (auto c : s) {</B></FONT>
+                if (gn.find(c-'0') == gn.end()) {
+                    ok = false;
+                    break;
+                }   
+                if (cgn.find(c-'0') != cgn.end()) {
+                    ++ccnt;
+                }   
+            }   
+
+            if (ok &amp;&amp; ccnt&gt;0) { ++ans; }
+        }   
+        return ans;
+    }   
 };
 </PRE>
 </BODY>

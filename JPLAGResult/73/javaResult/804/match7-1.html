@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>455_yys_q.java</TITLE>
+ <TITLE>172_lingyi3.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>455_yys_q.java</CENTER></H3><HR>
+<H3><CENTER>172_lingyi3.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int rotatedDigits(int N) {
-        HashMap&lt;Integer, Integer&gt; valid = new HashMap&lt;&gt;();
-        valid.put(0, 0);
-        valid.put(1, 1);
-        valid.put(2, 5);
-        valid.put(5, 2);
-        valid.put(6, 9);
-        valid.put(8, 8);
-        valid.put(9, 6);
-        int ans = 0;
-        for(int i = 1; i &lt;= N; i++){
-            int cur = i;
-            boolean val = false;
-            boolean add = true;
-            while(cur &gt; 0){
-                int res = cur % 10;
-                if(!valid.containsKey(res)){</B></FONT>
-                    add = false;
-                    break;
-<A NAME="1"></A>                }
-                if(res == 2 || res == 5 || res == 6 || res == 9)
-                    val = true;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cur = cur / 10;
-            }
-            if(add &amp;&amp; val)
-                ans++;
+        int cnt = 0;
+<A NAME="1"></A>        for (int i=1; i&lt;=N; i++) {
+            if (isValid</B></FONT>(i)) {
+                cnt += 1;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        return ans;
+        return cnt;
     }
-}</B></FONT>
+    
+    private boolean isValid(int num) {
+        boolean valid = false;
+        while (num != 0) {
+            int right = num % 10;
+            if</B></FONT> (right == 3 || right == 4 || right == 7) {
+                return false;
+            } else if (right == 2 || right == 5 || right == 6 || right == 9) {
+                valid = true;
+            }
+            num /= 10;
+        }
+        return valid;
+    }
+}
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>26_seraph1212.java</TITLE>
+ <TITLE>389_ShuIvan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>26_seraph1212.java</CENTER></H3><HR>
+<H3><CENTER>389_ShuIvan.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-<A NAME="1"></A>    public int rotatedDigits(int N) {
-        int ans = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            if (rotate</B></FONT>(i)) ans++<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+    public int rotatedDigits(int N) {
+        int count = 0;
+
+        for(int i = 1; i &lt;= N; i++) {
+            if(isValid(i)) {
+                count++;
+            }
         }
-        return ans;
+        
+        return count;
     }
-    boolean rotate(int n) {
-        boolean ans = false;
-        while (n != 0) {
-            int digit = n % 10</B></FONT>;
-            if (digit == 3 || digit == 4 || digit == 7) return false;
-            if (digit == 2 || digit == 5 || digit == 6 || digit == 9) ans = true;
-            n /= 10;
+    
+    public boolean isValid(int num) {
+        boolean flag = false;
+        
+        while(num &gt; 0) {
+            int rem = num % 10</B></FONT>;
+            if (rem != 0 &amp;&amp; rem != 1 &amp;&amp; rem != 2 &amp;&amp; rem != 5 &amp;&amp; rem != 6 &amp;&amp; rem != 8 &amp;&amp; rem != 9) {
+                return false;
+            }
+            
+            else if (rem == 2 || rem == 5 || rem == 6 || rem == 9) {
+                flag = true;
+            }
+            
+            num /= 10;
         }
-        return ans;
+        
+        return flag;
     }
 }
 </PRE>

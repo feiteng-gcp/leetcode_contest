@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>247_zc94zc.java</TITLE>
+ <TITLE>25_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>247_zc94zc.java</CENTER></H3><HR>
+<H3><CENTER>25_allister.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
-    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int rotatedDigits(int N) {
-        int res = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            if (isValid</B></FONT>(i))
-                res++;
-<A NAME="0"></A>        }
-        return res;
-    }
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private boolean isValid(int n) {
-        boolean res = false;
-        while (n != 0) {
-            int t = n % 10;
-            if (t == 3 || t == 4 || t == 7) return false;
-            if</B></FONT> (t == 2 || t == 5 || t == 6 || t == 9) res = true;
-            n = n / 10;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int rotatedDigits(int N) {
+        int count = 0;
+        for(int i = 1; i &lt;= N; ++ i) {
+            if(validNumber(i)) {
+                ++ count;
+            }
         }
-        return res;
+        return count;
+    }
+
+    boolean validNumber(int N) {
+        int diff = 0;
+        while(N &gt; 0) {
+            int last = N % 10</B></FONT>;
+            N /= 10;
+            switch (last) {
+                case 0:
+                case 1:
+                case 8:
+                    continue;
+                case 2:
+                case 5:
+                case 6:
+                case 9:
+                    ++ diff;
+                    break;
+                default:
+                    return false;
+            }
+        }
+        return diff &gt; 0;
     }
 }
 </PRE>

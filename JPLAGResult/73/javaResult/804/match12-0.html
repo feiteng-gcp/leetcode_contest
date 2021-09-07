@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>54_chuongk.java</TITLE>
+ <TITLE>25_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>54_chuongk.java</CENTER></H3><HR>
+<H3><CENTER>25_allister.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int rotatedDigits(int N) {
-        int res = 0;
-        for (int i = 1; i &lt;= N; ++i){
-<A NAME="1"></A>            if (isGood</B></FONT>(i)){
-                // System.out.println(i);
-                res++;
+        int count = 0;
+<A NAME="1"></A>        for(int i = 1; i &lt;= N; ++ i) {
+            if(validNumber</B></FONT>(i)) {
+                ++ count;
             <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        return res;
+        return count;
     }
-    
-    public boolean isGood(int num){
-        boolean diff = false;
-        while (num &gt; 0){
-            int k = num % 10;
-            if</B></FONT> (k == 2 || k == 5 || k == 6 || k == 9){
-                diff = true;
-            }else if (k == 0 || k == 1 || k == 8){
-                
-            }else{
-                return false;
+
+    boolean validNumber(int N) {
+        int diff = 0;
+        while(N &gt; 0) {
+            int last = N % 10</B></FONT>;
+            N /= 10;
+            switch (last) {
+                case 0:
+                case 1:
+                case 8:
+                    continue;
+                case 2:
+                case 5:
+                case 6:
+                case 9:
+                    ++ diff;
+                    break;
+                default:
+                    return false;
             }
-            num /= 10;
         }
-        return diff;
+        return diff &gt; 0;
     }
 }
 </PRE>

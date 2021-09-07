@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>106_syqking.cpp</TITLE>
+ <TITLE>50_balabasik.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>106_syqking.cpp</CENTER></H3><HR>
+<H3><CENTER>50_balabasik.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int rotatedDigits(int N) 
-    {
-        int s = 0;
-        for (int i = 1; i &lt;= N; ++i)
-        {
-            int r = rotate(i);</B></FONT>
-            if (r != -1 &amp;&amp; r != i)
-                s++;
+    
+    bool rotate(int x) {
+        bool met = false;
+        
+        while (x&gt;0) {
+            int y = x%10;
+            x /= 10;
+            if (y==3 || y==4 || y==7)
+                return false;
+            else if (y==2 || y==5 || y==6 || y==9)
+                met = true;
         }
-        return s;
+<A NAME="0"></A>        return met;
     }
-
-    int rotate(int n)
-    {
-        int ret = 0;
-        int base = 1;
-        while (n)
-        {
-            int d = rotateOne(n % 10);
-            if (d == -1)
-                return -1;
-            ret += d * base;
-            base *= 10;
-            n /= 10;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int rotatedDigits(int N) {
+        
+        int ans = 0;
+        for (int i=1;i&lt;=N;i++) {
+            if (rotate(i))
+                ans++;
         }
-        return ret;
-    }
-
-    int rotateOne(int n)
-    {
-        if (n == 0 || n == 1 || n == 8)
-            return n;
-        if (n == 2) return 5;
-        if (n == 5) return 2;
-        if (n == 6) return 9;
-        if (n == 9) return 6;
-        return -1;
-    }
+        return ans;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

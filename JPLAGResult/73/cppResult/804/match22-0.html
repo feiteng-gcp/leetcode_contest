@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>450_JonasTan2015.cpp</TITLE>
+ <TITLE>367_wilaind.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>450_JonasTan2015.cpp</CENTER></H3><HR>
+<H3><CENTER>367_wilaind.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int rotatedDigits(int N) {
-        int res = 0;
-        for(int i = 0; i &lt;= N; i ++){</B></FONT>
-            if(valid(i))
-                res ++;
+        int after[10] ={0, 1, 5, -1, -1, 2, 9, -1, 8, 6};
+        int count = 0;
+        for (int i = 1; i &lt;= N; i++) {</B></FONT>
+            string a = to_string(i);
+            string b = &quot;&quot;;
+            bool notOk = false;
+            for (int j = 0; j &lt; a.size(); j++) {
+                if (after[a[j] - '0'] == -1) {
+                    notOk = true;
+                    break;
+                } else {
+                    b += after[a[j] - '0'] + '0';
+                }
+            }
+            if (!notOk &amp;&amp; b.compare(a) != 0) {
+                count++;
+            }
         }
-        return res;
-    }
-    
-    bool valid(int n){
-        bool other = false;
-        while(n &gt; 0){
-            int digit = n % 10;
-            n = n / 10;
-            if(digit == 3 || digit == 4 || digit == 7)
-                return false;
-            
-            if(digit == 2 || digit == 5 || digit == 6 || digit == 9)
-                other = true;
-        }
-        return other;
+        return count;
     }
 };
 </PRE>

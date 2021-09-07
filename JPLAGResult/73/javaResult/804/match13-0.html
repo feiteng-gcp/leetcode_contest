@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_allister.java</TITLE>
+ <TITLE>348_xiaotdl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>25_allister.java</CENTER></H3><HR>
+<H3><CENTER>348_xiaotdl.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int rotatedDigits(int N) {
-        int count = 0;
-<A NAME="1"></A>        for(int i = 1; i &lt;= N; ++ i) {
-            if(validNumber</B></FONT>(i)) {
-                ++ count;
+        int cnt = 0;
+        for (int i = 1; i &lt;= N; i++) {
+<A NAME="1"></A>            if (isGood</B></FONT>(i) &amp;&amp; rotated(i) != i) {
+                System.out.println(i + &quot; &quot; + rotated(i));
+                cnt++;
             <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        return count;
+        return cnt;
     }
 
-    boolean validNumber(int N) {
-        int diff = 0;
-        while(N &gt; 0) {
-            int last = N % 10</B></FONT>;
-            N /= 10;
-            switch (last) {
-                case 0:
-                case 1:
-                case 8:
-                    continue;
-                case 2:
-                case 5:
-                case 6:
-                case 9:
-                    ++ diff;
-                    break;
-                default:
-                    return false;
-            }
+    private boolean isGood(int n) {
+        Set&lt;Integer&gt; goodDigits = new HashSet&lt;&gt;(new ArrayList&lt;&gt;(Arrays.asList(0, 1, 8, 2, 5, 6, 9)))</B></FONT>;
+        while (n != 0) {
+            int digit = n % 10;
+            if (!goodDigits.contains(digit)) return false;
+            n /= 10;
         }
-        return diff &gt; 0;
+        return true;
+    }
+
+    private int rotated(int n) {
+        Map&lt;Integer, Integer&gt; m = new HashMap&lt;&gt;();
+        m.put(0, 0);
+        m.put(1, 1);
+        m.put(8, 8);
+        m.put(2, 5);
+        m.put(5, 2);
+        m.put(6, 9);
+        m.put(9, 6);
+        int rotated = 0;
+        int base = 0;
+        while (n != 0) {
+            int digit = n % 10;
+            n /= 10;
+            rotated += m.get(digit) * Math.pow(10, base);
+            base++;
+        }
+        return rotated;
     }
 }
+
 </PRE>
 
 </BODY>

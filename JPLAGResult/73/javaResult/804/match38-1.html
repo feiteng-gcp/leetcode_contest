@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>348_xiaotdl.java</TITLE>
+ <TITLE>12_lixx2100.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>348_xiaotdl.java</CENTER></H3><HR>
+<H3><CENTER>12_lixx2100.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+import java.util.*;
+<A NAME="0"></A>import java.math.*;
+import java.util.stream.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+
+
     public int rotatedDigits(int N) {
         int cnt = 0;
         for (int i = 1; i &lt;= N; i++) {
-<A NAME="1"></A>            if (isGood</B></FONT>(i) &amp;&amp; rotated(i) != i) {
-                System.out.println(i + &quot; &quot; + rotated(i));
+            if (is(i)) {
                 cnt++;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
         }
         return cnt;
     }
 
-    private boolean isGood(int n) {
-        Set&lt;Integer&gt; goodDigits = new HashSet&lt;&gt;(new ArrayList&lt;&gt;(Arrays.asList(0, 1, 8, 2, 5, 6, 9)))</B></FONT>;
-        while (n != 0) {
-            int digit = n % 10;
-            if (!goodDigits.contains(digit)) return false;
-            n /= 10;
+    boolean is(int x) {
+        int _x = x</B></FONT>, base = 1;
+        int xx = 0;
+        while (x &gt; 0) {
+            int digit = x % 10;
+            if (digit == 1 || digit == 0 || digit == 8) {
+            } else if (digit == 2) {
+                digit = 5;
+            } else if (digit == 5) {
+                digit = 2;
+            } else if (digit == 6) {
+                digit = 9;
+            } else if (digit == 9) {
+                digit = 6;
+            } else {
+                return false;
+            }
+
+            xx += digit * base;
+            base *= 10;
+            x /= 10;
         }
-        return true;
+//        if (_x != xx) {
+//            System.out.println(_x + &quot; &quot; + xx);
+//        }
+        return _x != xx;
     }
 
-    private int rotated(int n) {
-        Map&lt;Integer, Integer&gt; m = new HashMap&lt;&gt;();
-        m.put(0, 0);
-        m.put(1, 1);
-        m.put(8, 8);
-        m.put(2, 5);
-        m.put(5, 2);
-        m.put(6, 9);
-        m.put(9, 6);
-        int rotated = 0;
-        int base = 0;
-        while (n != 0) {
-            int digit = n % 10;
-            n /= 10;
-            rotated += m.get(digit) * Math.pow(10, base);
-            base++;
-        }
-        return rotated;
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.rotatedDigits(1000));
+        System.out.println(sol.rotatedDigits(10));
     }
 }
-
 </PRE>
 
 </BODY>

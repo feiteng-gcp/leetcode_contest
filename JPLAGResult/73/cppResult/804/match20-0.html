@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Akatsuki_.cpp</TITLE>
+ <TITLE>369_LucasJorge.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>37_Akatsuki_.cpp</CENTER></H3><HR>
+<H3><CENTER>369_LucasJorge.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int rotatedDigits(int N) {
-        int ans = 0;
-        for(int i = 1; i &lt;= N; i++){</B></FONT>
-            int now = i;
-            bool flag = 0;
-            while(now){
-                if(now%10==2||now%10==5||now%10==6||now%10==9)flag = 1;
-                if(now%10==3||now%10==4||now%10==7){
+        int count = 0;
+
+        for (int i = 0; i &lt;= N; i++) {
+            int flag = 0;
+
+            int n = i;
+            while (n &gt; 0) {
+                int d = n % 10;
+                if (d == 2 || d == 5 || d == 6 || d == 9) {
+                    flag = 1;</B></FONT>
+                }
+                else if (d == 0 || d == 1 || d == 8) {
+                    n /= 10;
+                    continue;
+                }
+                else {
                     flag = 0;
                     break;
                 }
-                now /= 10;
+                n /= 10;
             }
-            ans += flag;
+
+            if (flag) count++;
         }
-        return ans;
+
+        return count;
     }
 };
 </PRE>
