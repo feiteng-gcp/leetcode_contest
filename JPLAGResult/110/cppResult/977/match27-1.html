@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_basasuya.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>226_basasuya.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int distinctSubseqII(string S) {
+        const int MOD = 1e9 + 7;
+	    int n = S.length(); 
+<A NAME="0"></A>        int dp[n + 1]; 
+        int last[30];
+        for(int i = 0; i &lt; 30; ++i) last[i] = -1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0] = 1; 
+
+	    for (int i = 1; i &lt;= n; ++i) { 
+            printf(&quot;%d\n&quot;, S[i-1] - 'a');
+		    dp[i] = 2ll * dp[i-1] % MOD; 
+		    if (last[S[i-1] - 'a'] != -1) 
+			    dp[i] = (dp[i] - dp[last[S[i-1] - 'a']] + MOD) % MOD; 
+		    last[S[i-1] - 'a'] = (i-1); 
+	    } 
+	    return (dp[n] - 1 + MOD) % MOD; 
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

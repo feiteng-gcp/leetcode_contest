@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>454_xieofxie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>454_xieofxie.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; reorderLogFiles(vector&lt;string&gt;&amp; logs) {
+        vector&lt;pair&lt;vector&lt;string&gt;, int&gt;&gt; letters;
+        vector&lt;int&gt; digits;
+        for (int i = 0;i &lt; logs.size();++i) {
+            auto pos = logs[i].find(' '), pos_last = pos;
+            if (logs[i][pos + 1] &gt;= '0' &amp;&amp; logs[i][pos + 1] &lt;= '9') {
+                digits.emplace_back(i);
+                continue;
+            }
+            letters.emplace_back();
+            letters.back().second = i;
+            letters.back().first.emplace_back(logs[i].substr(0, pos));
+            while (true) {
+                pos = logs[i].find(' ', pos_last + 1);
+                if (pos == string::npos) {
+                    letters.back().first.emplace_back(logs[i].substr(pos_last + 1));
+                    break;
+                }
+                letters.back().first.emplace_back(logs[i].substr(pos_last + 1, pos - pos_last));
+                pos_last = pos;
+            }
+        }
+        sort(letters.begin(), letters.end(), [](const pair&lt;vector&lt;string&gt;, int&gt;&amp;a,
+                                               const pair&lt;vector&lt;string&gt;, int&gt;&amp;b){
+            for (int i = 1;i &lt; a.first.size() &amp;&amp; i &lt; b.first.size();++i) {
+                if (a.first[i] != b.first[i]) {
+                    return a.first[i] &lt; b.first[i];
+                }
+            }
+            if (a.first.size() != b.first.size()) {
+<A NAME="0"></A>                return a.first.size() &lt; b.first.size();
+            }
+            return a.first[0] &lt; b.first[0];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        });
+        vector&lt;string&gt; result;
+        for (auto&amp;&amp; l : letters) {
+            result.emplace_back(logs[l.second]);
+        }
+        for (auto&amp;&amp; d : digits) {
+            result.emplace_back(logs[d]);
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

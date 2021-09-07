@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>129_gofb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>129_gofb.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; reorderLogFiles(vector&lt;string&gt;&amp; logs) {
+        vector&lt;string&gt; d;
+        vector&lt;pair&lt;string, string&gt;&gt; l;
+        for (const string&amp; log : logs) {
+            string id = &quot;&quot;;
+            string data = &quot;&quot;;
+            bool flag = false;
+            for (int i = 0; i &lt; log.length(); ++i) {
+                if (log[i] == ' ' &amp;&amp; !flag) {
+                    flag = true;
+                    continue;
+                }
+                if (flag) {
+                    data += log[i];
+                } else {
+<A NAME="0"></A>                    id += log[i];
+                }
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (isdigit(data[0])) {
+                d.push_back(id + &quot; &quot; + data);
+            } else {
+                l.push_back(make_pair(data, id));
+            }
+        }
+        sort(l.begin(), l.end());
+        vector&lt;string&gt; result;
+        for (const auto&amp; x : l) {
+            result.push_back(x.second + &quot; &quot; + x.first);
+        }
+        for (const auto&amp; x : d) {
+            result.push_back(x);
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

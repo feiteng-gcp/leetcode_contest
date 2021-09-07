@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_devilhtc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>272_devilhtc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minAreaRect(self, points):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+        :rtype: int
+<A NAME="0"></A>        &quot;&quot;&quot;
+        s = set([tuple(p) for p in points])
+        x2ys = collections.defaultdict(list)
+        y2xs = collections.defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        for p in points:
+            x2ys[p[0]].append(p[1])
+            y2xs[p[1]].append(p[0])
+        '''
+        for k, v in x2ys.items():
+            x2ys[k] = sorted(v)
+        for k, v in y2xs.items():
+            x2ys[k] = sorted(v)
+        '''
+        d0 =</B></FONT> x2ys if len(x2ys.keys()) &gt; len(y2xs.keys()) else y2xs
+        d = collections.defaultdict(list)
+        
+        for k, v in d0.items():
+            for i in range(len(v)):
+                for j in range(i+1, len(v)):
+                    dk = min(v[i], v[j])
+                    dl = abs(v[i] - v[j])
+                    d[(dk, dl)].append(k)
+        
+        out = 0
+        for k, v in d.items():
+            if len(v) &gt; 1:
+                v2 = sorted(v)
+                mingap = min([v2[i + 1] - v2[i] for i in range(len(v2) - 1)])
+                area = k[1] * mingap
+                out = area if out == 0 else min(out, area)
+        return out
+                 
+        
+</PRE>
+
+</BODY>
+</HTML>

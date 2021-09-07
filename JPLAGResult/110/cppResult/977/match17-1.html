@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>44_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+   int distinctSubseqII(string val) {
+      int n; //scanf(&quot;%d&quot;, &amp;n);
+      n = val.size();
+      map&lt;int, int&gt; mp;
+      typedef long long ll;
+      vector&lt;ll&gt; dp(n + 1, 0);
+    /*for(int i = 1; i &lt;= n; i++){
+<A NAME="0"></A>        scanf(&quot;%d&quot; ,&amp;val[i]);
+    } */
+       const int mod = 1e9 + 7;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    dp[0] = 1;
+    for(int i = 1; i &lt;= n; i++){
+        dp[i] = dp[i - 1] &lt;&lt; 1, dp[i] %= mod;
+
+        if(mp[val[i - 1]]) {
+            dp[i] -= dp[mp[val[i - 1]] - 1];
+            dp[i] = (dp[i] % mod + mod) % mod;
+        }
+        mp[val[i - 1]] = i;
+     }
+     //printf(&quot;%d\n&quot;, dp[n] - 1);
+    return dp[n] - 1;
+}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_robinlzl1989.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>231_robinlzl1989.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int distinctSubseqII(String S) {
+        int n = S.length(); 
+        int[] dp = new int[n + 1]; 
+        int[] sum = new int[n + 1];
+        int[] hash = new int[26]</B></FONT>; 
+<A NAME="1"></A>        Arrays.fill(hash, -1);
+        int mod = 1000000007;
+        dp[0] = 1; 
+        char[] cs = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.toCharArray(); 
+        for (int i = 1; i &lt;= n; i++) {
+            if (hash[cs[i - 1] - 'a'] == -1) {
+                dp[i] = sum[i - 1] + 1;
+            } else {</B></FONT>
+                dp[i] = (sum[i - 1] - sum[hash[cs[i - 1] - 'a'] - 1] + mod) % mod;
+            }
+            if (i == 1) {
+                sum[i] = 1; 
+            } else {
+                sum[i] = sum[i - 1] + dp[i]; 
+                sum[i] %= mod; 
+            }
+            hash[cs[i - 1] - 'a'] = i; 
+             // System.out.println(i + &quot; &quot;  + &quot; dp : &quot; + dp[i]);
+             // System.out.println(i + &quot; &quot;  + &quot; sum : &quot; + sum[i]);
+        }
+
+        return sum[n];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>179_seieewkx.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>179_seieewkx.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+class Solution:
+    def minAreaRect(self, points):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        hl = defaultdict(list)
+        # vl = defaultdict(list)
+        for p in points:
+            hl[p[1]].append(p[0])
+            # vl[p[0]].append(p[1])
+        nhl = []
+        for l in hl:
+            nhl.append([l, hl[l]])
+        nhl.sort()
+        # print(nhl.sort())
+        # nvl = []
+        # for l in vl:
+        #     nvl.append([l, sorted(vl[l])])
+        lh = len(nhl)
+        # lv = len(nvl)
+        ret = 40001 * 40001
+        for y1 in range(lh):
+            for y2 in range(y1+1, lh):
+                candi_x = list(set(nhl[y1][1]) &amp; set(nhl[y2][1]))
+                candi_x.sort()
+                min_diff = 40001
+                # print(y1, y2, nhl[y1][0], nhl[y2][0], candi_x)
+<A NAME="0"></A>                for i in range(len(candi_x) - 1):
+                    min_diff = min(min_diff, candi_x[i+1] - candi_x[i])
+                if min_diff != 40001:
+                    ret <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= min(ret, (nhl[y2][0]-nhl[y1][0])*(min_diff))
+        re</B></FONT>turn ret if ret &lt; 1600080001 else 0
+                
+</PRE>
+
+</BODY>
+</HTML>

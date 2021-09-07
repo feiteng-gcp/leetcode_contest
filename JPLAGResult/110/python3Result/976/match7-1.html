@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>209_charliemeng.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>209_charliemeng.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+
+class Solution:
+    def minAreaRect(self, points):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+<A NAME="0"></A>        :rtype: int
+        &quot;&quot;&quot;
+
+        mpx, mpy = defaultdict(set), defaultdict<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(set)
+        for p in points:
+            mpx[p[0]].add(p[1])
+            mpy[p[1]].add(p[0])
+        res =</B></FONT> (1&lt;&lt;31) - 1
+        for p0 in points:
+            for p1 in points:
+                if p1[0] &lt;= p0[0] or p1[1] &lt;= p0[1]: continue
+                if p0[0] in mpy[p1[1]] and p0[1] in mpx[p1[0]]:
+                    res = min(res, (p1[0]-p0[0])*(p1[1]-p0[1]))
+        return res if res &lt; (1&lt;&lt;31) - 1 else 0
+</PRE>
+
+</BODY>
+</HTML>
