@@ -109,7 +109,7 @@ def parseSubmissions(contest, page_end):
     submissionURL = "https://leetcode.com/api/submissions/%d"
     submissionURLCN = "https://leetcode-cn.com/api/submissions/%d"
 
-    print("processing... %s " % contestName)
+    print("Crawling submitted codes... %s " % contestName)
 
     # JSON_Location = 'C:/Users/lifeiteng/projects/visualizer/getRank/Contest JSON/' + contestName + '/'
     Ranking_Folder = cur_folder + '/Contest Ranking/' + contestName + '/'
@@ -147,7 +147,7 @@ def parseSubmissions(contest, page_end):
             username = line['username']
             userrank = line['rank']
             for k in submission:
-                print("Processing page.. %d user.. %d submission.. %s"  % (i, user, k))
+                print("[Contest=%s] Crawling submitted codes.. %d user.. %d submission.. %s"  % (contestName, i, user, k))
                 try:
                     uniqueID = str(userrank) +  '_' + username + '_' + str(k)
                     if uniqueID in processedID: continue
@@ -181,8 +181,8 @@ def parseSubmissions(contest, page_end):
                 except Exception as err:
                     print(err)
                     break
-            with open(processedJSON, 'w') as outputFile:
-                json.dump(processedID, outputFile)
+        with open(processedJSON, 'w') as outputFile:
+            json.dump(processedID, outputFile)
 
 
 def loadContest():
