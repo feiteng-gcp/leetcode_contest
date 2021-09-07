@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_lupengchang2013.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_lupengchang2013.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] pourWater(int[] heights, int V, int K) {
+        while(V-- &gt; 0) {
+            int id = index</B></FONT>(heights, K);
+            heights[id]++;
+        }
+        return heights;
+    }
+    private int index(int[] heights, int K) {
+        int i = K, j = K;
+        for(; i &gt;= 0; --i) {
+            if(i == 0 || heights[i] &gt; heights[K] || heights[i] &lt; heights[i - 1]) {
+                break;
+            }
+        }
+        while(i + 1 &lt; K &amp;&amp; heights[i] == heights[i + 1])    ++i;
+        for(; j &lt; heights.length; ++j) {
+            if(j == heights.length - 1 || heights[j] &gt; heights[K] || heights[j] &lt; heights[j + 1]) {
+                break;
+            }
+        }
+        while(j - 1 &gt; K &amp;&amp; heights[j] == heights[j - 1])    --j;
+        if(heights[i] &lt; heights[K]) {
+            return i;
+        } else if(heights[j] &lt; heights[K]) {
+            return j;
+        } else {
+            return K;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

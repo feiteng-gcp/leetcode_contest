@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_acdart.cpp</TITLE>
+ <TITLE>86_Berwyn.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_acdart.cpp</CENTER></H3><HR>
+<H3><CENTER>86_Berwyn.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        int n = heights.size();
-        for (int i = 0; i &lt; V; i++) {</B></FONT>
-            int loc = K;
-            for (int j = K - 1; j &gt;= 0; j--) {
-                if (heights[j] &gt; heights[j + 1]) {
+<A NAME="0"></A>    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
+        while(V--) {
+            ++heights[K];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int min = -1;
+            for(int i = K - 1; i &gt;= 0; --i) {
+                if((min == -1 &amp;&amp; heights[i] &gt;= heights[K])
+                  || (min != -1 &amp;&amp; heights[i] &gt; heights[min])) {
                     break;
-                }
-                if (heights[j] &lt; heights[j + 1])
-                loc = j;
-            }
-            if (loc == K) {
-                for (int j = K + 1; j &lt; n; j++) {
-                    if (heights[j] &gt; heights[j - 1]) {
-                        break;
+                } else if(heights[K] - heights[i] &gt; 1) {</B></FONT>
+                    if(min == -1 || heights[i] &lt; heights[min]) {
+                        min = i;
                     }
-                    if (heights[j] &lt; heights[j - 1])
-                    loc = j;
                 }
+<A NAME="1"></A>            }
+            if(min != -1) {
+                --heights[K];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                ++heights[min];
+                continue;
             }
-            printf(&quot;%d\n&quot;, loc);
-            heights[loc]++;
+            for(int i = K + 1; i &lt; heights.size(); ++i) {
+                if((min == -1 &amp;&amp; heights[i] &gt;= heights[K])
+                  || (min != -1 &amp;&amp; heights[i] &gt; heights[min])) {
+                    break;
+                } else if(heights[K] - heights[i] &gt; 1) {</B></FONT>
+                    if(min == -1 || heights[i] &lt; heights[min]) {
+                        min = i;
+                    }
+                }              
+            }
+            if(min != -1) {
+                --heights[K];
+                ++heights[min];
+            }
         }
         return heights;
     }
-    
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_xingyuwang.cpp</TITLE>
+ <TITLE>22_gerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_xingyuwang.cpp</CENTER></H3><HR>
+<H3><CENTER>22_gerwang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+
+<A NAME="0"></A>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        int n=heights.size();
-        for(int j=0;j&lt;V;j++)
-        {</B></FONT>
-            int left=K,i=K;
-            while(i&gt;=0 &amp;&amp; heights[i]&lt;=heights[left])
-            {
-                if(heights[i]&lt;heights[left])
-                    left=i;
-                i--;
-            }
-            if(left&lt;K)
-            {
-                heights[left]++;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt; &amp;heights, int V, int K) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (V--) {
+            int lastpos = -1;
+            for (int i = K - 1; i &gt;= 0; i--) {
+                if (heights[i] &lt; heights[i + 1]) {
+                    lastpos = i;
+<A NAME="1"></A>                } else if (heights[i] &gt; heights[i + 1]) {</B></FONT>
+                    break;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            if (lastpos != -1) {
+                heights[lastpos]++;
                 continue;
             }
-            int right=K;
-            i=K;
-            while(i&lt;n &amp;&amp; heights[i]&lt;=heights[right])
-            {
-                if(heights[i]&lt;heights[right])
-                    right=i;
-                i++;
+            for (int i = K + 1; i &lt; heights.size(); i++) {
+                if (heights[i] &lt; heights[i - 1]) {
+                    lastpos = i;
+                } else if (heights[i] &gt; heights[i - 1]) {</B></FONT>
+                    break;
+                }
             }
-            if(right&gt;K)
-            {
-                heights[right]++;
+            if (lastpos != -1) {
+                heights[lastpos]++;
                 continue;
             }
-            heights[K]++;
+            if (lastpos == -1) {
+                heights[K]++;
+            }
         }
+
         return heights;
-            
     }
+
 };
 </PRE>
 </BODY>

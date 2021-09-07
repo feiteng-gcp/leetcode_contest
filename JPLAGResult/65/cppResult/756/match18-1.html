@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_popopo.cpp</TITLE>
+ <TITLE>13_wangyisong.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_popopo.cpp</CENTER></H3><HR>
+<H3><CENTER>13_wangyisong.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int k) {
-        for (int i = 0; i &lt; V; ++i) {</B></FONT>
-            int j;
-            int pos = k;
-            for (j = k - 1; j &gt;= 0 &amp;&amp; heights[j] &lt;= heights[j+1]; --j) if (heights[j] &lt; heights[j+1]) pos = j;
-            if (pos &lt; k) {
-                heights[pos]++;
-                continue;
-            }
-            for (j = k + 1; j &lt; heights.size() &amp;&amp; heights[j] &lt;= heights[j-1]; ++j) if (heights[j] &lt; heights[j-1]) pos = j;
-            heights[pos]++;            
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
+        int n = heights.size();
+        int *_H = new int[n + 2];
+        int *H = _H + 1;
+        H[-1] = 0x3f3f3f3f;
+        H[n] = 0x3f3f3f3f;
+        for (int i = 0; i &lt; n; i++) {
+            H[i] = heights[i];
         }
-        
-        return heights;
+        while (V--) {
+            int p = K;
+            while (1) {
+                bool L = true;
+<A NAME="1"></A>                for (int i = p - 1; ; i--) {
+                    if (H[i] &gt; H[p]) {
+                        L = false;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        break;
+                    } else if (H[i] &lt; H[p]) {
+                        L = true;
+                        break;
+                    }
+                }
+                if (L) {
+                    --p;
+                } else {
+                    bool R = true;</B></FONT>
+<A NAME="0"></A>                    for (int i = p + 1; ; i++) {
+                        if (H[i] &gt; H[p]) {
+                            R = false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                            break;
+                        } else if (H[i] &lt; H[p]) {
+                            R = true;
+                            break;
+                        }
+                    }
+                    if (R) {
+                        ++p;
+                    } else {</B></FONT>
+                        break;
+                    }
+                }
+            }
+            ++H[p];
+        }
+        vector&lt;int&gt; ret;
+        for (int i = 0; i &lt; n; i++) {
+            ret.push_back(H[i]);
+        }
+        delete []_H;
+        return ret;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_WilsonWang.cpp</TITLE>
+ <TITLE>14_popopo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>21_WilsonWang.cpp</CENTER></H3><HR>
+<H3><CENTER>14_popopo.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        vector&lt;int&gt; ans = heights;
-        for (int i = 0; i &lt; V; i++) {</B></FONT>
-            drop(ans, K);
-            //for (auto n: ans) {
-            //    cout &lt;&lt; n &lt;&lt; &quot; &quot;;
-            //}
-            //cout &lt;&lt; endl;
-        }
-        return ans;
-    }
-    void drop(vector&lt;int&gt; &amp;h, int k) {
-        int p = k;
-        int q = k;
-        while (p &gt; 0 &amp;&amp; h[p - 1] &lt;= h[p]) {
-            p--;
-            if (h[p] &lt; h[p+1]) {
-                q = p;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int k) {
+        for (int i = 0; i &lt; V; ++i) {
+            int j;</B></FONT>
+            int pos = k;
+            for (j = k - 1; j &gt;= 0 &amp;&amp; heights[j] &lt;= heights[j+1]; --j) if (heights[j] &lt; heights[j+1]) pos = j;
+            if (pos &lt; k) {
+                heights[pos]++;
+                continue;
             }
+            for (j = k + 1; j &lt; heights.size() &amp;&amp; heights[j] &lt;= heights[j-1]; ++j) if (heights[j] &lt; heights[j-1]) pos = j;
+            heights[pos]++;            
         }
-        if (h[p] &lt; h[k]) {
-            h[q]++;
-            return;
-        }
-        p = k;
-        while (p + 1 &lt; h.size() &amp;&amp; h[p + 1] &lt;= h[p]) {
-            p++;
-            if (h[p] &lt; h[p-1]) {
-                q = p;
-            }
-        }
-        if (h[p] &lt; h[k]) {
-            h[q]++;
-            return;
-        }
-        h[k]++;
+        
+        return heights;
     }
 };
 </PRE>

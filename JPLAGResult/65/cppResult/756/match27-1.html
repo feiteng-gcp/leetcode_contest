@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_Mrsuyi.cpp</TITLE>
+ <TITLE>18_Iamyxx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>18_Iamyxx.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int i = 0; i &lt; V; ++i)
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp;a, int V, int K) {
+        while(V--)
         {
-            int j, z = K;</B></FONT>
-            for (j = K - 1; j &gt;= 0 &amp;&amp; heights[j] &lt;= heights[j + 1]; --j)
+            int i=K;
+            int pre=-1;</B></FONT>
+            while(i&gt;0&amp;&amp;a[i]&gt;=a[i-1])
             {
-                if (heights[j] &lt; heights[z])
-                    z = j;
+                if(a[i]&gt;a[i-1])
+                    pre=i-1;
+                i--;
             }
-            if (z != K)
+            if(a[i]&lt;a[K])
             {
-                ++heights[z];
+                a[pre]++;
                 continue;
             }
-            z = K;
-            for (j = K + 1; j &lt; heights.size() &amp;&amp; heights[j] &lt;= heights[j - 1]; ++j)
+            i=K;
+            pre=-1;
+            while(i+1&lt;a.size()&amp;&amp;a[i]&gt;=a[i+1])
             {
-                if (heights[j] &lt; heights[z])
-                    z = j;
+                if(a[i]&gt;a[i+1])
+                    pre=i+1;
+                i++;
             }
-            if (z != K)
+            if(a[i]&lt;a[K])
             {
-                ++heights[z];
+                a[pre]++;
                 continue;
             }
-            ++heights[K];
+            a[K]++;
         }
-        return heights;
+        return a;
     }
 };
 </PRE>

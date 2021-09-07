@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_Kmcode.cpp</TITLE>
+ <TITLE>4_zxononame.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_Kmcode.cpp</CENTER></H3><HR>
+<H3><CENTER>4_zxononame.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        while(V--){
-            int H=heights[K];
-            int ev=-1;</B></FONT>
-            for(int i=K;i&gt;=0;i--){
-                if(H&lt;heights[i])break;
-                if(H&gt;heights[i]){
-                    ev=i;
-                    H=heights[i];
+        int w = heights.size(), x, y;
+        for (int i = 1; i &lt;= V; i++)
+        {</B></FONT>
+            x = K;
+            while (true)
+            {
+                y = x - 1;
+                while (y &gt;= 0 &amp;&amp; heights[y] == heights[x]) y--;
+                if (y &gt;= 0 &amp;&amp; heights[y] &lt; heights[x])
+                {
+                    x--;
                     continue;
                 }
-                
-            }
-            if(ev!=-1){
-                heights[ev]++;
-                continue;
-            }
-            H=heights[K]+1;
-            ev=-1;
-            for(int i=K;i&lt;heights.size();i++){
-                if(H&lt;heights[i])break;
-                if(H&gt;heights[i]){
-                    ev=i;
-                    H=heights[i];
+                y = x + 1;
+                while (y &lt; w &amp;&amp; heights[y] == heights[x]) y++;
+                if (y &lt; w &amp;&amp; heights[y] &lt; heights[x])
+                {
+                    x++;
                     continue;
                 }
+                break;
             }
-            heights[ev]++;
-            continue;
+            heights[x]++;
         }
         return heights;
     }

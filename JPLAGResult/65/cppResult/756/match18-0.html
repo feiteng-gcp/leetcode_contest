@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_niobium.cpp</TITLE>
+ <TITLE>43_i_love_xiaoshagua_cpp.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_niobium.cpp</CENTER></H3><HR>
+<H3><CENTER>43_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int i = 0; i &lt; V; i++) {</B></FONT>
-            bool dropped = false;
-            int drop_idx = -1;
-            for (int j = K-1; j &gt;= 0; j--) {
-                if (heights[j] &gt; heights[j+1]) {
+        int n = heights.size();
+        for (int hehe = 0; hehe &lt; V; hehe++) {
+            // simulate once
+            // Check left
+            int i = K - 1;
+            for (; i &gt;= 0; i--) {
+                if (heights[i] &lt; heights[K]) {
+                    int runner = i - 1;
+                    while (runner &gt;= 0 &amp;&amp; heights[runner] &lt;= heights[runner + 1]) {
+<A NAME="0"></A>                        if (heights[runner] &lt; heights[i]) i = runner;
+                        runner--;
+                    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    break;
+                } else if (heights[i] &gt; heights[K]) {
+                    // Can't pass through
+                    i = -1;
                     break;
                 }
-                if (heights[j] &lt; heights[j+1]) {
-                    dropped = true;
-                    drop_idx = j;
+            }
+            if (i &gt;= 0) {
+                heights[i]++;
+            } else {</B></FONT>
+                // Check right
+                int j = K + 1;
+                for (; j &lt; n; j++) {
+                    if (heights[j] &lt; heights[K]) {
+                        // continue to the lowest
+                        int runner = j + 1;
+                        while (runner &lt; n &amp;&amp; heights[runner] &lt;= heights[runner - 1]) {
+<A NAME="1"></A>                            if (heights[runner] &lt; heights[j]) j = runner;
+                            runner++;
+                        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                        break;
+                    } else if (heights[j] &gt; heights[K]) {
+                        j = n;
+                        break;
+                    }
+                }
+                if (j &lt; n) {
+                    heights[j]++;
+                } else {
+                    heights[K]++;</B></FONT>
                 }
             }
-            if (dropped) {
-                heights[drop_idx]++;
-                continue;
-            }
-            for (int j = K+1; j &lt; heights.size(); j++) {
-                if (heights[j] &gt; heights[j-1]) {
-                    break;
-                }
-                
-                if (heights[j] &lt; heights[j-1]) {
-                    dropped = true;
-                    drop_idx = j;
-                }
-            }
-            if (dropped) {
-                heights[drop_idx]++;
-                continue;
-            }
-            
-            heights[K]++;
         }
-        
         return heights;
     }
 };

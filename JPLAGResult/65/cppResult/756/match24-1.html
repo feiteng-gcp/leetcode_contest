@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_Iamyxx.cpp</TITLE>
+ <TITLE>21_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_Iamyxx.cpp</CENTER></H3><HR>
+<H3><CENTER>21_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp;a, int V, int K) {
-        while(V--)
-        {
-            int i=K;
-            int pre=-1;</B></FONT>
-            while(i&gt;0&amp;&amp;a[i]&gt;=a[i-1])
-            {
-                if(a[i]&gt;a[i-1])
-                    pre=i-1;
-                i--;
-            }
-            if(a[i]&lt;a[K])
-            {
-                a[pre]++;
-                continue;
-            }
-            i=K;
-            pre=-1;
-            while(i+1&lt;a.size()&amp;&amp;a[i]&gt;=a[i+1])
-            {
-                if(a[i]&gt;a[i+1])
-                    pre=i+1;
-                i++;
-            }
-            if(a[i]&lt;a[K])
-            {
-                a[pre]++;
-                continue;
-            }
-            a[K]++;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
+        vector&lt;int&gt; ans = heights;
+        for (int i = 0; i &lt; V; i++) {</B></FONT>
+            drop(ans, K);
+            //for (auto n: ans) {
+            //    cout &lt;&lt; n &lt;&lt; &quot; &quot;;
+            //}
+            //cout &lt;&lt; endl;
         }
-        return a;
+        return ans;
+    }
+    void drop(vector&lt;int&gt; &amp;h, int k) {
+        int p = k;
+        int q = k;
+        while (p &gt; 0 &amp;&amp; h[p - 1] &lt;= h[p]) {
+            p--;
+            if (h[p] &lt; h[p+1]) {
+                q = p;
+            }
+        }
+        if (h[p] &lt; h[k]) {
+            h[q]++;
+            return;
+        }
+        p = k;
+        while (p + 1 &lt; h.size() &amp;&amp; h[p + 1] &lt;= h[p]) {
+            p++;
+            if (h[p] &lt; h[p-1]) {
+                q = p;
+            }
+        }
+        if (h[p] &lt; h[k]) {
+            h[q]++;
+            return;
+        }
+        h[k]++;
     }
 };
 </PRE>

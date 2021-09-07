@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_KakaHiguain.java</TITLE>
+ <TITLE>31_megaspazz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>31_megaspazz.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    int findLeft(int[] heights,int K)
-    {
-        int left=-1,min=10000000;
-        for (int j=K-1;j&gt;=0;j--)
-<A NAME="0"></A>        {
-            if (heights[j+1]&lt;heights[j]) break;
-            if (heights[j+1]&gt;heights[j]) left=j;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return left;
-    }
-    int findRight(int[] heights,int K)
-    {</B></FONT>
-        int right=-1,min=10000000;
-        for (int j=K+1;j&lt;heights.length;j++)
-        {
-            if (heights[j-1]&lt;heights[j]) break;
-            if (heights[j-1]&gt;heights[j]) right=j;
-        }
-        return right;
-    }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int[] pourWater(int[] heights, int V, int K) {
-        int n=heights.length,left=findLeft(heights,K),right=findRight(heights,K);
-        for (int i=0;i&lt;V;i++)
-        {
-            if (left&gt;=0)
-            {
-                heights[left]++;
-                left=findLeft(heights,K);
+        for (int t = 0; t &lt; V; ++t) {
+            int L = getLeft(heights, K)</B></FONT>;
+            if (L &gt;= 0) {
+                ++heights[L];
+                continue;
             }
-            else
-            {
-                if (right&gt;=0)
-                {
-                    heights[right]++;
-                    right=findRight(heights,K);
-                }
-                else 
-                {
-                    heights[K]++;
-                    left=findLeft(heights,K);
-                    right=findRight(heights,K);
+            int R = getRight(heights, K);
+            if (R &gt;= 0) {
+                ++heights[R];
+                continue;
+            }
+            ++heights[K];
+        }
+<A NAME="2"></A>        return heights;
+    }
+    
+    public static int getLeft(int[] heights, int K) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        for (int i = K - 1; i &gt;= 0; --i) {
+            if (heights[i] &gt; heights[K]) {
+                break;
+            }
+            if (heights[i] &lt; heights[K]) {</B></FONT>
+                int L = getLeft(heights, i);
+                if (L &gt;= 0) {
+                    return L;
+                } else {
+                    return i;
                 }
             }
         }
-        return heights;
+        return -1;
+<A NAME="1"></A>    }
+    
+    public static int getRight(int[] heights, int K) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = K + 1; i &lt; heights.length; ++i) {
+            if (heights[i] &gt; heights[K]) {
+                break;
+            }
+            if (heights[i] &lt; heights[K]) {</B></FONT>
+                int R = getRight(heights, i);
+                if (R &gt;= 0) {
+                    return R;
+                } else {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
 </PRE>

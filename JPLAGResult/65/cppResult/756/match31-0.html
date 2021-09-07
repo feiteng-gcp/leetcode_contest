@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_wyh9346.cpp</TITLE>
+ <TITLE>43_i_love_xiaoshagua_cpp.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>6_wyh9346.cpp</CENTER></H3><HR>
+<H3><CENTER>43_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int i = 0; i &lt; V; i++) {</B></FONT>
-            auto now = make_pair(heights[K], K);
-            for (int j = K - 1; j &gt;= 0; j--) {
-                if (now.first &gt; heights[j]) {
-                    now = make_pair(heights[j], j);
-                } else if (now.first &lt; heights[j]) {
+        int n = heights.size();
+        for (int hehe = 0; hehe &lt; V; hehe++) {
+            // simulate once
+            // Check left
+            int i = K - 1;</B></FONT>
+            for (; i &gt;= 0; i--) {
+                if (heights[i] &lt; heights[K]) {
+                    int runner = i - 1;
+                    while (runner &gt;= 0 &amp;&amp; heights[runner] &lt;= heights[runner + 1]) {
+                        if (heights[runner] &lt; heights[i]) i = runner;
+                        runner--;
+                    }
+                    break;
+                } else if (heights[i] &gt; heights[K]) {
+                    // Can't pass through
+                    i = -1;
                     break;
                 }
             }
-            if (now.second == K) {
-                for (int j = K + 1; j &lt; heights.size(); j++) {
-                    if (now.first &gt; heights[j]) {
-                        now = make_pair(heights[j], j);
-                    } else if (now.first &lt; heights[j]) {
+            if (i &gt;= 0) {
+                heights[i]++;
+            } else {
+                // Check right
+                int j = K + 1;
+                for (; j &lt; n; j++) {
+                    if (heights[j] &lt; heights[K]) {
+                        // continue to the lowest
+                        int runner = j + 1;
+                        while (runner &lt; n &amp;&amp; heights[runner] &lt;= heights[runner - 1]) {
+                            if (heights[runner] &lt; heights[j]) j = runner;
+                            runner++;
+                        }
+                        break;
+                    } else if (heights[j] &gt; heights[K]) {
+                        j = n;
                         break;
                     }
                 }
+                if (j &lt; n) {
+                    heights[j]++;
+                } else {
+                    heights[K]++;
+                }
             }
-            heights[now.second]++;
         }
         return heights;
     }

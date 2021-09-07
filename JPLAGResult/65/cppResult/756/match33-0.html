@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_cuiaoxiang.cpp</TITLE>
+ <TITLE>6_wyh9346.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>6_wyh9346.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; a, int V, int K) {
-        int n = a.size();
-        while (V--) {</B></FONT>
-            a[K]++;
-            int best = a[K], best_i = K, i;
-            for (i = K; i &gt; 0 &amp;&amp; a[i - 1] + 1 &lt;= a[i]; --i) {
-                a[i]--;
-                a[i - 1]++;
-                if (best &gt; a[i - 1]) {
-                  best = a[i - 1];
-                  best_i = i - 1;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
+        for (int i = 0; i &lt; V; i++) {</B></FONT>
+            auto now = make_pair(heights[K], K);
+            for (int j = K - 1; j &gt;= 0; j--) {
+                if (now.first &gt; heights[j]) {
+                    now = make_pair(heights[j], j);
+                } else if (now.first &lt; heights[j]) {
+                    break;
                 }
             }
-            a[i]--;
-            if (best_i != K) {
-              a[best_i]++;
-              continue;
-            }
-            a[K]++;
-            best = a[K], best_i = K;
-            for (i = K; i + 1 &lt; n &amp;&amp; a[i + 1] + 1 &lt;= a[i]; ++i) {
-                a[i]--;
-                a[i + 1]++;
-                if (best &gt; a[i + 1]) {
-                  best = a[i + 1];
-                  best_i = i + 1;
+            if (now.second == K) {
+                for (int j = K + 1; j &lt; heights.size(); j++) {
+                    if (now.first &gt; heights[j]) {
+                        now = make_pair(heights[j], j);
+                    } else if (now.first &lt; heights[j]) {
+                        break;
+                    }
                 }
             }
-            a[i]--;
-            if (best_i != K) {
-                a[best_i]++;
-                continue;
-            }
-            a[K]++;
+            heights[now.second]++;
         }
-        return a;
+        return heights;
     }
 };
 </PRE>

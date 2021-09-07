@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_2wsx2wsx2wsx.cpp</TITLE>
+ <TITLE>91_dut200901102.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>16_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
+<H3><CENTER>91_dut200901102.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int v = 0; v &lt; V; ++v) {
-            // try left
-            int left = K, cur = K;</B></FONT>
-            while (cur &gt; 0) {
-                if (heights[cur - 1] &gt; heights[cur])
-                    break;
-                if (heights[cur] == heights[cur - 1]) {
-                    cur -= 1;
-                } else {
-                    cur -= 1;
-                    left = cur;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; a, int V, int K) {
+        int n = a.size();
+        while (V--) {
+<A NAME="0"></A>            int target = K;
+            for (int i = K - 1; i &gt;= 0; --i) {
+                if (a[i] &lt; a[i + 1]) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    target = i;
                 }
-                
+                else if (a[i] &gt; a[i + 1]) break;
             }
-            if (left != K) {
-                heights[left] += 1;
+            if (target != K) {
+                a[target] ++;
                 continue;
             }
-            // try right
-            int right = K;
-            cur = K;
-            while (cur &lt; heights.size() - 1) {
-                if (heights[cur + 1] &gt; heights[cur])
-                    break;
-                if (heights[cur] == heights[cur + 1]) {
-                    cur += 1;
-                } else {
-                    cur += 1;
-                    right = cur;
-                }                
+            for (int i = K + 1; i &lt; n; ++i) {
+                if (a[i] &lt; a[i - 1]) {
+                    target = i;</B></FONT>
+                }
+                else if (a[i] &gt; a[i - 1]) break;
             }
-            heights[right] += 1;
+            a[target] ++;
         }
-        return heights;
+        return a;
     }
 };
 </PRE>

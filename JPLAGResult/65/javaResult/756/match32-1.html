@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_changeme.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>272_changeme.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+<A NAME="0"></A>import java.util.concurrent.ArrayBlockingQueue;
+
+// 755
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+
+	public int[] pourWater(int[] heights, int V, int K) {
+
+		for (int i = 0; i &lt; V; i++) {</B></FONT>
+			if (!applyLeft(heights, K)) {
+				applyRight(heights, K);
+			}
+		}
+
+		return heights;
+	}
+
+	private void applyRight(int[] heights, int k) {
+		int lowest = -1;
+		for (int i = k + 1; i &lt; heights.length; i++) {
+			if (heights[k] == heights[i]) {
+				continue;
+			}
+			if (heights[k] &lt; heights[i]) {
+				break;
+			}
+			lowest = i;
+			while (i + 1 &lt; heights.length &amp;&amp; heights[lowest] &gt;= heights[i + 1]) {
+				lowest = ++i;
+			}
+			while (i &gt; 0 &amp;&amp; heights[lowest] == heights[i - 1]) {
+				lowest = --i;
+			}
+			break;
+		}
+		if (lowest != -1) {
+			heights[lowest]++;
+		} else {
+			heights[k]++;
+		}
+	}
+
+	private boolean applyLeft(int[] heights, int k) {
+		for (int i = k - 1; i &gt;= 0; i--) {
+			if (heights[k] &lt; heights[i]) {
+				return false;
+			}
+			if (heights[k] == heights[i]) {
+				continue;
+			}
+			int lowest = i;
+			while (i&gt; 0 &amp;&amp; heights[lowest] &gt;= heights[i - 1]) {
+				lowest = --i;
+			}
+			while (i + 1 &lt; heights.length &amp;&amp; heights[lowest] == heights[i + 1]) {
+				lowest = ++i;
+			}
+			heights[lowest]++;
+			return true;
+		}
+
+		return false;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(
+				Arrays.toString(new Solution().pourWater(new int[] { 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1 }, 10, 2)));
+		System.out.println(Arrays.toString(new Solution().pourWater(new int[] { 2, 1, 1, 2, 1, 2, 2 }, 4, 3)));
+		System.out.println(Arrays.toString(new Solution().pourWater(new int[] { 1, 2, 3, 4 }, 2, 2)));
+		System.out.println(Arrays.toString(new Solution().pourWater(new int[] { 3, 1, 3 }, 5, 1)));
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

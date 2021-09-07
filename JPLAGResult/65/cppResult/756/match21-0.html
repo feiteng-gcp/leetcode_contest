@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_zxononame.cpp</TITLE>
+ <TITLE>16_2wsx2wsx2wsx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4_zxononame.cpp</CENTER></H3><HR>
+<H3><CENTER>16_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        int w = heights.size(), x, y;
-        for (int i = 1; i &lt;= V; i++)
-        {</B></FONT>
-            x = K;
-            while (true)
-            {
-                y = x - 1;
-                while (y &gt;= 0 &amp;&amp; heights[y] == heights[x]) y--;
-                if (y &gt;= 0 &amp;&amp; heights[y] &lt; heights[x])
-                {
-                    x--;
-                    continue;
+        for (int v = 0; v &lt; V; ++v) {
+            // try left
+            int left = K, cur = K;</B></FONT>
+            while (cur &gt; 0) {
+                if (heights[cur - 1] &gt; heights[cur])
+                    break;
+                if (heights[cur] == heights[cur - 1]) {
+                    cur -= 1;
+                } else {
+                    cur -= 1;
+                    left = cur;
                 }
-                y = x + 1;
-                while (y &lt; w &amp;&amp; heights[y] == heights[x]) y++;
-                if (y &lt; w &amp;&amp; heights[y] &lt; heights[x])
-                {
-                    x++;
-                    continue;
-                }
-                break;
+                
             }
-            heights[x]++;
+            if (left != K) {
+                heights[left] += 1;
+                continue;
+            }
+            // try right
+            int right = K;
+            cur = K;
+            while (cur &lt; heights.size() - 1) {
+                if (heights[cur + 1] &gt; heights[cur])
+                    break;
+                if (heights[cur] == heights[cur + 1]) {
+                    cur += 1;
+                } else {
+                    cur += 1;
+                    right = cur;
+                }                
+            }
+            heights[right] += 1;
         }
         return heights;
     }

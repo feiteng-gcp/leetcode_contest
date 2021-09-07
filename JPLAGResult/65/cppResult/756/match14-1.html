@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_Mrsuyi.cpp</TITLE>
+ <TITLE>182_vitorvgc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>182_vitorvgc.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int i = 0; i &lt; V; ++i)
-        {
-            int j, z = K;</B></FONT>
-            for (j = K - 1; j &gt;= 0 &amp;&amp; heights[j] &lt;= heights[j + 1]; --j)
-            {
-                if (heights[j] &lt; heights[z])
-                    z = j;
+    vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int k) {
+        
+        while(V--) {
+            
+            int i, mn;
+            bool ok = false;</B></FONT>
+            for(i = k-1, mn = k; i &gt;= 0 &amp;&amp; heights[i] &lt;= heights[k]; --i) {
+                if(heights[i] &lt; heights[mn])
+                    mn = i, ok = true;
+                else if(heights[i] &gt; heights[mn]) break;
             }
-            if (z != K)
-            {
-                ++heights[z];
+            
+            if(ok) {
+                heights[mn]++;
                 continue;
             }
-            z = K;
-            for (j = K + 1; j &lt; heights.size() &amp;&amp; heights[j] &lt;= heights[j - 1]; ++j)
-            {
-                if (heights[j] &lt; heights[z])
-                    z = j;
+            
+<A NAME="1"></A>            for(i = k+1, mn = k; i &lt; heights.size() &amp;&amp; heights[i] &lt;= heights[k]; ++i) {
+                if(heights[i] &lt; heights[mn])
+                    mn = i, ok = true;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                else if(heights[i] &gt; heights[mn]) break;
             }
-            if (z != K)
-            {
-                ++heights[z];
+            
+            if(ok) {
+                heights[mn]++;
                 continue;
             }
-            ++heights[K];
+            
+            ++heights[k];
         }
+        
         return heights;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

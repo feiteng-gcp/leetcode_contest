@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_2wsx2wsx2wsx.cpp</TITLE>
+ <TITLE>8_Kmcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>16_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
+<H3><CENTER>8_Kmcode.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; pourWater(vector&lt;int&gt;&amp; heights, int V, int K) {
-        for (int v = 0; v &lt; V; ++v) {
-            // try left
-            int left = K, cur = K;</B></FONT>
-            while (cur &gt; 0) {
-                if (heights[cur - 1] &gt; heights[cur])
-                    break;
-                if (heights[cur] == heights[cur - 1]) {
-                    cur -= 1;
-                } else {
-                    cur -= 1;
-                    left = cur;
+        while(V--){
+            int H=heights[K];
+            int ev=-1;</B></FONT>
+            for(int i=K;i&gt;=0;i--){
+                if(H&lt;heights[i])break;
+                if(H&gt;heights[i]){
+                    ev=i;
+                    H=heights[i];
+                    continue;
                 }
                 
             }
-            if (left != K) {
-                heights[left] += 1;
+            if(ev!=-1){
+                heights[ev]++;
                 continue;
             }
-            // try right
-            int right = K;
-            cur = K;
-            while (cur &lt; heights.size() - 1) {
-                if (heights[cur + 1] &gt; heights[cur])
-                    break;
-                if (heights[cur] == heights[cur + 1]) {
-                    cur += 1;
-                } else {
-                    cur += 1;
-                    right = cur;
-                }                
+            H=heights[K]+1;
+            ev=-1;
+            for(int i=K;i&lt;heights.size();i++){
+                if(H&lt;heights[i])break;
+                if(H&gt;heights[i]){
+                    ev=i;
+                    H=heights[i];
+                    continue;
+                }
             }
-            heights[right] += 1;
+            heights[ev]++;
+            continue;
         }
         return heights;
     }
