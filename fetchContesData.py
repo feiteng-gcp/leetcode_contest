@@ -328,7 +328,7 @@ if __name__ == '__main__':
 
     page_end = 20   # check for top 500 people
     while True:
-        contest = loadContest()
+        contest = loadContest().strip()
         contest_int = (int)(contest)
 
 
