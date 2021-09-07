@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>	class Solution {
+		Map&lt;String, Integer&gt; map;
+		char[] s;<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		int len, pos;
+		
+	    public List&lt;String&gt; basicCalculatorIV(String expression, String[] evalvars, int[] evalints) {
+	    	map = new H</B></FONT>ashMap&lt;&gt;();
+	    	for(int i = 0;i &lt; evalints.length;i++){
+	    		map.put(evalvars[i], evalints[i]);
+	    	}
+	    	s = expression.replace(&quot; &quot;, &quot;&quot;).toCharArray();
+	    	len = s.length; pos = 0;
+	        List&lt;Term&gt; ts = clean(expr1());
+	        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+	        for(Term t : ts){
+	        	StringBuilder sb = new StringBuilder();
+	        	sb.append(t.co);
+	        	for(String v : t.ve){
+	        		sb.append(&quot;*&quot; + v);
+	        	}
+	        	ret.add(sb.toString());
+	        }
+	        return ret;
+	    }
+	    
+	    class Term
+	    {
+	    	long co;
+	    	List&lt;String&gt; ve;
+			public Term(long co, List&lt;String&gt; ve) {
+				this.co = co;
+				this.ve = ve;
+			}
+	    }
+	    
+	    List&lt;Term&gt; clean(List&lt;Term&gt; ts)
+	    {
+	    	for(Term t : ts){
+	    		Collections.sort(t.ve);
+	    	}
+	    	Collections.sort(ts, new Comparator&lt;Term&gt;(){
+	    		public int compare(Term a, Term b)
+	    		{
+	    			if(a.ve.size() != b.ve.size()){
+	    				return -(a.ve.size() - b.ve.size());
+	    			}
+	    			for(int i = 0;i &lt; a.ve.size();i++){
+	    				int comp = a.ve.get(i).compareTo(b.ve.get(i));
+	    				if(comp != 0)return comp;
+	    			}
+	    			return 0;
+	    		}
+	    	});
+	    	List&lt;Term&gt; ret = new ArrayList&lt;&gt;();
+	    	for(int i = 0;i &lt; ts.size();){
+	    		int j = i;
+	    		while(j &lt; ts.size() &amp;&amp; ts.get(j).ve.equals(ts.get(i).ve))j++;
+	    		
+	    		long cosum = 0;
+	    		for(int k = i;k &lt; j;k++)cosum += ts.get(k).co;
+	    		if(cosum != 0){
+	    			ret.add(new Term(cosum, ts.get(i).ve));
+	    		}
+	    		
+	    		i = j;
+	    	}
+	    	return ret;
+	    }
+	    
+	    Term mul(Term a, Term b)
+	    {
+	    	List&lt;String&gt; ve = new ArrayList&lt;&gt;(a.ve);
+	    	ve.addAll(b.ve);
+	    	return new Term(a.co * b.co, ve);
+	    }
+	    
+	    List&lt;Term&gt; expr1()
+	    {
+	    	List&lt;Term&gt; res = expr2();
+	    	while(pos &lt; len &amp;&amp; (s[pos] == '+' || s[pos] == '-')){
+	    		char o = s[pos];
+	    		pos++;
+		    	List&lt;Term&gt; res2 = expr2();
+		    	if(o == '+'){
+		    		res.addAll(res2);
+		    	}else{
+		    		for(Term t : res2){
+		    			t.co = -t.co;
+		    		}
+		    		res.addAll(res2);
+		    	}
+	    	}
+	    	return clean(res);
+	    }
+	    
+	    List&lt;Term&gt; expr2()
+	    {
+	    	List&lt;Term&gt; res = expr3();
+	    	while(pos &lt; len &amp;&amp; (s[pos] == '*')){
+	    		char o = s[pos];
+	    		pos++;
+		    	List&lt;Term&gt; res2 = expr2();
+		    	List&lt;Term&gt; nres = new ArrayList&lt;&gt;();
+		    	for(Term t1 : res){
+		    		for(Term t2 : res2){
+		    			nres.add(mul(t1, t2));
+		    		}
+		    	}
+		    	res = clean(nres);
+	    	}
+	    	return res;
+	    }
+	    
+	    List&lt;Term&gt; expr3()
+	    {
+	    	if(pos &lt; len &amp;&amp; s[pos] == '('){
+	    		pos++;
+	    		List&lt;Term&gt; ret = expr1();
+	    		pos++;
+	    		return ret;
+	    	}else if(s[pos] &gt;= '0' &amp;&amp; s[pos] &lt;= '9' || s[pos] == '-'){
+	    		long num = num();
+	    		List&lt;Term&gt; ret = new ArrayList&lt;&gt;();
+	    		ret.add(new Term(num, new ArrayList&lt;&gt;()));
+	    		return ret;
+	    	}else{
+	    		String var = var();
+	    		if(map.containsKey(var)){
+	    			long num = map.get(var);
+		    		List&lt;Term&gt; ret = new ArrayList&lt;&gt;();
+		    		ret.add(new Term(num, new ArrayList&lt;&gt;()));
+		    		return ret;
+	    		}else{
+		    		List&lt;Term&gt; ret = new ArrayList&lt;&gt;();
+		    		List&lt;String&gt; ve = new ArrayList&lt;&gt;();
+		    		ve.add(var);
+		    		ret.add(new Term(1, ve));
+		    		return ret;
+	    		}
+	    	}
+	    }
+	    
+	    long num()
+	    {
+	    	long x = 0;
+	    	boolean sig = false;
+	    	if(pos &lt; len &amp;&amp; s[pos] == '-'){
+	    		sig = true;
+	    		pos++;
+	    	}
+	    	while(pos &lt; len &amp;&amp; s[pos] &gt;= '0' &amp;&amp; s[pos] &lt;= '9'){
+	    		x = x * 10 + s[pos] - '0';
+	    		pos++;
+	    	}
+	    	return sig ? -x : x;
+	    }
+	    
+	    String var()
+	    {
+	    	StringBuilder sb = new StringBuilder();
+	    	while(pos &lt; len &amp;&amp; s[pos] &gt;= 'a' &amp;&amp; s[pos] &lt;= 'z'){
+	    		sb.append(s[pos++]);
+	    	}
+	    	return sb.toString();
+	    }
+	}	
+</PRE>
+
+</BODY>
+</HTML>

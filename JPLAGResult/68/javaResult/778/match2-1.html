@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_lixx2100.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_lixx2100.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+import java.util.stream.*;
+import java.math.*;
+
+public class Solution {
+
+
+    char findMax(char[] cnt, char no) {
+        int max = 0;
+        char ch = 0;
+        for (char i = 'a'; i &lt;= 'z'; i++) {
+            if (i != no) {
+                if (cnt[i] &gt; max) {
+                    max = cnt[i];
+                    ch = i;
+                }
+            }
+        }
+        return ch;
+    }
+
+    public String reorganizeString(String S) {
+        if (S.isEmpty()) {
+            return &quot;&quot;;
+        }
+
+        char[] cnt = new char[128];
+        for (char ch : S.toCharArray()) {
+            cnt[ch]++;
+<A NAME="0"></A>        }
+
+        StringBuilder builder = new StringBuilder();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char pre = 0;
+        for (int i = 0; i &lt; S.length(); i++) {
+            char cur = findMax(cnt, pre);
+            if (cur == 0) {</B></FONT>
+                return &quot;&quot;;
+            } else {
+                builder.append(cur);
+                cnt[cur]--;
+                pre = cur;
+            }
+        }
+        return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        System.out.println(sol.reorganizeString(&quot;aab&quot;));
+        System.out.println(sol.reorganizeString(&quot;aaab&quot;));
+        System.out.println(sol.reorganizeString(&quot;aaacb&quot;));
+    }
+}
+
+
+
+</PRE>
+
+</BODY>
+</HTML>
