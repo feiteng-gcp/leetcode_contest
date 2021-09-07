@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>259_xx21.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>259_xx21.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+  public int oddEvenJumps(int[] A) {
+    if (A == null || A.length == 0) {
+      return 0;
+    }
+    int len = A.length;
+    boolean[] even = new boolean[A.length];
+    boolean[] odd = new boolean[A.length];
+<A NAME="0"></A>    TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+    even[len - 1] = true;
+    odd[len- 1] = true;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(A[len - 1], len - 1);
+    for (int i = A.length - 2; i &gt;= 0; i--) {
+      Map.Entry&lt;Integer, Integer&gt; e_even = map.floorEntry(A[i]);
+      if (e_even != null) {
+        e</B></FONT>ven[i] = odd[e_even.getValue()];
+<A NAME="1"></A>      }
+      
+      Map.Entry&lt;Integer, Integer&gt; e_odd = map.ceilingEntry(A[i]);
+      if (e_odd != null) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        odd[i] = even[e_odd.getValue()];
+      }
+      
+      map.put(A[i], i);
+    }
+    
+    int res = 0</B></FONT>;
+    for (int i = 0; i &lt; len; i++) {
+      if (odd[i]) {
+        res++;
+      }
+    }
+    return res;
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

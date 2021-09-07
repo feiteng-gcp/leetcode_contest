@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>281_gauravmishra123.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>281_gauravmishra123.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    Map&lt;Integer, Boolean&gt; oddCache = new HashMap&lt;&gt;();
+    Map&lt;Integer, Boolean&gt; evenCache = new HashMap&lt;&gt;();
+    public int oddEvenJumps(int[] A) {
+        int result = 0;
+<A NAME="0"></A>        for(int i = 0 ; i &lt; A.length; i ++) {
+            if(odd(A,i)){
+                result++;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return result;
+    }
+    
+    public boolean odd(int[] A, int startIndex) {
+        
+        if</B></FONT>(startIndex == A.length - 1) {
+            return true;
+        }
+<A NAME="1"></A>        
+        if(oddCache.containsKey(startIndex)) {
+            return oddCache.get(startIndex);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int minNumGreater = Integer.MAX_VALUE;
+        int nextIndexFound = -1;
+        for(int i = startIndex + 1; i &lt; A.length ; i++) {
+            if(A[i] &gt;= A[startIndex]) {
+                if(minNumGreater &gt; A[i]) {
+                    minNumGreater = A[i];
+                    nextIndexFound = i;
+                }
+            }
+        }
+        
+        if(nextIndexFound == -1) {
+            oddCache.put(startIndex, false);
+            return false;
+        }
+        else {
+            boolean result = even(A,nextIndexFound);
+            oddCache.put(startIndex,result);
+            return result;
+        }
+    }</B></FONT>
+    
+    public boolean even(int[] A, int startIndex) {
+        if(startIndex == A.length - 1) {
+            return true;
+        }
+<A NAME="2"></A>        
+        if(evenCache.containsKey(startIndex)) {
+            return evenCache.get(startIndex);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int maxNumSmaller = Integer.MIN_VALUE;
+        int nextIndexFound = -1;
+        for(int i = startIndex + 1; i &lt; A.length ; i++) {
+            if(A[i] &lt;=  A[startIndex]) {
+                if(maxNumSmaller &lt; A[i]) {
+                    maxNumSmaller = A[i];
+                    nextIndexFound = i;
+                }
+            }
+        }
+        
+        if(nextIndexFound == -1) {
+            evenCache.put(startIndex, false);
+            return false;
+        }
+        else {
+            boolean result = odd(A,nextIndexFound);
+            evenCache.put(startIndex,result);
+            return result;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

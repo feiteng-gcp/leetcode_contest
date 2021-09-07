@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_natsugiri.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>6_natsugiri.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;map&gt;
+#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+#include&lt;string.h&gt;
+using namespace std;
+
+typedef long long LL;
+typedef vector&lt;int&gt; VI;
+
+#define REP(i,n) for(int i=0, i##_len=(n); i&lt;i##_len; ++i)
+#define EACH(i,c) for(__typeof((c).begin()) i=(c).begin(),i##_end=(c).end();i!=i##_end;++i)
+#define eprintf(...) fprintf(stderr, __VA_ARGS__)
+
+template&lt;class T&gt; inline void amin(T &amp;x, const T &amp;y) { if (y&lt;x) x=y; }
+template&lt;class T&gt; inline void amax(T &amp;x, const T &amp;y) { if (x&lt;y) x=y; }
+template&lt;class Iter&gt; void rprintf(const char *fmt, Iter begin, Iter end) {
+<A NAME="0"></A>    for (bool sp=0; begin!=end; ++begin) { if (sp) putchar(' '); else sp = true; printf(fmt, *begin); }
+    putchar('\n');
+}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int oddEvenJumps(vector&lt;int&gt;&amp; A) {
+	int N = A.size();
+	VI good_odd(N);
+	VI good_even(N);
+	map&lt;int, int&gt; mp;
+	good_odd[N-1] = true;
+	good_even[N-1] = true;
+	mp[A[N-1]] = N-1;</B></FONT>
+	for (int i=N-2; i&gt;=0; i--) {
+
+	    { // even jump
+		auto it = mp.upper_bound(A[i]);
+		if (it == mp.begin() || !good_odd[prev(it)-&gt;second]) {
+		    good_even[i] = false;
+		} else {
+		    good_even[i] = true;
+		}
+	    }
+	    { // odd jump
+		auto it = mp.lower_bound(A[i]);
+		if (it == mp.end() || !good_even[it-&gt;second]) {
+		    good_odd[i] = false;
+		} else {
+		    good_odd[i] = true;
+		}
+	    }
+
+	    mp[A[i]] = i;
+	}
+        
+	int ans = 0;
+	REP (i, N) ans += good_odd[i];
+	return ans;
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

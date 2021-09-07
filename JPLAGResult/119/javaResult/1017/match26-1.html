@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_hahahiehie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_hahahiehie.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int oddEvenJumps(int[] A) {
+        TreeSet&lt;int[]&gt; set = new TreeSet&lt;&gt;((a, b) -&gt; (a[0] - b[0]));
+
+        int n = A.length;
+
+        int[] odd = new int[n];
+        int[] even = new int[n];
+        for (int i = n - 1; i &gt;= 0; i--) {
+            odd[i] = even[i] = -1;
+            int[] node = new int[] {A[i], i};
+            // odd
+            int[] ceiling = set.ceiling(node);
+            if (ceiling != null) {
+                odd[i] = ceiling[1];
+            }
+
+            // even
+            int[] floor = set.floor(node);
+            if (floor != null) {
+                even[i] = floor[1];
+<A NAME="0"></A>            }
+
+            if (set.contains(node)) {
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>set.remove(node);
+                
+            }
+            set.add(node);
+        }
+
+<A NAME="1"></A>        boolean[] oddPass = new boolean[n];
+        boolean[] evenPass = new</B></FONT> boolean[n];
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>oddPass[n - 1] = evenPass[n - 1] = true;
+        for (int i = n - 2; i &gt;= 0; i--) {
+            if (odd[i] != -1 &amp;&amp; evenPass[odd[i]]) {
+                oddPass[i] = true;
+            }
+
+            if (even[i] != -1 &amp;&amp; oddPass[even[i]]) {
+                evenPass[i] = true;
+            }
+        }</B></FONT>
+
+        int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (oddPass[i]) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

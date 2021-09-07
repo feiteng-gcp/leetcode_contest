@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_kmjp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>5_kmjp.cpp</CENTER></H3><HR>
+<PRE>
+typedef signed long long ll;
+
+#undef _P
+#define _P(...) (void)printf(__VA_ARGS__)
+#define FOR(x,to) for(x=0;x&lt;(to);x++)
+#define FORR(x,arr) for(auto&amp; x:arr)
+#define ITR(x,c) for(__typeof(c.begin()) x=c.begin();x!=c.end();x++)
+#define ALL(a) (a.begin()),(a.end())
+#define ZERO(a) memset(a,0,sizeof(a))
+#define MINUS(a) memset(a,0xff,sizeof(a))
+<A NAME="0"></A>//-------------------------------------------------------
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int oddEvenJumps(vector&lt;int&gt;&amp; A) {
+		int N=A.size();
+		vector&lt;int&gt; nex[2];
+		vector&lt;int&gt; ok[2];
+		map&lt;int,int&gt; S;
+		int ret=0;</B></FONT>
+		int i;
+		
+		nex[0].resize(N);
+		nex[1].resize(N);
+		ok[0].resize(N);
+		ok[1].resize(N);
+		for(i=N-1;i&gt;=0;i--) {
+			if(i==N-1) {
+				ok[0][i]=ok[1][i]=1;
+				ret++;
+			}
+			else if(i&lt;N-1) {
+				
+				auto it=S.lower_bound(A[i]);
+				if(it==S.end()) {
+					nex[0][i]=-1;
+				}
+				else {
+					nex[0][i]=it-&gt;second;
+					if(ok[1][nex[0][i]]) {
+						ok[0][i]=1;
+						ret++;
+					}
+				}
+				
+				it=S.lower_bound(A[i]+1);
+				if(it==S.begin()) {
+					nex[1][i]=-1;
+				}
+				else {
+					it--;
+					nex[1][i]=it-&gt;second;
+					if(ok[0][nex[1][i]]) {
+						ok[1][i]=1;
+					}
+				}
+			}
+			S[A[i]]=i;
+		}
+		return ret;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

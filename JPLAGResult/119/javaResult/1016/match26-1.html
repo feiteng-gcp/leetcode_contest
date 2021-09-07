@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_shawshawwan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>460_shawshawwan.java</CENTER></H3><HR>
+<PRE>
+/**
+
+*/
+
+
+class Solution {
+    public int subarraysDivByK(int[] A, int K) {
+        if (A.length == 0 || A == null) return 0;
+<A NAME="0"></A>        int mod[] = new int[K]; 
+        int n = A.length;
+        Arrays.fill(mod, 0); 
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cumSum = 0; 
+        for (int i = 0; i &lt; n; i++) { 
+            cumSum += A[i]; 
+            mod[((cumSum % K) + K) % K]++; 
+        } 
+          int result = 0; 
+          for (int i = 0; i &lt; K; i++) 
+            if (mod[i] &gt; 1) 
+                result += (mod[i] * (mod[i] - 1)) / 2; 
+        
+        result += mod[0]; 
+        return result; 
+        
+        /*if (A.length == 0 || A == null) return 0;
+        int res = 0, preSum = 0, sumMod = 0;
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(0, -1);
+        for (int i = 0; i &lt; A.length; i++) {
+            preSum += A[i];
+            if (K != 0) sumMod = preSum % K;
+            System.out.println(sumMod);
+            if (map.containsKey(sumMod)) {
+                 res++;
+            } else {
+                map.put(sumMod, i);
+            }
+        }
+        return res;*/
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

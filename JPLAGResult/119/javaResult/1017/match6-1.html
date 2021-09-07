@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_albaniliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_albaniliu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int oddEvenJumps(int[] A) {
+<A NAME="0"></A>		int n = A.length;
+		int[][] dp = new int[n][2];
+		dp[n-1][0] = dp[n-1][1] = 1;
+		TreeMap&lt;Intege<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>r, Integer&gt; map = new TreeMap&lt;&gt;();
+		map.put(A[n-1], n-1);
+		for (int i = n- 2; i &gt;= 0; i--) {
+			Map.Entry&lt;Integer, Integer&gt; entry = map.floorEntry(A[i]);
+			if (entry != null) {
+				dp[i][0] = dp[entry.getValue(</B></FONT>)][1];
+			} else {
+				dp[i][0] = 0;
+			}
+			entry = map.ceilingEntry(A[i]);
+			if (entry != null) {
+<A NAME="1"></A>				dp[i][1] = dp[entry.getValue()][0];
+			} else {
+				dp[i][1] = 0;
+			}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			map.put(A[i], i);
+		}
+		int ans = 0;
+		for (int i = 0; i &lt; n; i++) {</B></FONT>
+			ans += dp[i][1];
+		}
+		return ans;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>
