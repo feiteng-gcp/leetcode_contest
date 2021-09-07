@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>82_teikoku.java</TITLE>
+ <TITLE>281_linfeng.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>82_teikoku.java</CENTER></H3><HR>
+<H3><CENTER>281_linfeng.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
-<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ *     ListNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int numComponents(ListNode head, int[] G) {
-        Set&lt;Integer&gt; gSet = new HashSet&lt;&gt;();
-        for (int i : G) {
-            gSet.add(i);
+class Solution {
+<A NAME="0"></A>    public int numComponents(ListNode head, int[] G) {
+        if (head == null)
+            return 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>HashSet&lt;Integer&gt; hs = new HashSet&lt;&gt;();
+        
+        for (int g : G) {
+            hs.add(g);
         }
         
-        boolean hasGroup = false;
-        int count = 0;
-        while (head != null) {</B></FONT>
-            if (gSet.contains(head.val)) {
-                hasGroup = true;
-            } else {
-                if (hasGroup) {
-                    hasGroup = false;
-                    count++;
+        int res = 0</B></FONT>;
+        
+        while (head != null) {
+            if (hs.contains(head.val)) {
+                res++;
+                while (head!= null &amp;&amp; hs.contains(head.val)) {
+                    head = head.next;
                 }
+            } else {
+                head = head.next;
             }
-            head = head.next;
         }
-        if (hasGroup) count++;
-        return count;
+        
+        return res;
     }
 }
 </PRE>

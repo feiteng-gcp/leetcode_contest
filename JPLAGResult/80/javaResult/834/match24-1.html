@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>185_yun21.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>185_yun21.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        S = S.substring(1, S.length() - 1);
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; firstNum = getCord(S.substring(0, i));
-            List&lt;String&gt; secondNum = getCord(S.substring(i, S.length()));
-            for (String first : firstNum) {
-                for (String second : secondNum) {
-                    result.add(&quot;(&quot; + first + &quot;, &quot; + second + &quot;)&quot;);
+        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+        for (int i = 2; i &lt; S.length() - 1; i++) {
+<A NAME="3"></A>            List&lt;String&gt; as = helper(S.substring(1, i));
+            List&lt;String&gt; bs = helper(S.substring(i, S.length()-1));
+            for (String a : as) {
+                for (String b : bs) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    StringBuilder sb = new StringBuilder();
+                    sb.append('(');
+                    sb.append(a);
+                    sb.append(&quot;, &quot;);
+                    sb.append(b);
+                    sb.append(')');
+<A NAME="2"></A>                    ret.add</B></FONT>(sb.toString());
                 }
             }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return ret;
+<A NAME="0"></A>    }
+    private List&lt;String&gt; helper(String s) {
+        List&lt;String&gt; ret = new</B></FONT> ArrayList&lt;&gt;();
+        if (s.isEmpty()) return ret<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        if (s.length() == 1) {
+            ret.add(s);
+            return ret;
         }
-<A NAME="1"></A>        return result;
-    }
-    private static List&lt;String&gt; getCord(String s) {
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; s.length(); i++) {
-<A NAME="0"></A>            String firstPart = s.substring(0, i+1);
-            String secondPart = s.substring</B></FONT>(i+1, s.length());
-            if (noLeadingZero(firstPart) &amp;&amp; noTailingZero(secondPart)) {
-                String resultStr = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>secondPart.isEmpty() ? firstPart : firstPart + &quot;.&quot; + secondPart;
-                result.add(resultStr);
-            }
+        if (s.charAt</B></FONT>(0) == '0') {
+            if (s.charAt(s.length() - 1) == '0') return ret;
+            StringBuilder sb = new StringBuilder(s);
+            sb.insert(1, '.');
+            ret.add(sb.toString());
+<A NAME="1"></A>            return ret;
         }
-        return result;
-    }
-    private static boolean noLeadingZero(String s) {</B></FONT>
-        if (s.length() &lt;= 1) return true;
-        return s.charAt(0) != '0';
-    }
-    private static boolean noTailingZero(String s) {
-        if (s.isEmpty()) return true;
-        return s.charAt(s.length() - 1) != '0';
+        if (s.charAt(s.length() - 1) == '0') {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ret.add(s);
+            return ret;
+        }
+        for (int i = 1; i &lt; s.length(); i++) {
+            StringBuilder sb = new StringBuilder(s)</B></FONT>;
+            sb.insert(i, '.');
+            ret.add(sb.toString());
+        }
+        ret.add(s);
+        return ret;
     }
 }
 </PRE>

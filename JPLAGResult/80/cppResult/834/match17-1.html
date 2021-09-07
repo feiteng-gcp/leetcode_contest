@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_zhoubowei.cpp</TITLE>
+ <TITLE>154_Dev-XYS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,56 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>28_zhoubowei.cpp</CENTER></H3><HR>
+<H3><CENTER>154_Dev-XYS.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    bool toNumber(const string&amp; s, string&amp; t, int dec_pos) {
-        int lens = s.length();
-        if (dec_pos == lens - 1) {
-            // check if s is valid
-            if (s == &quot;0&quot; || s[0] != '0') {
-                t = s;
-                return true;
-            }
-            return false;
-        } else {
-            if (s[lens - 1] == '0') return false;
-            if (s[0] == '0') {
-                if (dec_pos == 0) {
-                    t = &quot;0.&quot;;
-                    for (int i = 1; i &lt; lens; i++) t += s[i];
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        t.clear();
-<A NAME="0"></A>        for (int i = 0; i &lt;= dec_pos; i++) t += s[i];
-        t += '.';
-        for (int i = dec_pos + 1; i &lt; lens; i++) t += s[i];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return true;
-    }
 public:
-    vector&lt;string&gt; ambiguousCoordinates(string S) {
-        string T = S.substr(1, S.length() - 2);
-        vector&lt;string&gt; result;
-        for (int i = 0; i &lt; T.length() - 1; i++) {
-            string u = T.substr(0, i + 1);
-            string v = T.substr(i + 1);
-            for (int d1 = 0; d1 &lt; u.length(); d1++) {</B></FONT>
-                for (int d2 = 0; d2 &lt; v.length(); d2++) {
-                    string t1;
-                    string t2;
-                    if (toNumber(u, t1, d1) &amp;&amp; toNumber(v, t2, d2)) {
-                        result.push_back(&quot;(&quot; + t1 + &quot;, &quot; + t2 + &quot;)&quot;);
-                    }                    
-                }
-            }
-        }
-        return result;
-    }
+	bool check(string a, string b) {
+		if (a[0] == '0' &amp;&amp; a.length() &gt; 1) return false;
+		if (b.length() &gt; 0 &amp;&amp; b[b.length() - 1] == '0') return false;
+		return true;
+	}
+<A NAME="0"></A>	
+	vector&lt;string&gt; ambiguousCoordinates(string S) {
+		vector&lt;string&gt; ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		S = S.substr(1, S.length() - 2);
+		for (int i = 1; i &lt; S.length(); i++)
+		{
+			string s1 = S.substr(0, i), s2 = S.substr(i);
+			for (int j = 1; j &lt;= i; j++)
+			{</B></FONT>
+				string s11 = s1.substr(0, j), s12 = s1.substr(j);
+				if (check(s11, s12) == false) continue;
+				for (int k = 1; k &lt;= S.length() - i; k++)
+				{
+					string s21 = s2.substr(0, k), s22 = s2.substr(k);
+					if (check(s21, s22) == true)
+					{
+						ans.push_back(&quot;(&quot; + s11 + (s12 == &quot;&quot; ? &quot;&quot; : &quot;.&quot; + s12) + &quot;, &quot; + s21 + (s22 == &quot;&quot; ? &quot;&quot; : &quot;.&quot; + s22) + &quot;)&quot;);
+					}
+				}
+			}
+		}
+		return ans;
+	}
 };
 </PRE>
 </BODY>

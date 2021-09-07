@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_user9026b.cpp</TITLE>
+ <TITLE>378_Neilhahaha.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,95 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>45_user9026b.cpp</CENTER></H3><HR>
+<H3><CENTER>378_Neilhahaha.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; result;
-        
-        int len = S.size();
-        string word = S.substr(1, len - 2);                
-        
-        len = word.size();
-<A NAME="0"></A>        if (len == 0) return result;
-        
-        unordered_set&lt;string&gt; hash;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int j = 1; j &lt; word.size(); ++j)
-        {
-            string str0 = word.substr(0, j);
-            string str1 = word.substr(j);
-            
-            //cout &lt;&lt; str0 &lt;&lt; &quot;,&quot; &lt;&lt; str1 &lt;&lt; endl;
-            
-            vector&lt;string&gt; vec0;
-            Search(str0, vec0);
-            
-            vector&lt;string&gt; vec1;
-            Search(str1, vec1);
-            
-            for (int i = 0; i &lt; vec0.size(); ++i)
-            {
-                
-                if (IsValid(vec0[i]) == false) continue;
-                
-                
-                for (int t = 0; t &lt; vec1.size(); ++t)
-                {
-                    if (IsValid(vec1[t]) == false) continue;
-                                        
-                    string coor  = &quot;(&quot; + vec0[i] + &quot;, &quot; + vec1[t] + &quot;)&quot;;</B></FONT>
-                    if (hash.find(coor) == hash.end())
-                        hash.insert(coor);
-                } 
+<A NAME="0"></A>        int dSize= S.size()-2;
+        vector&lt;string&gt; ret;
+        for(int i=1;i&lt;dSize;++i) {            
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            vector&lt;string&gt; sub1=helperFunc(S.substr(1,i)),sub2=helperFunc(S.substr(1+i,dSize-i));
+            for(int j=0;j&lt;sub1.size();++j) {
+                for(int k=0;k&lt;sub2.size();++k) {
+                    string curRet=&quot;(&quot; + sub1[j] + &quot;, &quot; + sub2[k] + &quot;)&quot;;</B></FONT>
+                    ret.push_back(curRet);
+                }
             }
         }
-        
-        for(auto item : hash)
-            result.push_back(item);
-        
-        return result;
+        return ret;
     }
     
-    void Search(string&amp; s, vector&lt;string&gt;&amp; strs)
-    {
-        int len = s.size();
-        strs.push_back(s);
-        
-        for (int i = 1; i &lt;= len - 1; ++i)
-        {
-            string temp = s;
-            temp.insert(temp.begin() + i, '.');           
-            strs.push_back( temp );
-        }
+    vector&lt;string&gt; helperFunc(string S) {
+        vector&lt;string&gt; ret;
+        size_t foundSN0 = S.find_first_not_of(&quot;0&quot;); 
+        size_t foundBN0 = S.find_last_not_of(&quot;0&quot;);
+        size_t size = S.size();
+        if (foundSN0==0) {
+            ret.push_back(S);
+            if (foundBN0==size-1) {
+                for(int i=1;i&lt;size;++i) {
+                    ret.push_back(S.substr(0,i)+'.'+S.substr(i,size-i));
+                }
+            } 
+        } else if (foundBN0==size-1) {
+            ret.push_back(S.substr(0,1)+'.'+S.substr(1,size-1));
+        }        
+        if (size==1 &amp;&amp; S[0]=='0') ret.push_back(S);
+        return ret;
     }
     
-    bool IsValid(string&amp; s)
-    {
-        int len = s.size();        
-        int pos  = s.find(&quot;.&quot;);
-        
-        if (len &gt;= 2 &amp;&amp; s[0] == '0' &amp;&amp; s[1] == '0') return false;        
-        
-        if (pos == string::npos) 
-        {
-            if (len &gt;= 2 &amp;&amp; s[0] == '0') return false;
-            return true;   
-        }
-        
-        if (pos &gt; 1)
-        {
-            for (int i = 0; i &lt; pos; ++i)
-                if (s[i] != '0') break;
-                else return false;
-        }
-        
-        for (int i = len - 1; i &gt; pos; --i)
-            if (s[i] != '0') break;
-            else return false;
-        
-        return true;
-    }
 };
 </PRE>
 </BODY>

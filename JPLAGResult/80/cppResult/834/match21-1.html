@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ChaouS.cpp</TITLE>
+ <TITLE>138_2wsx2wsx2wsx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>138_2wsx2wsx2wsx.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-<A NAME="0"></A>    
-    vector&lt;string&gt; getSolutions(string s){
-        vector&lt;string&gt; ans;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(s.size() == 0){
-            return ans;
-        }
-        // without point
-        if(s.front() != '0' || s == &quot;0&quot;){
-            ans.push_back(s);
-        }
-        // with point
-        for(int i = 1; i &lt; s.size(); ++i){</B></FONT>
-            if(s.back() != '0'){
-                string w = s.substr(0 , i);
-                if(w.front() != '0' || w == &quot;0&quot;){
-                    ans.push_back(w + &quot;.&quot; + s.substr(i));
-                }
-            }
-        }
-        return ans;
+    bool check(string &amp; d) {
+        if (d[0] == '0')
+            if (d.length() &gt; 1 &amp;&amp; d[1] != '.')
+                return false;
+        if (d[d.length() - 1] == '0')
+            if (d.find('.') != string::npos)
+                return false;
+        return true;
     }
     
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        
-        set&lt;string&gt; ret;
-        for(int i = 1; i + 2 &lt; s.size(); ++i){
-           // cout &lt;&lt; s.substr(1 , i)&lt;&lt;&quot; &quot;&lt;&lt;s.substr(i + 1 , s.size() - i - 2)&lt;&lt;endl;
-            vector&lt;string&gt; x = getSolutions(s.substr(1 , i));
-            vector&lt;string&gt; y = getSolutions(s.substr(i + 1 , s.size() - i - 2));
-            for(auto w1 : x){
-                for(auto w2 : y){
-                    ret.insert(&quot;(&quot; + w1 + &quot;, &quot; + w2 + &quot;)&quot;);
+    bool valid(string &amp; S) {
+        string d1 = S.substr(1, S.find(&quot;,&quot;) - 1), d2 = S.substr(S.find(&quot; &quot;) + 1, S.length() - S.find(&quot; &quot;) - 2);
+        return check(d1) &amp;&amp; check(d2);
+    }
+    
+public:
+<A NAME="0"></A>    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; candidates = {}, ret = {};
+        int l = S.length(); // from 1 to S.length() - 2
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt; S.length() - 2; ++i) {
+            candidates.push_back(S.substr(0, i + 1) + &quot;, &quot; + S.substr(i + 1));
+            for (int j = 1; j &lt; i; ++j) {
+                candidates.push_back(S.substr(0, j + 1) + &quot;.&quot; + S.substr(j + 1, i - j) + &quot;, &quot; + S.substr(i + 1));
+                for (int k = i + 1; k &lt; S.length() - 2; ++k) {
+                    candidates.push_back(S.substr(0, j + 1) + &quot;.&quot; + S.substr(j + 1, i - j) + &quot;, &quot; + S.substr(i + 1, k - i) + &quot;.&quot; + S.substr(k + 1));
                 }
+            }</B></FONT>
+            for (int k = i + 1; k &lt; S.length() - 2; ++k) {
+                candidates.push_back(S.substr(0, i + 1) + &quot;, &quot; + S.substr(i + 1, k - i) + &quot;.&quot; + S.substr(k + 1));
             }
         }
-        vector&lt;string&gt; ans(ret.begin() , ret.end());
-        return ans;
+        for (auto &amp; str : candidates)
+            if (valid(str))
+                ret.push_back(str);
+        return ret;
     }
 };
 </PRE>

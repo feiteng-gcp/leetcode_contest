@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_jariasf.cpp</TITLE>
+ <TITLE>178_kodyin.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,70 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_jariasf.cpp</CENTER></H3><HR>
+<H3><CENTER>178_kodyin.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int n;
-    
-    bool validLeft(string s){
-        if( s[0] == '0' &amp;&amp; s.size() &gt; 1 ) return false;
-        return true;
-    }
-    
-    bool validRight(string s){
-        /*if( s[0] == '0' &amp;&amp; s.size() == 1 ) return false;
-        bool all_zeroes = true;
-        for( int i = 0 ; i &lt; s.size() ; ++i ){
-            if( s[i] != )
-        }*/
-        
-        if( s[s.size() - 1] == '0' ) return false;
-        return true;
-    }
-    
-    unordered_set&lt;string&gt; possibilities(string s){
-        unordered_set&lt;string&gt; hash;
-        if( validLeft(s) ) hash.insert(s);
-        string left = &quot;&quot;, right = &quot;&quot;;
-        for( int i = 0 ; i &lt; s.size()  - 1; ++i ){
-            left += s[i];
-            right = s.substr(i + 1);
-            //cout&lt;&lt;left&lt;&lt;&quot;.&quot;&lt;&lt;right&lt;&lt;endl;
-            if( validLeft(left) &amp;&amp; validRight(right) ) hash.insert(left + &quot;.&quot; + right);
-            
-        }
-        return hash;
-    }
-    
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        S = S.substr(1, S.size() - 2);
-        //cout&lt;&lt;S&lt;&lt;endl;
-        n = S.size();
-        //hash.clear();
-        unordered_set&lt;string&gt; hash;
-        string left = &quot;&quot;, right = &quot;&quot;;
-        for( int i = 0 ; i &lt; n - 1 ; ++i ){
-            left += S[i];
-<A NAME="0"></A>            right = S.substr(i + 1);
-            //cout&lt;&lt;left&lt;&lt;&quot; &quot;&lt;&lt;right&lt;&lt;endl;
-            unordered_set&lt;string&gt; lhash = possibilities(left);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            unordered_set&lt;string&gt; rhash = possibilities(right);
-            if( lhash.size() &gt; 0 &amp;&amp; rhash.size() &gt; 0 ){
-                for( auto lit :lhash ){
-                    for( auto rit: rhash ){
-                        hash.insert(&quot;(&quot; + lit + &quot;, &quot; + rit + &quot;)&quot; );
-                    }
+        vector&lt;string&gt; res;
+        S = S.substr(1, S.size()-2);
+        for(int i = 0; i&lt;S.size()-1; i++){
+            vector&lt;string&gt; p1 = helper(S.substr(0, i+1));
+            vector&lt;string&gt; p2 = helper(S.substr(i+1, S.size() - i - 1));</B></FONT>
+            for(string i: p1){
+                for(string j:p2){
+                    res.push_back('(' + i + &quot;, &quot; + j + ')');
                 }
             }
-        }</B></FONT>
-        
-        vector&lt;string&gt; result;
-        for( auto it:hash ){
-            result.push_back(it);
         }
-        return result;
+        return res;
     }
+    vector&lt;string&gt; helper(string s){
+        vector&lt;string&gt; res;
+        if(checkleft(s)) res.push_back(s);
+        for(int i = 1; i&lt;s.size(); i++){
+            string left = s.substr(0, i);
+            string right = s.substr(i, s.size() - i);
+            if(checkleft(left) &amp;&amp; checkright(right)) res.push_back(left + '.' + right);
+        }
+        return res;
+    }
+    bool checkleft(string s){
+        if(s[0] == '0' &amp;&amp; s.size()&gt;1) return false;
+        return true;
+    }
+    bool checkright(string s){
+        if(s[s.size()-1] == '0') return false;
+        return true;
+    }
+    
 };
 </PRE>
 </BODY>

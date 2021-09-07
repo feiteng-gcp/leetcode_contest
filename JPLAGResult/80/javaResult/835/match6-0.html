@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>437_kungfoo77.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>437_kungfoo77.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
-<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ *     ListNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public int numComponents(ListNode head, int[] G) {
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for (int i = 0</B></FONT>; i &lt; G.length; i++) set.add(G[i]);
-        int result = 0;
-        boolean isValueFound = false;
-        while (head != null) {
-            if (set.contains(head.val)) isValueFound = true;
-            else {
-                if (isValueFound) result++;
-                isValueFound = false;
-            }
-            head = head.next;
-        }
-        if (isValueFound) result++;
-        return result;
+class Solution {
+<A NAME="0"></A>  public int numComponents(ListNode head, int[] G) {
+    if (head == null) return 0;
+    if (G.length == 0) return 0;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+    for(int i : G) {
+      set.add(i);
     }
+    int N = 0;
+    int size = 0</B></FONT>;
+    while(head != null) {
+      if (set.contains(head.val)) {
+        size++;
+      } else {
+        if (size &gt; 0) {
+          N++;
+        }
+        size = 0;
+      }
+      head = head.next;
+    }
+    if (size &gt; 0) {
+      N++;
+    }
+    return N;
+  }
 }
 </PRE>
 

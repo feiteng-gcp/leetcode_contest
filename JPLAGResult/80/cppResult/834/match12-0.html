@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_yysys.cpp</TITLE>
+ <TITLE>8_pentester.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,76 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_yysys.cpp</CENTER></H3><HR>
+<H3><CENTER>8_pentester.cpp</CENTER></H3><HR>
 <PRE>
+
+#define REP1(i, n) for (remove_cv&lt;remove_reference&lt;decltype(n)&gt;::type&gt;::type i = 1; i &lt;= (n); i++)
+#define ROF(i, a, b) for (remove_cv&lt;remove_reference&lt;decltype(b)&gt;::type&gt;::type i = (b); --i &gt;= (a); )
+
 class Solution {
+  vector&lt;string&gt; f(string a) {
+    if (a[0] == '0') {
+      if (a.size() == 1)
+        return {&quot;0&quot;};
+      if (a.back() != '0')
+        return {&quot;0.&quot; + a.substr(1)};
+      return {};
+    }
+    vector&lt;string&gt; r{a};
+<A NAME="0"></A>    if (a.back() != '0') {
+      for (int i = a.size();--i;)
+        r.push_back(a.substr(0, i)+'.'+a.substr(i));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    return r;
+  }
 public:
-    
-    vector&lt;string&gt; work(string s) {
-        vector&lt;string&gt; ans;
-        
-        if (s[0] != '0') {
-            ans.push_back(s);
-        }
-        
-        if (s[0] == '0' &amp;&amp; s[1] == '\0') {
-            ans.push_back(s);
-        }
-        
-        string res;
-        for (int i = 1; i &lt; s.size(); i++) {
-            res.clear();
-            for (int j = 0; j &lt; i; j++) {
-                res = res + s[j];
-            }
-            res = res +&quot;.&quot;;
-            
-            int flag = 0;
-            for (int j = i; j &lt; s.size(); j++) {
-                res = res + s[j];
-                if (s[j] != '0') flag = 1;
-            }
-            
-            if (flag == 1) {
-                if ((i &gt;= 2 &amp;&amp; res[0] == '0') || res[s.size()] == '0') {
-                    
-                }
-                else {
-                    ans.push_back(res);
-                }
-            }
-        }
-        
-        
-        return ans;
+  vector&lt;string&gt; ambiguousCoordinates(string S) {
+    vector&lt;string&gt; ret;
+    S = S.substr(1, S.size() - 2);
+    for (int i = 1; i &lt; S.size(); i++) {
+      vector&lt;string&gt; ls = f(S.substr(0, i)), rs = f(S.substr(i));</B></FONT>
+      for (auto &amp;l : ls)
+        for (auto &amp;r : rs)
+          ret.push_back('(' + l + &quot;, &quot; + r + ')');
     }
-    
-    vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; ans, res1, res2;
-        
-        string s1, s2;
-        for (int i = 2; i &lt; S.size() - 1; i++) {
-            
-            s1.clear();
-            s2.clear();
-            
-            for (int j = 1; j &lt; i; j++) s1 = s1 + S[j];
-            for (int j = i; j &lt; S.size()-1; j++) s2 = s2 + S[j];
-            
-<A NAME="0"></A>            res1 = work(s1);
-            res2 = work(s2);
-            
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; res1.size(); i++) {
-                for (int j = 0; j &lt; res2.size(); j++) {
-                    ans.push_back(&quot;(&quot; + res1[i] + &quot;, &quot; + res2[j] + &quot;)&quot;);
-                }
-            }
-        }
-        
-        
-        return ans;
-    }
-};</B></FONT>
+    return ret;
+  }
+};
+
 </PRE>
 </BODY>
 </HTML>

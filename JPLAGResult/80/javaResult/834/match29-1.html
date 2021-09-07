@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_uwi.java</TITLE>
+ <TITLE>133_Shun_Gao.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_uwi.java</CENTER></H3><HR>
+<H3><CENTER>133_Shun_Gao.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public List&lt;String&gt; ambiguousCoordinates(String S) {
-<A NAME="0"></A>	    	S = S.substring(1, S.length()-1);
-	        int n = S.length();
-	        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
-	        for(int i = 1;i &lt;= n-1;i++){<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-	        	List&lt;String&gt; va = valids(S.substring(0, i));
-	        	List&lt;String&gt; vb = valids(S.substring(i, n));
-	        	for(String a : va){
-	        		for(String b : vb){
-	        			ret.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
-	        		}
-	        	}
-	        }
-	        return ret;
-	    }
-	    
-	    List&lt;String&gt; valids(String s)
-	    {
-	    	List&lt;String&gt; ret = new ArrayList&lt;&gt;();</B></FONT>
-	    	if(valid(s))ret.add(s);
-	    	for(int i = 1;i &lt; s.length();i++){
-	    		String t = s.substring(0, i) + &quot;.&quot; + s.substring(i);
-	    		if(valid(t))ret.add(t);
-	    	}
-	    	return ret;
-	    }
-	    
-	    boolean valid(String s)
-	    {
-	    	if(s.lastIndexOf(&quot;-&quot;) &gt; 0)return false;
-	    	if(s.equals(&quot;-0&quot;))return false;
-	    	if(s.startsWith(&quot;-&quot;)){
-	    		s = s.substring(1);
-	    	}
-	    	if(s.length() == 0)return false;
-	    	if(s.indexOf(&quot;.&quot;) &lt; 0){
-	    		if(s.length() &gt; 1 &amp;&amp; s.startsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}else{
-	    		String[] sp = s.split(&quot;\\.&quot;);
-	    		if(sp.length &lt; 2)return false;
-	    		if(sp[0].length() == 0)return false;
-	    		if(sp[0].length() &gt; 1 &amp;&amp; sp[0].startsWith(&quot;0&quot;))return false;
-	    		if(sp[1].endsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}
-	    }
-	}	
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;String&gt; ambiguousCoordinates(String S) {
+<A NAME="1"></A>        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        S = S.substring(1, S.length() - 1);
+        for (int i = 0; i &lt; S.length</B></FONT>() - 1; i++)
+            multiple(list, S.substring(0, i + 1), S.substring(i + 1))<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        return list;
+    }
+    
+    private void multiple(List&lt;String&gt; list, String left, String right) {
+        // System.out.println(left + &quot; * &quot; + right);
+        // System.out.println(getNumbers(left));
+        // System.out.println(getNumbers(right));
+        // System.out.println();
+        List&lt;String&gt; leftList = getNumbers(left);
+<A NAME="2"></A>        List&lt;String&gt; rightList = getNumbers(right);
+        if (leftList.size() &gt; 0 &amp;&amp; rightList.size() &gt; 0) {
+            for (String leftNumber</B></FONT>: leftList) for (String rightNumber: rightList)
+                list.add(&quot;(&quot; + leftNumber + &quot;, &quot; + rightNumber + &quot;)&quot;)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+    }
+    
+    private List&lt;String&gt; getNumbers(String str) {
+        List&lt;String&gt; result = new</B></FONT> ArrayList&lt;&gt;();
+        if (str.length() == 1 || !str.startsWith(&quot;0&quot;)) result.add(str);
+        for (int i = 0; i &lt; str.length() - 1; i++) {
+            if (valid(str.substring(0, i + 1)) &amp;&amp; !str.substring(i + 1).endsWith(&quot;0&quot;))
+                result.add(str.substring(0, i + 1) + &quot;.&quot; + str.substring(i + 1));
+        }
+        return result;
+    }
+    
+    private boolean valid(String str) {
+        if (str.length() == 1) return true;
+        return str.charAt(0) != '0';
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new Solution().ambiguousCoordinates(&quot;(123)&quot;));
+        System.out.println(new Solution().ambiguousCoordinates(&quot;(00011)&quot;));
+        System.out.println(new Solution().ambiguousCoordinates(&quot;(0123)&quot;));
+        System.out.println(new Solution().ambiguousCoordinates(&quot;(100)&quot;));
+    }
+}
 </PRE>
 
 </BODY>

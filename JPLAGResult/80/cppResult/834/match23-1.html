@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_user9026b.cpp</TITLE>
+ <TITLE>368_bestowth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>45_user9026b.cpp</CENTER></H3><HR>
+<H3><CENTER>368_bestowth.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; result;
-        
-        int len = S.size();
-        string word = S.substr(1, len - 2);                
-        
-        len = word.size();
-<A NAME="0"></A>        if (len == 0) return result;
-        
-        unordered_set&lt;string&gt; hash;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j = 1; j &lt; word.size(); ++j)
-        {
-            string str0 = word.substr(0, j);
-            string str1 = word.substr(j);
-            
-            //cout &lt;&lt; str0 &lt;&lt; &quot;,&quot; &lt;&lt; str1 &lt;&lt; endl;
-            
-            vector&lt;string&gt; vec0;
-            Search(str0, vec0);
-            
-            vector&lt;string&gt; vec1;
-            Search(str1, vec1);
-            
-            for (int i = 0; i &lt; vec0.size(); ++i)
-            {
-                
-                if (IsValid(vec0[i]) == false) continue;</B></FONT>
-                
-                
-                for (int t = 0; t &lt; vec1.size(); ++t)
-                {
-                    if (IsValid(vec1[t]) == false) continue;
-                                        
-                    string coor  = &quot;(&quot; + vec0[i] + &quot;, &quot; + vec1[t] + &quot;)&quot;;
-                    if (hash.find(coor) == hash.end())
-                        hash.insert(coor);
-                } 
+        int n=S.size();
+                vector&lt;string&gt;st{};
+        //int cnt{};
+        for(int i=1;i&lt;n-2;i++){
+            string l{},r{};
+            copy(S.begin()+1,S.begin()+1+i,back_inserter(l));
+            copy(S.begin()+1+i,S.end()-1,back_inserter(r));
+            spl(l,r,st);
+        }
+        //cout &lt;&lt; cnt;
+        return st;
+    }
+    
+    vector&lt;string&gt; va(string s){
+        vector&lt;string&gt;temp{};
+        if(s.size()==1){
+            temp.push_back(s);
+            return temp;
+        }
+        if(s.back()=='0'){
+            if(s[0]=='0')
+                return temp;
+            else{
+                temp.push_back(s);
+                return temp;
             }
         }
-        
-        for(auto item : hash)
-            result.push_back(item);
-        
-        return result;
+        if(s[0]=='0'){
+            s.insert(s.begin()+1,'.');
+            temp.push_back(s);
+            return temp;
+        }
+        for(int i=1;i&lt;s.size();i++){
+            string t=s;
+            t.insert(t.begin()+i,'.');
+            temp.push_back(t);
+        }
+        temp.push_back(s);
+<A NAME="0"></A>        return temp;
     }
     
-    void Search(string&amp; s, vector&lt;string&gt;&amp; strs)
-    {
-        int len = s.size();
-        strs.push_back(s);
-        
-        for (int i = 1; i &lt;= len - 1; ++i)
-        {
-            string temp = s;
-            temp.insert(temp.begin() + i, '.');           
-            strs.push_back( temp );
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void spl(string l,string r,vector&lt;string&gt; &amp;st){
+        vector&lt;string&gt;left=va(l), right=va(r);
+        for(int i=0;i&lt;left.size();i++){
+            for(int j=0;j&lt;right.size();j++){</B></FONT>
+                string re{};
+                re.push_back('(');
+                re.append(left[i]);
+                re.push_back(',');
+                re.push_back(' ');
+                re.append(right[j]);
+                re.push_back(')');
+                st.push_back(re);
+            }
         }
-    }
-    
-    bool IsValid(string&amp; s)
-    {
-        int len = s.size();        
-        int pos  = s.find(&quot;.&quot;);
-        
-        if (len &gt;= 2 &amp;&amp; s[0] == '0' &amp;&amp; s[1] == '0') return false;        
-        
-        if (pos == string::npos) 
-        {
-            if (len &gt;= 2 &amp;&amp; s[0] == '0') return false;
-            return true;   
-        }
-        
-        if (pos &gt; 1)
-        {
-            for (int i = 0; i &lt; pos; ++i)
-                if (s[i] != '0') break;
-                else return false;
-        }
-        
-        for (int i = len - 1; i &gt; pos; --i)
-            if (s[i] != '0') break;
-            else return false;
-        
-        return true;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_hamlet_fiis.cpp</TITLE>
+ <TITLE>276_sunrisef.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_hamlet_fiis.cpp</CENTER></H3><HR>
+<H3><CENTER>276_sunrisef.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    
-    bool correct(string s){
-        if(s.size()==0)return 0;
-        
-        if(s.size()&gt;=2){
-            if(s[0]=='0' &amp;&amp; s[1]=='0')return 0;
-            if(s[0]=='0' &amp;&amp; s[1]!='.')return 0;
-        }
-        bool haspoint=0;
-        
-        for(int i=0;i&lt;s.size();i++)
-            if(s[i]=='.')haspoint=1;
-        
-        if(haspoint &amp;&amp; s[s.size()-1]=='0')return 0;
-        return 1;
-    }
-    
-    vector&lt;string&gt;g(string s){
-        vector&lt;string&gt;dev;    
-        
-        if(correct(s))dev.push_back(s);
-        
-        for(int i=1;i&lt;s.size();i++){
-            string h=&quot;&quot;;
-            h+=s.substr(0,i);
-            h+=&quot;.&quot;;
-            h+=s.substr(i);
-            if(correct(h))dev.push_back(h);
-        }
-        
-        return dev;
-    }
-<A NAME="0"></A>    
-    
-    vector&lt;string&gt;f(string a,string b){
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;string&gt;x= g(a);
-        vector&lt;string&gt;y= g(b);
-        vector&lt;string&gt;dev;
-        
-        for(int i=0;i&lt;x.size();i++){
-            for(int j=0;j&lt;y.size();j++){</B></FONT>
-                string h=&quot;&quot;;
-                h+=&quot;(&quot;;
-                h+=x[i];
-                h+=&quot;, &quot;;
-                h+=y[j];
-                h+=&quot;)&quot;;
-                dev.push_back(h);
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        int len = S.size();
+        S.pop_back();
+        vector&lt;string&gt; ans;
+        for (int i = 2; i &lt; len - 1; ++i){
+            vector&lt;string&gt; b, e;
+            b = getNum(S.substr(1, i - 1));</B></FONT>
+            if (b.size()) {
+                e = getNum(S.substr(i));
+                if (e.size()){
+                    for (auto a: b){
+                        for (auto c:e){
+                            ans.push_back(&quot;(&quot; + a + &quot;, &quot; + c + &quot;)&quot;);
+                        }
+                    }
+                }
             }
         }
-        
-        return dev;
+        return ans;
     }
-    
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        s=s.substr(1,s.size()-2);
-        vector&lt;string&gt;v;
-        for(int i=1;i&lt;s.size();i++){
-            string a=s.substr(0,i);
-            string b=s.substr(i);
-            vector&lt;string&gt;x=f(a,b);
-            for(int j=0;j&lt;x.size();j++)v.push_back(x[j]);
+    vector&lt;string&gt; getNum(string s){
+//        cout &lt;&lt; s &lt;&lt; endl;
+        vector&lt;string&gt; ans;
+        int len = s.size();
+        if (s.size() == 1) {
+            ans.push_back(s);
+            return ans;
         }
-        return v;
+        if (s[0] == '0'){
+            if (s[len - 1] == '0') return ans;
+            else {
+                ans.push_back(&quot;0.&quot; + s.substr(1));
+                return ans;
+            }
+        }
+        ans.push_back(s);
+        if (s[len - 1] == '0'){
+            
+            return ans;
+        }
+        for (int i = 1; i &lt; len; ++i) ans.push_back(s.substr(0, i) + &quot;.&quot; + s.substr(i));
+        return ans;
     }
 };
 </PRE>

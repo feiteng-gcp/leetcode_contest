@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_fcxjlsw.java</TITLE>
+ <TITLE>122_Kuvu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>40_fcxjlsw.java</CENTER></H3><HR>
+<H3><CENTER>122_Kuvu.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
@@ -26,29 +26,29 @@
  * }
  */
 class Solution {
-    public int numComponents(ListNode head, int[] G) {
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for(int num : G) {
-            set.add(num);
+<A NAME="0"></A>    public int numComponents(ListNode head, int[] G) {
+        if (G == null || G.length == 0) {
+            return 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Set&lt;Integer&gt; vals = new HashSet&lt;&gt;();
+        for (int g : G) {
+            vals.add(g);
         }
-        int res = 0;
-        boolean inConnect = false;
-        while(head!=null) {
-            if(!set.contains(head.val)) {
-                if(inConnect) {
-                    inConnect = false;
-                }
-            } else {
-                if(!inConnect) {
-<A NAME="0"></A>                    inConnect = true;
-                    res++;
-                }
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            head = head.next;
+        int count = 0;
+        boolean inComponent = false</B></FONT>;
+        ListNode cur = head;
+        while (cur != null) {
+            if (inComponent &amp;&amp; !vals.contains(cur.val)) {
+                inComponent = false;
+            } else if (!inComponent &amp;&amp; vals.contains(cur.val)) {
+                inComponent = true;
+                count++;
+            }
+            cur = cur.next;
         }
-        return res;
+        return count;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

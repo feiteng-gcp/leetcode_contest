@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ChaouS.cpp</TITLE>
+ <TITLE>230_ralf_tianyi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>230_ralf_tianyi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    
-    vector&lt;string&gt; getSolutions(string s){
-        vector&lt;string&gt; ans;
-        if(s.size() == 0){
-            return ans;
-        }
-        // without point
-        if(s.front() != '0' || s == &quot;0&quot;){
-            ans.push_back(s);
-        }
-        // with point
-<A NAME="0"></A>        for(int i = 1; i &lt; s.size(); ++i){
-            if(s.back() != '0'){
-                string w = s.substr(0 , i);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(w.front() != '0' || w == &quot;0&quot;){
-                    ans.push_back(w + &quot;.&quot; + s.substr(i));
+private:
+    vector&lt;string&gt; get_str(string&amp; str) {
+        vector&lt;string&gt; v;
+        int len = str.size();
+        if (str[0] == '0') {
+            if (str.size() == 1)
+                v.push_back(&quot;0&quot;);
+            else {
+                int idx = 0;
+                while (idx &lt; len &amp;&amp; str[idx] == '0')
+                    idx++;
+                if (idx &lt; len &amp;&amp; str.back() != '0') {
+                    v.push_back(str.substr(0, 1) + &quot;.&quot; + str.substr(1));
                 }
             }
-        }
-        return ans;
+        } else {
+            if (str.size() == 1)
+                v.push_back(str);
+            else {
+                v.push_back(str);
+                if (str.back() != '0')
+                    for (int i = 1; i &lt; len; i++) {
+<A NAME="0"></A>                            v.push_back(str.substr(0, i) + &quot;.&quot; + str.substr(i));
+                    }
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        return v;
     }
     
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        
-        set&lt;string&gt; ret;
-        for(int i = 1; i + 2 &lt; s.size(); ++i){</B></FONT>
-           // cout &lt;&lt; s.substr(1 , i)&lt;&lt;&quot; &quot;&lt;&lt;s.substr(i + 1 , s.size() - i - 2)&lt;&lt;endl;
-            vector&lt;string&gt; x = getSolutions(s.substr(1 , i));
-            vector&lt;string&gt; y = getSolutions(s.substr(i + 1 , s.size() - i - 2));
-            for(auto w1 : x){
-                for(auto w2 : y){
-                    ret.insert(&quot;(&quot; + w1 + &quot;, &quot; + w2 + &quot;)&quot;);
-                }
+public:
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; ans;
+        string str = S.substr(1, S.size() - 2);
+        for (int i = 0; i &lt; str.size() - 1; i++) {
+            string pre = str.substr(0, i + 1);
+            string suf = str.substr(i + 1);</B></FONT>
+            auto vp = get_str(pre);
+            auto vs = get_str(suf);
+            if (vp.size() &amp;&amp; vs.size()) {
+                for (auto &amp; sp : vp)
+                    for (auto &amp; ss : vs)
+                        ans.push_back(&quot;(&quot; + sp + &quot;, &quot; + ss + &quot;)&quot;);
             }
         }
-        vector&lt;string&gt; ans(ret.begin() , ret.end());
         return ans;
     }
 };

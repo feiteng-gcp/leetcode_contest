@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_laiden.cpp</TITLE>
+ <TITLE>6_gerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>37_laiden.cpp</CENTER></H3><HR>
+<H3><CENTER>6_gerwang.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-<A NAME="0"></A>        
-        vector&lt;string&gt; ret;
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        string strip = s.substr(1, s.size()-2);  //no '(' and ')'
-        
-        //pivot on 'x|y' cut position.
-        for(int i=1; i&lt;strip.size(); i++){
-            string l = strip.substr(0, i);
-            string r = strip.substr(i);
-            
-            for(int j=0; j&lt;l.size(); j++){</B></FONT>
-                string left = j ? l.substr(0, j) + &quot;.&quot; +  l.substr(j) : l; 
-                for(int k=0; k&lt;r.size(); k++){
-                    string right = k ? r.substr(0, k) + &quot;.&quot; + r.substr(k) : r;
-                    
-                    string empty = &quot;&quot;;
-                    if(valid1coord(left) &amp;&amp; valid1coord(right)) ret.push_back(empty + &quot;(&quot; + left + &quot;, &quot; + right + &quot;)&quot;);
-                }
-            }
-        }
-        
-        
-        
-        return ret;
-        
-        
-    }
     
-    bool valid1coord(string x){
-        if(x.find('.') == -1){ //not decimal.
-            return x[0] != '0' || x == &quot;0&quot;;
-        } else { //decimal
-            //must not end in zero.
-            //if number of chars before decimal is greater than 1, then it first char must not be zero.
-            if(x[x.size()-1] == '0') return false;
-            if(x[0] != '.' &amp;&amp; x[1] != '.' &amp;&amp; x[0] == '0') return false;
+    bool test(string S) {
+        int decimal=S.find('.');
+        if(decimal==string::npos) {
+            if(S[0]=='0') {
+                return S.length()==1;
+            }
+            return true;
+        } else {
+            if(S.back()=='0') {
+                return false;
+            }
+            if(S[0]=='0') {
+                return S[1]=='.';
+            }
             return true;
         }
     }
+    
+    vector&lt;string&gt; dfsComma(string S) {
+        vector&lt;string&gt; res;
+        if(test(S)) {
+            res.push_back(S);
+        }
+        for(int i=1;i&lt;S.length();i++) {
+            string tmp=S.substr(0,i)+&quot;.&quot;+S.substr(i,S.length()-i);
+            if(test(tmp)) {
+                res.push_back(tmp);
+            }
+        }
+        return res;
+    }
+<A NAME="0"></A>    
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i+2&lt;S.length();i++) {
+            auto av=dfsComma(S.substr(1,i));
+            auto bv=dfsComma(S.substr(i+1,S.length()-i-2));
+            for(auto&amp; a:av) {
+                for(auto&amp; b:bv) {
+                    res.push_back(&quot;(&quot;+a+&quot;, &quot;+b+&quot;)&quot;);
+                }
+            }
+        }
+        return res;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

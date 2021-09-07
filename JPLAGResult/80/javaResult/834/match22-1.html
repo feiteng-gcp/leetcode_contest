@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>122_Kuvu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>122_Kuvu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        // get rid of the &quot;(&quot; and &quot;)&quot;
 <A NAME="0"></A>        S = S.substring(1, S.length() - 1);
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; firstNum = getCord(S.substring(0, i));
-            List&lt;String&gt; secondNum = getCord(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.substring(i, S.length()));
-            for (String first : firstNum) {
-                for (String second : secondNum) {
-                    result.add(&quot;(&quot; + first + &quot;, &quot; + second + &quot;)&quot;);
+        List&lt;String&gt; coordinates = new ArrayList&lt;&gt;();
+        // need to insert , to separate between x and y coordinate
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int len = 1; len &lt; S.length(); len++) {
+            String x = S.substring(0, len);
+            String y = S.substring(len);
+            List&lt;String&gt; validXs = createNumbers(x);
+<A NAME="1"></A>            List&lt;String&gt; validYs = createNumbers(y);
+            for (String xVal : validXs) {
+                for (String yVal : validYs) {</B></FONT>
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>coordinates.add(&quot;(&quot; + xVal + &quot;, &quot; + yVal + &quot;)&quot;);
                 }
             }
         }
-        return result;
+        return coordinates;
     }
-    private static List&lt;String&gt; getCord(String s) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;()</B></FONT>;
-        for (int i = 0; i &lt; s.length(); i++) {
-            String firstPart = s.substring(0, i+1);
-            String secondPart = s.substring(i+1, s.length());
-            if (noLeadingZero(firstPart) &amp;&amp; noTailingZero(secondPart)) {
-                String resultStr = secondPart.isEmpty() ? firstPart : firstPart + &quot;.&quot; + secondPart;
-                result.add(resultStr);
+    
+    
+    /**
+    * Our original representation never had extraneous zeroes, so we never started with numbers 
+    * like &quot;00&quot;, &quot;0.0&quot;, &quot;0.00&quot;, &quot;1.0&quot;, &quot;001&quot;, &quot;00.01&quot;, or any other number that can be represented 
+    * with less digits.  Also, a decimal point within a number never occurs without at least one digit 
+    * occuring before it, so we never started with numbers like &quot;.1&quot;.
+    */
+    private List&lt;String&gt; createNumbers(String s) {
+        // need to insert decimal 
+        List&lt;String&gt; possibilities = new ArrayList&lt;&gt;()</B></FONT>;
+        if (s.charAt(0) == '0') {
+            // s starts with zero, is a special case
+            // must be either by itself (s == &quot;0&quot;)
+            // or have a decimal right after it (s == &quot;0.XXX&quot;)
+            if (s.length() == 1) {
+                possibilities.add(s);
+            } else {
+                // cannot have &quot;0.000&quot; or &quot;0.010&quot;
+                if (s.charAt(s.length() - 1) != '0') {
+                    possibilities.add(s.substring(0, 1) + &quot;.&quot; + s.substring(1));
+                }
+            }
+        } else {
+            possibilities.add(s); // no decimal
+            
+            // cannot have trailing zeroes like &quot;45.30&quot;
+            if (s.length() &gt; 1 &amp;&amp; s.charAt(s.length() - 1) != '0') {
+                for (int i = s.length() - 1; i &gt; 0; i--) {
+                    possibilities.add(s.substring(0, i) + &quot;.&quot; + s.substring(i));
+                }
             }
         }
-        return result;
-    }
-    private static boolean noLeadingZero(String s) {
-        if (s.length() &lt;= 1) return true;
-        return s.charAt(0) != '0';
-    }
-    private static boolean noTailingZero(String s) {
-        if (s.isEmpty()) return true;
-        return s.charAt(s.length() - 1) != '0';
+        // System.out.println(s + &quot; = &quot; + possibilities);
+        return possibilities;
     }
 }
 </PRE>

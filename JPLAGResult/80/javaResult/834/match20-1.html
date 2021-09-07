@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_yrclamb.java</TITLE>
+ <TITLE>152_hejian2356.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_yrclamb.java</CENTER></H3><HR>
+<H3><CENTER>152_hejian2356.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String S) {
-    	List&lt;String&gt; ans = new ArrayList&lt;String&gt;();
-    	S = S.replaceAll(&quot;[()]&quot;, &quot;&quot;);
-    	
-    	for(int i = 1; i &lt; S.length(); i++) {
-    		String A = S.substring(0, i);
-<A NAME="0"></A>    		String B = S.substring(i, S.length());
-    		
-    		List&lt;String&gt; As = availableStrings(A);
-    		List&lt;String&gt; Bs = availableS<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>trings(B);    		
-    		for(String AA: As) {
-    			for(String BB: Bs) {
-    				ans.add(&quot;(&quot; + AA + &quot;, &quot; + BB + &quot;)&quot;);
-    			}
-    		}
-    	}
-    	return ans;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;String&gt; ambiguousCoordinates(String s) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        s = s.substring(1, s.length() - 1);
+        for (int i = 0; i &lt; s.length() - 1; i++) {
+            String l = s.substring(0, i + 1), r = s.substring(i + 1);
+            List&lt;String&gt; ls = addPoint(l), rs = addPoint(r);
+            for (String l1 : ls) {
+                for (String r1 : rs) {
+                    StringBuilder sb = new StringBuilder()</B></FONT>;
+                    sb.append(&quot;(&quot;);
+                    sb.append(l1);
+<A NAME="1"></A>                    sb.append(&quot;, &quot;);
+                    sb.append(r1);
+                    sb.append(&quot;)&quot;);
+                    res.add(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.toString());
+                }
+            }
+        }
+        return res;
     }
     
-<A NAME="1"></A>    private List&lt;String&gt; availableStrings(String S){
-    	List&lt;String&gt; ans = new Ar</B></FONT>rayList&lt;String&gt;();
-    	if(!S.startsWith(&quot;0&quot;) || S.equals(&quot;0&quot;)) ans.add(S);
-    	for<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(int i = 1; i &lt; S.length(); i++) {
-    		String A = S.substring(0, i);
-    		String B = S.substring(i, S.length());
-    		if(A.startsWith(&quot;0&quot;) &amp;&amp; !A.equals(&quot;0&quot;)) con</B></FONT>tinue;
-    		if(B.endsWith(&quot;0&quot;)) continue;
-    		ans.add(A + &quot;.&quot; + B);
-    	}
-    	
-    	return ans;
-    	
+    private List&lt;String&gt; addPoint(String s) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;()</B></FONT>;
+        if (s.charAt(0) != '0' || s.equals(&quot;0&quot;)) {
+            res.add(s);
+        }
+        String l = &quot;&quot;, r = &quot;&quot;;
+        for (int i = 0; i &lt; s.length() - 1; i++) {
+            l = s.substring(0, i + 1);
+            r = s.substring(i + 1);
+            if (l.length() &gt; 1 &amp;&amp; getFrontZeros(l) &gt; 0) {
+                continue;
+            }
+            if (getRearZeros(r) &gt; 0) {
+                continue;
+            }
+            res.add(l + &quot;.&quot; + r);
+        }
+        return res;
+    }
+    
+    private int getFrontZeros(String s) {
+        int i = 0;
+        for (; i &lt; s.length() &amp;&amp; s.charAt(i) == '0'; i++);
+        return i;
+    }
+
+    private int getRearZeros(String s) {
+        int i = s.length() - 1;
+        for (; i &gt;= 0 &amp;&amp; s.charAt(i) == '0'; i--);
+        return s.length() - 1 - i;
     }
 }
 </PRE>

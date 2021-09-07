@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_hamlet_fiis.cpp</TITLE>
+ <TITLE>83_garfield175.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>19_hamlet_fiis.cpp</CENTER></H3><HR>
+<H3><CENTER>83_garfield175.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    
-    bool correct(string s){
-        if(s.size()==0)return 0;
-        
-        if(s.size()&gt;=2){
-            if(s[0]=='0' &amp;&amp; s[1]=='0')return 0;
-            if(s[0]=='0' &amp;&amp; s[1]!='.')return 0;
-        }
-        bool haspoint=0;
-        
-        for(int i=0;i&lt;s.size();i++)
-            if(s[i]=='.')haspoint=1;
-        
-        if(haspoint &amp;&amp; s[s.size()-1]=='0')return 0;
-        return 1;
-    }
-    
-    vector&lt;string&gt;g(string s){
-        vector&lt;string&gt;dev;    
-        
-        if(correct(s))dev.push_back(s);
-        
-        for(int i=1;i&lt;s.size();i++){
-            string h=&quot;&quot;;
-            h+=s.substr(0,i);
-            h+=&quot;.&quot;;
-            h+=s.substr(i);
-            if(correct(h))dev.push_back(h);
-        }
-        
-        return dev;
-    }
-    
-<A NAME="0"></A>    
-    vector&lt;string&gt;f(string a,string b){
-        vector&lt;string&gt;x= g(a);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;string&gt;y= g(b);
-        vector&lt;string&gt;dev;
-        
-        for(int i=0;i&lt;x.size();i++){
-            for(int j=0;j&lt;y.size();j++){
-                string h=&quot;&quot;;
-                h+=&quot;(&quot;;</B></FONT>
-                h+=x[i];
-                h+=&quot;, &quot;;
-                h+=y[j];
-                h+=&quot;)&quot;;
-                dev.push_back(h);
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; rs;
+        for(int i = 1; i &lt; S.length() - 2; i++) {
+            string s1 = S.substr(1, i), s2 = S.substr(i + 1, S.length() - 2 - i);
+            // cout &lt;&lt; s1 &lt;&lt; &quot;, s2: &quot; &lt;&lt; s2 &lt;&lt; endl;
+            for(int j = 0; j &lt; s1.length(); j++) {</B></FONT>
+                string sj(s1);
+                if (j &gt; 0) {
+                    sj.insert(j, 1, '.');
+                }
+                // cout &lt;&lt; s1 &lt;&lt; &quot;, j: &quot; &lt;&lt; j &lt;&lt; &quot;, sj: &quot; &lt;&lt; sj &lt;&lt; endl;
+                if (isValid(sj)) {
+                    for(int k = 0; k &lt; s2.length(); k++) {
+                        string sk(s2);
+                        if (k &gt; 0) {
+                            sk.insert(sk.begin() + k, 1, '.');
+                        }
+                        if (isValid(sk)) {
+                            rs.push_back(&quot;(&quot; + sj + &quot;, &quot; + sk + &quot;)&quot;);
+                        }
+                    }
+                }
             }
         }
-        
-        return dev;
+        return rs;
     }
     
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        s=s.substr(1,s.size()-2);
-        vector&lt;string&gt;v;
-        for(int i=1;i&lt;s.size();i++){
-            string a=s.substr(0,i);
-            string b=s.substr(i);
-            vector&lt;string&gt;x=f(a,b);
-            for(int j=0;j&lt;x.size();j++)v.push_back(x[j]);
+    bool isValid(string &amp;s) {
+        if (s.length() &lt;= 0) return false;
+        if (s.length() &gt; 1 &amp;&amp; s[0] == '0' &amp;&amp; s[1] != '.') return false;
+        if (s.length() &gt; 1) {
+            int nonZero = 0, dots = 0;
+            for(auto c : s) {
+                nonZero += c != '0' &amp;&amp; c != '.';
+                dots += c == '.';
+            }
+            if (dots &gt; 0 &amp;&amp; s.back() == '0') return false;
+            if (nonZero == 0) return false;
         }
-        return v;
+        return true;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>140_leonlihkust.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>140_leonlihkust.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
-<A NAME="0"></A>        S = S.substring(1, S.length() - 1);
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; firstNum = getCord(S.substring(0, i));
-            List&lt;String&gt; secondNum = getCord(S.substring(i, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.length()));
-            for (String first : firstNum) {
-                for (String second : secondNum) {
-                    result.add(&quot;(&quot; + first + &quot;, &quot; + second + &quot;)&quot;);
+<A NAME="1"></A>        List&lt;String&gt; res = new LinkedList&lt;&gt;();
+        S = S.substring(1,S.length() - 1);
+        for(int i = 1; i &lt; S.length(); i++) {
+            List&lt;String&gt; left = backtrack(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.substring(0,i));</B></FONT>
+            List&lt;String&gt; right = backtrack(S.substring(i));
+            if(!left.isEmpty() &amp;&amp; !right.isEmpty()) {
+                for(String s1 : left) {
+                    for(String s2 : right) {
+                      res.add(&quot;(&quot; + s1 +&quot;, &quot; + s2 + &quot;)&quot;);  
+                    }
                 }
             }
         }
-        return result;
+        return res;
     }
-    private static List&lt;String&gt; getCord(String s) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; s.length(); i++) {
-            String firstPart = s.substring(0, i+1);
-            String secondPart = s.substring</B></FONT>(i+1, s.length());
-            if (noLeadingZero(firstPart) &amp;&amp; noTailingZero(secondPart)) {
-                String resultStr = secondPart.isEmpty() ? firstPart : firstPart + &quot;.&quot; + secondPart;
-                result.add(resultStr);
-            }
+    
+    private List&lt;String&gt; backtrack(String num</B></FONT>) {
+        List&lt;String&gt; res = new LinkedList&lt;&gt;();
+        if(num.length() &gt; 1 &amp;&amp; Integer.valueOf(num) == 0) return res;
+        if(num.length() == 1) {
+            res.add(num);
+            return res;
         }
-        return result;
-    }
-    private static boolean noLeadingZero(String s) {
-        if (s.length() &lt;= 1) return true;
-        return s.charAt(0) != '0';
-    }
-    private static boolean noTailingZero(String s) {
-        if (s.isEmpty()) return true;
-        return s.charAt(s.length() - 1) != '0';
+        if(num.charAt(0) == '0' || num.charAt(num.length() - 1) == '0') {
+            if(num.charAt(0) == '0' &amp;&amp; num.charAt(num.length() - 1) == '0') return res;
+            if(num.charAt(0) == '0')
+             res.add(&quot;0&quot; + &quot;.&quot; + num.substring(1));
+            else 
+                res.add(num);
+            return res;
+        }
+        res.add(num);
+        for(int i = 1; i &lt; num.length(); i++) {
+            if(Integer.valueOf(num.substring(i)) == 0) continue;
+            res.add(num.substring(0,i) + &quot;.&quot; + num.substring(i));
+        }
+        return res;
     }
 }
 </PRE>

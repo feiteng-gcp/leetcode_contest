@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_user9026b.cpp</TITLE>
+ <TITLE>83_garfield175.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,93 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>45_user9026b.cpp</CENTER></H3><HR>
+<H3><CENTER>83_garfield175.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
+<A NAME="0"></A>public:
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; result;
-        
-        int len = S.size();
-        string word = S.substr(1, len - 2);                
-        
-        len = word.size();
-<A NAME="0"></A>        if (len == 0) return result;
-        
-        unordered_set&lt;string&gt; hash;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int j = 1; j &lt; word.size(); ++j)
-        {
-            string str0 = word.substr(0, j);
-            string str1 = word.substr(j);
-            
-            //cout &lt;&lt; str0 &lt;&lt; &quot;,&quot; &lt;&lt; str1 &lt;&lt; endl;
-            
-            vector&lt;string&gt; vec0;
-            Search(str0, vec0);
-            
-            vector&lt;string&gt; vec1;
-            Search(str1, vec1);
-            
-            for (int i = 0; i &lt; vec0.size(); ++i)
-            {</B></FONT>
-                
-                if (IsValid(vec0[i]) == false) continue;
-                
-                
-                for (int t = 0; t &lt; vec1.size(); ++t)
-                {
-                    if (IsValid(vec1[t]) == false) continue;
-                                        
-                    string coor  = &quot;(&quot; + vec0[i] + &quot;, &quot; + vec1[t] + &quot;)&quot;;
-                    if (hash.find(coor) == hash.end())
-                        hash.insert(coor);
-                } 
+        vector&lt;string&gt; rs;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 1; i &lt; S.length() - 2; i++) {
+            string s1 = S.substr(1, i), s2 = S.substr(i + 1, S.length() - 2 - i);
+            // cout &lt;&lt; s1 &lt;&lt; &quot;, s2: &quot; &lt;&lt; s2 &lt;&lt; endl;
+            for(int j = 0; j &lt; s1.length(); j++) {</B></FONT>
+                string sj(s1);
+                if (j &gt; 0) {
+                    sj.insert(j, 1, '.');
+                }
+                // cout &lt;&lt; s1 &lt;&lt; &quot;, j: &quot; &lt;&lt; j &lt;&lt; &quot;, sj: &quot; &lt;&lt; sj &lt;&lt; endl;
+                if (isValid(sj)) {
+                    for(int k = 0; k &lt; s2.length(); k++) {
+                        string sk(s2);
+                        if (k &gt; 0) {
+                            sk.insert(sk.begin() + k, 1, '.');
+                        }
+                        if (isValid(sk)) {
+                            rs.push_back(&quot;(&quot; + sj + &quot;, &quot; + sk + &quot;)&quot;);
+                        }
+                    }
+                }
             }
         }
-        
-        for(auto item : hash)
-            result.push_back(item);
-        
-        return result;
+        return rs;
     }
     
-    void Search(string&amp; s, vector&lt;string&gt;&amp; strs)
-    {
-        int len = s.size();
-        strs.push_back(s);
-        
-        for (int i = 1; i &lt;= len - 1; ++i)
-        {
-            string temp = s;
-            temp.insert(temp.begin() + i, '.');           
-            strs.push_back( temp );
+    bool isValid(string &amp;s) {
+        if (s.length() &lt;= 0) return false;
+        if (s.length() &gt; 1 &amp;&amp; s[0] == '0' &amp;&amp; s[1] != '.') return false;
+        if (s.length() &gt; 1) {
+            int nonZero = 0, dots = 0;
+            for(auto c : s) {
+                nonZero += c != '0' &amp;&amp; c != '.';
+                dots += c == '.';
+            }
+            if (dots &gt; 0 &amp;&amp; s.back() == '0') return false;
+            if (nonZero == 0) return false;
         }
-    }
-    
-    bool IsValid(string&amp; s)
-    {
-        int len = s.size();        
-        int pos  = s.find(&quot;.&quot;);
-        
-        if (len &gt;= 2 &amp;&amp; s[0] == '0' &amp;&amp; s[1] == '0') return false;        
-        
-        if (pos == string::npos) 
-        {
-            if (len &gt;= 2 &amp;&amp; s[0] == '0') return false;
-            return true;   
-        }
-        
-        if (pos &gt; 1)
-        {
-            for (int i = 0; i &lt; pos; ++i)
-                if (s[i] != '0') break;
-                else return false;
-        }
-        
-        for (int i = len - 1; i &gt; pos; --i)
-            if (s[i] != '0') break;
-            else return false;
-        
         return true;
     }
 };

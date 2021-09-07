@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_laiden.cpp</TITLE>
+ <TITLE>282_kevinkwl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>37_laiden.cpp</CENTER></H3><HR>
+<H3><CENTER>282_kevinkwl.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        string digits(++S.begin(), --S.end());
+        vector&lt;string&gt; res;
         
-        vector&lt;string&gt; ret;
-        
-        string strip = s.substr(1, s.size()-2);  //no '(' and ')'
-        
-        //pivot on 'x|y' cut position.
-        for(int i=1; i&lt;strip.size(); i++){
-            string l = strip.substr(0, i);
-            string r = strip.substr(i);
-            
-            for(int j=0; j&lt;l.size(); j++){</B></FONT>
-                string left = j ? l.substr(0, j) + &quot;.&quot; +  l.substr(j) : l; 
-                for(int k=0; k&lt;r.size(); k++){
-                    string right = k ? r.substr(0, k) + &quot;.&quot; + r.substr(k) : r;
-                    
-                    string empty = &quot;&quot;;
-                    if(valid1coord(left) &amp;&amp; valid1coord(right)) ret.push_back(empty + &quot;(&quot; + left + &quot;, &quot; + right + &quot;)&quot;);
-                }
-            }
+        for (int i = 1; i &lt; digits.size(); i++) {
+            string left = digits.substr(0, i);
+            string right = digits.substr(i);
+            if (!isValid(left) || !isValid(right))
+                continue;
+            vector&lt;string&gt; ls;
+            vector&lt;string&gt; rs;
+            genValid(left, ls);
+            genValid(right, rs);
+            // for (string &amp;sl : ls)
+            //     cout &lt;&lt; '&lt;'&lt;&lt; sl &lt;&lt; endl;
+            // for (string &amp;sr : rs)
+            //     cout &lt;&lt; '&gt;'&lt;&lt; sr &lt;&lt; endl;
+
+            for (string &amp;sl : ls)</B></FONT>
+                for (string &amp;sr : rs)
+                    res.push_back('(' + sl + &quot;, &quot; + sr + ')');
         }
-        
-        
-        
-        return ret;
-        
-        
+        return res;
     }
     
-    bool valid1coord(string x){
-        if(x.find('.') == -1){ //not decimal.
-            return x[0] != '0' || x == &quot;0&quot;;
-        } else { //decimal
-            //must not end in zero.
-            //if number of chars before decimal is greater than 1, then it first char must not be zero.
-            if(x[x.size()-1] == '0') return false;
-            if(x[0] != '.' &amp;&amp; x[1] != '.' &amp;&amp; x[0] == '0') return false;
-            return true;
+    bool isValid(string &amp;s, bool checkLeadZero=false, bool checkEndZero=false) {
+        if (s.size() &gt; 1 &amp;&amp; stoi(s) == 0)
+            return false;
+        if (checkLeadZero)
+            if (s.size() &gt; 1 &amp;&amp; s[0] == '0')
+                return false;
+        if (checkEndZero)
+            if (s.size() &gt; 1 &amp;&amp; s.back() == '0')
+                return false;
+        return true;
+    }
+    
+    void genValid(string&amp; s, vector&lt;string&gt;&amp; vs) {
+        for (int i = 1; i &lt; s.size(); i++) {
+            string intPart = s.substr(0, i);
+            string decPart = s.substr(i);
+            if (!isValid(intPart, true) || !isValid(decPart, false, true) || (decPart.size() == 1 &amp;&amp; decPart[0] == '0'))
+                continue;
+            vs.push_back(intPart + '.' + decPart);
         }
+        if (isValid(s, true))
+            vs.push_back(s);
     }
 };
 </PRE>

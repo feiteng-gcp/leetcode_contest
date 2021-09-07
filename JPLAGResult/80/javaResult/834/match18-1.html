@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_yrclamb.java</TITLE>
+ <TITLE>408_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_yrclamb.java</CENTER></H3><HR>
+<H3><CENTER>408_allister.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-    	List&lt;String&gt; ans = new ArrayList&lt;String&gt;();
-    	S = S.replaceAll(&quot;[()]&quot;, &quot;&quot;);
-    	
-    	for(int i = 1; i &lt; S.length(); i++) {
-    		String A = S.substring(0, i);
-<A NAME="0"></A>    		String B = S.substring(i, S.length());
-    		
-    		List&lt;String&gt; As = availableStrings(A);
-    		List&lt;String&gt; Bs = availableS<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>trings(B);    		
-    		for(String AA: As) {
-    			for(String BB: Bs) {
-    				ans.add(&quot;(&quot; + AA + &quot;, &quot; + BB + &quot;)&quot;);
-    			}
-    		}
-    	}
-    	return ans;
+        List&lt;String&gt; ac = new ArrayList&lt;&gt;();
+        S = S.substring(1, S.length() - 1);
+        for (int i = 0; i &lt; S.length() - 1; ++ i) {
+            List&lt;String&gt; left = possibleNotation(S.substring(0, i+1));
+            List&lt;String&gt; right = possibleNotation(S.substring</B></FONT>(i+1));
+            if (!left.isEmpty() &amp;&amp; !right.isEmpty()) {
+                for (String c1 : left) {
+                    for (String c2 : right) {
+                        ac.add(&quot;(&quot; + c1 + &quot;, &quot; + c2 + &quot;)&quot;);
+<A NAME="1"></A>                    }
+                }
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return ac;
     }
-    
-    private List&lt;String&gt; availableStrings(String S){
-    	List&lt;String&gt; ans = new Ar</B></FONT>rayList&lt;String&gt;();
-    	if(!S.startsWith(&quot;0&quot;) || S.equals(&quot;0&quot;)) ans.add(S);
-    	for(int i = 1; i &lt; S.length(); i++) {
-    		String A = S.substring(0, i);
-    		String B = S.substring(i, S.length());
-    		if(A.startsWith(&quot;0&quot;) &amp;&amp; !A.equals(&quot;0&quot;)) continue;
-    		if(B.endsWith(&quot;0&quot;)) continue;
-    		ans.add(A + &quot;.&quot; + B);
-    	}
-    	
-    	return ans;
-    	
+
+    List&lt;String&gt; possibleNotation(String S) {
+        List&lt;String&gt; notations = new ArrayList&lt;&gt;();
+        if(isValid</B></FONT>(S, false)) {
+            notations.add(S);
+        }
+        if (S.length() &gt; 1) {
+            for (int i = 0; i &lt; S.length() - 1; ++i) {
+                String str = S.substring(0, i + 1) + '.' + S.substring(i+1);
+                if (isValid(str, true)) {
+                    notations.add(str);
+                }
+            }
+        }
+        return notations;
+    }
+
+    boolean isValid(String S, boolean dot) {
+        if (!dot) {
+            return S.charAt(0) != '0' || S.length() == 1;
+        }
+        else {
+            return S.charAt(S.length() - 1) != '0' &amp;&amp;
+                    (S.charAt(0) != '0' || S.charAt(1) == '.');
+        }
     }
 }
 </PRE>

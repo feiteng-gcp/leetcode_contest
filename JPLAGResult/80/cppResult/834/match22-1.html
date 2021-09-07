@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_laiden.cpp</TITLE>
+ <TITLE>285_Spin0za.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>37_laiden.cpp</CENTER></H3><HR>
+<H3><CENTER>285_Spin0za.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        
-        vector&lt;string&gt; ret;
-        
-<A NAME="0"></A>        string strip = s.substr(1, s.size()-2);  //no '(' and ')'
-        
-        //pivot on 'x|y' cut position.
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1; i&lt;strip.size(); i++){
-            string l = strip.substr(0, i);
-            string r = strip.substr(i);
-            
-            for(int j=0; j&lt;l.size(); j++){</B></FONT>
-                string left = j ? l.substr(0, j) + &quot;.&quot; +  l.substr(j) : l; 
-                for(int k=0; k&lt;r.size(); k++){
-                    string right = k ? r.substr(0, k) + &quot;.&quot; + r.substr(k) : r;
-                    
-                    string empty = &quot;&quot;;
-                    if(valid1coord(left) &amp;&amp; valid1coord(right)) ret.push_back(empty + &quot;(&quot; + left + &quot;, &quot; + right + &quot;)&quot;);
+    bool valid(string s) {
+        int nonz = s.find_first_not_of('0');
+        if (nonz == string::npos) return s == &quot;0&quot;;
+        if (nonz &gt; 1) return false;
+        if (nonz == 1 &amp;&amp; s[nonz] != '.') return false;
+        int dot = s.find('.');
+        if (dot != string::npos &amp;&amp; s.back() == '0') return false;
+        return true;
+    }
+<A NAME="0"></A>public:
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        S = S.substr(1, S.length() - 2);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = S.length();
+        vector&lt;string&gt; ans;
+        for (int i = 1; i &lt; n; i++) {
+            string x = S.substr(0, i), y = S.substr(i);
+            string intg, deci, t, u;
+            for (int j = 1; j &lt;= i; j++) {</B></FONT>
+                intg = x.substr(0, j), deci = x.substr(j);
+                t = intg + (j == i ? &quot;&quot; : &quot;.&quot;) + deci;
+                if (!valid(t)) continue;
+                for (int k = 1; k &lt;= n - i; k++) {
+                    intg = y.substr(0, k), deci = y.substr(k);
+                    u = intg + (k == n - i ? &quot;&quot; : &quot;.&quot;) + deci;
+                    if (valid(u)) {
+                        ans.push_back(&quot;(&quot; + t + &quot;, &quot; + u + &quot;)&quot;);
+                    }
                 }
             }
         }
-        
-        
-        
-        return ret;
-        
-        
-    }
-    
-    bool valid1coord(string x){
-        if(x.find('.') == -1){ //not decimal.
-            return x[0] != '0' || x == &quot;0&quot;;
-        } else { //decimal
-            //must not end in zero.
-            //if number of chars before decimal is greater than 1, then it first char must not be zero.
-            if(x[x.size()-1] == '0') return false;
-            if(x[0] != '.' &amp;&amp; x[1] != '.' &amp;&amp; x[0] == '0') return false;
-            return true;
-        }
+        return ans;
     }
 };
 </PRE>

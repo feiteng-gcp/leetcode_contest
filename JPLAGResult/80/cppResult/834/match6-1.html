@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ChaouS.cpp</TITLE>
+ <TITLE>10_HMAXS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>10_HMAXS.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
-    vector&lt;string&gt; getSolutions(string s){
-        vector&lt;string&gt; ans;
-        if(s.size() == 0){
-            return ans;
-        }
-        // without point
-        if(s.front() != '0' || s == &quot;0&quot;){
-            ans.push_back(s);
-        }
-        // with point
-        for(int i = 1; i &lt; s.size(); ++i){
-            if(s.back() != '0'){
-                string w = s.substr(0 , i);
-                if(w.front() != '0' || w == &quot;0&quot;){
-                    ans.push_back(w + &quot;.&quot; + s.substr(i));
+    bool valid(string s) {
+        int n = s.size();
+        if (n == 0) return false; 
+        if (s[0] == '.' || s[n - 1] == '.') return false;
+        bool p = false;
+        for (char c: s) if (c == '.') p = true;
+        if (p &amp;&amp; s[n - 1] == '0') return false;
+        if (n &gt;= 3 &amp;&amp; s[0] == '0' &amp;&amp; s[1] == '.') return true;
+        if (n == 1 &amp;&amp; s[0] == '0') return true;
+        if (s[0] != '0') return true;
+        return false;
+    }
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+<A NAME="0"></A>        int n = S.size();
+        vector&lt;string&gt; ret;
+        S = S.substr(1, n - 2);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        n = S.size();
+        for (int i = 1; i &lt; n; i++) {
+            string a = S.substr(0, i);
+            string b = S.substr(i);
+            int na = a.size();
+            int nb = b.size();
+            for (int i = 0; i &lt; na; i++) {
+                for (int j = 0; j &lt; nb; j++) {</B></FONT>
+                    string c = a, d = b;
+                    if (i != 0) c.insert(c.begin() + i, '.');
+                    if (j != 0) d.insert(d.begin() + j, '.');
+                    if (valid(c) &amp;&amp; valid(d)) {
+                        ret.push_back(&quot;(&quot; + c + &quot;, &quot; + d + &quot;)&quot;);
+                    }                    
                 }
             }
         }
-        return ans;
+        return ret;
     }
-    
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        
-        set&lt;string&gt; ret;
-<A NAME="0"></A>        for(int i = 1; i + 2 &lt; s.size(); ++i){
-           // cout &lt;&lt; s.substr(1 , i)&lt;&lt;&quot; &quot;&lt;&lt;s.substr(i + 1 , s.size() - i - 2)&lt;&lt;endl;
-            vector&lt;string&gt; x = getSolutions(s.substr(1 , i));
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            vector&lt;string&gt; y = getSolutions(s.substr(i + 1 , s.size() - i - 2));
-            for(auto w1 : x){
-                for(auto w2 : y){
-                    ret.insert(&quot;(&quot; + w1 + &quot;, &quot; + w2 + &quot;)&quot;);
-                }
-            }
-        }
-        vector&lt;string&gt; ans(ret.begin() , ret.end());
-        return ans;
-    }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_yysys.cpp</TITLE>
+ <TITLE>423_arrowx123.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,73 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_yysys.cpp</CENTER></H3><HR>
+<H3><CENTER>423_arrowx123.cpp</CENTER></H3><HR>
 <PRE>
+
 class Solution {
 public:
-    
-    vector&lt;string&gt; work(string s) {
-        vector&lt;string&gt; ans;
-        
-        if (s[0] != '0') {
-            ans.push_back(s);
-        }
-        
-        if (s[0] == '0' &amp;&amp; s[1] == '\0') {
-            ans.push_back(s);
-        }
-        
-        string res;
-        for (int i = 1; i &lt; s.size(); i++) {
-            res.clear();
-            for (int j = 0; j &lt; i; j++) {
-                res = res + s[j];
-            }
-            res = res +&quot;.&quot;;
-            
-            int flag = 0;
-            for (int j = i; j &lt; s.size(); j++) {
-                res = res + s[j];
-                if (s[j] != '0') flag = 1;
-            }
-            
-            if (flag == 1) {
-                if ((i &gt;= 2 &amp;&amp; res[0] == '0') || res[s.size()] == '0') {
-                    
-                }
-                else {
-                    ans.push_back(res);
-                }
-            }
-        }
-        
-        
-        return ans;
-    }
-    
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; ans, res1, res2;
-        
-        string s1, s2;
-        for (int i = 2; i &lt; S.size() - 1; i++) {
-            
-            s1.clear();
-            s2.clear();
-            
-<A NAME="0"></A>            for (int j = 1; j &lt; i; j++) s1 = s1 + S[j];
-            for (int j = i; j &lt; S.size()-1; j++) s2 = s2 + S[j];
-            
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            res1 = work(s1);
-            res2 = work(s2);
-            
-            for (int i = 0; i &lt; res1.size(); i++) {
-                for (int j = 0; j &lt; res2.size(); j++) {</B></FONT>
-                    ans.push_back(&quot;(&quot; + res1[i] + &quot;, &quot; + res2[j] + &quot;)&quot;);
+
+        vector&lt;string&gt; ans;
+        S = S.substr(1, S.size() - 2);
+        int len = S.size();
+
+        for(int i = 1; i &lt; len; i ++){
+            string l = S.substr(0, i);
+            string r = S.substr(i);
+
+            if(to_string(stoi(l)) == l &amp;&amp; to_string(stoi(r)) == r){
+                ans.push_back(&quot;(&quot; + l + &quot;, &quot; + r + &quot;)&quot;);
+            }
+
+            int len_l = l.size();
+            int len_r = r.size();
+
+            if(to_string(stoi(l)) == l){
+                for(int k = 1; k &lt; len_r; k ++){
+                    string rl = r.substr(0, k);
+                    string rr = r.substr(k);
+
+                    if(rr.back() == '0' || (rl.size() &gt; 1 &amp;&amp; rl[0] == '0'))
+                        continue;
+                    ans.push_back(&quot;(&quot; + l + &quot;, &quot; + rl + &quot;.&quot; + rr + &quot;)&quot;);
                 }
             }
+
+            if(to_string(stoi(r)) == r){
+                for(int j = 1; j &lt; len_l; j ++){
+
+                    string ll = l.substr(0, j);
+                    string lr = l.substr(j);
+
+                    if(lr.back() == '0' || (ll.size() &gt; 1 &amp;&amp; ll[0] == '0'))
+                        continue;
+                    ans.push_back(&quot;(&quot; + ll + &quot;.&quot; + lr + &quot;, &quot; + r + &quot;)&quot;);
+                }
+<A NAME="0"></A>            }
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 1; j &lt; len_l; j ++){
+
+                string ll = l.substr(0, j);
+                string lr = l.substr(j);
+
+                if(lr.back() == '0' || (ll.size() &gt; 1 &amp;&amp; ll[0] == '0'))
+                    continue;
+
+                for(int k = 1; k &lt; len_r; k ++){
+                    string rl = r.substr(0, k);
+                    string rr = r.substr(k);
+
+                    if(rr.back() == '0' || (rl.size() &gt; 1 &amp;&amp; rl[0] == '0'))</B></FONT>
+                        continue;
+
+                    ans.push_back(&quot;(&quot; + ll + &quot;.&quot; + lr + &quot;, &quot; + rl + &quot;.&quot; + rr + &quot;)&quot;);
+                }
+
+            }
         }
-        
-        
+
+//        for(int i = 0; i &lt; ans.size(); i ++){
+//            cout &lt;&lt; ans[i] &lt;&lt; endl;
+//        }
         return ans;
     }
 };

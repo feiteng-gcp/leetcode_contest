@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>64_vonzcy.java</TITLE>
+ <TITLE>408_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>64_vonzcy.java</CENTER></H3><HR>
+<H3><CENTER>408_allister.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
+        List&lt;String&gt; ac = new ArrayList&lt;&gt;();
         S = S.substring(1, S.length() - 1);
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-<A NAME="1"></A>            String first = S.substring</B></FONT>(0, i);
-            String second = S.substring(i);
-            List&lt;String&gt; front = distribute(first);
-            List&lt;String&gt; back = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>distribute(second);
-            for (String f : front) {
-                for (String b : back) {
-                    res.add(&quot;(&quot; + f + &quot;, &quot; + b + &quot;)&quot;);
+        for (int i = 0; i &lt; S.length() - 1; ++ i) {
+            List&lt;String&gt; left = possibleNotation(S.substring(0, i+1));
+            List&lt;String&gt; right = possibleNotation(S.substring(i+1));
+            if (!left.isEmpty() &amp;&amp; !right.isEmpty()) {
+                for (String c1 : left) {
+                    for (String c2 : right) {
+                        ac.add(&quot;(&quot; + c1 + &quot;, &quot; + c2 + &quot;)&quot;);
+                    }
                 }
             }
         }
-        return res;
+        return ac;
     }
-    
-    private List&lt;String&gt; distribute(String num) {
-        List&lt;String&gt; res = new ArrayList&lt;&gt;()</B></FONT>;
-        for (int i = 1; i &lt; num.length(); i++) {
-            String front = num.substring(0, i);
-            String second = num.substring(i);
-            if ((front.charAt(0) != '0' || front.length() == 1) 
-               &amp;&amp; !second.endsWith(&quot;0&quot;)) {
-                res.add(front + &quot;.&quot; + second);
-            }    
+
+    List&lt;String&gt; possibleNotation(String S) {
+        List&lt;String&gt; notations = new ArrayList&lt;&gt;();
+        if(isValid</B></FONT>(S, false)) {
+            notations.add(S);
         }
-        if (num.length() &gt; 0 &amp;&amp; (num.charAt(0) != '0' || num.length() == 1)) {
-            res.add(num);
+        if (S.length() &gt; 1) {
+            for (int i = 0; i &lt; S.length() - 1; ++i) {
+                String str = S.substring(0, i + 1) + '.' + S.substring(i+1);
+                if (isValid(str, true)) {
+                    notations.add(str);
+                }
+            }
         }
-        return res;
+        return notations;
+    }
+
+    boolean isValid(String S, boolean dot) {
+        if (!dot) {
+            return S.charAt(0) != '0' || S.length() == 1;
+        }
+        else {
+            return S.charAt(S.length() - 1) != '0' &amp;&amp;
+                    (S.charAt(0) != '0' || S.charAt(1) == '.');
+        }
     }
 }
 </PRE>

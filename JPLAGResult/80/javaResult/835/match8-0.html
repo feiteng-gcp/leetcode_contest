@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_Dshinji.java</TITLE>
+ <TITLE>281_linfeng.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>88_Dshinji.java</CENTER></H3><HR>
+<H3><CENTER>281_linfeng.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
-<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ *     ListNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
     public int numComponents(ListNode head, int[] G) {
-<A NAME="1"></A>        Set&lt;Integer&gt; sub = new HashSet&lt;&gt;();
-        for(int val</B></FONT> : G) {
-            sub.add(val);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        if (head == null)
+            return 0<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        HashSet&lt;Integer&gt; hs = new HashSet&lt;&gt;();
         
-        int ans = 0; boolean connected = false;
-        while(head != null) {
-            int val = head.val;
-            if(sub.contains(val)) {
-<A NAME="2"></A>                if</B></FONT>(!connected) {
-                    ans++;
-                    connected = true;
-                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-            } else {
-                connected = false;
-            }
-            
-            head = head.next;
+        for (int g : G) {
+            hs.add(g);
         }
-        return ans;
+        
+        int res = 0</B></FONT>;
+        
+        while (head != null) {
+            if (hs.contains(head.val)) {
+                res++;
+                while (head!= null &amp;&amp; hs.contains(head.val)) {
+                    head = head.next;
+                }
+            } else {
+                head = head.next;
+            }
+        }
+        
+        return res;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

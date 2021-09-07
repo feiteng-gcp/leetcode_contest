@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>46_nameees.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>46_nameees.java</CENTER></H3><HR>
 <PRE>
+
+<A NAME="0"></A>
 class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        S = S.substring(1, S.length() - 1);
-<A NAME="0"></A>        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; left = allowed(S.substring(0, i));
-            List&lt;String&gt; right = allowed(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.substring(i));
-            for (String ls : left) {
-                for (String rs : right) {
-                    result.add(&quot;(&quot; + ls + &quot;, &quot; + rs + &quot;)&quot;);
+        String digits = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.substring(1, S.length() - 1);
+
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+
+        for (int i = 1; i &lt; digits.length(); i++) {
+            String first = digits.substring(0, i);
+            String second = digits.substring</B></FONT>(i, digits.length());
+            List&lt;String&gt; firstRes = getPossibleValues(first);
+            if (firstRes == null) {
+                continue;
+            }
+            List&lt;String&gt; secondRes = getPossibleValues(second);
+<A NAME="1"></A>            if (secondRes == null) {
+                continue;
+            }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (String f : firstRes) {
+                for (String s : secondRes) {
+                    result.add(&quot;(&quot; + f + &quot;, &quot; + s + &quot;)&quot;);
                 }
             }
         }
+
         return result;
     }
-    private List&lt;String&gt; allowed(String s) {
-        int l = s.length()</B></FONT>;
-        char[] cs = s.toCharArray();
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        if (cs[0] == '0' &amp;&amp; cs[l - 1] == '0') {
-            if (l == 1) {
-                result.add(&quot;0&quot;);
+
+    private List&lt;String&gt; getPossibleValues(String digits) {</B></FONT>
+
+        // all 0
+        if (digits.length() &gt; 1 &amp;&amp; digits.replaceAll(&quot;[0]+&quot;, &quot;&quot;).length() == 0) {
+            return null;
+        }
+        // first and last are 0
+        if (digits.length() &gt; 1 &amp;&amp; digits.charAt(0) == '0' &amp;&amp; digits.charAt(digits.length() - 1) == '0') {
+            return null;
+        }
+
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+
+        for (int i = 1; i &lt; digits.length(); i++) {
+            String first = digits.substring(0, i);
+            String second = digits.substring(i, digits.length());
+            if (first.length() &gt; 1 &amp;&amp; first.replaceAll(&quot;[0]+&quot;, &quot;&quot;).length() == 0) {
+                // at least two zeros at start
+                break;
             }
-            return result;
+            if (first.length() &gt; 1 &amp;&amp; first.charAt(0) == '0') {
+                // cannot use 2 digits or more before decimal point
+                break;
+            }
+            if (second.charAt(second.length() - 1) == '0') {
+                // last char is 0: there cannot be decimal point at all
+                break;
+            }
+<A NAME="2"></A>            result.add(first + &quot;.&quot; + second);
         }
-        if (cs[0] == '0') {
-            result.add(&quot;0.&quot; + s.substring(1));
-            return result;
+
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (digits.charAt(0) != '0') {
+            result.add(digits);
         }
-        if (cs[l - 1] == '0') {
-            result.add(s);
-            return result;
+        else {
+            if (digits.length</B></FONT>() == 1) {
+                result.add(digits);
+            }
         }
-        result.add(s);
-        for (int i = 1; i &lt; l; i++) {
-            result.add(s.substring(0, i) + '.' + s.substring(i));
-        }
+
         return result;
     }
 }

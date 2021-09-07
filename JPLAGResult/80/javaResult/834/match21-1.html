@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_uwi.java</TITLE>
+ <TITLE>207_MakeChanges.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_uwi.java</CENTER></H3><HR>
+<H3><CENTER>207_MakeChanges.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public List&lt;String&gt; ambiguousCoordinates(String S) {
-	    	S = S.substring(1, S.length()-1);
-	        int n = S.length();
-<A NAME="0"></A>	        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
-	        for(int i = 1;i &lt;= n-1;i++){
-	        	List&lt;String&gt; va = valids(S.substring(0, i));
-	        	List&lt;String&gt; vb = valids(S.subst<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ring(i, n));
-	        	for(String a : va){
-	        		for(String b : vb){
-	        			ret.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
-	        		}
-	        	}
-	        }
-	        return ret;
-	    }
-	    
-	    List&lt;String&gt; valids(String s)
-	    {
-	    	List&lt;String&gt; ret = new ArrayList</B></FONT>&lt;&gt;();
-<A NAME="1"></A>	    	if(valid(s))ret.add(s);
-	    	for(int i = 1;i &lt; s.length();i++){
-	    		String t = s.substring(0, i) + &quot;.&quot; + s.substring(i);
-	    		if(valid(t))ret.add(t);<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-	    	}
-	    	return ret;
-	    }
-	    
-	    boolean valid(String s)
-	    {
-	    	if(s.lastIndexOf(&quot;-&quot;) &gt; 0)return false;</B></FONT>
-	    	if(s.equals(&quot;-0&quot;))return false;
-	    	if(s.startsWith(&quot;-&quot;)){
-	    		s = s.substring(1);
-	    	}
-	    	if(s.length() == 0)return false;
-	    	if(s.indexOf(&quot;.&quot;) &lt; 0){
-	    		if(s.length() &gt; 1 &amp;&amp; s.startsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}else{
-	    		String[] sp = s.split(&quot;\\.&quot;);
-	    		if(sp.length &lt; 2)return false;
-	    		if(sp[0].length() == 0)return false;
-	    		if(sp[0].length() &gt; 1 &amp;&amp; sp[0].startsWith(&quot;0&quot;))return false;
-	    		if(sp[1].endsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}
-	    }
-	}	
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    	
+		public List&lt;String&gt; ambiguousCoordinates(String S) {
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        S = S.substring(1, S.length() - 1);
+        for (int i = 1; i &lt; S.length(); i++) {
+        	String first = S.substring(0, i);</B></FONT>
+        	String second = S.substring(i);
+        	List&lt;String&gt; firsts = helper(first);
+        	List&lt;String&gt; seconds = helper(second);
+        	for (String f : firsts) {
+        		for (String s : seconds) {
+<A NAME="1"></A>        			String str = &quot;(&quot; + f + &quot;, &quot; + s + &quot;)&quot;;
+        			ans.add(str);
+        		}
+        	}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+        }
+        return ans;
+    }
+	
+	private boolean isValidLong(String S) {
+		Long val = Long.parseLong(S);</B></FONT>
+		String str = val.toString();
+		return str.equals(S);
+	}
+	
+	private List&lt;String&gt; helper(String S) {
+		List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+<A NAME="2"></A>		if (isValidLong(S)) {
+			ans.add(S);
+		}
+		for (int i = 1<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; i &lt; S.length(); i ++) {
+			String first = S.substring(0, i);
+			String second = S.substring(i);
+			if (second.charAt(second.length() - 1) != '0' &amp;&amp; isV</B></FONT>alidLong(first)) {
+				String str = first + &quot;.&quot; + second;
+				ans.add(str);
+			}
+		}
+		return ans;
+	}
+}
 </PRE>
 
 </BODY>

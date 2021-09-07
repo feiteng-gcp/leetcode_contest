@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>140_leonlihkust.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>140_leonlihkust.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        S = S.substring(1, S.length() - 1);
-<A NAME="1"></A>        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; left = allowed</B></FONT>(S.substring(0, i));
-            List&lt;String&gt; right = allowed(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.substring(i));
-            for (String ls : left) {
-                for (String rs : right) {
-                    result.add(&quot;(&quot; + ls + &quot;, &quot; + rs + &quot;)&quot;);
+        List&lt;String&gt; res = new LinkedList&lt;&gt;();
+        S = S.substring(1,S.length() - 1);
+        for(int i = 1; i &lt; S.length(); i++) {
+            List&lt;String&gt; left = backtrack(S.substring(0,i));
+            List&lt;String&gt; right = backtrack(S.substring(i));
+            if(!left.isEmpty() &amp;&amp; !right.isEmpty()) {
+                for(String s1 : left) {
+                    for(String s2 : right) {
+                      res.add(&quot;(&quot; + s1 +&quot;, &quot; + s2 + &quot;)&quot;);  
+                    }
                 }
             }
         }
-        return result;
+        return res;
     }
-    private List&lt;String&gt; allowed(String s) {
-        int l = s.length()</B></FONT>;
-        char[] cs = s.toCharArray();
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        if (cs[0] == '0' &amp;&amp; cs[l - 1] == '0') {
-            if (l == 1) {
-                result.add(&quot;0&quot;);
-            }
-            return result;
+    
+    private List&lt;String&gt; backtrack(String num) {
+        List&lt;String&gt; res = new LinkedList&lt;&gt;();
+        if(num.length</B></FONT>() &gt; 1 &amp;&amp; Integer.valueOf(num) == 0) return res;
+        if(num.length() == 1) {
+            res.add(num);
+            return res;
         }
-        if (cs[0] == '0') {
-            result.add(&quot;0.&quot; + s.substring(1));
-            return result;
+        if(num.charAt(0) == '0' || num.charAt(num.length() - 1) == '0') {
+            if(num.charAt(0) == '0' &amp;&amp; num.charAt(num.length() - 1) == '0') return res;
+            if(num.charAt(0) == '0')
+             res.add(&quot;0&quot; + &quot;.&quot; + num.substring(1));
+            else 
+                res.add(num);
+            return res;
         }
-        if (cs[l - 1] == '0') {
-            result.add(s);
-            return result;
+        res.add(num);
+        for(int i = 1; i &lt; num.length(); i++) {
+            if(Integer.valueOf(num.substring(i)) == 0) continue;
+            res.add(num.substring(0,i) + &quot;.&quot; + num.substring(i));
         }
-        result.add(s);
-        for (int i = 1; i &lt; l; i++) {
-            result.add(s.substring(0, i) + '.' + s.substring(i));
-        }
-        return result;
+        return res;
     }
 }
 </PRE>

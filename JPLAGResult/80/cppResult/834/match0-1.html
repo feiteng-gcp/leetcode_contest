@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_hamlet_fiis.cpp</TITLE>
+ <TITLE>163_sssworld.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_hamlet_fiis.cpp</CENTER></H3><HR>
+<H3><CENTER>163_sssworld.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    
-    bool correct(string s){
-        if(s.size()==0)return 0;
+    inline bool isCorrect(const string &amp; s) const {
+        if (s.length() == 0)
+            return false;
+        if (s.length() == 1 &amp;&amp; s[0] &gt;= '0' &amp;&amp; s[0] &lt;= '9')
+            return true;
         
-        if(s.size()&gt;=2){
-            if(s[0]=='0' &amp;&amp; s[1]=='0')return 0;
-            if(s[0]=='0' &amp;&amp; s[1]!='.')return 0;
+        size_t dPoint = s.find('.');
+        if (s[0] == '0' &amp;&amp; s[1] != '.')
+            return false;
+        if (s[s.length() - 1] == '0' &amp;&amp; dPoint != string::npos)
+            return false;
+        if (s[0] == '.' || s[s.length() - 1] == '.')
+            return false;
+        
+        return true;
+    }
+    vector&lt;string&gt; findDecimalPoints(string s) const {
+        vector&lt;string&gt; result;
+        if (isCorrect(s))
+            result.push_back(s);
+        
+        //cout &lt;&lt; s &lt;&lt; &quot; is &quot; &lt;&lt; (isCorrect(s) ? &quot;true&quot; : &quot;false&quot;) &lt;&lt; endl;
+        
+        for (int i = 1; i &lt; s.length(); i++) {
+            string temp = s.substr(0, i) + '.' + s.substr(i);
+            
+            //cout &lt;&lt; temp &lt;&lt; &quot; is &quot; &lt;&lt; (isCorrect(temp) ? &quot;true&quot; : &quot;false&quot;) &lt;&lt; endl;
+            
+            if (isCorrect(temp))
+                result.push_back(temp);
+<A NAME="0"></A>        }
+        return result;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; ans;
+        vector&lt;string&gt; point[2];
+        
+        for (int i = 1; i &lt; S.length() - 2; i++) {
+            point[0] = findDecimalPoints(S.substr(1, i));
+            point[1] = findDecimalPoints(S.substr(1 + i, S.length() - 2 - i));
+            for (auto &amp; s1 : point[0])
+                for (auto &amp; s2 : point[1])
+                    ans.push_back(&quot;(&quot; + s1 + &quot;, &quot; + s2 + &quot;)&quot;);
         }
-        bool haspoint=0;
         
-<A NAME="0"></A>        for(int i=0;i&lt;s.size();i++)
-            if(s[i]=='.')haspoint=1;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(haspoint &amp;&amp; s[s.size()-1]=='0')return 0;
-        return 1;
-    }
-    
-    vector&lt;string&gt;g(string s){
-        vector&lt;string&gt;dev;    
-        
-        if(correct(s))dev.push_back(s);
-        
-        for(int i=1;i&lt;s.size();i++){
-            string h=&quot;&quot;;</B></FONT>
-            h+=s.substr(0,i);
-            h+=&quot;.&quot;;
-            h+=s.substr(i);
-            if(correct(h))dev.push_back(h);
-        }
-        
-        return dev;
-    }
-    
-    
-    vector&lt;string&gt;f(string a,string b){
-        vector&lt;string&gt;x= g(a);
-        vector&lt;string&gt;y= g(b);
-        vector&lt;string&gt;dev;
-        
-        for(int i=0;i&lt;x.size();i++){
-            for(int j=0;j&lt;y.size();j++){
-                string h=&quot;&quot;;
-                h+=&quot;(&quot;;
-                h+=x[i];
-                h+=&quot;, &quot;;
-                h+=y[j];
-<A NAME="1"></A>                h+=&quot;)&quot;;
-                dev.push_back(h);
-            }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        
-        return dev;
-    }
-    
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        s=s.substr(1,s.size()-2);
-        vector&lt;string&gt;v;
-        for(int i=1;i&lt;s.size();i++){
-            string a=s.substr(0,i);
-            string b=s.substr(i);
-            vector&lt;string&gt;x=f(a,b);</B></FONT>
-            for(int j=0;j&lt;x.size();j++)v.push_back(x[j]);
-        }
-        return v;
-    }
+        return ans;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

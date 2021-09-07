@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_pentester.cpp</TITLE>
+ <TITLE>378_Neilhahaha.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_pentester.cpp</CENTER></H3><HR>
+<H3><CENTER>378_Neilhahaha.cpp</CENTER></H3><HR>
 <PRE>
-
-#define REP1(i, n) for (remove_cv&lt;remove_reference&lt;decltype(n)&gt;::type&gt;::type i = 1; i &lt;= (n); i++)
-#define ROF(i, a, b) for (remove_cv&lt;remove_reference&lt;decltype(b)&gt;::type&gt;::type i = (b); --i &gt;= (a); )
-
-class Solution {
-  vector&lt;string&gt; f(string a) {
-    if (a[0] == '0') {
-      if (a.size() == 1)
-        return {&quot;0&quot;};
-      if (a.back() != '0')
-        return {&quot;0.&quot; + a.substr(1)};
-      return {};
-    }
-    vector&lt;string&gt; r{a};
-    if (a.back() != '0') {
-<A NAME="0"></A>      for (int i = a.size();--i;)
-        r.push_back(a.substr(0, i)+'.'+a.substr(i));
-    }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return r;
-  }
+<A NAME="0"></A>class Solution {
 public:
-  vector&lt;string&gt; ambiguousCoordinates(string S) {
-    vector&lt;string&gt; ret;
-    S = S.substr(1, S.size() - 2);
-    for (int i = 1; i &lt; S.size(); i++) {
-      vector&lt;string&gt; ls = f(S.substr(0, i)), rs = f(S.substr(i));
-      for (auto &amp;l : ls)</B></FONT>
-        for (auto &amp;r : rs)
-          ret.push_back('(' + l + &quot;, &quot; + r + ')');
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int dSize= S.size()-2;
+        vector&lt;string&gt; ret;
+        for(int i=1;i&lt;dSize;++i) {            
+            vector&lt;string&gt; sub1=helperFunc(S.substr(1,i)),sub2=helperFunc(S.substr(1+i,dSize-i));
+            for(int j=0;j&lt;sub1.size();++j) {</B></FONT>
+                for(int k=0;k&lt;sub2.size();++k) {
+                    string curRet=&quot;(&quot; + sub1[j] + &quot;, &quot; + sub2[k] + &quot;)&quot;;
+                    ret.push_back(curRet);
+                }
+            }
+        }
+        return ret;
     }
-    return ret;
-  }
+    
+    vector&lt;string&gt; helperFunc(string S) {
+        vector&lt;string&gt; ret;
+        size_t foundSN0 = S.find_first_not_of(&quot;0&quot;); 
+        size_t foundBN0 = S.find_last_not_of(&quot;0&quot;);
+        size_t size = S.size();
+        if (foundSN0==0) {
+            ret.push_back(S);
+            if (foundBN0==size-1) {
+                for(int i=1;i&lt;size;++i) {
+                    ret.push_back(S.substr(0,i)+'.'+S.substr(i,size-i));
+                }
+            } 
+        } else if (foundBN0==size-1) {
+            ret.push_back(S.substr(0,1)+'.'+S.substr(1,size-1));
+        }        
+        if (size==1 &amp;&amp; S[0]=='0') ret.push_back(S);
+        return ret;
+    }
+    
 };
-
 </PRE>
 </BODY>
 </HTML>

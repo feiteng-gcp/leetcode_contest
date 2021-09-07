@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_cuiaoxiang.cpp</TITLE>
+ <TITLE>416_rzwei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,91 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>16_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>416_rzwei.cpp</CENTER></H3><HR>
 <PRE>
-typedef long long int64;
 class Solution {
 public:
-    bool valid(const string&amp; s, int p) {
-        int n = s.size();
-        int64 L = 0, R = 0;
-        for (int i = 0; i &lt; p; ++i) {
-            L = L * 10 + (s[i] - '0');
-        }
-        for (int i = p; i &lt; n; ++i) {
-            R = R * 10 + (s[i] - '0');
-        }
-        if (p &lt; n) {
-            if (R % 10 == 0) return false;
-        }
-        if (p &gt; 1) {
-            int64 ten = 1;
-            for (int i = 0; i &lt; p - 1; ++i) ten *= 10;
-            if (L &lt; ten) return false;
-        }
-        return true;
-    }
-    vector&lt;string&gt; ambiguousCoordinates(string S) {
-        S.pop_back();
-<A NAME="0"></A>        S = S.substr(1);
-        int n = S.size();
-        vector&lt;string&gt; ret;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int p = 1; p &lt; n; ++p) {
-            string u = S.substr(0, p);
-            string v = S.substr(p, n - p);
-            for (int i = 1; i &lt;= u.size(); ++i) {
-                if (!valid(u, i)) continue;</B></FONT>
-                for (int j = 1; j &lt;= v.size(); ++j) {
-                    if (!valid(v, j)) continue;
-                    string cur = &quot;(&quot;;
-                    cur += u.substr(0, i);
-                    if (i != u.size()) {
-                        cur += &quot;.&quot; + u.substr(i, u.size() - i);
-                    }
-                    cur += &quot;, &quot;;
-                    cur += v.substr(0, j);
-                    if (j != v.size()) {
-                        cur += &quot;.&quot; + v.substr(j, v.size() - j);
-                    }
-                    cur += &quot;)&quot;;
-                    ret.push_back(cur);
-                }
-            }
-        }
-        return ret;
-    }
-};
+	bool verfiy(string &amp;s) {
+		int nc = 0, len = s.size(), ni = -1;
+		for (int i = 0; i &lt; len; ++i) {
+			if (s[i] == '.') {
+				nc++;
+				ni = i;
+			}
+		}
+		if (nc &gt; 1) {
+			return false;
+		}
+		if (nc == 1) {
+			string l = s.substr(0, ni), r = s.substr(ni + 1);
+			if (l.empty() || r.empty()) return false;
+			try {
+				int vl = stoi(l), vr = stoi(r);
+				//if (vr == 0) return false;
+				if (vl == 0 &amp;&amp; vr == 0) return false;
+				if (l.size() &gt; 1 &amp;&amp; l[0] == '0') return false;
+				if (r.back() == '0') return false;
+				//if (r.size() &gt; 1 &amp;&amp; r[0] == '0') return false;
+				//if (vl == 0 &amp;&amp; l.size() &gt; 1) return false;
+				//if (vr == 0 &amp;&amp; r.size() &gt; 1) return false;
+				//if (to_string(stoi(l)) != l || to_string(stoi(r)) != r) return false;
+				return true;
+			}
+			catch (std::invalid_argument) {
+				return false;
+			}
+		}
+		else if (nc == 0) {
+			try {
+				return to_string(stoi(s)) == s;
+			}
+			catch (std::invalid_argument) {
+				return false;
+			}
+		}
+	}
+
+<A NAME="0"></A>	vector&lt;string&gt; addpoint(string s) {
+		int len = s.size();
+		vector&lt;string&gt; ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 1; i &lt; len; ++i) {
+			string t = s;
+			t.insert(t.begin() + i, '.');
+			if (verfiy(t)) {
+				ans.push_back(t);
+			}
+		}
+		return ans;
+	}
+
+	vector&lt;string&gt; ambiguousCoordinates(string S) {</B></FONT>
+		vector&lt;string&gt; ans;
+		S = S.substr(1, S.size() - 2);
+		int len = S.size();
+		for (string::size_type l = 1; l &lt;= len - 1; ++l) {
+			string le = S.substr(0, l), ri = S.substr(l);
+			vector&lt;string&gt; ls, rs;
+			if (verfiy(le)) {
+				ls.push_back(le);
+			}
+			if (verfiy(ri)) {
+				rs.push_back(ri);
+			}
+			for (auto &amp;s : addpoint(le)) {
+				ls.push_back(s);
+			}
+<A NAME="1"></A>			for (auto &amp;s : addpoint(ri)) {
+				rs.push_back(s);
+			}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			for (auto ll : ls) {
+				for (auto rr : rs) {
+					ans.push_back(&quot;(&quot; + ll + &quot;, &quot; + rr + ')');
+				}
+			}
+		}
+		return ans;
+	}
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

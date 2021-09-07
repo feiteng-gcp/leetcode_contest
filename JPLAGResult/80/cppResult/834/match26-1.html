@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>36_wiyr.cpp</TITLE>
+ <TITLE>369_mainboy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>36_wiyr.cpp</CENTER></H3><HR>
+<H3><CENTER>369_mainboy.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;string&gt; answer;
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        for (int i = 1; i &lt; S.length() - 1; i ++) {
-            gao(S.substr(1, i), S.substr(i+1, S.length() - 2 - i));
-        }
-
-        return answer;
-    }
-
-    void gao(string s1, string s2) {
-        if (s1 == &quot;&quot; || s2 == &quot;&quot;)   return;
-        vector&lt;string&gt; nums1 = toValidNums(s1);
-        vector&lt;string&gt; nums2 = toValidNums(s2);
-        for (const string &amp;s1: nums1) {
-            for (const string &amp;s2: nums2) {
-                answer.push_back('('+s1+&quot;, &quot;+s2+')');
+        vector&lt;string&gt; res;
+        string s = S.substr(1, S.size()-2);
+        int n = s.size();
+        for (int i=1; i &lt; n; i++) {
+            vector&lt;string&gt; l = weCanGet(s.substr(0,i)), r = weCanGet(s.substr(i, n-i));
+            if (l.size() == 0 || r.size() == 0) continue;</B></FONT>
+            for (auto ls: l) {
+                for (auto rs: r)
+                    res.push_back(&quot;(&quot;+ls+&quot;, &quot;+rs+&quot;)&quot;);
             }
         }
+        return res;
     }
 
-    vector&lt;string&gt; toValidNums(string str) {
-        vector&lt;string&gt; answer;
-        if (str.length() == 1) {
-            answer.push_back(str);
-        } else {
-            // not add decimal point
-            if (str[0] != '0') {
-                answer.push_back(str);
-            }
-            // add decimal point after i
-            bool canAdd = true;
-            for(int i = str.length() - 1; ~i; i --) {
-                if (str[i] == '0') {
-                    canAdd = false;
-                    break;
-                } else {
-<A NAME="0"></A>                    break;
-                }
-            }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (canAdd)  {
-                answer.push_back(str.substr(0, 1) + '.' + str.substr(1));
-                if (str[0] != '0') {
-                    for (int i = 1; i &lt; str.length() - 1; i ++) {
-                        answer.push_back(str.substr(0, i+1) + '.' + str.substr(i+1));
-                    }
-                }
-            }</B></FONT>
+    vector&lt;string&gt; weCanGet(string s) {
+        int n = s.size();
+        vector&lt;string&gt; res;
+        for (int i=1; i &lt; n; i++) {
+            string str = s.substr(0, i) + '.' + s.substr(i, n-i);
+            if (check(str)) res.push_back(str);
+        }
+        if (check(s)) res.push_back(s);
+        return res;
+    }
+
+    bool check(string s) {
+        int n = s.size(), i = 0, n_zero = 0;
+
+        while (i &lt; n &amp;&amp; s[i] == '0') { n_zero++; i++; }
+        if (n_zero &gt; 1) return false;
+
+        while (i &lt; n &amp;&amp; isdigit(s[i])) { if (n_zero) return false; i++; }
+
+        if (s[i] == '.' &amp;&amp; i &gt; 0 &amp;&amp; i+1 != n) i++;
+
+        while (i &lt; n &amp;&amp; isdigit(s[i])) {
+            if (i+1 == n &amp;&amp; s[i] == '0') return false;
+            i++;
         }
 
-        return answer;
+        return s[i] == 0;
     }
+
 };
 </PRE>
 </BODY>

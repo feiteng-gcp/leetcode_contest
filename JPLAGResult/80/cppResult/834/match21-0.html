@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_szfck.cpp</TITLE>
+ <TITLE>313_NaoJoeMiao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,83 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_szfck.cpp</CENTER></H3><HR>
+<H3><CENTER>313_NaoJoeMiao.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    vector&lt;string&gt; solve(string s) {
-        int n = s.size();
-        vector&lt;string&gt; res;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (n == 1) {
-            res.push_back(s);
-            return res;
+    
+    bool validL(string S)
+    {
+        if (S.size() == 0)
+            return false;
+        
+        if (S.size() == 1)
+            return true;
+        
+        if (S[0] != '0')
+            return true;
+        
+        return false;
+    }
+    
+    bool validR(string S)
+    {
+        if (S.size() == 0)
+            return false;
+        
+        if (S.back() == '0')
+            return false;
+        
+        return true;
+    }
+    
+    vector&lt;string&gt; helper(string S)
+    {
+        //cout &lt;&lt; &quot;doing &quot; &lt;&lt; S &lt;&lt; endl;
+        vector&lt;string&gt; result;
+        if (S.size() == 0)
+            return result;
+        
+        for (int i = 1; i &lt; S.size(); i++)
+        {
+            string left = S.substr(0, i);
+            string right = S.substr(i);
+            
+            if (validL(left) &amp;&amp; validR(right))
+                result.push_back(left + &quot;.&quot; + right);
         }
         
+        if (S[0] != '0' || S.size() == 1)
+            result.push_back(S);
         
-        if (s[0] != '0') {
-            res.push_back(s);
-        }
+        return result;
         
-        for (int i = 0; i &lt; n - 1; i++) {</B></FONT>
-            string foo = s.substr(0, i + 1);
-            string bar = s.substr(i + 1);
-            int pre = 0;
-            if ((int)foo.size() == 1 || foo[0] != '0') {
-                if ((int)foo.size() == 1 &amp;&amp; foo[0] == '0') {
-                    pre = 0;
-                } else {
-                    pre = 1;
-                }
-            } else {
-                continue;
-            }
-            
-            int after = 0;
-            
-            if ((int)bar.size() == 1 || bar.back() != '0') {
-                if ((int)bar.size() == 1 &amp;&amp; bar.back() == '0') {
-                    after = 0;
-                } else {
-                    after = 1;
-                }
-            } else {
-                continue;
-            }
-            
-            if (pre == 0) {
-                if (after &gt; 0) {
-                    res.push_back(foo + &quot;.&quot; + bar);
-                }
-            } else {
-                if (after != 0) {
-                    res.push_back(foo + &quot;.&quot; + bar);
-                }
-            }
-        }
-        
-        return res;
     }
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        set&lt;string&gt; vis;
-        int n = S.size() - 2;
-        S = S.substr(1, n);
-        for (int i = 0; i &lt; n - 1; i++) {
-            string foo = S.substr(0, i + 1);
-            string bar = S.substr(i + 1);
-            // cout &lt;&lt; foo &lt;&lt; &quot; &quot; &lt;&lt; bar &lt;&lt; endl;
-            vector&lt;string&gt; foo1 = solve(foo);
-            vector&lt;string&gt; bar1 = solve(bar);
-            for (auto fooItem : foo1) {
-                for (auto barItem: bar1) {
-                    if (fooItem != &quot;&quot; &amp;&amp; barItem != &quot;&quot;) {
-                        vis.insert(&quot;(&quot; + fooItem + &quot;, &quot; + barItem + &quot;)&quot;);
-                    }
-                }
-            }
+        
+        vector&lt;string&gt; result;
+        S = S.substr(1, S.size()-2);
+        for (int i = 1; i &lt; S.size(); i++)
+        {
+            vector&lt;string&gt; left = helper(S.substr(0, i));
+<A NAME="0"></A>            vector&lt;string&gt; right = helper(S.substr(i));
             
+            if (left.size() &amp;&amp; right.size())
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            {
+                for (int j = 0; j &lt; left.size(); j++)
+                {
+                    for (int k = 0; k &lt; right.size(); k++)
+                    {
+                        result.push_back(&quot;(&quot; + left[j] + &quot;, &quot; + right[k] + &quot;)&quot;);
+                    }
+                }</B></FONT>
+                
+            }
         }
-        vector&lt;string&gt; res(vis.begin(), vis.end());
-        return res;
+        
+        return result;
+        
     }
 };
 </PRE>

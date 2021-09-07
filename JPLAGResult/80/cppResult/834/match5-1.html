@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_gerwang.cpp</TITLE>
+ <TITLE>276_sunrisef.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>6_gerwang.cpp</CENTER></H3><HR>
+<H3><CENTER>276_sunrisef.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
-    bool test(string S) {
-        int decimal=S.find('.');
-        if(decimal==string::npos) {
-            if(S[0]=='0') {
-                return S.length()==1;
-            }
-            return true;
-        } else {
-            if(S.back()=='0') {
-                return false;
-            }
-            if(S[0]=='0') {
-                return S[1]=='.';
-            }
-            return true;
-        }
-    }
-    
-    vector&lt;string&gt; dfsComma(string S) {
-        vector&lt;string&gt; res;
-        if(test(S)) {
-            res.push_back(S);
-        }
-        for(int i=1;i&lt;S.length();i++) {
-            string tmp=S.substr(0,i)+&quot;.&quot;+S.substr(i,S.length()-i);
-            if(test(tmp)) {
-                res.push_back(tmp);
-            }
-        }
-        return res;
-    }
-<A NAME="0"></A>    
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; res;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i+2&lt;S.length();i++) {
-            auto av=dfsComma(S.substr(1,i));
-            auto bv=dfsComma(S.substr(i+1,S.length()-i-2));
-            for(auto&amp; a:av) {
-                for(auto&amp; b:bv) {
-                    res.push_back(&quot;(&quot;+a+&quot;, &quot;+b+&quot;)&quot;);
+        int len = S.size();
+        S.pop_back();
+        vector&lt;string&gt; ans;
+        for (int i = 2; i &lt; len - 1; ++i){
+            vector&lt;string&gt; b, e;
+            b = getNum(S.substr(1, i - 1));
+            if (b.size()) {
+                e = getNum(S.substr(i));
+                if (e.size()){
+                    for (auto a: b){
+                        for (auto c:e){
+                            ans.push_back(&quot;(&quot; + a + &quot;, &quot; + c + &quot;)&quot;);
+                        }
+                    }
                 }
             }
         }
-        return res;
+        return ans;
     }
-};</B></FONT>
+    vector&lt;string&gt; getNum(string s){
+<A NAME="0"></A>//        cout &lt;&lt; s &lt;&lt; endl;
+        vector&lt;string&gt; ans;
+        int len = s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (s.size() == 1) {
+            ans.push_back(s);
+            return ans;
+        }
+        if (s[0] == '0'){
+            if (s[len - 1] == '0') return ans;
+            else {
+                ans.push_back(&quot;0.&quot; + s.substr(1));
+                return ans;
+            }
+        }</B></FONT>
+        ans.push_back(s);
+        if (s[len - 1] == '0'){
+            
+            return ans;
+        }
+        for (int i = 1; i &lt; len; ++i) ans.push_back(s.substr(0, i) + &quot;.&quot; + s.substr(i));
+        return ans;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

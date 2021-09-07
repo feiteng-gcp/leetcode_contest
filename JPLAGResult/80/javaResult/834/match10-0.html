@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>64_vonzcy.java</TITLE>
+ <TITLE>419_coder_coder.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>64_vonzcy.java</CENTER></H3><HR>
+<H3><CENTER>419_coder_coder.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        S = S.substring(1, S.length() - 1);
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-<A NAME="0"></A>            String first = S.substring(0, i);
-            String second = S.substring(i);
-            List&lt;String&gt; front = distribute(first);
-            List&lt;String&gt; back = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>distribute(second);
-            for (String f : front) {
-                for (String b : back) {
-                    res.add(&quot;(&quot; + f + &quot;, &quot; + b + &quot;)&quot;);
-                }
-            }
-        }
-        return res;
-    }
-    
-    private List&lt;String&gt; distribute(String num) {
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for (int i = 1; i &lt; num.length(); i++) {
-            String front = num.substring(0, i);
-            String second = num.substring</B></FONT>(i);
-            if ((front.charAt(0) != '0' || front.length() == 1) 
-               &amp;&amp; !second.endsWith(&quot;0&quot;)) {
-                res.add(front + &quot;.&quot; + second);
-            }    
-        }
-        if (num.length() &gt; 0 &amp;&amp; (num.charAt(0) != '0' || num.length() == 1)) {
-            res.add(num);
-        }
-        return res;
-    }
+<A NAME="1"></A>		List&lt;String&gt; res = new ArrayList&lt;&gt;();
+		S = S.substring(1, S.length() - 1);
+		for (int i = 0; i &lt; S.length() - 1; i++) {
+			List&lt;String&gt; leftList = help(S, 0, i);</B></F<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ONT>
+			List&lt;String&gt; rightList = help(S, i + 1, S.length() - 1);
+//			System.out.println(&quot;left = &quot; + leftList);
+//			System.out.println(&quot;right = &quot; + rightList);
+			if (leftList.size() != 0 &amp;&amp; rightList.size() != 0) {
+				for (String leftStr : leftList) {
+					for (String rightStr : rightList) {
+						res.add(&quot;(&quot; + leftStr + &quot;, &quot; + rightStr + &quot;)&quot;);
+					}
+				}
+			}
+		}
+		return res;
+	}
+
+	private List&lt;String&gt; help(String S, int l</B></FONT>eft, int right) {
+		List&lt;String&gt; res = new ArrayList&lt;&gt;();
+		for (int i = left + 1; i &lt;= right; i++) {
+			boolean leftC = i - left == 1 || (i - left &gt;= 2 &amp;&amp; S.charAt(left) != '0');
+			boolean rightC = S.charAt(right) != '0';
+			if (leftC &amp;&amp; rightC) {
+				res.add(S.substring(left, i) + &quot;.&quot; + S.substring(i, right + 1));
+			}
+		}
+		if (left == right || S.charAt(left) != '0') {
+			res.add(S.substring(left, right + 1));
+		}
+		return res;
+	}
 }
 </PRE>
 

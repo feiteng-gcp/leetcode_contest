@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>35_QingqingXii0iii.cpp</TITLE>
+ <TITLE>351_qqiq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>35_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>351_qqiq.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+    vector&lt;string&gt; convert(string&amp; s) {
+        vector&lt;string&gt; result;
+        if (s.size() == 0) return result;
+        // check integer
+        if (s.size() == 1 || s[0] != '0') result.push_back(s);
+        // check decimal
+        if (s[s.size() - 1] != '0') { // **.**0 is not good
+            // where to put .
+<A NAME="0"></A>            for (int i = 1; i &lt; s.size(); ++i) {
+                if (i == 1 || s[0] != '0') result.push_back(s.substr(0, i) + '.' + s.substr(i));
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        return result;
+    }
 public:
-    bool ok(string t,int p){
-        int n = t.length();
-        if(n == 1) return 1;
-        if(t[0] == '0' &amp;&amp; t[1] != '.') return 0;
-        if(t[n - 1] == '0' &amp;&amp; p == 1) return 0;
-        return 1;
-    }
-    vector&lt;string&gt; check(string t){
-        vector&lt;string&gt; ret;
-        if(ok(t,0)) ret.push_back(t);
-        for(int i = 1;i &lt; t.length();i++){
-            string x = t.substr(0,i) + &quot;.&quot; + t.substr(i,t.length() - i);
-            if(ok(x,1)) ret.push_back(x);
-        }
-        return ret;
-    }
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        S = S.substr(1,S.length() - 2);
-        
-        vector&lt;string&gt; ans;
-        for(int i = 1;i &lt; S.length();i++){
-            string s1 = S.substr(0,i);
-            string s2 = S.substr(i,S.length() - i);
-            cout &lt;&lt; s1 &lt;&lt; &quot; &quot; &lt;&lt; s2 &lt;&lt; endl;
-<A NAME="0"></A>            vector&lt;string&gt; v1 = check(s1);
-            vector&lt;string&gt; v2 = check(s2);
-            if(v1.size() == 0 || v2.size() == 0) continue;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int k = 0;k &lt; v1.size();k++){
-                for(int j = 0;j &lt; v2.size();j++){
-                    ans.push_back(&quot;(&quot; + v1[k] + &quot;, &quot; + v2[j]+&quot;)&quot;);
+        S = S.substr(1, S.size() - 2);
+        cout &lt;&lt; S &lt;&lt; endl;
+        vector&lt;string&gt; result;
+        for (int i = 1; i &lt; S.size(); ++i) {
+            string left = S.substr(0, i);
+            string right = S.substr(i);</B></FONT>
+            vector&lt;string&gt; first = convert(left);
+            vector&lt;string&gt; second = convert(right);
+            if (first.empty() || second.empty()) continue;
+            for (string&amp; s1 : first) {
+                for (string&amp; s2 : second) {
+                    result.push_back(string(&quot;(&quot;) + s1 + &quot;, &quot; + s2 + &quot;)&quot;);
                 }
             }
         }
-        return ans;
+        return result;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

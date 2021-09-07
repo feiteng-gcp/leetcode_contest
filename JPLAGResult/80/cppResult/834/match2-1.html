@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_HMAXS.cpp</TITLE>
+ <TITLE>165_beetlecamera.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_HMAXS.cpp</CENTER></H3><HR>
+<H3><CENTER>165_beetlecamera.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    bool valid(string s) {
-        int n = s.size();
-        if (n == 0) return false; 
-        if (s[0] == '.' || s[n - 1] == '.') return false;
-        bool p = false;
-        for (char c: s) if (c == '.') p = true;
-        if (p &amp;&amp; s[n - 1] == '0') return false;
-        if (n &gt;= 3 &amp;&amp; s[0] == '0' &amp;&amp; s[1] == '.') return true;
-        if (n == 1 &amp;&amp; s[0] == '0') return true;
-        if (s[0] != '0') return true;
-        return false;
-    }
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        int n = S.size();
-        vector&lt;string&gt; ret;
-        S = S.substr(1, n - 2);
-        n = S.size();
-        for (int i = 1; i &lt; n; i++) {
-<A NAME="0"></A>            string a = S.substr(0, i);
-            string b = S.substr(i);
-            int na = a.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int nb = b.size();
-            for (int i = 0; i &lt; na; i++) {
-                for (int j = 0; j &lt; nb; j++) {
-                    string c = a, d = b;</B></FONT>
-                    if (i != 0) c.insert(c.begin() + i, '.');
-                    if (j != 0) d.insert(d.begin() + j, '.');
-                    if (valid(c) &amp;&amp; valid(d)) {
-                        ret.push_back(&quot;(&quot; + c + &quot;, &quot; + d + &quot;)&quot;);
-                    }                    
-                }
-            }
+        vector&lt;string&gt;ans;
+        for(int i = 1; i+2 &lt; S.size(); i++)
+        {
+            vector&lt;string&gt;first = help(S.substr(1,i));
+            vector&lt;string&gt;second = help(S.substr(i+1));
+            for(auto e : first)</B></FONT>
+                for(auto f : second)
+                    ans.push_back(&quot;(&quot;+e+&quot;, &quot;+f+&quot;)&quot;);
         }
-        return ret;
+        return ans;
+    }
+    
+    vector&lt;string&gt; help(string s)
+    {
+        if(s.back() == ')') s.pop_back();
+        vector&lt;string&gt;ans;
+        if(valid(s, 0)) ans.push_back(s);
+        for(int i = 1; i &lt; s.size(); i++)
+        {
+            if(valid(s.substr(0,i), 0) &amp;&amp; valid(s.substr(i), 1))
+                ans.push_back(s.substr(0,i) + &quot;.&quot; + s.substr(i));
+        }
+        return ans;
+    }
+    
+    bool valid(string s, int i)
+    {
+        if(i &gt; 0 &amp;&amp; s.back() == '0')
+            return false;
+        if(s.size() == 1) 
+            return true;
+        if(i == 0 &amp;&amp; s[0] == '0')
+            return false;
+        return true;
     }
 };
 </PRE>

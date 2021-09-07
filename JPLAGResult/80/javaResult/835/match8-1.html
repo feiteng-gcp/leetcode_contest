@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_yrclamb.java</TITLE>
+ <TITLE>122_Kuvu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_yrclamb.java</CENTER></H3><HR>
+<H3><CENTER>122_Kuvu.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
-<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ *     ListNode(int x) { val = x; }
  * }
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-<A NAME="1"></A>    public int numComponents(ListNode head, int[] G) {
-    	Set&lt;Integer&gt; GSet = new HashSet&lt;Integer&gt;();
-    	for(int i : </B></FONT>G)
-    		GSet.add(i);<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-    	int ans = 0;
-    	int currentCombo = 0;
-    	while(head != null) {
-<A NAME="2"></A>    		int n = head.val;
-    		if(GSet.contains(n)) {
-    			if(currentCombo == </B></FONT>0)
-    				ans++;<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-    			currentCombo++;
-    		} else {
-    			currentCombo = 0;
-    		}
-    		head = head.next;
-    	}
-    	return ans;
+class Solution {
+<A NAME="0"></A>    public int numComponents(ListNode head, int[] G) {
+        if (G == null || G.length == 0) {
+            return 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Set&lt;Integer&gt; vals = new HashSet&lt;&gt;();
+        for (int g : G) {
+            vals.add(g);
+        }
+        int count = 0</B></FONT>;
+        boolean inComponent = false;
+        ListNode cur = head;
+        while (cur != null) {
+            if (inComponent &amp;&amp; !vals.contains(cur.val)) {
+                inComponent = false;
+            } else if (!inComponent &amp;&amp; vals.contains(cur.val)) {
+                inComponent = true;
+                count++;
+            }
+            cur = cur.next;
+        }
+        return count;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

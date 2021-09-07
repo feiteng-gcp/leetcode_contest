@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_uwi.java</TITLE>
+ <TITLE>281_linfeng.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>4_uwi.java</CENTER></H3><HR>
+<H3><CENTER>281_linfeng.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public List&lt;String&gt; ambiguousCoordinates(String S) {
-	    	S = S.substring(1, S.length()-1);
-	        int n = S.length();
-<A NAME="0"></A>	        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
-	        for(int i = 1;i &lt;= n-1;i++){
-	        	List&lt;String&gt; va = valids(S.substring(0, i));
-	        	List&lt;String&gt; vb = valids(S.substring(i,<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> n));
-	        	for(String a : va){
-	        		for(String b : vb){
-	        			ret.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
-	        		}
-	        	}
-	        }
-	        return ret;
-	    }
-	    
-	    List&lt;String&gt; valids(String s)
-	    {
-	    	List&lt;String&gt; ret = new ArrayList</B></FONT>&lt;&gt;();
-	    	if(valid(s))ret.add(s);
-	    	for(int i = 1;i &lt; s.length();i++){
-	    		String t = s.substring(0, i) + &quot;.&quot; + s.substring(i);
-	    		if(valid(t))ret.add(t);
-	    	}
-	    	return ret;
-	    }
-	    
-	    boolean valid(String s)
-	    {
-	    	if(s.lastIndexOf(&quot;-&quot;) &gt; 0)return false;
-	    	if(s.equals(&quot;-0&quot;))return false;
-	    	if(s.startsWith(&quot;-&quot;)){
-	    		s = s.substring(1);
-	    	}
-	    	if(s.length() == 0)return false;
-	    	if(s.indexOf(&quot;.&quot;) &lt; 0){
-	    		if(s.length() &gt; 1 &amp;&amp; s.startsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}else{
-	    		String[] sp = s.split(&quot;\\.&quot;);
-	    		if(sp.length &lt; 2)return false;
-	    		if(sp[0].length() == 0)return false;
-	    		if(sp[0].length() &gt; 1 &amp;&amp; sp[0].startsWith(&quot;0&quot;))return false;
-	    		if(sp[1].endsWith(&quot;0&quot;))return false;
-	    		return true;
-	    	}
-	    }
-	}	
+class Solution {
+    public List&lt;String&gt; ambiguousCoordinates(String S) {
+        List&lt;String&gt; resultList = new LinkedList&lt;&gt;();
+<A NAME="0"></A>        if (S == null || S.length() &lt;= 2)
+            return resultList;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S = S.substring(1, S.length() - 1);
+        
+        for (int i = 1; i &lt; S.length(); i++) {
+<A NAME="2"></A>            String left = S.substring(0, i);
+            String right = S.substring(i, S.length</B></FONT>());
+            dfs(left, right, resultList);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return resultList;
+    }
+    
+    private void dfs(String left, String right, List&lt;String&gt; resultList) {
+<A NAME="1"></A>        List&lt;String&gt; lefts = generateValidStr(left)</B></FONT>;
+        List&lt;String&gt; rights = generateValidStr(right);
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String l : lefts) {
+            for (String r : rights) {
+                resultList.add(&quot;(&quot; + l + &quot;, &quot; + r + &quot;)&quot;);
+            }
+        }
+    }</B></FONT>
+    
+    private List&lt;String&gt; generateValidStr(String s) {
+        List&lt;String&gt; result = new LinkedList&lt;&gt;();
+        
+        if (isValid(s))
+            result.add(s);
+        
+        int index = 1;
+        while (index &lt; s.length()) {
+            String cur = s.substring(0, index) + '.' + s.substring(index, s.length());
+            if (isValid(cur))
+                result.add(cur);
+            index++;
+        }
+        
+        return result;
+    }
+    
+    private boolean isValid(String s) {
+        if (s.indexOf('.') == -1) {
+            if (s.length() &gt; 1 &amp;&amp; s.charAt(0) == '0')
+                return false;
+        } else {
+            if (s.charAt(s.length() - 1) == '0' || (s.charAt(0) == '0' &amp;&amp; s.charAt(1) != '.'))
+                return false;
+        }
+        
+        return true;
+    }
+}
 </PRE>
 
 </BODY>

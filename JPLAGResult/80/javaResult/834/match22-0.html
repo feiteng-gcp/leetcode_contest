@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>207_MakeChanges.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>207_MakeChanges.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String S) {
+    	
+<A NAME="0"></A>		public List&lt;String&gt; ambiguousCoordinates(String S) {
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
         S = S.substring(1, S.length() - 1);
-<A NAME="0"></A>        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; left = allowed(S.substring(0, i));
-            List&lt;String&gt; right = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>allowed(S.substring(i));
-            for (String ls : left) {
-                for (String rs : right) {
-                    result.add(&quot;(&quot; + ls + &quot;, &quot; + rs + &quot;)&quot;);
-                }
-            }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; S.length(); i++) {
+        	String first = S.substring(0, i);
+        	String second = S.substring(i);
+        	List&lt;String&gt; firsts = helper(first);
+        	List&lt;String&gt; seconds = helper(second);
+<A NAME="1"></A>        	for (String f : firsts) {
+        		for (String s : seconds) {</B></FONT>
+        			String str = &quot;(&quot; + f + &quot;, &quot; + s + &quot;)&quot;;
+        			ans.add(str);<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        		}
+        	}
         }
-        return result;
+        return ans;
     }
-    private List&lt;String&gt; allowed(String s) {
-        int l = s.length()</B></FONT>;
-        char[] cs = s.toCharArray();
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        if (cs[0] == '0' &amp;&amp; cs[l - 1] == '0') {
-            if (l == 1) {
-                result.add(&quot;0&quot;);
-            }
-            return result;
-        }
-        if (cs[0] == '0') {
-            result.add(&quot;0.&quot; + s.substring(1));
-            return result;
-        }
-        if (cs[l - 1] == '0') {
-            result.add(s);
-            return result;
-        }
-        result.add(s);
-        for (int i = 1; i &lt; l; i++) {
-            result.add(s.substring(0, i) + '.' + s.substring(i));
-        }
-        return result;
-    }
+	
+	private boolean isValidLong(String S) {
+		Long val = Long.parseLong(S);</B></FONT>
+		String str = val.toString();
+		return str.equals(S);
+	}
+	
+	private List&lt;String&gt; helper(String S) {
+		List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+		if (isValidLong(S)) {
+			ans.add(S);
+		}
+		for (int i = 1; i &lt; S.length(); i ++) {
+			String first = S.substring(0, i);
+			String second = S.substring(i);
+			if (second.charAt(second.length() - 1) != '0' &amp;&amp; isValidLong(first)) {
+				String str = first + &quot;.&quot; + second;
+				ans.add(str);
+			}
+		}
+		return ans;
+	}
 }
 </PRE>
 

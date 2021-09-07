@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_wwzzll.java</TITLE>
+ <TITLE>419_coder_coder.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,105 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>52_wwzzll.java</CENTER></H3><HR>
+<H3><CENTER>419_coder_coder.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        // prohibited format: started with zero and end with zero when the length is greater than 1.
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>this.s = S.substring(1, S.length() - 1);
-        for (int i = 1; i &lt; s.length(); ++i) {
-            String a = s.substring(0, i);
-            String b = s.substring</B></FONT>(i, s.length());
-//            if (isValid(a) &amp;&amp; isValid(b)) {
-//                result.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
-//            }
-            for (int j = 0; j &lt; a.length(); ++j) {
-                for (int k = 0; k &lt; b.length(); k++) {
-                    if (j &gt;= 1 &amp;&amp; a.charAt(a.length() - 1) == '0') continue;
-                    if (k &gt;= 1 &amp;&amp; b.charAt(b.length() - 1) == '0') continue;
-                    if (j == 0 &amp;&amp; a.charAt(0) == '0' &amp;&amp; a.length() &gt; 1) continue;
-                    if (k == 0 &amp;&amp; b.charAt(0) == '0' &amp;&amp; b.length() &gt; 1) continue;
-                    if (j &gt; 1 &amp;&amp; a.charAt(0) == '0') continue;
-<A NAME="1"></A>                    if (k &gt; 1 &amp;&amp; b.charAt(0) == '0') continue;
-                    String newA = (j == 0) ? a : a.substring(0, j) + &quot;.&quot; + a.substring(j);
-                    String newB = (k == 0) ? b : b.substring(0, k) + &quot;.&quot; + b.substring(k);
-                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>result.add(&quot;(&quot; + newA + &quot;, &quot; + newB + &quot;)&quot;);
-                }
-            }
-        }
-//        go(0);
-        return result;
-    }
-    void go(int index) {</B></FONT>
-        if (index == s.length()) {
-            StringBuilder f = new StringBuilder(&quot;(&quot;);
-            for (int i = 0; i &lt; tmp.size(); ++i) {
-                f.append(format(tmp.get(i)));
-                if (i != tmp.size() - 1) f.append(',');
-            }
-            f.append(')');
-            result.add(f.toString());
-            return;
-        }
-        for (int i = index + 1; i &lt;= s.length(); ++i) {
-            String sub = s.substring(index, i);
-            if (isValid(sub)) {
-                tmp.add(sub);
-                go(i);
-                tmp.remove(tmp.size() - 1);
-            }
-            if (isValidWithPoint(sub)) {
-                tmp.add(sub.substring(0, 1) + &quot;.&quot; + sub.substring(1, sub.length()));
-                go(i);
-<A NAME="2"></A>                tmp.remove(tmp.size() - 1);
-            }
-        }
-    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-    
-    String toPoint(String sub) {
-      return sub.substring(0, 1) + &quot;.&quot; + sub.substring(1, sub.length());
-    }</B></FONT>
-    
-    String format(String num) {
-        if (num.length() == 1) return num;
-        if (num.charAt(0) == '0') return &quot;0.&quot; + num.substring(1, num.length());
-        return num;
-    }
-    
-    HashMap&lt;String, Boolean&gt; maps = new HashMap();
-    HashMap&lt;String, Boolean&gt; pMaps = new HashMap();
+		List&lt;String&gt; res = new ArrayList&lt;&gt;();
+		S = S.substrin<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>g(1, S.length() - 1);
+		for (int i = 0; i &lt; S.length() - 1; i++) {
+			List&lt;String&gt; leftList = help(S, 0, i);
+			List&lt;String&gt; rightList = help(S, i + 1, S.length() - 1);</B></FONT>
+<A NAME="1"></A>//			System.out.println(&quot;left = &quot; + leftList);
+//			System.out.println(&quot;right = &quot; + rightList);
+			if (leftList.size() != 0 &amp;&amp; rightList.size() != 0) {
+				for (String leftStr : leftLi<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>st) {
+					for (String rightStr : rightList) {
+						res.add(&quot;(&quot; + leftStr + &quot;, &quot; + rightStr + &quot;)&quot;);
+<A NAME="2"></A>					}
+				}</B></FONT>
+			}
+		}<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		return res;
+	}
 
-    boolean isValid(String num) {
-        if (maps.containsKey(num)) return maps.get(num);
-        if (num.length() == 0) {
-           maps.put(num, false);
-        } else if (num.length() == 1) {
-            maps.put(num, true);
-        } else if (num.charAt(0) == '0') {
-            maps.put(num, false);
-        } else {
-            maps.put(num, true);
-        }
-        return maps.get(num);
-    }
-    
-    boolean isValidWithPoint(String num) {
-        if (pMaps.containsKey(num)) return pMaps.get(num);
-        if (num.length() == 0) {
-            pMaps.put(num, false);
-        } else if (num.length() == 1) {
-            pMaps.put(num, false);
-        } else if (num.charAt(num.length() - 1) == '0') {
-            pMaps.put(num, false);
-        } else {
-            pMaps.put(num, true);
-        }
-        return pMaps.get(num);
-    }
-    
-    ArrayList&lt;String&gt; tmp = new ArrayList();
-    String s;
-    List&lt;String&gt; result = new ArrayList();
+	private List&lt;String&gt; help(String S, int left, int right) {
+		List&lt;String&gt; res = new ArrayList&lt;&gt;();</B></FONT>
+		for (int i = left + 1; i &lt;= right; i++) {
+			boolean leftC = i - left == 1 || (i - left &gt;= 2 &amp;&amp; S.charAt(left) != '0');
+			boolean rightC = S.charAt(right) != '0';
+			if (leftC &amp;&amp; rightC) {
+				res.add(S.substring(left, i) + &quot;.&quot; + S.substring(i, right + 1));
+			}
+		}
+		if (left == right || S.charAt(left) != '0') {
+			res.add(S.substring(left, right + 1));
+		}
+		return res;
+	}
 }
 </PRE>
 

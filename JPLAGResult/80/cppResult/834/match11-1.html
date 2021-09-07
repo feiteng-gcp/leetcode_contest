@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_cuiaoxiang.cpp</TITLE>
+ <TITLE>163_sssworld.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>16_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>163_sssworld.cpp</CENTER></H3><HR>
 <PRE>
-typedef long long int64;
 class Solution {
-public:
-    bool valid(const string&amp; s, int p) {
-        int n = s.size();
-        int64 L = 0, R = 0;
-        for (int i = 0; i &lt; p; ++i) {
-            L = L * 10 + (s[i] - '0');
-        }
-        for (int i = p; i &lt; n; ++i) {
-            R = R * 10 + (s[i] - '0');
-        }
-        if (p &lt; n) {
-            if (R % 10 == 0) return false;
-        }
-        if (p &gt; 1) {
-            int64 ten = 1;
-            for (int i = 0; i &lt; p - 1; ++i) ten *= 10;
-            if (L &lt; ten) return false;
-        }
+    inline bool isCorrect(const string &amp; s) const {
+        if (s.length() == 0)
+            return false;
+        if (s.length() == 1 &amp;&amp; s[0] &gt;= '0' &amp;&amp; s[0] &lt;= '9')
+            return true;
+        
+        size_t dPoint = s.find('.');
+        if (s[0] == '0' &amp;&amp; s[1] != '.')
+            return false;
+        if (s[s.length() - 1] == '0' &amp;&amp; dPoint != string::npos)
+            return false;
+        if (s[0] == '.' || s[s.length() - 1] == '.')
+            return false;
+        
         return true;
     }
-<A NAME="0"></A>    vector&lt;string&gt; ambiguousCoordinates(string S) {
-        S.pop_back();
-        S = S.substr(1);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = S.size();
-        vector&lt;string&gt; ret;
-        for (int p = 1; p &lt; n; ++p) {
-            string u = S.substr(0, p);
-            string v = S.substr(p, n - p);
-            for (int i = 1; i &lt;= u.size(); ++i) {</B></FONT>
-                if (!valid(u, i)) continue;
-                for (int j = 1; j &lt;= v.size(); ++j) {
-                    if (!valid(v, j)) continue;
-                    string cur = &quot;(&quot;;
-                    cur += u.substr(0, i);
-                    if (i != u.size()) {
-                        cur += &quot;.&quot; + u.substr(i, u.size() - i);
-                    }
-                    cur += &quot;, &quot;;
-                    cur += v.substr(0, j);
-                    if (j != v.size()) {
-                        cur += &quot;.&quot; + v.substr(j, v.size() - j);
-                    }
-                    cur += &quot;)&quot;;
-                    ret.push_back(cur);
-                }
-            }
+    vector&lt;string&gt; findDecimalPoints(string s) const {
+        vector&lt;string&gt; result;
+        if (isCorrect(s))
+            result.push_back(s);
+        
+        //cout &lt;&lt; s &lt;&lt; &quot; is &quot; &lt;&lt; (isCorrect(s) ? &quot;true&quot; : &quot;false&quot;) &lt;&lt; endl;
+        
+        for (int i = 1; i &lt; s.length(); i++) {
+            string temp = s.substr(0, i) + '.' + s.substr(i);
+            
+            //cout &lt;&lt; temp &lt;&lt; &quot; is &quot; &lt;&lt; (isCorrect(temp) ? &quot;true&quot; : &quot;false&quot;) &lt;&lt; endl;
+            
+            if (isCorrect(temp))
+                result.push_back(temp);
         }
-        return ret;
+        return result;
     }
-};
+public:
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+<A NAME="0"></A>        vector&lt;string&gt; ans;
+        vector&lt;string&gt; point[2];
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt; S.length() - 2; i++) {
+            point[0] = findDecimalPoints(S.substr(1, i));
+            point[1] = findDecimalPoints(S.substr(1 + i, S.length() - 2 - i));
+            for (auto &amp; s1 : point[0])
+                for (auto &amp; s2 : point[1])
+                    ans.push_back(&quot;(&quot; + s1 + &quot;, &quot; + s2 + &quot;)&quot;);
+        }
+        
+        return ans;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

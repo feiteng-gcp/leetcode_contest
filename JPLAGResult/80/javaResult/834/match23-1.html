@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_wwzzll.java</TITLE>
+ <TITLE>185_yun21.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,105 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>52_wwzzll.java</CENTER></H3><HR>
+<H3><CENTER>185_yun21.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String S) {
-        // prohibited format: started with zero and end with zero when the length is greater than 1.
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>this.s = S.substring(1, S.length() - 1);
-        for (int i = 1; i &lt; s.length(); ++i) {
-            String a = s.substring</B></FONT>(0, i);
-            String b = s.substring(i, s.length());
-//            if (isValid(a) &amp;&amp; isValid(b)) {
-//                result.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
-//            }
-            for (int j = 0; j &lt; a.length(); ++j) {
-                for (int k = 0; k &lt; b.length(); k++) {
-                    if (j &gt;= 1 &amp;&amp; a.charAt(a.length() - 1) == '0') continue;
-                    if (k &gt;= 1 &amp;&amp; b.charAt(b.length() - 1) == '0') continue;
-                    if (j == 0 &amp;&amp; a.charAt(0) == '0' &amp;&amp; a.length() &gt; 1) continue;
-                    if (k == 0 &amp;&amp; b.charAt(0) == '0' &amp;&amp; b.length() &gt; 1) continue;
-                    if (j &gt; 1 &amp;&amp; a.charAt(0) == '0') continue;
-<A NAME="1"></A>                    if (k &gt; 1 &amp;&amp; b.charAt(0) == '0') continue;
-                    String newA = (j == 0) ? a : a.substring(0, j) + &quot;.&quot; + a.substring(j);
-                    String newB = (k == 0) ? b : b.substring(0, k) + &quot;.&quot; + b.substring(k);
-                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>result.add(&quot;(&quot; + newA + &quot;, &quot; + newB + &quot;)&quot;);
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; ambiguousCoordinates(String S) {
+        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+        for (int i = 2; i &lt; S.length() - 1; i++) {
+            List&lt;String&gt; as = helper(S.substring(1, i));
+            List&lt;String&gt; bs = helper(S.substring(i, S.length()-1));
+            for (String a : as) {
+                for (String b : bs) {</B></FONT>
+                    StringBuilder sb = new StringBuilder();
+                    sb.append('(');
+                    sb.append(a);
+<A NAME="1"></A>                    sb.append(&quot;, &quot;);
+                    sb.append(b);
+                    sb.append(')');
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ret.add(sb.toString());
                 }
             }
         }
-//        go(0);
-        return result;
-    }
-    void go(int index) {</B></FONT>
-        if (index == s.length()) {
-            StringBuilder f = new StringBuilder(&quot;(&quot;);
-            for (int i = 0; i &lt; tmp.size(); ++i) {
-                f.append(format(tmp.get(i)));
-                if (i != tmp.size() - 1) f.append(',');
-            }
-            f.append(')');
-            result.add(f.toString());
-            return;
+        return ret;
+    }</B></FONT>
+    private List&lt;String&gt; helper(String s) {
+        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+        if (s.isEmpty()) return ret;
+        if (s.length() == 1) {
+            ret.add(s);
+            return ret;
         }
-        for (int i = index + 1; i &lt;= s.length(); ++i) {
-            String sub = s.substring(index, i);
-            if (isValid(sub)) {
-                tmp.add(sub);
-                go(i);
-                tmp.remove(tmp.size() - 1);
-            }
-            if (isValidWithPoint(sub)) {
-                tmp.add(sub.substring(0, 1) + &quot;.&quot; + sub.substring(1, sub.length()));
-                go(i);
-                tmp.remove(tmp.size() - 1);
-            }
+        if (s.charAt(0) == '0') {
+            if (s.charAt(s.length() - 1) == '0') return ret;
+            StringBuilder sb = new StringBuilder(s);
+            sb.insert(1, '.');
+            ret.add(sb.toString());
+            return ret;
         }
-    }
-    
-    String toPoint(String sub) {
-      return sub.substring(0, 1) + &quot;.&quot; + sub.substring(1, sub.length());
-    }
-    
-    String format(String num) {
-        if (num.length() == 1) return num;
-        if (num.charAt(0) == '0') return &quot;0.&quot; + num.substring(1, num.length());
-        return num;
-    }
-    
-    HashMap&lt;String, Boolean&gt; maps = new HashMap();
-    HashMap&lt;String, Boolean&gt; pMaps = new HashMap();
-
-    boolean isValid(String num) {
-        if (maps.containsKey(num)) return maps.get(num);
-        if (num.length() == 0) {
-           maps.put(num, false);
-        } else if (num.length() == 1) {
-            maps.put(num, true);
-        } else if (num.charAt(0) == '0') {
-<A NAME="2"></A>            maps.put(num, false);
-        } else {
-            maps.put(num, true);
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return maps.get(num);
-    }
-    
-    boolean isValidWithPoint(String num) {
-        if (pMaps.containsKey(num)) return</B></FONT> pMaps.get(num);
-        if (num.length() == 0) {
-            pMaps.put(num, false);
-        } else if (num.length() == 1) {
-            pMaps.put(num, false);
-        } else if (num.charAt(num.length() - 1) == '0') {
-            pMaps.put(num, false);
-        } else {
-            pMaps.put(num, true);
+        if (s.charAt(s.length() - 1) == '0') {
+            ret.add(s);
+            return ret;
         }
-        return pMaps.get(num);
+        for (int i = 1; i &lt; s.length(); i++) {
+            StringBuilder sb = new StringBuilder(s);
+            sb.insert(i, '.');
+            ret.add(sb.toString());
+        }
+        ret.add(s);
+        return ret;
     }
-    
-    ArrayList&lt;String&gt; tmp = new ArrayList();
-    String s;
-    List&lt;String&gt; result = new ArrayList();
 }
 </PRE>
 

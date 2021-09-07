@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>32_qwnjc.cpp</TITLE>
+ <TITLE>435_sunqm.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,85 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>32_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>435_sunqm.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        vector&lt;string&gt; res;
-        int n = S.length();
-        if (n &lt; 4) {
-            return res;
-        }
-        // cout &lt;&lt; stof(&quot;000.0&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stof(&quot;00.01&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stof(&quot;00.010&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stoi(&quot;0001121130&quot;)&lt;&lt; endl;
-        string s = S.substr(1, n - 2);
-        n = s.length();
-        for (int i = 0; i &lt; n - 1; ++i) {
-            string s1 = s.substr(0, i + 1);
-<A NAME="0"></A>            string s2 = s.substr(i + 1);
-            
-            auto nums1 = parse(s1);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto nums2 = parse(s2);
-            if (nums1.size() &gt; 0 &amp;&amp; nums2.size() &gt; 0) {
-                for (auto&amp; n1 : nums1) {
-                    for (auto&amp; n2 : nums2) {
-                        res.emplace_back(&quot;(&quot; + n1 + &quot;, &quot; + n2 + &quot;)&quot;);
-                    }
+        vector&lt;string&gt; ret;
+        string nums=S.substr(1,S.length()-2);
+        for(int i=1;i&lt;nums.length();i++) {
+            vector&lt;string&gt; left,right;
+            string orileft=nums.substr(0,i);
+            string oriright=nums.substr(i);</B></FONT>
+            if(judge(orileft))  left.push_back(orileft);
+            if(judge(oriright)) right.push_back(oriright);
+            for(int pos=1;pos&lt;orileft.length();++pos) {
+                string temp(orileft);
+                string newleft=temp.insert(pos,&quot;.&quot;);
+                if(judge(newleft))
+                    left.push_back(newleft);
+            }
+            for(int pos=1;pos&lt;oriright.length();++pos) {
+                string temp(oriright);
+                string newright=temp.insert(pos,&quot;.&quot;);
+                if(judge(newright))
+                    right.push_back(newright);
+            }
+            for(auto leftstr : left)
+                for(auto rightstr : right)
+                    ret.push_back(getans(leftstr,rightstr));
+            /*if(judge(left) &amp;&amp; judge(right)) {
+                string ans=getans(left,right);
+                ret.push(ans);
+            }
+            string newleft,newright;
+            if(left.size()&gt;1) {
+                newleft=left.insert(1,&quot;.&quot;);
+                if(judge(newleft) &amp;&amp; judge(right)) {
+                    string ans=getans(newleft,right);
+                    ret.push(ans);
                 }
             }
-        }</B></FONT>
-        return res;
+            if()*/
+        }
+        return ret;
     }
-
-private:
-    vector&lt;string&gt; parse(const string&amp; s) {
-        int n = s.length();
-        if (n == 0) {
-            return {};
-        }
-        vector&lt;string&gt; res;
-        for (int i = 0; i &lt; n - 1; ++i) {
-            auto t1 = s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1);
-            int zeros = 0;
-            for (int j = t1.length() - 1; j &gt;=0; --j) {
-                if (t1[j] == '0') {
-                    ++zeros;
-                    continue;
-                } 
-                break;
-            }
-            if (zeros &gt; 0) {
-                break;
-            }
-            
-            zeros = 0;
-            for (int j = 0; j &lt; t1.length(); ++j) {
-                if (t1[j] == '0') {
-                    ++zeros;
-                    continue;
-                }
-                break;
-            }
-            if (zeros &gt; 0 &amp;&amp; i != 0) {
-                break;
-            }
-            res.emplace_back(t1);
-//             auto t2 = to_string(stold(t1));
-//             if (t2.length() &gt; t1.length()) {
-//                 t2 = t2.substr(0, t1.length());
-//             }
-//             cout &lt;&lt; &quot;parse &quot; &lt;&lt; t1 &lt;&lt; &quot; &quot; &lt;&lt; t2 &lt;&lt; endl;
-//             if (t1 == t2) {
-                
-//                 res.emplace_back(t1);
-//             }
-        }
-        
-        auto t = to_string(stoi(s));
-        if (t == s) {
-            res.emplace_back(t);
-        }
-        return res;
+    bool judge(string str) {
+        if(str.length()==1)
+            return true;
+        if(str[0]=='0'&amp;&amp;str[1]!='.')
+            return false;
+        if(str.find('.')!=string::npos&amp;&amp;str[str.length()-1]=='0')
+            return false;
+        return true;
+    }
+    inline string getans(string left,string right) {
+        return &quot;(&quot;+left+&quot;, &quot;+right+&quot;)&quot;;
     }
 };
 </PRE>

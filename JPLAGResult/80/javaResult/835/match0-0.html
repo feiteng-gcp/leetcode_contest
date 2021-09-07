@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_uwi.java</TITLE>
+ <TITLE>408_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4_uwi.java</CENTER></H3><HR>
+<H3><CENTER>408_allister.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public int numComponents(ListNode head, int[] G) {
-	    	boolean[] hit = new boolean[10005];
-	    	for(int v : G)hit[v] = true;
-	    	
-<A NAME="0"></A>	    	int rep = 0;
-	    	int con = 0;
-	    	while(head != null){
-	    		if(hit[head.val]){<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	    			if(rep == 0)con++;
-	    			rep++;
-	    		}else{
-	    			rep = 0;
-	    		}
-	    		
-	    		head = head.next;
-	    	}
-	    	return con;
-	    }
-	}	</B></FONT>
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int numComponents(ListNode head, int[] G) {
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for (int g : G) {
+            set.add(g);
+        }
+        int nc = 0;
+        boolean linked = false</B></FONT>;
+        for (ListNode p = head; p != null; p = p.next) {
+            if (set.contains(p.val)) {
+                if (!linked) {
+                    ++ nc;
+                    linked = true;
+                }
+            }
+            else {
+                linked = false;
+            }
+        }
+        return nc;
+    }
+}
 </PRE>
 
 </BODY>

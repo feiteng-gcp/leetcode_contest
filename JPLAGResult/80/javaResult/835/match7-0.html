@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>408_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>408_allister.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
-<A NAME="0"></A> *     ListNode(int x) { val = x; }
+ *     ListNode(int x) { val = x; }
  * }
- */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A> */
+class Solution {
     public int numComponents(ListNode head, int[] G) {
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for (int i = 0</B></FONT>; i &lt; G.length; i++) set.add(G[i]);
-        int result = 0;
-        boolean isValueFound = false;
-        while (head != null) {
-            if (set.contains(head.val)) isValueFound = true;
-            else {
-                if (isValueFound) result++;
-                isValueFound = false;
-            }
-            head = head.next;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for (int g : G) {
+            set.add(g);
         }
-        if (isValueFound) result++;
-        return result;
+        int nc = 0;
+        boolean linked = false</B></FONT>;
+        for (ListNode p = head; p != null; p = p.next) {
+            if (set.contains(p.val)) {
+                if (!linked) {
+                    ++ nc;
+                    linked = true;
+                }
+            }
+            else {
+                linked = false;
+            }
+        }
+        return nc;
     }
 }
 </PRE>

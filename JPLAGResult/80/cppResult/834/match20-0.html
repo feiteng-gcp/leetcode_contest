@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_gerwang.cpp</TITLE>
+ <TITLE>303_gtpan77.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>6_gerwang.cpp</CENTER></H3><HR>
+<H3><CENTER>303_gtpan77.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
-    bool test(string S) {
-        int decimal=S.find('.');
-        if(decimal==string::npos) {
-            if(S[0]=='0') {
-                return S.length()==1;
-            }
-            return true;
-        } else {
-            if(S.back()=='0') {
-                return false;
-            }
-            if(S[0]=='0') {
-                return S[1]=='.';
-            }
-            return true;
-        }
+    bool valid(string s, int dot){
+        if(s.size() == 1) return true;
+        if(s[0]=='0' and s[1]!='.') return false;
+        if(dot!=-1 and s[s.size()-1]=='0') return false;
+        return true;
     }
     
-    vector&lt;string&gt; dfsComma(string S) {
-        vector&lt;string&gt; res;
-        if(test(S)) {
-            res.push_back(S);
+    void gen(vector&lt;string&gt;&amp; v, string s){
+        // cout&lt;&lt;s&lt;&lt;endl;
+        if(valid(s,-1)) v.push_back(s);
+        string t;
+        for(int i=1;i&lt;s.size();i++){
+            t = s.substr(0,i)+&quot;.&quot;+s.substr(i);
+            // cout&lt;&lt;t&lt;&lt;endl;
+            if(valid(t,i)) v.push_back(t);
         }
-        for(int i=1;i&lt;S.length();i++) {
-            string tmp=S.substr(0,i)+&quot;.&quot;+S.substr(i,S.length()-i);
-            if(test(tmp)) {
-                res.push_back(tmp);
-            }
-        }
-        return res;
+        // cout&lt;&lt;v.size()&lt;&lt;endl;
     }
     
-    vector&lt;string&gt; ambiguousCoordinates(string S) {
-<A NAME="0"></A>        vector&lt;string&gt; res;
-        for(int i=1;i+2&lt;S.length();i++) {
-            auto av=dfsComma(S.substr(1,i));
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto bv=dfsComma(S.substr(i+1,S.length()-i-2));
-            for(auto&amp; a:av) {
-                for(auto&amp; b:bv) {
-                    res.push_back(&quot;(&quot;+a+&quot;, &quot;+b+&quot;)&quot;);
+    vector&lt;string&gt; ambiguousCoordinates(string s) {
+        map&lt;pair&lt;string,string&gt;,bool&gt; mp;
+<A NAME="0"></A>        s.pop_back();
+        vector&lt;string&gt; l;
+        vector&lt;string&gt; r;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i&lt;s.size()-1;i++){
+            l.clear();
+            r.clear();
+            // cout&lt;&lt;s.substr(1,i)&lt;&lt;&quot; &quot;&lt;&lt;s.substr(i+1)&lt;&lt;endl;
+            gen(l,s.substr(1,i));
+            gen(r,s.substr(i+1));
+            
+            // for(auto x : l) cout&lt;&lt;x&lt;&lt;endl;
+            // for(auto x : r) cout&lt;&lt;x&lt;&lt;endl;
+            
+            for(int i=0;i&lt;l.size();i++){
+                for(int j=0;j&lt;r.size();j++){</B></FONT>
+                    mp[{l[i],r[j]}] = true;
                 }
             }
         }
-        return res;
+        vector&lt;string&gt; ans;
+        string t;
+        for(auto x : mp){
+            // cout&lt;&lt;x.first.first&lt;&lt;&quot; &quot;&lt;&lt;x.first.second&lt;&lt;endl;
+            t = &quot;(&quot; + x.first.first + &quot;, &quot; + x.first.second + &quot;)&quot;;
+            ans.push_back(t);
+        }
+        return ans;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>
