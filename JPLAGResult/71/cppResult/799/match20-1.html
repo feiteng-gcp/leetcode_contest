@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_i_love_xiaoshagua_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>7_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    void preorder(TreeNode *root, vector&lt;long&gt; &amp;values) {
+        if (root) {
+            preorder(root-&gt;left, values);
+<A NAME="0"></A>            values.push_back(root-&gt;val);
+            preorder(root-&gt;right, values);
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+
+public:
+    int minDiffInBST(TreeNode* root) {
+        vector&lt;long&gt; values;
+        preorder(root, values);
+        sort(values.begin(), values.end());
+        long rtn = LONG_MAX;
+        for (int i = 0; i &lt; values.size() - 1; ++i) {
+            rtn = min(rtn, values[i + 1] - values[i]);</B></FONT>
+        }
+        return (int) rtn;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

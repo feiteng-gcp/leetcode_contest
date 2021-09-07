@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>22_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int movesToChessboard(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int n=board.size();
+	int ans=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int kind1=0,kind2=0;
+	for(int i=0;i&lt;n;i++)
+	{
+		int cur=0;
+		for(int j=0;j&lt;n;j++)
+		{
+			cur=cur+(board[0][j]+board[i][j])%2;
+		}
+		if(cur==0)kind1++;</B></FONT>
+		else if(cur==n)kind2++;
+		else return -1;
+	}
+	if(kind1-kind2&gt;1||kind2-kind1&gt;1)return -1;
+	int now=0;
+	for(int i=2;i&lt;n;i+=2)
+	{
+		if(board[i][0]!=board[0][0])now++;
+	}
+	if(kind1==kind2)
+	{
+		if(now&gt;(n/2)/2)now=n/2-now;
+	}
+	else if(kind1&lt;kind2)now=(n+1)/2-now;
+	ans=ans+now;
+	kind1=0;
+	kind2=0;
+	for(int i=0;i&lt;n;i++)
+	{
+		int cur=0;
+		for(int j=0;j&lt;n;j++)
+		{
+			cur=cur+(board[j][0]+board[j][i])%2;
+		}
+		if(cur==0)kind1++;
+		else if(cur==n)kind2++;
+		else return -1;
+	}
+	if(kind1-kind2&gt;1||kind2-kind1&gt;1)return -1;
+	now=0;
+	for(int i=2;i&lt;n;i+=2)
+	{
+		if(board[0][i]!=board[0][0])now++;
+	}
+	if(kind1==kind2)
+	{
+		if(now&gt;(n/2)/2)now=n/2-now;
+	}
+	else if(kind1&lt;kind2)now=(n+1)/2-now;
+	ans=ans+now;
+	return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

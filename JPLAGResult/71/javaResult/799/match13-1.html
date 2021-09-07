@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>282_rajkrishnan8.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>282_rajkrishnan8.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    // traverse inorder and find the min distance
+    public int minDiffInBST(TreeNode root) {
+        LinkedList&lt;Integer&gt; list = new LinkedList&lt;Integer&gt;();
+        sortedList(root, list);
+        Iterator&lt;Integer&gt; it = list.iterator();
+        int minDiff = Integer.MAX_VALUE;
+        int prev = it.next();
+        while(it.hasNext()) {
+            int curr = it.next();
+            if(Math.abs(prev-curr) &lt; minDiff)
+                minDiff = Math.abs(prev-curr);
+            prev = curr;
+        }
+<A NAME="0"></A>        return minDiff;
+    }
+    
+    public void sortedList(TreeNode root, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>LinkedList&lt;Integer&gt; list) {
+        if(root == null)
+            return;
+        
+        sortedList(root.left, list);
+        list.push(root.val);
+        sortedList(root.right, list);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
