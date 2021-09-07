@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_xuzijian629.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_xuzijian629.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using vi = vector&lt;int&gt;;
+using vvi = vector&lt;vi&gt;;
+
+struct UnionFind {
+    int n, cnt;
+    vi par, rank, sz;
+
+    UnionFind(int n) : n(n), cnt(n), par(n), rank(n), sz(n, 1) {
+        iota(par.begin(), par.end(), 0);
+    }
+
+    int find(int x) {
+        if (x == par[x]) return x;
+        return par[x] = find(par[x]);
+    }
+
+    bool same(int x, int y) {
+        return find(x) == find(y);
+    }
+
+    int size(int x) {
+        return sz[find(x)];
+    }
+
+    void unite(int x, int y) {
+        x = find(x), y = find(y);
+        if (x == y) return;
+        if (rank[x] &lt; rank[y]) {
+            par[x] = y;
+            sz[y] += sz[x];
+        } else {
+            par[y] = x;
+            sz[x] += sz[y];
+            if (rank[x] == rank[y]) {
+                rank[x]++;
+<A NAME="0"></A>            }
+        }
+        cnt--;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+};
+
+class Solution {
+    int n;
+    int id(int i, int j, int k) {
+        return 4 * (i * n + j) + k;
+    }
+public:
+    int regionsBySlashes(vector&lt;string&gt;&amp; grid) {
+        n = grid.size();
+        UnionFind uf(n * n * 4);
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n - 1; j++) {</B></FONT>
+                uf.unite(id(i, j, 3), id(i, j + 1, 1));
+            }
+        }
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                uf.unite(id(i, j, 2), id(i + 1, j, 0));
+            }
+        }
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (grid[i][j] == '/') {
+                    uf.unite(id(i, j, 0), id(i, j, 1));
+                    uf.unite(id(i, j, 2), id(i, j, 3));
+                } else if (grid[i][j] == '\\') {
+                    uf.unite(id(i, j, 0), id(i, j, 3));
+                    uf.unite(id(i, j, 1), id(i, j, 2));
+                } else {
+                    uf.unite(id(i, j, 0), id(i, j, 1));
+                    uf.unite(id(i, j, 1), id(i, j, 2));
+                    uf.unite(id(i, j, 2), id(i, j, 3));
+                }
+            }
+        }
+        return uf.cnt;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_boris109able.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>196_boris109able.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; prisonAfterNDays(vector&lt;int&gt;&amp; cells, int N) {
+        int prev[8], now[8];
+        for (int i = 0; i &lt; 8; i++) {</B></FONT>
+            now[i] = prev[i] = cells[i];
+<A NAME="1"></A>        }
+        
+        N--;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        now[0] = now[7] = 0;
+        for (int j = 1; j &lt; 7; j++) {
+            if (prev[j - 1] == prev[j + 1]) {
+                now[j] = 1;
+            }
+            else {
+                now[j] = 0;
+            }
+        }</B></FONT>
+        memcpy(prev, now, sizeof(now));
+        
+        vector&lt;int&gt; cache[64];
+        for (int i = 0; i &lt; 8; i++) {
+            cache[0].push_back(prev[i]);
+        }
+        
+        int i = 1;
+        for (; i &lt;= 64; i++) {
+            now[0] = now[7] = 0;
+            for (int j = 1; j &lt; 7; j++) {
+                if (prev[j - 1] == prev[j + 1]) {
+                    now[j] = 1;
+                }
+                else {
+                    now[j] = 0;
+                }
+            }
+            memcpy(prev, now, sizeof(now));
+            
+            vector&lt;int&gt; ans;
+            for (int i = 0; i &lt; 8; i++) {
+                ans.push_back(prev[i]);
+            }
+            cache[i] = ans;
+            
+            if (ans == cache[0]) {
+                break;
+            }
+        }
+
+        return cache[N % i];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

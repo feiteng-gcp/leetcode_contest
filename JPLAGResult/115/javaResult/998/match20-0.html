@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_Aragog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_Aragog.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isCompleteTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Deque&lt;TreeNode&gt; deque = new LinkedList&lt;&gt;();
+<A NAME="0"></A>        deque.offerLast(root);
+        boolean isLast = false;
+        while (!deque.isEmpty()) {
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int N = deque.size();
+            for (int i = 0; i &lt; N; i++) {
+                TreeNode cur = deque.pollFirst();
+<A NAME="1"></A>                if (cur.left == null &amp;&amp; cur.right != null) {
+                    return false;
+                }</B></FONT>
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (cur.left != null) {
+                    if (isLast) {
+                        return false;
+                    }
+                    deque.offerLast(cur.left);
+                } else {
+                    isLast = true;
+                }
+                if (cur.right != null) {
+                    if (isLast) {
+                        return false;
+                    }
+                    deque.offerLast(cur.right);
+                } else {
+                    isLast = true;
+                }
+            }
+        }</B></FONT>
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

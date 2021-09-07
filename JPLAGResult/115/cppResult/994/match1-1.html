@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>312_hdzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>312_hdzhang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; prisonAfterNDays(vector&lt;int&gt;&amp; cells, int N) {
+        
+        int s = 0;
+        for(int i=0;i&lt;8;i++)</B></FONT>
+            s += cells[i]*pow(2,i);
+        vector&lt;int&gt; x{s};
+        vector&lt;vector&lt;int&gt;&gt; res{cells};
+        
+        for(int i=0;i&lt;N;i++)
+        {
+            vector&lt;int&gt; tt(8,0);
+            for(int j=1;j&lt;7;j++)
+                tt[j] = !(res[i][j-1] ^ res[i][j+1]);
+            s = 0;
+            for(int i=0;i&lt;8;i++)
+                s += tt[i]*pow(2,i);
+            if(i&gt;0 &amp;&amp; s == x[1])
+            {
+                int bb = (N-1) % (x.size()-1);
+                
+                return res[bb+1];
+            }
+            x.push_back(s);
+            res.push_back(tt);
+        }
+        return res.back();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

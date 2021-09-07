@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>453_dextermallo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>453_dextermallo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; prisonAfterNDays(vector&lt;int&gt;&amp; cells, int N) {
+        int cur = cells[0];
+        bool same = true;
+        for (int i = 1; i &lt; 8; ++i) { // all the same
+            if (cur != cells[i]) same = false;
+        }
+        if (same) {
+            if (N == 1) {
+                next(cells, 1);
+            } else {
+                N = (N - 1) % 7;
+                next(cells, N + 1);
+            }
+        } else {
+            if (N == 1) {
+                next(cells, 1);
+            } else {
+                N = (N - 1) % 14;
+                next(cells, N + 1);
+            }
+        }
+        return cells;
+    }
+<A NAME="0"></A>
+    void next(vector&lt;int&gt;&amp; v, int n) {
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match42-0.html#0',2,'match42-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; ++i) {
+        vector&lt;int&gt; pre(v);
+        for (int j = 1; j &lt; 7; ++j) {
+            if (pre[j + 1] == pre[j - 1]) v[j] = 1;
+            else v[j] = 0;
+        }
+        v[0] = v[7] = 0;</B></FONT>
+    }
+        return;
+}
+};
+
+</PRE>
+</BODY>
+</HTML>

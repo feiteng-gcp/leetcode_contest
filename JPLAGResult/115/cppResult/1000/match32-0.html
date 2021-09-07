@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_xuzijian629.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_xuzijian629.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using vi = vector&lt;int&gt;;
+using vvi = vector&lt;vi&gt;;
+#define NINF INT_MIN
+  
+// Graph is represented using adjacency list. Every 
+// node of adjacency list contains vertex number of 
+// the vertex to which edge connects. It also 
+// contains weight of the edge 
+class AdjListNode { 
+    int v; 
+    int weight; 
+  
+public: 
+    AdjListNode(int _v, int _w) 
+    { 
+        v = _v; 
+        weight = _w; 
+    } 
+    int getV() { return v; } 
+    int getWeight() { return weight; } 
+}; 
+  
+// Class to represent a graph using adjacency list 
+// representation 
+class Graph { 
+    int V; // No. of vertices' 
+  
+    // Pointer to an array containing adjacency lists 
+    list&lt;AdjListNode&gt;* adj; 
+  
+    // A function used by longestPath 
+    void topologicalSortUtil(int v, bool visited[], 
+                             stack&lt;int&gt;&amp; Stack); 
+  
+public: 
+    Graph(int V); // Constructor 
+  
+    // function to add an edge to graph 
+    void addEdge(int u, int v, int weight); 
+  
+    // Finds longest distances from given source vertex 
+    int longestPath(int s); 
+}; 
+  
+Graph::Graph(int V) // Constructor 
+{ 
+    this-&gt;V = V; 
+    adj = new list&lt;AdjListNode&gt;[V]; 
+} 
+  
+void Graph::addEdge(int u, int v, int weight) 
+{ 
+    AdjListNode node(v, weight); 
+    adj[u].push_back(node); // Add v to u's list 
+} 
+  
+// A recursive function used by longestPath. See below 
+// link for details 
+// https:// www.geeksforgeeks.org/topological-sorting/ 
+void Graph::topologicalSortUtil(int v, bool visited[], 
+                                stack&lt;int&gt;&amp; Stack) 
+{ 
+    // Mark the current node as visited 
+    visited[v] = true; 
+  
+    // Recur for all the vertices adjacent to this vertex 
+    list&lt;AdjListNode&gt;::iterator i; 
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) { 
+        AdjListNode node = *i; 
+        if (!visited[node.getV()]) 
+            topologicalSortUtil(node.getV(), visited, Stack); 
+    } 
+  
+    // Push current vertex to stack which stores topological 
+    // sort 
+    Stack.push(v); 
+} 
+  
+// The function to find longest distances from a given vertex. 
+// It uses recursive topologicalSortUtil() to get topological 
+// sorting. 
+int Graph::longestPath(int s) 
+{ 
+    stack&lt;int&gt; Stack; 
+    int dist[V]; 
+  
+    // Mark all the vertices as not visited 
+    bool* visited = new bool[V]; 
+    for (int i = 0; i &lt; V; i++) 
+        visited[i] = false; 
+  
+    // Call the recursive helper function to store Topological 
+    // Sort starting from all vertices one by one 
+    for (int i = 0; i &lt; V; i++) 
+        if (visited[i] == false) 
+            topologicalSortUtil(i, visited, Stack); 
+  
+    // Initialize distances to all vertices as infinite and 
+    // distance to source as 0 
+    for (int i = 0; i &lt; V; i++) 
+        dist[i] = NINF; 
+    dist[s] = 0; 
+  
+    // Process vertices in topological order 
+    while (Stack.empty() == false) { 
+        // Get the next vertex from topological order 
+        int u = Stack.top(); 
+        Stack.pop(); 
+  
+        // Update distances of all adjacent vertices 
+        list&lt;AdjListNode&gt;::iterator i; 
+        if (dist[u] != NINF) { 
+            for (i = adj[u].begin(); i != adj[u].end(); ++i) 
+                if (dist[i-&gt;getV()] &lt; dist[u] + i-&gt;getWeight()) 
+                    dist[i-&gt;getV()] = dist[u] + i-&gt;getWeight(); 
+        } 
+    } 
+  
+    // Print the calculated longest distances
+    int nax = 0;
+    for (int i = 0; i &lt; V; i++) {
+        if (dist[i] != NINF) {
+            nax = max(nax, dist[i]);
+        }
+    }
+    return nax;
+}
+
+
+class Solution {
+    int n, N;
+    vvi adj;
+public:
+    int minDeletionSize(vector&lt;string&gt;&amp; A) {
+<A NAME="0"></A>        N = A.size(), n = A.front().size();
+        adj = vvi(n, vi(n));
+        Graph g(n);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                int ok = 1;
+                for (int k = 0; k &lt; N; k++) {
+                    if (A[k][i] &gt; A[k][j]) {
+                        ok = 0;
+                        break;
+                    }
+                }
+<A NAME="1"></A>                if (ok) {</B></FONT>
+                    g.addEdge(i, j, 1);
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+
+        int nax = 0;
+        for (int i = 0; i &lt; n; i++) {
+            nax = max(nax, g.longestPath(i) + 1);
+        }
+        
+        return n - nax;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

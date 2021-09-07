@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>309_hopflink.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>309_hopflink.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	int convert(vector&lt;int&gt;&amp; cells) {
+		int ret = 0;
+		for (int i = 0; i&lt;cells.size(); i++) {</B></FONT>
+			ret += cells[i];
+			ret *= 2;
+		}
+		return ret;
+	}
+	vector&lt;int&gt; rev(int num) {
+		vector&lt;int&gt; ret;
+		for(int i=0;i&lt;8;i++) {
+			ret.push_back(num % 2);
+			num /= 2;
+		}
+		reverse(ret.begin(), ret.end());
+		return ret;
+	}
+	vector&lt;int&gt; next(vector&lt;int&gt; cells) {
+		vector&lt;int&gt; newvec(8, 0);
+		newvec[0] = 0;
+		newvec[7] = 0;
+		for (int i = 1; i&lt;7; i++) {
+			if (!(cells[i - 1] ^ cells[i + 1]))
+				newvec[i] = 1;
+		}
+		return newvec;
+	}
+<A NAME="1"></A>
+	vector&lt;int&gt; prisonAfterNDays(vector&lt;int&gt;&amp; cells, int N) {
+		map&lt;int, int&gt; m;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i&lt;N; i++) {
+			int k = convert(cells);
+			if (m.find(k) == m.end())
+				m[k] = i;
+			else {
+				int div = i - m[k];
+				int rem = (N - m[k]) % div;</B></FONT>
+				vector&lt;int&gt; ans = cells;
+				for (int j = 0; j &lt; rem; j++) {
+					ans = next(ans);
+				}
+				return ans;
+			}			
+			cells = next(cells);
+		}
+		return cells;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

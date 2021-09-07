@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_vmaksimo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_vmaksimo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct dsa {
+        dsa* parent = this;
+        bool tag = false;
+        int rank = 0;
+
+        dsa* head(){
+            if(parent != parent-&gt;parent){
+                parent = parent-&gt;head();
+            }
+
+            return parent;
+        }
+        void merge(dsa* sec){
+            dsa* fir = head();
+            sec = sec-&gt;head();
+
+            if(fir == sec){
+                return;
+            }
+
+            if(fir-&gt;rank &lt; sec-&gt;rank){
+                fir-&gt;parent = sec;
+            } else if(fir-&gt;rank &gt; sec-&gt;rank){
+                sec-&gt;parent = fir;
+            } else {
+                sec-&gt;parent = fir;
+                fir-&gt;rank++;
+            }
+        }
+    };
+    
+    int ay[4] = {1, -1, 0, 0};
+    int ax[4] = {0, 0, 1, -1};
+    dsa dsu[30][30][2];
+    int coming[30][30][4];
+    int going[30][30][4];
+    int regionsBySlashes(vector&lt;string&gt;&amp; grid) {
+        for(int i = 0; i &lt; grid.size(); i++){
+            for(int j = 0; j &lt; grid.size(); j++){
+                if(grid[i][j] == '\\'){
+                    coming[i][j][0] = 0;
+                    coming[i][j][1] = 1;
+                    coming[i][j][2] = 1;
+                    coming[i][j][3] = 0;
+                } else if(grid[i][j] == '/'){
+                    coming[i][j][0] = 0;
+                    coming[i][j][1] = 1;
+                    coming[i][j][2] = 0;
+                    coming[i][j][3] = 1;
+                } else {
+                    coming[i][j][0] = 0;
+                    coming[i][j][1] = 0;
+                    coming[i][j][2] = 0;
+                    coming[i][j][3] = 0;
+                }
+<A NAME="0"></A>            }
+        }
+        for(int i = 0; i &lt; grid.size(); i++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 0; j &lt; grid.size(); j++){
+                for(int k = 0; k &lt; 4; k++){
+                    int ny = i + ay[k];
+                    int nx = j + ax[k];</B></FONT>
+                    
+                    if(0 &lt;= ny and ny &lt; grid.size() and 0 &lt;= nx and nx &lt; grid.size()){
+                        dsu[i][j][!coming[i][j][k]].merge(&amp;dsu[ny][nx][coming[ny][nx][k]]);
+                    }
+                }
+<A NAME="1"></A>                
+                if(grid[i][j] == ' '){
+                    dsu[i][j][0].merge(&amp;dsu[i][j][1]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        
+        int res = 0;
+        for(int i = 0; i &lt; grid.size(); i++){
+            for(int j = 0; j &lt; grid.size(); j++){
+                if(!dsu[i][j][0].head()-&gt;tag){
+                    res++;</B></FONT>
+                    dsu[i][j][0].head()-&gt;tag = true;
+                }
+                if(!dsu[i][j][1].head()-&gt;tag){
+                    res++;
+                    dsu[i][j][1].head()-&gt;tag = true;
+                }
+            }
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

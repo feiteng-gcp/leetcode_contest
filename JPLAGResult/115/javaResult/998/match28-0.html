@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_lzt.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>300_lzt.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isCompleteTree(TreeNode root) {
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(root);
+        int index = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size</B></FONT>();
+            boolean hasEmptyRight = false;
+            for (int i = 0; i &lt; size; ++i) {
+<A NAME="1"></A>                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    if (hasEmptyRight) return false;
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.add(node.left);
+                    if (node.right != null) {
+                        queue.add(node.right);
+                    } else {
+                        hasEmptyRight = true;
+                    }
+                } else {
+                    hasEmptyRight = true;
+                    if (node.right != null) {
+                        return false;
+                    }
+                }
+            }</B></FONT>
+            if (size == Math.pow(2, index)) {
+                index++;
+            } else {
+                if (queue.size() == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

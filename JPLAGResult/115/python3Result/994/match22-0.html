@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>304_jcaoso1a.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>304_jcaoso1a.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def prisonAfterNDays(self, cells, N):
+        &quot;&quot;&quot;
+        :type cells: List[int]
+        :type N: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        visit, rec = dict(), dict()
+        cnt = 1
+        cells = tuple(cells)
+<A NAME="0"></A>        visit[cells] = cnt
+        rec[cnt] = cells
+        cnt += 1
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def trans(arr):
+            new_arr = []
+            for idx, bit in enumerate(arr):
+                if 1 &lt;= idx &lt;=6 and arr[idx-1] == arr[idx+1]:
+                    new_arr.append(1)
+                else:
+                    new_arr.append(0</B></FONT>)
+            return tuple(new_arr) 
+        cycle = -1
+        for t in range(N):
+            cells = trans(cells)
+            if cells in visit:
+                first_repeat = visit[cells]
+                cycle = cnt - first_repeat
+                # print('st', visit[cells])
+                # print('cycle', cycle)
+                remainder = (N+1 - first_repeat) % cycle
+                return list(rec[first_repeat + remainder])
+            else:
+                visit[cells] = cnt
+                rec[cnt] = cells
+                cnt += 1
+
+        return list(cells)  
+</PRE>
+
+</BODY>
+</HTML>

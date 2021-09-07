@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>53_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+<A NAME="0"></A>	private boolean check(String[] A , int col1 , int col2) {
+		
+		int i , n = A.length;
+		for (i = 0;i &lt; n;i ++) {<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			if (A[i].charAt(col1) &gt; A[i].charAt(col2)) {
+				return false;				
+			}
+		}
+		return true;
+		
+	}</B></FONT>
+	
+	private int[] dp;
+	
+    public int minDeletionSize(String[] A) {
+        
+    	int i , j , n = A.length , m = A[0].length() , ans = - 1;
+    	dp = new int[m];
+    	for (i = 0;i &lt; m;i ++) {
+    		dp[i] = i;
+    		for (j = 0;j &lt; i;j ++) {
+    			if (check(A , j , i)) {
+    				int temp = dp[j] + i - j - 1;
+    				if (temp &lt; dp[i]) {
+    					dp[i] = temp;
+    				}
+    			}
+    		}
+    		int value = dp[i] + m - i - 1;
+    		if (value &lt; ans || ans &lt; 0) {
+    			ans = value;
+    		}
+    	}	
+    	return ans;
+    	
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

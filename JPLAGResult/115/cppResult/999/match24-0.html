@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_GuangyuZhong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_GuangyuZhong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int regionsBySlashes(vector&lt;string&gt;&amp; grid) {
+        int n = static_cast&lt;int&gt;(grid.size());
+        if (n == 0) {
+            return 0;
+        }
+        int m = static_cast&lt;int&gt;(grid[0].size());
+<A NAME="0"></A>        if (m == 0) {
+            return 0;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        auto encode = [&amp;m](int i, int j, int p) {
+            return (i * m + j) * 4 + p;
+        };
+        init(encode(n - 1, m - 1, 3) + 1);
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (i &gt; 0) {
+                    combine(encode(i - 1, j, 2), encode(i, j, 0));
+                }
+                if (j &gt; 0) {
+                    combine(encode(i, j - 1, 1), encode(i, j, 3));
+                }
+                if (grid[i][j] != '/') {
+                    combine(encode(i, j, 0), encode(i, j, 1));
+                    combine(encode(i, j, 3), encode(i, j, 2));
+                }
+                if (grid[i][j] != '\\') {
+                    combine(encode(i, j, 0), encode(i, j, 3));
+                    combine(encode(i, j, 1), encode(i, j, 2));
+                }</B></FONT>
+            }
+        }
+        unordered_set&lt;int&gt; groups;
+        for (int i = 0; i &lt; static_cast&lt;int&gt;(parent.size()); ++i) {
+            groups.insert(find(i));
+        }
+        return static_cast&lt;int&gt;(groups.size());
+    }
+    
+private:
+    vector&lt;int&gt; parent;
+    
+    void init(int n) {
+        parent = vector&lt;int&gt;(n);
+        for (int i = 0; i &lt; n; ++i) {
+            parent[i] = i;
+        }
+    }
+    
+    int find(int x) {
+        if (x == parent[x]) {
+            return x;
+        }
+        return parent[x] = find(parent[x]);
+    }
+    
+    void combine(int x, int y) {
+        parent[find(x)] = find(y);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

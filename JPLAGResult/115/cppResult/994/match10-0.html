@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_fd_zjf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>348_fd_zjf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; prisonAfterNDays(vector&lt;int&gt;&amp; c, int n) {
+        int k = 1;
+        vector&lt;int&gt; cur = next(c);
+        vector&lt;int&gt; res = next(cur);
+        
+        while (res != cur) {
+            res = next(res);
+            ++k;
+        }
+<A NAME="0"></A>        
+        k = (n-1)%k;
+        res = cur;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; k; ++i) {
+            res = next(res);
+        }
+        return res;
+    }
+    
+    vector&lt;int&gt; next(vector&lt;int&gt;&amp; cur) {
+        vector&lt;int&gt; res(cur.size(), 0);
+        res[0] = 0; res[cur.size()-1] = 0;
+        for (int i = 1; i &lt; cur.size()-1; ++i) {
+            if (cur[i-1] == cur[i+1]) res[i] = 1;
+        }
+        return res;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_honghongdepengpeng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_honghongdepengpeng.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int regionsBySlashes(String[] grid) {
+        int n = grid.length;
+        if (n == 0) {
+<A NAME="0"></A>            return 0;
+        }
+        int m = grid[0].length();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>DUS dus = new DUS(n * m * 4);
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                int key = (i * m + j) * 4</B></FONT>;
+                char ch = grid[i].charAt(j);
+                if (ch == ' ') {
+                    dus.merge(key + 0, key + 1);
+                    dus.merge(key + 0, key + 2);
+                    dus.merge(key + 0, key + 3);
+                } else if (ch == '/') {
+                    dus.merge(key + 0, key + 3);
+                    dus.merge(key + 1, key + 2);
+                } else {
+                    dus.merge(key + 0, key + 1);
+                    dus.merge(key + 2, key + 3);
+                }
+            }
+        }
+        
+<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) {
+            for (int j = 1; j &lt; m; j++) {
+                int key = (i * m + j) * 4;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dus.merge(key - 4 + 1, key + 3);
+            }
+        }
+        for (int i = 1; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                int key = (i * m + j) * 4;
+                dus.merge</B></FONT>(key - 4 * m + 2, key);
+            }
+        }
+        return dus.getBlock();
+    }
+}
+
+class DUS {
+    int[] f;
+    int block;
+    
+    public DUS(int n) {
+        f = new int[n];
+        block = n;
+        for (int i = 0; i &lt; n; i++) {
+            f[i] = i;
+        }
+    }
+    
+    public int getF(int u) {
+        if (f[u] != u) {
+            f[u] = getF(f[u]);
+        }
+        return f[u];
+    }
+    
+    public void merge(int u, int v) {
+        u = getF(u);
+        v = getF(v);
+        if (u != v) {
+            f[v] = u;
+            block--;
+        }
+    }
+    
+    public int getBlock() {
+        return block;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_boris109able.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>196_boris109able.cpp</CENTER></H3><HR>
+<PRE>
+const int maxn = 30;
+struct Cell {
+    int u, r, d, l;
+};
+Cell c[maxn][maxn];
+vector&lt;int&gt; edge[4 * maxn * maxn];
+bool vis[4 * maxn * maxn];
+class Solution {
+public:
+    int regionsBySlashes(vector&lt;string&gt;&amp; grid) {
+        int n = grid.size();
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                c[i][j].u = 4 * (i * n + j);
+                c[i][j].d = 4 * (i * n + j) + 1;
+                c[i][j].l = 4 * (i * n + j) + 2;
+                c[i][j].r = 4 * (i * n + j) + 3;
+            }
+        }
+<A NAME="0"></A>        
+        for (int i = 0; i &lt; 4 * n * n; i++) {
+            edge[i].clear();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (i - 1 &gt;= 0) {
+                    edge[c[i][j].u].push_back(c[i - 1][j].d);
+                }
+                if (i + 1 &lt; n) {
+                    edge[c[i][j].d].push_back(c[i + 1][j].u);
+                }
+                if (j - 1 &gt;= 0) {
+                    edge[c[i][j].l].push_back(c[i][j - 1].r);
+                }
+                if (j + 1 &lt; n) {
+                    edge[c[i][j].r].push_back(c[i][j + 1].l);
+                }
+                if (grid[i][j] != '/') {
+                    edge[c[i][j].u].push_back(c[i][j].r);
+                    edge[c[i][j].r].push_back(c[i][j].u);
+                    edge[c[i][j].l].push_back(c[i][j].d);
+                    edge[c[i][j].d].push_back(c[i][j].l);
+                }</B></FONT>
+                if (grid[i][j] != '\\') {
+                    edge[c[i][j].u].push_back(c[i][j].l);
+                    edge[c[i][j].l].push_back(c[i][j].u);
+                    edge[c[i][j].r].push_back(c[i][j].d);
+                    edge[c[i][j].d].push_back(c[i][j].r);
+                }
+            }
+        }
+        
+        int cnt = 0;
+        memset(vis, false, sizeof(vis));
+        for (int i = 0; i &lt; 4 * n * n; i++) {
+            if (!vis[i]) {
+                queue&lt;int&gt; q;
+                q.push(i);
+                vis[i] = true;
+                while (!q.empty()) {
+                    int u = q.front(); q.pop();
+                    for (int v: edge[u]) {
+                        if (!vis[v]) {
+                            q.push(v);
+                            vis[v] = true;
+                        }
+                    }
+                }
+                cnt++;
+            }
+        }
+        return cnt; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

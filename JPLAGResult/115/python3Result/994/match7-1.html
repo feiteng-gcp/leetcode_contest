@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>376_Sirius.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>376_Sirius.py</CENTER></H3><HR>
+<PRE>
+import copy
+class Solution:
+    def prisonAfterNDays(self, cells, N):
+        &quot;&quot;&quot;
+        :type cells: List[int]
+        :type N: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+<A NAME="0"></A>        # 暴力破解
+        # 因为肯定会产生循环，所以我们只要找到循环节就行了
+        circle = []
+        array <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= [0 for _ in range(8)]
+        for i in range(1, 7):
+            if cells[i-1] + cells[i+1] == 1:
+                array[i] = 0
+            else:
+                array[i] = </B></FONT>1
+        circle.append(copy.copy(array))
+        for _ in range(64):
+            for i in range(1,7):
+                if circle[-1][i-1] + circle[-1][i+1] == 1:
+                    array[i] = 0
+                else:
+                    array[i] = 1
+            if array == circle[0]:
+                break
+            circle.append(copy.copy(array))
+        T = len(circle)
+        N = N % T
+        return circle[N-1]
+</PRE>
+
+</BODY>
+</HTML>

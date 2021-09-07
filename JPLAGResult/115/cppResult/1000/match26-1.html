@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_GuangyuZhong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>82_GuangyuZhong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minDeletionSize(vector&lt;string&gt;&amp; A) {
+        int n = static_cast&lt;int&gt;(A.size());
+        if (n == 0) {
+            return 0;
+        }
+        int m = static_cast&lt;int&gt;(A[0].size());
+        if (m == 0) {
+<A NAME="0"></A>            return 0;
+        }
+        vector&lt;vector&lt;bool&gt;&gt; valid(m, vector&lt;bool&gt;(m, true));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                for (int k = 0; k &lt; n; ++k) {
+                    if (A[k][i] &gt; A[k][j]) {
+                        valid[i][j] = false;</B></FONT>
+                        break;
+                    }
+                }
+<A NAME="1"></A>            }
+        }
+        vector&lt;vector&lt;int&gt;&gt; dp(m, vector&lt;int&gt;(m, -1));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0] = 0;
+        for (int i = 1; i &lt; m; ++i) {
+            dp[i][i] = i;
+            for (int j = 0; j &lt; i; ++j) {
+                if (dp[i - 1][j] == -1) {</B></FONT>
+                    continue;
+                }
+                if (valid[j][i]) {
+                    dp[i][i] = min(dp[i][i], dp[i - 1][j]);
+                }
+                if (dp[i][j] == -1 || dp[i][j] &gt; dp[i - 1][j]) {
+                    dp[i][j] = dp[i - 1][j] + 1;
+                }
+            }
+        }
+        /*for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                cout &lt;&lt; dp[i][j] &lt;&lt; &quot; &quot;;
+            }
+            cout &lt;&lt; endl;
+        }*/
+        int minDel = m;
+        for (auto del : dp[m - 1]) {
+            if (del != -1) {
+                minDel = min(minDel, del);
+            }
+        }
+        return minDel;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
