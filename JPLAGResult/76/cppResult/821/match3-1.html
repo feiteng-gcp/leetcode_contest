@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>4___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  vector&lt;int&gt; hitBricks(vector&lt;vector&lt;int&gt;&gt; &amp;grid, vector&lt;vector&lt;int&gt;&gt; &amp;hits) {
+    // reverse(grid.begin(), grid.end());
+    int n = grid.size(), m = grid[0].size();
+    int q = hits.size();
+    auto id = [&amp;](int x, int y) { return x * m + y; };
+    vector&lt;bool&gt; valid(q);
+    for (int i = 0; i &lt; q; ++i) {
+      int x, y;
+      tie(x, y) = tie(hits[i][0], hits[i][1]);
+      if (grid[x][y]) {
+        valid[i] = true;
+        grid[x][y] = 0;
+      }
+    }
+    vector&lt;int&gt; fa(n * m + 10), s(n * m + 10);
+    int root = n * m;
+    function&lt;int(int)&gt; gf = [&amp;](int x) {
+      if (fa[x] == x) {
+        return x;
+      }
+      int t = gf(fa[x]);
+      if (t != fa[x]) {
+        fa[x] = t;
+      }
+      return fa[x];
+    };
+    for (int i = 0; i &lt; n; ++i) {
+      for (int j = 0; j &lt; m; ++j) {
+        fa[id(i, j)] = id(i, j);
+        s[id(i, j)] = grid[i][j];
+      }
+    }
+    auto merge = [&amp;](int x, int y) {
+      if (gf(x) == gf(y)) {
+        return;
+      }
+      s[gf(x)] += s[gf(y)];
+      fa[gf(y)] = gf(x);
+    };
+    fa[root] = root;
+    int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
+    auto seek_merge = [&amp;](int i, int j) {
+      if (!i) {
+        merge(id(i, j), root);
+      }
+      for (int d = 0; d &lt; 4; ++d) {
+        int x = i + dx[d], y = j + dy[d];
+<A NAME="0"></A>        if (0 &lt;= x &amp;&amp; x &lt; n &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; m &amp;&amp; grid[x][y]) {
+          merge(id(i, j), id(x, y));
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+    };
+    for (int i = 0; i &lt; n; ++i) {
+      for (int j = 0; j &lt; m; ++j) {</B></FONT>
+        if (grid[i][j]) {
+          seek_merge(i, j);
+          // cerr &lt;&lt; &quot;seek &quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+        }
+      }
+    }
+    for (int i = 0; i &lt; m; ++i) {
+      if (grid[0][i]) {
+        merge(id(0, i), root);
+      }
+    }
+    vector&lt;int&gt; res{s[gf(root)]};
+    for (int i = q - 1; i &gt;= 0; --i) {
+      int x, y;
+      tie(x, y) = tie(hits[i][0], hits[i][1]);
+      if (valid[i]) {
+        grid[x][y] = 1;
+        s[id(x, y)] = 1;
+        // cerr &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; s[gf(id(0, 0))] &lt;&lt; &quot; &quot; &lt;&lt; s[gf(root)] &lt;&lt; endl;
+        seek_merge(x, y);
+        if (gf(id(x, y)) != gf(root)) {
+          valid[i] = false;
+        }
+      }
+      res.push_back(s[gf(root)]);
+    }
+    for (auto x : res) {
+      // cerr &lt;&lt; x &lt;&lt; endl;
+    }
+    reverse(res.begin(), res.end());
+    vector&lt;int&gt; diff;
+    for (int i = 1; i &lt; res.size(); ++i) {
+      diff.push_back(res[i - 1] - res[i] - valid[i - 1]);
+    }
+    return diff;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

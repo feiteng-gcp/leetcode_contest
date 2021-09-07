@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_xuan18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_xuan18.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minSwap(int[] A, int[] B) {
+        int n = A.length;
+        if(n==1) {
+            return 0;
+        }
+        
+        //ret[0][i] == min swap for A[0:i+1] and B[0:i+1] if not swapping A[i+1] with B[i+1]
+        //ret[0][i] == min swap for A[0:i+1] and B[0:i+1] if swapping A[i+1] with B[i+1]
+        int[][] ret = new int[2][n-1];
+        
+        //initialize
+        if(A[0]&lt;A[1] &amp;&amp; B[0]&lt;B[1]) {
+            ret[0][0] = 0;
+        } else {
+            ret[0][0] = 1;
+        }
+        
+        if(A[0]&lt;B[1] &amp;&amp; B[0]&lt;A[1]) {
+            ret[1][0] = 1;
+        } else {
+            ret[1][0] = 2;
+        }
+        
+        // System.out.println(&quot;Init Last = &quot; + 1 + &quot; Scores = &quot; + ret[0][0] + &quot;,&quot; + ret[1][0]);
+        
+        for(int i=1;i&lt;n-1;i++) {
+            int prev0 = ret[0][i-1], prev1 = ret[1][i-1];
+            ret[0][i] = Integer.MAX_VALUE;
+            ret[1][i] = Integer.MAX_VALUE;
+            int tmp;
+            if (A[i]&lt;A[i+1] &amp;&amp; B[i]&lt;B[i+1]) {
+                tmp = prev0;
+                if(tmp&lt;ret[0][i]) {
+                    ret[0][i] = tmp;
+                }
+                tmp = prev1 + 1;
+                if(tmp&lt;ret[1][i]) {
+                    ret[1][i] = tmp;
+                }
+            }
+            if (A[i]&lt;B[i+1] &amp;&amp; B[i]&lt;A[i+1]) {
+                tmp = prev1;
+                if(tmp&lt;ret[0][i]) {
+                    ret[0][i] = tmp;
+                }
+                tmp = prev0 + 1;
+                if(tmp&lt;ret[1][i]) {
+                    ret[1][i] = tmp;
+                }
+<A NAME="0"></A>            }
+            if(ret[0][i]==Integer.MAX_VALUE || ret[1][i]==Integer.MAX_VALUE) {
+                throw new RuntimeException(&quot;Check the values at &quot; + i + &quot; and &quot; + (i+1));
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            // System.out.println(&quot;Last = &quot; + (i+1) + &quot; Scores = &quot; + ret[0][i] + &quot;,&quot; + ret[1][i]);
+        }
+        
+        return Math.min(ret[0][n-2], ret[1][n-2]);
+    }
+}</B></FONT>
+
+/*
+
+[1,3,5,4]
+[1,2,3,7]
+[1,4]
+[3,2]
+[1,4]
+[2,3]
+[1,3,7]
+[5,6,4]
+[5,3,4]
+[1,8,9]
+
+
+*/
+</PRE>
+
+</BODY>
+</HTML>

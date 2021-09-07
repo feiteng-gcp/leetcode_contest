@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_QingqingXii0iii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    const static int maxn = 1e4 + 5;
+    int deg[maxn];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; rG[maxn];
+    vector&lt;int&gt; eventualSafeNodes(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int n = graph.size();
+        queue&lt;int&gt; q;
+        for(int i = 0;i &lt; n;i++){
+            for(int j = 0;j &lt; graph[i].size();j++){</B></FONT>
+                int v = graph[i][j];
+                int u = i;
+                rG[v].push_back(u);
+                deg[u]++;
+            }
+        }
+<A NAME="1"></A>        vector&lt;int&gt; ans;
+        for(int i = 0;i &lt; n;i++){
+            if(deg[i] == 0) q.push(i);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        while(!q.empty()){
+            int p = q.front();q.pop();
+            ans.push_back(p);
+            for(int i = 0;i &lt; rG[p].size();i++){
+                int to = rG[p][i];
+                deg[to]--;
+                if(deg[to] == 0) q.push(to);</B></FONT>
+            }
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

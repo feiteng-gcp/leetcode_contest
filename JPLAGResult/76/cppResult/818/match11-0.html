@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>416_xmeng525.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>416_xmeng525.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string similarRGB(string color) {
+        vector&lt;char&gt; candidate;
+        vector&lt;int&gt; candidateNum;
+        for(int i = 0; i &lt; 16; i++)
+        {
+            char c = i &gt; 9?'a'+ (i-10):i+'0';
+            string s = &quot;&quot;;
+            s = s + c; s = s + c;
+            //cout&lt;&lt; s &lt;&lt; endl;
+            candidate.push_back(s[0]);
+            candidateNum.push_back(getNum(s));
+        }
+        
+        string result = &quot;#&quot;;
+        
+        string r = color.substr(1,2);
+        int r_num = getNum(r);
+        result += candidate[getNearest(r_num, candidateNum)];
+        
+        string g = color.substr(3,2);
+        int g_num = getNum(g);
+        result += candidate[getNearest(g_num, candidateNum)];
+        
+        string b = color.substr(5,2);
+        int b_num = getNum(b);
+        result += candidate[getNearest(b_num, candidateNum)];
+        
+        return result;
+    }
+    int getNum(string r)
+    {
+        int r_num = 0; 
+        r_num += r[0]&gt;'9'? r[0]-'a'+ 10: r[0]-'0';
+        r_num = r_num * 16;
+        r_num += r[1]&gt;'9'? r[1]-'a'+ 10: r[1]-'0';
+        return r_num;
+    }
+<A NAME="0"></A>    int getNearest(int s, vector&lt;int&gt; candidate)
+    {
+        int minNum = INT_MAX;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int minIdx = 0;
+        for(int i = 0; i &lt; 16; i++)
+        {
+            int aa = (candidate[i] - s) * (candidate[i] - s);
+            if(aa &lt; minNum)
+            {
+                minNum = aa;
+                minIdx = i;
+            }
+        }
+        return minIdx;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

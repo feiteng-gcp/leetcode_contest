@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_iburi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_iburi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int fromHex(char c) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
+        return c - 'a' + 10;
+    }
+    char toHex(int c) {
+        if (c &lt;= 9) return c + '0';
+        return c + 'a' - 10;
+    }</B></FONT>
+    int sq(int a) { return a * a; }
+    string similarRGB(string color) {
+        int r = fromHex(color[1]) * 16 + fromHex(color[2]);
+        int g = fromHex(color[3]) * 16 + fromHex(color[4]);
+        int b = fromHex(color[5]) * 16 + fromHex(color[6]);
+        
+        int br = 0, bg = 0, bb = 0;
+        for (int i = 0; i &lt; 16; i++) {
+            if (sq(br * 16 + br - r) &gt; sq(i * 16 + i - r)) br = i;
+                        if (sq(bg * 16 + bg - g) &gt; sq(i * 16 + i - g)) bg = i;
+                        if (sq(bb * 16 + bb - b) &gt; sq(i * 16 + i - b)) bb = i;
+        }
+        
+        char cr = toHex(br), cg = toHex(bg), cb = toHex(bb);
+        string s = &quot;#      &quot;;
+        s[1] = s[2] = cr;
+        s[3] = s[4] = cg;
+        s[5] = s[6] = cb;
+        return s;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

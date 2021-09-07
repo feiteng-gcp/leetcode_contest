@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_prakhar15.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>20_prakhar15.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
+        int[] outEdges = new int[graph.length];
+<A NAME="0"></A>        List&lt;Set&lt;Integer&gt;&gt; reverseGraph = new ArrayList&lt;&gt;();
+        Queue&lt;Integer&gt; safe = new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; graph.length; i++) reverseGraph.add(new HashSet&lt;&gt;());
+        for (int i = 0 ; i &lt; graph.length; i++) {
+            o</B></FONT>utEdges[i] = graph[i].length;
+            if (graph[i].length == 0) safe.offer(i);
+            for (int neigh : graph[i]) reverseGraph.get(neigh).add(i);
+        }
+<A NAME="1"></A>        while (!safe.isEmpty()) {
+            int i = safe.poll();
+            if (visited.contains(i)) continue;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited.add(i);
+            for (int neigh : reverseGraph.get(i)) {
+                outEdges[neigh]--;
+                if (outEdges[neigh] == 0) safe.offer(neigh);
+            }
+        }</B></FONT>
+        List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; graph.length; i++) if (outEdges[i] == 0) ans.add(i);
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

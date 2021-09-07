@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>286_zheyangc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>286_zheyangc.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String similarRGB(String color) {
+        char[] table = new char[]{'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put('0', 0);
+        map.put('1', 1);
+        map.put('2', 2);
+        map.put('3', 3);
+        map.put('4', 4);
+        map.put('5', 5);
+        map.put('6', 6);
+        map.put('7', 7);
+        map.put('8', 8);
+        map.put('9', 9);
+        map.put('a', 10);
+        map.put('b', 11);
+        map.put('c', 12);
+        map.put('d', 13);
+        map.put('e', 14);
+        map.put('f', 15);
+        
+        String res = &quot;&quot;;
+        int min = Integer.MIN_VALUE;
+        
+        for (int i = 0; i &lt; 16; i++) {
+<A NAME="0"></A>            for (int j = 0; j &lt; 16; j++) {
+                for (int k = 0; k &lt; 16; k++) {
+                    String str = &quot;&quot; + table[i] + table[i] + table[j] + table[j] + table[k] + table[k];
+                    int cal = cal(str, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>color.substring(1), map);
+                    if (cal &gt; min) {
+                        min = cal;
+                        res = str;
+                    }
+                }</B></FONT>
+            }
+        }
+        
+        return &quot;#&quot; + res;
+<A NAME="1"></A>    }
+    
+    public int cal(String s1, String s2, Map&lt;Character, Integer&gt; map) {
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char[] a = s1.toCharArray();
+        char[] b = s2.toCharArray();
+        // System.out.println(s1);
+        return calHelper(a[0],a[1],b[0],b[1], map) 
+            + calHelper(a[2],a[3],b[2],b[3], map) 
+            + calHelper(a[4],a[5],b[4],b[5], map);
+    }
+    
+    public int calHelper(char a1</B></FONT>, char a2, char b1, char b2, Map&lt;Character, Integer&gt; map) {
+        int tmp = map.get(a1) * 16 + map.get(a2) - map.get(b1) * 16 - map.get(b2);
+        return -tmp * tmp;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

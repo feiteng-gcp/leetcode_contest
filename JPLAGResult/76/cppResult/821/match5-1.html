@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_lympanda.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>3_lympanda.cpp</CENTER></H3><HR>
+<PRE>
+
+<A NAME="0"></A>int neigh[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
+
+class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    vector&lt;int&gt; hitBricks(vector&lt;vector&lt;int&gt; &gt;&amp; grid, vector&lt;vector&lt;int&gt; &gt;&amp; hits) {
+      int i,j,k,x,y,m,n,cnt,xx,yy,b1;
+      vector&lt;int&gt; ans;
+      ans.clear();
+      vector&lt;pair&lt;int,int&gt; &gt; q;
+      m=grid.size();
+      n=grid[0].size();
+      for (i=0;i&lt;hits.size();i++)</B></FONT>
+      {
+        x=hits[i][0];
+        y=hits[i][1];
+        if (grid[x][y]==1)
+        {
+          grid[x][y]=-(i+1);
+        }
+      }
+      q.clear();
+      for (i=0;i&lt;grid[0].size();i++)
+        if (grid[0][i]==1)
+        {
+          q.push_back(make_pair(0,i));
+          grid[0][i]=2;
+        }
+      for (i=0;i&lt;q.size();i++)
+      {
+        x=q[i].first;
+        y=q[i].second;
+        for (j=0;j&lt;4;j++)
+        {
+          xx=x+neigh[j][0];
+          yy=y+neigh[j][1];
+          if ((xx&gt;=0)&amp;&amp;(xx&lt;m)&amp;&amp;(yy&gt;=0)&amp;&amp;(yy&lt;n)&amp;&amp;(grid[xx][yy]==1))
+          {
+            grid[xx][yy]=2;
+            q.push_back(make_pair(xx,yy));
+          }
+        }
+      }
+      for (i=hits.size()-1;i&gt;=0;i--)
+      {
+        x=hits[i][0];
+        y=hits[i][1];
+        cnt=0;
+        if (grid[x][y]==-(i+1))
+        {
+          grid[x][y]=1;
+          b1=0;
+          for (j=0;j&lt;4;j++)
+          {
+            xx=x+neigh[j][0];
+            yy=y+neigh[j][1];
+            if ((xx&gt;=0)&amp;&amp;(xx&lt;m)&amp;&amp;(yy&gt;=0)&amp;&amp;(yy&lt;n)&amp;&amp;(grid[xx][yy]==2))
+            {
+              grid[x][y]=2;
+              q.push_back(make_pair(x,y));
+              b1=1;
+              break;
+            }
+          }
+          if ((b1==0)&amp;&amp;(x==0))
+          {
+            b1=1;
+            grid[x][y]=2;
+            q.push_back(make_pair(x,y));
+          }
+          if (b1==1)
+          {
+            for (k=q.size()-1;k&lt;q.size();k++)
+            {
+              x=q[k].first;
+              y=q[k].second;
+              for (j=0;j&lt;4;j++)
+              {
+                xx=x+neigh[j][0];
+                yy=y+neigh[j][1];
+                if ((xx&gt;=0)&amp;&amp;(xx&lt;m)&amp;&amp;(yy&gt;=0)&amp;&amp;(yy&lt;n)&amp;&amp;(grid[xx][yy]==1))
+                {
+                  grid[xx][yy]=2;
+                  q.push_back(make_pair(xx,yy));
+                  cnt++;
+                }
+              }
+            }
+          }
+        }
+        ans.push_back(cnt);
+      }
+      reverse(ans.begin(),ans.end());
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

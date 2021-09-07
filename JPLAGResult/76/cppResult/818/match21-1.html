@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_nearSGB.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_nearSGB.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string similarRGB(string color) {
+<A NAME="0"></A>        string res = &quot;#&quot;;
+        for(int i = 1; i &lt; 6; i += 2) {
+            string tmp = color.substr(i, 2);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int num = 0;
+            if(isdigit(tmp[0]))
+                num = 16*(tmp[0]-'0');
+            else
+                num = 16*(tmp[0]-'a'+10);
+            if(isdigit(tmp[1]))
+                num += tmp[1]-'0';
+            else
+                num += tmp[1]-'a'+10;
+            int minNum = INT_MAX;
+            int k = 0;</B></FONT>
+            for(int j = 0; j &lt; 16; j++) {
+                if(abs(16*j+j-num) &lt; minNum) {
+                    minNum = abs(16*j+j-num);
+                    k = j;
+                }
+            }
+            if(k &lt; 10)
+                res += to_string(k);
+            else
+                res.push_back('a'+k-10);
+        }
+        
+            
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
