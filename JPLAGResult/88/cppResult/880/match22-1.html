@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>61_ryanwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>61_ryanwang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+#define pb push_back
+#define mp make_pair
+#define CLR(a) memset(a, 0, sizeof(a))
+#define DBG(x) cout&lt;&lt;(#x)&lt;&lt;&quot;=&quot;&lt;&lt;x&lt;&lt;endl
+#define FOR(i, a, b)  for(int i=(a); i&lt;(b); i++)
+#define REP(i, a, b)  for(int i=(a); i&lt;=(b); i++)
+#define DOWN(i, a, b) for(int i=(a); i&gt;=(b); i--)
+
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;int, int&gt; pii;
+typedef pair&lt;ll, ll&gt; pll;
+
+const double eps = 1e-8;
+const int INF = 0x3f3f3f3f;
+const ll LL_INF = 0x3f3f3f3f3f3f3f3f;
+const ll mod = 1e9+7;
+
+
+int n, cnt, amt;
+ll X1, X2, Y1, Y2;
+ll x[100000];
+ll qL, qR, num;
+ll cover[100000];
+ll len[100000];
+ll ans;
+
+struct node{
+<A NAME="0"></A>	ll l, r;
+	ll y;
+	int p;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	bool operator &lt; (const node&amp; rhs) const {
+		return y&lt;rhs.y;
+	}
+}Line[100000];
+
+void Up(int o, int L, int R) {
+	if (cover[o]&gt;0) len[o]=x[R]-x[L];
+	else if (L+1==R) len[o]=0; 
+	else len[o]=len[o*2]+len[o*2+1];
+}
+
+void Add(int o, int L, int R) {</B></FONT>
+	if (qL&lt;=L&amp;&amp;R&lt;=qR) {
+		cover[o]+=num;
+		Up(o, L, R);
+		return;
+	}
+	int M=L+(R-L)/2;
+	if (qL&lt;M) Add(o*2, L, M);
+	if (qR&gt;M)  Add(o*2+1, M, R);
+	Up(o, L, R);
+}
+
+
+int rectangleArea(vector&lt;vector&lt;int&gt;&gt;&amp; rectangles) {
+        n=rectangles.size();
+		CLR(len);
+		CLR(cover);
+		cnt=amt=0;
+		ans=0;
+		FOR(i, 0, n) {
+			X1=rectangles[i][0];
+            Y1=rectangles[i][1];
+            X2=rectangles[i][2];
+            Y2=rectangles[i][3];
+			Line[cnt++]={X1, X2, Y1, 1};
+			Line[cnt++]={X1, X2, Y2, -1};
+			x[amt++]=X1;
+			x[amt++]=X2;
+		}
+		//cnt is the number of line
+		sort(Line, Line+cnt);
+		//amt is the number of the point
+		sort(x, x+amt);
+		amt=unique(x, x+amt) - x;
+		FOR(i, 0, n*2-1) {
+			qL=lower_bound(x, x+amt, Line[i].l)-x;
+			qR=lower_bound(x, x+amt, Line[i].r)-x;
+			num=Line[i].p;	
+			Add(1, 0, amt-1);
+			ll tmp= ((Line[i+1].y-Line[i].y)%mod * len[1]%mod) % mod;
+            ans=(ans+tmp) % mod;
+		}
+        return ans;
+}
+};
+
+</PRE>
+</BODY>
+</HTML>

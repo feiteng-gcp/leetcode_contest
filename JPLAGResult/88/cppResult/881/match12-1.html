@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>455_FLAGbigoffer.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>455_FLAGbigoffer.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; loudAndRich(vector&lt;vector&lt;int&gt;&gt;&amp; richer, vector&lt;int&gt;&amp; quiet) {
+        int n = quiet.size();
+        vector&lt;int&gt; res(n);
+        vector&lt;unordered_set&lt;int&gt; &gt; neighbors(n);
+        for (auto&amp; vec : richer) {</B></FONT>
+            neighbors[vec[1]].insert(vec[0]);
+        }
+        vector&lt;pair&lt;int, int&gt; &gt; dp(n, {INT_MAX, INT_MAX});
+        for (int i = 0; i &lt; res.size(); i++) {
+            res[i] = dfs(neighbors, quiet, dp, i).first;
+        }
+        return res;
+    }
+    pair&lt;int, int&gt; dfs (vector&lt;unordered_set&lt;int&gt; &gt;&amp; neighbors, vector&lt;int&gt;&amp; quiet, vector&lt;pair&lt;int, int&gt; &gt;&amp; dp, int p) {
+        if (dp[p].second != INT_MAX)
+            return dp[p];
+        int min_quiet = quiet[p];
+        int min_person = p;
+        for (auto&amp; neighbor : neighbors[p]) {
+            pair&lt;int, int&gt; temp_res = dfs (neighbors, quiet, dp, neighbor);
+            if (temp_res.second &lt; min_quiet) {
+                min_quiet = temp_res.second;
+                min_person = temp_res.first;
+            }
+        }
+        return dp[p] = {min_person, min_quiet};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

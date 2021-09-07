@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>120_xuan18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>120_xuan18.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxDistToClosest(int[] seats) {
+        int n = seats.length;
+        if (n==0) return 0;
+        int[] left = new int[n], right = new int[n];
+<A NAME="0"></A>        
+        left[0] = Integer.MAX_VALUE;
+        if(seats[0]==1) left[0] = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=1;i&lt;n;i++) {
+            if(seats[i]==1) {
+                left[i] = 0;
+            } else if(left[i-1]==Integer.MAX_VALUE) {
+                left[i] = Integer.MAX_VALUE;
+            } else {
+                left[i] = left[i-1] + 1;
+            }
+        }
+<A NAME="1"></A>        
+        r</B></FONT>ight[n-1] = Integer.MAX_VALUE;
+        if(seats[n-1]==1) right[n-1] = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=n-2;i&gt;=0;i--) {
+            if(seats[i]==1) {
+                right[i] = 0;
+            } else if(right[i+1]==Integer.MAX_VALUE) {
+                r</B></FONT>ight[i] = Integer.MAX_VALUE;
+            } else {
+                right[i] = right[i+1] + 1;
+            }
+        }
+        
+        int ret = 0;
+        for(int i=0;i&lt;n;i++) {
+            int tmp = Math.min(left[i], right[i]);
+            if (tmp &gt; ret) ret = tmp;
+        }
+        return ret;
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

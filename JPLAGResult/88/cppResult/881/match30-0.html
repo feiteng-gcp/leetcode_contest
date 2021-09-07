@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_deadRabbit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>16_deadRabbit.cpp</CENTER></H3><HR>
+<PRE>
+
+void dfs(vector&lt;int&gt; &amp;color, vector&lt;vector&lt;int&gt; &gt; &amp;G, int x, int c) {
+    if (color[x]==c) return;
+    color[x]=c;
+    for (int y : G[x]) {
+        dfs(color,G,y,c);
+    }
+}
+
+class Solution {
+public:
+    vector&lt;int&gt; loudAndRich(vector&lt;vector&lt;int&gt;&gt;&amp; richer, vector&lt;int&gt;&amp; quiet) {
+        vector&lt;vector&lt;int&gt; &gt; G(quiet.size());
+        for (auto e : richer) {
+<A NAME="0"></A>            G[e[0]].push_back(e[1]);
+        }
+        vector&lt;pair&lt;int,int&gt; &gt; Q;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; quiet.size(); ++i) {
+            Q.push_back(make_pair(quiet[i],i));
+        }
+        sort(Q.begin(), Q.end());
+        vector&lt;int&gt; res(Q.size(), -1);
+        for (int i = Q.size()-1; i&gt;=0; --i) {</B></FONT>
+            dfs(res,G,Q[i].second,Q[i].second);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
