@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>456_hongchuj.cpp</TITLE>
+ <TITLE>128_mainboy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>456_hongchuj.cpp</CENTER></H3><HR>
+<H3><CENTER>128_mainboy.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    vector&lt;vector&lt;int&gt;&gt; allPathsSourceTarget(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+<A NAME="0"></A>    vector&lt;vector&lt;int&gt;&gt; allPathsSourceTarget(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int n = graph.size();
         vector&lt;vector&lt;int&gt;&gt; res;
-        if (graph.empty()) return res;
-        vector&lt;int&gt; temp;
-        temp.push_back(0);
-        helper(res,graph,temp,0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; r;
+        dfs(res, r, graph, 0, n-1);
         return res;
     }
-    void helper(vector&lt;vector&lt;int&gt;&gt;&amp;res,vector&lt;vector&lt;int&gt;&gt;&amp; graph,vector&lt;int&gt; &amp;temp, int Node){
-        if (Node == (graph.size()-1)){
-            res.push_back(temp);
+
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp;res, vector&lt;int&gt;&amp; r, vector&lt;vector&lt;int&gt;&gt;&amp; graph, int u, int N) {
+        if (u == N) {</B></FONT>
+            r.push_back(u);
+            res.push_back(r);
+            r.pop_back();
             return;
         }
-        for (int i = 0;i&lt;graph[Node].size();i++){
-            temp.push_back(graph[Node][i]);
-            helper(res,graph,temp,graph[Node][i]);
-            temp.pop_back();
-        }</B></FONT>
-        return;
+
+        r.push_back(u);
+
+        for (auto g: graph[u])
+            dfs(res, r, graph, g, N);
+
+        r.pop_back();
     }
 };
 </PRE>

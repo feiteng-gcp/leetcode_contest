@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>75_mintyc.java</TITLE>
+ <TITLE>176_chuongk.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>75_mintyc.java</CENTER></H3><HR>
+<H3><CENTER>176_chuongk.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean rotateString(String A, String B) {
-        if (A.equals(B)) return true;
-        StringBuilder a = new StringBuilder(A)</B></FONT>;
-        StringBuilder b = new StringBuilder(B);
-        StringBuilder tmp, tmp2;
-        for (int i = 0; i &lt; a.length() - 1; i ++) {
-            tmp = new StringBuilder(a.substring(i + 1, a.length()));
-<A NAME="1"></A>            tmp2 = new StringBuilder(a.substring(0, i + 1));
-            tmp = tmp.append(tmp2);
-            // System.out.println(tmp);
-            if (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tmp.toString().equals(B)) return true;
+        int lA = A.length();
+        int lB = B.length</B></FONT>();
+        if (lA != lB) return false;
+        char[] arr = new char[lA*2];
+        for (int i = 0; i &lt; lA * 2; ++i){
+            int idx = i % lA;
+            arr[i] = A.charAt(idx);
+            // System.out.print(arr[i] + &quot; &quot;);
+        }
+        
+        for (int i = 0; i &lt; lA; ++i){
+            int cur = 0;
+            boolean ok = true;
+            for (int j = i; j &lt; (i+lA); ++j){
+<A NAME="1"></A>                if (arr[j] != B.charAt(cur)){
+                    ok = false;
+                    break;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                cur++;
+            }
+            if (ok) return true;
         }
         return false;
     }

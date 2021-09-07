@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>147_Kuvu.java</TITLE>
+ <TITLE>294_johnsysu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>147_Kuvu.java</CENTER></H3><HR>
+<H3><CENTER>294_johnsysu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
+    List&lt;List&lt;Integer&gt;&gt; list = new ArrayList&lt;&gt;();
     public List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(int[][] graph) {
-        List&lt;List&lt;Integer&gt;&gt; answer = new ArrayList&lt;&gt;();
-<A NAME="0"></A>        if (graph == null || graph.length == 0 || graph[0].length == 0) {
-            return answer;
-        }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>helper(0, graph, new ArrayList&lt;&gt;(), answer);
-        return answer;
+        
+<A NAME="0"></A>        List&lt;Integer&gt; cur_list = new ArrayList&lt;Integer&gt;();
+        cur_list.add(0);
+        dfs(graph, list, cur_list, 0);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return list;
     }
-    
-    private void helper(int cur, int[][] graph, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; answer) {
-        if (cur == graph.length - 1) {
-            // reached last node
-            path.add(cur);
-            answer.add(new ArrayList&lt;&gt;(path));
-            path.remove</B></FONT>(path.size() - 1);
+    public void dfs(int[][] graph, List&lt;List&lt;Integer&gt;&gt; list, List&lt;Integer&gt; cur_list, int cur){</B></FONT>
+        // System.out.println(cur_list);
+        if (cur == graph.length - 1){
+            // System.out.println(cur_list);
+            list.add(new ArrayList&lt;Integer&gt;());
+            for (int i = 0; i &lt; cur_list.size(); i++){
+                list.get(list.size()-1).add(cur_list.get(i));
+            }
             return;
         }
-        
-        path.add(cur);
-        int[] out = graph[cur];
-        for (int o : out) {
-            helper(o, graph, path, answer);
+        for (int next: graph[cur]){
+            cur_list.add(next);
+            dfs(graph, list, cur_list, next);
+            cur_list.remove(cur_list.size() - 1);
         }
-        path.remove(path.size() - 1);
     }
 }
 </PRE>

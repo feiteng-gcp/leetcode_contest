@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_wcwswswws.cpp</TITLE>
+ <TITLE>116_sunhao2017.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>116_sunhao2017.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>public:
-    double champagneTower(int poured, int query_row, int query_glass) {
-        if (poured == 0) { return 0; }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;double&gt;&gt; cup(100, vector&lt;double&gt;(100, 0));
-        cup[0][0] = poured;
-        for (int i = 0; i &lt; query_row; i++) {
+<A NAME="0"></A>class Solution {
+public:
+    double champagneTower(int poured, int target_row, int target_col) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;double&gt;&gt; data(101, vector&lt;double&gt;(101, 0));
+        data[0][0] = poured;
+        for (int i = 0; i &lt;= target_row; i++) {
             for (int j = 0; j &lt;= i; j++) {
-                if (cup[i][j] &gt; 1.0) {</B></FONT>
-                    double temp = (cup[i][j] - 1.0) / 2.0;
-                    cup[i + 1][j] += temp;
-                    cup[i + 1][j + 1] += temp;
-                }
+                data[i + 1][j] += data[i][j] &lt;= 1 ? 0 : (data[i][j] - 1) / 2;</B></FONT>
+                data[i + 1][j + 1] += data[i][j] &lt;= 1 ? 0 : (data[i][j] - 1) / 2;
             }
         }
-        return min(cup[query_row][query_glass], 1.0);
+        return data[target_row][target_col] &gt; 1 ? 1 : data[target_row][target_col];
     }
 };
 </PRE>

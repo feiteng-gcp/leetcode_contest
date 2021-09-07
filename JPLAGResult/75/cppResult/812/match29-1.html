@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>274_user9026b.cpp</TITLE>
+ <TITLE>403_linyu203.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>274_user9026b.cpp</CENTER></H3><HR>
+<H3><CENTER>403_linyu203.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     bool rotateString(string A, string B) {
-        
-        if (A == B) return true;
-        if (A.size() != B.size()) return false;
-        
-        for (int i = 1; i &lt; A.size(); ++i)
-        {</B></FONT>
-            string a = A.substr(0, i);
-            string b = A.substr(i);
-            string temp = b + a;
-            if (temp == B) return true;
+        int m = A.length();
+        int n = B.length();
+        if(m != n) return false;
+        if(0 == m) return true;</B></FONT>
+        int i = 0;
+        while(i &lt; m &amp;&amp; B[0] != A[i]){
+            i++;
         }
+        if(i&gt;=m) return false;
         
+        while(i&lt;m){
+            if(B[0] == A[i]){
+                if(i == 0) {
+                    if(A == B)
+                        return true;
+                }else if((A.substr(i) == B.substr(0,m-i))&amp;&amp;
+                    (A.substr(0,i) == B.substr(m-i)))
+                    return true;
+            }
+            i++;
+        }
         return false;
     }
 };

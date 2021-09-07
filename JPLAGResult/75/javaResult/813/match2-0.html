@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_jiuzhou18.java</TITLE>
+ <TITLE>64_megaspazz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_jiuzhou18.java</CENTER></H3><HR>
+<H3><CENTER>64_megaspazz.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(int[][] graph) {
-        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();
-        List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
-        int num = graph.length;
-        // boolean[] visited = new boolean[num];
-<A NAME="0"></A>        path.add(0);
-        // visited[0] = true;
-        helper(graph, path, ans, 0);
+<A NAME="0"></A>    public List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(int[][] graph) {
+        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        path(graph, 0, new ArrayList&lt;Integer&gt;(), ans);
         <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans;
     }
     
-    public void helper(int[][] graph, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; ans, int node){
-        if(node == graph.length-1){</B></FONT>
-            List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();
-            tmp.addAll(path);
-            // tmp.add(graph.length-1);
-            ans.add(tmp);
+    public void path(int[][] graph, int curr, List&lt;Integer&gt; currPath, List&lt;List&lt;Integer&gt;&gt; allPaths) {
+        currPath.add(curr);
+        if (curr == graph.length - 1) {
+            allPaths.add(new</B></FONT> ArrayList&lt;Integer&gt;(currPath));
+            currPath.remove(currPath.size() - 1);
             return;
         }
-        
-        for(int next: graph[node]){
-            path.add(next);
-            helper(graph, path, ans, next);
-            path.remove(path.size()-1);
+        for (int v : graph[curr]) {
+            path(graph, v, currPath, allPaths);
         }
+        currPath.remove(currPath.size() - 1);
     }
 }
 </PRE>

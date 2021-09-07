@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_Berwyn.cpp</TITLE>
+ <TITLE>268_applezhengxiangyue.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>25_Berwyn.cpp</CENTER></H3><HR>
+<H3><CENTER>268_applezhengxiangyue.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
     double champagneTower(int poured, int query_row, int query_glass) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;double&gt; &gt; dp(100, vector&lt;double&gt;(100, 0));
-        dp[0][0] = poured;
+        // the cup number of the middle glass 
+        // = left top cup glass size &gt; 1 ? 0.5 * (left top cup glass size - 1) : 0
+        // + right top cup glass size &gt; 1 ? 0.5 * (right top cup glass size - 1) : 0
         
-        for(int i = 1; i &lt;= query_row; ++i) {
-            for(int j = 0; j &lt;= i; ++j) {
-                if(dp[i - 1][j] &gt; 1) {</B></FONT>
-                    dp[i][j] += (dp[i - 1][j] - 1) / 2;
-                }
-                if(j &gt; 0 &amp;&amp; dp[i - 1][j - 1] &gt; 1) {
-                    dp[i][j] += (dp[i - 1][j - 1] - 1) / 2;
-                }
+        // the cup number of the side glass = 
+        // top cup glass number &gt; 1 : 0.5 * (top cup glass number - 1) : 0
+        
+        if(poured == 0) return 0;
+<A NAME="0"></A>        
+        if(query_row == 0) return poured &gt;= 1 ? 1 : 0;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;double&gt;&gt; numberOfCup(query_row + 1,vector&lt;double&gt;(query_row + 1,0));
+        
+        numberOfCup[0][0] = poured;
+        
+        for(int i = 1 ; i &lt;= query_row ; ++i) {
+            
+            for(int j = 0 ; j &lt;= i ; ++j) {
+                
+                numberOfCup[i][j] = (j &gt; 0 ? ( numberOfCup[i-1][j-1] &gt; 1 ? 0.5 *(numberOfCup[i-1][j-1] - 1) :0 ) : 0)  +</B></FONT>
+                                    (j &lt; i ? ( numberOfCup[i-1][j] &gt; 1 ? 0.5 * (numberOfCup[i-1][j] - 1) : 0 ) : 0);
+                
+                if(i == query_row &amp;&amp; j == query_glass) 
+                    return numberOfCup[i][j] &gt;= 1 ? 1 : numberOfCup[i][j];
+                       
             }
+            
         }
-        return min(dp[query_row][query_glass], 1.0);
+        
     }
 };
 </PRE>

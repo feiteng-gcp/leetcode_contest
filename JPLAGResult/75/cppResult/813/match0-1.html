@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_dikra.cpp</TITLE>
+ <TITLE>116_sunhao2017.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>22_dikra.cpp</CENTER></H3><HR>
+<H3><CENTER>116_sunhao2017.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    vector&lt;vector&lt;int&gt;&gt; allPathsSourceTarget(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        vector&lt;vector&lt;int&gt; &gt; ans;
-        
-        if (graph.size() == 0)
-            return ans;
-        
-        vector&lt;int&gt; temp;
-        temp.push_back(0);
-        work(0, temp, ans, graph);
-        
-        return ans;
+<A NAME="0"></A>    vector&lt;vector&lt;int&gt;&gt; allPathsSourceTarget(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int n = graph.size();
+        vector&lt;int&gt; cur_result = {0};
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; result;
+        get_result(graph, 0, n, cur_result, result);
+        return result;
     }
     
-    void work(int pos, vector&lt;int&gt;&amp; temp, vector&lt;vector&lt;int&gt;&gt;&amp; ans, vector&lt;vector&lt;int&gt;&gt;&amp; graph){
-        if (pos+1 == graph.size())
-        {
-            ans.push_back(temp);
-            return;
+    void get_result(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int cur, int n, vector&lt;int&gt; &amp;cur_result, vector&lt;vector&lt;int&gt;&gt; &amp;result) {
+        if (cur == n - 1) {</B></FONT>
+            result.push_back(cur_result);
+        } else {
+            for (auto next : graph[cur]) {
+                cur_result.push_back(next);
+                get_result(graph, next, n, cur_result, result);
+                cur_result.pop_back();
+            }
         }
-        
-        
-        for (int i = 0; i &lt; graph[pos].size(); ++i){
-            temp.push_back(graph[pos][i]);
-            work(graph[pos][i], temp, ans, graph);
-            temp.pop_back();
-        }</B></FONT>
     }
 };
 </PRE>

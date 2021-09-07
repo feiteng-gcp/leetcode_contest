@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>109_tiesto1114.java</TITLE>
+ <TITLE>200_xuan18.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>109_tiesto1114.java</CENTER></H3><HR>
+<H3><CENTER>200_xuan18.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public boolean rotateString(String A, String B) {
-        if (A.length() != B.length())
-            return false;</B></FONT>
-        char[] a = A.toCharArray();
-        char[] b = B.toCharArray();
-        int len = a.length;
-        for (int i = 0; i &lt; len; i++) {
-            if (a[i] == b[0]) {
-                boolean match = true;
-                for (int j = 1; j &lt; len; j++) {
-                    if (a[(j + i) % len] != b[j]) {
-                        match = false;
-                        break;
-                    }
-                }
-                if (match)
-                    return true;
+        return rotateString(A.toCharArray(), B.toCharArray());
+    }
+<A NAME="0"></A>    
+    private boolean rotateString(char[] A, char[] B) {
+        int n = A.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (B.length != n) {
+            return false;
+        }
+        if (n==0) {
+            return true;
+        }</B></FONT>
+        for(int i=0;i&lt;n;i++) {
+            if(isRotate(A,B,i)) {
+                return true;
             }
         }
         return false;
+    }
+    
+    private boolean isRotate(char[] A, char[] B, int k) {
+        int n = A.length;
+        for(int i=0;i&lt;n;i++) {
+            if(A[i] != B[(i+k)%n]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 </PRE>

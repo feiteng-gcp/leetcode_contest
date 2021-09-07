@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>212_liyihua.cpp</TITLE>
+ <TITLE>356_daiyifan.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,17 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>212_liyihua.cpp</CENTER></H3><HR>
+<H3><CENTER>356_daiyifan.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    bool rotateString(string A, string B) {
-        if(A==B)
-            return true;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1; i&lt;A.size();i++){
-            string C = A.substr(i) + A.substr(0,i);
-            if(C==B)
-                return true;
+    bool rotateString(string A, string B) {
+        if(A.length() != B.length()) return false;
+<A NAME="0"></A>        A += A;
+        for(int i = 0; i &lt; A.length() / 2; i++){
+            bool flag = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = i, k = 0; k &lt; B.length(); j++, k++){
+                if(A[j] != B[k]){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                    return true;
+                }
         }
         return false;
     }

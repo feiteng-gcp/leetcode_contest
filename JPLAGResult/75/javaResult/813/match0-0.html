@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>193_sushil-thasale.java</TITLE>
+ <TITLE>64_megaspazz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>193_sushil-thasale.java</CENTER></H3><HR>
+<H3><CENTER>64_megaspazz.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public List&lt;List&lt;Integer&gt;&gt; allPathsSourceTarget(int[][] graph) {
-        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
-        
-        if(graph==null || graph.length==0) return result;
-        
-        dfs(0, graph.length-1, new ArrayList&lt;Integer&gt;(), result, graph);
-        
-<A NAME="0"></A>        return result;
+        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>path(graph, 0, new ArrayList&lt;Integer&gt;(), ans);
+        return ans;
     }
     
-    void dfs(int start, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int target, List&lt;Integer&gt; curr, List&lt;List&lt;Integer&gt;&gt; result, int[][] graph) {
-        if(start == target) {
-<A NAME="1"></A>            curr.add(target);
-            result.add(new ArrayList&lt;Integer&gt;(curr));
-            curr.remove</B></FONT>(new Integer(target));
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return;
+    public void path(int[][] graph, int curr, List&lt;Integer&gt; currPath</B></FONT>, List&lt;List&lt;Integer&gt;&gt; allPaths) {
+        currPath.add(curr);
+        if (curr == graph.length - 1) {
+            allPaths.add(new ArrayList&lt;Integer&gt;(currPath));
+            currPath.remove(currPath.size() - 1);
+            return;
         }
-        
-        curr.add(start);
-        
-        for(int neighbor: graph[start]) {
-            dfs(neighbor, target, curr, result, graph);
+        for (int v : graph[curr]) {
+            path(graph, v, currPath, allPaths);
         }
-        
-        curr.remove</B></FONT>(new Integer(start));
+        currPath.remove(currPath.size() - 1);
     }
 }
 </PRE>
