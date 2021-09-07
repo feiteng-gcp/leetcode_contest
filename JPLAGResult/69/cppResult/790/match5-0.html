@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1___Chaos__.cpp</TITLE>
+ <TITLE>83_xumzsy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>83_xumzsy.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-  const int N = 10000;
-  bool isIdealPermutation(vector&lt;int&gt; &amp;A) {
-    tr.resize(N);
-    int local = 0;
-    for (int i = 1; i &lt; A.size(); ++i) {
-      local += A[i - 1] &gt; A[i];
+    bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
+        if(A.size()&lt;=2) return true;
+        int bench = A[0];
+        for(int i=2;i&lt;A.size();i++){
+            if(A[i]&lt;bench) return false;
+            bench = max(bench,A[i-1]);
+        }
+        return true;
     }
-    int global = 0;
-    for (int i = A.size() - 1; i &gt;= 0; --i) {
-      int x = A[i];
-      ++x;
-      global += get(x);
-      add(x);
-    }
-    return global == local;
-  }
-
-  vector&lt;int&gt; tr;
-  void add(int x) {
-    for (; x &lt; N; x += x &amp; -x) {
-      ++tr[x];
-<A NAME="0"></A>    }
-  }
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  int get(int x) {
-    int s = 0;
-    for (; x; x -= x &amp; -x) {
-      s += tr[x];
-    }
-    return s;
-  }</B></FONT>
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

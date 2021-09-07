@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>28_magica.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>28_magica.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>typedef vector&lt;vector&lt;int&gt;&gt; item;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-
 class Solution {
+private:
+  int getIndex(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<A NAME="0"></A>    return board[0][0] * 1 + board[0][1] * 6 + board[0][2] * 36 +
+      board[1][0] * 216 + board[1][1] * 1296 + board[1][2] * 7776;
+  }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  vector&lt;vector&lt;int&gt;&gt; direction = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};</B></FONT>
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        queue&lt;item&gt; Q;
-        map&lt;item, int&gt; dp;</B></FONT>
-        Q.push(board);
-        dp[board] = 0;
-        int n = 2, m = 3;
-        while (!Q.empty()) {
-            auto a = Q.front();
-            int cur = dp[a];
-            Q.pop();
-            int x, y;
-            for (int i = 0; i &lt; n; ++i) {
-                for (int j = 0; j &lt; m; ++j) {
-                    if (a[i][j] == 0) {
-                        x = i;
-                        y = j;
-                    }
-                }
-            }
-            for (int k = 0; k &lt; 4; ++k) {
-                int nx = x + d[k][0];
-                int ny = y + d[k][1];
-                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;
-                swap(a[x][y], a[nx][ny]);
-                if (!dp.count(a)) {
-                    dp[a] = cur + 1;
-                    Q.push(a);
-                }
-                swap(a[x][y], a[nx][ny]);
-            }   
+  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+    queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+    vector&lt;vector&lt;int&gt;&gt; vgoal = {{1, 2, 3}, {4, 5, 0}};
+    int goal = getIndex(vgoal);
+    vector&lt;int&gt; dist(50000, -1);
+    dist[getIndex(board)] = 0;
+    q.push(board);
+    while (!q.empty() &amp;&amp; dist[goal] == -1) {
+<A NAME="1"></A>      vector&lt;vector&lt;int&gt;&gt; h = q.front();
+      q.pop();
+      int x, y;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for (int i = 0; i &lt; 2; ++i) {
+        for (int j = 0; j &lt; 3; ++j) {
+          if (h[i][j] == 0) {
+            x = i; y = j;
+            break;
+          }
         }
-        item target = {{1, 2, 3}, {4, 5, 0}};
-        if (dp.count(target)) return dp[target];
-        return -1;
-        
+      }
+      for (auto&amp; d: direction) {</B></FONT>
+        int tx = x + d[0], ty = y + d[1];
+        if (tx &gt;= 0 &amp;&amp; tx &lt; 2 &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; 3) {
+          vector&lt;vector&lt;int&gt;&gt; next = h;
+          swap(next[x][y], next[tx][ty]);
+          if (dist[getIndex(next)] == -1) {
+            dist[getIndex(next)] = dist[getIndex(h)] + 1;
+            q.push(next);
+          }
+        }
+      }
     }
+    return dist[goal];
+  }
 };
 </PRE>
 </BODY>

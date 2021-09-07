@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_wjli.cpp</TITLE>
+ <TITLE>74_jian_lee.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_wjli.cpp</CENTER></H3><HR>
+<H3><CENTER>74_jian_lee.cpp</CENTER></H3><HR>
 <PRE>
+int dx[] = {1, -1, 0, 0};
+int dy[] = {0, 0, 1, -1};
 
-
-class Solution {
+<A NAME="0"></A>class Solution {
+    long long kk(vector&lt;vector&lt;int&gt;&gt; &amp; g)
+    {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        long long k = 0;
+        
+        for(int i = 0; i &lt; g.size(); ++i)
+        {
+            for(int j = 0; j &lt; g[0].size(); ++j)
+            {
+                k = k * 10 + g[i][j];</B></FONT>
+            }
+        }
+        
+<A NAME="1"></A>        return k;
+    }
+    
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    pair&lt;int, int&gt; tog(long long x, vector&lt;vector&lt;int&gt;&gt; &amp; g)
+    {
+        pair&lt;int, int&gt; z;
+        for(int i = g.size() - 1; i &gt;= 0; --i)
+        {
+            for(int j = g[0].size() - 1; j &gt;= 0; --j)
+            {
+                g[i][j] = x % 10;
+                x /= 10;</B></FONT>
+                
+                if (!g[i][j])
+                    z = {i, j};
+            }
+        }
+        return z;
+    }
+    
 public:
-	int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-		string s = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
-		queue&lt;pair&lt;string, int&gt;&gt; q;
-<A NAME="0"></A>		set&lt;string&gt; found;
-		int a, b, i;
-		string s2;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		vector&lt;vector&lt;int&gt;&gt; v = { { 1,3}, {0,2,4}, {1,5}, {0, 4}, {1,3,5}, {2,4} };</B></FONT>
-
-		q.push({ s, 0 });
-		found.insert(s);
-
-		while (!q.empty()) {
-			s = q.front().first;
-			a = q.front().second;
-			q.pop();
-			if (s == &quot;123450&quot;) return a;
-			for (i = 0; i &lt; 6; i++) {
-				if (s[i] == '0') {
-					for (auto p : v[i]) {
-						s2 = s;
-						s2[p] = '0';
-						s2[i] = s[p];
-						if (found.find(s2) == found.end()) q.push({ s2, a + 1 });
-						found.insert(s2);
-					}
-				}
-			}
-
-		}
-		return -1;
-	}
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        unordered_map&lt;long long, int&gt; dist;
+        queue&lt;long long&gt; q;
+        
+        long long x = kk(board);
+        if (x == 123450) return 0;
+        
+        q.push(x);
+        dist[x] = 0;
+        
+        while(!q.empty())
+        {
+            auto y = q.front(); q.pop();
+            
+<A NAME="2"></A>            vector&lt;vector&lt;int&gt;&gt; tt(2, vector&lt;int&gt;(3));
+            
+            auto p = tog(y, tt);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i = 0; i &lt; 4; ++i)
+            {
+                int nx = p.first + dx[i], ny = p.second + dy[i];
+                if (nx &lt; 0 || nx &gt;= 2 || ny &lt; 0 || ny &gt;= 3)
+                    continue;
+                
+                vector&lt;vector&lt;int&gt;&gt; xx = tt;
+                int z = xx[nx][ny];</B></FONT>
+                xx[nx][ny] = 0;
+                xx[p.first][p.second] = z;
+                
+                long long nk = kk(xx);
+                
+                if (nk == 123450) return dist[y] + 1;
+                
+                if (dist.count(nk)) continue;
+                dist[nk] = dist[y] + 1;
+                q.push(nk);
+            }
+        }
+        
+        return -1;
+    }
 };
 </PRE>
 </BODY>

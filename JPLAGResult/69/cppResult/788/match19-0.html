@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_democoffee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_democoffee.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool possible(vector&lt;int&gt; &amp;s, int len, int k, double m) {
+        int cnt = 0;
+        for (int i=1; i&lt;len &amp;&amp; cnt&lt;=k; ++i) {
+            int d = s[i] - s[i-1];
+            double need = d / m;
+            if (need &gt; 1+(1e-7)) {
+                cnt += ceil(need) - 1;
+            }   
+        }   
+
+        return cnt &lt;= k;
+    }   
+    double minmaxGasDist(vector&lt;int&gt;&amp; s, int K) {
+        sort(s.begin(), s.end());
+<A NAME="0"></A>        const double eps = 1e-7;
+        int len = s.size(), mx = 0;
+        for (int i=1; i&lt;len; ++i) { mx = max(mx, s[i]-s[i-1]); }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        double l = 0.0, r = mx; 
+        while (l+eps &lt;= r) {
+            double m = (l+r) / 2;
+
+            if (possible(s, len, K, m)) {
+                r = m;
+            } else {
+                l = m;
+            }   
+        }   
+
+        return l;
+    }   
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

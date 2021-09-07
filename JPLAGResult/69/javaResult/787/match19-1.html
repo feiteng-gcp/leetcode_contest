@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>112_QAMichaelPeng.java</TITLE>
+ <TITLE>147_wwzzll.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,79 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>112_QAMichaelPeng.java</CENTER></H3><HR>
+<H3><CENTER>147_wwzzll.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-       private boolean isFinal(int[][] board) {
-        for (int i = 0; i &lt; 6; ++i) {
-            int y = i / 3;
-            int x = i % 3;
-            if (board[y][x] != (i+1)%6) return false;
-        }
-        return true;
-    }
-    private int hash(int[][] board) {
-        int sum = 0;
-        for (int i = 0; i &lt; 6; ++i) {
-            int y = i / 3;
-            int x = i % 3;
-            sum = 6 * sum + board[y][x];
-        }
-        return sum;
-    }
-    private int[][] clone(int[][] board) {
-        int[][] ans = new int[2][3];
-        for (int y = 0; y &lt; 2; y++) {
-            for (int x = 0; x &lt; 3; x++) {
-                ans[y][x] = board[y][x];
-            }
-        }
-        return ans;
-    }
     public int slidingPuzzle(int[][] board) {
-        int[] best = new int[50000];
-        boolean[] visited = new boolean[50000];
-        Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
-        Queue&lt;Integer&gt; qLevel = new LinkedList&lt;&gt;();
-        q.add(board);
-        qLevel.add(0);
-        visited[hash(board)] = true;
-        int[] dirs = {1, 0, -1, 0, 1};
-        int depth = 0;
-<A NAME="0"></A>        while (!q.isEmpty()) {
-            board = q.remove();
-            int level = qLevel.remove();
-            int hv = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>hash(board);
-            if (isFinal(board)) {
-                return level;
-            }
-            for (int i = 0</B></FONT>; i &lt; 6; ++i) {
-                int y = i / 3;
-                int x = i % 3;
-                if (board[y][x] == 0) {
-                    for (int k = 0; k &lt; 4; ++k) {
-                        int ny = y + dirs[k], nx = x + dirs[k+1];
-                        if (ny &gt;= 0 &amp;&amp; ny &lt; 2 &amp;&amp; nx&gt;=0 &amp;&amp; nx&lt;3) {
-                            int[][] next = clone(board);
-                            swap(next, y, x, ny, nx);
-                            int nextHv = hash(next);
-                            if (!visited[nextHv]) {
-                                q.add(next);
-                                qLevel.add(level+1);
-                                visited[nextHv] = true;
-                            }
-<A NAME="1"></A>                        }
+<A NAME="1"></A>        int target = 123450;
+        Queue&lt;Integer&gt; q = new LinkedList();
+        int start = toHash(board);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>steps.put(start, 0);
+        q.add(start);
+        while(q.size() &gt; 0) {
+            int current = q.poll();
+            int currentStep = steps.get</B></FONT>(current);
+            if (current == target) return steps.get(current);
+            int[][] bd = toBoard(current);
+            int zerox = -1;
+            int zeroy = -1;
+            for (int i = 0; i &lt; 2; ++i)
+                for (int j = 0; j &lt; 3; ++j) {
+                    if (bd[i][j] == 0) {
+                        zerox = i;
+                        zeroy = j;
+                        break;
                     }
-                    break;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+            for (int i = 0; i &lt; 4; ++i) {
+<A NAME="2"></A>                int newx = zerox + dx[i];
+                int newy = zeroy + dy[i];
+                if (newx &gt;= 0 &amp;&amp; newx &lt; 2 &amp;&amp; newy &gt;= 0 &amp;&amp; newy &lt; 3) {
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>swap(bd, zerox, zeroy, newx, newy);
+                    int s = toHash(bd);
+                    if (!steps.containsKey(s)) {
+                        steps.put(s, currentStep + 1);
+<A NAME="3"></A>                        q.add(s);
+                    }</B></FONT>
+                    swap(bd, newx, newy, zerox, zeroy);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
         }
         return -1;
     }</B></FONT>
-    void swap(int[][]board, int y1, int x1, int y2, int x2) {
-        int t=board[y1][x1];
-        board[y1][x1] = board[y2][x2];
-        board[y2][x2] = t;
+    
+    int[] dx = new int[] {0, 1, 0, -1};
+    int[] dy = new int[] {1, 0, -1, 0};
+<A NAME="0"></A>    
+    
+    
+    void swap(int[][] bd, int x1, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int y1, int x2, int y2) {
+        int t = bd[x1][y1];
+        bd[x1][y1] = bd[x2][y2];
+        bd[x2][y2] = t;
+    }</B></FONT>
+    
+    HashMap&lt;Integer, Integer&gt; steps = new HashMap();
+    
+    int toHash(int[][] board) {
+        int result = 0;
+        for (int i = 0; i &lt; board.length; ++i)
+            for (int j = 0; j &lt; board[i].length; ++j) {
+                result = 10 * result + board[i][j];
+            }
+        return result;
+    }
+    
+    int[][] toBoard(int value) {
+        int[][] result = new int[2][3];
+        for (int i = 1; i &gt;= 0; --i) {
+          for (int j = 2; j &gt;= 0; --j) {
+                result[i][j] = value % 10;
+                value /= 10;
+          }
+        }
+        return result;
     }
 }
 </PRE>

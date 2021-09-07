@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>139_meezoo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>139_meezoo.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>const int N = 6000;
-int c[N];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int query(int x) {
-    int ret = 0;
-    for (; x; x -= x &amp; -x) {
-        ret += c[x];
-    }
-    return ret;
-}</B></FONT>
-void add(int x) {
-    for (; x &lt; N; x += x &amp; -x) {
-        c[x]++;
-    }
-}
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
-        int ret = 0, n = A.size();
-        for (int i = 1; i &lt; n; ++i) {
-            if (A[i - 1] &gt; A[i]) ++ret;
+        if (A.size() &lt; 3) return true;
+        int m = A[0];
+        for (int i = 2; i &lt; A.size(); ++i) {
+            if (A[i] &lt; m) return false;
+            m = max(m, A[i-1]);
         }
-        memset(c, 0, sizeof(c));
-        int sum = 0;
-        for (int i = 0; i &lt; n; ++i) {
-            int cur = n - A[i];
-            sum += query(cur);
-            add(cur);
-        }
-        ret -= sum;
-        return ret == 0;  
-        
+        return true;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>12_Mrsuyi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>12_Mrsuyi.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-    unordered_set&lt;int&gt; dp;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int tmp = 0;
-        for (int i = 0; i &lt; 2; ++i) {
-            for (int j = 0; j &lt; 3; ++j) {
-                tmp = tmp * 10 + board[i][j];
-            }
-        }</B></FONT>
-        return tmp;
-    }
-
-    int dx[4] = {0, 0, -1, 1};
-    int dy[4] = {1, -1, 0, 0};
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int terminal = 123450;
-        queue&lt;pair&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt;&gt; qq;
-        qq.push({board, 0});
-        while (!qq.empty()) {
-            auto cur = qq.front();
-            qq.pop();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; swp =
+    {
+        {1, 3},
+        {0, 2, 4},
+        {1, 5},
+        {0, 4},
+        {1, 3, 5},
+        {2, 4}
+    };</B></FONT>
 
-            vector&lt;vector&lt;int&gt;&gt; vv = cur.first;
-            int id = convert(vv);
-            if (id == terminal) return cur.second;
-            if (dp.find(id) != dp.end()) {
-                continue;
-            }
-            dp.insert(id);
-            int row, col;
-            bool found = false;
-            for (int i = 0; i &lt; 2; ++i) {
-                for (int j = 0; j &lt; 3; ++j) {
-                    if (vv[i][j] == 0) {
-                        found = true;
-                        row = i;
-                        col = j;
-                        break;
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        vector&lt;int&gt; init = { board[0][0], board[0][1], board[0][2], board[1][0], board[1][1], board[1][2] };
+        vector&lt;int&gt; tar = {1, 2, 3, 4, 5, 0};
+        set&lt;vector&lt;int&gt;&gt; dp;
+        dp.insert(init);
+        queue&lt;pair&lt;int, vector&lt;int&gt;&gt;&gt; que;
+        que.push({0, init});
+        while (!que.empty())
+        {
+            int step = que.front().first;
+            vector&lt;int&gt; cur = que.front().second;
+<A NAME="1"></A>            que.pop();
+            if (cur == tar)
+                return step;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; 6; ++i)
+            {
+                if (cur[i] != 0)
+                    continue;
+                for (int j = 0; j &lt; swp[i].size(); ++j)
+                {</B></FONT>
+                    vector&lt;int&gt; nxt = cur;
+                    swap(nxt[i], nxt[swp[i][j]]);
+                    if (!dp.count(nxt))
+                    {
+                        dp.insert(nxt);
+                        que.push({step + 1, nxt});
                     }
                 }
-                if (found) break;
-
-            }
-
-            for (int i = 0; i &lt; 4; ++i) {
-                int x = row + dx[i];
-                int y = col + dy[i];
-
-                if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) continue;
-                swap(vv[row][col], vv[x][y]);
-                qq.push({vv, cur.second + 1});
-                swap(vv[row][col], vv[x][y]);
             }
         }
-
         return -1;
     }
 };

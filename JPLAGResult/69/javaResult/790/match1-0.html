@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>474_TonyWu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>474_TonyWu.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public boolean isIdealPermutation(int[] A) {
-        int localRe = 0;
-        for (int i = 0; i &lt; A.length -1; i++) {
-            if (A[i] &gt; A[i+1]) localRe++;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isIdealPermutation(int[] A) {
+        if(A.length &lt; 3) {
+            return true;
         }
-
-        int globalRe = mergeSort(A, 0, A.length);
-        return globalRe == localRe;
-    }</B></FONT>
-
-    private int mergeSort(int[] nums, int l, int r) {
-        if (l + 1 &gt;= r) return 0;
-        int mid = l + (r - l) / 2;
-        int cnt = mergeSort(nums, l, mid);
-        cnt += mergeSort(nums, mid, r);
-        int[] tmpNums = new int[r-l];
-
-        int i = l;
-        int j = mid;
-        int t = mid;
-        int k = 0;
-        while (i &lt; mid) {
-            while (j &lt; r &amp;&amp; nums[i] &lt; (long)nums[j]) j++;
-            while (t &lt; r &amp;&amp; nums[i] &lt; nums[t]) tmpNums[k++] = nums[t++];
-            cnt += r - j;
-            tmpNums[k++] = nums[i++];
+        int k = A.length;
+        int min = A[k-1];
+        for(int i=k-3; i&gt;=0; i--) {</B></FONT>
+            if(A[i] &gt; min) {
+                return false;
+            }
+            min = Math.min(A[i+1], min);
         }
-        System.arraycopy(tmpNums, 0, nums, l, k);
-        return cnt;
+        return true;
     }
 }
 </PRE>

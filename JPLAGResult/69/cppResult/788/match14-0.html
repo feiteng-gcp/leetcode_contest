@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_headspin.cpp</TITLE>
+ <TITLE>70_frostfrog.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<H3><CENTER>70_frostfrog.cpp</CENTER></H3><HR>
 <PRE>
-struct P {
-    int dist;
-    int div;
-    double key;
-    void compute_key() { this-&gt;key = 1. * dist / div; }
-    bool operator&lt;(const P&amp; p) const {
-        return key &lt; p.key;
-    }
-};
 class Solution {
 public:
     double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        vector&lt;int&gt; a;
-        for(int i = 1; i &lt; stations.size(); i++) {
-            a.push_back(stations[i] - stations[i - 1]);
-        }
-        double l = 0, r = 1e8;
-        while(r - l &gt; 1e-7) {
-            int k = K;
-            double mid = (l + r) / 2.0;
-            bool ok = true;
-            for(auto s : a) {
-                if(s &lt;= mid) continue;
-                int need = ceil(s / mid);
-                need--;
-                if(need &gt; k) {
-                    ok = false;
-                    break;
-<A NAME="0"></A>                } else {
-                    k -= need;
-                }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
-            if(ok) {
-                r = mid;
+<A NAME="0"></A>        double begin = 0.;
+        double end = 1e8;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (abs(end - begin) &gt; 1e-7) {
+            double mid = begin + (end - begin) / 2;
+            
+            int need = 0;
+            for (int i = 0; i &lt; stations.size() - 1; i++) {
+                double d = stations[i+1] - stations[i];
+                
+                need += (d &lt; mid + 1e-7) ? 0 :  d / mid;</B></FONT>
+<A NAME="1"></A>                
+                if (fabs(d - int(d/mid) * mid) &lt; 1e-7) {
+                    --need;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+            
+            if (need &gt; K) {
+                begin = mid;
             } else {
-                l = mid;
+                end = mid;
             }
         }
-        return l;
+        
+        return begin;
     }
 };</B></FONT>
 </PRE>

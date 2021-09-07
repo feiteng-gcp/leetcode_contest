@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_megaspazz.java</TITLE>
+ <TITLE>107_voidmian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_megaspazz.java</CENTER></H3><HR>
+<H3><CENTER>107_voidmian.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public double minmaxGasDist(int[] stations, int K) {
-        double L = 0;
-        double R = 1e16;
-        for (int i = 0; i &lt; 128; ++i) {
-            double M = (L + R) / 2;
-            if (can(stations, K, M)) {
-<A NAME="0"></A>                R = M;
-            } else {
-                L = M;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        return L;
-    }
     
-    public boolean can(int[] stations, int K</B></FONT>, double D) {
-        int need = 0;
-        for (int i = 1; i &lt; stations.length; ++i) {
-            int dist = stations[i] - stations[i - 1];
-            if (dist &lt;= D) {
-                continue;
-            }
-            need += (int)(Math.ceil(dist / D) - 1);
+    public double minmaxGasDist(int[] stations, int K) {
+        if (stations == null || stations.length == 0) {
+            return 0.0;
         }
-        return need &lt;= K;
+        int len[] = new int[stations.length - 1];
+        int max = 0;
+        for (int i = 1; i &lt; stations.length; ++i) {
+            len[i - 1] = stations[i] - stations[i - 1];
+<A NAME="0"></A>            max = Math.max(len[i - 1], max);
+        }
+        Arrays.sort(len);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double low = 0.0, high = (double) max;
+        for (int i = 0; i &lt; 100; ++i) {
+            //System.out.println(low + &quot; &quot; + high);
+            double mid = (low + high) / 2.0;
+            if (isOk(len, mid, K)) {
+                high = mid;
+            } else {
+                low = mid;
+            }
+        }
+        return high;
+    }
+
+    private boolean isOk(int[] len, double x, int K) {
+        int cnt = 0;
+        for (int i = len.length - 1; i &gt;= 0; --i) {
+            double l = (double) len[i</B></FONT>];
+            cnt += ((int) Math.ceil(l / x) - 1);
+        }
+        return cnt &lt;= K;
     }
 }
 </PRE>

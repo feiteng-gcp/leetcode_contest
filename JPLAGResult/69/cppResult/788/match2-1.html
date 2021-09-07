@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_Mrsuyi.cpp</TITLE>
+ <TITLE>28_magica.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>28_magica.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
-    int N, M;
-    vector&lt;int&gt; sts;
-    
-    bool ok(double dis)
-    {
-        int cnt = 0;
-        for (int i = 0; i &lt; N - 1 &amp;&amp; cnt &lt;= M; ++i)</B></FONT>
-            cnt += (sts[i + 1] - sts[i]) / dis;
-        return cnt &lt;= M;
+class Solution {
+<A NAME="0"></A>public:
+  double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+    double eps = 1e-7;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    double l = 0.0, r = 100000000.0;
+    while (r - l &gt; eps) {
+      double d = (l + r) / 2;
+<A NAME="1"></A>      int sum = 0;
+      for (int i = 1; i &lt; (int)stations.size(); ++i) {</B></FONT>
+        sum += (int)ceil((stations[i] - stations[i - 1]) / d - 1);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+      if (sum &gt; K) {
+        l = d;
+      } else {
+        r = d;
+      }
     }
-
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-<A NAME="1"></A>        sts = stations;
-        N = sts.size();
-        M = K;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        double lo = 0.00000001, hi = 10e9;
-        while (hi - lo &gt; 0.00000001)
-        {
-            double mid = (hi + lo) / 2;
-            if (ok(mid))
-                hi = mid;
-            else
-                lo = mid;
-        }
-        return lo;
-    }
+    return l;
+  }
 };</B></FONT>
 </PRE>
 </BODY>

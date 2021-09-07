@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_Mrsuyi.cpp</TITLE>
+ <TITLE>1___Chaos__.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int N, M;
-    vector&lt;int&gt; sts;
-    
-    bool ok(double dis)
-    {
-        int cnt = 0;
-        for (int i = 0; i &lt; N - 1 &amp;&amp; cnt &lt;= M; ++i)
-            cnt += (sts[i + 1] - sts[i]) / dis;
-        return cnt &lt;= M;
+  double minmaxGasDist(vector&lt;int&gt; &amp;stations, int K) {
+    if (stations.size() &lt;= 1) {
+      return 0;
     }
-
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-<A NAME="0"></A>        sts = stations;
-        N = sts.size();
-        M = K;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        double lo = 0.00000001, hi = 10e9;
-        while (hi - lo &gt; 0.00000001)
-        {
-            double mid = (hi + lo) / 2;
-            if (ok(mid))
-                hi = mid;
-            else
-                lo = mid;
-        }
-        return lo;
+    double s = 0, e = 1e9;
+    auto ck = [&amp;](double x) {
+      long long used = 0;
+      for (int i = 1; i &lt; stations.size(); ++i) {
+        auto dis = stations[i] - stations[i - 1];
+        used += (int)ceil(dis / x) - 1;
+<A NAME="0"></A>      }
+      return used &lt;= K;
+    };
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    while (e - s &gt; 1e-9) {
+      double mid = 0.5 * (s + e);
+      if (ck(mid)) {
+        e = mid;
+      } else {
+        s = mid;
+      }
     }
+    return e;
+  }
 };</B></FONT>
 </PRE>
 </BODY>

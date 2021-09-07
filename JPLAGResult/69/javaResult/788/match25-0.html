@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>373_ericcire.java</TITLE>
+ <TITLE>41_XBB_HOME.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>373_ericcire.java</CENTER></H3><HR>
+<H3><CENTER>41_XBB_HOME.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    int[] dist;
-    int[] segments;
     public double minmaxGasDist(int[] stations, int K) {
         Arrays.sort(stations);
-        dist = new int[stations.length - 1];
-        segments = new int[stations.length - 1];
-        double l = 0;
-        double r = (double) Integer.MIN_VALUE;
-        for (int i = 0; i &lt; stations.length - 1; ++i) {
-            dist[i] = stations[i + 1] - stations[i];
-            r = Math.max(dist[i], r);
+<A NAME="0"></A>        int size = stations.length;
+        int total = stations[size-1] - stations[0];
+        double max = total * 1.0 / (K + 1);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double min = total * 1.0 / (K + 1 + size - 2);
+        double eps = 0.000001;
+        while (max - min &gt; eps) {
+        	double mid = (max + min) / 2;
+        	if (canArrange(stations, mid, K)) {
+        		max = mid;
+        	} else {
+        		min = mid;
+        	}
         }
-        double m = r;
-        while (r - l &gt; 0.000001) {
-<A NAME="0"></A>            m = l + (r - l) / 2;
-            int temp = count(m);
-            // System.out.println(m + &quot;: &quot; + temp);
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (temp &gt; K) {
-                l = m;
-            } else {
-                r = m;
-            }
-        }</B></FONT>
-        return m;
-        // double result = 0;
-        // for (int i = 0; i &lt; dist.length; ++i) {
-        //     result = Math.max(result, 1.0 * dist[i] / segments[i]);
-        // }
-        // return result;
+        return max;
     }
-    int count(double m) {
-        int ret = 0;
-        for (int i = 0; i &lt; dist.length; ++i) {
-            segments[i] = (int) Math.ceil(dist[i] / m);
-            ret += segments[i] - 1;
-        }
-        return ret;
-    }
+
+	private boolean canArrange(int[] stations, double mid, int k) {</B></FONT>
+		int count = 0;
+		int currIdx = 1;
+		double currDist = stations[0];
+		int target = stations[stations.length-1];
+		while(currDist &lt; target) {
+			if (stations[currIdx] - currDist &lt;= mid) {
+				currDist = stations[currIdx];
+				currIdx++;
+			} else {
+				currDist += mid;
+				count++;
+			}
+		}
+		return count &lt;= k;
+	}
 }
 </PRE>
 

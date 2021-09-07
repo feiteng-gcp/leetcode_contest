@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>373_ericcire.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>373_ericcire.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    boolean ok(int[] a,int k,double x)
-    {
-        int n=a.length,tot=0;
-        for (int i=0;i&lt;n-1;i++)
-        {
-<A NAME="0"></A>            double gap=a[i+1]-a[i];
-            int now=(int)Math.ceil(gap/x)-1;
-            tot+=now;
-            if (tot&gt;k) return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-        }
-        return true;
-    }
-    public double minmaxGasDist(int[] stations, int K) {</B></FONT>
+    int[] dist;
+    int[] segments;
+    public double minmaxGasDist(int[] stations, int K) {
         Arrays.sort(stations);
-        double l=0.0,r=stations[stations.length-1]-stations[0];
-        while ((r-l)&gt;5e-7)
-        {
-            double mid=(r+l)/2;
-            //if (1==1) return mid;
-            if (ok(stations,K,mid)) r=mid; else l=mid;
+<A NAME="0"></A>        dist = new int[stations.length - 1];
+        segments = new int[stations.length - 1];
+        double l = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double r = (double) Integer.MIN_VALUE;
+        for (int i = 0; i &lt; stations.length - 1; ++i) {
+            dist[i] = stations[i + 1] - stations[i];
+            r = Math.max(dist[i], r);
         }
-        return r;
+        double m = r</B></FONT>;
+        while (r - l &gt; 0.000001) {
+<A NAME="1"></A>            m = l + (r - l) / 2;
+            int temp = count(m);
+            // System.out.println(m + &quot;: &quot; + temp);
+            if (temp &gt; K) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                l = m;
+            } else {
+                r = m;
+            }
+        }
+        return m;
+        // double result = 0;
+        // for (int i = 0; i &lt; dist.length; ++i) {
+        //     result = Math.max(result, 1.0 * dist[i] / segments[i]);
+        // }
+        // return result;
+    }
+    int count(double m</B></FONT>) {
+        int ret = 0;
+        for (int i = 0; i &lt; dist.length; ++i) {
+            segments[i] = (int) Math.ceil(dist[i] / m);
+            ret += segments[i] - 1;
+        }
+        return ret;
     }
 }
 </PRE>

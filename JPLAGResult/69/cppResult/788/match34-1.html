@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_headspin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<PRE>
+struct P {
+    int dist;
+    int div;
+    double key;
+    void compute_key() { this-&gt;key = 1. * dist / div; }
+    bool operator&lt;(const P&amp; p) const {
+        return key &lt; p.key;
+    }
+};
+class Solution {
+public:
+    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        vector&lt;int&gt; a;
+        for(int i = 1; i &lt; stations.size(); i++) {
+            a.push_back(stations[i] - stations[i - 1]);
+        }
+        double l = 0, r = 1e8;
+        while(r - l &gt; 1e-7) {
+            int k = K;
+            double mid = (l + r) / 2.0;
+            bool ok = true;
+            for(auto s : a) {
+                if(s &lt;= mid) continue;
+                int need = ceil(s / mid);
+                need--;
+<A NAME="0"></A>                if(need &gt; k) {
+                    ok = false;
+                    break;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                } else {
+                    k -= need;
+                }
+            }
+            if(ok) {
+                r = mid;
+            } else {
+                l = mid;
+            }
+        }
+        return l;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

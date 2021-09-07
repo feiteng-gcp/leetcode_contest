@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_nevergiveup.java</TITLE>
+ <TITLE>65_yzeng61987.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_nevergiveup.java</CENTER></H3><HR>
+<H3><CENTER>65_yzeng61987.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-private int get(int[] stations , double dist) {
-		
-		int i , n = stations.length;
-		int ans = 0;
-		for (i = 0;i &lt; n - 1;i ++) {
-			double diff = stations[i + 1] - stations[i];
-			double temp = diff / dist;
-			if (Math.abs(Math.round(temp) - temp) &lt; 1e-8) {
-<A NAME="0"></A>				ans += ((int) Math.round(temp) - 1);
-			} else {
-				ans += (int) temp;
-			}<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-		}
-		return ans;
-		
-	}
-	
-    public double minmaxGasDist(int[] stations, int K) {</B></FONT>
+    public double minmaxGasDist(int[] stations, int K) {
+<A NAME="0"></A>        //Arrays.sort(stations);
+        int n = stations.length;
+        int[] gap = new int[n-1];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int maxgap = 0;
+        for(int i = 0; i&lt; n-1; i++){
+            gap[i] = stations[i+1] - stations[i];
+            maxgap = Math.max(maxgap, gap[i]);
+        }
         
-    	double low = 0 , high = 1000000000;
-    	int cnt = 200;
-    	while (low &lt; high &amp;&amp; cnt &gt; 0) {
-    		double mid = (low + high) / 2;
-    		int temp = get(stations , mid);
-    		if (temp &lt;= K) {
-    			high = mid;
-    		} else {
-    			low = mid;
-    		}
-    		cnt --;
-    	}
-    	return low;
-    	
+        
+       
+        
+        double l = 0.0</B></FONT>, r = (double) maxgap;
+
+        
+<A NAME="1"></A>        while(r-l&gt; 0.000001){
+            double mid = (r+l)/2;
+            
+            if(count(gap, mid)&lt;= K)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                r = mid;
+            }
+            else{
+                l = mid;
+            }
+        }
+        
+        return l;
+        
+        
+    }
+    
+    public int count(int[] gap</B></FONT>, double val){
+        int res = 0;
+        
+        for(int i = 0; i&lt; gap.length; i++){
+            res += Math.ceil( gap[i]/val) -1;
+        }
+        
+        return res;
     }
 }
 </PRE>

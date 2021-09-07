@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>110_Machine-Learning.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>110_Machine-Learning.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+private:
+    bool satisfy(vector&lt;int&gt;&amp; stations, int K, double len)
+    {
+        int num = 0;
+        for (int i = 0; i &lt; stations.size() - 1; i++)
+        {
+            int distance = stations[i + 1] - stations[i];
+            num += std::ceil((double)distance / len) - 1;
+        }
+        return num &lt;= K;
+    };
+    
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; a, int K) {
-        double low = 0, high = 0;
-        sort(a.begin(), a.end());
-        a.erase(unique(a.begin(), a.end()), a.end());
-        int n = a.size();
-        for (int i = 1; i &lt; n; ++i) high = max(high, (double)a[i] - a[i - 1]);
-        while (high - low &gt; 1e-7) {
-            double mid = (low + high) / 2;
-            int sum = 0;
-            for (int i = 1; i &lt; n; ++i) {
-                int cur = (int)((a[i] - a[i - 1] + mid - 1e-7) / mid);
-<A NAME="0"></A>                sum += cur - 1;
+    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        // sort stations
+        std::sort(stations.begin(), stations.end());
+        int size = stations.size();
+        double minlen = (stations[size - 1] - stations[0]) / (double)(size + K - 1);
+        int maxlen = minlen;
+<A NAME="0"></A>        for (int i = 0; i &lt; size - 1; i ++)
+            maxlen = max(maxlen, stations[i + 1] - stations[i]);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        double left = minlen;
+        double right = maxlen;
+        
+        while (right - left &gt; 0.000001)
+        {
+            // cout &lt;&lt; left &lt;&lt; &quot;:&quot; &lt;&lt; right &lt;&lt; endl;
+            double mid = left + (right - left) / 2.0;
+            if (satisfy(stations, K, mid))
+            {
+                right = mid;
             }
-            //cout &lt;&lt; mid &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; endl;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (sum &gt; K) {
-                low = mid;
-            } else {
-                high = mid;
+            else
+            {
+                left = mid;
             }
         }
-        return high;
         
+        return left;
     }
 };</B></FONT>
 </PRE>

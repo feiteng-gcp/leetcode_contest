@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>35_hamlet_fiis.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>35_hamlet_fiis.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    bool check(vector&lt;int&gt;&amp; sta, int k, double dist) {
-        int cnt = 0;
-        double pre = sta[0];
-        int next = 1;
-        while (next &lt; sta.size()) {
-            if (pre + dist &lt; sta[next]) {
-                ++cnt;
-                pre += dist;
-                if (cnt &gt; k) return false;
-            } else {
-                pre = sta[next++];
-            }
-        }
-        return true;
-    }
 public:
     double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        sort(stations.begin(), stations.end());
-<A NAME="0"></A>        double l = 0.0, r = 1e8;
-        while (r - l &gt; 1e-7) {
-            double mid = (l + r) / 2;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (check(stations, K, mid)) {
-                r = mid;
-            } else {
-                l = mid;
+        vector&lt;double&gt;dist;
+        sort(stations.begin(),stations.end());
+        
+        for(int i=0;i+1&lt;stations.size();i++){
+            dist.push_back(stations[i+1]-stations[i]);
+        }
+        
+<A NAME="0"></A>        double lo=0;
+        double hi=(1e+9);
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int caso=0;caso&lt;100;caso++){
+            double me=(lo+hi)/2;
+            
+            int cant=0;
+<A NAME="1"></A>            for(int i=0;i&lt;dist.size();i++){
+                int val=dist[i];</B></FONT>
+                cant+=(int)(ceil(val/me))-1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            
+            if(cant&gt;K){
+                lo=me;
+            }else{
+                hi=me;
             }
         }
-        return l;
+        
+        return lo;
     }
 };</B></FONT>
 </PRE>

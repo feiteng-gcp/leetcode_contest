@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1___Chaos__.cpp</TITLE>
+ <TITLE>102_blademamama.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>102_blademamama.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt; &amp;board) {
-    using State = vector&lt;vector&lt;int&gt;&gt;;
-    queue&lt;State&gt; q;
-    q.push(board);
-    map&lt;State, int&gt; f;
-    State ending{{1, 2, 3}, {4, 5, 0}};
-    f[board] = 0;
-    int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
-    while (!q.empty()) {
-      auto s = q.front();
-      q.pop();
-<A NAME="0"></A>      if (s == ending) {
-        return f[s];
-      }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      int x, y;
-      for (int i = 0; i &lt; 2; ++i) {
-        for (int j = 0; j &lt; 3; ++j) {
-          if (s[i][j] == 0) {
-            x = i;
-            y = j;
-          }
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; b) {
+        queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+        unordered_set&lt;string&gt; v;
+        string s1 = b2s(b);
+        
+        vector&lt;vector&lt;int&gt;&gt; b0 = {{1, 2, 3}, {4, 5, 0}};</B></FONT>
+        string s0 = b2s(b0);
+        if(s0 == s1) return 0;
+        
+        q.push(b0);
+        v.insert(s0);
+        
+        int d = 1;
+        int direct[4][2] = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}};
+        
+<A NAME="1"></A>        while(!q.empty()) {
+            int len = q.size();
+            for(int i = 0; i &lt; len; ++i) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                auto cur = q.front();
+                q.pop();
+                
+                
+                int x = 0, y = 0;
+                
+                for(int e = 0; e &lt; 2; ++e) {
+                    for(int f = 0; f &lt; 3; ++f) {
+                        if(cur[e][f] == 0) {
+                            x = e;
+                            y = f;
+                        }
+                    }    
+                }
+                
+                for(int k = 0; k &lt; 4; ++k) {
+                    int xx = x + direct[k][0];
+                    int yy = y + direct[k][1];
+                    if(xx &lt; 0 || xx &gt;= 2 || yy &lt; 0 || yy &gt;= 3) continue;</B></FONT>
+                    auto next = cur;
+                    swap(next[xx][yy], next[x][y]);
+                    string s = b2s(next);
+                    if(s == s1) return d;
+                    if(v.find(s) == v.end()) {
+                        v.insert(s);
+                        q.push(next);
+                    }
+                }
+                
+            }
+            ++d;
         }
-      }
-      for (int i = 0; i &lt; 4; ++i) {
-        int xx = x + dx[i], yy = y + dy[i];</B></FONT>
-        if (0 &lt;= xx &amp;&amp; xx &lt; 2 &amp;&amp; 0 &lt;= yy &amp;&amp; yy &lt; 3) {
-          auto v = s;
-          swap(v[xx][yy], v[x][y]);
-          if (!f.count(v)) {
-            q.push(v);
-            f[v] = f[s] + 1;
-          }
-        }
-      }
+        return -1;
     }
-    return -1;
-  }
+    
+    string b2s(vector&lt;vector&lt;int&gt;&gt;&amp; b) {
+        string res;
+        for(int i = 0; i &lt; 2; ++i) {
+            for(int j = 0; j &lt; 3; ++j) {
+                res.push_back(b[i][j] + '0');
+            }
+        }
+        return res;
+    }
 };
 </PRE>
 </BODY>

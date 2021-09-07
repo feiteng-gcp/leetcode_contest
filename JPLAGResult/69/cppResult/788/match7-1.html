@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>18_y119777.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>18_y119777.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-    bool check(vector&lt;int&gt;&amp; sta, int k, double dist) {
-        int cnt = 0;
-        double pre = sta[0];
-        int next = 1;
-        while (next &lt; sta.size()) {
-            if (pre + dist &lt; sta[next]) {
-                ++cnt;
-                pre += dist;
-                if (cnt &gt; k) return false;
-            } else {
-                pre = sta[next++];
-            }
-        }
-        return true;
-    }
+<A NAME="0"></A>class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        sort(stations.begin(), stations.end());
-<A NAME="0"></A>        double l = 0.0, r = 1e8;
-        while (r - l &gt; 1e-7) {
-            double mid = (l + r) / 2;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (check(stations, K, mid)) {
-                r = mid;
-            } else {
-                l = mid;
-            }
-        }
-        return l;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>bool can(vector&lt;int&gt;&amp; a, int k, double d) {
+    int n = a.size();
+    for (int i = 0; i &lt; n - 1; i++) {
+        int c = floor((a[i + 1] - a[i]) / d);</B></FONT>
+        k -= c;
     }
-};</B></FONT>
+    return k &gt;= 0;
+}
+<A NAME="1"></A>double minmaxGasDist(vector&lt;int&gt;&amp; a, int k) {
+    int n = a.size();
+    sort(a.begin(), a.end());
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int d = 0;
+    for (int i = 0; i &lt; n - 1; i++) {
+        d = max(d, a[i + 1] - a[i]);
+    }
+    double left = 0, right = d;
+    while(abs(left - right) &gt; 1e-7) {
+        double mid = (left + right) / 2;
+        //cout &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt;endl;
+        if(can(a, k, mid)) right = mid;</B></FONT>
+        else left = mid;
+    }
+    return right;
+}
+};
 </PRE>
 </BODY>
 </HTML>

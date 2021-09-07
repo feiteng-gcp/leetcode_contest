@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_shdut.cpp</TITLE>
+ <TITLE>38_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,71 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>27_shdut.cpp</CENTER></H3><HR>
+<H3><CENTER>38_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
-#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-#define vi vector&lt;int&gt;
-#define pii pair&lt;int,int&gt;
-#define pb push_back
-#define mp make_pair
-#define all(x) x.begin(),x.end()
-#define SZ(x) (int)(x.size())
-#define rep(i,a,b) for(int i=a;i&lt;b;i++)
-#define per(i,a,b) for(int i=b-1;i&gt;=a;i--)
-#define inf 1000000007
-#define mod 1000000007
-#define x first
-#define y second
-#define pi acos(-1.0)
-#define DBG(x) cerr&lt;&lt;(#x)&lt;&lt;&quot;=&quot;&lt;&lt;x&lt;&lt;&quot;\n&quot;;
-//#define dprintf(...) 
-#define hash _hash
-//#define dprintf(...) fprintf(outFile,__VA_ARGS__)
- 
-#define FOREACH(it,x) for(__typeof(x.begin()) it=x.begin();it!=x.end();it++)
-#define ull unsigned long long
-#define ll long long
-#define N 100010
- 
-template &lt;class T,class U&gt;inline void Max(T &amp;a,U b){if(a&lt;b)a=b;}
-template &lt;class T,class U&gt;inline void Min(T &amp;a,U b){if(a&gt;b)a=b;}
- 
-//FILE* outFile;
- 
-inline void add(int &amp;a,int b){a+=b;while(a&gt;=mod)a-=mod;}
-
- 
-int pow(int a,int b){
-    int ans=1;
-    while(b){
-        if(b&amp;1)ans=ans*(ll)a%mod;
-        a=(ll)a*a%mod;b&gt;&gt;=1;
-    }
-<A NAME="0"></A>    return ans;
-}
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; a, int K) {
-        sort(all(a));
-        int n=SZ(a);
-        double l=0,r=1e8,eps=1e-9;</B></FONT>
-        while(l&lt;=r){
-            double m=(l+r)/2;
-            int s=0;
-            rep(i,0,n-1){
-                int d=a[i+1]-a[i];
-                if(d&gt;m){
-                    s+=ceil(d/m)-1;
-                    if(s&gt;K)break;
-                }
-            }
-            if(s&lt;=K)r=m-eps;
-            else l=m+eps;
+    double minmaxGasDist(vector&lt;int&gt;&amp; sta, int K) {
+        if (sta.size() &lt; 2) {
+<A NAME="0"></A>            return 0;
         }
-        return (l+r)/2;
+        sort(sta.begin(), sta.end());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        double L = 0.00000001, R = sta.back() - sta[0];
+        while (R - L &gt; 0.00000001) {
+            double M = (L + R) / 2;
+            int count = 0;
+            for (int i = 1; i &lt; sta.size(); i++) {</B></FONT>
+                count += ceil((sta[i] - sta[i-1]) / M) - 1;
+            }
+            if (count &lt;= K) {
+                R = M;
+            } else {
+                L = M;
+            }
+        }
+        return L;
     }
 };
 </PRE>

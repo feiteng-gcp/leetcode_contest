@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_headspin.cpp</TITLE>
+ <TITLE>10_cuiaoxiang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>typedef vector&lt;vector&lt;int&gt;&gt; item;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};</B></FONT>
+
 class Solution {
-    map&lt;int, int&gt; st;
 public:
-    int fold(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int res = 0;
-        for(auto u : board) {
-            for(auto v : u) {
-                res *= 10;
-                res += v;
-            }
-<A NAME="0"></A>        }
-        return res;
-    }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    typedef vector&lt;vector&lt;int&gt; &gt; vvi;
-    int dx[4] = { 0, 1, 0, -1 };
-    int dy[4] = { 1, 0,-1,  0 };
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {</B></FONT>
-        st[fold(board)] = 0;
-        queue&lt;vvi&gt; q;
-        q.push(board);
-        while(!q.empty()) {
-            auto t = q.front(); q.pop();
-<A NAME="1"></A>            int thash = fold(t);
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        queue&lt;item&gt; Q;
+        map&lt;item, int&gt; dp;
+        Q.push(board);
+        dp[board] = 0;
+<A NAME="1"></A>        int n = 2, m = 3;
+        while (!Q.empty()) {
+            auto a = Q.front();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int cur = dp[a];
+            Q.pop();
             int x, y;
-            for(int i = 0; i &lt; 2; i++) for(int j = 0; j &lt; 3; j++) if(t[i][j] == 0) { x = i; y = j; }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i = 0; i &lt; 4; i++) {
-                int nx = x + dx[i], ny = y + dy[i];
-                if(0 &lt;= nx and nx &lt; 2 and 0 &lt;= ny and ny &lt; 3) {
-                    swap(t[x][y], t[nx][ny]);
-                    int hash = fold(t);
-                    if(st.find(hash) == st.end()) {
-                        q.push(t);
-                        st[hash] = st[thash] + 1;</B></FONT>
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; m; ++j) {
+                    if (a[i][j] == 0) {
+                        x = i;
+                        y = j;</B></FONT>
                     }
-                    swap(t[x][y], t[nx][ny]);
                 }
             }
+            for (int k = 0; k &lt; 4; ++k) {
+                int nx = x + d[k][0];
+                int ny = y + d[k][1];
+                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;
+                swap(a[x][y], a[nx][ny]);
+                if (!dp.count(a)) {
+                    dp[a] = cur + 1;
+                    Q.push(a);
+                }
+                swap(a[x][y], a[nx][ny]);
+            }   
         }
-        if(st.find(123450) != st.end()) {
-            return st[123450];
-        }
+        item target = {{1, 2, 3}, {4, 5, 0}};
+        if (dp.count(target)) return dp[target];
         return -1;
+        
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_liulike.java</TITLE>
+ <TITLE>277_scaffeinate.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>40_liulike.java</CENTER></H3><HR>
+<H3><CENTER>277_scaffeinate.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    int finalResult = 0;
-    int max = 1000000;
-    int[] best = new int[max];
+<A NAME="0"></A>class Solution {
     public int slidingPuzzle(int[][] board) {
-
-        int state = get(board);
-        Arrays.fill(best, -1);
-        best[state] = 0;
-        dfs(board);
-        int[][] target = new int[2][];
-        target[0] = new int[]{1,2,3};
-        target[1] = new int[]{4,5,0};
-        finalResult = get(target);
-        return best[finalResult];
-    }
-    
-    int[] dx = new int[]{1, -1, 0, 0};
-    int[] dy = new int[]{0, 0, 1, -1};
-    void dfs(int[][] board){
-        //view(board);
-        int x = -1;
-        int y = -1;
-        for(int i = 0; i &lt; 2; i++){
-            for(int j = 0; j &lt; 3; j++){
-                if(board[i][j] == 0){
-                    x = i;
-                    y = j;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dirs = new int[][] {{0,1},{0,-1},{1,0},{-1,0}</B></FONT>};
+        String res = &quot;1,2,3,4,5,0,&quot;;
+        Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
+        Set&lt;String&gt; visited = new HashSet&lt;String&gt;();
+        
+        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                if(board[i][j] == 0) {
+                    queue.offer(new Node(board, 0, i, j));
                     break;
                 }
             }
-            if(x != -1){
-                break;
-            }
         }
-        int start = get(board);
-        for(int i = 0; i &lt; 4; i++){
-            int tx = x + dx[i];
-            int ty = y + dy[i];
-            if(tx &lt; 0 || tx &gt;= 2 || ty &lt; 0 || ty &gt;= 3){
-                continue;
-            }
-            int[][] nBoard = new int[2][];
-            for(int j = 0; j &lt; 2; j++){
-                nBoard[j] = new int[3];
-                for(int k = 0; k &lt; 3; k++){
-                    nBoard[j][k] = board[j][k];
-                }
-            }
-            int tmp = nBoard[tx][ty];
-            nBoard[tx][ty] = nBoard[x][y];
-            nBoard[x][y] = tmp;
-            int state = get(nBoard);
-            if(best[state] == -1 || best[state] &gt; best[start] + 1){
-                best[state] = best[start] + 1;
-                dfs(nBoard);
-            }
-        }
-<A NAME="0"></A>    }
-    int get(int[][] board){
-        int sum = 0;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; 2; i++){
-            for(int j = 0; j &lt; 3; j++){
-                sum = sum * 10 + board[i][j];
-            }
-        }
-        return sum;
-    }
-    void view(int[][] board){
-        for(int i = 0; i &lt; 2; i++){</B></FONT>
-            for(int j = 0; j &lt; 3; j++){
-                System.out.print(board[i][j] + &quot; &quot;);
-            }
-            System.out.println(&quot;&quot;);
-        }
-        System.out.println(&quot;&quot;);
-        System.out.println(get(board));
-        System.out.println(&quot;&quot;);
         
+        while(!queue.isEmpty()) {
+            Node current = queue.poll();
+            String str = stringify(current.board);
+            visited.add(str);
+            if(str.equals(res)) {
+                return current.count;
+            }
+            
+            for(int[] dir : dirs) {
+                int x = current.i + dir[0], y = current.j + dir[1];
+                if(isValid(x, y, board)) {
+                    int[][] swapped = swap(current.i, current.j, x, y, current.board);
+                    String key = stringify(swapped);
+                    if(!visited.contains(key)) {
+<A NAME="1"></A>                        queue.offer(new Node(swapped, current.count+1, x, y));
+                    }
+                }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return -1;
+    }
+    
+    private String stringify(int[][] board) {
+        StringBuilder builder = new StringBuilder();
+<A NAME="2"></A>        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                builder.append(board[i][j]).append</B></FONT>(&quot;,&quot;);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return builder.toString();
+    }
+    
+    private boolean isValid(int x</B></FONT>, int y, int[][] board) {
+<A NAME="3"></A>        return x &gt;= 0 &amp;&amp; x &lt; board.length &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; board[x].length;
+    }
+    
+    private int[][] swap(int a, int b, int x, int y, <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match5-1.html#3',3,'match5-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] board) {
+        int[][] res = new int[board.length][board[0].length];
+        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                res[i][j] = board[i][j];
+            }
+        }</B></FONT>
+        int temp = res[x][y];
+        res[x][y] = res[a][b];
+        res[a][b] = temp;
+        return res;
+    }
+    
+    class Node {
+        int[][] board;
+        int count = 0, i = 0, j = 0;
+        public Node(int[][] board, int count, int i, int j) {
+            this.board = board;
+            this.count = count;
+            this.i = i;
+            this.j = j;
+        }
     }
 }
 </PRE>

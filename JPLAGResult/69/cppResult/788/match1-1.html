@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_zyxwvu164.cpp</TITLE>
+ <TITLE>22_NEU20133823.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_zyxwvu164.cpp</CENTER></H3><HR>
+<H3><CENTER>22_NEU20133823.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; ss, int k) {
-        int n = ss.size();
-        sort(ss.begin(), ss.end());
-        double l = 0, r = ss.back() - ss.front();</B></FONT>
-        while (r - l &gt; 1e-8) {
-            //cout &lt;&lt; l &lt;&lt; &quot; &quot; &lt;&lt; r &lt;&lt; endl;
-            double v = (r + l) / 2;
-            long long res = k;
-            for (int i = 0; i &lt; n - 1; ++i) {
-                long long needed = floor((ss[i+1] - ss[i]) / v);
-                //cout &lt;&lt; ss[i] &lt;&lt; &quot; &quot; &lt;&lt; ss[i+1] &lt;&lt; &quot; &quot; &lt;&lt; needed &lt;&lt; endl;
-                res -= needed;
-                //cout &lt;&lt; res &lt;&lt; endl;
-                if (res &lt; 0)
-                    break;
-            }
-            if (res &lt; 0)
-                l = v;
-            else
-                r = v;
-        }
-        return l;
+<A NAME="0"></A>    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        sort(stations.begin(),stations.end());
+	int n=stations.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	double l=0.0,r=1.0*(stations[n-1]-stations[0])/(K+1);
+	while(r-l&gt;=1e-6)
+	{
+		double m=(l+r)/2;
+		int need=0;
+		for(int i=1;i&lt;n;i++)
+		{</B></FONT>
+			if(stations[i]-stations[i-1]&lt;=m)continue;
+			double now=1.0*(stations[i]-stations[i-1])/m;
+			need=need+(int)now-1;
+			if(now-(int)now&gt;1e-8)need++;
+			if(need&gt;K)break;
+		}
+		if(need&gt;K)l=m;
+		else r=m;
+	}
+	return l;
     }
 };
 </PRE>

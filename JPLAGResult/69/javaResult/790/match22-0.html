@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_lixx2100.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_lixx2100.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+<A NAME="0"></A>import java.util.stream.*;
+import java.math.*;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public class Solution {
+
+
+    public boolean isIdealPermutation(int[] A) {
+        int local = 0;
+        for (int i = 0; i &lt; A.length - 1; i++) {
+            if (A[i] &gt; A[i + 1]) {
+                local++;
+<A NAME="1"></A>            }
+        }
+
+        int global = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sort(A, A.clone(), 0, A.length - 1)</B></FONT>;
+//        System.out.println(global);
+//        System.out.println(Arrays.toString(A));
+        return local == global;
+    }
+
+    int sort(int[] a, int[] tmp, int l, int r) {
+        if</B></FONT> (l &gt;= r) {
+            return 0;
+        }
+
+<A NAME="2"></A>        int ans = 0, mid = (l + r) / 2, i = l, j = mid + 1, k = l;
+        ans += sort(a, tmp, l, mid);
+        ans += sort(a, tmp, mid + 1, r);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (i &lt;= mid &amp;&amp; j &lt;= r) {
+            if (a[i] &gt; a[j]) {
+                ans += mid - i + 1;
+                tmp[k++] = a[j++];
+            } else {
+                tmp[k++] = a[i++];
+            }
+        }
+        while</B></FONT> (i &lt;= mid) tmp[k++] = a[i++];
+        while (j &lt;= r) tmp[k++] = a[j++];
+
+        for (i = l; i &lt;= r; i++) a[i] = tmp[i];
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        System.out.println(sol.isIdealPermutation(new int[]{1, 0, 2}));
+        System.out.println(sol.isIdealPermutation(new int[]{1, 2, 0}));
+
+        int[] a = new int[8];
+        for (int i = 0; i &lt; a.length; i++) {
+            a[i] = 8 - i;
+        }
+        System.out.println(sol.isIdealPermutation(a));
+    }
+}
+
+
+
+</PRE>
+
+</BODY>
+</HTML>

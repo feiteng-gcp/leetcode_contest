@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>172_jamescao.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>172_jamescao.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] bo={{0,1,0,1,0,0},
-               {1,0,1,0,1,0},
-               {0,1,0,0,0,1},
-               {1,0,0,0,1,0},
-               {0,1,0,1,0,1},
-               {0,0,1,0,1,0}</B></FONT>};
-    public int slidingPuzzle(int[][] board) {
-        String now=&quot;&quot;;
-        int zero=0;
-        for (int i=0;i&lt;2;i++)
-            for (int j=0;j&lt;3;j++)
-            {
-                now+=board[i][j];
-                if (board[i][j]==0) zero=i*3+j;
-            }
-        Map&lt;String,Integer&gt; map=new HashMap&lt;&gt;();
-        Queue&lt;String&gt; q=new ArrayDeque&lt;&gt;();
-        Queue&lt;Integer&gt; qi=new ArrayDeque&lt;&gt;();
-        q.offer(now);
-        qi.offer(0);
-        map.put(now,zero);
-        while (!q.isEmpty())
-        {
-            String s=q.poll();
-            int x=qi.poll();
-            if (s.equals(&quot;123450&quot;)) return x;
-            zero=map.get(s);
-            for (int i=0;i&lt;6;i++)
-                if (bo[zero][i]==1)
-                {
-                    String ss=&quot;&quot;;
-                    for (int j=0;j&lt;6;j++)
-                    {
-                        if (j==zero) ss+=s.charAt(i);
-                        else
-                        {
-                            if (j==i) ss+=0;
-                            else ss+=s.charAt(j);
-                        }
-                    }
-                    if (map.containsKey(ss)) continue;
-                    map.put(ss,i);
-                    q.offer(ss);
-                    qi.offer(x+1);
-                }
+class Solution {
+     public int slidingPuzzle(int[][] board) {
+    Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
+    q.offer(board);
+<A NAME="0"></A>    Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+    visited.add(mkString(board));
+    int step = 0;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(!q.isEmpty()) {
+      int qsize = q.size();
+      for(int i=0; i&lt;qsize; i++) {
+        int[][] curr = q.poll</B></FONT>();
+<A NAME="1"></A>        if(mkString(curr).equals(&quot;123450&quot;)) return step;
+        for(int[][] next: mkNext(curr)) {
+          if(!visited.contains(mkString(next))) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>q.offer(next);
+            visited.add(mkString(next));
+          }
         }
-        return -1;
+      }
+      step++;
     }
+
+    return -1;
+  }</B></FONT>
+  String mkString(int[][] board) {
+    StringBuilder sb = new StringBuilder();
+    for(int[] l: board) {
+      for(int i: l) sb.append(i);
+    }
+    return sb.toString();
+  }
+
+  List&lt;int[][]&gt; mkNext(int[][] b) {
+    List&lt;int[][]&gt; res = new ArrayList&lt;&gt;();
+    int[] idx = new int[]{0,0};
+    for(int i=0; i&lt;2; i++) {
+      for(int j=0; j&lt;3; j++) {
+        if(b[i][j]==0) {
+          idx = new int[]{i, j};
+          break;
+<A NAME="2"></A>        }
+      }
+    }
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dirs = {{-1,0},{0,-1},{0,1},{1,0}</B></FONT>};
+    for(int[] d: dirs) {
+      int ni = idx[0] + d[0];
+      int nj = idx[1] + d[1];
+      if(ni&gt;=0 &amp;&amp; ni&lt;2 &amp;&amp; nj&gt;=0 &amp;&amp; nj &lt; 3) {
+        int[][] next = new int[2][3];
+        next[0] = b[0].clone();
+        next[1] = b[1].clone();
+        next[ni][nj] = 0;
+        next[idx[0]][idx[1]] = b[ni][nj];
+        res.add(next);
+      }
+    }
+    return res;
+  }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>117_payall4u.java</TITLE>
+ <TITLE>48_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>117_payall4u.java</CENTER></H3><HR>
+<H3><CENTER>48_5305519068.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public double minmaxGasDist(int[] stations, int K) {
-        int[] bt = new int[stations.length - 1];
-        for (int i = 0; i &lt; bt.length; i++) {
-            bt[i] = stations[i + 1] - stations[i];
-        }
-        int maxinum = 0;
-        for (int i: bt) {
-            maxinum = Math.max(maxinum, i);
-<A NAME="0"></A>        }
-        
-        double l = 0, r = maxinum;
-        while (r - l &gt; 0.0000001) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            double mid = (l + r) / 2;
-            if (canAccept(bt, K, mid)) {
-                r = mid;
-            }else {
-                l = mid;
-            }
-        }</B></FONT>
-        return (l + r) / 2;
-    }
+import java.util.Arrays;
 
-    public boolean canAccept(int[] bt, int K, double number) {
-        for (int i: bt) {
-            double tmp = i / number;
-            tmp = Math.ceil(tmp);
-            K -= tmp - 1;
-            if (K &lt; 0) return false;
+class Solution {
+	boolean check(int[] stations, int K, double m) {
+		for (int i = 0; i + 1 &lt; stations.length; ++i) {
+			double d = stations[i + 1] - stations[i];
+			K -= Math.ceil(d / m) - 1;
+		}
+<A NAME="0"></A>		return K &gt;= 0;
+	}
+	
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double minmaxGasDist(int[] stations, int K) {
+    	int N = stations.length;
+    	Arrays.sort(stations);
+        double l = 0.0;
+<A NAME="1"></A>        double r = stations[N - 1] - stations[0];
+        for (int steps = 0; steps &lt; 100; ++steps) {
+        	double m = (l + r) / 2.0;</B></FONT>
+        	if (check(stations, K, m)) {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        		r = m;
+        	} else {
+        		l = m;
+        	}
         }
-        return true;
+        return r;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

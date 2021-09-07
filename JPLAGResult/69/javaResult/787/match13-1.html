@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_megaspazz.java</TITLE>
+ <TITLE>252_sevenlol.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,102 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_megaspazz.java</CENTER></H3><HR>
+<H3><CENTER>252_sevenlol.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    int[] DR = {-1, 0, 1, 0};
-<A NAME="0"></A>    int[] DC = {0, 1, 0, -1};
-    
-    public int slidingPuzzle(int[][] board) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Board answer = new Board(new int[][] {{1, 2, 3}, {4, 5, 0}</B></FONT>});
-        HashSet&lt;Board&gt; seen = new HashSet&lt;Board&gt;();
-        Queue&lt;Board&gt; q = new ArrayDeque&lt;Board&gt;();
-        Queue&lt;Integer&gt; d = new ArrayDeque&lt;Integer&gt;();
-        Board init = new Board(board);
-        q.offer(init);
-        d.offer(0);
-<A NAME="1"></A>        seen.add(init);
-        while (!q.isEmpty()) {
-            Board b = q.poll();
-            int dd = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>d.poll();
-            if (b.equals(answer)) {
-                return dd;
-            }
-            for (int r = 0</B></FONT>; r &lt; 2; ++r) {
-                for (int c = 0; c &lt; 3; ++c) {
-                    if (b.b[r][c] != 0) {
-                        continue;
-                    }
-                    for (int i = 0; i &lt; 4; ++i) {
-                        int rr = r + DR[i];
-                        int cc = c + DC[i];
-                        if (rr &gt;= 0 &amp;&amp; rr &lt; 2 &amp;&amp; cc &gt;= 0 &amp;&amp; cc &lt; 3) {
-                            Board next = b.copy();
-                            next.b[r][c] = next.b[rr][cc];
-                            next.b[rr][cc] = 0;
-                            if (!seen.contains(next)) {
-                                q.offer(next);
-                                d.offer(dd + 1);
-                                seen.add(next);
-                            }
+import java.util.LinkedList;
+import java.util.Set;
+
+<A NAME="2"></A>class Solution {
+    private static final int[][] DIRS = {
+        { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } 
+    };<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+    public int slidingPuzzle(int[][] board) {</B></FONT>
+        if (getKey(board).equals(&quot;123450&quot;)) {
+            return 0;
+        }
+<A NAME="0"></A>        Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+        LinkedList&lt;int[][]&gt; queue = new LinkedList&lt;&gt;();
+        queue.addLast(board);
+        visited.add(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>getKey(board));
+        int steps = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+                int[][] curr = queue.removeFirst();
+                        
+                // System.out.println(getKey(curr));
+
+                int[] coor = findZero(curr);
+                for (int[] d</B></FONT> : DIRS) {
+                    int ni = coor[0] + d[0];
+                    int nj = coor[1] + d[1];
+                    if (swap(curr, coor[0], coor[1], ni, nj)) {
+                        String key = getKey(curr);
+                        if (visited.contains(key)) {
+                            swap(curr, coor[0], coor[1], ni, nj);
+                            continue;
                         }
+                        if (key.equals(&quot;123450&quot;)) {
+                            // System.out.println(&quot;end&quot;);
+                            return steps;
+                        }
+<A NAME="1"></A>
+                        visited.add(key);
+                        queue.addLast(clone(curr));
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>swap(curr, coor[0], coor[1], ni, nj);
                     }
                 }
             }
+            steps++;
         }
         return -1;
-    }
-    
-    public static class Board {
-        public int[][] b;
-        
-        public Board(int[][] board) {
-            this.b = board;
-        }
-        
-        public Board copy() {
-            int[][] x = new int[2][3];
-            for (int i = 0; i &lt; 2; ++i) {
-                for (int j = 0; j &lt; 3; ++j) {
-                    x[i][j] = b[i][j];
+    }</B></FONT>
+
+    private int[] findZero(int[][] board) {
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                if (board[i][j] == 0) {
+                    return new int[] { i, j };
                 }
             }
-            return new Board(x);
         }
-        
-        @Override
-        public int hashCode() {
-            int hash = 0;
-            for (int[] row : b) {
-                for (int v : row) {
-                    hash = (hash &lt;&lt; 3) | v;
-                }
-            }
-            return hash;
-        }
-        
-        @Override
-        public boolean equals(Object obj) {
-            Board board = (Board)obj;
-            return this.hashCode() == board.hashCode();
-        }
+        return null;
     }
-}
+
+    private boolean swap(int[][] curr, int i1, int j1, int i2, int j2) {
+        if (i1 &lt; 0 || i1 == 2 || i2 &lt; 0 || i2 == 2) {
+            return false;
+        }
+        if (j1 &lt; 0 || j1 == 3 || j2 &lt; 0 || j2 == 3) {
+            return false;
+        }
+
+        int tmp = curr[i1][j1];
+        curr[i1][j1] = curr[i2][j2];
+        curr[i2][j2] = tmp;
+        return true;
+    }
+
+    private String getKey(int[][] board) {
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                b.append(board[i][j]);
+<A NAME="3"></A>            }
+        }
+        return b.toString();
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#3',2,'match13-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+    private int[][] clone(int[][] board) {
+        int[][] b = new int[2][3];
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                b[i][j] = board[i][j];
+            }
+        }
+        return b;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

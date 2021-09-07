@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_lympanda.cpp</TITLE>
+ <TITLE>93_ZhengkaiWei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,83 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>3_lympanda.cpp</CENTER></H3><HR>
+<H3><CENTER>93_ZhengkaiWei.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>
-map&lt;vector&lt;vector&lt;int&gt; &gt;, int&gt; mp;
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int neigh[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
-
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt; &gt;&amp; board) {
-      int i,j,k,b1,l,o,p,x,y,z;</B></FONT>
-      vector&lt;vector&lt;int&gt; &gt; a;
-      vector&lt;int&gt; tmp;
-      vector&lt;vector&lt;vector&lt;int&gt; &gt; &gt; q;
-      tmp.clear();
-      tmp.push_back(1);
-      tmp.push_back(2);
-      tmp.push_back(3);
-      a.push_back(tmp);
-      tmp.clear();
-      tmp.push_back(4);
-      tmp.push_back(5);
-      tmp.push_back(0);
-      a.push_back(tmp);
-      mp.clear();
-      mp[a]=0;
-      q.clear();
-      q.push_back(a);
-      for (i=0;i&lt;q.size();i++)
-      {
-        a=q[i];
-        z=mp[a];
-        b1=0;
-        for (j=0;j&lt;2;j++)
-        {
-          for (k=0;k&lt;3;k++)
-          {
-            if (a[j][k]==0)
-            {
-              b1=1;break;
-            }
-          }
-          if (b1==1) break;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;vector&lt;int&gt;&gt; dict4={{1,0},{-1,0},{0,1},{0,-1}};</B></FONT>
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+    queue&lt;int&gt; q;
+    int code=getHash(board);
+    unordered_set&lt;int&gt; hset;
+    int finalCode=123450;
+    if(code==finalCode)
+        return 0;
+    int ans=1;
+    q.push(code);
+    hset.insert(code);
+    int x=0,y=0;
+    int thislevel=1;
+    int nextlevel=0;
+    while(!q.empty()){
+        if(thislevel==0){
+            ++ans;
+            thislevel=nextlevel;
+            nextlevel=0;
         }
-        for (o=0;o&lt;4;o++)
-        {
-          x=j+neigh[o][0];
-          y=k+neigh[o][1];
-          if ((x&gt;=0)&amp;&amp;(x&lt;2)&amp;&amp;(y&gt;=0)&amp;&amp;(y&lt;3))
-          {
-            swap(a[j][k],a[x][y]);
-            if (mp.find(a)==mp.end())
-            {
-              mp[a]=z+1;
-              q.push_back(a);
+        code=q.front();
+<A NAME="1"></A>        q.pop();
+        --thislevel;
+        getBoard(board,code);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;2;++i){
+            for(int j=0;j&lt;3;++j){
+                if(board[i][j]==0){
+                    x=i;
+                    y=j;
+                    break;
+                }
             }
-            swap(a[j][k],a[x][y]);
-          }
         }
-      }
-      if (mp.find(board)==mp.end()) return -1;
-      else return mp[board];
+
+        for(int i=0;i&lt;4;++i){</B></FONT>
+            int newx=x+dict4[i][0];
+            int newy=y+dict4[i][1];
+            if(newx&lt;0||newx&gt;=2||newy&lt;0||newy&gt;=3)
+                continue;
+            swap(board[x][y],board[newx][newy]);
+            code=getHash(board);
+
+            if(code==finalCode)
+                return ans;
+            if(hset.count(code)==0){
+                hset.insert(code);
+                q.push(code);
+                ++nextlevel;
+               // cout&lt;&lt;code&lt;&lt;endl;
+               // show(board);
+            }
+            swap(board[x][y],board[newx][newy]);
+        }
     }
+    return -1;
+}
+    int getHash(vector&lt;vector&lt;int&gt;&gt;&amp; board){
+    int code=0;
+    for(int i=0;i&lt;2;++i){
+        for(int j=0;j&lt;3;++j){
+            code=code*10+board[i][j];
+        }
+    }
+    return code;
+}
+void getBoard(vector&lt;vector&lt;int&gt;&gt;&amp; board,int code){
+    for(int i=1;i&gt;=0;--i){
+        for(int j=2;j&gt;=0;--j){
+            board[i][j]=code%10;
+            code/=10;
+        }
+    }
+}
 };
 </PRE>
 </BODY>

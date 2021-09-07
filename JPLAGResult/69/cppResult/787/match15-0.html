@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1___Chaos__.cpp</TITLE>
+ <TITLE>69_txingml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,70 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>69_txingml.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt; &amp;board) {
-    using State = vector&lt;vector&lt;int&gt;&gt;;
-    queue&lt;State&gt; q;
-    q.push(board);
-    map&lt;State, int&gt; f;
-    State ending{{1, 2, 3}, {4, 5, 0}};
-    f[board] = 0;
-    int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
-    while (!q.empty()) {
-      auto s = q.front();
-      q.pop();
-<A NAME="0"></A>      if (s == ending) {
-        return f[s];
-      }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      int x, y;
-      for (int i = 0; i &lt; 2; ++i) {
-        for (int j = 0; j &lt; 3; ++j) {
-          if (s[i][j] == 0) {</B></FONT>
-            x = i;
-            y = j;
-<A NAME="1"></A>          }
+<A NAME="0"></A>    int encode(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int ret = 0;
+        for (int i = 0; i &lt; 2; i++) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = 0; j &lt; 3; j++) {
+                ret = ret * 10 + board[i][j];
+            }
         }
-      }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int i = 0; i &lt; 4; ++i) {
-        int xx = x + dx[i], yy = y + dy[i];
-        if (0 &lt;= xx &amp;&amp; xx &lt; 2 &amp;&amp; 0 &lt;= yy &amp;&amp; yy &lt; 3) {
-          auto v = s;
-          swap(v[xx][yy], v[x][y]);
-          if (!f.count(v)) {</B></FONT>
-            q.push(v);
-            f[v] = f[s] + 1;
-          }
-        }
-      }
+        return ret;
     }
-    return -1;
-  }
+    vector&lt;vector&lt;int&gt; &gt; decode(int val) {
+        vector&lt;vector&lt;int&gt; &gt; ret(2, vector&lt;int&gt;(3, 0));
+        for (int i = 1; i &gt;= 0; i--) {
+            for (int j = 2; j &gt;= 0; j--) {
+                ret[i][j] = val % 10;
+                val /= 10;
+            }
+        }
+        return ret;
+    }</B></FONT>
+    void move(queue&lt;int&gt; &amp;q, vector&lt;vector&lt;int&gt;&gt;&amp; tmp, unordered_set&lt;int&gt; &amp; vis, int i, int j, int xi, int xj) {
+        swap(tmp[xi][xj], tmp[i][j]);
+        int val = encode(tmp);
+        if (vis.find(val) == vis.end()) {
+            vis.insert(val);
+            q.push(val);
+        }
+        swap(tmp[xi][xj], tmp[i][j]);
+    }
+public:
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int start = encode(board);
+        queue&lt;int&gt; q; q.push(start);
+        unordered_set&lt;int&gt; vis; vis.insert(start);
+        int end = 123450;
+        int ret = -1;
+        while(!q.empty()) {
+            int sz = q.size(); ret++;
+<A NAME="1"></A>            for (int k = 0; k &lt; sz; k++) {
+                int cur = q.front(); q.pop();
+                if (cur == end) return ret;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto tmp = decode(cur);
+                int i = -1, j = -1;
+                for (int a = 0; a &lt; 2 &amp;&amp; i==-1; a++) {
+                    for (int b = 0; b &lt; 3 &amp;&amp; i==-1; b++) {
+                        if (tmp[a][b] == 0) {
+                            i = a, j = b;</B></FONT>
+                            break;
+                        }
+                    }
+                }
+                if (i+1 &lt; 2) move(q, tmp, vis, i, j, i+1, j); 
+                if (i-1 &gt;= 0) move(q, tmp, vis, i, j, i-1, j);
+                if (j+1 &lt; 3) move(q, tmp, vis, i, j, i, j+1);
+                if (j-1 &gt;= 0) move(q, tmp, vis, i, j, i, j-1);
+            }
+        }
+        return -1;
+        
+        
+        
+    }
 };
 </PRE>
 </BODY>

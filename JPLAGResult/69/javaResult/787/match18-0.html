@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_liulike.java</TITLE>
+ <TITLE>48_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,87 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>40_liulike.java</CENTER></H3><HR>
+<H3><CENTER>48_5305519068.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    int finalResult = 0;
-    int max = 1000000;
-    int[] best = new int[max];
-    public int slidingPuzzle(int[][] board) {
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
-        int state = get(board);
-        Arrays.fill(best, -1);
-        best[state] = 0;
-        dfs(board);
-        int[][] target = new int[2][];
-        target[0] = new int[]{1,2,3};
-        target[1] = new int[]{4,5,0};
-        finalResult = get(target);
-        return best[finalResult];
-    }
-    
-    int[] dx = new int[]{1, -1, 0, 0};
-    int[] dy = new int[]{0, 0, 1, -1};
-    void dfs(int[][] board){
-        //view(board);
-        int x = -1;
-        int y = -1;
-        for(int i = 0; i &lt; 2; i++){
-            for(int j = 0; j &lt; 3; j++){
-                if(board[i][j] == 0){
-                    x = i;
-                    y = j;
-                    break;
-                }
-            }
-            if(x != -1){
-                break;
-            }
+class Solution {
+	void swap(char[] x, int i, int j) {
+		char tmp = x[i];
+		x[i] = x[j];
+		x[j] = tmp;
+	}
+	
+<A NAME="0"></A>    public int slidingPuzzle(int[][] board) {
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        StringBuilder sb = new StringBuilder();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String finalState = &quot;123450&quot;;
+        for (int i = 0; i &lt; 2; ++i) {
+        	for (int j = 0; j &lt; 3; ++j) {
+        		sb.append((char)(board[i][j] + '0'));
+        	}
+        }</B></FONT>
+        map.put(sb.toString(), 0);
+        Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+<A NAME="1"></A>        queue.offer(sb.toString());
+        while (!queue.isEmpty()) {
+        	String cur = queue.poll();
+        	int d =<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> map.get(cur);
+        	int pos = cur.indexOf('0');
+            //System.out.println(cur + &quot; &quot; + d + &quot; &quot; + pos);
+        	if (cur.equals(finalState)) {
+        		return d;
+        	}
+        	int[] npos = new int[]{pos + 1, pos - 1, (pos + 3) % 6};</B></FONT>
+        	for (int p : npos) {
+        		if (p &gt;= 0 &amp;&amp; p &lt; 6) {
+        			if (Math.abs(p - pos) == 1 &amp;&amp; p + pos == 5) {
+        				continue;
+<A NAME="2"></A>        			}
+            		char[] ns = cur.toCharArray();
+            		swap(ns, pos, p);
+            		String nst<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ate = String.valueOf(ns);
+            		if (!map.containsKey(nstate)) {
+<A NAME="3"></A>            			map.put(nstate, d + 1);
+            			queue.offer(nstate);
+            		}</B></FONT>
+        		}<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        	}
         }
-        int start = get(board);
-        for(int i = 0; i &lt; 4; i++){
-            int tx = x + dx[i];
-            int ty = y + dy[i];
-            if(tx &lt; 0 || tx &gt;= 2 || ty &lt; 0 || ty &gt;= 3){
-                continue;
-            }
-            int[][] nBoard = new int[2][];
-            for(int j = 0; j &lt; 2; j++){
-                nBoard[j] = new int[3];
-                for(int k = 0; k &lt; 3; k++){
-                    nBoard[j][k] = board[j][k];
-                }
-            }
-            int tmp = nBoard[tx][ty];
-            nBoard[tx][ty] = nBoard[x][y];
-            nBoard[x][y] = tmp;
-            int state = get(nBoard);
-            if(best[state] == -1 || best[state] &gt; best[start] + 1){
-                best[state] = best[start] + 1;
-                dfs(nBoard);
-            }
-        }
-<A NAME="0"></A>    }
-    int get(int[][] board){
-        int sum = 0;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; 2; i++){
-            for(int j = 0; j &lt; 3; j++){
-                sum = sum * 10 + board[i][j];
-            }
-        }
-        return sum;
-    }
-    void view(int[][] board){</B></FONT>
-        for(int i = 0; i &lt; 2; i++){
-            for(int j = 0; j &lt; 3; j++){
-                System.out.print(board[i][j] + &quot; &quot;);
-            }
-            System.out.println(&quot;&quot;);
-        }
-        System.out.println(&quot;&quot;);
-        System.out.println(get(board));
-        System.out.println(&quot;&quot;);
-        
+        return -1;
+    }</B></FONT>
+<A NAME="4"></A>    
+    public static void main(String[] args) {
+    	Solution solution = new Solution();
+    	int<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match18-1.html#4',3,'match18-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[][] board = {{3, 2, 4}, {1, 5, 0}};</B></FONT>
+    	System.out.println(solution.slidingPuzzle(board));
     }
 }
 </PRE>

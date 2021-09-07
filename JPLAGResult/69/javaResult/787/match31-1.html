@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_xuan18.java</TITLE>
+ <TITLE>14_albaniliu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,103 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_xuan18.java</CENTER></H3><HR>
+<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    
-    class Board {
-        int[][] board;
-        int step;
-        public Board(int[][] b) {
-            step = 0;
-            board = new int[2][3];
-            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) board[i][j] = b[i][j];
-        }
-        
-        public Board(int[][] b, int step) {
-            this(b);
-            setStep(step);
-        }
-        
-        private void setStep(int step) {
-            this.step = step;
-        }
-        
-        public boolean equals(Object o) {
-            if (o instanceof Board) return equals((Board) o);
-            else return false;
-        }
-        public boolean equals(Board b) {
-            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) {
-                if (board[i][j] != b.board[i][j]) return false;
-            }
-            return true;
-        }
-        
-        public int hashCode() {
-            int ret = 0, base = 1;
-            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) {
-                ret = ret + base * board[i][j];
-                base *= 6;
-            }
-            return ret;
-        }
-        
-        public List&lt;Board&gt; getNext() {
-            int nextstep = step + 1;
-            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) if(board[i][j]==0) {
-                LinkedList&lt;Board&gt; ret = new LinkedList&lt;Board&gt;();
-                Board next;
-                next = swap(i, j, 1-i, j);
-                next.setStep(nextstep);
-                ret.add(next);
-                if(j!=0) {
-                    next = swap(i, j, i, j-1);
-                    next.setStep(nextstep);
-                    ret.add(next);
-                }
-                if(j!=2) {
-                    next = swap(i, j, i, j+1);
-                    next.setStep(nextstep);
-                    ret.add(next);
-                }
-                return ret;
-            }
-            throw new RuntimeException(&quot;No 0 found.&quot;);
-        }
-        
-        private Board swap(int i1, int j1, int i2, int j2) {
-            int[][] ret = new int[2][3];
-            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) ret[i][j] = board[i][j];
-            int tmp = ret[i1][j1];
-            ret[i1][j1] = ret[i2][j2];
-            ret[i2][j2] = tmp;
-            return new Board(ret);
-        }
-        
-    }
-    
-<A NAME="0"></A>    public int slidingPuzzle(int[][] board) {
-        LinkedList&lt;Board&gt; bag = new LinkedList&lt;Board&gt;();
-        Board target = new Board(
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[][] {{1,2,3},{4,5,0}</B></FONT>}
-        );
-        bag.add(new Board(board));
-        HashSet&lt;Board&gt; dedupe = new HashSet&lt;Board&gt;();
-        while(bag.size()&gt;0) {
-            Board curboard = bag.removeFirst();
-            dedupe.add(curboard);
-            if (curboard.equals(target)) {
-                return curboard.step;
-            }
-            for(Board nextboard : curboard.getNext()) {
-                if (!dedupe.contains(nextboard)) {
-                    bag.add(nextboard);
+public int slidingPuzzle(int[][] board) {
+        String target = &quot;123450&quot;;
+        int n = board.length;
+        int m = board[0].length;
+        HashSet&lt;String&gt; visited = new HashSet&lt;&gt;();
+        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; board.length; i++)
+            for (int j = 0; j &lt; board[0].length; j++)
+                sb.append(board[i][j]);
+        q.add(sb.toString());
+<A NAME="0"></A>        if (sb.toString().equals(target)) return 0;
+<A NAME="1"></A>        visited.add(sb.toString());
+        int step = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dir = new int[][] {{0,1}, {0,-1}, {1,0}, {-1,0}</B></FONT>};
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!q.isEmpty()) {
+            int size = q.size();
+            step++;
+            for (int i = 0; i &lt; size; i++) {
+                String cur = q.poll</B></FONT>();
+                sb = new StringBuilder(cur);
+                int p = 0;
+                for (int j = 0; j &lt; cur.length(); j++)
+                    if (cur.charAt(j) == '0')
+                        p = j;
+                int r = p / m;
+                int c = p % m;
+                for (int k = 0; k &lt; 4; k++) {
+                    int nr = r + dir[k][0];
+                    int nc = c + dir[k][1];
+                    if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m) {
+                        int np = nr * m + nc;
+                        sb.setCharAt(p, sb.charAt(np));
+                        sb.setCharAt(np, '0');
+                        if (!visited.contains(sb.toString())) {
+                            if (sb.toString().equals(target)) return step;
+<A NAME="2"></A>                            visited.add(sb.toString());
+                            q.add(sb.toString());
+                        }
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.setCharAt(np, sb.charAt(p));
+                        sb.setCharAt(p, '0');
+                    }
                 }
             }
         }
         return -1;
-    }
+    }</B></FONT>
+
 }
 </PRE>
 

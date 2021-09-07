@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>107_voidmian.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>107_voidmian.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    private void sort(int[] nums, int[] smaller, int[] pos, int from, int to) {
+        if (from &gt;= to) return;
+        int m = (from + to) / 2;
+        sort(nums, smaller, pos, from, m);
+        sort(nums, smaller, pos, m + 1, to);
+        int[] merged = new int[to - from + 1];
+        int i = from, j = m + 1, k = 0, jump = 0;
+        while (i &lt;= m || j &lt;= to) {
+            if (i &gt; m) {
+                jump++;
+                merged[k++] = pos[j++];
+<A NAME="2"></A>            } else if (j &gt; to) {
+                smaller[pos[i]] += jump;
+                merged[k++] = pos[i++];
+            } else <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (nums[pos[i]] &lt;= nums[pos[j]]) {
+                smaller[pos[i]] += jump;
+                merged[k++] = pos[i++];
+            } else {
+                jump++;
+                merged[k++] = pos[j++];
+            }</B></FONT>
+        }
+        for (int p = 0; p &lt; merged.length; p++) {
+            pos[from + p] = merged[p];
+<A NAME="1"></A>        }
+    }
+
+    public boolean isIdealPermutation(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] A) {
+        if (A == null || A.length == 0) {
+            return true;
+        }
+        int cnt1 = 0, cnt2 = 0;
+<A NAME="3"></A>
+
+        int[] smaller = new int[A.length]</B></FONT>;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] pos = new int[A.length];
+        for (int i = 0; i &lt; pos.length; i++) {
+            pos[i] = i;
+        }
+        sort</B></FONT>(A, smaller, pos, 0, A.length - 1);
+
+        for (int i = 0; i &lt; smaller.length; ++i) {
+<A NAME="0"></A>            cnt1 += smaller[i];
+        }
+
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; A.length - 1; ++i) {
+            if (A[i] &gt; A[i + 1]) {
+                cnt2++;
+            }
+        }</B></FONT>
+
+        return cnt1 == cnt2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

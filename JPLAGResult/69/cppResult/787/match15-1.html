@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>109_codermonk.cpp</TITLE>
+ <TITLE>52_RadianceSheep.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,79 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>109_codermonk.cpp</CENTER></H3><HR>
+<H3><CENTER>52_RadianceSheep.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int encode(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        return board[0][0] + board[0][1]*6 + board[0][2]*36 + board[1][0]*36*6 + board[1][1]*36*36 + board[1][2]*36*36*6;
-    }
-    vector&lt;vector&lt;int&gt;&gt; decode(int x) {
-        vector&lt;vector&lt;int&gt;&gt; v(2, vector&lt;int&gt;(3, 0));
-        v[0][0] = x % 6;
-        x /= 6;
-        v[0][1] = x % 6;
-        x /= 6;
-        v[0][2] = x % 6;
-        x /= 6;
-        v[1][0] = x % 6;
-        x /= 6;
-        v[1][1] = x % 6;
-        x /= 6;
-        v[1][2] = x;
-        return v;
-    }
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; b) {
-<A NAME="0"></A>        unordered_set&lt;int&gt; used;
-        used.insert(encode(b));
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        queue&lt;pair&lt;int, int&gt;&gt; q;
-        for(int i = 0; i &lt; 2; i++) {
-            for(int j = 0; j &lt; 3; j++) {
-                if(b[i][j] == 0) {</B></FONT>
-                    q.push({encode(b), i*3+j});
-                }
-            }
-        }
-        vector&lt;vector&lt;int&gt;&gt; t = {{1,2,3}, {4,5,0}};
-        int d = 1, tg = encode(t), dr[4] = {-1,1,0,0}, dc[4] = {0,0,-1,1};
-        if(tg == encode(b)) return 0;
-        while(!q.empty()) {
-            int qsize = q.size();
-            while(qsize-- &gt; 0) {
-                int curr = q.front().first;
-                int pos = q.front().second;
-<A NAME="1"></A>                q.pop();
-                auto v = decode(curr);
-                int r = pos / 3, c = pos % 3;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for(int i = 0; i &lt; 4; i++) {
-                    int rr = r + dr[i], cc = c + dc[i];
-                    if(rr &gt;= 0 &amp;&amp; rr &lt; 2 &amp;&amp; cc &gt;= 0 &amp;&amp; cc &lt; 3) {
-                        swap(v[r][c], v[rr][cc]);
-                        auto next = encode(v);
-                        if(!used.count(next)) {</B></FONT>
-                            if(next == tg) return d;
-                            used.insert(next);
-                            q.push({next, rr*3+cc});
-                        }
-                        swap(v[r][c], v[rr][cc]);
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int src = encode(board);
+        vector&lt;vector&lt;int&gt;&gt; targetBoard = {{1, 2, 3}, {4, 5, 0}};
+        int target = encode(targetBoard);
+        const vector&lt;int&gt; DIR_X = {0, 1, 0, -1};
+        const vector&lt;int&gt; DIR_Y = {1, 0, -1, 0};
+        queue&lt;int&gt; q;
+        unordered_map&lt;int, int&gt; dists;
+        unordered_map&lt;int, bool&gt; visited;
+        q.push(src);
+        dists[src] = 0;
+<A NAME="1"></A>        visited[src] = true;
+        while (!q.empty()) {
+            int u = q.front();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            auto board = decode(u);
+            q.pop();
+            int x = -1, y = -1;
+            for (int i = 0; i &lt; 2; ++i) {
+                for (int j = 0; j &lt; 3; ++j) {
+                    if (board[i][j] == 0) {
+                        x = i;
+                        y = j;</B></FONT>
                     }
                 }
             }
-            d++;
+            for (int k = 0; k &lt; 4; ++k) {
+                int tx = x + DIR_X[k];
+                int ty = y + DIR_Y[k];
+                if (0 &lt;= tx &amp;&amp; tx &lt; 2) {
+                    if (0 &lt;= ty &amp;&amp; ty &lt; 3) {
+                        swap(board[x][y], board[tx][ty]);
+                        int v = encode(board);
+                        if (dists.count(v) == 0 || dists[v] &gt; dists[u] + 1) {
+                            dists[v] = dists[u] + 1;
+                            if (!visited[v]) {
+                                visited[v] = true;
+                                q.push(v);
+                            }
+                        }
+                        swap(board[x][y], board[tx][ty]);
+                    }
+                }
+            }
+            visited[u] = false;
         }
-        return -1;
+        return dists.count(target) == 1 ? dists[target] : -1;
     }
+
+private:
+<A NAME="0"></A>    int encode(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int state = 0;
+        for (size_t i = 0; i &lt; board.size(); ++i) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (size_t j = 0; j &lt; board[i].size(); ++j) {
+                state = state * 6 + board[i][j];
+            }
+        }
+        return state;
+    }
+
+    vector&lt;vector&lt;int&gt;&gt; decode(int state) {
+        vector&lt;vector&lt;int&gt;&gt; board(2, vector&lt;int&gt;(3));
+        for (int i = 1; i &gt;= 0; --i) {
+            for (int j = 2; j &gt;= 0; --j) {
+                board[i][j] = state % 6;
+                state /= 6;
+            }
+        }
+        return board;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

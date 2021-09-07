@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>8_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>8_nevergiveup.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    boolean ok(int[] a,int k,double x)
-    {
-        int n=a.length,tot=0;
-<A NAME="0"></A>        for (int i=0;i&lt;n-1;i++)
-        {
-            double gap=a[i+1]-a[i];
-            int now=(int)<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.ceil(gap/x)-1;
-            tot+=now;
-            if (tot&gt;k) return false;
-        }
-        return true;
-    }</B></FONT>
+private int get(int[] stations , double dist) {
+		
+		int i , n = stations.length;
+		int ans = 0;
+		for (i = 0;i &lt; n - 1;i ++) {
+			double diff = stations[i + 1] - stations[i];
+			double temp = diff / dist;
+			if (Math.abs(Math.round(temp) - temp) &lt; 1e-8) {
+				ans += ((int) Math.round(temp) - 1);
+			} else {
+				ans += (int) temp;
+			}
+		}
+		return ans;
+		
+	}
+	
     public double minmaxGasDist(int[] stations, int K) {
-        Arrays.sort(stations);
-        double l=0.0,r=stations[stations.length-1]-stations[0];
-        while ((r-l)&gt;5e-7)
-        {
-            double mid=(r+l)/2;
-            //if (1==1) return mid;
-            if (ok(stations,K,mid)) r=mid; else l=mid;
-        }
-        return r;
+        
+    	double low = 0 , high = 1000000000;
+    	int cnt = 200;
+<A NAME="0"></A>    	while (low &lt; high &amp;&amp; cnt &gt; 0) {
+    		double mid = (low + high) / 2;
+    		int temp = get(stations , mid);
+    		if (temp &lt;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= K) {
+    			high = mid;
+    		} else {
+    			low = mid;
+    		}
+    		cnt --;
+    	}
+    	return low;
+    	
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

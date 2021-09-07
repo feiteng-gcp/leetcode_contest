@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1___Chaos__.cpp</TITLE>
+ <TITLE>38_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>38_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt; &amp;board) {
-    using State = vector&lt;vector&lt;int&gt;&gt;;
-    queue&lt;State&gt; q;
-    q.push(board);
-    map&lt;State, int&gt; f;
-    State ending{{1, 2, 3}, {4, 5, 0}};
-    f[board] = 0;
-    int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
-    while (!q.empty()) {
-      auto s = q.front();
-      q.pop();
-      if (s == ending) {
-<A NAME="0"></A>        return f[s];
-      }
-      int x, y;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for (int i = 0; i &lt; 2; ++i) {
-        for (int j = 0; j &lt; 3; ++j) {
-          if (s[i][j] == 0) {
-            x = i;
-            y = j;</B></FONT>
-          }
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        set&lt;vector&lt;vector&lt;int&gt;&gt;&gt; v;
+        v.insert(board);
+        queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+<A NAME="1"></A>        q.push(board);
+        vector&lt;vector&lt;int&gt;&gt; target = {{1,2,3},{4,5,0}};
+        int dx[] = {1,-1,0,0};</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int dy[] = {0,0,1,-1};
+        for (int i = 0; !q.empty(); i++) {
+            for (int k = q.size(); k &gt; 0; k--) {</B></FONT>
+                auto bod = q.front();
+                q.pop();
+                if (bod == target) {
+                    return i;
+                }
+                for (int m = 0; m &lt; 2; m++) {
+                    for (int n = 0; n &lt; 3; n++) {
+                        if (bod[m][n] == 0) {
+                            for (int p = 0; p &lt; 4; p++) {
+                                int m2 = m + dx[p];
+                                int n2 = n + dy[p];
+                                if (m2 &lt; 0 || m2 &gt; 1 || n2 &lt; 0 || n2 &gt; 2) {
+                                    continue;
+                                }
+                                auto newbod = bod;
+                                swap(newbod[m][n], newbod[m2][n2]);
+                                if (v.count(newbod) == 0) {
+                                    q.push(newbod);
+                                    v.insert(newbod);
+                                }
+                            }
+                            goto out;
+                        }
+                    }
+                }
+                out: continue;
+            }
         }
-      }
-      for (int i = 0; i &lt; 4; ++i) {
-        int xx = x + dx[i], yy = y + dy[i];
-        if (0 &lt;= xx &amp;&amp; xx &lt; 2 &amp;&amp; 0 &lt;= yy &amp;&amp; yy &lt; 3) {
-          auto v = s;
-          swap(v[xx][yy], v[x][y]);
-          if (!f.count(v)) {
-            q.push(v);
-            f[v] = f[s] + 1;
-          }
-        }
-      }
+        return -1;
     }
-    return -1;
-  }
 };
 </PRE>
 </BODY>

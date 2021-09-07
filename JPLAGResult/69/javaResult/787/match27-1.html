@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>147_wwzzll.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,79 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>147_wwzzll.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-public int slidingPuzzle(int[][] board) {
-        String target = &quot;123450&quot;;
-        int n = board.length;
-        int m = board[0].length;
-        HashSet&lt;String&gt; visited = new HashSet&lt;&gt;();
-        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i &lt; board.length; i++)
-            for (int j = 0; j &lt; board[0].length; j++)
-                sb.append(board[i][j]);
-        q.add(sb.toString());
-        if (sb.toString().equals(target)) return 0;
-        visited.add(sb.toString());
-        int step = 0;
-        int[][] dir = new int[][] {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        while (!q.isEmpty()) {
-            int size = q.size();
-            step++;
-            for (int i = 0; i &lt; size; i++) {
-                String cur = q.poll();
-                sb = new StringBuilder(cur);
-                int p = 0;
-<A NAME="0"></A>                for (int j = 0; j &lt; cur.length(); j++)
-                    if (cur.charAt(j) == '0')
-                        p = j;
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int r = p / m;
-                int c = p % m;
-                for (int k = 0; k &lt; 4; k++) {
-                    int nr = r + dir[k][0];
-                    int nc = c + dir[k][1];
-                    if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m) {
-                        int np = nr * m + nc</B></FONT>;
-                        sb.setCharAt(p, sb.charAt(np));
-                        sb.setCharAt(np, '0');
-                        if (!visited.contains(sb.toString())) {
-                            if (sb.toString().equals(target)) return step;
-                            visited.add(sb.toString());
-                            q.add(sb.toString());
-                        }
-                        sb.setCharAt(np, sb.charAt(p));
-                        sb.setCharAt(p, '0');
+    public int slidingPuzzle(int[][] board) {
+        int target = 123450;
+        Queue&lt;Integer&gt; q = new LinkedList();
+        int start = toHash(board);
+        steps.put(start, 0);
+        q.add(start);
+        while(q.size() &gt; 0) {
+            int current = q.poll();
+            int currentStep = steps.get(current);
+            if (current == target) return steps.get(current);
+            int[][] bd = toBoard(current);
+<A NAME="1"></A>            int zerox = -1;
+            int zeroy = -1;
+            for (int i = 0; i &lt; 2; ++i)
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; 3; ++j) {
+                    if (bd[i][j] == 0) {
+                        zerox = i;
+                        zeroy = j;
+                        break;
                     }
-                }
+                }</B></FONT>
+            for (int i = 0; i &lt; 4; ++i) {
+                int newx = zerox + dx[i];
+<A NAME="2"></A>                int newy = zeroy + dy[i];
+                if (newx &gt;= 0 &amp;&amp; newx &lt; 2 &amp;&amp; newy &gt;= 0 &amp;&amp; newy &lt; 3) {
+                    swap(bd, zerox, zeroy, newx, newy);
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int s = toHash(bd);
+                    if (!steps.containsKey(s)) {
+                        steps.put(s, currentStep + 1);
+<A NAME="3"></A>                        q.add(s);
+                    }</B></FONT>
+                    swap(bd, newx, newy, zerox, zeroy);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
         }
         return -1;
+    }</B></FONT>
+    
+    int[] dx = new int[] {0, 1, 0, -1};
+    int[] dy = new int[] {1, 0, -1, 0};
+    
+    
+    
+    void swap(int[][] bd, int x1, int y1, int x2, int y2) {
+        int t = bd[x1][y1];
+        bd[x1][y1] = bd[x2][y2];
+        bd[x2][y2] = t;
     }
-
+    
+    HashMap&lt;Integer, Integer&gt; steps = new HashMap();
+    
+    int toHash(int[][] board) {
+        int result = 0;
+<A NAME="0"></A>        for (int i = 0; i &lt; board.length; ++i)
+            for (int j = 0; j &lt; board[i].length; ++j) {
+                result = 10 * result + board[i][j];
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return result;
+    }
+    
+    int[][] toBoard(int value) {
+        int[][] result = new</B></FONT> int[2][3];
+        for (int i = 1; i &gt;= 0; --i) {
+          for (int j = 2; j &gt;= 0; --j) {
+                result[i][j] = value % 10;
+                value /= 10;
+          }
+        }
+        return result;
+    }
 }
 </PRE>
 

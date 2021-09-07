@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>202_stjiao13.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,56 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>202_stjiao13.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] bo={{0,1,0,1,0,0},
-               {1,0,1,0,1,0},
-               {0,1,0,0,0,1},
-<A NAME="1"></A>               {1,0,0,0,1,0},
-               {0,1,0,1,0,1},
-               {0,0,1,0,1,0}</B></FONT>};
-    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int slidingPuzzle(int[][] board) {
-        String now=&quot;&quot;;
-        int zero=0;
-        for (int i=0;i&lt;2;i++)
-            for (int j=0;j</B></FONT>&lt;3;j++)
-            {
-                now+=board[i][j];
-                if (board[i][j]==0) zero=i*3+j;
-            }
-        Map&lt;String,Integer&gt; map=new HashMap&lt;&gt;();
-        Queue&lt;String&gt; q=new ArrayDeque&lt;&gt;();
-        Queue&lt;Integer&gt; qi=new ArrayDeque&lt;&gt;();
-        q.offer(now);
-        qi.offer(0);
-        map.put(now,zero);
-        while (!q.isEmpty())
-        {
-            String s=q.poll();
-            int x=qi.poll();
-            if (s.equals(&quot;123450&quot;)) return x;
-            zero=map.get(s);
-            for (int i=0;i&lt;6;i++)
-                if (bo[zero][i]==1)
-                {
-                    String ss=&quot;&quot;;
-                    for (int j=0;j&lt;6;j++)
-                    {
-                        if (j==zero) ss+=s.charAt(i);
-                        else
-                        {
-                            if (j==i) ss+=0;
-                            else ss+=s.charAt(j);
-                        }
-                    }
-                    if (map.containsKey(ss)) continue;
-                    map.put(ss,i);
-                    q.offer(ss);
-                    qi.offer(x+1);
-                }
+class Solution {
+
+    public int slidingPuzzle(int[][] board) {
+        if (trans(board) == 123450) {
+            return 0;
         }
+
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        Queue&lt;int[][]&gt; queue = new LinkedList&lt;&gt;();
+<A NAME="0"></A>        int[] xDir = new int[]{1,-1,0,0};
+        int[] yDir = new int[]{0,0,1,-1};
+        int target = 123450;
+        set.add(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>trans(board));
+        queue.offer(board);
+        int steps = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            steps++;
+            for (int i = 0; i &lt; size; i++) {
+                int idx = 0</B></FONT>;
+                board = queue.poll();
+                for (int j = 0; j &lt; 6; j++) {
+                    if (board[j / 3 ] [j % 3] == 0) {
+                        idx = j;
+                        break;
+                    }
+                }
+
+<A NAME="1"></A>                int x = idx / 3;
+                int y = idx % 3;
+
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = 0; j &lt; 4; j++) {
+                    int xnew = x + xDir[j];
+                    int ynew = y + yDir[j];
+
+                    if (xnew &gt;= 0 &amp;&amp; xnew &lt; 2 &amp;&amp; ynew &gt;= 0 &amp;&amp; ynew &lt; 3) {
+                        int[][] arr = new</B></FONT> int[2][3];
+                        for (int k = 0; k &lt; 6; k++) {
+                            arr[k / 3][k % 3] = board[k / 3][k % 3];
+                        }
+
+                        int temp = arr[xnew][ynew];
+                        arr[xnew][ynew] = arr[x][y];
+                        arr[x][y] = temp;
+
+                        int mark = trans(arr);
+//                        System.out.println(mark + &quot;...&quot;);
+                        if (mark == target) {
+                            return steps;
+                        }
+<A NAME="2"></A>                        if (set.contains(mark)) {
+                            continue;
+                        }
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.add(mark);
+                        queue.offer(arr);
+                    }
+                }
+            }
+        }
+
+
         return -1;
+    }
+
+    public int trans (int[][] board) {</B></FONT>
+        return board[0][0] * 100000 + board[0][1] * 10000 + board[0][2] * 1000 + board[1][0]
+                * 100 + board[1][1] * 10 + board[1][2];
     }
 }
 </PRE>

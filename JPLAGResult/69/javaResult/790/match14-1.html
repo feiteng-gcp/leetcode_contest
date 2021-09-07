@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>255_swapnil16.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>255_swapnil16.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int local (int[] A){
+        int count = 0;
+        for(int i=0;i&lt;A.length-1;i++){
+            if(A[i]&gt; A[i+1]){
+                count++;
+            }
+        }
+        return count;
+    }
+    public int global(int[] A, int i, int j){
+        if(i&gt;=j){
+            return 0;
+        }
+        int n = A.length;
+        int mid = (i+j)/2;</B></FONT>
+        int inv1 = global(A,i,mid);
+        int inv2 = global(A,mid+1,j);
+        int a = i;
+        int b = mid+1;
+<A NAME="1"></A>        int tempArr[] = new int[j-i+1];
+        int k=0;
+        int count =0;
+        while(a&lt;=mid &amp;&amp; b&lt;=j)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if(A[a]&lt;=A[b]){
+                tempArr[k++] = A[a];
+                a++;
+            }
+            else {
+                count+= mid-a+1;
+                tempArr[k++] = A[b];
+                b++;
+            }
+        }</B></FONT>
+        while(a&lt;=mid){
+            tempArr[k++] = A[a++];
+        }
+        while(b&lt;=j){
+<A NAME="2"></A>            tempArr[k++] = A[b++];
+        }
+        int jp = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int y=i;y&lt;=j;y++){
+            A[y] = tempArr[jp++];
+        }
+        return count + inv1 + inv2;
+    }</B></FONT>
+    public boolean isIdealPermutation(int[] A) {
+        if(local(A) == global(A,0,A.length-1)){
+            return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

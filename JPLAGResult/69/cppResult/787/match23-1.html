@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_zyxwvu164.cpp</TITLE>
+ <TITLE>61_mosquito_zm.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_zyxwvu164.cpp</CENTER></H3><HR>
+<H3><CENTER>61_mosquito_zm.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        string s = &quot;000000&quot;;
-        for (int i = 0; i &lt; 2; ++i)
-            for (int j = 0; j &lt; 3; ++j)
-                s[i*3+j] = '0' + board[i][j];
-        if (s == &quot;123450&quot;)
-            return 0;
-        set&lt;string&gt; seen;
-        seen.insert(s);
-<A NAME="0"></A>        vector&lt;pair&lt;string, int&gt; &gt; v;
-        v.push_back(make_pair(s, 0));
-        int idx = 0;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt;&gt; m = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};</B></FONT>
-        while (idx &lt; v.size()) {
-            s = v[idx].first;
-            for (int i = 0; i &lt; s.length(); ++i) {
-                if (s[i] != '0')
-                    continue;
-                for (int j = 0; j &lt; m[i].size(); ++j) {
-                    string ns = s;
-                    ns[i] = ns[m[i][j]];
-                    ns[m[i][j]] = '0';
-                    if (ns == &quot;123450&quot;)
-                        return v[idx].second + 1;
-                    if (seen.find(ns) == seen.end()) {
-                        seen.insert(ns);
-                        v.push_back(make_pair(ns, v[idx].second + 1));
-                    }
+<A NAME="0"></A>    int vis[1000000 + 10];
+    
+    int encode(vector&lt;vector&lt;int&gt;&gt;&amp; board){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0,p = 1;
+        for(int i = 0;i &lt; 2;i++){
+            for(int j = 0;j &lt; 3;j++){
+                ret += board[i][j] * p;</B></FONT>
+                p *= 10;
+            }
+        }
+<A NAME="1"></A>        return ret;
+    }
+    
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; decode(int num){
+        vector&lt;vector&lt;int&gt; &gt; board(2, vector&lt;int&gt;(3)); 
+        for(int i = 0;i &lt; 2;i++){
+            for(int j = 0;j &lt; 3;j++){
+                board[i][j]=(num % 10);
+                num /= 10;</B></FONT>
+            }
+        }
+        return board;
+    }
+    
+    int dx[4] = {0,0,-1,1};
+    int dy[4] = {-1,1,0,0};
+    
+    int bfs(vector&lt;vector&lt;int&gt;&gt;&amp; board){
+        int tmp = encode(board);
+        queue&lt;pair&lt;int,int&gt; &gt; q;
+        q.push(make_pair((int)tmp, 0));
+        vis[tmp] = 1;
+        int _final = 54321;
+        int ret = 0;
+        while(!q.empty()){
+            pair&lt;int,int&gt; t = q.front();q.pop();
+            if(t.first == _final) return t.second;
+            vector&lt;vector&lt;int&gt;&gt; tmp = decode(t.first);
+            int xx = 0,yy = 0;
+            for(int i = 0;i &lt; 2;i++){
+                for(int j = 0;j &lt; 3;j++){
+<A NAME="2"></A>                    if(tmp[i][j] == 0 ) {xx = i;yy = j;}
                 }
             }
-            idx++;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i = 0;i &lt; 4;i++){
+                int nx = xx + dx[i], ny = yy + dy[i];
+                if(nx &lt; 0 || nx &gt;= 2 || ny &lt; 0 || ny &gt;= 3) continue;
+                vector&lt;vector&lt;int&gt;&gt; tp = tmp;
+                swap(tp[xx][yy],tp[nx][ny]);
+                int num = encode(tp);</B></FONT>
+                if(vis[num]) continue;
+                vis[num] = 1;
+                q.push(make_pair(num,t.second + 1));
+            }
         }
         return -1;
+    }
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        memset(vis,0,sizeof(vis));
+        int ans = bfs(board);
+        return ans;
+        
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_headspin.cpp</TITLE>
+ <TITLE>11_ZYCSwing.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
 <PRE>
-struct P {
-    int dist;
-    int div;
-    double key;
-    void compute_key() { this-&gt;key = 1. * dist / div; }
-    bool operator&lt;(const P&amp; p) const {
-        return key &lt; p.key;
-    }
-};
 class Solution {
-public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        vector&lt;int&gt; a;
-        for(int i = 1; i &lt; stations.size(); i++) {
-            a.push_back(stations[i] - stations[i - 1]);
-        }
-        double l = 0, r = 1e8;
-        while(r - l &gt; 1e-7) {
-            int k = K;
-            double mid = (l + r) / 2.0;
-            bool ok = true;
-            for(auto s : a) {
-                if(s &lt;= mid) continue;
-                int need = ceil(s / mid);
-                need--;
-                if(need &gt; k) {
-                    ok = false;
-                    break;
-                } else {
-<A NAME="0"></A>                    k -= need;
-                }
+    bool check(vector&lt;int&gt;&amp; sta, int k, double dist) {
+        int cnt = 0;
+        double pre = sta[0];
+        int next = 1;
+        while (next &lt; sta.size()) {
+            if (pre + dist &lt; sta[next]) {
+                ++cnt;
+                pre += dist;
+                if (cnt &gt; k) return false;
+            } else {
+                pre = sta[next++];
             }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(ok) {
+        }
+        return true;
+    }
+<A NAME="0"></A>public:
+    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        sort(stations.begin(), stations.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        double l = 0.0, r = 1e8;
+        while (r - l &gt; 1e-7) {
+            double mid = (l + r) / 2;
+            if (check(stations, K, mid)) {
                 r = mid;
             } else {
                 l = mid;

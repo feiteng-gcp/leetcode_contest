@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_xfhnxcgh.cpp</TITLE>
+ <TITLE>28_magica.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>20_xfhnxcgh.cpp</CENTER></H3><HR>
+<H3><CENTER>28_magica.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>const int N = 6 * 6 * 6 * 6 * 6 * 6 + 5;
-int vis[N], dis[N], st = 11190;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; que;
-int dx[] = {0, -1, 0, 1};
-int dy[] = {1, 0, -1, 0};
-
-int encode(vector&lt;vector&lt;int&gt;&gt;&amp; b) {</B></FONT>
-    int ret = 0;
-    for (int i = 0; i &lt; 2; i++) for (int j = 0; j &lt; 3; j++) ret = ret * 6 + b[i][j];
-    return ret;
-}
-
 class Solution {
+private:
+  int getIndex(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<A NAME="0"></A>    return board[0][0] * 1 + board[0][1] * 6 + board[0][2] * 36 +
+      board[1][0] * 216 + board[1][1] * 1296 + board[1][2] * 7776;
+  }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  vector&lt;vector&lt;int&gt;&gt; direction = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};</B></FONT>
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        memset(vis, 0, sizeof(vis));
-        memset(dis, 0, sizeof(dis));
-        while (!que.empty()) que.pop();
-        vis[encode(board)] = 1;
-        dis[encode(board)] = 0;
-        que.push(board);
-        while (!que.empty()) {
-            vector&lt;vector&lt;int&gt;&gt; cur = que.front(); que.pop();
-<A NAME="1"></A>            if (encode(cur) == st) return dis[encode(cur)];
-            int cx, cy;
-            for (int i = 0; i &lt; 2; i++) for (int j = 0; j &lt; 3; j++) if (cur[i][j] == 0) cx = i, cy = j;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; 4; i++) {
-                int nx = cx + dx[i], ny = cy + dy[i];
-                if (0 &lt;= nx &amp;&amp; nx &lt; 2 &amp;&amp; 0 &lt;= ny &amp;&amp; ny &lt; 3) {
-                    vector&lt;vector&lt;int&gt;&gt; now = cur;
-                    swap(now[cx][cy], now[nx][ny]);
-                    if (!vis[encode(now)]) {
-                        vis[encode(now)] = 1;</B></FONT>
-                        dis[encode(now)] = dis[encode(cur)] + 1;
-                        que.push(now);
-                    }
-                }
-            }
+  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+    queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+    vector&lt;vector&lt;int&gt;&gt; vgoal = {{1, 2, 3}, {4, 5, 0}};
+    int goal = getIndex(vgoal);
+    vector&lt;int&gt; dist(50000, -1);
+<A NAME="1"></A>    dist[getIndex(board)] = 0;
+    q.push(board);
+    while (!q.empty() &amp;&amp; dist[goal] == -1) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      vector&lt;vector&lt;int&gt;&gt; h = q.front();
+      q.pop();
+      int x, y;
+      for (int i = 0; i &lt; 2; ++i) {
+        for (int j = 0; j &lt; 3; ++j) {
+          if (h[i][j] == 0) {
+            x = i; y = j;</B></FONT>
+            break;
+          }
         }
-        return -1;
+      }
+      for (auto&amp; d: direction) {
+        int tx = x + d[0], ty = y + d[1];
+        if (tx &gt;= 0 &amp;&amp; tx &lt; 2 &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; 3) {
+          vector&lt;vector&lt;int&gt;&gt; next = h;
+          swap(next[x][y], next[tx][ty]);
+          if (dist[getIndex(next)] == -1) {
+            dist[getIndex(next)] = dist[getIndex(h)] + 1;
+            q.push(next);
+          }
+        }
+      }
     }
+    return dist[goal];
+  }
 };
 </PRE>
 </BODY>

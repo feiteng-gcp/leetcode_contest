@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_y119777.cpp</TITLE>
+ <TITLE>38_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>18_y119777.cpp</CENTER></H3><HR>
+<H3><CENTER>38_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-bool can(vector&lt;int&gt;&amp; a, int k, double d) {
-    int n = a.size();
-    for (int i = 0; i &lt; n - 1; i++) {</B></FONT>
-        int c = floor((a[i + 1] - a[i]) / d);
-        k -= c;
+    double minmaxGasDist(vector&lt;int&gt;&amp; sta, int K) {
+        if (sta.size() &lt; 2) {
+<A NAME="0"></A>            return 0;
+        }
+        sort(sta.begin(), sta.end());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        double L = 0.00000001, R = sta.back() - sta[0];
+        while (R - L &gt; 0.00000001) {
+            double M = (L + R) / 2;
+<A NAME="1"></A>            int count = 0;
+            for (int i = 1; i &lt; sta.size(); i++) {</B></FONT>
+                count += ceil((sta[i] - sta[i-1]) / M) - 1;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+            if (count &lt;= K) {
+                R = M;
+            } else {
+                L = M;
+            }
+        }
+        return L;
     }
-    return k &gt;= 0;
-}
-double minmaxGasDist(vector&lt;int&gt;&amp; a, int k) {
-    int n = a.size();
-    sort(a.begin(), a.end());
-    int d = 0;
-<A NAME="1"></A>    for (int i = 0; i &lt; n - 1; i++) {
-        d = max(d, a[i + 1] - a[i]);
-    }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double left = 0, right = d;
-    while(abs(left - right) &gt; 1e-7) {
-        double mid = (left + right) / 2;
-        //cout &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt;endl;
-        if(can(a, k, mid)) right = mid;
-        else left = mid;
-    }
-    return right;
-}
 };</B></FONT>
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_szp14.cpp</TITLE>
+ <TITLE>250_music_box.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>25_szp14.cpp</CENTER></H3><HR>
+<H3><CENTER>250_music_box.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt; &gt; &amp; board)
-{
-    int ori = 0, bit = 4, r = 2, c = 3;
-    int mask = (1 &lt;&lt; bit) - 1;
-    int ans = 1 | (2 &lt;&lt; bit) | (3 &lt;&lt; (bit * 2)) | (4 &lt;&lt; (bit * 3)) | (5 &lt;&lt; (bit * 4));
-    for(int i = 0; i &lt; r; i++)
-        for(int j = 0; j &lt; c; j++)
-            ori |= board[i][j] &lt;&lt; (bit * (c * i + j));
-    map&lt;int, int&gt; tab;
-    tab[ori] = 0;
-    queue&lt;int&gt; q;
-    q.push(ori);
-    
-    const int dx[4] = {0, 0, 1, -1}, dy[4] = {1, -1, 0, 0};
-    while(!q.empty())
-<A NAME="0"></A>    {
-        int cur = q.front(); q.pop();
-        if(cur == ans) return tab[cur];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int x = 0, y = 0;
-        for(int i = 0; i &lt; r * c; i++)
-            if(((cur &gt;&gt; (bit * i)) &amp; mask) == 0)
-            {
-                x = i / c;
-                y = i % c;
-            }
-        for(int i = 0; i &lt; 4; i++)
-        {
-            int nx = x + dx[i], ny = y + dy[i];
-            if(nx &gt;= 0 &amp;&amp; nx &lt; r &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; c)
-            {
-                int nxt = cur, n = (cur &gt;&gt; (bit * (c * nx + ny))) &amp; mask;</B></FONT>
-                nxt &amp;= ~(mask &lt;&lt; (bit * (c * nx + ny)));
-                nxt |= n &lt;&lt; (bit * (c * x + y));
-                if(tab.find(nxt) == tab.end())
-                {
-                    tab[nxt] = tab[cur] + 1;
-                    q.push(nxt);
-                }
+    unordered_map&lt;string, int&gt; m;
+    string convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        string res = &quot;&quot;;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                res.push_back('0' + board[i][j]);
             }
         }
+        return res;
     }
-    return -1;
-}
-};
+    void swap(int&amp; a, int&amp; b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    void update(vector&lt;vector&lt;int&gt;&gt;&amp; board, int depth) {
+        string s = convert(board);
+        if (m.find(s) == m.end()) {
+            m[s] = depth;
+        } else if (m[s] &gt; depth) {
+            m[s] = depth;
+        } else {
+<A NAME="0"></A>            return ;
+        }
+        int ii;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int jj;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                if (board[i][j] == 0) {
+                    ii = i;
+                    jj = j;
+                }
+            }
+        }</B></FONT>
+        if (ii &gt; 0) {
+            swap(board[ii][jj], board[ii - 1][jj]);
+            update(board, depth + 1);
+            swap(board[ii][jj], board[ii - 1][jj]);
+        }
+        if (ii &lt; 1) {
+            swap(board[ii][jj], board[ii + 1][jj]);
+            update(board, depth + 1);
+            swap(board[ii][jj], board[ii + 1][jj]);
+        }
+        if (jj &gt; 0) {
+            swap(board[ii][jj], board[ii][jj - 1]);
+            update(board, depth + 1);
+            swap(board[ii][jj], board[ii][jj - 1]);
+        }
+        if (jj &lt; 2) {
+            swap(board[ii][jj], board[ii][jj + 1]);
+            update(board, depth + 1);
+            swap(board[ii][jj], board[ii][jj + 1]);
+<A NAME="1"></A>        }
+    }
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; b = {{1,2,3},{4,5,0}};
+        update(b, 0);
+        if (m.find(convert(board)) == m.end()) return -1;
+        return m[convert(board)];
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

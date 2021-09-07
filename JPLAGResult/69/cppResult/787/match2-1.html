@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_Mrsuyi.cpp</TITLE>
+ <TITLE>102_blademamama.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,71 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>102_blademamama.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;vector&lt;int&gt;&gt; swp =
-    {
-        {1, 3},
-        {0, 2, 4},
-        {1, 5},
-        {0, 4},
-        {1, 3, 5},
-<A NAME="0"></A>        {2, 4}
-    };
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        vector&lt;int&gt; init = { board[0][0], board[0][1], board[0][2], board[1][0], board[1][1], board[1][2] };
-        vector&lt;int&gt; tar = {1, 2, 3, 4, 5, 0};
-        set&lt;vector&lt;int&gt;&gt; dp;
-        dp.insert(init);
-        queue&lt;pair&lt;int, vector&lt;int&gt;&gt;&gt; que;</B></FONT>
-        que.push({0, init});
-        while (!que.empty())
-        {
-            int step = que.front().first;
-            vector&lt;int&gt; cur = que.front().second;
-            que.pop();
-            if (cur == tar)
-                return step;
-            for (int i = 0; i &lt; 6; ++i)
-            {
-                if (cur[i] != 0)
-                    continue;
-                for (int j = 0; j &lt; swp[i].size(); ++j)
-                {
-                    vector&lt;int&gt; nxt = cur;
-                    swap(nxt[i], nxt[swp[i][j]]);
-                    if (!dp.count(nxt))
-                    {
-                        dp.insert(nxt);
-                        que.push({step + 1, nxt});
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; b) {
+        queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+        unordered_set&lt;string&gt; v;
+        string s1 = b2s(b);
+        
+        vector&lt;vector&lt;int&gt;&gt; b0 = {{1, 2, 3}, {4, 5, 0}};
+        string s0 = b2s(b0);
+        if(s0 == s1) return 0;
+        
+        q.push(b0);
+<A NAME="0"></A>        v.insert(s0);
+        
+        int d = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int direct[4][2] = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}};</B></FONT>
+        
+        while(!q.empty()) {
+            int len = q.size();
+            for(int i = 0; i &lt; len; ++i) {
+                auto cur = q.front();
+<A NAME="1"></A>                q.pop();
+                
+                
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int x = 0, y = 0;
+                
+                for(int e = 0; e &lt; 2; ++e) {
+                    for(int f = 0; f &lt; 3; ++f) {
+<A NAME="2"></A>                        if(cur[e][f] == 0) {
+                            x = e;
+                            y = f;</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }    
+                }
+                
+                for(int k = 0; k &lt; 4; ++k) {
+                    int xx = x + direct[k][0];
+                    int yy = y + direct[k][1];
+                    if(xx &lt; 0 || xx &gt;= 2 || yy &lt; 0 || yy &gt;= 3) continue;</B></FONT>
+                    auto next = cur;
+                    swap(next[xx][yy], next[x][y]);
+                    string s = b2s(next);
+                    if(s == s1) return d;
+                    if(v.find(s) == v.end()) {
+                        v.insert(s);
+                        q.push(next);
                     }
                 }
+                
+            }
+            ++d;
+        }
+<A NAME="3"></A>        return -1;
+    }
+    
+<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    string b2s(vector&lt;vector&lt;int&gt;&gt;&amp; b) {
+        string res;
+        for(int i = 0; i &lt; 2; ++i) {
+            for(int j = 0; j &lt; 3; ++j) {</B></FONT>
+                res.push_back(b[i][j] + '0');
             }
         }
-        return -1;
+        return res;
     }
 };
 </PRE>

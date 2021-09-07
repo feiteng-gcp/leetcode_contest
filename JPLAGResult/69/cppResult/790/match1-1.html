@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_headspin.cpp</TITLE>
+ <TITLE>339_dark1412myj.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<H3><CENTER>339_dark1412myj.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
 public:
-    int bit[5555];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void add(int p) {
-        while(p &lt;= 5000) {
-            bit[p] += 1;
-            p += p &amp; (-p);
-        }
-    }
-    int query(int r) {
-        int ans = 0;
-        while(r) {
-            ans += bit[r];
-            r -= r &amp; (-r);
-        }
-        return ans;
-    }
     bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
-        int local = 0, global = 0;</B></FONT>
-        for(int i = A.size() - 1; i &gt;= 0; i--) {
-            A[i] += 1;
-            if(i != A.size() - 1 and A[i] &gt; A[i + 1]) local++;
-            global += query(A[i] - 1);
-            add(A[i]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int now = -1;
+        for(int i = 0;(i+1)&lt;A.size();++i)
+        {
+            if(A[i+1]&lt;now)
+                return false;
+            if(A[i]&gt;now)
+                now = A[i];
         }
-        return global == local;
+        return true;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

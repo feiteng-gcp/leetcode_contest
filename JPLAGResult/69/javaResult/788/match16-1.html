@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>37_jq_huang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>37_jq_huang.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public double minmaxGasDist(int[] stations, int K) {
-        double l = 0.0;
-        double r = 1e8;
-
-        while (r - l &gt; 0.000000001) {
-            double m = l + (r - l) / 2;
-            int needs = 0;
-            for (int i = 0; i &lt; stations.length - 1; i++) {
-<A NAME="0"></A>                int d = stations[i+1] - stations[i];
-                needs += (int) (d / m);
-            }
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (needs &gt; K) {
-                l = m;
+    public double minmaxGasDist(int[] s, int k) {
+        final double error = 1e-7;
+        Arrays.sort(s);
+        double[] dists = new double[s.length - 1];
+        for (int i = 0; i != s.length - 1; ++i)
+<A NAME="0"></A>            dists[i] = s[i + 1] - s[i];
+        Arrays.sort(dists);
+        int n = dists.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double min = 0.0;
+        double max = dists[n - 1];
+        while (max - min &gt; error) {
+            double d = (max + min) / 2;
+            int p = num_gs(dists, d);
+            if (p &gt; k) {
+                min = d;
             } else {
-                r = m;
+                max = d;
             }
         }
-        return l;
-    }</B></FONT>
+        return (max + min) / 2;
+    }
+    
+    private int num_gs(double[] dists, double d</B></FONT>) {
+        int ret = 0;
+        for (int i = 0; i != dists.length; ++i) {
+            ret += Math.max(0, (int)Math.floor(dists[i] / d));
+        }
+        return ret;
+    }
 }
 </PRE>
 

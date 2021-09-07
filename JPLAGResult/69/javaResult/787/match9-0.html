@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>290_ibmtp380.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,97 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>290_ibmtp380.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    int[][] bo=<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{{0,1,0,1,0,0},
-               {1,0,1,0,1,0},
-               {0,1,0,0,0,1},
-               {1,0,0,0,1,0},
-               {0,1,0,1,0,1},
-               {0,0,1,0,1,0}</B></FONT>};
+class Solution {
     public int slidingPuzzle(int[][] board) {
-        String now=&quot;&quot;;
-        int zero=0;
-        for (int i=0;i&lt;2;i++)
-            for (int j=0;j&lt;3;j++)
-            {
-<A NAME="1"></A>                now+=board[i][j];
-                if (board[i][j]==0) zero=i*3+j;
-            }
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;String,Integer&gt; map=new HashMap&lt;&gt;();
-        Queue&lt;String&gt; q=new ArrayDeque&lt;&gt;();
-        Queue&lt;Integer&gt; qi=new ArrayDeque&lt;&gt;();
-        q.offer(now);
-        qi.offer(0);
-        map.put(now,zero);
-        while (!q.isEmpty())
-        {
-            String s=q.poll();
-            int x=qi.poll();
-            if (s.equals</B></FONT>(&quot;123450&quot;)) return x;
-            zero=map.get(s);
-            for (int i=0;i&lt;6;i++)
-                if (bo[zero][i]==1)
-                {
-                    String ss=&quot;&quot;;
-                    for (int j=0;j&lt;6;j++)
-                    {
-                        if (j==zero) ss+=s.charAt(i);
-                        else
-                        {
-                            if (j==i) ss+=0;
-                            else ss+=s.charAt(j);
-                        }
-                    }
-                    if (map.containsKey(ss)) continue;
-                    map.put(ss,i);
-                    q.offer(ss);
-                    qi.offer(x+1);
-                }
+        int[] visited = new int[46656];
+        int target = encode(endBoard);
+        int start = encode(board);
+        if (start == target) {
+            return 0;
         }
-        return -1;
+<A NAME="0"></A>        //visited.add(start);
+        visited[start] = 1;
+        LinkedList&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>queue.offer(start);
+        int count = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            count++;
+            for (int k = 0; k &lt; size; k++) {            
+                int code = queue.poll</B></FONT>();
+                int[][] a = decode(code);
+                for (int next : move(a)) {
+                    if (next == target) {
+                        return count;
+                    }
+                    if (visited[next] == 0) {
+<A NAME="1"></A>                        visited[next] = 1;
+                        queue.offer(next);
+                    }
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            
+        }
+<A NAME="2"></A>        return -1;
+    }</B></FONT>
+    
+    final int[][] endBoard = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{{1,2,3}, {4,5,0}};
+    
+    List&lt;Integer&gt; move(int[][] a) {
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        int x0 = -1</B></FONT>;
+        int y0 = -1;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                if (a[i][j] == 0) {
+                    x0 = i;
+                    y0 = j;
+                }
+            }
+        }
+        for (int i = 0; i &lt; dx.length; i++) {
+            int x = x0 + dx[i];
+            int y = y0 + dy[i];
+            if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) {
+                continue;
+            }
+            int temp = a[x0][y0];
+            a[x0][y0] = a[x][y];
+            a[x][y] = temp;
+            list.add(encode(a));
+            a[x][y] = a[x0][y0];
+            a[x0][y0] = temp;
+        }
+        return list;
     }
+    
+    int[] dx = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
+    
+    int encode(int[][] board) {
+        int x = 1;
+        int y = 0;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                y += x * board[i][j];
+                x *= 6;
+<A NAME="3"></A>            }
+        }
+        return y;
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match9-1.html#3',3,'match9-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    int[][] decode(int code) {
+        int[][] a = new int[2][3];
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                a[i][j] = code % 6;
+                code /= 6;
+            }
+        }
+        return a;
+    }</B></FONT>
 }
 </PRE>
 

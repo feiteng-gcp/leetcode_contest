@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>117_payall4u.java</TITLE>
+ <TITLE>15_megaspazz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>117_payall4u.java</CENTER></H3><HR>
+<H3><CENTER>15_megaspazz.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public double minmaxGasDist(int[] stations, int K) {
-        int[] bt = new int[stations.length - 1];
-        for (int i = 0; i &lt; bt.length; i++) {
-            bt[i] = stations[i + 1] - stations[i];
-        }
-        int maxinum = 0;
-        for (int i: bt) {
-            maxinum = Math.max(maxinum, i);
-        }
-        
-<A NAME="0"></A>        double l = 0, r = maxinum;
-        while (r - l &gt; 0.0000001) {
-            double mid = (l + r) / 2;
-            if (canAccept(bt, K, mid)) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                r = mid;
-            }else {
-                l = mid;
+        double L = 0;
+<A NAME="1"></A>        double R = 1e16;
+        for (int i = 0; i &lt; 128; ++i) {</B></FONT>
+            double M = (L + R) / 2;
+            if (can(stations, K, M)) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                R = M;
+            } else {
+                L = M;
             }
+        }</B></FONT>
+        return L;
+    }
+    
+    public boolean can(int[] stations, int K, double D) {
+        int need = 0;
+        for (int i = 1; i &lt; stations.length; ++i) {
+            int dist = stations[i] - stations[i - 1];
+            if (dist &lt;= D) {
+                continue;
+            }
+            need += (int)(Math.ceil(dist / D) - 1);
         }
-        return (l + r) / 2;
-    }</B></FONT>
-
-    public boolean canAccept(int[] bt, int K, double number) {
-        for (int i: bt) {
-            double tmp = i / number;
-            tmp = Math.ceil(tmp);
-            K -= tmp - 1;
-            if (K &lt; 0) return false;
-        }
-        return true;
+        return need &lt;= K;
     }
 }
 </PRE>

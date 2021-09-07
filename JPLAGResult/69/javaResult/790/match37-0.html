@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>253_lupengchang2013.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>253_lupengchang2013.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean isIdealPermutation(int[] A) {
+        int ans = 0;
+        for(int i = 0; i &lt; A.length - 1; ++i) {
+            if(A[i] &gt; A[i + 1]) {
+                ++ans;
+            }
+<A NAME="0"></A>        }
+        PriorityQueue&lt;Integer&gt; min = new PriorityQueue&lt;&gt;(), max = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+        for(int i = 0; i &lt; A.length - 1; ++i) {
+            int t = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>helper(min, max, A[i], A.length);
+            ans -= t;
+            if(ans &lt; 0) return false;
+        }
+        return ans == 0;
+    }</B></FONT>
+    private int helper(PriorityQueue&lt;Integer&gt; min, PriorityQueue&lt;Integer&gt; max, int x, int n) {
+        if(min.size() == 0 &amp;&amp; max.size() == 0) {
+            min.add(x);
+            return x;
+        } else if(min.size() == 0) {
+            while(max.size() &gt; 0 &amp;&amp; max.peek() &gt; x) {
+                min.add(max.poll());
+            }
+            min.add(x);
+            return x - max.size();
+        } else if(max.size() == 0) {
+            while(min.size() &gt; 0 &amp;&amp; min.peek() &lt; x) {
+                max.add(min.poll());
+            }
+            min.add(x);
+            return x - max.size();
+        } else {
+            while(min.size() &gt; 0 &amp;&amp; min.peek() &lt; x) {
+                max.add(min.poll());
+            }
+            while(max.size() &gt; 0 &amp;&amp; max.peek() &gt; x) {
+                min.add(max.poll());
+            }
+            min.add(x);
+            return x - max.size();
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

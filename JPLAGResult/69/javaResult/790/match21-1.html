@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_XuhuiWang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_XuhuiWang.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+	private int mergeSort(int[] arr) {
+		int n = arr.length;
+		int tmp[] = new int[n];
+<A NAME="0"></A>		return mergeSort(arr, tmp, 0, n - 1);
+	}
+	
+	private<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> int mergeSort(int[] arr, int[] tmp, int left, int right) {
+		int mid, inv_count = 0;
+		if (right &gt; left) {
+			mid = left + (right - left) /2 ;
+			inv_count = mergeSort(arr, tmp, left, mid);
+			inv_count += mergeSort(arr, tmp, mid + 1, right);
+			
+			inv_count += merge(arr, tmp, left, mid + 1, right);
+		}
+		return inv_count;
+	}
+
+	private int merge(int[] arr, int[] tmp, int left, int mid, int right) {
+		int i = left, j = mid, k = left</B></FONT>, inv_count = 0;
+		while (i &lt;= mid - 1 &amp;&amp; j &lt;= right) {
+<A NAME="1"></A>			if (arr[i] &lt;= arr[j]) {
+				tmp[k++] = arr[i++];
+			} else {
+				tmp[k++] = arr[j++];<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				inv_count += (mid - i);
+			}
+		}
+		while (j &lt;= right)
+			tmp[k++] = arr[j++];
+		while (i &lt;= mid - 1)
+			tmp[k++] = arr[i++];</B></FONT>
+		
+		System.arraycopy(tmp, left, arr, left, right - left + 1);
+		return inv_count;
+	}
+
+	public boolean isIdealPermutation(int[] A) {
+		int localInvs = 0;
+		for (int i = 0; i &lt; A.length - 1; ++i) {
+			if (A[i] &gt; A[i + 1])
+				localInvs++;
+		}
+		int globalInvs = mergeSort(A);
+		return globalInvs == localInvs;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

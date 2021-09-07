@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_shankar_kizzie.java</TITLE>
+ <TITLE>41_XBB_HOME.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_shankar_kizzie.java</CENTER></H3><HR>
+<H3><CENTER>41_XBB_HOME.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-
 class Solution {
-    private static final double oo = (1&lt;&lt;29), tol = 1e-9;
-    int g( double x ) {
-        int dx = (int)(x+tol);
-        if ( Math.abs(x-dx) &lt; tol )
-            return dx-1;
-        return dx;
-    }
-    int f( int []s, double d ) {
-        int i,j,k,m = 0;
-<A NAME="0"></A>        for ( i = 0; i &lt; s.length-1; ++i ) {
-            int x = s[i], y = s[i+1];
-            m += (int)(g((y-x)/d));
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return m;
-    }
-    public double minmaxGasDist(int[] s, int m) {
-        int i</B></FONT>,j,k,n = s.length;
-        Arrays.sort(s);
-        double good, bad, mid;
-        for ( good = +oo, bad = 0; Math.abs(good-bad) &gt; tol; ) {
-            mid = (good+bad)/2;
-            if ( f(s,mid) &gt; m )
-                bad = mid;
-            else good = mid;
+    public double minmaxGasDist(int[] stations, int K) {
+        Arrays.sort(stations);
+<A NAME="0"></A>        int size = stations.length;
+        int total = stations[size-1] - stations[0];
+        double max = total * 1.0 / (K + 1);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double min = total * 1.0 / (K + 1 + size - 2);
+        double eps = 0.000001;
+        while (max - min &gt; eps) {
+        	double mid = (max + min) / 2;
+        	if (canArrange(stations, mid, K)) {
+        		max = mid;
+        	} else {
+        		min = mid;
+        	}
         }
-        return good;
+        return max;
     }
+
+	private boolean canArrange(int[] stations, double mid, int k</B></FONT>) {
+		int count = 0;
+		int currIdx = 1;
+		double currDist = stations[0];
+		int target = stations[stations.length-1];
+		while(currDist &lt; target) {
+			if (stations[currIdx] - currDist &lt;= mid) {
+				currDist = stations[currIdx];
+				currIdx++;
+			} else {
+				currDist += mid;
+				count++;
+			}
+		}
+		return count &lt;= k;
+	}
 }
 </PRE>
 

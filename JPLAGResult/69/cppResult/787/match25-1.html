@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_NEU20133823.cpp</TITLE>
+ <TITLE>11_ZYCSwing.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>22_NEU20133823.cpp</CENTER></H3><HR>
+<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
+    unordered_set&lt;int&gt; dp;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int tmp = 0;
+        for (int i = 0; i &lt; 2; ++i) {
+            for (int j = 0; j &lt; 3; ++j) {
+                tmp = tmp * 10 + board[i][j];
+            }
+        }
+        return tmp;
+    }</B></FONT>
+
+    int dx[4] = {0, 0, -1, 1};
+    int dy[4] = {1, -1, 0, 0};
 public:
-    struct fff
-{
-	int a[6];
-<A NAME="0"></A>};
-queue&lt;fff&gt; q;
-int steps[6][6][6][6][6][6];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        fff news;
-	int cur=0;
-	for(int i=0;i&lt;2;i++)
-	{
-		for(int j=0;j&lt;3;j++)
-		{
-			news.a[cur++]=board[i][j];</B></FONT>
-		}
-	}
-	memset(steps,-1,sizeof(steps));
-	steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=0;
-	q.push(news);
-	while(!q.empty())
-	{
-		if(steps[1][2][3][4][5][0]!=-1)return steps[1][2][3][4][5][0];
-		fff news=q.front();
-		q.pop();
-		int cur=steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]];
-		int p;
-		for(int i=0;i&lt;6;i++)
-		{
-			if(!news.a[i])
-			{
-				p=i;
-				break;
-			}
-		}
-		if(p%3&lt;2)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p+1];
-			news.a[p+1]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p+1];
-			news.a[p+1]=tmp;
-		}
-		if(p%3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p-1];
-			news.a[p-1]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p-1];
-			news.a[p-1]=tmp;
-		}
-		if(p&lt;3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p+3];
-			news.a[p+3]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p+3];
-			news.a[p+3]=tmp;
-		}
-		if(p&gt;=3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p-3];
-			news.a[p-3]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p-3];
-			news.a[p-3]=tmp;
-		}
-	}
-	return -1;
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int terminal = 123450;
+        queue&lt;pair&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt;&gt; qq;
+        qq.push({board, 0});
+        while (!qq.empty()) {
+            auto cur = qq.front();
+            qq.pop();
+
+            vector&lt;vector&lt;int&gt;&gt; vv = cur.first;
+            int id = convert(vv);
+            if (id == terminal) return cur.second;
+            if (dp.find(id) != dp.end()) {
+                continue;
+            }
+<A NAME="1"></A>            dp.insert(id);
+            int row, col;
+            bool found = false;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; 2; ++i) {
+                for (int j = 0; j &lt; 3; ++j) {
+                    if (vv[i][j] == 0) {</B></FONT>
+                        found = true;
+                        row = i;
+                        col = j;
+                        break;
+                    }
+                }
+                if (found) break;
+
+            }
+
+            for (int i = 0; i &lt; 4; ++i) {
+                int x = row + dx[i];
+                int y = col + dy[i];
+
+                if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) continue;
+                swap(vv[row][col], vv[x][y]);
+                qq.push({vv, cur.second + 1});
+                swap(vv[row][col], vv[x][y]);
+            }
+        }
+
+        return -1;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_shankar_kizzie.java</TITLE>
+ <TITLE>255_swapnil16.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,120 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>19_shankar_kizzie.java</CENTER></H3><HR>
+<H3><CENTER>255_swapnil16.java</CENTER></H3><HR>
 <PRE>
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-
 class Solution {
-    int bit( int k ) { return 1 &lt;&lt; k; }
-    int mask( int k ) { return bit(k)-1; }
-    boolean valid( int x, int y ) { return 0 &lt;= x &amp;&amp; x &lt; 2 &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; 3; }
-    Queue&lt;Integer&gt; q;
-    int convert( int [][]board ) {
-        int u = 0,k = 0;
-        for ( int i = 0; i &lt; 2; ++i )
-            for ( int j = 0; j &lt; 3; ++j, ++k )
-                u |= (board[i][j] &lt;&lt; (3*k));
-        assert k == 6;
-        return u;
+    public boolean isVisited(int[] arr, Set&lt;String&gt; set){
+       
+       if(set.contains(getStr(arr))) return true;
+<A NAME="0"></A>        
+        return false;
     }
-    int []wx = new int[6], wy = new int[6];
-    Map&lt;Integer,Integer&gt; dist;
-    public int slidingPuzzle(int[][] board) {
-<A NAME="0"></A>        int i,j,k,x,y,nx,ny,u,v;
-        q = new LinkedList&lt;&gt;();
-        dist = new HashMap&lt;&gt;();
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int [][]t = {{1,2,3},{4,5,0}</B></FONT>};
-        k = 0;
-        int T = convert(t);
-        for ( i = 0; i &lt; 2; ++i )
-            for ( j = 0; j &lt; 3; ++j ) {
-                wx[k] = i;
-                wy[k++] = j;
+    public int[] getArr(int[][] board)<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        int arr[] = new int[6];
+        for(int i=0;i&lt;3;i++){
+            arr[i] = board[0][i];
+        }</B></FONT>
+        for(int i=0;i&lt;3;i++){
+            arr[i+3] = board[1][i];
+        }
+        return arr;
+<A NAME="1"></A>    }
+    public List&lt;int[]&gt; getAdj(int[] board){
+        int i=0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int j=0;j&lt;6;j++){
+            if(board[j] == 0) {
+                i=j;
+                break;
             }
-        for ( dist.put(u = convert(board),0), q.add(u); !q.isEmpty(); ) {
-            u = q.poll();
-            if ( u == T ) return dist.get(u);
-            x = y = -1;
-            for ( k = 0, i = 0; i &lt; 2 &amp;&amp; x == -1; ++i )
-                for ( j = 0; j &lt; 3; ++j, ++k )
-                    if ( ((u&gt;&gt;(3*k)) &amp; mask(3)) == 0 ) {
-                        x = i; y = j;
-                        break ;
+        }
+        List&lt;int[]&gt; list = new ArrayList&lt;&gt;()</B></FONT>;
+        switch(i){
+            case 0:  
+                list.add(new int[]{board[1],board[0], board[2], board[3],board[4],board[5]});
+                list.add(new int[]{board[3],board[1], board[2], board[0],board[4],board[5]});
+                     
+                break;
+            case 1:
+                list.add(new int[]{board[1],board[0], board[2], board[3],board[4],board[5]});
+                list.add(new int[]{board[0],board[4], board[2], board[3],board[1],board[5]});
+                list.add(new int[]{board[0],board[2], board[1], board[3],board[4],board[5]});
+                
+                break;
+            case 2:
+                list.add(new int[]{board[0],board[2], board[1], board[3],board[4],board[5]});
+                list.add(new int[]{board[0],board[1], board[5], board[3],board[4],board[2]});
+                
+                break;
+            case 3:
+                list.add(new int[]{board[3],board[1], board[2], board[0],board[4],board[5]});
+                list.add(new int[]{board[0],board[1], board[2], board[4],board[3],board[5]});
+                
+                break;
+            case 4:
+                list.add(new int[]{board[0],board[4], board[2], board[3],board[1],board[5]});
+                list.add(new int[]{board[0],board[1], board[2], board[4],board[3],board[5]});
+                list.add(new int[]{board[0],board[1], board[2], board[3],board[5],board[4]});
+                
+                break;
+            case 5:
+                list.add(new int[]{board[0],board[1], board[2], board[3],board[5],board[4]});
+                list.add(new int[]{board[0],board[1], board[5], board[3],board[4],board[2]});
+                
+                break;
+            
+        }
+        return list;
+        
+    }
+    public boolean matches(int[] tarr){
+        for(int i=0;i&lt;5;i++){
+            if(tarr[i]!=i+1){
+                return false;
+            }
+        }
+        if(tarr[5] == 0){
+            return true;
+        }
+        return false;
+    }
+    public String getStr(int[] arr){
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i&lt;arr.length;i++){
+            str.append(arr[i]);
+        }
+        return str.toString();
+    }
+    public int slidingPuzzle(int[][] board) {
+<A NAME="2"></A>        Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+        int[] arr = getArr(board);
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>q.offer(arr);
+        visited.add(getStr(arr));
+        int level = 0;
+        while(!q.isEmpty()){
+            int n = q.size();
+            //System.out.println(n);
+            for(int i=0;i&lt;n;i++){
+                int tarr[] = q.poll()</B></FONT>;
+                //for(int y=0;y&lt;tarr.length;y++){
+                //    System.out.print(&quot; &quot; + tarr[y]);
+                //}
+                //System.out.println();
+                if(matches(tarr)){
+                    return level;
+                }
+<A NAME="3"></A>                visited.add(getStr(tarr));
+                for(int[] aff : getAdj(tarr)){
+                    if(!isVisited(aff,visited)){
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match29-1.html#3',3,'match29-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>q.add(aff);
                     }
-            assert( x != -1 );
-            for ( nx = x-1; nx &lt;= x+1; ++nx )
-                for ( ny = y-1; ny &lt;= y+1; ++ny )
-                    if ( Math.abs(nx-x)+ Math.abs(ny-y) == 1 )
-                        if ( valid(nx,ny) ) {
-                            int nk = 3*nx+ny;
-                            v = u;
-                            int g = (v &gt;&gt; (3*nk))&amp;mask(3);
-                            v &amp;= ~(mask(3) &lt;&lt; (3*nk));
-                            v |= g &lt;&lt; (3*k);
-                            if ( !dist.containsKey(v) || dist.get(v) &gt; dist.get(u)+1 ) {
-                                dist.put(v,dist.get(u)+1);
-                                q.add(v);
-                            }
-                        }
+                }
+            }
+            level++;
         }
         return -1;
-    }
+    }</B></FONT>
 }
 </PRE>
 

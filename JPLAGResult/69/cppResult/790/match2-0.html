@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>62_pffy233.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,19 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>62_pffy233.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    int N;
-    vector&lt;int&gt; foo;
-    int lowbit(int x) {return x &amp; -x;}
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void add(int x) {
-        while (x &lt;= N) {
-            foo[x]++;
-            x += lowbit(x);
-        }
-    }
-
-    int sum(int x) {
-        int res = 0;
-        while (x) {
-            res += foo[x];
-            x -= lowbit(x);
-        }
-        return res;
-    }</B></FONT>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
-        N = A.size();
-        foo.assign(N + 1, 0);
-        int res1 = 0;
-        for (int i = N - 1; i &gt;= 0; --i) {
-            res1 += sum(A[i]);
-            add(A[i] + 1);
+        int sz = A.size();
+        for (int i = 0; i &lt; sz - 1; i++) {
+            if (A[i] &gt; A[i+1]) {</B></FONT>
+                if (A[i] != A[i+1] + 1 || A[i] != i+1)
+                    return false;
+            }
         }
-        int res2 = 0;
-        for (int i = 0; i &lt; N - 1; ++i) {
-            if (A[i] &gt; A[i + 1]) ++res2;
-        }
-        return res1 == res2;
+        return true;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_wcwswswws.cpp</TITLE>
+ <TITLE>75_milu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,73 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>75_milu.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-public:
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        unordered_map&lt;string, int&gt; dict;
-        string res = &quot;123450&quot;;
-        queue&lt;string&gt; wait_queue;
-        string status;
-        for (int i = 0; i &lt; board.size(); i++) {
-            for (int j = 0; j &lt; board[0].size(); j++) {
-                status += to_string(board[i][j]);</B></FONT>
+    const array&lt;array&lt;int, 2&gt;, 4&gt; dirs = {{{-1, 0}, {1, 0}, {0, 1}, {0, -1}}};
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int myHash(vector&lt;vector&lt;int&gt;&gt; &amp;board) {
+        int val = 0;
+        for (int i=0; i&lt;board.size(); i++) {
+            for (int j=0; j&lt;board[i].size(); j++) {
+                val = 10 * val + board[i][j];
             }
         }
-        wait_queue.push(status);
-        dict[status] = 0;
-        int dx[4] = {1, -1, 0, 0};
-        int dy[4] = {0, 0, 1, -1};
-        while (!wait_queue.empty() &amp;&amp; dict.find(res) == dict.end()) {
-            string cur = wait_queue.front();
-            wait_queue.pop();
-            int pos = 0;
-            for (int i = 0; i &lt; 6; i++) {
-                if (cur[i] == '0') {
-                    pos = i;
+        return val;
+    }</B></FONT>
+    
+public:
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        // memorization, BFS
+        unordered_set&lt;int&gt; visited;
+        unordered_map&lt;int, int&gt; cache;
+        int target = 123450;
+        visited.insert(myHash(board));
+        
+        queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; mqueue; // not efficient
+<A NAME="1"></A>        queue&lt;pair&lt;int, int&gt;&gt; indices;
+        mqueue.push(board);
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;board.size(); i++) {
+            for (int j=0; j&lt;board[i].size(); j++) {
+                if (board[i][j] == 0) {</B></FONT>
+                    indices.push(make_pair(i, j));
                     break;
                 }
             }
-            int x = pos / 3, y = pos % 3, step = dict[cur];
-            for (int i = 0; i &lt; 4; i++) {
-                int nx = x + dx[i], ny = y + dy[i];
-                if (nx &gt;= 0 &amp;&amp; nx &lt;= 1 &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt;= 2) {
-                    string temp(cur);
-                    swap(temp[pos], temp[nx * 3 + ny]);
-                    if (dict.find(temp) == dict.end()) {
-                        dict[temp] = step + 1;
-                        wait_queue.push(temp);
+        }
+        
+        int ans = 0;
+        while (!mqueue.empty()) {
+            queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; new_queue;
+            while (!mqueue.empty()) {
+                auto bo = mqueue.front();
+                auto p  = indices.front();
+                mqueue.pop();
+                indices.pop();
+                if (myHash(bo) == target)
+                    return ans;
+                for (int i=0; i&lt;4; i++) {
+                    int x = p.first + dirs[i][0], y = p.second + dirs[i][1];
+                    if (x &gt;= 0 &amp;&amp; x &lt; board.size() &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; board[0].size()) {
+                        bo[p.first][p.second] = bo[x][y];
+                        bo[x][y] = 0;
+                        int code = myHash(bo);
+                        if (visited.find(code) == visited.end()) {
+                            visited.insert(code);
+                            new_queue.push(bo);
+                            indices.push(make_pair(x, y));
+                        }
+                        bo[x][y] = bo[p.first][p.second];
+                        bo[p.first][p.second] = 0;
                     }
                 }
             }
+            ans++;
+            mqueue = new_queue;
         }
-        if (dict.find(res) == dict.end()) { return -1; }
-        return dict[res];
+        
+        return -1;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_xuan18.java</TITLE>
+ <TITLE>37_jq_huang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_xuan18.java</CENTER></H3><HR>
+<H3><CENTER>37_jq_huang.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public double minmaxGasDist(int[] stations, int K) {
-<A NAME="0"></A>        Arrays.sort(stations);
-        double left = (double) 1, right = (double) (stations[stations.length-1] - stations[0]);
-        left = left / (2*K);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double error = 0.0000001;
-        while(right-left &gt; error) {
-            double middle = (right-left) / 2 + left;
-            int numberOfGasStationsNeeded = minimumNumberOfGasStationNeededToGetDistance(stations, middle);
-            if (numberOfGasStationsNeeded &gt; K) {
-                left = middle;
+    public double minmaxGasDist(int[] s, int k) {
+        final double error = 1e-7;
+        Arrays.sort(s);
+        double[] dists = new double[s.length - 1];
+        for (int i = 0; i != s.length - 1; ++i)
+            dists[i] = s[i + 1] - s[i];
+        Arrays.sort(dists);
+        int n = dists.length;
+        double min = 0.0;
+        double max = dists[n - 1];
+<A NAME="0"></A>        while (max - min &gt; error) {
+            double d = (max + min) / 2;
+            int p = num_gs(dists, d);
+            if (p &gt; k) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                min = d;
             } else {
-                right = middle;
+                max = d;
             }
         }
-        return right;
-    }</B></FONT>
-    
-    private int minimumNumberOfGasStationNeededToGetDistance(int stations[], double dist) {
-        int n = stations.length;
-        int ret = 0;
-        try {
-            for(int i=0;i&lt;n-1;i++) {
-                int tmp = divideAndGetFloor(stations[i+1] - stations[i], dist) - 1;
-                ret += tmp;
-            }
-            return ret;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
-        }
+        return (max + min) / 2;
     }
     
-    private int divideAndGetFloor(int a, double b) {
-        try {
-            double ret1 = a / b;
-            if(ret1&gt;Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
-            }
-            int ret = (int) ret1;
-            if (b*ret==a) return ret;
-            else return ret+1;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
+    private int num_gs(double[] dists, double d) {
+        int ret = 0;
+        for (int i = 0; i != dists.length; ++i) {
+            ret += Math.max</B></FONT>(0, (int)Math.floor(dists[i] / d));
         }
+        return ret;
     }
 }
 </PRE>

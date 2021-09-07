@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_wcwswswws.cpp</TITLE>
+ <TITLE>55_pkacprzak.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>55_pkacprzak.cpp</CENTER></H3><HR>
 <PRE>
+const int n = 2;
+const int m = 3;
+
+using board = vector&lt;vector&lt;int&gt;&gt;;
+
+board target = {{1,2,3},{4,5,0}};
+bool solved(const board&amp; a) {
+    return a == target;
+}
+
+int dx[] = {-1,0,1,0};
+int dy[] = {0,1,0,-1};
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        unordered_map&lt;string, int&gt; dict;
-        string res = &quot;123450&quot;;
-        queue&lt;string&gt; wait_queue;
-        string status;
-        for (int i = 0; i &lt; board.size(); i++) {
-            for (int j = 0; j &lt; board[0].size(); j++) {
-                status += to_string(board[i][j]);
-            }
-        }
-        wait_queue.push(status);
-        dict[status] = 0;
-        int dx[4] = {1, -1, 0, 0};
-        int dy[4] = {0, 0, 1, -1};
-        while (!wait_queue.empty() &amp;&amp; dict.find(res) == dict.end()) {
-            string cur = wait_queue.front();
-            wait_queue.pop();
-            int pos = 0;
-            for (int i = 0; i &lt; 6; i++) {
-                if (cur[i] == '0') {
-                    pos = i;
-                    break;
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        set&lt;board&gt; visited;
+        deque&lt;pair&lt;board, int&gt;&gt; qu = {{a,0}};
+        while (!qu.empty()) {
+            auto a = qu.front().first;
+            int d = qu.front().second;
+            qu.pop_front();
+<A NAME="0"></A>            if (visited.find(a) != visited.end()) continue;
+            visited.insert(a);
+            if (solved(a)) return d;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int x, y;
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; m; ++j) {
+                    if (a[i][j] == 0) {
+                        x = i;
+                        y = j;
+                    }
                 }
             }
-            int x = pos / 3, y = pos % 3, step = dict[cur];
-            for (int i = 0; i &lt; 4; i++) {
-                int nx = x + dx[i], ny = y + dy[i];
-<A NAME="0"></A>                if (nx &gt;= 0 &amp;&amp; nx &lt;= 1 &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt;= 2) {
-                    string temp(cur);
-                    swap(temp[pos], temp[nx * 3 + ny]);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    if (dict.find(temp) == dict.end()) {
-                        dict[temp] = step + 1;
-                        wait_queue.push(temp);
+            for (int k = 0; k &lt; 4; ++k) {
+                int nx = x+dx[k];
+                int ny = y+dy[k];
+                if (nx &gt;= 0 and nx &lt; n and ny &gt;= 0 and ny &lt; m) {</B></FONT>
+                    auto b = a;
+                    swap(b[x][y], b[nx][ny]);
+                    if (visited.find(b) == visited.end()) {
+                        qu.push_back({b, d+1});
                     }
                 }
             }
         }
-        if (dict.find(res) == dict.end()) { return -1; }
-        return dict[res];
+        return -1;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

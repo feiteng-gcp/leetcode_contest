@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>202_stjiao13.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>202_stjiao13.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-public int slidingPuzzle(int[][] board) {
-        String target = &quot;123450&quot;;
-        int n = board.length;
-        int m = board[0].length;
-        HashSet&lt;String&gt; visited = new HashSet&lt;&gt;();
-        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i &lt; board.length; i++)
-            for (int j = 0; j &lt; board[0].length; j++)
-                sb.append(board[i][j]);
-        q.add(sb.toString());
-        if (sb.toString().equals(target)) return 0;
-<A NAME="0"></A>        visited.add(sb.toString());
-        int step = 0;
-        int[][] dir = new int[][] {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!q.isEmpty()) {
-            int size = q.size();
-            step++;
+
+    public int slidingPuzzle(int[][] board) {
+        if (trans(board) == 123450) {
+            return 0;
+        }
+
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        Queue&lt;int[][]&gt; queue = new LinkedList&lt;&gt;();
+        int[] xDir = new int[]{1,-1,0,0};
+        int[] yDir = new int[]{0,0,1,-1};
+        int target = 123450;
+        set.add(trans(board));
+<A NAME="0"></A>        queue.offer(board);
+        int steps = 0;
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!queue.isEmpty()) {
+            int size = queue.size();
+            steps++;
             for (int i = 0; i &lt; size; i++) {
-                String cur = q.poll</B></FONT>();
-                sb = new StringBuilder(cur);
-                int p = 0;
-                for (int j = 0; j &lt; cur.length(); j++)
-                    if (cur.charAt(j) == '0')
-                        p = j;
-                int r = p / m;
-                int c = p % m;
-                for (int k = 0; k &lt; 4; k++) {
-                    int nr = r + dir[k][0];
-                    int nc = c + dir[k][1];
-                    if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m) {
-                        int np = nr * m + nc;
-                        sb.setCharAt(p, sb.charAt(np));
-                        sb.setCharAt(np, '0');
-                        if (!visited.contains(sb.toString())) {
-                            if (sb.toString().equals(target)) return step;
-                            visited.add(sb.toString());
-                            q.add(sb.toString());
+                int idx = 0</B></FONT>;
+                board = queue.poll();
+                for (int j = 0; j &lt; 6; j++) {
+                    if (board[j / 3 ] [j % 3] == 0) {
+<A NAME="1"></A>                        idx = j;
+                        break;
+                    }
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+                int x = idx / 3;
+                int y = idx % 3;
+
+                for (int j = 0; j &lt; 4; j++) {
+                    int xnew = x + xDir[j];
+                    int ynew = y + yDir[j];
+
+                    if (xnew &gt;= 0 &amp;&amp; xnew &lt; 2 &amp;&amp; ynew &gt;= 0 &amp;&amp; ynew &lt; 3) {
+                        int[][] arr = new int[2][3]</B></FONT>;
+                        for (int k = 0; k &lt; 6; k++) {
+                            arr[k / 3][k % 3] = board[k / 3][k % 3];
                         }
-                        sb.setCharAt(np, sb.charAt(p));
-                        sb.setCharAt(p, '0');
+
+                        int temp = arr[xnew][ynew];
+                        arr[xnew][ynew] = arr[x][y];
+                        arr[x][y] = temp;
+
+                        int mark = trans(arr);
+//                        System.out.println(mark + &quot;...&quot;);
+                        if (mark == target) {
+                            return steps;
+                        }
+<A NAME="2"></A>                        if (set.contains(mark)) {
+                            continue;
+                        }
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.add(mark);
+                        queue.offer(arr);
                     }
                 }
             }
         }
-        return -1;
-    }
 
+
+        return -1;
+    }</B></FONT>
+
+    public int trans (int[][] board) {
+        return board[0][0] * 100000 + board[0][1] * 10000 + board[0][2] * 1000 + board[1][0]
+                * 100 + board[1][1] * 10 + board[1][2];
+    }
 }
 </PRE>
 

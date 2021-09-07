@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>286_rohansumant.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>286_rohansumant.cpp</CENTER></H3><HR>
 <PRE>
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+
 class Solution {
-    unordered_set&lt;int&gt; dp;
-    int convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int tmp = 0;
-        for (int i = 0; i &lt; 2; ++i) {
-            for (int j = 0; j &lt; 3; ++j) {
-                tmp = tmp * 10 + board[i][j];
-            }
-        }
-        return tmp;
-    }
-
-    int dx[4] = {0, 0, -1, 1};
-    int dy[4] = {1, -1, 0, 0};
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int terminal = 123450;
-        queue&lt;pair&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt;&gt; qq;
-        qq.push({board, 0});
-        while (!qq.empty()) {
-            auto cur = qq.front();
-            qq.pop();
-
-            vector&lt;vector&lt;int&gt;&gt; vv = cur.first;
-            int id = convert(vv);
-            if (id == terminal) return cur.second;
-            if (dp.find(id) != dp.end()) {
-<A NAME="0"></A>                continue;
+<A NAME="0"></A>    
+    string hash(vector&lt;vector&lt;int&gt;&gt; a) {
+        string ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) ans += to_string(a[i][j]);
+        return ans;
+    }
+    
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; a) {</B></FONT>
+        priority_queue&lt;pair&lt;int,string&gt;&gt; Q;
+        Q.push({0,hash(a)});
+        set&lt;string&gt; s;
+        vector&lt;vector&lt;int&gt;&gt; b(2,vector&lt;int&gt;(3));
+        while(!Q.empty()) {
+            auto pr = Q.top(); Q.pop();
+            int cost = -pr.first;
+            string h = pr.second;
+            
+            if(h == &quot;123450&quot;) return cost;
+            if(s.find(h) != s.end()) continue;
+            s.insert(h);
+            
+            
+            for(int i=0;i&lt;6;i++) {
+<A NAME="1"></A>                b[i/3][i%3] = h[i]-'0';
             }
-            dp.insert(id);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int row, col;
-            bool found = false;
-            for (int i = 0; i &lt; 2; ++i) {
-                for (int j = 0; j &lt; 3; ++j) {
-                    if (vv[i][j] == 0) {
-                        found = true;
-                        row = i;</B></FONT>
-                        col = j;
-                        break;
-                    }
+            
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int x,y;
+            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) if(b[i][j] == 0) {
+                x = i; y = j;
+                break;
+            }
+            for(int i=0;i&lt;4;i++) {
+                int _x = x+dx[i], _y = y+dy[i];
+                if(_x &gt;= 0 &amp; _y &gt;= 0 &amp;&amp; _x &lt; 2 &amp;&amp; _y &lt; 3) {</B></FONT>
+                    swap(b[x][y],b[_x][_y]);
+                    Q.push({-(cost+1),hash(b)});
+                    swap(b[x][y],b[_x][_y]);
                 }
-                if (found) break;
-
             }
-
-            for (int i = 0; i &lt; 4; ++i) {
-                int x = row + dx[i];
-                int y = col + dy[i];
-
-                if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) continue;
-                swap(vv[row][col], vv[x][y]);
-                qq.push({vv, cur.second + 1});
-                swap(vv[row][col], vv[x][y]);
-            }
+            
         }
-
         return -1;
     }
 };

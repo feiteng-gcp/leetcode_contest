@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>135_tianhao2.cpp</TITLE>
+ <TITLE>242_igoingdown.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,90 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>135_tianhao2.cpp</CENTER></H3><HR>
+<H3><CENTER>242_igoingdown.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
+<A NAME="0"></A>public:
     int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int ret=0;
-        unordered_set&lt;int&gt; used;
-        int init=board[0][0]*100000+board[0][1]*10000+board[0][2]*1000+board[1][0]*100+board[1][1]*10+board[1][2];
-        vector&lt;int&gt; todo;
-        todo.push_back(init);
-        used.insert(init);
-        while(!todo.empty()){
-            vector&lt;int&gt; todo_next;
-            while(!todo.empty()){
-                int curr=todo.back();
-                if(curr==123450){
-                    return ret;
-                }
-                todo.pop_back();
-                board[1][2]=curr%10;
-                curr/=10;
-                board[1][1]=curr%10;
-                curr/=10;
-                board[1][0]=curr%10;
-                curr/=10;
-                board[0][2]=curr%10;
-                curr/=10;
-                board[0][1]=curr%10;
-                curr/=10;
-<A NAME="0"></A>                board[0][0]=curr%10;
-                int x=-1;
-                int y=-1;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for(int i=0; i&lt;=1; i++){
-                    for(int j=0; j&lt;=2; j++){
-                        if(board[i][j]==0){
-                            x=i;
-                            y=j;</B></FONT>
+        queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q, next;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        set&lt;vector&lt;vector&lt;int&gt;&gt;&gt; s;
+        vector&lt;vector&lt;int&gt;&gt; res = {{1,2,3}, {4,5,0}};
+        q.push(board); s.insert(board);
+        int layer = 0;
+        int bias[5] = {1, 0, -1, 0, 1};</B></FONT>
+        while (!q.empty()) {
+            while (!q.empty()) {
+<A NAME="1"></A>                auto cur = q.front(); q.pop();
+                if (cur == res) return layer;
+                pair&lt;int, int&gt; pos = {0, 0};
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int i = 0; i &lt; 2; i++) {
+                    for (int j = 0; j &lt; 3; j++) {
+                        if (cur[i][j] == 0) {
+                            pos.first = i;
+                            pos.second = j;
                             break;
                         }
                     }
                 }
-                // to up
-                if(x!=0){
-                    swap(board[x][y], board[x-1][y]);
-                    int next=board[0][0]*100000+board[0][1]*10000+board[0][2]*1000+board[1][0]*100+board[1][1]*10+board[1][2];
-                    if(used.find(next)==used.end()){
-                        todo_next.push_back(next);
-                        used.insert(next);
+                for (int i = 0; i &lt; 4; i++) {</B></FONT>
+                    int x = pos.first + bias[i], y = pos.second + bias[i + 1];
+                    if (x &gt;= 0 &amp;&amp; x &lt; 2 &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; 3) {
+                        swap(cur[pos.first][pos.second], cur[x][y]);
+                        if (s.find(cur) == s.end()) {
+                            s.insert(cur); next.push(cur);
+                        }
+                        swap(cur[pos.first][pos.second], cur[x][y]);
                     }
-                    swap(board[x][y], board[x-1][y]);
-                }
-                // to down
-                if(x!=1){
-                    swap(board[x][y], board[x+1][y]);
-                    int next=board[0][0]*100000+board[0][1]*10000+board[0][2]*1000+board[1][0]*100+board[1][1]*10+board[1][2];
-                    if(used.find(next)==used.end()){
-                        todo_next.push_back(next);
-                        used.insert(next);
-                    }
-                    swap(board[x][y], board[x+1][y]);
-                }
-                // to left
-                if(y!=0){
-                    swap(board[x][y], board[x][y-1]);
-                    int next=board[0][0]*100000+board[0][1]*10000+board[0][2]*1000+board[1][0]*100+board[1][1]*10+board[1][2];
-                    if(used.find(next)==used.end()){
-                        todo_next.push_back(next);
-                        used.insert(next);
-                    }
-                    swap(board[x][y], board[x][y-1]);
-                }
-                // to right
-                if(y!=2){
-                    swap(board[x][y], board[x][y+1]);
-                    int next=board[0][0]*100000+board[0][1]*10000+board[0][2]*1000+board[1][0]*100+board[1][1]*10+board[1][2];
-                    if(used.find(next)==used.end()){
-                        todo_next.push_back(next);
-                        used.insert(next);
-                    }
-                    swap(board[x][y], board[x][y+1]);
                 }
             }
-            todo=todo_next;
-            ret++;
+            swap(q, next);
+            layer++;
         }
         return -1;
     }

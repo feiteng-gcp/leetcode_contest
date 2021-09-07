@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_xuan18.java</TITLE>
+ <TITLE>14_albaniliu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_xuan18.java</CENTER></H3><HR>
+<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public double minmaxGasDist(int[] stations, int K) {
-        Arrays.sort(stations);
-        double left = (double) 1, right = (double) (stations[stations.length-1] - stations[0]);
-        left = left / (2*K);
-        double error = 0.0000001;
-<A NAME="0"></A>        while(right-left &gt; error) {
-            double middle = (right-left) / 2 + left;
-            int numberOfGasStationsNeeded = minimumNumberOfGasStationNeededToGetDistance(stations, middle);
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (numberOfGasStationsNeeded &gt; K) {
-                left = middle;
+        double l = 0.0;
+        double r = 1e8;
+
+        while (r - l &gt; 0.000000001) {
+            double m = l + (r - l) / 2;
+            int needs = 0;
+            for (int i = 0; i &lt; stations.length - 1; i++) {
+<A NAME="0"></A>                int d = stations[i+1] - stations[i];
+                needs += (int) (d / m);
+            }
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (needs &gt; K) {
+                l = m;
             } else {
-                right = middle;
+                r = m;
             }
-        }</B></FONT>
-        return right;
-    }
-    
-    private int minimumNumberOfGasStationNeededToGetDistance(int stations[], double dist) {
-        int n = stations.length;
-        int ret = 0;
-        try {
-            for(int i=0;i&lt;n-1;i++) {
-                int tmp = divideAndGetFloor(stations[i+1] - stations[i], dist) - 1;
-                ret += tmp;
-            }
-            return ret;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
         }
+        return l;
     }
-    
-    private int divideAndGetFloor(int a, double b) {
-        try {
-            double ret1 = a / b;
-            if(ret1&gt;Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
-            }
-            int ret = (int) ret1;
-            if (b*ret==a) return ret;
-            else return ret+1;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
-        }
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_meezoo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_meezoo.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        double min_dist = 0, max_dist = INT_MIN;
+        for (int i = 1; i &lt; stations.size(); ++i) {
+            double dist = stations[i] - stations[i-1];</B></FONT>
+            max_dist = max(max_dist, dist);
+        }
+        while (max_dist - min_dist &gt; 0.000001) {
+            double m = (min_dist + max_dist) / 2;
+            int r = stations_required(stations, m);
+            printf(&quot;[%lf, %lf] : %d\n&quot;, min_dist, max_dist, r);
+            if (r &gt; K) min_dist = m;
+            else max_dist = m;
+        }
+        return (max_dist + min_dist) / 2;
+    }
+    
+    int stations_required(vector&lt;int&gt;&amp; stations, double dist) {
+        int ans = 0;
+        for (int i = 1; i &lt; stations.size(); ++i) {
+            auto n = static_cast&lt;int&gt;((stations[i] - stations[i-1]) / dist);
+            ans += n * dist == (stations[i] - stations[i-1]) ? n - 1 : n;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

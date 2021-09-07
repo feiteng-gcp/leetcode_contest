@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>112_QAMichaelPeng.java</TITLE>
+ <TITLE>172_jamescao.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,80 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>112_QAMichaelPeng.java</CENTER></H3><HR>
+<H3><CENTER>172_jamescao.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-       private boolean isFinal(int[][] board) {
-        for (int i = 0; i &lt; 6; ++i) {
-            int y = i / 3;
-            int x = i % 3;
-            if (board[y][x] != (i+1)%6) return false;
+     public int slidingPuzzle(int[][] board) {
+<A NAME="0"></A>    Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
+    q.offer(board);
+    Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+    visited.add(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mkString(board));
+    int step = 0;
+    while(!q.isEmpty()) {
+      int qsize = q.size();
+      for(int i=0; i&lt;qsize; i++) {
+        int[][] curr = q.poll</B></FONT>();
+        if(mkString(curr).equals(&quot;123450&quot;)) return step;
+<A NAME="1"></A>        for(int[][] next: mkNext(curr)) {
+          if(!visited.contains(mkString(next))) {
+            q.offer(next);
+            visited.add(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mkString(next));
+          }
         }
-        return true;
+      }
+      step++;
     }
-    private int hash(int[][] board) {
-        int sum = 0;
-        for (int i = 0; i &lt; 6; ++i) {
-            int y = i / 3;
-            int x = i % 3;
-            sum = 6 * sum + board[y][x];
-<A NAME="0"></A>        }
-        return sum;
+
+    return -1;
+  }</B></FONT>
+  String mkString(int[][] board) {
+    StringBuilder sb = new StringBuilder();
+    for(int[] l: board) {
+      for(int i: l) sb.append(i);
     }
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[][] clone(int[][] board) {
-        int[][] ans = new int[2][3];
-        for (int y = 0; y &lt; 2; y++) {
-            for (int x = 0; x &lt; 3; x++) {
-                ans[y][x] = board[y][x];
-            }
-        }</B></FONT>
-        return ans;
+    return sb.toString();
+  }
+
+<A NAME="3"></A>  List&lt;int[][]&gt; mkNext(int[][] b) {
+    List&lt;int[][]&gt; res = new ArrayList&lt;&gt;();
+    int[] idx = new int[]{0,0};
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0; i&lt;2; i++) {
+      for(int j=0; j&lt;3; j++) {
+        if(b[i][j]==0) {
+          i</B></FONT>dx = new int[]{i, j};
+          break;
+<A NAME="2"></A>        }
+      }
     }
-    public int slidingPuzzle(int[][] board) {
-<A NAME="1"></A>        int[] best = new int[50000];
-        boolean[] visited = new boolean[50000];
-        Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Queue&lt;Integer&gt; qLevel = new LinkedList&lt;&gt;();
-        q.add(board);
-        qLevel.add(0);
-        visited[hash(board)] = true;
-        int[] dirs = {1, 0, -1, 0, 1};
-        int depth = 0</B></FONT>;
-        while (!q.isEmpty()) {
-            board = q.remove();
-            int level = qLevel.remove();
-            int hv = hash(board);
-            if (isFinal(board)) {
-                return level;
-            }
-            for (int i = 0; i &lt; 6; ++i) {
-                int y = i / 3;
-                int x = i % 3;
-                if (board[y][x] == 0) {
-                    for (int k = 0; k &lt; 4; ++k) {
-                        int ny = y + dirs[k], nx = x + dirs[k+1];
-                        if (ny &gt;= 0 &amp;&amp; ny &lt; 2 &amp;&amp; nx&gt;=0 &amp;&amp; nx&lt;3) {
-                            int[][] next = clone(board);
-                            swap(next, y, x, ny, nx);
-                            int nextHv = hash(next);
-                            if (!visited[nextHv]) {
-                                q.add(next);
-                                qLevel.add(level+1);
-                                visited[nextHv] = true;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-        return -1;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dirs = {{-1,0},{0,-1}</B></FONT>,{0,1},{1,0}};
+    for(int[] d: dirs) {
+      int ni = idx[0] + d[0];
+      int nj = idx[1] + d[1];
+      if(ni&gt;=0 &amp;&amp; ni&lt;2 &amp;&amp; nj&gt;=0 &amp;&amp; nj &lt; 3) {
+        int[][] next = new int[2][3];
+        next[0] = b[0].clone();
+        next[1] = b[1].clone();
+        next[ni][nj] = 0;
+        next[idx[0]][idx[1]] = b[ni][nj];
+        res.add(next);
+      }
     }
-    void swap(int[][]board, int y1, int x1, int y2, int x2) {
-        int t=board[y1][x1];
-        board[y1][x1] = board[y2][x2];
-        board[y2][x2] = t;
-    }
+    return res;
+  }
 }
 </PRE>
 

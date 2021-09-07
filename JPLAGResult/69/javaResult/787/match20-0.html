@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>277_scaffeinate.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,83 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>277_scaffeinate.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-public int slidingPuzzle(int[][] board) {
-        String target = &quot;123450&quot;;
-        int n = board.length;
-        int m = board[0].length;
-        HashSet&lt;String&gt; visited = new HashSet&lt;&gt;();
-        Queue&lt;String&gt; q = new LinkedList&lt;&gt;();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i &lt; board.length; i++)
-            for (int j = 0; j &lt; board[0].length; j++)
-                sb.append(board[i][j]);
-        q.add(sb.toString());
-        if (sb.toString().equals(target)) return 0;
-        visited.add(sb.toString());
-        int step = 0;
-        int[][] dir = new int[][] {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        while (!q.isEmpty()) {
-            int size = q.size();
-            step++;
-            for (int i = 0; i &lt; size; i++) {
-                String cur = q.poll();
-                sb = new StringBuilder(cur);
-                int p = 0;
-                for (int j = 0; j &lt; cur.length(); j++)
-                    if (cur.charAt(j) == '0')
-<A NAME="0"></A>                        p = j;
-                int r = p / m;
-                int c = p % m;
-                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = 0; k &lt; 4; k++) {
-                    int nr = r + dir[k][0];
-                    int nc = c + dir[k][1];
-                    if (nr &gt;= 0 &amp;&amp; nr &lt; n &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; m) {
-                        int np = nr * m + nc;
-                        sb.setCharAt(p, sb.charAt</B></FONT>(np));
-                        sb.setCharAt(np, '0');
-                        if (!visited.contains(sb.toString())) {
-                            if (sb.toString().equals(target)) return step;
-                            visited.add(sb.toString());
-                            q.add(sb.toString());
-                        }
-                        sb.setCharAt(np, sb.charAt(p));
-                        sb.setCharAt(p, '0');
-                    }
+<A NAME="0"></A>class Solution {
+    public int slidingPuzzle(int[][] board) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dirs = new int[][] {{0,1},{0,-1},{1,0},{-1,0}</B></FONT>};
+        String res = &quot;1,2,3,4,5,0,&quot;;
+        Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
+        Set&lt;String&gt; visited = new HashSet&lt;String&gt;();
+        
+        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                if(board[i][j] == 0) {
+                    queue.offer(new Node(board, 0, i, j));
+                    break;
                 }
             }
         }
-        return -1;
+        
+        while(!queue.isEmpty()) {
+            Node current = queue.poll();
+            String str = stringify(current.board);
+            visited.add(str);
+            if(str.equals(res)) {
+<A NAME="1"></A>                return current.count;
+            }
+            
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int[] dir : dirs) {
+                int x = current.i + dir[0], y = current.j + dir[1];
+                if(isValid(x, y, board)) {
+                    int[][] swapped = swap</B></FONT>(current.i, current.j, x, y, current.board);
+                    String key = stringify(swapped);
+                    if(!visited.contains(key)) {
+                        queue.offer(new Node(swapped, current.count+1, x, y));
+                    }
+<A NAME="2"></A>                }
+            }
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return -1;
     }
-
+    
+    private String stringify(int[][] board) {
+        StringBuilder builder = new StringBuilder();
+<A NAME="3"></A>        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                builder.append(board[i][j]).append</B></FONT>(&quot;,&quot;);
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match20-1.html#3',3,'match20-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return builder.toString();
+    }
+    
+    private</B></FONT> boolean isValid(int x, int y, int[][] board) {
+<A NAME="4"></A>        return x &gt;= 0 &amp;&amp; x &lt; board.length &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; board[x].length;
+    }
+    
+    private int[][] swap(int a, int b, int x, int y, <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match20-1.html#4',3,'match20-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] board) {
+        int[][] res = new int[board.length][board[0].length];
+        for(int i = 0; i &lt; board.length; i++) {
+            for(int j = 0; j &lt; board[i].length; j++) {
+                res[i][j] = board[i][j];
+            }
+        }</B></FONT>
+        int temp = res[x][y];
+        res[x][y] = res[a][b];
+        res[a][b] = temp;
+        return res;
+    }
+    
+    class Node {
+        int[][] board;
+        int count = 0, i = 0, j = 0;
+        public Node(int[][] board, int count, int i, int j) {
+            this.board = board;
+            this.count = count;
+            this.i = i;
+            this.j = j;
+        }
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_KakaHiguain.java</TITLE>
+ <TITLE>66_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>23_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>66_allister.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    boolean ok(int[] a,int k,double x)
-    {
-        int n=a.length,tot=0;
-        for (int i=0;i&lt;n-1;i++)
-        {
-            double gap=a[i+1]-a[i];
-            int now=(int)Math.ceil(gap/x)-1;
-            tot+=now;
-            if (tot&gt;k) return false;
+    public double minmaxGasDist(int[] stations, int K) {
+        double lo = 0, hi = stations[stations.length - 1];
+<A NAME="0"></A>        while (hi - lo &gt; 1e-7) {
+            double mid = (lo + hi) / 2;
+            boolean valid = checkDist(stations, K, mid);
+            if(!valid) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                lo = mid;
+            }
+            else {
+<A NAME="1"></A>                hi = mid;
+            }
+        }</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return lo;
+    }
+
+    boolean checkDist(int[] stations, int K, double d) {
+        int consumed = 0;
+        for (int i = 0; i &lt; stations.length - 1; ++ i) {</B></FONT>
+            consumed += Math.ceil((stations[i+1] - stations[i]) / d) - 1;
+            if(consumed &gt; K) {
+                return false;
+            }
         }
         return true;
     }
-    public double minmaxGasDist(int[] stations, int K) {
-        Arrays.sort(stations);
-        double l=0.0,r=stations[stations.length-1]-stations[0];
-        while ((r-l)&gt;5e-7)
-<A NAME="0"></A>        {
-            double mid=(r+l)/2;
-            //if (1==1) return mid;
-            if (ok(stations,K,mid)) r=mid; else <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>l=mid;
-        }
-        return r;
-    }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

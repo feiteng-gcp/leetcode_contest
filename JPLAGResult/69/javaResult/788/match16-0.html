@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_xuan18.java</TITLE>
+ <TITLE>66_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>17_xuan18.java</CENTER></H3><HR>
+<H3><CENTER>66_allister.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public double minmaxGasDist(int[] stations, int K) {
-        Arrays.sort(stations);
-        double left = (double) 1, right = (double) (stations[stations.length-1] - stations[0]);
-        left = left / (2*K);
-        double error = 0.0000001;
-<A NAME="0"></A>        while(right-left &gt; error) {
-            double middle = (right-left) / 2 + left;
-            int numberOfGasStationsNeeded = minimumNumberOfGasStationNeededToGetDistance(stations, middle);
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (numberOfGasStationsNeeded &gt; K) {
-                left = middle;
-            } else {
-                right = middle;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double lo = 0, hi = stations[stations.length - 1];
+        while (hi - lo &gt; 1e-7) {
+            double mid = (lo + hi) / 2;
+            boolean valid = checkDist(stations, K, mid);
+            if(!valid) {
+                lo = mid;
+            }
+            else {
+                hi = mid;
             }
         }
-        return right;
-    }</B></FONT>
-    
-    private int minimumNumberOfGasStationNeededToGetDistance(int stations[], double dist) {
-        int n = stations.length;
-        int ret = 0;
-        try {
-            for(int i=0;i&lt;n-1;i++) {
-                int tmp = divideAndGetFloor(stations[i+1] - stations[i], dist) - 1;
-                ret += tmp;
-            }
-            return ret;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
-        }
+        return lo;
     }
-    
-    private int divideAndGetFloor(int a, double b) {
-        try {
-            double ret1 = a / b;
-            if(ret1&gt;Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
+
+    boolean checkDist(int[] stations, int K</B></FONT>, double d) {
+        int consumed = 0;
+        for (int i = 0; i &lt; stations.length - 1; ++ i) {
+            consumed += Math.ceil((stations[i+1] - stations[i]) / d) - 1;
+            if(consumed &gt; K) {
+                return false;
             }
-            int ret = (int) ret1;
-            if (b*ret==a) return ret;
-            else return ret+1;
-        } catch (RuntimeException e) {
-            return Integer.MAX_VALUE;
         }
+        return true;
     }
 }
 </PRE>

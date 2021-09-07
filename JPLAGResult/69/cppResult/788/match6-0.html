@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_wcwswswws.cpp</TITLE>
+ <TITLE>18_y119777.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>18_y119777.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        double l = 0, r = 1e8;
-        int n = stations.size();
-        for (int i = 0; i &lt; 200; i++) {
-            double mid = (l + r) / 2;
-            int ans = K;
-            for (int j = 0; j &lt; n - 1; j++) {
-                double dis = stations[j + 1] - stations[j];
-<A NAME="0"></A>                ans -= int(ceil((dis) / mid)) - 1;
-                if (ans &lt; 0) { break; }
-            }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (ans &gt;= 0) {
-                r = mid;
-            } else {
-                l = mid;
-            }
-        }
-        return l;
+bool can(vector&lt;int&gt;&amp; a, int k, double d) {
+    int n = a.size();
+    for (int i = 0; i &lt; n - 1; i++) {</B></FONT>
+        int c = floor((a[i + 1] - a[i]) / d);
+        k -= c;
     }
+    return k &gt;= 0;
+}
+double minmaxGasDist(vector&lt;int&gt;&amp; a, int k) {
+    int n = a.size();
+    sort(a.begin(), a.end());
+    int d = 0;
+<A NAME="1"></A>    for (int i = 0; i &lt; n - 1; i++) {
+        d = max(d, a[i + 1] - a[i]);
+    }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double left = 0, right = d;
+    while(abs(left - right) &gt; 1e-7) {
+        double mid = (left + right) / 2;
+        //cout &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt;endl;
+        if(can(a, k, mid)) right = mid;
+        else left = mid;
+    }
+    return right;
+}
 };</B></FONT>
 </PRE>
 </BODY>

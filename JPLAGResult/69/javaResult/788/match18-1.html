@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>373_ericcire.java</TITLE>
+ <TITLE>37_jq_huang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>373_ericcire.java</CENTER></H3><HR>
+<H3><CENTER>37_jq_huang.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    int[] dist;
-    int[] segments;
-    public double minmaxGasDist(int[] stations, int K) {
-        Arrays.sort(stations);
-        dist = new int[stations.length - 1];
-        segments = new int[stations.length - 1];
-        double l = 0;
-        double r = (double) Integer.MIN_VALUE;
-        for (int i = 0; i &lt; stations.length - 1; ++i) {
-            dist[i] = stations[i + 1] - stations[i];
-            r = Math.max(dist[i], r);
-        }
-<A NAME="0"></A>        double m = r;
-        while (r - l &gt; 0.000001) {
-            m = l + (r - l) / 2;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int temp = count(m);
-            // System.out.println(m + &quot;: &quot; + temp);
-            if (temp &gt; K) {
-                l = m;
+    public double minmaxGasDist(int[] s, int k) {
+        final double error = 1e-7;
+        Arrays.sort(s);
+        double[] dists = new double[s.length - 1];
+<A NAME="0"></A>        for (int i = 0; i != s.length - 1; ++i)
+            dists[i] = s[i + 1] - s[i];
+        Arrays.sort(dists);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n = dists.length;
+        double min = 0.0;
+        double max = dists[n - 1];
+        while (max - min &gt; error) {
+            double d = (max + min) / 2;
+            int p = num_gs(dists, d);
+            if (p &gt; k) {
+                min = d;
             } else {
-                r = m;
+                max = d;
             }
         }
-        return m;
-        // double result = 0;
-        // for (int i = 0; i &lt; dist.length; ++i) {
-        //     result = Math.max(result, 1.0 * dist[i] / segments[i]);
-        // }
-        // return result;
+        return (max + min) / 2;
     }</B></FONT>
-    int count(double m) {
+    
+    private int num_gs(double[] dists, double d) {
         int ret = 0;
-        for (int i = 0; i &lt; dist.length; ++i) {
-            segments[i] = (int) Math.ceil(dist[i] / m);
-            ret += segments[i] - 1;
+        for (int i = 0; i != dists.length; ++i) {
+            ret += Math.max(0, (int)Math.floor(dists[i] / d));
         }
         return ret;
     }

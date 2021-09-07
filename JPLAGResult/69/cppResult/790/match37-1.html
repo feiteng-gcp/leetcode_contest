@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>173_cqbaoyi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>173_cqbaoyi.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
+        int local = 0;
+        for (int i = 0; i &lt; A.size() - 1; i++) {
+            if (A[i] &gt; A[i + 1]) local ++;</B></FONT>
+        }
+        int global = 0;
+        global = mergeSort(A, A.size());
+        
+        if (global == local) return true;
+        return false;
+    }
+private:
+    int mergeSort(vector&lt;int&gt;&amp; arr, int n) {
+        int *temp = (int *)malloc(sizeof(int) * n);
+        return M(arr, temp, 0, n - 1);
+    }
+    int M(vector&lt;int&gt;&amp; arr, int temp[], int l, int r)
+    {
+        int mid, inv_count = 0;
+        if (r &gt; l) {
+            mid = (l + r)/2;
+            inv_count  = M(arr, temp, l, mid);
+            inv_count += M(arr, temp, mid+1, r);
+            inv_count += merge(arr, temp, l, mid+1, r);
+         }
+         return inv_count;
+    }
+    int merge(vector&lt;int&gt;&amp; arr, int temp[], int l, int mid, int r) {
+        int i, j, k;
+        int inv_count = 0;
+        i = l;
+        j = mid;
+        k = l;
+        while ((i &lt;= mid - 1) &amp;&amp; (j &lt;= r)) {
+            if (arr[i] &lt;= arr[j]) {
+            temp[k++] = arr[i++];
+            }
+            else {
+                temp[k++] = arr[j++];
+                inv_count = inv_count + (mid - i);
+            }
+         }
+         while (i &lt;= mid - 1)
+             temp[k++] = arr[i++];
+
+         while (j &lt;= r)
+             temp[k++] = arr[j++];
+         for (i = l; i &lt;= r; i++)
+             arr[i] = temp[i];
+         return inv_count;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

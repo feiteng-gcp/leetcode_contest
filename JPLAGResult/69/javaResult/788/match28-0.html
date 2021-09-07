@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_uwi.java</TITLE>
+ <TITLE>8_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>2_uwi.java</CENTER></H3><HR>
+<H3><CENTER>8_nevergiveup.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public double minmaxGasDist(int[] xs, int K) {
-	        int n = xs.length;
-	        Arrays.sort(xs);
-	        double low = 0, high = 100000009;
-	        for(int rep = 0;rep &lt; 80;rep++){
-	        	double h = (high+low)/2;
-	        	int need = 0;
-<A NAME="0"></A>	        	for(int i = 0;i &lt; n-1;i++){
-	        		need += (int)((xs[i+1] - xs[i])/h);
-	        	}
-	        	if(need &gt; K){<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	        		low = h;
-	        	}else{
-	        		high = h;
-	        	}
-	        }</B></FONT>
-	        return high;
-	    }
-	}	
+class Solution {
+private int get(int[] stations , double dist) {
+		
+		int i , n = stations.length;
+		int ans = 0;
+		for (i = 0;i &lt; n - 1;i ++) {
+			double diff = stations[i + 1] - stations[i];
+			double temp = diff / dist;
+			if (Math.abs(Math.round(temp) - temp) &lt; 1e-8) {
+				ans += ((int) Math.round(temp) - 1);
+			} else {
+				ans += (int) temp;
+			}
+		}
+		return ans;
+		
+	}
+<A NAME="0"></A>	
+    public double minmaxGasDist(int[] stations, int K) {
+        
+    	dou<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ble low = 0 , high = 1000000000;
+    	int cnt = 200;
+    	while (low &lt; high &amp;&amp; cnt &gt; 0) {
+    		double mid = (low + high) / 2;
+    		int temp = get(stations , mid);
+    		if (temp &lt;= K) {
+    			high = mid;
+    		} else {
+    			low = mid;
+    		}
+    		cnt --;
+    	}
+    	return low;
+    	
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

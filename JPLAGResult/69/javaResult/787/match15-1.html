@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_megaspazz.java</TITLE>
+ <TITLE>290_ibmtp380.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,85 +15,96 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_megaspazz.java</CENTER></H3><HR>
+<H3><CENTER>290_ibmtp380.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] DR = {-1, 0, 1, 0};
-    int[] DC = {0, 1, 0, -1};
-    
+class Solution {
     public int slidingPuzzle(int[][] board) {
-        Board answer = new</B></FONT> Board(new int[][] {{1, 2, 3}, {4, 5, 0}});
-        HashSet&lt;Board&gt; seen = new HashSet&lt;Board&gt;();
-        Queue&lt;Board&gt; q = new ArrayDeque&lt;Board&gt;();
-        Queue&lt;Integer&gt; d = new ArrayDeque&lt;Integer&gt;();
-        Board init = new Board(board);
-        q.offer(init);
-        d.offer(0);
-        seen.add(init);
-        while (!q.isEmpty()) {
-            Board b = q.poll();
-            int dd = d.poll();
-            if (b.equals(answer)) {
-                return dd;
-            }
-            for (int r = 0; r &lt; 2; ++r) {
-                for (int c = 0; c &lt; 3; ++c) {
-                    if (b.b[r][c] != 0) {
-                        continue;
+        int[] visited = new int[46656];
+        int target = encode(endBoard);
+        int start = encode(board);
+        if (start == target) {
+            return 0;
+        }
+        //visited.add(start);
+        visited[start] = 1;
+        LinkedList&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(start);
+        int count = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            count++;
+            for (int k = 0; k &lt; size; k++) {            
+                int code = queue.poll();
+                int[][] a = decode(code);
+                for (int next : move(a)) {
+                    if (next == target) {
+                        return count;
                     }
-                    for (int i = 0; i &lt; 4; ++i) {
-                        int rr = r + DR[i];
-                        int cc = c + DC[i];
-                        if (rr &gt;= 0 &amp;&amp; rr &lt; 2 &amp;&amp; cc &gt;= 0 &amp;&amp; cc &lt; 3) {
-                            Board next = b.copy();
-                            next.b[r][c] = next.b[rr][cc];
-                            next.b[rr][cc] = 0;
-                            if (!seen.contains(next)) {
-                                q.offer(next);
-                                d.offer(dd + 1);
-                                seen.add(next);
-                            }
-                        }
+                    if (visited[next] == 0) {
+                        visited[next] = 1;
+                        queue.offer(next);
                     }
                 }
             }
+            
         }
-        return -1;
+<A NAME="2"></A>        return -1;
+    }
+<A NAME="0"></A>    
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>final int[][] endBoard = {{1,2,3}, {4,5,0}</B></FONT>};
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Integer&gt; move(int[][] a) {
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        int x0 = -1;
+        int y0 = -1;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {</B></FONT>
+<A NAME="3"></A>                if (a[i][j] == 0) {
+                    x0 = i;
+                    y0 = j;
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#3',2,'match15-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        for (int i = 0; i &lt; dx.length; i++) {
+            int x = x0 + dx[i];
+            int y = y0 + dy[i];
+            if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) {</B></FONT>
+                continue;
+            }
+            int temp = a[x0][y0];
+            a[x0][y0] = a[x][y];
+            a[x][y] = temp;
+            list.add(encode(a));
+            a[x][y] = a[x0][y0];
+            a[x0][y0] = temp;
+        }
+        return list;
     }
     
-    public static class Board {
-        public int[][] b;
-        
-        public Board(int[][] board) {
-            this.b = board;
+    int[] dx = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
+    
+    int encode(int[][] board) {
+        int x = 1;
+        int y = 0;
+        for (int i = 0; i &lt; 2; i++) {
+<A NAME="1"></A>            for (int j = 0; j &lt; 3; j++) {
+                y += x * board[i][j];
+                x *= 6;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        
-        public Board copy() {
-            int[][] x = new int[2][3];
-            for (int i = 0; i &lt; 2; ++i) {
-                for (int j = 0; j &lt; 3; ++j) {
-                    x[i][j] = b[i][j];
-                }
+        return y;
+    }
+    
+    int[][] decode(int code) {
+        int[][] a = new</B></FONT> int[2][3];
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                a[i][j] = code % 6;
+                code /= 6;
             }
-            return new Board(x);
         }
-        
-        @Override
-        public int hashCode() {
-            int hash = 0;
-            for (int[] row : b) {
-                for (int v : row) {
-                    hash = (hash &lt;&lt; 3) | v;
-                }
-            }
-            return hash;
-        }
-        
-        @Override
-        public boolean equals(Object obj) {
-            Board board = (Board)obj;
-            return this.hashCode() == board.hashCode();
-        }
+        return a;
     }
 }
 </PRE>

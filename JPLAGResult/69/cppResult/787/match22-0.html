@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_NEU20133823.cpp</TITLE>
+ <TITLE>69_txingml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,69 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>22_NEU20133823.cpp</CENTER></H3><HR>
+<H3><CENTER>69_txingml.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+    int encode(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<A NAME="0"></A>        int ret = 0;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                ret = ret * 10 + board[i][j];
+            }
+        }
+        return ret;
+    }
+    vector&lt;vector&lt;int&gt; &gt; decode(int val) {
+        vector&lt;vector&lt;int&gt; &gt; ret(2, vector&lt;int&gt;(3, 0));
+        for (int i = 1; i &gt;= 0; i--) {
+            for (int j = 2; j &gt;= 0; j--) {
+                ret[i][j] = val % 10;
+                val /= 10;
+            }
+        }
+        return ret;
+    }</B></FONT>
+    void move(queue&lt;int&gt; &amp;q, vector&lt;vector&lt;int&gt;&gt;&amp; tmp, unordered_set&lt;int&gt; &amp; vis, int i, int j, int xi, int xj) {
+        swap(tmp[xi][xj], tmp[i][j]);
+        int val = encode(tmp);
+        if (vis.find(val) == vis.end()) {
+            vis.insert(val);
+            q.push(val);
+        }
+        swap(tmp[xi][xj], tmp[i][j]);
+    }
 public:
-    struct fff
-{
-<A NAME="0"></A>	int a[6];
-};
-queue&lt;fff&gt; q;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int steps[6][6][6][6][6][6];
     int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        fff news;
-	int cur=0;
-	for(int i=0;i&lt;2;i++)
-	{
-		for(int j=0;j&lt;3;j++)
-		{
-			news.a[cur++]=board[i][j];</B></FONT>
-		}
-	}
-	memset(steps,-1,sizeof(steps));
-	steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=0;
-	q.push(news);
-	while(!q.empty())
-	{
-		if(steps[1][2][3][4][5][0]!=-1)return steps[1][2][3][4][5][0];
-		fff news=q.front();
-		q.pop();
-		int cur=steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]];
-		int p;
-		for(int i=0;i&lt;6;i++)
-		{
-			if(!news.a[i])
-			{
-				p=i;
-				break;
-			}
-		}
-		if(p%3&lt;2)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p+1];
-			news.a[p+1]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p+1];
-			news.a[p+1]=tmp;
-		}
-		if(p%3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p-1];
-			news.a[p-1]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p-1];
-			news.a[p-1]=tmp;
-		}
-		if(p&lt;3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p+3];
-			news.a[p+3]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p+3];
-			news.a[p+3]=tmp;
-		}
-		if(p&gt;=3)
-		{
-			int tmp=news.a[p];
-			news.a[p]=news.a[p-3];
-			news.a[p-3]=tmp;
-			if(steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]==-1)
-			{steps[news.a[0]][news.a[1]][news.a[2]][news.a[3]][news.a[4]][news.a[5]]=cur+1;
-			q.push(news);}
-			tmp=news.a[p];
-			news.a[p]=news.a[p-3];
-			news.a[p-3]=tmp;
-		}
-	}
-	return -1;
+        int start = encode(board);
+        queue&lt;int&gt; q; q.push(start);
+        unordered_set&lt;int&gt; vis; vis.insert(start);
+        int end = 123450;
+        int ret = -1;
+        while(!q.empty()) {
+            int sz = q.size(); ret++;
+<A NAME="1"></A>            for (int k = 0; k &lt; sz; k++) {
+                int cur = q.front(); q.pop();
+                if (cur == end) return ret;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto tmp = decode(cur);
+                int i = -1, j = -1;
+                for (int a = 0; a &lt; 2 &amp;&amp; i==-1; a++) {
+                    for (int b = 0; b &lt; 3 &amp;&amp; i==-1; b++) {
+                        if (tmp[a][b] == 0) {
+                            i = a, j = b;</B></FONT>
+                            break;
+                        }
+                    }
+                }
+                if (i+1 &lt; 2) move(q, tmp, vis, i, j, i+1, j); 
+                if (i-1 &gt;= 0) move(q, tmp, vis, i, j, i-1, j);
+                if (j+1 &lt; 3) move(q, tmp, vis, i, j, i, j+1);
+                if (j-1 &gt;= 0) move(q, tmp, vis, i, j, i, j-1);
+            }
+        }
+        return -1;
+        
+        
+        
     }
 };
 </PRE>

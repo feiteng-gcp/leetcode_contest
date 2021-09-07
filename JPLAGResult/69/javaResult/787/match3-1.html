@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>106_XuhuiWang.java</TITLE>
+ <TITLE>125_yang_m.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,70 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>106_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>125_yang_m.java</CENTER></H3><HR>
 <PRE>
-public class Solution {
-	private String getS(int[][] board) {
-		StringBuilder sb= new StringBuilder(&quot;&quot;);
-		for (int i = 0; i &lt;2; ++i)
-			for (int j = 0; j &lt; 3; ++j)
-				sb.append(board[i][j]);
-<A NAME="2"></A>		return sb.toString();
-	}
-	
-	private int[][] copy(int[][] board) {<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		    int [][] myInt = new int[board.length][board[0].length];
-		    for(int i = 0; i&lt; board.length; i++){
-		        for (int j = 0; j &lt; board[0].length; j++){
-		            myInt[i][j] = board[i][j];
-		        }
-		    }
-		    return myInt;</B></FONT>
-	}
-	
-	private boolean isIt(int[][] board) {
-		for (int i = 0; i &lt; 5; ++i) {
-			if (board[i / 3][i % 3] != i + 1)
-				return false;
-		}
-		return true;
-	}
-	private void swap(int[][] board, int pos1, int pos2) {
-		// swap if one of the pair is '0'
-		int r1 = pos1 /3 , c1 = pos1 % 3, r2 = pos2 / 3, c2 = pos2 % 3;
-		if (board[r1][c1] != 0 &amp;&amp; board[r2][c2] != 0)
-			return;
-		int tmp = board[r1][c1];
-<A NAME="0"></A>		board[r1][c1] = board[r2][c2];
-		board[r2][c2] = tmp;
-	}
-	int[][] dirs = {{0, 1}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>, {1, 2}, {3, 4</B></FONT>}, {4, 5}, {0, 3}, {1, 4}, {2, 5}};
-	public int slidingPuzzle(int[][] board) {
-		Set&lt;String&gt; visited=  new HashSet&lt;&gt;();
-		Deque&lt;int[][]&gt; que = new ArrayDeque&lt;&gt;();
-		que.offer(board);
-		visited.add(getS(board));
-		int levels = 0;
-		while (!que.isEmpty()) {
-			int size = que.size();
-			for (int i = 0; i &lt; size; ++i) {
-				int[][] state = que.poll();
-				if (isIt(state))
-					return levels;
-				// explore neighbors
-				for (int[] dir : dirs) {
-					swap(state, dir[0], dir[1]);
-					if (!visited.contains(getS(state))) {
-						visited.add(getS(state));
-<A NAME="1"></A>						que.offer(copy(state));
-					}
-					swap(state, dir[0], dir[1]);
-				}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-			}
-			levels++;
-		}
-		return -1;
-	}</B></FONT>
+<A NAME="3"></A>class Solution {
+    int[] state = new int[46657];
+     int[][] dirs = <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#3',2,'match3-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{{1,0},{0,1},{-1,0},{0,-1}</B></FONT>};
+    int steps = -1;
+    public  int toState(int[][] board) {
+        return 1*board[0][0] +     6 *board[0][1] + 36*board[0][2]
+<A NAME="2"></A>                +216*board[1][0] + 1296*board[1][1] + 7776*board[1][2];
+    }
+    public  List&lt;int[][]&gt; next (int[][] board) {
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int x = 0;
+        int y = 0;
+        for(int i = 0; i &lt;  2; i++) {
+            for(int j = 0; j &lt; 3; j++) {
+                if(board[i][j] == 0) {
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+
+        List&lt;int[][]&gt; ans = new ArrayList&lt;&gt;()</B></FONT>;
+<A NAME="4"></A>        for(int[] dir:dirs) {
+            int i = x + dir[0];
+            int j = y + dir[1];
+            if(i &gt;= 0 &amp;&amp; j &gt;= 0 &amp;&amp; i &lt; 2 &amp;&amp; j &lt; 3) <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#4',2,'match3-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                int[][] n = new int[2][3];
+                for(int a = 0; a &lt; 2; a++) {
+                    for(int b = 0; b &lt; 3; b++) {
+                        n[a][b] = board[a][b];
+                    }
+                }</B></FONT>
+                n[i][j] = 0;
+                n[x][y] = board[i][j];
+                if(state[toState(n)] == 0)
+                ans.add(n);
+            }
+        }
+        return ans;
+    }
+    public void backtracking(int[][] board, int cur) {
+        if(steps != -1 &amp;&amp; cur &gt; steps) {
+            return;
+        }
+        int s = toState(board);
+        if(state[s] != 0) {
+            return;
+        }
+
+        if(s == 7465) {
+            if(steps == -1) {
+                steps = cur;
+            } else {
+                steps = Math.min(steps, cur);
+            }
+            return;
+        }
+        for(int[][] n : next(board)) {
+            backtracking(n, cur + 1);
+        }
+
+        state[s] = 1;
+    }
+    public int slidingPuzzle(int[][] board) {
+<A NAME="0"></A>        LinkedList&lt;int[][]&gt; lst = new LinkedList&lt;&gt;();
+        lst.add(board);
+        int steps = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(lst.size()  &gt; 0) {
+            int size = lst.size();
+            for(int i = 0; i &lt; size; i++) {
+                int[][] cur = lst.poll</B></FONT>();
+                int s = toState(cur);
+                state[s] = 1;
+                if(7465 == s) {
+                    return steps;
+                }
+                for(int[][] n : next(cur)) {
+<A NAME="1"></A>                    if(state[toState(n)] == 0) {
+                        lst.add(n);
+                    }
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            steps++;
+        }
+        return -1;
+    }</B></FONT>
 }
 </PRE>
 

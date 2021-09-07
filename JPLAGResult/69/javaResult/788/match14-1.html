@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_albaniliu.java</TITLE>
+ <TITLE>15_megaspazz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_albaniliu.java</CENTER></H3><HR>
+<H3><CENTER>15_megaspazz.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public double minmaxGasDist(int[] stations, int K) {
-        double l = 0.0;
-        double r = 1e8;
-
-        while (r - l &gt; 0.000000001) {
-            double m = l + (r - l) / 2;
-            int needs = 0;
-            for (int i = 0; i &lt; stations.length - 1; i++) {
-<A NAME="0"></A>                int d = stations[i+1] - stations[i];
-                needs += (int) (d / m);
-            }
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (needs &gt; K) {
-                l = m;
+<A NAME="0"></A>class Solution {
+    public double minmaxGasDist(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] stations, int K) {
+        double L = 0;
+        double R = 1e16;
+        for (int i = 0; i &lt; 128; ++i) {
+            double M = (L + R) / 2</B></FONT>;
+            if (can(stations, K, M)) {
+<A NAME="1"></A>                R = M;
             } else {
-                r = m;
-            }
+                L = M;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        return l;
-    }</B></FONT>
+        return L;
+    }
+    
+    public boolean can(int[] stations, int K</B></FONT>, double D) {
+        int need = 0;
+        for (int i = 1; i &lt; stations.length; ++i) {
+            int dist = stations[i] - stations[i - 1];
+            if (dist &lt;= D) {
+                continue;
+            }
+            need += (int)(Math.ceil(dist / D) - 1);
+        }
+        return need &lt;= K;
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_headspin.cpp</TITLE>
+ <TITLE>10_cuiaoxiang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
+<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
 <PRE>
-struct P {
-    int dist;
-    int div;
-    double key;
-    void compute_key() { this-&gt;key = 1. * dist / div; }
-    bool operator&lt;(const P&amp; p) const {
-        return key &lt; p.key;
-    }
-};
 class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
-        vector&lt;int&gt; a;
-        for(int i = 1; i &lt; stations.size(); i++) {
-            a.push_back(stations[i] - stations[i - 1]);
-        }
-        double l = 0, r = 1e8;
-        while(r - l &gt; 1e-7) {
-            int k = K;
-            double mid = (l + r) / 2.0;
-            bool ok = true;
-            for(auto s : a) {
-                if(s &lt;= mid) continue;
-                int need = ceil(s / mid);
-                need--;
-                if(need &gt; k) {
-                    ok = false;
-                    break;
-                } else {
-<A NAME="0"></A>                    k -= need;
-                }
-            }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(ok) {
-                r = mid;
+    double minmaxGasDist(vector&lt;int&gt;&amp; a, int K) {
+        double low = 0, high = 0;
+        sort(a.begin(), a.end());
+<A NAME="0"></A>        a.erase(unique(a.begin(), a.end()), a.end());
+        int n = a.size();
+        for (int i = 1; i &lt; n; ++i) high = max(high, (double)a[i] - a[i - 1]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (high - low &gt; 1e-7) {
+            double mid = (low + high) / 2;
+            int sum = 0;
+<A NAME="1"></A>            for (int i = 1; i &lt; n; ++i) {
+                int cur = (int)((a[i] - a[i - 1] + mid - 1e-7) / mid);</B></FONT>
+                sum += cur - 1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            //cout &lt;&lt; mid &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; endl;
+            if (sum &gt; K) {
+                low = mid;
             } else {
-                l = mid;
+                high = mid;
             }
         }
-        return l;
+        return high;
+        
     }
 };</B></FONT>
 </PRE>

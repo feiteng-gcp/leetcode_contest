@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_wjli.cpp</TITLE>
+ <TITLE>39_jiananz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_wjli.cpp</CENTER></H3><HR>
+<H3><CENTER>39_jiananz.cpp</CENTER></H3><HR>
 <PRE>
-
-
 class Solution {
 public:
-	int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-		string s = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
-		queue&lt;pair&lt;string, int&gt;&gt; q;
-<A NAME="0"></A>		set&lt;string&gt; found;
-		int a, b, i;
-		string s2;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		vector&lt;vector&lt;int&gt;&gt; v = { { 1,3}, {0,2,4}, {1,5}, {0, 4}, {1,3,5}, {2,4} };</B></FONT>
-
-		q.push({ s, 0 });
-		found.insert(s);
-
-		while (!q.empty()) {
-			s = q.front().first;
-			a = q.front().second;
-			q.pop();
-			if (s == &quot;123450&quot;) return a;
-			for (i = 0; i &lt; 6; i++) {
-				if (s[i] == '0') {
-					for (auto p : v[i]) {
-						s2 = s;
-						s2[p] = '0';
-						s2[i] = s[p];
-						if (found.find(s2) == found.end()) q.push({ s2, a + 1 });
-						found.insert(s2);
-					}
-				}
-			}
-
-		}
-		return -1;
-	}
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        set&lt;int&gt; store;
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; curr, next;
+        curr.push_back(board);
+        int step = 0;
+        while (!curr.empty()) {
+            for (auto i : curr) {
+                if (correct(i))
+                    return step;
+                neighbor(i, next, store);
+            }
+            curr = next;
+            next.clear();
+            step++;
+        }
+        return -1;
+<A NAME="0"></A>    }
+    
+    int comHash(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for (int i = 0; i &lt; 2; i++) {
+            for (int j = 0; j &lt; 3; j++) {</B></FONT>
+                res = res * 10 + board[i][j];
+            }
+        }
+        return res;
+    }
+    bool correct(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        if (comHash(board) == 123450) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void neighbor(vector&lt;vector&lt;int&gt;&gt;&amp; board, vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;&amp; next, set&lt;int&gt;&amp; store) {
+        store.insert(comHash(board));
+        int i, j;
+        for (i = 0; i &lt; 2; i++) {
+            for (j = 0; j &lt; 3; j++) {
+                if (board[i][j] == 0) {
+                    int row = i ^ 1;
+<A NAME="1"></A>                    swap(board[i][j], board[row][j]);
+                    if (store.find(comHash(board)) == store.end()) {
+                        next.push_back(board);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }
+                    swap(board[i][j], board[row][j]);
+                    
+                    if (j &gt; 0) {
+                        int col = j - 1;
+                        swap(board[i][col], board[i][j]);
+                    if (store.find(comHash(board)) == store.end()) {
+                        next.push_back(board);
+                    }
+                    swap(board[i][col], board[i][j]);
+                    }
+                    
+                    if (j &lt; 2) {
+                        int col = j + 1;
+                        swap(board[i][col], board[i][j]);
+                    if (store.find(comHash(board)) == store.end()) {
+                        next.push_back(board);
+                    }
+                    swap(board[i][col], board[i][j]);
+                    }</B></FONT>
+                    
+                    break;
+                }
+            }
+        }
+    }
+        
+        
 };
 </PRE>
 </BODY>

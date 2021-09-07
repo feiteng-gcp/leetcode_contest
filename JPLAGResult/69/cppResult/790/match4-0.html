@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1___Chaos__.cpp</TITLE>
+ <TITLE>38_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>38_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-<A NAME="0"></A>  const int N = 10000;
-  bool isIdealPermutation(vector&lt;int&gt; &amp;A) {
-    tr.resize(N);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int local = 0;
-    for (int i = 1; i &lt; A.size(); ++i) {
-      local += A[i - 1] &gt; A[i];
+    bool isIdealPermutation(vector&lt;int&gt;&amp; A) {
+        int m = INT_MIN;
+        for (int i = 2; i &lt; A.size(); i++) {</B></FONT>
+            m = max(m, A[i-2]);
+            if (A[i] &lt; m) {
+                return false;
+            }
+        }
+        return true;
     }
-    int global = 0;
-    for (int i = A.size() - 1; i &gt;= 0; --i) {</B></FONT>
-      int x = A[i];
-      ++x;
-      global += get(x);
-      add(x);
-    }
-    return global == local;
-  }
-
-  vector&lt;int&gt; tr;
-  void add(int x) {
-    for (; x &lt; N; x += x &amp; -x) {
-      ++tr[x];
-    }
-  }
-
-  int get(int x) {
-    int s = 0;
-    for (; x; x -= x &amp; -x) {
-      s += tr[x];
-    }
-    return s;
-  }
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_wcwswswws.cpp</TITLE>
+ <TITLE>118_headspin.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>5_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>118_headspin.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+    map&lt;int, int&gt; st;
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        unordered_map&lt;string, int&gt; dict;
-<A NAME="0"></A>        string res = &quot;123450&quot;;
-        queue&lt;string&gt; wait_queue;
-        string status;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; board.size(); i++) {
-            for (int j = 0; j &lt; board[0].size(); j++) {
-                status += to_string(board[i][j]);
+    int fold(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int res = 0;
+        for(auto u : board) {
+            for(auto v : u) {
+                res *= 10;
+                res += v;
             }
-        }</B></FONT>
-        wait_queue.push(status);
-        dict[status] = 0;
-        int dx[4] = {1, -1, 0, 0};
-        int dy[4] = {0, 0, 1, -1};
-        while (!wait_queue.empty() &amp;&amp; dict.find(res) == dict.end()) {
-            string cur = wait_queue.front();
-            wait_queue.pop();
-            int pos = 0;
-            for (int i = 0; i &lt; 6; i++) {
-                if (cur[i] == '0') {
-                    pos = i;
-                    break;
-                }
-            }
-            int x = pos / 3, y = pos % 3, step = dict[cur];
-            for (int i = 0; i &lt; 4; i++) {
+<A NAME="0"></A>        }
+        return res;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    typedef vector&lt;vector&lt;int&gt; &gt; vvi;
+    int dx[4] = { 0, 1, 0, -1 };
+    int dy[4] = { 1, 0,-1,  0 };
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {</B></FONT>
+        st[fold(board)] = 0;
+        queue&lt;vvi&gt; q;
+        q.push(board);
+        while(!q.empty()) {
+            auto t = q.front(); q.pop();
+<A NAME="1"></A>            int thash = fold(t);
+            int x, y;
+            for(int i = 0; i &lt; 2; i++) for(int j = 0; j &lt; 3; j++) if(t[i][j] == 0) { x = i; y = j; }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i = 0; i &lt; 4; i++) {
                 int nx = x + dx[i], ny = y + dy[i];
-                if (nx &gt;= 0 &amp;&amp; nx &lt;= 1 &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt;= 2) {
-                    string temp(cur);
-                    swap(temp[pos], temp[nx * 3 + ny]);
-                    if (dict.find(temp) == dict.end()) {
-                        dict[temp] = step + 1;
-                        wait_queue.push(temp);
+                if(0 &lt;= nx and nx &lt; 2 and 0 &lt;= ny and ny &lt; 3) {
+                    swap(t[x][y], t[nx][ny]);
+                    int hash = fold(t);
+                    if(st.find(hash) == st.end()) {
+                        q.push(t);
+                        st[hash] = st[thash] + 1;</B></FONT>
                     }
+                    swap(t[x][y], t[nx][ny]);
                 }
             }
         }
-        if (dict.find(res) == dict.end()) { return -1; }
-        return dict[res];
+        if(st.find(123450) != st.end()) {
+            return st[123450];
+        }
+        return -1;
     }
 };
 </PRE>

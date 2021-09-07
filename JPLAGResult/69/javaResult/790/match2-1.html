@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>107_voidmian.java</TITLE>
+ <TITLE>214_s782172672.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>107_voidmian.java</CENTER></H3><HR>
+<H3><CENTER>214_s782172672.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>    
-    private void sort(int[] nums, int[] smaller, int[] pos, int from, int to) {
-        if (from &gt;= to) return;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int m = (from + to) / 2;
-        sort(nums, smaller, pos, from, m);
-        sort(nums, smaller, pos, m + 1, to);
-        int[] merged = new int[to - from + 1];
-        int i = from, j = m + 1, k = 0, jump = 0;
-        while (i &lt;= m || j &lt;= to) {</B></FONT>
-            if (i &gt; m) {
-                jump++;
-                merged[k++] = pos[j++];
-            } else if (j &gt; to) {
-                smaller[pos[i]] += jump;
-                merged[k++] = pos[i++];
-            } else if (nums[pos[i]] &lt;= nums[pos[j]]) {
-                smaller[pos[i]] += jump;
-                merged[k++] = pos[i++];
-            } else {
-                jump++;
-                merged[k++] = pos[j++];
-            }
+<A NAME="0"></A>    public boolean isIdealPermutation(int[] A) {
+        int min = A[0];
+        for (int i = 2; i &lt; A.length; i++) {
+            if (A[i] &lt; min) return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            min = Math.max(A[i - 1], min);
         }
-        for (int p = 0; p &lt; merged.length; p++) {
-            pos[from + p] = merged[p];
-        }
+        return true;
     }
-
-    public boolean isIdealPermutation(int[] A) {
-        if (A == null || A.length == 0) {
-            return true;
-        }
-        int cnt1 = 0, cnt2 = 0;
-
-
-        int[] smaller = new int[A.length];
-        int[] pos = new int[A.length];
-        for (int i = 0; i &lt; pos.length; i++) {
-            pos[i] = i;
-        }
-        sort(A, smaller, pos, 0, A.length - 1);
-
-        for (int i = 0; i &lt; smaller.length; ++i) {
-            cnt1 += smaller[i];
-        }
-
-        for (int i = 0; i &lt; A.length - 1; ++i) {
-            if (A[i] &gt; A[i + 1]) {
-                cnt2++;
-            }
-        }
-
-        return cnt1 == cnt2;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>38_WilsonWang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>38_WilsonWang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    double minmaxGasDist(vector&lt;int&gt;&amp; a, int K) {
-        double low = 0, high = 0;
-        sort(a.begin(), a.end());
-        a.erase(unique(a.begin(), a.end()), a.end());
-        int n = a.size();
-        for (int i = 1; i &lt; n; ++i) high = max(high, (double)a[i] - a[i - 1]);</B></FONT>
-        while (high - low &gt; 1e-7) {
-            double mid = (low + high) / 2;
-            int sum = 0;
-<A NAME="1"></A>            for (int i = 1; i &lt; n; ++i) {
-                int cur = (int)((a[i] - a[i - 1] + mid - 1e-7) / mid);
-                sum += cur - 1;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-            //cout &lt;&lt; mid &lt;&lt; &quot; &quot; &lt;&lt; sum &lt;&lt; endl;
-            if (sum &gt; K) {
-                low = mid;
+    double minmaxGasDist(vector&lt;int&gt;&amp; sta, int K) {
+        if (sta.size() &lt; 2) {
+            return 0;
+        }
+        sort(sta.begin(), sta.end());
+        double L = 0.00000001, R = sta.back() - sta[0];
+<A NAME="0"></A>        while (R - L &gt; 0.00000001) {
+            double M = (L + R) / 2;
+            int count = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 1; i &lt; sta.size(); i++) {
+                count += ceil((sta[i] - sta[i-1]) / M) - 1;
+            }
+            if (count &lt;= K) {
+                R = M;
             } else {
-                high = mid;
+                L = M;
             }
         }
-        return high;
-        
+        return L;
     }
 };</B></FONT>
 </PRE>
