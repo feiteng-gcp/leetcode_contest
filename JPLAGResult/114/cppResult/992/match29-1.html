@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_cyinll.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>205_cyinll.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minDeletionSize(vector&lt;string&gt;&amp; A) {
+        bool vis[101];
+        int res = 0;
+<A NAME="0"></A>        memset(vis, false, sizeof(vis));
+        if (A.size() == 0) {
+            return res;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for (int i = 0; i &lt; A[0].length(); i++) {
+            bool flag = true;
+            for (int j = 0; j &lt; A.size() - 1; j++) {
+                if (A[j][i] &gt; A[j+1][i] &amp;&amp; !vis[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) {
+                res ++;
+            } else {</B></FONT>
+                flag = true;
+                for (int j = 0; j &lt; A.size() - 1; j++) {
+                    if (A[j][i] &lt; A[j+1][i]) {
+                        vis[j] = true;
+                    }
+                    if (!vis[j]) {
+                        flag = false;
+                    }
+                }
+            }
+            if (flag) {
+                break;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>447_smallp.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>447_smallp.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isAlienSorted(self, words, order):
+        m={}
+        i=0
+        for x in order:
+            m[x]=i
+            i+=1
+        for (i,v) in enumerate(words):
+            words[i]=[m[item] for item in v]
+        # print(words)
+        ori=words[0]
+        for x in range(1,len(words)):
+            value=words[x]
+            if not self.valid(ori,value):
+                return False
+            ori=value
+        return True
+
+    def valid(self, v1,v2):
+        mi=min(len(v1),len(v2))
+<A NAME="0"></A>        if len(v1)!=len(v2):
+            if v1[:mi]==v2[:mi]:
+                return len(v1)==mi
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for x in range(mi):
+            if v1[x]&lt;v2[x]:
+                return True
+            if v1[x]&gt;v2[x]:
+                return False
+        return</B></FONT> True
+        
+</PRE>
+
+</BODY>
+</HTML>

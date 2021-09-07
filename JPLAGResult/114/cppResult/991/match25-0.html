@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>434_FDD.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>434_FDD.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool canReorderDoubled(vector&lt;int&gt;&amp; A) {
+        map&lt;int, int, std::greater&lt;int&gt;&gt; minus;
+<A NAME="0"></A>        map&lt;int, int&gt; plus;
+        int cnt0 = 0; 
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i&lt;A.size(); i++){
+            if(A[i]&gt;0) plus[A[i]]++; 
+            else if(A[i]&lt;0) minus[A[i]]++; 
+            else cnt0++;
+        }
+        if (cnt0 &amp; 1) return false; 
+        // if(plus.size()%2||minus.size()%2) return false;
+        
+        for (auto item : plus){
+            int val = item.first; 
+            int cnt = item.second; 
+            if (cnt == 0) continue; </B></FONT>
+            if (plus[2 * val] &lt; cnt) return false; 
+            plus[2 * val] -= cnt; 
+        }
+
+        for (auto item : minus){
+            int val = item.first; 
+            int cnt = item.second; 
+            if (cnt == 0) continue; 
+            if (minus[2 * val] &lt; cnt) return false; 
+            minus[2 * val] -= cnt; 
+        } 
+        return true; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

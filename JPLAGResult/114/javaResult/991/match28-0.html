@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_leonlihkust.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>321_leonlihkust.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean canReorderDoubled(int[] A) {
+        Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
+        for(int a : A) {
+            map.put(a,map.getOrDefault(a,0)+1);
+        }
+        Arrays.sort(A);
+        for(int a : A) {</B></FONT>
+            if(map.get(a) != 0) {
+                if(map.getOrDefault(2*a,0) != 0) {
+                    if(a == 0 &amp;&amp; map.get(a) == 1) continue;
+                    map.put(a,map.get(a)-1);
+                    map.put(2*a,map.get(2*a)-1);
+                }
+            }
+        }
+        int total = 0;
+        for(int v : map.values()) {
+            total += v;
+        }
+       // System.out.println(total);
+        if(A.length % 2 == 0) return total == 0;
+        return total == 1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

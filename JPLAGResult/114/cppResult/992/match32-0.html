@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>70_jariasf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>70_jariasf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    bool sorted(vector&lt;string&gt; &amp;A, vector&lt;bool&gt; &amp;removed){
+        
+        vector&lt;string&gt; v(A.size());
+        vector&lt;string&gt; aux(A.size());        
+        for( int i = 0 ; i &lt; A.size(); ++i ){
+            string s = &quot;&quot;;
+            for( int j = 0 ; j &lt; A[i].size(); ++j ){
+                if( !removed[j] ){
+                    s += A[i][j];
+                }
+            }
+            v[i] = s;
+            aux[i] = s;
+        }
+        
+        sort(v.begin(), v.end());
+        
+        for( int i = 0 ; i &lt; v.size(); ++i ){
+            if( v[i] != aux[i] ) return false;
+        }
+        return true;
+    }
+    
+    int minDeletionSize(vector&lt;string&gt;&amp; A) {
+        int n = A.size();
+        int result = 0;
+<A NAME="0"></A>        vector&lt;bool&gt; removed(A[0].size());
+
+        int last = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for( int i = 0 ; i &lt; n ; ++i ) A[i] = &quot;a&quot; + A[i];
+        for( int i = 1 ; i &lt; A[0].size() ; ++i ){
+            bool b = false;
+            bool allDif = true;
+            for( int j = 1 ; j &lt; n ; ++j ){
+                if( A[j][last] == A[j - 1][last] &amp;&amp; A[j][i] &lt; A[j - 1][i] ){
+                    b = true;
+                    result++;
+                    break;
+                }</B></FONT>
+                //if( A[j][last] == A[j - 1][last] &amp;&amp; A[j][i] == A[j-1][i]) allDif = false;
+            }
+            if( !b ){
+                last = i;
+            }else
+                removed[i] = true;
+            
+            if( sorted(A, removed) ) break;
+            //if( allDif &amp;&amp; !b ) break;
+        }
+        
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

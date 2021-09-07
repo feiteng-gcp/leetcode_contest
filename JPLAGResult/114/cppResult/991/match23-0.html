@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_SamHX.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_SamHX.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+        bool canReorderDoubled(vector&lt;int&gt;&amp; A) {
+	    map&lt;int,int&gt; ma;
+	    for(auto it:A)
+	    {
+		    if(ma.find(it)==ma.end())
+		    {
+			    ma[it]=1;
+		    }
+		    else ma[it]++;
+	    }
+	    for(auto it:ma)</B></FONT>
+	    {
+		    int key=it.first,
+			    cnt=it.second;
+		    if(cnt&gt;0)
+		    {
+			    if(key&lt;0)
+			    {
+				    if(key%2!=0) return false;
+				    else
+				    {
+					    ma[key/2]-=ma[key];
+					    ma[key]=0;    
+				    }
+			    }
+			    else if(key&gt;0)
+			    {
+				    ma[key*2]-=ma[key];
+				    ma[key]=0;
+			    }
+			    else
+			    {
+				    if(cnt%2) return false;
+				    else ma[key]=0;
+			    }
+		    }
+		    else if(cnt&lt;0) return false;   
+	    }
+	    return true;
+    }
+
+
+};
+</PRE>
+</BODY>
+</HTML>

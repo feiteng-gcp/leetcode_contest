@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>48_goddice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>48_goddice.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int tallestBillboard(vector&lt;int&gt;&amp; rods) {
+        arr = rods;
+        N = rods.size();
+        MAXSUM = 0;
+        for (auto&amp; x : rods) {
+            MAXSUM += x;
+        }
+        visited = vector&lt;vector&lt;bool&gt;&gt;(1 + N, vector&lt;bool&gt;(2*MAXSUM + 1, false));
+        dp = vector&lt;vector&lt;int&gt;&gt;(1 + N, vector&lt;int&gt;(2*MAXSUM + 1));
+        return recurse(0, 0);
+<A NAME="0"></A>    }
+private:
+    int MAXSUM;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int N;
+    vector&lt;int&gt; arr;
+    vector&lt;vector&lt;bool&gt;&gt; visited; //[MAXN + 1][2 * MAXSUM + 1]; // should be filled with false
+    vector&lt;vector&lt;int&gt;&gt; dp; //[MAXN + 1][2 * MAXSUM + 1]; // initial values do not matter
+
+    int recurse(int idx, int sum){
+        // Memoization.
+        if (visited[idx][sum + MAXSUM]) {
+            return dp[idx][sum + MAXSUM];
+        }
+        // Mark the current state as visited in the beginning,
+        // it's ok to do before actually computing it as we're
+        // not expect to visit it while computing.
+        visited[idx][sum + MAXSUM] = true;
+
+        int &amp;answer = dp[idx][sum + MAXSUM];
+
+        // Backtracking search follows.
+        answer = -MAXSUM;  // &quot;Answer does not exist&quot; marker.
+
+        if (idx == N) {
+            // No more choices to make.
+            if (sum == 0) {</B></FONT>
+                answer = 0;  // Answer exists.
+            } else {
+                // Do nothing, there is no answer.
+            }
+        } else {
+            // Option 1. Current elemnt goes to A.
+            answer = max(answer, arr[idx] + recurse(idx + 1, sum + arr[idx]));
+            // Option 2. Current element goes to B.
+            answer = max(answer, recurse(idx + 1, sum - arr[idx]));
+            // Option 3. Current element goes to C.
+            answer = max(answer, recurse(idx + 1, sum));
+        }
+        return answer;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

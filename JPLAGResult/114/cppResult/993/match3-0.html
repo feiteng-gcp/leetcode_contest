@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_dxyinme.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_dxyinme.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int tallestBillboard(vector&lt;int&gt;&amp; rods) {
+        int sum=0;
+<A NAME="0"></A>        for(int i=0;i&lt;rods.size();i++)sum+=rods[i];
+        int f[rods.size()+4][sum+4];
+        memset(f,-0x3f3f3f3f,sizeof(f));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        f[0][0]=0;
+        for(int i=1;i&lt;=rods.size();i++){
+            int val=rods[i-1];
+            for(int j=0;j&lt;=sum;j++){</B></FONT>
+                if(j+val&lt;=sum)f[i][j]=max(f[i-1][j],f[i-1][j+val]);
+                if(j&gt;=val)
+                    f[i][j]=max(f[i][j],f[i-1][j-val]+val);
+                else
+                    f[i][j]=max(f[i][j],f[i-1][val-j]+j);
+            }
+        }
+        if(f[rods.size()][0]&gt;0)return f[rods.size()][0];
+        else return 0;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

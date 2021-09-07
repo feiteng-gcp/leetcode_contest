@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_Uynait.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>210_Uynait.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public boolean canReorderDoubled(int[] A) {
+        List&lt;Integer&gt; list1 = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; list2 = new ArrayList&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int num : A) {
+            if(num &gt;= 0) {
+                list1.add(num);
+            } else {
+                list2.add(-num);
+            }
+        }</B></FONT>
+        
+        
+
+        return helper(list1) &amp;&amp; helper(list2);
+    }
+    
+    private boolean helper(List&lt;Integer&gt; list) {
+        Collections.sort(list);
+        int n = list.size();
+        if(n % 2 == 1) {
+            return false;
+        }
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); // value: first appearance
+        boolean[] visited = new boolean[n];
+        
+        for(int i = 0; i &lt; n; i++) {
+            int num = list.get(i);
+            if(!map.containsKey(num)) {
+                map.put(num, i);
+            }
+        }
+        
+        for(int i = 0; i &lt; n; i ++) {
+            if(visited[i]) {
+                continue;
+            }
+            
+            int cur = list.get(i);
+            int target = 2 * cur;
+<A NAME="1"></A>            
+            if(!map.containsKey(target)) {
+                return false;
+            } else <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                int idx = map.get(target);
+                if(idx &gt;= n || list.get(idx) != target) {
+                    return false;
+                }</B></FONT>
+                
+                visited[idx] = true;
+                map.put(target, idx + 1);
+            }
+        }
+        
+        
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

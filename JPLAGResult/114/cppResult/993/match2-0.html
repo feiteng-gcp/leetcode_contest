@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>41_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>41_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+int pre[11][5001],rear[11][5001];
+class Solution {
+public:
+    int tallestBillboard(vector&lt;int&gt;&amp; rods) {
+        int n=rods.size();
+	if(n==0)return 0;
+	int n1=n/2;
+	int n2=n-n1;
+<A NAME="0"></A>	memset(pre,-1,sizeof(pre));
+	memset(rear,-1,sizeof(rear));
+	pre[0][0]=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	rear[0][0]=0;
+	for(int i=0;i&lt;n1;i++)
+	{
+		for(int j=0;j&lt;=2500;j++)
+		{
+			pre[i+1][j]=max(pre[i+1][j],pre[i][j]);
+			if(pre[i][j]==-1)continue;</B></FONT>
+			int news;
+			news=j+rods[i];
+			pre[i+1][news]=max(pre[i+1][news],pre[i][j]+rods[i]);
+			news=j-rods[i];
+			if(news&lt;0)news=-news;
+			pre[i+1][news]=max(pre[i+1][news],pre[i][j]+rods[i]);
+		}
+	}
+	for(int i=0;i&lt;n2;i++)
+	{
+		for(int j=0;j&lt;=2500;j++)
+		{
+			rear[i+1][j]=max(rear[i+1][j],rear[i][j]);
+			if(rear[i][j]==-1)continue;
+			int news;
+			news=j+rods[n1+i];
+			rear[i+1][news]=max(rear[i+1][news],rear[i][j]+rods[n1+i]);
+			news=j-rods[n1+i];
+			if(news&lt;0)news=-news;
+			rear[i+1][news]=max(rear[i+1][news],rear[i][j]+rods[n1+i]);
+		}
+	}
+	int ans=0;
+	for(int i=0;i&lt;=2500;i++)
+	{
+		//printf(&quot;%d:%d %d\n&quot;,i,pre[n1][i],rear[n2][i]);
+		if(pre[n1][i]==-1||rear[n2][i]==-1)continue;
+		ans=max(ans,(pre[n1][i]+rear[n2][i])/2);
+	}
+	return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
