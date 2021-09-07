@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>52_wwzzll.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>52_wwzzll.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int racecar(int target) {
+        for (int i = 0; i &lt;= 30000; ++i)
+            for (int j = 0; j &lt; 30; ++j) {
+                visited[i][j] = -1;
+            }
+        speed[0] = 1;
+        for (int i = 1; i &lt; speed.length; ++i)
+<A NAME="0"></A>            speed[i] = speed[i - 1] * 2;
+        visited[20000][16] = 0;
+        Queue&lt;Integer&gt; q = new LinkedList();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>q.add(20000);
+        q.add(16);
+        while(q.size() &gt; 0) {
+            int curPos = q.poll();
+            int curSpeed = q.poll();
+            int curSteps = visited[curPos][curSpeed]</B></FONT>;
+            if (curPos == target + 20000) return curSteps;
+            boolean positive = curSpeed &gt; 15;
+            int speedValue = positive ? speed[curSpeed - 15 - 1] : -1 * speed[14 - curSpeed];
+            // A direction
+            int newPos =curPos + speedValue;
+            int newSpeed = positive ? curSpeed + 1 : curSpeed - 1;
+            //System.out.println(&quot;New Pos:&quot; + newPos + )
+            if (newPos == target + 20000) return curSteps + 1;
+            if (newPos &lt; 0 || newPos &gt; 40000 || newSpeed &lt; 0 || newSpeed &gt;= 30) {
+                
+            } else {
+                if (visited[newPos][newSpeed] == -1) {
+                    visited[newPos][newSpeed] = curSteps + 1;
+                    q.add(newPos);
+                    q.add(newSpeed);
+                }
+            }
+            // R direction
+            int newPosR = curPos;
+            int newSpeedR = positive ? 14 : 16;
+                if (visited[newPosR][newSpeedR] == -1) {
+                    visited[newPosR][newSpeedR] = curSteps + 1;
+                    q.add(newPosR);
+                    q.add(newSpeedR);
+                }
+            
+        }
+        return -1;
+    }
+    
+    int[] speed = new int[20];
+    
+    int[][] visited = new int[40001][30];
+}
+</PRE>
+
+</BODY>
+</HTML>

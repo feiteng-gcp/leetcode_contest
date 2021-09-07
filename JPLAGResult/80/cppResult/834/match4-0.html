@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>70_bernardosulzbach.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>70_bernardosulzbach.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; g(string s) {
+        vector&lt;string&gt; candidates{s};
+        for (size_t i = 1; i &lt; s.size(); i++) {
+            auto copy = s;
+            copy.insert(begin(copy) + i, '.');
+            candidates.push_back(copy);
+        }
+        vector&lt;string&gt; good;
+        for (auto candidate : candidates) {
+            // Cannot start with a 0 if not &quot;0.&quot;.
+            if (candidate[0] == '0') {
+                if (candidate.size() &gt; 1 &amp;&amp; candidate[1] != '.') {
+                    continue;
+                }
+            }
+            // Cannot end with &quot;0&quot; if there is a period.
+            if (candidate.back() == '0' &amp;&amp; count(begin(candidate), end(candidate), '.') == 1) {
+                continue;
+            }
+            good.push_back(candidate);
+        }
+        return good;
+    }
+    vector&lt;string&gt; ambiguousCoordinates(string s) {
+        vector&lt;string&gt; answers;
+        s.erase(s.begin());
+<A NAME="0"></A>        s.pop_back();
+        for (size_t i = 1; i &lt; s.size(); i++) {
+            const auto va = g(s.substr(0, i));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            const auto vb = g(s.substr(i));
+            for (auto a : va) {
+                for (auto b : vb) {
+                    answers.push_back(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
+                }
+            }
+        }
+        return answers;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

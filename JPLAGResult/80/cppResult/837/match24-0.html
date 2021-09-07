@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>50_szp14.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
+        set&lt;string&gt; tab;
+    int len = (int)banned.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(int i = 0; i &lt; len; i++) tab.insert(banned[i]);
+    
+    map&lt;string, int&gt; cnt;
+    string s;
+    string&amp; p = paragraph;
+    len = (int)p.size();
+    for(int i = 0; i &lt; len; i++)
+    {
+        if(p[i] &gt;= 'A' &amp;&amp; p[i] &lt;= 'Z') p[i] += 'a' - 'A';</B></FONT>
+        if(p[i] &gt;= 'a' &amp;&amp; p[i] &lt;= 'z') s.push_back(p[i]);
+        else
+        {
+            if(!s.empty() &amp;&amp; !tab.count(s)) cnt[s]++;
+            s.clear();
+        }
+    }
+    if(!s.empty() &amp;&amp; !tab.count(s)) cnt[s]++;
+    int maxC = 0;
+    for(auto p = cnt.begin(); p != cnt.end(); p++)
+        if(p-&gt;second &gt; maxC)
+        {
+            maxC = p-&gt;second;
+            s = p-&gt;first;
+        }
+    return s;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

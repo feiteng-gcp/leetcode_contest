@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_ChaouS.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<PRE>
+const int maxN = 100005;
+const int maxK = 21;
+const int mod = (int)1e9 + 7;
+const int inf = (int)1e9;
+
+int d[2 * maxN + 5][2][maxK];
+
+
+class Solution {
+public:
+        int racecar(int target) {
+
+        for(int i = 0; i &lt; 2 * maxN + 5; ++i){
+            for(int sign = 0; sign &lt; 2; sign++){
+                for(int k = 0; k &lt; maxK; ++k){
+                    d[i][sign][k] = inf;
+                }
+            }
+        }
+        d[0 + maxN][0][0] = 0;
+        queue&lt;int&gt; q;
+        q.push(0);
+<A NAME="0"></A>        q.push(0);
+        q.push(0);
+        while(!q.empty()){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int position = q.front(); q.pop();
+            int sign = q.front(); q.pop();
+            int power = q.front(); q.pop();
+
+
+            int val = d[position + maxN][sign][power];
+            if(position == target){
+                return val;
+            }
+            sign = (sign == 0 ? +1 : -1);</B></FONT>
+            int velocity = 1 &lt;&lt; power;
+
+          //  bug3(position , sign , velocity);
+
+            int newposition = position + sign * velocity;
+            int newpower = power + 1;
+            int newsign = (sign == +1 ? 0 : 1);
+            //bug3(newposition , newpower , newsign);
+
+            if(newposition &gt; -maxN &amp;&amp; newposition &lt; maxN)
+            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
+                d[newposition + maxN][newsign][newpower] = 1 + val ;
+                q.push(newposition);
+                q.push(newsign);
+                q.push(newpower);
+            }
+
+            newposition = position;
+            newpower = 0;
+            newsign = (sign == +1 ? 1 : 0);
+            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
+                d[newposition + maxN][newsign][newpower] = 1 + val;
+                q.push(newposition);
+                q.push(newsign);
+                q.push(newpower);
+            }
+        }
+        return 0;
+    }
+
+
+};
+</PRE>
+</BODY>
+</HTML>

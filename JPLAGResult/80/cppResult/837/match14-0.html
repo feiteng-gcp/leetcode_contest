@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>86_wyh9346.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>86_wyh9346.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
+        int first = 0;
+        map&lt;string, int&gt; words;
+        string word = &quot;&quot;;
+        for (int i = 0; i &lt; paragraph.size(); i++) {
+            if (isalpha(paragraph[i])) {
+                if (!isalpha(paragraph[first])) {
+                    first = i;
+                }
+                word += tolower(paragraph[i]);
+            } else {
+<A NAME="0"></A>                if (isalpha(paragraph[first])) {
+                    words[word]--;
+                    first = i;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    word = &quot;&quot;;
+                }
+            }
+        }
+        if (word != &quot;&quot;) {
+            words[word]--;
+        }
+        set&lt;string&gt; st(banned.begin(), banned.end());
+        vector&lt;pair&lt;int, string&gt; &gt; arr;
+        for (auto item : words) {</B></FONT>
+            arr.push_back(make_pair(item.second, item.first));
+            // cout &lt;&lt; item.first &lt;&lt; &quot;\t&quot; &lt;&lt; item.second &lt;&lt; endl;
+        }
+        sort(arr.begin(), arr.end());
+        for (auto item : arr) {
+            if (st.find(item.second) == st.end()) {
+                return item.second;
+            }
+        }
+        return &quot;&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

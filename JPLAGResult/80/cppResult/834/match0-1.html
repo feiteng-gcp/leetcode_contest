@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>86_wyh9346.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>86_wyh9346.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool valid(const string &amp;s, bool flag) {
+        if (s.length() &gt;= 2 &amp;&amp; s[0] == '0' &amp;&amp; s[1] != '.') {
+            return false;
+        }
+        if (s.back() == '.') {
+            return false;
+        }
+        if (flag &amp;&amp; s.back() == '0') {
+            return false;
+        }
+        return true;
+    }
+    vector&lt;string&gt; getValid(const string &amp;s) {
+        // cout &lt;&lt; &quot;s = &quot; &lt;&lt; s &lt;&lt; endl;
+        vector&lt;string&gt; res;
+        if (valid(s, false)) {
+            res.push_back(s);
+        }
+        for (int i = 0; i &lt; s.length() - 1; i++) {
+            if (valid(s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1), true)) {
+                res.push_back(s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1));
+            }
+        }
+<A NAME="0"></A>        return res;
+    }
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        S = S.substr(1, S.length() - 2);
+        vector&lt;string&gt; res;
+        for (int i = 0; i &lt; S.length() - 1; i++) {
+            vector&lt;string&gt; lvalid = getValid(S.substr(0, i + 1));
+            vector&lt;string&gt; rvalid = getValid(S.substr(i + 1));
+            for (string l : lvalid) {
+                for (string r : rvalid) {
+                    res.push_back(&quot;(&quot; + l + &quot;, &quot; + r + &quot;)&quot;);
+                }
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

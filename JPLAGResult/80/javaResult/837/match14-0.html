@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>81_valgrind.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>81_valgrind.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Set&lt;String&gt; bannedSet = new HashSet&lt;&gt;();
+        for(String word : banned){
+            bannedSet.add(word);
+        }
+        Map&lt;String, Integer&gt; wordFreq = new HashMap&lt;&gt;()</B></FONT>;
+        String[] splitWords = paragraph.split(&quot; &quot;);
+        int max = 0;
+        String maxWord = &quot;&quot;;
+        for(String word : splitWords){
+            word = word.toLowerCase();
+            int start = 0;
+            int end = word.length() - 1;
+            for(int i = 0; i &lt; word.length(); i++){
+                if(Character.isLetter(word.charAt(i))){
+                    start = i;
+                    break;
+                }
+            }
+            for(int i = word.length() - 1; i &gt;= 0; i--){
+                if(Character.isLetter(word.charAt(i))){
+                    end = i;
+                    break;
+                }
+<A NAME="1"></A>            }
+            word = word.substring(start, end + 1);
+            if(bannedSet.contains(word)) continue;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int freq = wordFreq.getOrDefault(word, 0) + 1;
+            wordFreq.put(word, freq);
+            if(freq &gt; max){
+                max = freq;
+                maxWord = word;
+            }
+        }</B></FONT>
+        return maxWord;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

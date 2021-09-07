@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>83_garfield175.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>83_garfield175.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+<A NAME="0"></A>public:
+    int numComponents(ListNode* head, vector&lt;int&gt;&amp; G) {
+        unordered_set&lt;int&gt; values;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto g : G) values.insert(g);
+        int components = 0, prev = -1;
+        while(head != NULL) {
+            if (!values.count(head-&gt;val) &amp;&amp; values.count(prev)) {
+                components++;
+            }</B></FONT>
+            prev = head-&gt;val;
+            head = head-&gt;next;
+        }
+        components += values.count(prev);
+        return components;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

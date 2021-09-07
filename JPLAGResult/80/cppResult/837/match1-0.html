@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_qwnjc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_qwnjc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
+        unordered_set&lt;string&gt; bannedWords;
+        for (auto&amp; s : banned) {
+            bannedWords.insert(s);
+        }
+        
+        int n = paragraph.size();
+        string p = paragraph;
+        unordered_map&lt;string,int&gt; cnts;
+        for (int i = 0; i &lt; n; ++i) {
+            if (isalpha(p[i])) {
+                int j = i;
+                while (i + 1 &lt; n &amp;&amp; isalpha(p[i + 1])) {
+                    ++i;
+                }
+                string t;
+                while (j &lt;= i) {
+<A NAME="0"></A>                    t += tolower(p[j++]);
+                }
+                ++cnts[t];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        
+        string res;
+        int cnt = 0;
+        
+        for (auto&amp; p : cnts) {
+            if (bannedWords.count(p.first) == 0 &amp;&amp; p.second &gt; cnt) {
+                res = p.first;
+                cnt = p.second;
+            }
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

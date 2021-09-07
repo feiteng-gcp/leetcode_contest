@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+string mostCommonWord(string s, vector&lt;string&gt;&amp; a) {
+    map&lt;string, int&gt; ma;
+    int n = s.size(), p = 0;
+    while(p &lt; n) {
+        while(p &lt; n &amp;&amp; !isalpha(s[p])) {
+            p++;
+        }
+        if(p &gt;= n) break;
+        int last = p;
+        while(p &lt; n &amp;&amp; isalnum(s[p])) p++;
+        string cur = s.substr(last, p - last);
+        for (char &amp; x : cur)
+            x = tolower(x);
+            //cout &lt;&lt; cur &lt;&lt; endl;
+        ma[cur]++;
+    }
+    int r = 0;
+    string res;
+<A NAME="0"></A>    set&lt;string&gt; se;
+    for (string x : a)
+        se.insert(x);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (auto it : ma) {
+        if(!se.count(it.first)) {
+            if(it.second &gt; r) {
+                r = it.second;
+                res = it.first;
+            }
+        }
+    }
+    return res;
+}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
