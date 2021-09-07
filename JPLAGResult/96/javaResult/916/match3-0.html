@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>278_xicliuxicliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>278_xicliuxicliu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public String decodeAtIndex(String S, int K) {
+        List&lt;String&gt; str = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; num = new ArrayList&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String cur = &quot;&quot;;
+        for(int i = 0; i &lt; S.length(); i++) {
+            char tmp = S.charAt(i);
+            if(tmp &gt;= '2' &amp;&amp; tmp &lt;= '9') {</B></FONT>
+                str.add(cur);
+                num.add(tmp - '0');
+                cur = &quot;&quot;;
+            } else {
+                cur += tmp;
+            }
+        }
+        if(cur.length() != 0) {
+            str.add(cur);
+        }
+        
+        String str1 = &quot;&quot;;
+        long prev = 0;
+        for(int i = 0; i &lt; str.size(); i++) {
+            if(i == num.size()) {
+                return &quot;&quot; + str.get(i).charAt((int)(K - prev - 1));
+            } else {
+                long curLen = prev + str.get(i).length();
+                long tmp = curLen * num.get(i);
+                if(tmp &gt;= K) {
+                    long tmpLen = curLen;
+                    long tmpPrev = prev;
+                    for(int j = i; j &gt;= 0; j--) {
+                        // System.out.println(tmpLen);
+                        // System.out.println(tmpPrev);
+                        long index = K % tmpLen;
+                        K = (int)index;
+                        if(index == 0)
+                            index = tmpLen;
+                        // System.out.println(index);
+                        if(index &gt; tmpPrev)
+                            return &quot;&quot; + str.get(j).charAt((int)(index - tmpPrev - 1));
+                        else {
+                            tmpLen = (tmpLen - str.get(j).length()) / num.get(j - 1);
+                            tmpPrev = tmpLen  - str.get(j - 1).length();
+                        }
+<A NAME="1"></A>                    }
+                } else {
+                    prev = tmp;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return &quot;&quot;;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

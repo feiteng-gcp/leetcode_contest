@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_Sun-Jc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_Sun-Jc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def decodeAtIndex(self, S, K):
+        &quot;&quot;&quot;
+        :type S: str
+        :type K: int
+        :rtype: str
+        &quot;&quot;&quot;
+        ll = [0]
+        for i, c in zip(range(len(S)), S):
+            l = ll[-1]
+            if '2' &lt;= c &lt;= '9':
+                l *= int(c)
+                ll.append(l)
+            else:
+                l +=1
+<A NAME="0"></A>                ll.append(l)
+
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def bs(ll, K):
+            a = 0
+            b = len(ll)
+            while a &lt; b-1:
+                m = ( a + b ) // 2 
+                if ll[m] &lt; K:
+                    a = m
+                else:
+                    b = </B></FONT>m
+            return b
+
+
+        def find_chr(S, K, ll):
+            anchor = bs(ll, K)
+
+            if '2' &lt;= S[anchor-1] &lt;= '9': 
+                new_K = K % ll[anchor-1]
+                if new_K == 0 :
+                    while '2' &lt;= S[anchor-1] &lt;= '9': 
+                        anchor -= 1
+                    return S[anchor-1]
+                else:
+                    return find_chr(S, new_K, ll)
+            else:
+                return S[anchor-1]
+            
+            
+        return find_chr(S, K, ll)
+        
+</PRE>
+
+</BODY>
+</HTML>

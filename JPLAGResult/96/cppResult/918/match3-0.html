@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_cheerforwhy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>42_cheerforwhy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int reachableNodes(vector&lt;vector&lt;int&gt;&gt;&amp; edges, int M, int N) {
+        vector&lt;int&gt; dis(N, 1000000001);
+        vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; e(N, vector&lt;pair&lt;int, int&gt;&gt;());
+        for (auto&amp; item : edges) {
+            int u = item[0];
+            int v = item[1];
+            int c = 1 + item[2];
+            e[u].push_back({v, c});
+            e[v].push_back({u, c});
+        }
+        dis[0] = 0;
+        queue&lt;int&gt; Q;
+        Q.push(0);
+        while (!Q.empty()) {
+            int u = Q.front(); Q.pop();
+            for (auto item : e[u]) {
+                int v = item.first;
+                int d = dis[u] + item.second;
+<A NAME="0"></A>                if (d &lt; dis[v]) {
+                    dis[v] = d;
+                    Q.push(v);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        int cnt = 0;
+        for (int i = 0; i &lt; N; ++i) {
+            if (dis[i] &lt;= M)  ++cnt;
+        }
+        for (auto&amp; item : edges) {</B></FONT>
+            int u = item[0];
+            int v = item[1];
+            int c = item[2];
+            if (c == 0)  continue;
+            if (dis[u] &gt;= M &amp;&amp; dis[v] &gt;= M)  continue;
+            if (dis[u] &gt;= M) {
+                cnt += min(c, M - dis[v]);
+                continue;
+            }
+            if (dis[v] &gt;= M) {
+                cnt += min(c, M - dis[u]);
+                continue;
+            }
+            int val = M - dis[v] + M - dis[u];
+            cnt += min(c, val);
+        }
+        return cnt;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_qwnjc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>19_qwnjc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string decodeAtIndex(string S, int K) {
+        long long len = 0;
+        
+        // stack&lt;pair&lt;string,int&gt;&gt; stk;
+        // stack&lt;pair&lt;int,int&gt;&gt; stk;
+        // vector&lt;vector&lt;int&gt;&gt; stk;
+        int n = S.length();
+        // cout &lt;&lt; S &lt;&lt; &quot; &quot; &lt;&lt; K &lt;&lt; endl;
+        for (int i = 0; i &lt; n; ++i) {
+            char c = S[i];
+            if (c &gt;= '2' &amp;&amp; c &lt;= '9') {
+                // stk.emplace_back(vector&lt;int&gt;{len, c - '0', i);
+                int cnt = c - '0';
+<A NAME="0"></A>                if (len * cnt &gt;= K) {
+                    return decodeAtIndex(S.substr(0, i), (K - 1) % len + 1);   
+                }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                len *= cnt;
+            } else {
+                ++len;
+                if (len == K) {
+                    return string(1, c);
+                }
+            }
+            // cout &lt;&lt; len &lt;&lt; endl;
+        }
+        
+        return &quot;&quot;;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

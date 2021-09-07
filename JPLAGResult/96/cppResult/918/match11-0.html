@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_QingqingXii0iii.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<PRE>
+vector&lt;pair&lt;int, int&gt; &gt; G[3005];
+bool vis[3005];
+int d[3005];
+class Solution {
+public:
+    void D(){
+        priority_queue&lt;pair&lt;int, int&gt; , vector&lt;pair&lt;int,int&gt; &gt; , greater&lt;pair&lt;int, int&gt; &gt; &gt; pq;
+        memset(vis,0,sizeof(vis));
+        memset(d, 0x3f, sizeof(d));
+        d[0] = 0;
+        pq.push(make_pair(0, 0));
+        while(!pq.empty()){
+            pair&lt;int, int&gt; p = pq.top(); pq.pop();
+            int u = p.second;
+            int dis = p.first;
+            if(vis[u]) continue;
+            vis[u] = true;
+            for(auto edge: G[u]){
+                int v = edge.first;
+                int cost = edge.second;
+                if(d[u] + cost &lt; d[v]){
+                    d[v] = d[u] + cost;
+                    pq.push(make_pair(d[v], v));
+                }
+            }
+        }
+    }
+    int reachableNodes(vector&lt;vector&lt;int&gt;&gt;&amp; edges, int M, int N) {
+        for(int i = 0;i &lt; N;i++){
+            G[i].clear();
+        }
+        for(int i = 0;i &lt; edges.size();i++){
+<A NAME="0"></A>            int u = edges[i][0], v = edges[i][1], cost = edges[i][2];
+            G[u].push_back(make_pair(v, cost + 1));
+            G[v].push_back(make_pair(u, cost + 1));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        D();
+        
+        int ans = 0;
+        for(int i = 0;i &lt; N;i++){
+            if(d[i] &lt;= M) ans++;
+        }
+        for(int i = 0;i &lt; edges.size();i++){</B></FONT>
+            int u = edges[i][0], v = edges[i][1], cost = edges[i][2];
+            ans += min(max(0, M - d[u]) + max(0, M - d[v]), cost);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
