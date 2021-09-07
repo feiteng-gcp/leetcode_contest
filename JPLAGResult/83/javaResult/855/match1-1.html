@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_cxrorange.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_cxrorange.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int LIMIT = 1000000007;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int uniqueLetterString(String S) {
+        
+        int sum = 0;
+        int uniCnt = 0;
+        int [] map = new int[26];
+        
+        for (int i = 0; i &lt; S.length(); i++) {</B></FONT>
+            map = new int[26];
+            uniCnt = 0;
+            for(int j = i; j &lt; S.length(); j++) {
+                char chr = S.charAt(j);
+                if (map[chr -'A'] == 0) {
+                    map[chr -'A'] = 1;
+                    uniCnt+=1;
+                } else {
+                    map[chr -'A'] += 1;
+                    if (map[chr -'A']==2) {
+                        uniCnt -=1;
+                    } else {
+                        //return uniCnt;
+                    }
+                }
+                sum += uniCnt;
+                while (sum &gt; LIMIT) {
+                    sum %= LIMIT;
+                }
+            }
+        }
+        return sum;
+    }
+    
+    // public int helper(String S, int st, int end, int[] map, int uniCnt) {
+    //     if (map[S.charAt(end) -'A'] == 0) {
+    //         map[S.charAt(end) -'A'] = 1;
+    //         return uniCnt+1;
+    //     } else {
+    //         map[S.charAt(end) -'A'] += 1;
+    //         if (map[S.charAt(end) -'A']==2) {
+    //             return uniCnt -1;
+    //         } else {
+    //             return uniCnt;
+    //         }
+    //     }
+    // }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>349_Jian_Bao.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>349_Jian_Bao.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string maskPII(string S) {
+        if (S.empty()) {
+            return &quot;&quot;;
+        }
+        string sol = &quot;&quot;;
+        if (isalpha(S[0])) {
+            int pos = S.find('@');
+            sol += tolower(S[0]);
+            sol.append(5, '*');
+            sol += tolower(S[pos - 1]);//不能直接把@加在后面
+            sol += &quot;@&quot;;
+            for (int i = pos + 1; i &lt; S.size(); ++i) {
+                sol += tolower(S[i]);
+<A NAME="0"></A>            }
+            return sol;
+        } else {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            string tmp = &quot;&quot;, sol = &quot;&quot;;
+            for (int i = 0; i &lt; S.size(); ++i) {
+                if (isdigit(S[i])) {
+                    tmp += S[i];
+                }
+            }
+            if (tmp.size() &gt; 10) {
+                sol += &quot;+&quot;;</B></FONT>
+                sol.append(tmp.size() - 10, '*');//
+                sol += &quot;-&quot;;
+            }
+            sol += &quot;***-***-&quot; + tmp.substr(tmp.size() - 4);
+            return sol;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

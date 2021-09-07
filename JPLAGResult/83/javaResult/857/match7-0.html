@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>353_kan-ki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>353_kan-ki.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; largeGroupPositions(String S) {
+        List&lt;List&lt;Integer&gt;&gt; ret = new LinkedList&lt;&gt;();
+        int count = 0;
+        int startPos = 0;
+        char cur = 0;
+        for (int i = 0; i &lt; S.length(); i++) {
+<A NAME="0"></A>            if (cur == S.charAt(i)) {
+                count++;
+            } else {
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (count &gt;= 3) {
+                    List&lt;Integer&gt; set = new LinkedList&lt;&gt;();
+                    set.add(startPos);
+                    set.add(i - 1);
+                    ret.add(set);
+                }</B></FONT>
+                cur = S.charAt(i);
+                startPos = i;
+                count = 1;
+            }
+        }
+        if (count &gt;= 3) {
+            List&lt;Integer&gt; set = new LinkedList&lt;&gt;();
+            set.add(startPos);
+            set.add(S.length() - 1);
+            ret.add(set);
+        }
+        
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
