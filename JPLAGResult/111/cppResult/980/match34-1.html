@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_x____x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_x____x.cpp</CENTER></H3><HR>
+<PRE>
+int dp_mem[1 &lt;&lt; 12][12];
+
+class Solution {
+    vector&lt;string&gt; a_;
+    
+    int g[16][16];
+    
+    int go(int rest, int i) {
+        int&amp; ret = dp_mem[rest][i];
+        if (ret &lt; 0) {
+            if (rest &gt; 0) {
+                ret = 1000010000;
+                for (int j = 0; j &lt; a_.size(); ++j) {
+                    if (rest &amp; (1 &lt;&lt; j)) {
+                        ret = min(ret, (int)(a_[i].size() - g[i][j] + go(rest ^ (1 &lt;&lt; j), j)));
+                    }
+                }
+            } else {
+                ret = a_[i].size();
+            }
+        }
+        return ret;
+<A NAME="0"></A>    }
+    
+    bool match(const string&amp; s1, const string&amp; s2, int k) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = s1.size();
+        for (int i = 0; i &lt; k; ++i) {
+            if (s1[n - k + i] != s2[i]) return false;
+        }
+        return true;
+    }</B></FONT>
+    
+    string og(int rest, int i, int best) {
+        if (!rest) {
+            return a_[i];
+        }
+        for (int j = 0; j &lt; a_.size(); ++j) {
+            if (rest &amp; (1 &lt;&lt; j)) {
+                int x = a_[i].size() - g[i][j] + go(rest ^ (1 &lt;&lt; j), j);
+                if (x == best) {
+                    int y = a_[i].size() - g[i][j];
+                    return a_[i].substr(0, y) + og(rest ^ (1 &lt;&lt; j), j, best - y);
+                }
+            }
+        }
+        return &quot;???&quot;;
+    }
+    
+public:
+    string shortestSuperstring(vector&lt;string&gt;&amp; a) {
+        int n = a.size();
+        if (n &lt; 1) return &quot;&quot;;
+        
+        memset(dp_mem, 0xff, sizeof(dp_mem));
+        a_ = a;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                for (int k = min(a[i].size(), a[j].size()); k &gt;= 0; --k) {
+                    if (match(a[i], a[j], k)) {
+                        g[i][j] = k;
+                        break;
+                    }
+                }
+            }
+        }
+        int best = 1000010000;
+        int all = (1 &lt;&lt; n) - 1;
+        for (int i = 0; i &lt; n; ++i) {
+            best = min(best, go(all ^ (1 &lt;&lt; i), i));
+        }
+        string ret;
+        for (const string&amp; s : a) ret += s;
+        for (int i = 0; i &lt; n; ++i) {
+            if (best == go(all ^ (1 &lt;&lt; i), i)) {
+                return og((all ^ (1 &lt;&lt; i)), i, best);
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

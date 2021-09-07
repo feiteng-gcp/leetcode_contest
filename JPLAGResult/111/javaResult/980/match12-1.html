@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>159_shenw1991.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>159_shenw1991.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private class Pair {
+        String s;
+        int i;
+        int j;
+        Pair(String s, int i, int j) {
+            this.s = s;
+            this.i = i;
+            this.j = j;
+        }
+    }
+    
+    public String shortestSuperstring(String[] A) {
+        if (A.length == 0) return &quot;&quot;;
+        if (A.length == 1) return A[0];
+        
+        int max = Integer.MIN_VALUE;
+        Set&lt;Pair&gt; set = new HashSet&lt;&gt;();
+        for (int i=0; i&lt;A.length; i++) {
+            for (int j=i+1; j&lt;A.length; j++) {
+                String s1 = concat(A[i], A[j]);
+                String s2 = concat(A[j], A[i]);
+                String s = s1.length() &lt; s2.length() ? s1 : s2;
+                int overlap = A[i].length() + A[j].length() - s.length();
+                if (overlap &gt; max) {
+<A NAME="0"></A>                    set.clear();
+                    set.add(new Pair(s, i, j));
+                    max = overlap;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else if (overlap == max) {
+                    set.add(new Pair(s, i, j));
+                }
+            }
+        }</B></FONT>
+        
+        String res = null;
+        for (Pair pair : set) {
+            String[] arr = new String[A.length-1];
+            arr[0] = pair.s;
+            int arri = 1;
+            for (int i=0; i&lt;A.length; i++) {
+                if (i != pair.i &amp;&amp; i != pair.j) {
+                    arr[arri++] = A[i];
+                }
+            }
+<A NAME="1"></A>            String s = shortestSuperstring(arr);
+            if (res == null || s.length() &lt; res.length()) {
+                res = s;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        return res;
+    }
+    
+    private String concat(String s1, String s2) {</B></FONT>
+        String res = s1+s2;
+        for (int i=0; i&lt;s1.length(); i++) {
+            String sub = s1.substring(i, s1.length());
+            if (s2.startsWith(sub)) {
+                String s = s1.substring(0, i) + s2;
+                if (s.length() &lt; res.length()) {
+                    res = s;
+                }
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

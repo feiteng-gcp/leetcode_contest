@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_lbjlc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>18_lbjlc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    bool match(const string &amp; a, const string &amp; b, int d) {
+        int na = a.size(), nb = b.size();
+        int ia = na - d;
+        int ib = 0;
+        while(ib &lt; d) {
+            if(a[ia] != b[ib])
+                return false;
+            ia++;
+            ib++;
+        }
+        return true;
+    }
+    int getdist(const string &amp; a, const string &amp; b) {
+        int na = a.size(), nb = b.size();
+        for(int i = min(na, nb); i &gt; 0; i--) {
+            if(match(a, b, i))
+                return nb - i;
+        }
+        return nb;
+    }
+    int n;
+    int best = INT_MAX;
+    vector&lt;vector&lt;int&gt;&gt; dist;
+    vector&lt;int&gt; temp;
+    vector&lt;int&gt; res;
+    vector&lt;int&gt; visited;
+    void dfs(int i, int cur) {
+        if(temp.size() == n) {
+            if(cur &lt; best) {
+                best = cur;
+                res = temp;
+            }
+            return;
+        }
+        if(cur &gt;= best)
+            return;
+        visited[i] = true;
+        for(int j = 0; j &lt; n; j++) {
+            if(j == i || visited[j])
+                continue;
+            temp.push_back(j);
+            dfs(j, cur + dist[i][j]);
+            temp.pop_back();
+        }
+        visited[i] = false;
+    }
+public:
+<A NAME="0"></A>    string shortestSuperstring(vector&lt;string&gt;&amp; A) {
+        
+        n = A.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dist = vector&lt;vector&lt;int&gt;&gt;(n, vector&lt;int&gt;(n, 0));
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; n; j++) {
+                if(i == j)</B></FONT>
+                    continue;
+                int temp = getdist(A[i], A[j]);
+                dist[i][j] = temp;
+<A NAME="1"></A>            }
+        }
+        visited = vector&lt;int&gt;(n, 0);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; n; i++) {
+            temp.push_back(i);
+            dfs(i, A[i].size());
+            temp.pop_back();
+        }
+        /*
+        for(int i = 0; i &lt; n; i++) {
+            for(int j = 0; j &lt; n; j++) {
+                cout &lt;&lt; dist[i][j] &lt;&lt; ' ';
+            }
+            cout &lt;&lt; endl;
+        }
+        cout &lt;&lt; endl;
+        for(int i = 0; i &lt; n; i++)
+            cout &lt;&lt; res[i] &lt;&lt; ' ';
+        cout &lt;&lt; endl;
+        */
+        string result = A[res[0]];
+        for(int i = 1; i &lt; n; i++) {</B></FONT>
+            string temp(A[res[i]].begin() + int(A[res[i]].size()) - dist[res[i - 1]][res[i]], A[res[i]].end());
+            result.insert(result.end(), temp.begin(), temp.end());
+            //cout &lt;&lt; temp &lt;&lt; ' ' &lt;&lt; result &lt;&lt; endl;
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

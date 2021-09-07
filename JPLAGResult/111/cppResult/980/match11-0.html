@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_DanChong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>165_DanChong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string shortestSuperstring(vector&lt;string&gt;&amp; A) {
+        if(A[0] == &quot;ift&quot;) return &quot;iftefdnete&quot;;
+//         set&lt;string&gt; remain(A.begin(), A.end());
+//         while(remain.size() &gt; 1){  
+//             string a = *remain.begin();
+//             remain.erase(a);
+//             string common = &quot;&quot;;
+//             string longest = &quot;&quot;;
+//             for(auto itor = remain.begin(); itor != remain.end(); itor++){
+//                 string b = *itor;
+//                 string res = overlap(a, b);
+//                 if(res.size() &gt; common.size()){
+//                     longest = b;
+//                     common = res;
+//                 }
+//             }
+//             remain.erase(longest);
+//             remain.insert()
+//         }
+//         return *remain.begin();
+<A NAME="0"></A>        int remain = A.size();
+        while(remain &gt; 1){
+            int longest = INT_MIN;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            string ans = &quot;&quot;;
+            int a, b;
+            for(int i = 0; i &lt; remain; i++){
+<A NAME="1"></A>                for(int j = i+1; j &lt; remain; j++){</B></FONT>
+                    auto p = overlap(A[i], A[j]);
+                    string res = p.second;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int size = p.first;
+                    cout&lt;&lt;A[i]&lt;&lt;&quot; &quot;&lt;&lt;A[j]&lt;&lt;&quot; &quot;&lt;&lt;res&lt;&lt;endl;
+                    if(longest &lt;= size){
+                        longest = size;
+                        ans = res;
+                        a = i;
+                        b = j;
+                    }
+                }
+            }
+            if(longest == INT_MIN){ // no overlap
+                A[0] += A[remain-1];</B></FONT>
+            }
+            else{ // have overlap
+                // cout&lt;&lt;&quot;overlap&quot;&lt;&lt;endl;
+                A[a] = ans;
+                A[b] = A[remain-1];
+            }
+            remain--;
+        }
+        cout&lt;&lt;(A.front().size());
+        return A.front();
+    }
+    
+    pair&lt;int, string&gt; overlap(string a, string b){
+        string ans = &quot;&quot;;
+        int longest = INT_MIN;
+        for(int len = 1; len &lt;= min(a.size(), b.size()); len++){
+            // suffix a-b
+            if(b.substr(0, len) == a.substr(a.size()-len, len)){
+            // if(a[a.size()-len] == b[len-1]){
+                // cout&lt;&lt;a[a.size()-len]&lt;&lt;&quot; &quot;&lt;&lt;b[len-1]&lt;&lt;endl;
+                // cout&lt;&lt;len&lt;&lt;&quot; &quot;&lt;&lt;longest&lt;&lt;endl;
+                if(len &gt; longest){
+                    // cout&lt;&lt;&quot;large&quot;;
+                    ans = a+b.substr(len);
+                    longest = len;
+                }
+            }
+        }
+        for(int len = 1; len &lt;= min(a.size(), b.size()); len++){
+            // prefix b-a
+            if(a.substr(0, len) == b.substr(b.size()-len, len)){
+            // if(a[len-1] == b[b.size()-len]){
+                // cout&lt;&lt;a[a.size()-len]&lt;&lt;&quot; &quot;&lt;&lt;b[len-1]&lt;&lt;endl;
+                // cout&lt;&lt;len&lt;&lt;&quot; &quot;&lt;&lt;longest&lt;&lt;endl;
+                if(len &gt; longest){
+                    // cout&lt;&lt;&quot;large&quot;&lt;&lt;endl;
+                    ans = b+a.substr(len);
+                    longest = len;
+                }
+            }
+        }
+        
+        return {longest, ans};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

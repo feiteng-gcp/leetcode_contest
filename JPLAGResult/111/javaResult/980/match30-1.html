@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>181_Jingyao_Li.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>181_Jingyao_Li.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String shortestSuperstring(String[] A) {
+        if (A.length == 0) return null;
+        if (A.length == 1) return A[0];
+        String first = A[0];
+        String second = A[1];
+        int max = 0;
+        int index = -1;
+        int m = A.length;
+        for (int i = 0; i &lt; A.length - 1; i++) {
+            for (int j = i+1; j &lt; A.length; j++) {
+                int[] overlap = getOverlapPoint(A[i], A[j]);
+                if (overlap[0] &gt; max) {
+                    first = A[i];
+                    second = A[j];
+                    max = overlap[0];
+                    index = overlap[1];
+                }
+            }
+<A NAME="0"></A>        }
+        String combine = combine(first, second, index);
+        String[] B = new String[m-1];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int j = 0;
+        for (int i = 0; i &lt; m; i++) {
+            if (!A[i].equals(first) &amp;&amp; !A[i].equals(second)) {
+                B[j++] = A[i];
+            }
+        }</B></FONT>
+        B[m-2] = combine;
+        return shortestSuperstring(B);
+    }
+    
+    public String combine(String a, String b, int index) {
+        String first = a;
+        String second = b;
+        if (a.length() &gt; b.length()) {
+            first = b;
+            second = a;
+        }
+        int m = first.length();
+        int n = second.length();
+        if (index &lt; m) {
+            return first.substring(0, m - 1 - index) + second;
+        }
+        if (index &gt;= m &amp;&amp; index &lt; n) {
+            return second;
+        }
+        return second.substring(0, index-m+1) + first;
+        
+    }
+    public int[] getOverlapPoint(String a, String b) {
+        String first = a;
+        String second = b;
+        if (a.length() &gt; b.length()) {
+            first = b;
+            second = a;
+        }
+        int max = 0;
+        int index = -1;
+        int m = first.length();
+        int n = second.length();
+        boolean flag = true;
+        for (int i = 0; i &lt; m + n; i++) {
+            if (i &lt; m) {
+                if (first.substring(m-1-i, m).equals(second.substring(0, i + 1))) {
+                    if (i + 1 &gt; max) {
+                        max = i + 1;
+                        index = i;
+                    }
+                }
+            }
+            if (i &gt;= m &amp;&amp; i &lt; n) {
+                
+                if (first.equals(second.substring(i-m, i))) {
+                    if (m &gt; max) {
+                        max = m;
+                        index = i;
+                    }
+                }
+            }
+            if (i &gt;= n) {
+                if (first.substring(0, m-i+n-1).equals(second.substring(i-m+1, n))) {
+                    if (m-i+n-1 &gt; max) {
+                        max = m-i+n-1;
+                        index = i;
+                    }
+                }
+            }
+        }
+        return new int[]{max, index};
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

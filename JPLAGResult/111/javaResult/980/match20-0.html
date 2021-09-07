@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_lydxlx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_lydxlx.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+import java.util.stream.*;
+import java.math.*;
+
+public class Solution {
+
+    int n;
+    String[][] f;
+    String[] A;
+    int[][] overlap;
+
+
+    public String shortestSuperstring(String[] A) {
+        n = A.length;
+        f = new String[1 &lt;&lt; n][n];
+        this.A = A;
+
+        overlap = new int[n][n];
+        for (int i = 0; i &lt; n; i++)
+            for (int j = 0; j &lt; n; j++) {
+                if (i == j) {
+                    continue;
+                }
+<A NAME="0"></A>                String left = A[i];
+                String right = A[j];
+
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int k = Math.min(left.length(), right.length()); k &gt; 0; k--) {
+                    if (left.substring(left.length() - k).equals(right.substring</B></FONT>(0, k))) {
+                        overlap[i][j] = k;
+                        break;
+                    }
+                }
+            }
+        String ans = null;
+        int mask = (1 &lt;&lt; n) - 1;
+        for (int i = 0; i &lt; n; i++) {
+            if (ans == null || f(mask, i).length() &lt; ans.length()) {
+                ans = f(mask, i);
+            }
+        }
+        return ans;
+    }
+
+    String f(int mask, int last) {
+        if (f[mask][last] != null) {
+            return f[mask][last];
+        }
+        if (Integer.bitCount(mask) == 1) {
+<A NAME="1"></A>            return A[last];
+        }
+
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String ans = null;
+        int subMask = mask - (1 &lt;&lt; last);
+        for (int i = 0; i &lt; n; i++) {
+            if (((1 &lt;&lt; i) &amp; subMask) != 0) {
+                String subAns = f(subMask, i);
+                String curAns = subAns + A[last].substring(overlap[i][last])</B></FONT>;
+                if (ans == null || curAns.length() &lt; ans.length()) {
+                    ans = curAns;
+                }
+            }
+        }
+
+        f[mask][last] = ans;
+        return ans;
+    }
+
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        System.out.println(sol.shortestSuperstring(new String[]{&quot;alex&quot;, &quot;loves&quot;, &quot;leetcode&quot;}));
+        System.out.println(sol.shortestSuperstring(new String[]{&quot;catg&quot;, &quot;ctaagt&quot;, &quot;gcta&quot;, &quot;ttca&quot;, &quot;atgcatc&quot;}));
+        System.out.println(sol.shortestSuperstring(new String[]{&quot;c&quot;}));
+    }
+}
+
+</PRE>
+
+</BODY>
+</HTML>

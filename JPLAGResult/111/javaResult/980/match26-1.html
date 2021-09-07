@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>144_bfcpzk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>144_bfcpzk.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class Node{
+        int max;
+        String tmp;
+        public Node(int max, String tmp){
+            this.max = max;
+            this.tmp = tmp;
+        }
+    }
+    
+    private boolean compareStr(String s1, int s1s, int s1e, String s2, int s2s, int s2e){
+        for(int i = 0 ; i &lt; s1e - s1s ; i++){
+            if(s1.charAt(s1s + i) != s2.charAt(s2s + i)) return false;
+        }
+        return true;
+    }
+    
+    private Node findOverlappingPair(String s1, String s2){
+        int max = Integer.MIN_VALUE;
+        int len1 = s1.length();
+        int len2 = s2.length();
+        String tmp = null;
+        
+<A NAME="0"></A>        for(int i = 1 ; i &lt;= Math.min(len1, len2); i++){
+            if(compareStr(s1, len1 - i, len1, s2, 0, i)){
+                if(max &lt; i){
+                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>max = i;
+                    tmp = s1 + s2.substring(i);
+                }
+            }
+        }
+        
+<A NAME="1"></A>        for(int i = 1 ; i &lt;= Math.min(len1, len2) ; i++){
+            if(compareStr</B></FONT>(s1, 0, i, s2, len2 - i, len2)){
+                if(max &lt; i){
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>max = i;
+                    tmp = s2 + s1.substring(i);
+                }
+            }
+        }</B></FONT>
+        return new Node(max, tmp);
+    }
+    
+    public String shortestSuperstring(String[] A) {
+        Arrays.sort(A, (a, b) -&gt; b.compareTo(a));
+        int n = A.length;
+        while(n != 1){
+            int max = Integer.MIN_VALUE;
+            int l = 0, r = 0;
+            String resString = null;
+            for(int i = 0 ; i &lt; n ; i++){
+                for(int j = i + 1 ; j &lt; n ; j++){
+                    Node tmpNode = findOverlappingPair(A[i], A[j]);
+                    int res = tmpNode.max;
+                    String str = tmpNode.tmp;
+                    if(max &lt; res){
+                        max = res;
+                        resString = new String(str);
+                        l = i;
+                        r = j;
+                    }
+                }
+            }
+            
+            n--;
+            if(max == Integer.MIN_VALUE)
+                A[0] += A[n];
+            else{
+                A[l] = resString;
+                A[r] = A[n];
+            }
+        }
+        return A[0];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

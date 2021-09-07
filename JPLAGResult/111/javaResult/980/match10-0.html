@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+	    public String shortestSuperstring(String[] A) {
+	        int n = A.length;
+	        String[][] dp = new String[1&lt;&lt;n][n];
+	        for(int i = 1;i &lt; 1&lt;&lt;n;i++){
+	        	if(Integer.bitCount(i) == 1){
+	        		dp[i][Integer.numberOfTrailingZeros(i)] = A[Integer.numberOfTrailingZeros(i)];
+	        		continue;
+	        	}
+	        	for(int k = 0;k &lt; n;k++){
+	        		if(i&lt;&lt;~k&lt;0){
+<A NAME="0"></A>	    	        	for(int j = 0;j &lt; n;j++){ // j-&gt;k
+	    	        		if(i&lt;&lt;~j&lt;0 &amp;&amp; j != k){
+	    	        			for(int l = A[k].length();l &gt;= 0;l--){
+	    	        				if(dp[i^1&lt;&lt;k][j].endsWith(A[k].substring(0, l))){<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	    	        					String can = dp[i^1&lt;&lt;k][j] + A[k].substring(l);
+	    	        					if(dp[i][k] == null || dp[i][k].length() &gt; can.length()){
+	    	        						dp[i][k] = can;
+	    	        					}</B></FONT>
+	    	        					break;
+	    	        				}
+<A NAME="1"></A>	    	        			}
+	    	        		}
+	    	        	}
+	        		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	        	}
+<A NAME="2"></A>	        }
+	        String ret = dp[(1&lt;&lt;n)-1][0];
+	        for(int i = 1;i &lt; n;i++){</B></FONT>
+	        	if(dp[(1&lt;&lt;n)-1<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>][i].length() &lt; ret.length()){
+	        		ret = dp[(1&lt;&lt;n)-1][i];
+	        	}
+	        }
+	        
+	        return ret;
+	    }</B></FONT>
+	}	
+</PRE>
+
+</BODY>
+</HTML>

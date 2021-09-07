@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>19_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    String[] dp;
+    StringBuilder sb;
+    int n;
+    String[] A;
+    public String shortestSuperstring(String[] A) {
+        n = A.length;
+        this.A = A;
+        String[][] comb = new String[n][n];
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (i == j) {
+                    comb[i][j] = A[i];
+                }
+                else {
+                    comb[i][j] = add(A[i], A[j]);
+                }
+            }
+        }
+
+        dp = new String[1 &lt;&lt; n];
+        sb = new StringBuilder();
+        for (int i = 0; i &lt; 250; i++) {
+            sb.append(&quot;}&quot;);
+        }
+
+        Arrays.fill(dp, sb.toString());
+        String res = recusive((1 &lt;&lt; n) - 1);
+        return res;
+    }
+
+    String recusive(int mask) {
+        if (mask == 0) {
+            return &quot;&quot;;
+        }
+        else if (dp[mask].length() != 250) {
+            return dp[mask];
+        }
+
+        String res = sb.toString();
+        for (int i = 0; i &lt; n; i++) {
+<A NAME="0"></A>            if (((1 &lt;&lt; i) &amp; mask) != 0) {
+                String cur = A[i];
+                String other = recusive(mask - (1 &lt;&lt; i));
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String add1 = add(cur, other);
+                if (res.length() &gt; add1.length()) {
+<A NAME="1"></A>                    res = add1;
+                }</B></FONT>
+
+                add1 = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>add(other, cur);
+                if (res.length() &gt; add1.length()) {
+                    res = add1;
+                }
+            }
+        }</B></FONT>
+
+        dp[mask] = res;
+        return res;
+    }
+
+    String add(String s1, String s2) {
+        int n1 = s1.length();
+        int n2 = s2.length();
+        int idx = -1;
+        for (int i = n1; i &gt;= 0; i--) {
+            String suff = s1.substring(i);
+            int len = n1 - 1 - i + 1;
+            if (len &lt;= s2.length()) {
+                String pref = s2.substring(0, len);
+                if (suff.equals(pref)) {
+                    idx = i;
+                }
+            }
+        }
+
+        if (idx == -1) {
+            return s1 + s2;
+        }
+
+        int len = n1 - idx;
+        return s1 + s2.substring(len);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

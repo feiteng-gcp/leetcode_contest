@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_wrangle1005.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_wrangle1005.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def dp(self, t, st, n, edges, rcd, trace):
+        if st == 2 ** n - 1:
+            return 0
+        elif rcd[t][st] != -1:
+            return rcd[t][st]
+        else:
+            minv = sys.maxsize
+            idx = -1
+            for nt in range(n):
+                if st &amp; (2 ** nt) == 0:
+                    res = self.dp(nt, st | (2 ** nt), n, edges, rcd, trace) + edges[t][nt]
+                    if res &lt; minv:
+                        minv = res
+                        idx = nt
+            rcd[t][st] = minv
+            trace[t][st] = idx
+            return minv
+    
+    def shortestSuperstring(self, A):
+        n = len(A)
+        
+<A NAME="0"></A>        edges = [[sys.maxsize for j in range(n)] for i in range(n)]
+        for i in range(n):
+            for j in range(n):
+                maxl <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= min(len(A[i]), len(A[j]))
+                val = 0
+                for k in range(maxl+1):
+                    if A[i][</B></FONT>-k:] == A[j][:k]:
+                        val = k
+                edges[i][j] = len(A[j]) - val
+        
+        rcd = [[-1 for j in range(2 ** n)] for i in range(n)]
+        trace = [[-1 for j in range(2 ** n)] for i in range(n)]
+        
+        minv = sys.maxsize
+        t = -1
+        for i in range(n):
+            res = self.dp(i, 2 ** i, n, edges, rcd, trace) + len(A[i])
+            if res &lt; minv:
+                minv = res
+                t = i
+                
+        ret = A[t]
+        st = 2 ** t
+        for i in range(n-1):
+            nt = trace[t][st]
+            st |= (2 ** nt)
+            d = len(A[nt]) - edges[t][nt]
+            ret += A[nt][d:]
+            t = nt
+            
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

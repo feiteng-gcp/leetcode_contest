@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_wangyuc2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_wangyuc2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private String helper(String[] A, boolean[] used, int[][] indexes, int prevIndex, int numUsed, String sb) {
+        if (A.length == numUsed) {
+            return sb;
+        }
+        
+        int sbLen = sb.length();
+        int min = Integer.MAX_VALUE;
+        String minS = null;
+        
+        if (numUsed == 0) {
+            for (int i = 0; i &lt; A.length; i++) {
+                if (used[i]) continue;
+                used[i] = true;
+                //sb.append(numUsed == 0 ? A[i] : A[i].substring(indexes[prevIndex][i]));
+                String temp = helper(A, used, indexes, i, numUsed+1, A[i]);
+                //System.out.println(temp);
+                if (temp.length() &lt; min) {
+                    min = temp.length();
+                    minS = temp;
+                }
+                //sb.delete(sbLen, sb.length());
+                used[i] = false;
+            }
+        } else {
+            int max = -1;
+            List&lt;Integer&gt; maxIndexes = new LinkedList&lt;&gt;();
+            int i = 0;
+            for (; i &lt; A.length; i++) {
+                if (!used[i]) {
+                    if (indexes[prevIndex][i] &gt; max) {
+                        max = indexes[prevIndex][i];
+                        maxIndexes = new LinkedList&lt;&gt;();
+                        maxIndexes.add(i);
+                    } else if (indexes[prevIndex][i] == max) {
+                        maxIndexes.add(i);
+                    }
+                }
+            }
+            
+            for (int maxIndex : maxIndexes) {
+                used[maxIndex] = true;
+                String temp = helper(A, used, indexes, maxIndex, numUsed+1, sb + A[maxIndex].substring(indexes[prevIndex][maxIndex]));
+                if (temp.length() &lt; min) {
+                    min = temp.length();
+                    minS = temp;
+                }
+<A NAME="0"></A>                used[maxIndex] = false;
+            }
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return minS;
+    }
+    private int findIndex(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length</B></FONT>();
+        for (int i = Math.max(1, len1 - (len2 - 1)); i &lt; len1; i++) {
+            int j = 0;
+            while (i + j &lt; len1 &amp;&amp; s1.charAt(i+j) == s2.charAt(j)) {
+                j++;
+            }
+            if (i + j == len1) {
+                return j;
+            }
+        }
+        return 0;
+<A NAME="1"></A>    }
+    public String shortestSuperstring(String[] A) {
+        int aLen = A.length;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] indexes = new int[aLen][aLen];
+        for (int i = 0; i &lt; aLen; i++) {
+            for (int j = 0; j &lt; aLen; j++) {
+                if</B></FONT> (i == j) continue;
+                indexes[i][j] = findIndex(A[i], A[j]);
+            }
+            //System.out.println(Arrays.toString(indexes[i]));
+        }
+        String result = helper(A, new boolean[aLen], indexes, 0, 0, &quot;&quot;);
+        //System.out.println(result.length());
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

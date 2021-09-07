@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_xuan18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_xuan18.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    
+    // Represents a subset of indices, with the last index specified
+    public class DPStructure {
+        int mask;
+        int last;
+        
+        public DPStructure(List&lt;Integer&gt; indices) {
+            mask = 0;
+            for(int ind : indices) {
+                last = (1 &lt;&lt; ind);
+                mask += last;
+            }
+        }
+        
+        private DPStructure(int mask, int last) {
+            this.mask = mask; this.last = last;
+        }
+        
+        public int hashCode() {
+            return mask;
+        }
+        
+        public int logLast() {
+            return log(last);
+        }
+        
+        public int log(int powerof2) {
+            int i = 0, j = 1;
+            while(j != powerof2) {
+                j &lt;&lt;= 1;
+                i += 1;
+            }
+            return i;
+        }
+        
+        public boolean equals(Object o) {
+            if (o instanceof DPStructure) {
+                DPStructure other = (DPStructure) o;
+                return (mask == other.mask &amp;&amp; last == other.last);
+            }
+            return false;
+        }
+        
+        public List&lt;DPStructure&gt; getSubstructures() {
+            LinkedList&lt;DPStructure&gt; ret = new LinkedList();
+            for (int i=1; i&lt;=mask; i&lt;&lt;=1) {
+                if (i == last) {
+                    continue;
+                }
+                if ((i&amp;mask) == 0) {
+                    continue;
+                }
+                ret.add(new DPStructure(mask-last, i));
+            }
+            return ret;
+        }
+        
+        public String toString() {
+            StringBuffer ret = new StringBuffer().append(&quot;DPStructure{{&quot;);
+            int i = 1;
+            while(i&lt;=mask &amp;&amp; ((i&amp;mask) == 0)) {
+                i &lt;&lt;= 1;
+            }
+            ret.append(log(i));
+            for(i&lt;&lt;=1;i&lt;=mask;i&lt;&lt;=1) {
+                if ((i&amp;mask) != 0) {
+                    ret.append(&quot; &quot;).append(log(i));
+                }
+            }
+            ret.append(&quot;}, &quot;).append(logLast()).append(&quot;}&quot;);
+            return ret.toString();
+        }
+    }
+    
+    public HashMap&lt;DPStructure, String&gt; dp;
+    public String[] strs;
+    
+    public String shortestSuperstring(String[] A) {
+        dp = new HashMap();
+        strs = A;
+        LinkedList&lt;DPStructure&gt; finalStructures = new LinkedList();
+        int n = A.length;
+        LinkedList&lt;Integer&gt; list = new LinkedList();
+        for(int i=0;i&lt;n;i++) {
+            list.add(i);
+        }
+        String ret = null;
+        for(int i=0;i&lt;n;i++) {
+            String tmp = getDPResult(new DPStructure(list));
+            if (ret == null || tmp.length() &lt; ret.length()) {
+                ret = tmp;
+<A NAME="0"></A>            }
+            Integer first = list.removeFirst();
+            list.add(first);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return ret;
+    }
+    
+    private String getDPResult(DPStructure structure) {
+        String ret = dp.get(structure)</B></FONT>;
+        if (ret == null) {
+            ret = computeDPResult(structure);
+            dp.put(structure, ret);
+        }
+        return ret;
+    }
+    
+    private String computeDPResult(DPStructure structure) {
+        List&lt;DPStructure&gt; subStructures = structure.getSubstructures();
+        int last = structure.logLast();
+        if (subStructures.size() == 0) {
+            return strs[last];
+        }
+<A NAME="1"></A>        String ret = null;
+        for (DPStructure subStructure : subStructures) {
+            String tmp = getShortestMerge(getDPResult(subStructure), strs[last]);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (ret == null || ret.length() &gt; tmp.length()) {
+                ret = tmp;
+            }
+        }
+        // System.out.println(&quot;dp[&quot; + structure + &quot;]=&quot; + ret);
+        return ret;
+    }</B></FONT>
+    
+    private String getShortestMerge(String suffix, String appendix) {
+        return new String(getShortestMerge(suffix.toCharArray(), appendix.toCharArray()));
+    }
+    
+    private char[] getShortestMerge(char[] suffix, char[] appendix) {
+        // Can actually do KMP preprocess for all @appendix ... but don't remember that thing right now. No time to look up.
+        int i = suffix.length - appendix.length;
+        if (i &lt; 0) {
+            i = 0;
+        }
+        while (true) {
+            int j = 0, k = i;
+            while (k &lt; suffix.length) {
+                if (suffix[k] != appendix[j]) {
+                    break;
+                }
+                k += 1;
+                j += 1;
+            }
+            if (k == suffix.length) {
+                break;
+            }
+            i += 1;
+        }
+        
+        //now return suffix[0..i-1] + appendix
+        char[] ret = new char[i + appendix.length];
+        for(int k=0;k&lt;i;k++) {
+            ret[k] = suffix[k];
+        }
+        for(int k=0;k&lt;appendix.length;k++) {
+            ret[k+i] = appendix[k];
+        }
+        return ret;
+    }
+}
+
+/*
+
+[&quot;alex&quot;,&quot;loves&quot;,&quot;leetcode&quot;]
+[&quot;catg&quot;,&quot;ctaagt&quot;,&quot;gcta&quot;,&quot;ttca&quot;,&quot;atgcatc&quot;]
+[&quot;abcd&quot;, &quot;cdef&quot;, &quot;cdcd&quot;]
+
+
+
+&quot;gctaagttcatgcatc&quot;
+&quot;abcdcdef&quot;
+
+
+*/
+</PRE>
+
+</BODY>
+</HTML>

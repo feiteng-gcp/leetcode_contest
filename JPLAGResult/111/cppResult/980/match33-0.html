@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_biltharesatyendra.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_biltharesatyendra.cpp</CENTER></H3><HR>
+<PRE>
+    int sub[15][15];
+    int dp[21][(1&lt;&lt;20)+5];
+int pre[21][(1&lt;&lt;20) + 5];
+class Solution {
+public:
+
+    int common(string a, string b)
+    {
+        int n = a.length();
+        int m = b.length();
+        int mi = min(n,m);
+        int ans;
+        for(ans = mi; ans &gt;= 1; ans--)
+        {
+            int valid = 1;
+            int i;
+            for(i=0; i&lt;ans; i++)
+            {
+                if(a[n-ans+i]!=b[i]){
+                    valid = 0;
+                    break;
+                }
+            }
+            if(valid)break;
+        }
+        return ans;
+    }
+    string shortestSuperstring(vector&lt;string&gt;&amp; a) {
+        int n = a.size();
+        int i,j;
+        for(i=0; i&lt;n; i++)
+        {
+            for(j=0; j&lt;n; j++)
+            {
+                
+                sub[i][j] = a[j].length() - common(a[i],a[j]);
+            }
+        }
+        int tot = 1&lt;&lt;n;
+        int mask;
+        for(i=0;i&lt;n;i++)
+        {
+           for(mask = 0; mask &lt;=tot; mask++)
+                dp[i][mask] = 100000007;
+            
+<A NAME="0"></A>            dp[i][1&lt;&lt;i] = a[i].length();
+            pre[i][1&lt;&lt;i] = -1;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int k;
+       // printf(&quot;mask is %d\n&quot;,tot);
+         for(mask=0; mask&lt;tot; mask++)
+                {
+        for(k=0;k&lt;n;k++)
+        {
+            for(i=0;i&lt;n;i++)
+            {
+                if(i==k)continue;</B></FONT>
+               
+                    if((mask &amp; (1&lt;&lt;i))==0)continue;
+                    if((mask &amp; (1&lt;&lt;k)) ==0)
+                    {
+                        // kth string is not visited so we make it end string after ith string
+                        int nex = mask | (1&lt;&lt;k);
+                        if(dp[k][nex] &gt; dp[i][mask]  + sub[i][k]){
+                        dp[k][nex] = dp[i][mask]  + sub[i][k];
+                        pre[k][nex] = i;
+                        }
+                        //printf(&quot;ending at %d mask %d is %d\n&quot;,k,nex,dp[k][nex]);
+                    }
+                }
+            }
+        }
+        int res = 1000000007;
+        int st = -1;
+        for(i=0; i&lt;n; i++)
+        {
+            if(dp[i][tot-1] &lt; res)
+            {
+                st = i;
+                res = dp[i][tot-1];
+            }
+        }
+        vector&lt;int&gt; v;
+        v.push_back(st);
+        mask = tot - 1;
+        while(1)
+        {
+            int nex = mask - (1&lt;&lt;st);
+            st = pre[st][mask];
+            
+            if(st==-1)break;
+            mask = nex;
+            v.push_back(st);
+        }
+        reverse(v.begin(),v.end());
+         string myres = a[v[0]];
+        cout&lt;&lt;a[v[0]];
+        for(i=1; i&lt;n; i++)
+        {
+            cout&lt;&lt;&quot; &quot;;
+            j = v[i];
+            k = v[i-1];
+            int m  = a[j].length();
+            myres += a[j].substr(m-sub[k][j]);
+        }
+        cout&lt;&lt;endl;
+        return myres;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
