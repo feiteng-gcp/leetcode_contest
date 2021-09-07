@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>246_goddice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>246_goddice.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class StockSpanner {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    StockSpanner() {
+        
+    }
+    
+    int next(int price) {
+        if (v.size() == 0) {
+            v.push_back(price);
+            dp.push_back(1);
+        }
+        else {
+            int n = v.size()-1;
+            int span = 1;
+            while(v[n] &lt;= price &amp;&amp; n &gt;= 0) {</B></FONT>
+                span += dp[n];
+                n -= dp[n];
+            }
+            v.push_back(price);
+            dp.push_back(span);
+        }
+        return dp.back();
+        
+    }
+private:
+    vector&lt;int&gt; v;
+    vector&lt;int&gt; dp;
+};
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>328_strobelit3.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>328_strobelit3.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class RLEIterator {
+public:
+    vector&lt;int&gt; v;
+    int i;
+    RLEIterator(vector&lt;int&gt; A) {
+        v=A;
+        i=0;
+    }
+    
+    int next(int n) {
+        if (i&gt;=v.size()){</B></FONT>
+            return -1;
+        }
+        if (n&lt;=v[i]){
+            v[i]-=n;
+            return v[i+1];
+        }
+        while (n&gt;0){
+            if (n&gt;v[i]){
+                n=n-v[i];
+                v[i]=0;
+                i=i+2;
+                if (i&gt;=v.size()){
+                    return -1;
+                }
+            }
+            else{
+                v[i]-=n;
+                n = 0;
+            }
+        }
+        return v[i+1];        
+    }
+};
+
+/**
+ * Your RLEIterator object will be instantiated and called as such:
+ * RLEIterator obj = new RLEIterator(A);
+ * int param_1 = obj.next(n);
+ */
+</PRE>
+</BODY>
+</HTML>

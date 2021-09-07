@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>389_hwei002.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>389_hwei002.py</CENTER></H3><HR>
+<PRE>
+class RLEIterator:
+    def __init__(self, A):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        &quot;&quot;&quot;
+        self.A = A
+<A NAME="0"></A>        self.L = len(A)
+        self.prev = 0
+        self.remain = self.A[0] if A != [] else 0
+        self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.flag = 0
+        
+    def next(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if self.flag == 1:
+            return -1
+        if self.L == 0 or self.prev == self.</B></FONT>L or (self.prev == self.L-2 and n &gt; self.remain):
+            self.flag = 1
+            return -1
+        if n &lt; self.remain:
+            self.remain = self.remain - n
+            return self.A[self.prev + 1]
+        elif n == self.remain:
+            self.remain = self.A[self.prev + 2] if self.prev + 2 &lt; self.L else 0
+            self.prev = self.prev + 2
+            return self.A[self.prev - 1]
+        else:
+            cum_cnt = self.remain
+            for i in range(self.prev + 2, self.L, 2):
+                if self.A[i] == 0:
+                    continue
+                cum_cnt += self.A[i]
+                if cum_cnt == n:
+                    self.prev = i + 2
+                    self.remain = self.A[i+2] if i+2 &lt; self.L else 0
+                    return self.A[i+1]
+                elif cum_cnt &gt; n:
+                    self.remain = cum_cnt - n
+                    self.prev = i
+                    return self.A[i+1]
+            self.flag = 1
+            return -1
+        
+        
+        
+        
+# Your RLEIterator object will be instantiated and called as such:
+# obj = RLEIterator(A)
+# param_1 = obj.next(n)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_hamlet_fiis.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_hamlet_fiis.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt;d;
+    vector&lt;int&gt;v;
+    
+    int digits(int n){
+        int cont=0;
+        v.clear();
+        
+        while(n!=0){
+            cont++;
+            v.push_back(n%10);
+            n/=10;
+        }
+        
+        reverse(v.begin(),v.end());
+        
+        return cont;
+    }
+    
+    int memo[35][2];
+    
+    int dp(int pos,bool menor){
+        if(pos==v.size()){
+            return 1;    
+        }
+        
+        if(memo[pos][menor]!=-1)return memo[pos][menor];
+        int dev=0;
+        
+        if(menor){
+            dev+=d.size()*dp(pos+1,menor);
+        }else{
+            
+            int value=v[pos];
+            for(int i=0;i&lt;d.size();i++){
+                int vald= d[i][0]-'0';
+                
+                if(value&gt;vald){
+                    dev+=dp(pos+1,1);
+                }
+                
+                if(value==vald){
+                    dev+=dp(pos+1,0);
+                }
+                
+            }
+            
+        }
+        
+        memo[pos][menor]=dev;
+        return dev;
+    }
+    
+    int atMostNGivenDigitSet(vector&lt;string&gt;&amp; D, int N) {
+<A NAME="0"></A>        set&lt;string&gt;S(D.begin(),D.end());
+        d=vector&lt;string&gt;(S.begin(),S.end());
+        sort(d.begin(),d.end());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int t= digits(N);
+        
+        int power=d.size();
+        int dev=0;
+        for(int i=0;i&lt;t-1;i++){
+            dev+=power;
+            power*=(d.size());
+        }</B></FONT>
+        
+        memset(memo,-1,sizeof(memo));
+        return dev+dp(0,0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>209_hencury.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>209_hencury.py</CENTER></H3><HR>
+<PRE>
+class RLEIterator:
+
+    def __init__(self, A):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        &quot;&quot;&quot;
+        self.nums = A[::2]
+        self.digits = A[1::2]
+
+
+    def next(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if n &lt;= 0:
+            if len(self.nums) != 0:
+                return self.digits[0]
+            else:
+                return -1
+        ans = -1
+<A NAME="0"></A>        while n &gt; 0:
+            if len(self.nums) == 0:
+                return -1
+            if self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.nums[0] &lt; n:
+                n -= self.nums[0]
+                self.nums.pop(0)
+                self.digits.pop(0)
+            elif self.nums[0] == n:
+                n = 0
+                ans = self.digits[</B></FONT>0]
+                self.nums.pop(0)
+                self.digits.pop(0)
+            else:
+                self.nums[0] -= n
+                ans = self.digits[0]
+                n = 0
+        
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

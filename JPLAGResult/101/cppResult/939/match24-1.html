@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>20_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>20_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 200 + 10;
+const int MOD = 1e9 + 7;
+bool visit[N][N];
+int dp[N][N];
+
+class Solution {
+public:
+    string S;
+    int n;
+    int solve(int x, int pos) {
+        if (pos == n - 1) return 1;
+        int&amp; ret = dp[x][pos];
+<A NAME="0"></A>        if (visit[x][pos]) return ret;
+        visit[x][pos] = true;
+        ret = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (S[pos] == 'I') {
+            for (int y = x + 1; y &lt; n - pos; ++y) {
+                ret = (ret + solve(y - 1, pos + 1)) % MOD;
+            }
+        } else {
+            for (int y = 0; y &lt; x; ++y) {
+                ret = (ret + solve(y, pos + 1)) % MOD;
+            }
+        }</B></FONT>
+        return ret;
+    }
+    int numPermsDISequence(string S) {
+        this-&gt;n = S.size() + 1;
+        this-&gt;S = S;
+        memset(visit, 0, sizeof(visit));
+        int ret = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            ret = (ret + solve(i, 0)) % MOD;
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

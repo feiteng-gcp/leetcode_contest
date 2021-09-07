@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>6_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int atMostNGivenDigitSet(String[] D, int N) {
+        long n = (long)N;
+        String s = &quot;&quot;+n;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] full = new int[10];
+        full[0] = 1;
+        for (int i = 1; i &lt; 10; i++) {
+            full[i] = full[i-1]*D.length;
+        }
+        int ans = 0</B></FONT>;
+        for (int i = 1; i &lt; s.length(); i++)
+            ans += full[i];
+        boolean sgi = true;
+        int dl = s.length();
+        for (char c : s.toCharArray()) {
+            dl--;
+            if (!sgi)
+                return ans;
+            sgi = false;
+            for (String da : D) {
+                char d = da.charAt(0);
+                if (d==c&amp;&amp;dl==0)
+                    ans++;
+                if (d==c)
+                    sgi = true;
+                if (d&gt;=c)
+                    break;
+                if (d&lt;c)
+                    ans += full[dl];
+            }
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

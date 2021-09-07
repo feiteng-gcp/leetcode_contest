@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>227_AlexXYang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>227_AlexXYang.py</CENTER></H3><HR>
+<PRE>
+class RLEIterator:
+
+    def __init__(self, A):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        &quot;&quot;&quot;
+<A NAME="0"></A>        self.seq = []
+        self.count = [0]
+        self.pos = -1
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.ind = 0
+        for i in range(len(A)//2):
+            if A[2*i]&gt;0:
+                self.seq.append(A[2*i+1])
+                self.count.</B></FONT>append(self.count[-1]+A[2*i])
+        self.count.pop(0)
+
+    def next(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if self.pos+n &lt; self.count[-1]:
+            self.pos += n
+            while self.count[self.ind]-1 &lt; self.pos:
+                self.ind += 1
+            return self.seq[self.ind]
+        else:
+            self.pos = self.count[-1]
+            return -1
+        
+
+
+# Your RLEIterator object will be instantiated and called as such:
+# obj = RLEIterator(A)
+# param_1 = obj.next(n)
+</PRE>
+
+</BODY>
+</HTML>

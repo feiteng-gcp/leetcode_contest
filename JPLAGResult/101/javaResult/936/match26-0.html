@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>354_SamZhou19815.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>354_SamZhou19815.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class RLEIterator {
+        
+        private static class Pair {
+            final int number;
+            int count;
+            
+            Pair(int number, int count) {
+                this.number = number;
+                this.count = count;
+            }
+            
+        }
+        
+        private final Deque&lt;Pair&gt; deque = new LinkedList&lt;&gt;()</B></FONT>;
+        
+        public RLEIterator(int[] A) {
+            for (int i = 0; i &lt; A.length; i += 2) {
+                int count = A[i];
+<A NAME="1"></A>                int number = A[i + 1];
+                Pair pair = new Pair(number, count);
+                deque.addLast(pair);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        public int next(int n) {
+            int popNum = n;
+            while</B></FONT> (!deque.isEmpty()) {
+                Pair p = deque.pollFirst();
+                assert p != null;
+                int count = p.count, number = p.number;
+                if (count &gt; popNum) {
+                    p.count -= popNum;
+                    deque.addFirst(p);
+                    return number;
+                } else if (count &lt; popNum) {
+                    popNum -= count;
+                    // many left to pop
+<A NAME="2"></A>                } else {
+                    // count == popNum
+                    return number;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            return -1;
+        }
+        
+    }</B></FONT>
+
+/**
+ * Your RLEIterator object will be instantiated and called as such:
+ * RLEIterator obj = new RLEIterator(A);
+ * int param_1 = obj.next(n);
+ */
+</PRE>
+
+</BODY>
+</HTML>
