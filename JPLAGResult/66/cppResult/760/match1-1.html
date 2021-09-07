@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_lijinglun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>46_lijinglun.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string boldWords(vector&lt;string&gt;&amp; words, string S) {
+        map&lt;string, int&gt; d;
+<A NAME="0"></A>        for (auto x : words) d[x] = x.size();
+        int n = S.size();
+        vector&lt;int&gt; st(n, 0), ed(n + 1, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) {
+            for (int j = i; j &lt; n; ++j) {
+                string sub = S.substr(i, j - i + 1);
+                if (d.count(sub)) {</B></FONT>
+                    st[i]++;
+                    ed[j + 1]++;
+                }
+<A NAME="1"></A>            }
+        }
+        string ans;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            if (st[i]) {
+                if (cnt == 0) ans += &quot;&lt;b&gt;&quot;;
+                cnt += st[i];
+            }</B></FONT>
+            if (ed[i]) {
+                cnt -= ed[i];
+                if (cnt == 0) ans += &quot;&lt;/b&gt;&quot;;
+            }
+            ans += S[i];
+        }
+        if (ed[n])
+            ans += &quot;&lt;/b&gt;&quot;;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

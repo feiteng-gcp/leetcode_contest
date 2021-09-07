@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>351_curky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>351_curky.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        if(avails == null || avails.size() == 0 || avails.get(0).size() == 0) {
+            return res;
+        }
+        List&lt;Interval&gt; merged = mergeInterval(avails);
+        res = findCommon(merged);
+        return res;
+    }
+    public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
+        List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
+        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
+        //Interval pre = avails.get(0).get(0);
+        for(List&lt;Interval&gt; avail : avails) {
+<A NAME="0"></A>            for(Interval interval : avail) {
+                temp.add(interval);
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Collections.sort(temp, (a, b) -&gt; {
+            if(a.start == b.start) {
+                return a.end - b.end;
+            } else {</B></FONT>
+                return a.start - b.start;
+            }
+        });
+        Interval pre = temp.get(0);
+<A NAME="1"></A>        for(Interval cur : temp) {
+            if(cur.start &lt;= pre.end) {
+                pre.end = Math.max(cur.end, pre.end);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
+                merged.add(new Interval(pre.start, pre.end));
+                pre = cur;
+            }
+        }</B></FONT>
+        merged.add(new Interval(pre.start, pre.end));
+        return merged;
+    }
+    public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        if(merged.size() == 0) {
+            return res;
+        }
+        for(int i = 0; i &lt; merged.size() - 1; i++) {
+            Interval pre = merged.get(i);
+            Interval cur = merged.get(i + 1);
+            if(pre.end == cur.start) {
+                continue;
+            }
+            res.add(new Interval(pre.end, cur.start));
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

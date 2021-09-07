@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_Barca37.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>337_Barca37.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        List&lt;Interval&gt; intervals = new ArrayList&lt;&gt;();
+        for (List&lt;Interval&gt; its : avails) {
+            for (Interval i : its) {
+                intervals.add(i);
+            }
+        }
+        
+        List&lt;Interval&gt; occupy = merge(intervals);
+        return free(occupy);
+    }
+    
+    public List&lt;Interval&gt; merge(List&lt;Interval&gt; intervals) {
+        if (intervals == null || intervals.size() == 0) {
+            return intervals;
+        }
+        
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        
+        Collections.sort(intervals, new Comparator&lt;Interval&gt;(){
+            public int compare(Interval a, Interval b) {
+                return a.start - b.start;
+            }
+        });
+        
+        Interval prev = null;
+<A NAME="0"></A>        for (Interval interval : intervals) {
+            if (prev == null || interval.start &gt; prev.end) {
+                res.add(interval);
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>prev = interval;
+            } else {
+                prev.end = Math.max(prev.end, interval.end);
+            }
+        }
+        
+        return res;
+    }</B></FONT>
+    
+    public List&lt;Interval&gt; free(List&lt;Interval&gt; intervals) {
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; intervals.size() - 1; i++) {
+            res.add(new Interval(intervals.get(i).end, intervals.get(i+1).start));
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

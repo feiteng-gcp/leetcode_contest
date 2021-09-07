@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>424_ergeda.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>424_ergeda.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
+        vector&lt;pair&lt;int,int&gt;&gt; tmp;
+        for (auto vec : avails) {
+            for (auto v : vec) {</B></FONT>
+                tmp.push_back(make_pair(v.start, v.end));
+            }
+        }
+        
+        sort(tmp.begin(), tmp.end());
+        vector&lt;pair&lt;int,int&gt;&gt; merged;
+        if (tmp.size() &gt; 0) merged.push_back(tmp[0]);
+        for (int i = 1; i &lt; tmp.size(); ++i) {
+            pair&lt;int, int&gt;&amp; top = merged[merged.size()-1];
+            auto curr = tmp[i];
+            if (curr.first &lt;= top.second) {
+                top.second = max(curr.second, top.second);
+            }
+            else {
+                merged.push_back(curr);
+            }
+        }
+        
+        vector&lt;Interval&gt; result;
+        for (int i = 0; i &lt; merged.size()-1; ++i) {
+            int left = merged[i].second;
+            int right = merged[i+1].first;
+            if (left &lt; right) {
+                result.push_back(Interval(left, right));
+            }
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
