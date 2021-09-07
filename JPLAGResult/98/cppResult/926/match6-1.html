@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>294_w12379564.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>294_w12379564.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; findAndReplacePattern(vector&lt;string&gt;&amp; words, string pattern) 
+    {
+        unordered_map&lt;char,char&gt; ab;
+        unordered_map&lt;char,char&gt; ba;
+        
+        vector&lt;string&gt; ret;
+        for(auto word : words)
+        {
+            ab.clear();
+            ba.clear();
+<A NAME="0"></A>            if(word.size()!=pattern.size()) continue;
+            int len=word.size();
+            int i;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(i=0;i&lt;len;i++)
+            {
+                char a=word[i];
+                char b=pattern[i];
+                if(ab.find(a)==ab.end()&amp;&amp;ba.find(b)==ba.end())
+                {
+                    ab[a]=b;
+                    ba[b]=a;
+                }
+                else if(ab.find(a)!=ab.end()&amp;&amp;ba.find(b)!=ba.end()&amp;&amp;ab[a]==b&amp;&amp;ba[b]==a) {}</B></FONT>
+                else break;
+            }
+            if(i==len) ret.push_back(word);
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_FannyChung.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_FannyChung.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+<A NAME="0"></A>
+	public TreeNode constructFromPrePost(int[] pre, int[] post) {
+		int n = pre.length;
+		return constru<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ctFromPrePost(pre, 0, n - 1, post, 0, n - 1);
+	}
+
+	private TreeNode constructFromPrePost(int[] pre, int i1, int i2, int[] post, int j1, int j2) {
+		if (i1 &gt; i2) {</B></FONT>
+			return null;
+		}
+		if (i1 == i2) {
+			return new TreeNode(pre[i1]);
+		}
+		// 找到pre的i1,post的j2作为根
+		TreeNode root = new TreeNode(pre[i1]);
+		// post的j2-1作为右子树的根，在pre中找到它，并得到左右子树的大小
+		int rightVal = post[j2 - 1];
+		int i = i1 + 1;
+		for (; i &lt;= i2; i++) {
+<A NAME="1"></A>			if (pre[i] == rightVal) {
+				break;
+			}
+		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		// 左子树大小为i-i1
+		int leftSize = i - i1 - 1;
+		root.left = constructFromPrePost(pre, i1 + 1, i - 1, post, j1, j1 + leftSize - 1);
+		root.right = constructFromPrePost(pre, i, i2, post, j1 + leftSize, j2 - 1);
+		return root;
+	}
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_alfredwuy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_alfredwuy.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+<A NAME="0"></A> * }
+ */
+class Solution {
+    public TreeNode constructFromPrePost(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] pre, int[] post) {
+        if (pre == null || pre.length == 0) return null;
+        TreeNode root = new TreeNode(pre[0]);
+        if (pre.length == 1) return root;
+        int i = 0;
+        for (; i &lt; post.length; i++) {
+            if (post[i] == pre[1]) break;
+        }
+        int[] newpre = new int[i+1];</B></FONT>
+        int[] newpost = new int[i+1];
+        System.arraycopy(pre, 1, newpre, 0, i+1);
+        System.arraycopy(post, 0, newpost, 0, i+1);       
+        root.left = constructFromPrePost(newpre, newpost);
+        int len = pre.length;
+        newpre = new int[len-i-2];
+        newpost = new int[len-i-2];
+        System.arraycopy(pre, i+2, newpre, 0, len-i-2);
+        System.arraycopy(post, i+1, newpost, 0, len-i-2);
+        root.right = constructFromPrePost(newpre, newpost);
+        return root;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

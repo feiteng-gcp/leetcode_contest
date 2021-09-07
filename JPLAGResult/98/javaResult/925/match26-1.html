@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>293_smalljjjack.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>293_smalljjjack.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        if(pre == null || pre.length == 0) return null;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return dfs(pre, post, 0, pre.length-1, 0, pre.length-1);
+    }
+    
+    public TreeNode dfs(int[] pre, int[] post, int a, int b, int x, int y){
+        if(a &gt; b || x &gt; y) return null;
+        TreeNode root = new TreeNode(pre[a]);
+        if(a == b) return root;</B></FONT>
+        int leftH = pre[a+1], i = x;
+        for(; i &lt;= y; i++) if(post[i] == leftH) break;
+        int leftL = i - x;
+        root.left = dfs(pre, post, a+1, a+1+leftL, x, i);
+        root.right = dfs(pre, post, a+2+leftL, b, i+1, y-1);
+        return root;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

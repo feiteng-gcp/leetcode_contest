@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>401_xish.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>401_xish.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+    	return makeTree(pre, post);
+    }
+
+	private TreeNode makeTree(int[] pre, int[] post) {</B></FONT>
+		if (pre.length == 0)
+			return null;
+		
+		if (pre.length == 1)
+			return new TreeNode(pre[0]);
+		
+		TreeNode newNode = new TreeNode(pre[0]);
+		int preL, preR;
+		int postL, postR = 0;
+		int pMidPost = -1;
+		
+		int count;
+		for (int i = 0 ; i &lt; post.length ; i++)
+		{
+			if (pre[1] == post[i])
+			{
+				pMidPost = i;
+				break;
+			}
+		}
+		postL = 0;
+		postR = pMidPost;	//must have
+		count = postR - postL + 1;
+		preL = 1;
+		preR = preL + count - 1;
+		int newPre[] = Arrays.copyOfRange(pre, preL, preR + 1);
+		int newPost[] = Arrays.copyOfRange(post, postL, postR + 1);
+		TreeNode leftNode = makeTree(newPre, newPost);
+
+		preL = preR + 1;
+		preR = pre.length - 1;
+<A NAME="1"></A>		postL = pMidPost + 1;
+		postR = post.length - 1;
+		newPre = Arrays.copyOfRange(pre, preL, preR + 1);
+		newPost = Arrays.copyOfR<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ange(post, postL, postR + 1);
+		
+		TreeNode rightNode = makeTree(newPre, newPost);
+		newNode.left = leftNode;
+		newNode.right = rightNode;
+
+		return newNode;
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

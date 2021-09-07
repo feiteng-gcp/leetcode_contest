@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>140_YixingZhang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>140_YixingZhang.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        return help(0, pre.length - 1, 0, post.length - 1, pre, post);
+    }
+    
+    public TreeNode help(int s1, int e1, int s2, int e2, int[] pre, int[] post) {
+        if (s1 &gt; e1 || s2 &gt; e2) {
+            return null;
+        }</B></FONT>
+        TreeNode node = new TreeNode(pre[s1]);
+        if (s1 == e1) {
+            return node;
+        }
+        if (s1 + 1 == e1) {
+            node.left = new TreeNode(pre[e1]);
+            return node;
+        }
+        if (pre[s1 + 1] == post[e2 - 1]) {
+            node.left = help(s1 + 1, e1, s2, e2 - 1, pre, post);
+            return node;
+        }
+        int left = pre[s1 + 1];
+        int right = post[e2 - 1];
+        int idx1 = -1;
+        int idx2 = -1;
+        for (int i = s1 + 1; i &lt;= e1; i++) {
+            if (pre[i] == right) {
+                idx1 = i;
+                break;
+            }
+        }
+<A NAME="1"></A>        for (int i = s2; i &lt;= e2 - 1; i++) {
+            if (post[i] == left) {
+                idx2 = i;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>break;
+            }
+        }
+        // if (idx1 == -1 || idx2 == -1) {
+        //     System.out.println(idx1);
+        //     System.out.println(idx2);
+        //     System.out.println(s1);
+        //     System.out.println(e1);
+        //     System.out.println(s2);
+        //     System.out.println(e2);
+        // }
+        node.left = help(s1 + 1, idx1 - 1, s2, idx2, pre, post);
+        node.right = help(idx1, e1, idx2 + 1, e2 - 1, pre, post);
+        return node;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

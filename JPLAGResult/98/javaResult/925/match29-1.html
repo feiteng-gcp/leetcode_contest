@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_vincexu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_vincexu.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        int len  = pre.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return imp(pre, post, 0, len-1, 0, len-1);        
+    }
+    
+    public TreeNode imp(int[] pre, int[] post, int prestart, int preend, int poststart, int postend){
+        if (prestart&gt;preend || poststart &gt; postend) return null;
+        
+        TreeNode node = new TreeNode(pre[prestart]);
+        
+        if</B></FONT> (prestart==preend){            
+            return node;
+        }else{
+            //look for prestart+1
+            for (int i=poststart; i&lt;=postend; i++){
+                if (post[i]==pre[prestart+1]){
+                    node.left = imp(pre, post, prestart+1, prestart + i - poststart + 1, poststart, i);
+                    node.right = imp(pre, post, prestart + i - poststart + 2, preend, i+1, postend);                    
+                }
+            }            
+        }
+        return node;
+    }
+        
+}
+</PRE>
+
+</BODY>
+</HTML>

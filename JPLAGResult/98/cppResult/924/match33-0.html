@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>400_fd_zjf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>400_fd_zjf.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; fairCandySwap(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
+        int m = A.size();
+        int n = B.size();
+        int sum = 0;</B></FONT>
+        int suma = 0;
+        int sumb = 0;
+        for (auto&amp; a : A) {
+            suma+=a;
+        }
+        for (auto&amp; b : B) {
+            sumb+=b;
+        }
+        sum = (suma+sumb)/2;
+        if (sum &gt; suma) {
+            return find(B, A, sum-suma, true);
+        } else {
+            return find(A, B, sum-sumb, false);
+        }
+    }
+    
+    vector&lt;int&gt; find(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B, int k, bool ok) {
+        vector&lt;int&gt; res;
+        unordered_set&lt;int&gt; seta;
+        for (auto&amp; e:A) {
+            seta.insert(e);
+        }
+        for(auto&amp; e:B) {
+            if (seta.find(e+k) != seta.end()) {
+                if (ok) {
+                    res.push_back(e);
+                    res.push_back(e+k);
+                } else {
+                    res.push_back(e+k);
+                    res.push_back(e);
+                }
+                return res;
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

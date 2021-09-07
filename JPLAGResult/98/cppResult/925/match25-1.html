@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_foxspy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>115_foxspy.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    TreeNode* constructFromPrePost(vector&lt;int&gt;&amp; pre, vector&lt;int&gt;&amp; post) {
+        if(pre.size() == 0 &amp;&amp; post.size() == 0){
+           return NULL;
+        }
+        if(pre.size() == 1 &amp;&amp; post.size() == 1){</B></FONT>
+           TreeNode *root = new TreeNode(pre[0]);
+           return root;
+        }
+        else{
+           TreeNode *root = new TreeNode(pre[0]);
+           int lnode = pre[1];
+           int len;
+           for(len = 0; len &lt; post.size() - 1; len++){
+               if(post[len] == lnode){
+                  break;
+               }
+           }
+           vector&lt;int&gt; lpre(pre.begin() + 1, pre.begin() + 2 + len);
+           vector&lt;int&gt; lpos(post.begin(), post.begin() + len + 1);
+           TreeNode *lroot = constructFromPrePost(lpre,lpos);
+           vector&lt;int&gt; rpre(pre.begin() + 2 + len,pre.end());
+           vector&lt;int&gt; rpos(post.begin() + len + 1,post.end() - 1);
+           TreeNode *rroot = constructFromPrePost(rpre,rpos);
+           root-&gt;left = lroot;
+           root-&gt;right = rroot;
+           return root;
+         }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

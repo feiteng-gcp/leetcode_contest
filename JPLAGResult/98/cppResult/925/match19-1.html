@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_bigelephant29.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_bigelephant29.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    TreeNode* helper(vector&lt;int&gt;&amp; pre, int l1, int r1, vector&lt;int&gt;&amp; post, int l2, int r2) {
+        if(l1 &gt; r1 || l2 &gt; r2) return NULL;</B></FONT>
+        TreeNode *result = new TreeNode(pre[l1]);
+        if(l1 == r1) return result;
+        if(pre[l1+1] == post[r2-1]) {
+            result-&gt;left = helper(pre, l1+1, r1, post, l2, r2-1);
+            result-&gt;right = NULL;
+            return result;
+        }
+        int sppre = -100, sppost = -100;
+        for(int i = l2 ; i &lt;= r2 ; i++) {
+            if(post[i] == pre[l1+1]) {
+                sppost = i;
+                break;
+            }
+        }
+        for(int i = l1 ; i &lt;= r1 ; i++) {
+            if(pre[i] == post[r2-1]) {
+                sppre = i;
+                break;
+            }
+        }
+        result -&gt; left = helper(pre, l1+1, sppre-1, post, l2, sppost);
+        result -&gt; right = helper(pre, sppre, r1, post, sppost+1, r2-1);
+        return result;
+    }
+    TreeNode* constructFromPrePost(vector&lt;int&gt;&amp; pre, vector&lt;int&gt;&amp; post) {
+        if(pre.size() == 0) return NULL;
+        return helper(pre, 0, pre.size()-1, post, 0, post.size() - 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>
