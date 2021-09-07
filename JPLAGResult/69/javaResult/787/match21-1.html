@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>2_uwi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>	class Solution {
+	    public int slidingPuzzle(int[][] board) {
+	        int[] a = new int[6];
+	        for(int<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> i = 0;i &lt; 2;i++){
+	        	for(int j = 0;j &lt; 3;j++){
+	        		a[i*3+j] = board[i][j];
+	        	}
+	        }</B></FONT>
+	        int to = encPerm(new int[]{1, 2, 3, 4, 5, 0});
+	        
+	        int[] d = new int[720];
+	        Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+	        q.add(a);
+	        Arrays.fill(d, 9999999);
+	        d[encPerm(a)] = 0;
+	        int[] dr = { 1, 0, -1, 0 };
+			int[] dc = { 0, 1, 0, -1 };
+	        while(!q.isEmpty()){
+	        	int[] cur = q.poll();
+	        	int ec = encPerm(cur);
+	        	for(int i = 0;i &lt; 6;i++){
+	        		if(cur[i] == 0){
+	        			int r = i/3, c = i % 3;
+	        			for(int k = 0;k &lt; 4;k++){
+	        				int nr = r + dr[k], nc = c + dc[k];
+<A NAME="0"></A>	        				if(nr &gt;= 0 &amp;&amp; nr &lt; 2 &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; 3){
+	        					int ne = nr*3+nc;
+	        	        		int[] nex = Arrays.copyOf(cur, 6);
+	        	        		int dum = nex[i]; nex[i] = n<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ex[ne]; nex[ne] = dum;
+	        	        		int e = encPerm(nex);
+	        	        		if(d[e] &gt; d[ec] + 1){
+	        	        			d[e] = d[ec] + 1;
+	        	        			q.add(nex);
+	        	        		}
+	        				}</B></FONT>
+	        			}
+	        		}
+	        	}
+	        }
+	        if(d[to] &gt; 99999)return -1;
+	        return d[to];
+	    }
+	    
+		public int encPerm(int[] a)
+		{
+			int n = a.length;
+			int used = 0;
+			int ret = 0;
+			for(int i = 0;i &lt; n;i++){
+				ret = ret * (n - i) + a[i] - Integer.bitCount(used &amp; ((1&lt;&lt;a[i]) - 1));
+				used |= 1&lt;&lt;a[i];
+			}
+			return ret;
+		}
+	}	
+</PRE>
+
+</BODY>
+</HTML>

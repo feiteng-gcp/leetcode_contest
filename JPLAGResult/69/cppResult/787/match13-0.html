@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>286_rohansumant.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>286_rohansumant.cpp</CENTER></H3><HR>
+<PRE>
+int dx[] = {0,0,1,-1};
+int dy[] = {1,-1,0,0};
+
+class Solution {
+public:
+    
+    string hash(vector&lt;vector&lt;int&gt;&gt; a) {
+        string ans;
+        for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) ans += to_string(a[i][j]);
+        return ans;
+    }
+    
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        priority_queue&lt;pair&lt;int,string&gt;&gt; Q;
+        Q.push({0,hash(a)});
+        set&lt;string&gt; s;
+        vector&lt;vector&lt;int&gt;&gt; b(2,vector&lt;int&gt;(3));
+        while(!Q.empty()) {
+            auto pr = Q.top(); Q.pop();
+            int cost = -pr.first;
+            string h = pr.second;
+            
+            if(h == &quot;123450&quot;) return cost;
+            if(s.find(h) != s.end()) continue;
+            s.insert(h);
+            
+            
+            for(int i=0;i&lt;6;i++) {
+<A NAME="0"></A>                b[i/3][i%3] = h[i]-'0';
+            }
+            
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int x,y;
+            for(int i=0;i&lt;2;i++) for(int j=0;j&lt;3;j++) if(b[i][j] == 0) {
+                x = i; y = j;</B></FONT>
+                break;
+            }
+            for(int i=0;i&lt;4;i++) {
+                int _x = x+dx[i], _y = y+dy[i];
+                if(_x &gt;= 0 &amp; _y &gt;= 0 &amp;&amp; _x &lt; 2 &amp;&amp; _y &lt; 3) {
+                    swap(b[x][y],b[_x][_y]);
+                    Q.push({-(cost+1),hash(b)});
+                    swap(b[x][y],b[_x][_y]);
+                }
+            }
+            
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

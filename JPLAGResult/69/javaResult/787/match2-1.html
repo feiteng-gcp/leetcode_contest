@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_XuhuiWang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_XuhuiWang.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+	private String getS(int[][] board) {
+		StringBuilder sb= new StringBuilder(&quot;&quot;);
+		for (int i = 0; i &lt;2; ++i)
+			for (int j = 0; j &lt; 3; ++j)
+				sb.append(board[i][j]);
+		return sb.toString();
+	}
+	
+	private int[][] copy(int[][] board) {
+		    int [][] myInt = new int[board.length][board[0].length];
+		    for(int i = 0; i&lt; board.length; i++){
+		        for (int j = 0; j &lt; board[0].length; j++){
+		            myInt[i][j] = board[i][j];
+		        }
+		    }
+		    return myInt;
+	}
+	
+	private boolean isIt(int[][] board) {
+		for (int i = 0; i &lt; 5; ++i) {
+			if (board[i / 3][i % 3] != i + 1)
+				return false;
+		}
+		return true;
+	}
+	private void swap(int[][] board, int pos1, int pos2) {
+		// swap if one of the pair is '0'
+		int r1 = pos1 /3 , c1 = pos1 % 3, r2 = pos2 / 3, c2 = pos2 % 3;
+		if (board[r1][c1] != 0 &amp;&amp; board[r2][c2] != 0)
+			return;
+		int tmp = board[r1][c1];
+		board[r1][c1] = board[r2][c2];
+		board[r2][c2] = tmp;
+<A NAME="0"></A>	}
+	int[][] dirs = {{0, 1}, {1, 2}, {3, 4}, {4, 5}, {0, 3}, {1, 4}, {2, 5}};
+	public int slidingPuzzle(int[][] board) {
+		Set&lt;String&gt; vi<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sited=  new HashSet&lt;&gt;();
+		Deque&lt;int[][]&gt; que = new ArrayDeque&lt;&gt;();
+		que.offer(board);
+		visited.add(getS(board));
+		int levels = 0;
+		while (!que.isEmpty()) {
+			int size = que.size();
+			for (int i = 0; i &lt; size; ++i) {
+				int[][] state = que.poll();
+<A NAME="1"></A>				if (isIt(state))</B></FONT>
+					return levels;
+				// explore neighbors
+				for (int[] dir : dirs) {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+					swap(state, dir[0], dir[1]);
+					if (!visited.contains(getS(state))) {
+						visited.add(getS(state));
+						que.offer(copy(state));
+					}
+					swap(state, dir[0], dir[1]);
+				}</B></FONT>
+			}
+			levels++;
+		}
+		return -1;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

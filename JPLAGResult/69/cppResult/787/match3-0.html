@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_pkacprzak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>55_pkacprzak.cpp</CENTER></H3><HR>
+<PRE>
+const int n = 2;
+const int m = 3;
+
+using board = vector&lt;vector&lt;int&gt;&gt;;
+
+board target = {{1,2,3},{4,5,0}};
+bool solved(const board&amp; a) {
+    return a == target;
+}
+
+int dx[] = {-1,0,1,0};
+int dy[] = {0,1,0,-1};
+class Solution {
+public:
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        set&lt;board&gt; visited;
+        deque&lt;pair&lt;board, int&gt;&gt; qu = {{a,0}};
+        while (!qu.empty()) {
+            auto a = qu.front().first;
+            int d = qu.front().second;
+            qu.pop_front();
+            if (visited.find(a) != visited.end()) continue;
+            visited.insert(a);
+            if (solved(a)) return d;
+            int x, y;
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; m; ++j) {
+                    if (a[i][j] == 0) {
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            for (int k = 0; k &lt; 4; ++k) {
+<A NAME="0"></A>                int nx = x+dx[k];
+                int ny = y+dy[k];
+                if (nx &gt;= 0 and nx &lt; n and ny &gt;= 0 and ny &lt; m) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    auto b = a;
+                    swap(b[x][y], b[nx][ny]);
+                    if (visited.find(b) == visited.end()) {
+                        qu.push_back({b, d+1});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

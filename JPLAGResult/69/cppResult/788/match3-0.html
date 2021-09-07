@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_y119777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>18_y119777.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+bool can(vector&lt;int&gt;&amp; a, int k, double d) {
+    int n = a.size();
+    for (int i = 0; i &lt; n - 1; i++) {
+        int c = floor((a[i + 1] - a[i]) / d);
+        k -= c;
+    }
+    return k &gt;= 0;
+}
+double minmaxGasDist(vector&lt;int&gt;&amp; a, int k) {
+<A NAME="0"></A>    int n = a.size();
+    sort(a.begin(), a.end());
+    int d = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; n - 1; i++) {
+        d = max(d, a[i + 1] - a[i]);
+    }
+    double left = 0, right = d;
+    while(abs(left - right) &gt; 1e-7) {
+        double mid = (left + right) / 2;</B></FONT>
+        //cout &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt;endl;
+        if(can(a, k, mid)) right = mid;
+        else left = mid;
+    }
+    return right;
+}
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_ZYCSwing.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    bool check(vector&lt;int&gt;&amp; sta, int k, double dist) {
+        int cnt = 0;
+        double pre = sta[0];
+        int next = 1;
+        while (next &lt; sta.size()) {
+            if (pre + dist &lt; sta[next]) {
+                ++cnt;
+                pre += dist;
+                if (cnt &gt; k) return false;
+            } else {
+                pre = sta[next++];
+            }
+        }
+        return true;
+    }
+public:
+    double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K) {
+        sort(stations.begin(), stations.end());
+<A NAME="0"></A>        double l = 0.0, r = 1e8;
+        while (r - l &gt; 1e-7) {
+            double mid = (l + r) / 2;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (check(stations, K, mid)) {
+                r = mid;
+            } else {
+                l = mid;
+            }
+        }
+        return l;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

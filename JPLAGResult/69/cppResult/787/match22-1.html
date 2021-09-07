@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_ZYCSwing.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    unordered_set&lt;int&gt; dp;
+    int convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int tmp = 0;
+        for (int i = 0; i &lt; 2; ++i) {
+            for (int j = 0; j &lt; 3; ++j) {
+                tmp = tmp * 10 + board[i][j];</B></FONT>
+            }
+        }
+        return tmp;
+    }
+
+    int dx[4] = {0, 0, -1, 1};
+    int dy[4] = {1, -1, 0, 0};
+public:
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        int terminal = 123450;
+        queue&lt;pair&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt;&gt; qq;
+        qq.push({board, 0});
+        while (!qq.empty()) {
+            auto cur = qq.front();
+            qq.pop();
+
+            vector&lt;vector&lt;int&gt;&gt; vv = cur.first;
+            int id = convert(vv);
+            if (id == terminal) return cur.second;
+            if (dp.find(id) != dp.end()) {
+                continue;
+            }
+            dp.insert(id);
+            int row, col;
+            bool found = false;
+            for (int i = 0; i &lt; 2; ++i) {
+                for (int j = 0; j &lt; 3; ++j) {
+                    if (vv[i][j] == 0) {
+                        found = true;
+                        row = i;
+                        col = j;
+                        break;
+                    }
+                }
+                if (found) break;
+
+            }
+
+            for (int i = 0; i &lt; 4; ++i) {
+                int x = row + dx[i];
+                int y = col + dy[i];
+
+                if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) continue;
+                swap(vv[row][col], vv[x][y]);
+                qq.push({vv, cur.second + 1});
+                swap(vv[row][col], vv[x][y]);
+            }
+        }
+
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

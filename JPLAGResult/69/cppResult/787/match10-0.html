@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>25_szp14.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int slidingPuzzle(vector&lt;vector&lt;int&gt; &gt; &amp; board)
+{
+    int ori = 0, bit = 4, r = 2, c = 3;
+    int mask = (1 &lt;&lt; bit) - 1;
+    int ans = 1 | (2 &lt;&lt; bit) | (3 &lt;&lt; (bit * 2)) | (4 &lt;&lt; (bit * 3)) | (5 &lt;&lt; (bit * 4));
+    for(int i = 0; i &lt; r; i++)
+        for(int j = 0; j &lt; c; j++)
+            ori |= board[i][j] &lt;&lt; (bit * (c * i + j));
+    map&lt;int, int&gt; tab;
+    tab[ori] = 0;
+    queue&lt;int&gt; q;
+    q.push(ori);
+    
+    const int dx[4] = {0, 0, 1, -1}, dy[4] = {1, -1, 0, 0};
+    while(!q.empty())
+<A NAME="0"></A>    {
+        int cur = q.front(); q.pop();
+        if(cur == ans) return tab[cur];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int x = 0, y = 0;
+        for(int i = 0; i &lt; r * c; i++)
+            if(((cur &gt;&gt; (bit * i)) &amp; mask) == 0)
+            {
+                x = i / c;
+                y = i % c;
+            }
+        for(int i = 0; i &lt; 4; i++)
+        {
+            int nx = x + dx[i], ny = y + dy[i];
+            if(nx &gt;= 0 &amp;&amp; nx &lt; r &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; c)
+            {
+                int nxt = cur, n = (cur &gt;&gt; (bit * (c * nx + ny))) &amp; mask;</B></FONT>
+                nxt &amp;= ~(mask &lt;&lt; (bit * (c * nx + ny)));
+                nxt |= n &lt;&lt; (bit * (c * x + y));
+                if(tab.find(nxt) == tab.end())
+                {
+                    tab[nxt] = tab[cur] + 1;
+                    q.push(nxt);
+                }
+            }
+        }
+    }
+    return -1;
+}
+};
+</PRE>
+</BODY>
+</HTML>

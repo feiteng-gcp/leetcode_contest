@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_szp14.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>25_szp14.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool checkOk(vector&lt;int&gt;&amp; s, double m, int K)
+{
+    int cnt = 0, len = (int)s.size();
+    double lastP = s[0];
+    for(int i = 0; i &lt; len; i++)
+    {
+        if(s[i] - lastP &gt; m)
+        {
+            cnt += floor((s[i] - lastP) / m);
+            lastP += m * floor((s[i] - lastP) / m);
+            i--;
+            if(cnt &gt; K) return false;
+        }
+        else lastP = max(lastP, 1.0 * s[i]);
+    }
+    return true;
+}
+
+double minmaxGasDist(vector&lt;int&gt;&amp; stations, int K)
+{
+    int len = (int)stations.size();
+    sort(stations.begin(), stations.end());
+<A NAME="0"></A>    double r = 0;
+    for(int i = 1; i &lt; len; i++)
+        r = max(1.0 * (stations[i] - stations[i - 1]), r);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    double l = 0;
+    while(r - l &gt; 5e-7)
+    {
+        double m = l + (r - l) / 2;
+        if(checkOk(stations, m, K)) r = m;
+        else l = m;
+    }
+    return l;
+}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
