@@ -285,7 +285,7 @@ def update_indexMD():
 
         contest = str(contest)
         codingLanguages = ['cpp', 'java', 'python3']
-        linkBase = 'https://feiteng-gcp.github.io/leetcode_contest/'
+        linkBase = 'https://feiteng-gcp.github.io/leetcode_contest/JPLAGResult/'
 
         linkBase += contest + '/'
 
