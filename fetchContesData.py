@@ -1,4 +1,5 @@
-import os, requests, json, pathlib, subprocess
+import os, requests, json, pathlib, subprocess, pytz
+from datetime import datetime
 
 
 # for each contest
@@ -88,7 +89,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
             print(err)
             break
 
-def parseJSON(contest):
+def parseSubmissions(contest):
 
     # print('parsing..')
 
@@ -124,7 +125,7 @@ def parseJSON(contest):
     with open(processedJSON) as file:
         processedID = json.load(file)
     # assuming 500 pages, usually around 200
-    for i in range(1, 500):
+    for i in range(1, 5):
         # try:
         Ranking_Page = Ranking_Folder + str(i) + '.json'
         Ranking_Page_JSON = {}
@@ -190,11 +191,155 @@ def loadContest():
     f.close()
     return contest
 
+def writeContest(content):
+    f = open('contest', 'w')
+    f.write(str(content))
+    f.close()
+
+
+def commit_and_pushtoGithub(file):
+
+    nyTime = pytz.timezone('America/New_York')
+    nyTime = pytz.timezone('America/New_York')
+    curTime = datetime.now(nyTime)
+    cur_time = curTime.strftime('%Y %b %d %H:%M %p %z')
+    commit_message = 'auto committed on .. ' + cur_time
+    print('Trying to push..')
+
+    push_successful = True
+    try:
+
+        subprocess.call(['git', 'add', file])
+        subprocess.call(['git', 'commit' ,'-m', commit_message])
+    # set your remote origin to https://<USERNAME>:<TOKEN>@github.com/USERNAME/PROJECT.git
+    # or use subprocess.call(['git push', MYREPO])
+    # where MYREPO = https://<USERNAME>:<TOKEN>@github.com/USERNAME/PROJECT.git
+        subprocess.call(['git' ,'push'])
+    except Exception as error:
+        push_successful = False
+        print(error)
+        pass
+
+    if push_successful:
+        print("Successful..")
+
+def jplag(contest):
+    
+    str_contest = str(contest)
+
+    cur_folder = str(pathlib.Path().resolve()) + '/Contest Submission/'
+    contest_submission_folder = cur_folder + str_contest
+    questionList = []
+    for folder in os.scandir(contest_submission_folder + '/cpp'):
+        questionList.append(folder.name)
+
+    # questionList = [str(q) for q in questionList]
+    languageList = ['java', 'cpp', 'python3']
+    languageRef = ['java19', 'c/c++', 'python3']
+
+    command1 = 'java -jar jplag-2.12.1-SNAPSHOT-jar-with-dependencies.jar -l '
+    resultFolder = ' -r ./JPLAGResult/' + str_contest + '/'
+    sourceFolder = ' -s "Contest Submission/'
+
+    for question in questionList:
+        for i in range(0, 3):
+            eachCommand = command1 + languageRef[i] + resultFolder + languageList[i] + 'Result/' + question + sourceFolder + str_contest + '/' + languageList[i] + '/' + question + '"'
+            # print(changeDirectory + eachCommand)
+            os.system(eachCommand)
+    
+def update_indexMD():
+    contestNames = []
+    for folder in os.scandir('JPLAGResult/'):
+        # path = os.path.abspath(folder) + '/'
+        # print(path)
+        if folder.is_dir() and folder.name != '.git':
+            contestNames.append(folder.name)
+
+    rowDict = {}
+    contestTimeDict = {}
+
+    rank_folder = 'Contest Ranking/'
+    submission_folder = 'Contest Submission'
+
+    for contest in contestNames:
+        try:
+            
+            # get contest crawl time
+            contest_JSON_File = rank_folder + contest + '/1.json'
+            file_stats = os.stat(contest_JSON_File)
+            lastModified = time.ctime(file_stats[stat.ST_MTIME])
+
+            # contest_finish_time = 0
+            # with open(contest_JSON_File) as file:
+            #     str_response = json.load(file)
+            #     contest_finish_time = str_response['time']
+            # if contest.startswith('CN'): continue
+            contest_submission_Path = submission_folder + '/' + contest
+
+            questionList = []
+            for folder in os.scandir(contestPath + '/cppResult'):
+                questionList.append(folder.name)
+
+            contest = str(contest)
+            codingLanguages = ['cpp', 'java', 'python3']
+            linkBase = 'https://feiteng-gcp.github.io/leetcode_contest/'
+
+            linkBase += contest + '/'
+
+            text = '\n|' + contest + '|'
+            for question in questionList:
+                question = str(question)
+                text += question
+                for codingLanguage in codingLanguages:
+                    tmpLink = linkBase + codingLanguage + 'Result/' + question + '/index.html'
+                    text += ' [' + codingLanguage + '](' + tmpLink + ')'
+                text += '|'
+            # lastModified = os.path.getctime(JPLagResultFolder + '/' + contest)
+            lastModified = datetime.fromtimestamp(lastModified).strftime('%Y/%m/%d')
+            text += str(lastModified) + '|'
+            rowDict[contest] = text
+            contestTimeDict[contest_finish_time] = contest
+        except Exception as err:
+            print("error msg... %s" % err)
+            pass
+
+
+    banner = '**Code compare results generated by [JPLag](https://github.com/jplag/jplag)**\n\n' \
+             'All comments welcomed\n\n' \
+             '|Contest|Question||||Last Crawled|\n' \
+             '|-|-|-|-|-|-|'
+
+    MDFileLocation = 'index.md'
+    f = open(MDFileLocation, 'w')
+    f.write(banner)
+    for key in sorted(rowDict.keys(), reverse = True):
+        # contestKey = contestTimeDict[key]
+        # print(contestKey)
+        f.write(rowDict[key])
+    f.close()
+
+
+
+
 if __name__ == '__main__':
 
-    contest = int(loadContest())
+    while True:
+        contest = loadContest()
+        contest_int = (int)(contest)
 
-    print(contest)
-    
-    fetchContestRankingPage(contest)
-    parseJSON(contest)
+        print(contest)
+        
+        fetchContestRankingPage(contest)
+        parseSubmissions(contest)
+        # jplag(contest)
+
+        # commit_and_pushtoGithub('JPLAGResult/' + contest)
+        commit_and_pushtoGithub('index.md')
+
+        # contest_int = contest_int + 1
+
+        writeContest(contest_int)
+
+        break   
+
+
