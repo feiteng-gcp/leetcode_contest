@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>34_yrclamb.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>34_yrclamb.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>    public String mostCommonWord(String paragraph, String[] banned) {
-        String[] ss = paragraph.split(&quot; &quot;);
-        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Set&lt;String&gt; ban = new HashSet&lt;&gt;();
-        for (String s : banned) {
-            ban.add(s.toLowerCase());
-        }
-        int max = Integer.MIN_VALUE;
-<A NAME="1"></A>        String result = &quot;&quot;</B></FONT>;
-        for (String word : ss) {
-            word = word.replaceAll(&quot;[!\\?',;\\.]&quot;, &quot;&quot;);
-            word = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>word.toLowerCase();
-            if (ban.contains(word)) {
-                continue;
-            }
-            if (!map.containsKey(word)) {
-<A NAME="2"></A>                map.put</B></FONT>(word, 0);
-            }
-            map.put(word, map.get(word) + 1);
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (map.get(word) &gt; max) {
-                max = map.get(word);
-                result = word;
-            }
-        }
-        return result;
+    public String mostCommonWord(String paragraph, String[] banned) {
+    	Map&lt;String, Integer&gt; ansMap = new HashMap&lt;String, Integer&gt;();
+    	Set&lt;String&gt; bannedWords = new HashSet&lt;String&gt;();
+    	String ansWord = &quot;&quot;;
+    	int currentMax = -1;
+    	
+    	for(String word : banned) bannedWords.add(word);
+    	for(String word : paragraph.split(&quot; &quot;, -1)) {
+    		word = word.replaceAll(&quot;[!?',;.]&quot;, &quot;&quot;);
+    		word = word.toLowerCase();
+    		//System.out.println(word);
+    		if(!bannedWords.contains(word)) {
+    			int count = 1;
+    			if(ansMap.containsKey(word)) count = ansMap.get(word) + 1;
+    			ansMap.put(word, count);
+<A NAME="0"></A>    			if(count &gt; currentMax) {
+    				currentMax = count;
+    				ansWord = word;
+    			}<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+    		}
+    	}
+    	return ansWord;
     }
+    
 }</B></FONT>
 </PRE>
 

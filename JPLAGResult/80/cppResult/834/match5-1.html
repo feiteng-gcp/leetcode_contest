@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_sunhao2017.cpp</TITLE>
+ <TITLE>6_gerwang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_sunhao2017.cpp</CENTER></H3><HR>
+<H3><CENTER>6_gerwang.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        int n = s.length() - 1;
-        vector&lt;string&gt; result;
-        for (int comma = 1; comma &lt; n - 1; comma++) {
-            string left_str = s.substr(1, comma);
-            string right_str = s.substr(comma + 1, n - comma - 1);</B></FONT>
-            vector&lt;string&gt; left = get_result(left_str), right = get_result(right_str);
-            for (auto cur_left : left) {
-                for (auto cur_right : right) {
-                    result.push_back(&quot;(&quot; + cur_left + &quot;, &quot; + cur_right + &quot;)&quot;);
-                }
+    
+    bool test(string S) {
+        int decimal=S.find('.');
+        if(decimal==string::npos) {
+            if(S[0]=='0') {
+                return S.length()==1;
             }
+            return true;
+        } else {
+            if(S.back()=='0') {
+                return false;
+            }
+            if(S[0]=='0') {
+                return S[1]=='.';
+            }
+            return true;
         }
-        return result;
     }
     
-    vector&lt;string&gt; get_result(string &amp;s) {
-        int n = s.length();
-        vector&lt;string&gt; result;
-        if (n == 1) {
-            result.push_back(s);
-        } else {
-            if (s[0] != '0') result.push_back(s);
+    vector&lt;string&gt; dfsComma(string S) {
+        vector&lt;string&gt; res;
+        if(test(S)) {
+            res.push_back(S);
         }
-        for (int dot = 0; dot &lt; n - 1; dot++) {
-            string left = s.substr(0, dot + 1), right = s.substr(dot + 1);
-            //cout &lt;&lt; left &lt;&lt; &quot; &quot; &lt;&lt; right &lt;&lt; endl;
-            string check_left = to_string(stoll(left)), check_right = to_string(stoll(right));
-            if (left == check_left &amp;&amp; check_right != &quot;0&quot;) {
-                string cur_result = left + &quot;.&quot; + right;
-                if (cur_result.back() != '0') {
-                    result.push_back(cur_result);
+        for(int i=1;i&lt;S.length();i++) {
+            string tmp=S.substr(0,i)+&quot;.&quot;+S.substr(i,S.length()-i);
+            if(test(tmp)) {
+                res.push_back(tmp);
+            }
+        }
+        return res;
+    }
+<A NAME="0"></A>    
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; res;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i+2&lt;S.length();i++) {
+            auto av=dfsComma(S.substr(1,i));
+            auto bv=dfsComma(S.substr(i+1,S.length()-i-2));
+            for(auto&amp; a:av) {
+                for(auto&amp; b:bv) {
+                    res.push_back(&quot;(&quot;+a+&quot;, &quot;+b+&quot;)&quot;);
                 }
             }
         }
-        return result;
+        return res;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

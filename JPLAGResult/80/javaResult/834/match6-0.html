@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_Dshinji.java</TITLE>
+ <TITLE>94_happybelly.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>88_Dshinji.java</CENTER></H3><HR>
+<H3><CENTER>94_happybelly.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String s) {
-        String digits = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s.substring(1,s.length()-1);
+class Solution {
+   
+    boolean allZeros(String s) {
+        for (char c : s.toCharArray())
+            if (c != '0') return false;
+        return true;
+<A NAME="0"></A>    }
+    boolean hasLeadingZero(String s) {
+        return s.charAt(0) == '0';
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    boolean hasTrailingZero(String s) {
+        return s.charAt(s.length() -1) == '0';
+    }
+
+    List&lt;String&gt; gen(String x) {</B></FONT>
         List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        
-        for(int i = 1; i &lt; digits.length(); i++) {
-            String x = digits.substring</B></FONT>(0,i);
-            String y = digits.substring(i);
-            List&lt;String&gt; valid_x = valid(x);
-            List&lt;String&gt; valid_y = valid(y);
-            
-<A NAME="1"></A>            for(int j = 0; j &lt; valid_x.size(); j++) {
-                for(int k = 0; k &lt; valid_y.size(); k++) {
-                    String coor = &quot;(&quot;+valid_x.get(j)+&quot;, &quot;+valid_y.get(k)+&quot;)&quot;;
-                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans.add(coor);
-                }
+        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        if (x.length() == 1) {
+            ans.add(x);
+<A NAME="1"></A>            return ans;
+        }
+        if (allZeros(x)) return ans;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!hasLeadingZero(x)) ans.add(x);
+        for (int i = 1; i &lt; x.length(); i++) {
+            String d = x.substring(0, i), f = x.substring(i);
+            if (hasTrailingZero</B></FONT>(f)) continue;
+            if (d.length() &gt; 1 &amp;&amp; hasLeadingZero(d)) continue;
+            String z = d + &quot;.&quot; + f;
+            if (!set.contains(z)) {
+                ans.add(z);
+                set.add(z);
             }
         }
-        
         return ans;
     }
-    
-<A NAME="2"></A>    public List&lt;String&gt; valid(String s) {
-        List&lt;String&gt; ans = new</B></FONT> ArrayList&lt;&gt;();
 
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 1; i &lt;= s.length(); i++) {
-            String p1 = s.substring(0,i);
-            String p2 = s.substring(i);
-            if((p1.length()==1) || (p1.length() &gt; 1 &amp;&amp; !p1.startsWith</B></FONT>(&quot;0&quot;))) {
-                if((p2.length() == 0) || p2.charAt(p2.length()-1) != '0') {
-                    String num = p1 + (p2.length() &gt; 0? &quot;.&quot;+p2 : &quot;&quot;);
-                    ans.add(num);
-                }
+    public List&lt;String&gt; ambiguousCoordinates(String S) {
+<A NAME="2"></A>        S = S.substring(1, S.length() - 1);
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        Set&lt;String&gt; has = new HashSet&lt;&gt;();
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; S.length(); i++) {
+            String x = S.substring(0, i), y = S.substring(i);
+            List&lt;String&gt; sx = gen(x), sy = gen</B></FONT>(y);
+            if (!sx.isEmpty() &amp;&amp; !sy.isEmpty()) {
+                for (String xx : sx)
+                    for (String yy  : sy) {
+                        String z = &quot;(&quot; + xx + &quot;, &quot; + yy + &quot;)&quot;;
+                        if (!has.contains(z)) {
+                            ans.add(z);
+                            has.add(z);
+                        }
+                    }
             }
         }
         return ans;

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>81_valgrind.java</TITLE>
+ <TITLE>59_tongtong1990.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>81_valgrind.java</CENTER></H3><HR>
+<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
@@ -28,41 +28,19 @@
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numComponents(ListNode head, int[] G) {
         Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for(int i : G){
-            set.add(i);
-        }
-        int size = 0;
-        ListNode countCurr = head;
-        while(countCurr != null){</B></FONT>
-            size++;
-            countCurr = countCurr.next;
-        }
-        int[] roots = new int[size];
-        for(int i = 0; i &lt; roots.length; i++){
-            roots[i] = i;
-        }
-        ListNode prev = null;
-        ListNode curr = head;
-        while(curr != null){
-            if(prev != null &amp;&amp; set.contains(prev.val) &amp;&amp; set.contains(curr.val)){
-                int rootA = roots[prev.val];
-                int rootB = roots[curr.val];
-                while(rootA != roots[rootA]) rootA = roots[rootA];
-                while(rootB != roots[rootB]) rootB = roots[rootB];
-                roots[rootA] = rootB;
+        for (int i = 0</B></FONT>; i &lt; G.length; i++) set.add(G[i]);
+        int result = 0;
+        boolean isValueFound = false;
+        while (head != null) {
+            if (set.contains(head.val)) isValueFound = true;
+            else {
+                if (isValueFound) result++;
+                isValueFound = false;
             }
-            prev = curr;
-            curr = curr.next;
+            head = head.next;
         }
-        Set&lt;Integer&gt; comp = new HashSet&lt;&gt;();
-        for(int i = 0; i &lt; roots.length; i++){
-            if(set.contains(i)){
-                int root = i;
-                while(root != roots[root]) root = roots[root];
-                comp.add(root);
-            }
-        }
-        return comp.size();
+        if (isValueFound) result++;
+        return result;
     }
 }
 </PRE>

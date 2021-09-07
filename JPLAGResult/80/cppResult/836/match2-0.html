@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_user9026b.cpp</TITLE>
+ <TITLE>35_QingqingXii0iii.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,86 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>45_user9026b.cpp</CENTER></H3><HR>
+<H3><CENTER>35_QingqingXii0iii.cpp</CENTER></H3><HR>
 <PRE>
-
-
+int dp[40050][50];
+bool v[40050][50];
+queue&lt;pair&lt;int,int&gt; &gt; Q;
 class Solution {
 public:
+    int N;
+    const int M = 25;
     int racecar(int target) {
-        
-        deque&lt; vector&lt;int&gt; &gt; queue;
-        queue.push_back( {0, 1, 0, 0} ); //position, speed, action(1 for A, 2 for R), steps
-        
-        unordered_map&lt;int, unordered_set&lt;int&gt; &gt; hash;
-        hash[0].insert(1);
-        
-        //set&lt; vector&lt;int&gt; &gt; hash;
-<A NAME="0"></A>        //hash.insert( {0, 1} );
-        
-        int curIndex = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (queue.size() &gt; 0 )
-        {
-            vector&lt;int&gt; cur = queue.front();
-            int pos   = cur[0];
-            int speed = cur[1];                        
-            int nextSteps = cur[3] + 1;
-            queue.pop_front();
-                                                         
-            if ( hash[pos+speed].find( speed * 2 ) == hash[pos+speed].end() &amp;&amp; abs(speed) &lt; target * 2 &amp;&amp; pos &lt; 2 * target &amp;&amp; pos &gt; 2 * -target)
-            {               </B></FONT>
-                queue.push_back( {pos + speed, speed * 2, 1, nextSteps} );
-                hash[pos+speed].insert( speed * 2 );
-                if (pos + speed == target) return nextSteps;
-            }
-            
-            //R
-            if (speed &gt; 0)
-            {
-                if ( hash[pos].find( -1 ) == hash[pos].end() )
-                {
-                    queue.push_back( {pos, -1, 2, cur[3] + 1} );
-                    hash[pos].insert( -1 );                    
+        memset(dp,0x3f,sizeof(dp));
+        memset(v,0,sizeof(v));
+        N = min(20000 + 20,4 * target);
+        dp[0 + N][1 + M] = 0;
+        Q.push(make_pair(0,1));
+        while(!Q.empty()){
+            pair&lt;int,int&gt; p = Q.front();Q.pop();
+            int u = p.first;
+            int speed = p.second;
+            //cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; speed &lt;&lt; endl;
+            if(v[u + N][speed + M]) continue;
+            v[u + N][speed + M] = 1;
+            int v,s1;
+            if(speed &gt;= 0) v = u + (1 &lt;&lt; (speed - 1)),s1 = speed + 1;
+            else v = u - (1 &lt;&lt; (-speed - 1)),s1 = speed - 1;
+            if(v &gt;= -N &amp;&amp; v &lt;= N){
+                if(dp[v + N][s1 + M] &gt; dp[u + N][speed + M] + 1){
+                    dp[v + N][s1 + M] = dp[u + N][speed + M] + 1;
+                    Q.push(make_pair(v,s1));
                 }
             }
-            else 
-            {
-                if ( hash[pos].find( 1 ) == hash[pos].end() )
-                {
-                    queue.push_back( {pos, 1, 2, cur[3] + 1} );    
-                    hash[pos].insert( 1 ); 
-                }                
-            }
-            
-            
-            //A                  
-            /*
-            if ( hash.find( {pos+speed, speed * 2} ) == hash.end() )
-            {               
-                queue.push_back( {pos + speed, speed * 2, 1, nextSteps} );
-                hash.insert( {pos+speed, speed * 2} );
-                if (pos + speed == target) return cur[3] + 1;                
-            }
-            
-            //R
-            if (speed &gt; 0)
-            {
-                if ( hash.find( {pos, -1} ) == hash.end() )
-                {
-                    queue.push_back( {pos, -1, 2, cur[3] + 1} );
-                    hash.insert( {pos, -1} );
+            v = u;
+<A NAME="0"></A>            if(speed &gt;= 0) s1 = -1;
+            else s1 = 1;
+            if(v &gt;= -N &amp;&amp; v &lt;= N){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(dp[v + N][s1 + M] &gt; dp[u + N][speed + M] + 1){
+                    dp[v + N][s1 + M] = dp[u + N][speed + M] + 1;
+                    Q.push(make_pair(v,s1));
                 }
             }
-            else 
-            {
-                if ( hash.find( {pos, 1} ) == hash.end() )
-                {
-                    queue.push_back( {pos, 1, 2, cur[3] + 1} );    
-                    hash.insert( {pos, 1} );
-                }                
-            }
-            */
-        }                
+        }
+        int ans = 1e9;
+        for(int i = 0;i &lt; 50;i++){</B></FONT>
+            ans = min(dp[target + N][i],ans);
+        }
+        return ans;
     }
 };
 </PRE>

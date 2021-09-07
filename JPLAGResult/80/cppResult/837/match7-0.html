@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>51_tfliao.cpp</TITLE>
+ <TITLE>28_zhoubowei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>51_tfliao.cpp</CENTER></H3><HR>
+<H3><CENTER>28_zhoubowei.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-	string sanitize( const string&amp; word ) {
-		string out;
-		for (char c : word) {
-			if (isalpha(c)) out += tolower(c);
-		}
-		return out;
-	}
-	
-	
 public:
-
     string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-        map&lt;string, int&gt; cnt;
-		istringstream iss(paragraph);
-		for (auto &amp; ban : banned) { cnt[ban] = -99999; }
-
-<A NAME="0"></A>		string word;
-		while ( iss &gt;&gt; word ) {
-			word = sanitize(word);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			cnt[word] += 1;
-		}
-		int best = 0;
-		string ret = &quot;&quot;;
-		for (auto&amp; it : cnt) {
-			if (it.second &gt; best) {
-				ret = it.first;
-				best = it.second;
-			}
-		}
-		return ret;
+        for (auto&amp; c : paragraph) {
+            if (c &gt;= 'A' &amp;&amp; c &lt;= 'Z') c = c - 'A' + 'a';
+        }
+        paragraph += &quot; &quot;;
+        vector&lt;string&gt; words;
+        string current;
+        for (auto&amp; c : paragraph) {
+            if (c &gt;= 'a' &amp;&amp; c &lt;= 'z') {
+                current += c;
+            } else {
+                if (!current.empty()) words.push_back(current);
+                current.clear();
+            }
+        }
+        map&lt;string, int&gt; m;
+        for (auto&amp; w : words) {
+            m[w]++;
+        }
+        for (auto&amp; b : banned) {
+<A NAME="0"></A>            m[b] = 0;
+        }
+        int maxi = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        string maxt = &quot;&quot;;
+        for (auto&amp; w : m) {
+            if (maxi &lt; w.second) {
+                maxi = w.second;
+                maxt = w.first;
+            }
+        }
+        return maxt;
     }
 };</B></FONT>
 </PRE>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_qwnjc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_qwnjc.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; res;
+        int n = S.length();
+        if (n &lt; 4) {
+            return res;
+        }
+        // cout &lt;&lt; stof(&quot;000.0&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stof(&quot;00.01&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stof(&quot;00.010&quot;) &lt;&lt; &quot; &quot; &lt;&lt; stoi(&quot;0001121130&quot;)&lt;&lt; endl;
+        string s = S.substr(1, n - 2);
+        n = s.length();
+        for (int i = 0; i &lt; n - 1; ++i) {
+            string s1 = s.substr(0, i + 1);
+<A NAME="0"></A>            string s2 = s.substr(i + 1);
+            
+            auto nums1 = parse(s1);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto nums2 = parse(s2);
+            if (nums1.size() &gt; 0 &amp;&amp; nums2.size() &gt; 0) {
+                for (auto&amp; n1 : nums1) {
+                    for (auto&amp; n2 : nums2) {
+                        res.emplace_back(&quot;(&quot; + n1 + &quot;, &quot; + n2 + &quot;)&quot;);
+                    }
+                }
+            }
+        }</B></FONT>
+        return res;
+    }
+
+private:
+    vector&lt;string&gt; parse(const string&amp; s) {
+        int n = s.length();
+        if (n == 0) {
+            return {};
+        }
+        vector&lt;string&gt; res;
+        for (int i = 0; i &lt; n - 1; ++i) {
+            auto t1 = s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1);
+            int zeros = 0;
+            for (int j = t1.length() - 1; j &gt;=0; --j) {
+                if (t1[j] == '0') {
+                    ++zeros;
+                    continue;
+                } 
+                break;
+            }
+            if (zeros &gt; 0) {
+                break;
+            }
+            
+            zeros = 0;
+            for (int j = 0; j &lt; t1.length(); ++j) {
+                if (t1[j] == '0') {
+                    ++zeros;
+                    continue;
+                }
+                break;
+            }
+            if (zeros &gt; 0 &amp;&amp; i != 0) {
+                break;
+            }
+            res.emplace_back(t1);
+//             auto t2 = to_string(stold(t1));
+//             if (t2.length() &gt; t1.length()) {
+//                 t2 = t2.substr(0, t1.length());
+//             }
+//             cout &lt;&lt; &quot;parse &quot; &lt;&lt; t1 &lt;&lt; &quot; &quot; &lt;&lt; t2 &lt;&lt; endl;
+//             if (t1 == t2) {
+                
+//                 res.emplace_back(t1);
+//             }
+        }
+        
+        auto t = to_string(stoi(s));
+        if (t == s) {
+            res.emplace_back(t);
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ChaouS.cpp</TITLE>
+ <TITLE>23_szfck.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>23_szfck.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-       
-        for(int i = 0; i &lt; paragraph.size(); ++i){
-            if(isalpha(paragraph[i])){
-                paragraph[i] = tolower(paragraph[i]);
-            }
-        }
-       // cout &lt;&lt; paragraph &lt;&lt; endl;
-        
-<A NAME="0"></A>        set&lt;string&gt; bans(banned.begin() , banned.end());
-        
-        map&lt;string,int&gt; mp;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = paragraph.size();
-        int last = -1;
-        for(int i = 0; i &lt;= n; ++i){
-            if(i == n || !islower(paragraph[i]) ){
-                if(last != -1){
-                    string word = paragraph.substr(last , i - last);</B></FONT>
-                  //  cout &lt;&lt; word&lt;&lt; endl;
-                    if(bans.find(word) == bans.end()){
-                        mp[word]++;
-                    }     
-                }
-                last = -1;
-            }else{
-                if(last == -1){
-                    last = i;
-                }
-            }
-        }
-        string ret;
-        int ans = -1;
-        for(auto it : mp){
-            if(it.second &gt; ans){
-                ans = it.second;
-                ret = it.first;
-            }
-        }
-        return ret;
+    int n;
+    int pos;
+    string str;
+    char getChar(char ch) {
+        if (ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') return ch - 'A' + 'a';
+        return ch;
     }
-};
+    
+    bool isChar(char ch) {
+        if (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z' || ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') return true;
+        return false;
+    }
+    string get() {
+        string res = &quot;&quot;;
+        while (pos &lt; n &amp;&amp; !isChar(str[pos])) pos++;
+        while (pos &lt; n &amp;&amp; isChar(str[pos])) {
+            res += getChar(str[pos++]);
+        }
+        return res;
+    }
+    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
+        map&lt;string, int&gt; mp;
+        set&lt;string&gt; S(banned.begin(), banned.end());
+        str = paragraph;
+        n = str.size();
+        pos = 0;
+        while (true) {
+            string tmp = get();
+            if (tmp == &quot;&quot;) break;
+            if (S.find(tmp) == S.end()) {
+                mp[tmp]++;
+            }
+<A NAME="0"></A>            
+        }
+        string ans = &quot;&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for (auto p : mp) {
+            if (p.second &gt; cnt) {
+                cnt = p.second;
+                ans = p.first;
+            }
+        }
+        return ans;
+    }
+    
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

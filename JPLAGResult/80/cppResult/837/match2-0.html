@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>51_tfliao.cpp</TITLE>
+ <TITLE>35_QingqingXii0iii.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>51_tfliao.cpp</CENTER></H3><HR>
+<H3><CENTER>35_QingqingXii0iii.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-	string sanitize( const string&amp; word ) {
-		string out;
-		for (char c : word) {
-			if (isalpha(c)) out += tolower(c);
-		}
-		return out;
-	}
-	
-	
 public:
-
     string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-        map&lt;string, int&gt; cnt;
-		istringstream iss(paragraph);
-		for (auto &amp; ban : banned) { cnt[ban] = -99999; }
-
-		string word;
-		while ( iss &gt;&gt; word ) {
-			word = sanitize(word);
-<A NAME="0"></A>			cnt[word] += 1;
-		}
-		int best = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		string ret = &quot;&quot;;
-		for (auto&amp; it : cnt) {
-			if (it.second &gt; best) {
-				ret = it.first;
-				best = it.second;
-			}
-		}
-		return ret;
+        string s = paragraph;
+        for(int i = 0;i &lt; s.length();i++){
+            if(s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z') s[i] += 32;
+        }
+        map&lt;string,int&gt; mp;
+        for(int i = 0;i &lt; s.length();){
+            int j = i;
+            while(j + 1 &lt; s.length() &amp;&amp; (s[j + 1] &lt;= 'z' &amp;&amp; s[j + 1] &gt;= 'a'))
+                j++;
+            string word = &quot;&quot;;
+            for(int k = i;k &lt;= j;k++)
+                word += s[k];
+            bool flag = 1;
+            for(int k = 0;k &lt; banned.size();k++)
+                if(banned[k] == word){
+                    flag = 0;
+                }
+            if(flag) mp[word]++;
+            i = j + 1;
+            while(i &lt; s.length() &amp;&amp; (s[i] &gt; 'z' || s[i] &lt; 'a'))
+<A NAME="0"></A>                i++;
+        }
+        string ans = &quot;&quot;;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 0;
+        for(auto x:mp){
+            if(x.second &gt; ret){
+                ans = x.first;
+                ret = x.second;
+            }
+        }
+        return ans;
     }
 };</B></FONT>
 </PRE>

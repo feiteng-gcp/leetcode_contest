@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>64_vonzcy.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>64_vonzcy.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String S) {
+<A NAME="0"></A>    public List&lt;String&gt; ambiguousCoordinates(String S) {
         S = S.substring(1, S.length() - 1);
-<A NAME="0"></A>        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; left = allowed(S.substring(0, i));
-            List&lt;String&gt; right = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>allowed(S.substring(i));
-            for (String ls : left) {
-                for (String rs : right) {
-                    result.add(&quot;(&quot; + ls + &quot;, &quot; + rs + &quot;)&quot;);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.length(); i++) {
+            String first = S.substring(0, i);
+            String second = S.substring(i);
+            List&lt;String&gt; front = distribute(first);
+            List&lt;String&gt; back = distribute(second);
+            for (String f : front) {
+                for (String b : back) {
+<A NAME="1"></A>                    res.add</B></FONT>(&quot;(&quot; + f + &quot;, &quot; + b + &quot;)&quot;);
                 }
             }
-        }
-        return result;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return res;
     }
-    private List&lt;String&gt; allowed(String s) {
-        int l = s.length()</B></FONT>;
-        char[] cs = s.toCharArray();
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        if (cs[0] == '0' &amp;&amp; cs[l - 1] == '0') {
-            if (l == 1) {
-                result.add(&quot;0&quot;);
-            }
-            return result;
+    
+    private List&lt;String&gt; distribute(String num) {
+        List&lt;String&gt; res = new</B></FONT> ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; num.length(); i++) {
+            String front = num.substring(0, i);
+            String second = num.substring(i);
+            if ((front.charAt(0) != '0' || front.length() == 1) 
+               &amp;&amp; !second.endsWith(&quot;0&quot;)) {
+                res.add(front + &quot;.&quot; + second);
+            }    
         }
-        if (cs[0] == '0') {
-            result.add(&quot;0.&quot; + s.substring(1));
-            return result;
+        if (num.length() &gt; 0 &amp;&amp; (num.charAt(0) != '0' || num.length() == 1)) {
+            res.add(num);
         }
-        if (cs[l - 1] == '0') {
-            result.add(s);
-            return result;
-        }
-        result.add(s);
-        for (int i = 1; i &lt; l; i++) {
-            result.add(s.substring(0, i) + '.' + s.substring(i));
-        }
-        return result;
+        return res;
     }
 }
 </PRE>

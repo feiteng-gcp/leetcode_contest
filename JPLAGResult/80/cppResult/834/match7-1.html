@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>75_kangbb.cpp</TITLE>
+ <TITLE>16_cuiaoxiang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,80 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>75_kangbb.cpp</CENTER></H3><HR>
+<H3><CENTER>16_cuiaoxiang.cpp</CENTER></H3><HR>
 <PRE>
+typedef long long int64;
 class Solution {
 public:
-    vector&lt;string&gt; posa;
-    vector&lt;string&gt; posb;
-    
-    bool check(string d, string f) {
-        int nd = d.length();
-        int nf = f.length();
-        if (nd == 0) return false;
-
-        double dp = atof(d.c_str());
-        double fp = atof(f.c_str());
-
-        // digital part has ending 0
-        if (f.back() == '0') return false;
-
-        if (dp &gt; 0 &amp;&amp; d[0] == '0') return false;
-
-        // decimal part has leading zeros 00 or 000, etc
-        if (nd &gt; 1 &amp;&amp; d[0] == '0' &amp;&amp; d[1] == '0') return false;
+    bool valid(const string&amp; s, int p) {
+        int n = s.size();
+        int64 L = 0, R = 0;
+        for (int i = 0; i &lt; p; ++i) {
+            L = L * 10 + (s[i] - '0');
+        }
+        for (int i = p; i &lt; n; ++i) {
+            R = R * 10 + (s[i] - '0');
+        }
+        if (p &lt; n) {
+            if (R % 10 == 0) return false;
+        }
+        if (p &gt; 1) {
+<A NAME="0"></A>            int64 ten = 1;
+            for (int i = 0; i &lt; p - 1; ++i) ten *= 10;
+            if (L &lt; ten) return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
         return true;
     }
-
-    void search(string a, vector&lt;string&gt;&amp; pos) {
-        int n = a.length();
-        if (check(a, string(&quot;&quot;))) pos.push_back(a);
-
-        string d;
-        string f;
-        for (int i = 1; i &lt; n; ++i) {
-            d = a.substr(0, i);
-            f = a.substr(i);
-            // cout &lt;&lt; d &lt;&lt; &quot; &quot; &lt;&lt; f &lt;&lt; endl;
-            if (check(d, f)) {
-                string newa = d + '.' + f;
-                pos.push_back(newa);
-<A NAME="0"></A>                //    cout &lt;&lt; newa &lt;&lt; endl;
-            }
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-    }
     vector&lt;string&gt; ambiguousCoordinates(string S) {
-        // commas, decimal points, and spaces
-        vector&lt;string&gt; sol;
-        int n = S.length();
-        string a;
-        string b;
-        for (int i = 1; i &lt; n - 2; ++i) {
-            a = S.substr(1, i);
-            b = S.substr(1 + i, n - i - 2);</B></FONT>
-            cout &lt;&lt; &quot;[&quot; &lt;&lt; a &lt;&lt; &quot;] [&quot; &lt;&lt; b &lt;&lt; &quot;]&quot; &lt;&lt; endl;
-            search(a, posa);
-            search(b, posb);
-
-            if (posa.size() &amp;&amp; posb.size()) {
-                for (auto sa: posa) {
-                    for (auto sb: posb) {
-                        string tmp;
-                        tmp += &quot;(&quot;;
-                        tmp += sa;
-                        tmp += &quot;, &quot;;
-                        tmp += sb;
-                        tmp += &quot;)&quot;;
-                        sol.push_back(tmp);
+        S.pop_back();
+        S = S.substr(1);
+        int n = S.size();
+        vector&lt;string&gt; ret;
+        for (int p = 1; p &lt; n; ++p) {</B></FONT>
+            string u = S.substr(0, p);
+            string v = S.substr(p, n - p);
+            for (int i = 1; i &lt;= u.size(); ++i) {
+                if (!valid(u, i)) continue;
+                for (int j = 1; j &lt;= v.size(); ++j) {
+                    if (!valid(v, j)) continue;
+                    string cur = &quot;(&quot;;
+                    cur += u.substr(0, i);
+                    if (i != u.size()) {
+                        cur += &quot;.&quot; + u.substr(i, u.size() - i);
                     }
+                    cur += &quot;, &quot;;
+                    cur += v.substr(0, j);
+                    if (j != v.size()) {
+                        cur += &quot;.&quot; + v.substr(j, v.size() - j);
+                    }
+                    cur += &quot;)&quot;;
+                    ret.push_back(cur);
                 }
-
             }
-            posa.clear();
-            posb.clear();
         }
-        return sol;
+        return ret;
     }
 };
 </PRE>

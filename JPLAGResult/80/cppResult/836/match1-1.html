@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_NicoSensei.cpp</TITLE>
+ <TITLE>13_ChaouS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,74 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>38_NicoSensei.cpp</CENTER></H3><HR>
+<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
 <PRE>
+const int maxN = 100005;
+const int maxK = 21;
+const int mod = (int)1e9 + 7;
+const int inf = (int)1e9;
+
+int d[2 * maxN + 5][2][maxK];
+
+
 class Solution {
-<A NAME="0"></A>public:
-    int racecar(int target) {
-        if (target == 0) return 0;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;pair&lt;int, int&gt;, int&gt; steptable;
-        queue&lt;int&gt; posque;
-        queue&lt;int&gt; vque;
-        
-        posque.push(0);
-        vque.push(1);
-        steptable[make_pair(0, 1)] = 0;
-        while (!posque.empty()) {
-            int p = posque.front();
-            int v = vque.front();
-            // cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; v &lt;&lt; endl;
-            posque.pop(), vque.pop();
-            
-            int t = steptable[make_pair(p, v)];</B></FONT>
-            
-            if (p + v == target) {
-                return t + 1;
-            }
-            
-            if (p + v &lt;= 2 * target + 1 &amp;&amp; p &gt;= -target - 1) {
-                auto it = steptable.find(make_pair(p + v, 2 * v));
-                if (it == steptable.end()) {
-                    steptable[make_pair(p + v, 2 * v)] = t + 1;
-                    posque.push(p + v);
-                    vque.push(2 * v);
-                }
-            }
-            
-            if (p &lt;= 2 * target + 1 &amp;&amp; p &gt;= -target - 1) {
-                if (v &gt; 0) v = -1;
-                else v = 1;
-                
-                auto it = steptable.find(make_pair(p, v));
-                if (it == steptable.end()) {
-                    steptable[make_pair(p, v)] = t + 1;
-                    posque.push(p);
-                    vque.push(v);
+public:
+        int racecar(int target) {
+
+        for(int i = 0; i &lt; 2 * maxN + 5; ++i){
+            for(int sign = 0; sign &lt; 2; sign++){
+                for(int k = 0; k &lt; maxK; ++k){
+                    d[i][sign][k] = inf;
                 }
             }
         }
-        return -1;
+        d[0 + maxN][0][0] = 0;
+        queue&lt;int&gt; q;
+        q.push(0);
+<A NAME="0"></A>        q.push(0);
+        q.push(0);
+        while(!q.empty()){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int position = q.front(); q.pop();
+            int sign = q.front(); q.pop();
+            int power = q.front(); q.pop();
+
+
+            int val = d[position + maxN][sign][power];
+            if(position == target){
+                return val;
+            }
+            sign = (sign == 0 ? +1 : -1);</B></FONT>
+            int velocity = 1 &lt;&lt; power;
+
+          //  bug3(position , sign , velocity);
+
+            int newposition = position + sign * velocity;
+            int newpower = power + 1;
+            int newsign = (sign == +1 ? 0 : 1);
+            //bug3(newposition , newpower , newsign);
+
+            if(newposition &gt; -maxN &amp;&amp; newposition &lt; maxN)
+            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
+                d[newposition + maxN][newsign][newpower] = 1 + val ;
+                q.push(newposition);
+                q.push(newsign);
+                q.push(newpower);
+            }
+
+            newposition = position;
+            newpower = 0;
+            newsign = (sign == +1 ? 1 : 0);
+            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
+                d[newposition + maxN][newsign][newpower] = 1 + val;
+                q.push(newposition);
+                q.push(newsign);
+                q.push(newpower);
+            }
+        }
+        return 0;
     }
+
+
 };
 </PRE>
 </BODY>

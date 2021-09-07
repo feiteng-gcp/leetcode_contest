@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>76_facelessvoid.cpp</TITLE>
+ <TITLE>5_cchao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>76_facelessvoid.cpp</CENTER></H3><HR>
+<H3><CENTER>5_cchao.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
  *     ListNode *next;
-<A NAME="0"></A> *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     int numComponents(ListNode* head, vector&lt;int&gt;&amp; G) {
-        set&lt;int&gt; st(G.begin(), G.end());
-        int cnt = 0;
-        bool in_set = false;
-        while(head != NULL){
-            if(st.count(head-&gt;val)){
-                if(!in_set){
-                    in_set = true;
-                    ++cnt;
-                }
-            }else{
-                in_set = false;
+        set&lt;int&gt; s;
+<A NAME="0"></A>        for (int x : G) s.insert(x);
+        bool vis = false;
+        int ans = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (ListNode *x = head; x != nullptr; x = x-&gt;next) {
+            bool t = s.count(x-&gt;val) != 0;
+            if (!vis &amp;&amp; t) {
+                ans++;
             }
-            
-            head = head-&gt;next;
+            vis = t;
         }
-        
-        return cnt;
+        return ans;
     }
 };</B></FONT>
 </PRE>

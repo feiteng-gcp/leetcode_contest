@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>88_Dshinji.java</TITLE>
+ <TITLE>34_yrclamb.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>88_Dshinji.java</CENTER></H3><HR>
+<H3><CENTER>34_yrclamb.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String s) {
-        String digits = s.substring(1,s.length()-1);
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        
-        for(int i = 1; i &lt; digits.length(); i++) {
-            String x = digits.substring(0,i);
-            String y = digits.substring(i);
-            List&lt;String&gt; valid_x = valid(x);
-            List&lt;String&gt; valid_y = valid</B></FONT>(y);
-            
-            for(int j = 0; j &lt; valid_x.size(); j++) {
-                for(int k = 0; k &lt; valid_y.size(); k++) {
-                    String coor = &quot;(&quot;+valid_x.get(j)+&quot;, &quot;+valid_y.get(k)+&quot;)&quot;;
-                    ans.add(coor);
-                }
-            }
-        }
-        
-        return ans;
+class Solution {
+    public List&lt;String&gt; ambiguousCoordinates(String S) {
+    	List&lt;String&gt; ans = new ArrayList&lt;String&gt;();
+    	S = S.replaceAll(&quot;[()]&quot;, &quot;&quot;);
+<A NAME="0"></A>    	
+    	for(int i = 1; i &lt; S.length(); i++) {
+    		String A = S.substring(0, i);
+    		String B = S.substring(i, S.length()<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>);
+    		
+    		List&lt;String&gt; As = availableStrings(A);
+    		List&lt;String&gt; Bs = availableStrings(B);    		
+    		for(String AA: As) {
+    			for(String BB: Bs) {
+    				ans.add(&quot;(&quot; + AA + &quot;, &quot; + BB + &quot;)&quot;);
+    			}
+    		}
+    	}
+    	return ans;
     }
     
-<A NAME="0"></A>    public List&lt;String&gt; valid(String s) {
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 1; i &lt;= s.length(); i++) {
-            String p1 = s.substring(0,i);
-            String p2 = s.substring(i);
-            if((p1.length</B></FONT>()==1) || (p1.length() &gt; 1 &amp;&amp; !p1.startsWith(&quot;0&quot;))) {
-                if((p2.length() == 0) || p2.charAt(p2.length()-1) != '0') {
-                    String num = p1 + (p2.length() &gt; 0? &quot;.&quot;+p2 : &quot;&quot;);
-                    ans.add(num);
-                }
-            }
-        }
-        return ans;
+    private List&lt;String&gt; availableStrings(String S){
+    	List&lt;String&gt; ans = new Ar</B></FONT>rayList&lt;String&gt;();
+    	if(!S.startsWith(&quot;0&quot;) || S.equals(&quot;0&quot;)) ans.add(S);
+    	for(int i = 1; i &lt; S.length(); i++) {
+    		String A = S.substring(0, i);
+    		String B = S.substring(i, S.length());
+    		if(A.startsWith(&quot;0&quot;) &amp;&amp; !A.equals(&quot;0&quot;)) continue;
+    		if(B.endsWith(&quot;0&quot;)) continue;
+    		ans.add(A + &quot;.&quot; + B);
+    	}
+    	
+    	return ans;
+    	
     }
 }
 </PRE>

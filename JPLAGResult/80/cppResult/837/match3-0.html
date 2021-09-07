@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>86_wyh9346.cpp</TITLE>
+ <TITLE>32_qwnjc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>86_wyh9346.cpp</CENTER></H3><HR>
+<H3><CENTER>32_qwnjc.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
     string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int first = 0;
-        map&lt;string, int&gt; words;
-        string word = &quot;&quot;;
-        for (int i = 0; i &lt; paragraph.size(); i++) {
-            if (isalpha(paragraph[i])) {
-                if (!isalpha(paragraph[first])) {
-                    first = i;</B></FONT>
+        unordered_set&lt;string&gt; bannedWords;
+        for (auto&amp; s : banned) {
+            bannedWords.insert(s);
+        }
+        
+        int n = paragraph.size();
+        string p = paragraph;
+        unordered_map&lt;string,int&gt; cnts;
+        for (int i = 0; i &lt; n; ++i) {
+            if (isalpha(p[i])) {
+                int j = i;
+                while (i + 1 &lt; n &amp;&amp; isalpha(p[i + 1])) {
+                    ++i;
                 }
-                word += tolower(paragraph[i]);
-            } else {
-                if (isalpha(paragraph[first])) {
-                    words[word]--;
-                    first = i;
-                    word = &quot;&quot;;
+                string t;
+                while (j &lt;= i) {
+                    t += tolower(p[j++]);
                 }
+                ++cnts[t];
+            }
+<A NAME="0"></A>        }
+        
+        string res;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int cnt = 0;
+        
+        for (auto&amp; p : cnts) {
+            if (bannedWords.count(p.first) == 0 &amp;&amp; p.second &gt; cnt) {
+                res = p.first;
+                cnt = p.second;
             }
         }
-        if (word != &quot;&quot;) {
-            words[word]--;
-        }
-        set&lt;string&gt; st(banned.begin(), banned.end());
-        vector&lt;pair&lt;int, string&gt; &gt; arr;
-        for (auto item : words) {
-            arr.push_back(make_pair(item.second, item.first));
-            // cout &lt;&lt; item.first &lt;&lt; &quot;\t&quot; &lt;&lt; item.second &lt;&lt; endl;
-        }
-        sort(arr.begin(), arr.end());
-        for (auto item : arr) {
-            if (st.find(item.second) == st.end()) {
-                return item.second;
-            }
-        }
-        return &quot;&quot;;
+        
+        return res;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

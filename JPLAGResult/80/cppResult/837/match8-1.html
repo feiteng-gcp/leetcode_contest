@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_sunhao2017.cpp</TITLE>
+ <TITLE>23_szfck.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_sunhao2017.cpp</CENTER></H3><HR>
+<H3><CENTER>23_szfck.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string get_str(string &amp;str, int &amp;cur, int n) {
-        string result;
-        while (cur &lt; n &amp;&amp; isalpha(str[cur])) {
-            result.push_back(tolower(str[cur++]));
-        }
-        return result;
+    int n;
+    int pos;
+    string str;
+    char getChar(char ch) {
+        if (ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') return ch - 'A' + 'a';
+        return ch;
     }
-    string mostCommonWord(string str, vector&lt;string&gt;&amp; banned) {
-        unordered_map&lt;string, int&gt; count;
-        unordered_set&lt;string&gt; blacklist;
-        for (auto cur : banned) {
-            blacklist.insert(cur);
-        }
-        int n = str.length(), cur = 0;
-        while (cur &lt; n) {
-            while (cur &lt; n &amp;&amp; !isalpha(str[cur])) cur++;
-            if (cur &lt; n) {
-<A NAME="0"></A>                string cur_str = get_str(str, cur, n);
-                if (blacklist.count(cur_str) == 0) count[cur_str]++;
-            }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        int max_count = 0;
-        string result = &quot;&quot;;
-        for (auto cur : count) {
-            if (cur.second &gt; max_count) {
-                max_count = cur.second;
-                result = cur.first;
-            }
-        }
-        return result;
+    
+    bool isChar(char ch) {
+        if (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z' || ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') return true;
+        return false;
     }
+    string get() {
+        string res = &quot;&quot;;
+        while (pos &lt; n &amp;&amp; !isChar(str[pos])) pos++;
+        while (pos &lt; n &amp;&amp; isChar(str[pos])) {
+            res += getChar(str[pos++]);
+        }
+        return res;
+    }
+    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
+        map&lt;string, int&gt; mp;
+        set&lt;string&gt; S(banned.begin(), banned.end());
+        str = paragraph;
+        n = str.size();
+        pos = 0;
+        while (true) {
+            string tmp = get();
+            if (tmp == &quot;&quot;) break;
+            if (S.find(tmp) == S.end()) {
+                mp[tmp]++;
+            }
+<A NAME="0"></A>            
+        }
+        string ans = &quot;&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for (auto p : mp) {
+            if (p.second &gt; cnt) {
+                cnt = p.second;
+                ans = p.first;
+            }
+        }
+        return ans;
+    }
+    
 };</B></FONT>
 </PRE>
 </BODY>

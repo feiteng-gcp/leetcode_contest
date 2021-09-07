@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>86_wyh9346.cpp</TITLE>
+ <TITLE>27_jariasf.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>86_wyh9346.cpp</CENTER></H3><HR>
+<H3><CENTER>27_jariasf.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+<A NAME="0"></A> *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
-<A NAME="0"></A>public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
     int numComponents(ListNode* head, vector&lt;int&gt;&amp; G) {
-        set&lt;int&gt; st(G.begin(), G.end());
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0, flag = false;
-        while (head != NULL) {
-            if (st.find(head-&gt;val) != st.end()) {
-                if (!flag) {
-                    flag = true;
-                    res++;
+        unordered_set&lt;int&gt; hash;
+        
+        for( int i = 0 ; i &lt;G.size() ; ++i ) hash.insert(G[i]);
+        
+        ListNode* current = head;</B></FONT>
+        int lastVal = -1;
+        int result = 0;
+        while( current != NULL ){            
+            /*if( lastVal == -1 ){
+                lastVal = current -&gt; val;
+            }else{
+                if( hash.find( current -&gt; val ) != hash.end() ){
+                    
                 }
-            } else {</B></FONT>
-                flag = false;
-            }
-            head = head-&gt;next;
+            }*/
+            if( hash.find( current -&gt; val ) != hash.end() ){
+                result++;
+                while( current != NULL &amp;&amp; hash.find( current -&gt; val ) != hash.end() ){
+                    current = current -&gt; next;
+                }
+            }else current = current -&gt; next;
         }
-        return res;
+        return result;
+        
     }
 };
 </PRE>

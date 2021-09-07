@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>98_y119777.cpp</TITLE>
+ <TITLE>9_Fr0benius.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>98_y119777.cpp</CENTER></H3><HR>
+<H3><CENTER>9_Fr0benius.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+#define pb push_back
+#define fst first
+#define snd second
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+template&lt;typename T&gt; using min_queue=priority_queue&lt;T,vector&lt;T&gt;,greater&lt;T&gt; &gt;;
+
+const ll MOD=1e9+7;
+
 class Solution {
 public:
-pair&lt;bool, vector&lt;string&gt;&gt; work(string &amp; s) {
-    if(s.size() == 1) {
-        return {1, {s} };
-    }
-    int n = s.size();
-    if(s[0] == '0') {
-        if(s[n - 1] == '0') {
-            return {0, {} };
-        }
-        return {1, {&quot;0.&quot; + s.substr(1)  } };
-    }
-    if(s[n - 1] == '0') {
-        return {1, {s} };
-    }
+  vector&lt;string&gt; poss(string s){
+    int N=s.size();
     vector&lt;string&gt; res;
-    res.push_back(s);
-    for (int i = 1; i &lt; n; i++) {
-        string cur = s.substr(0, i) + &quot;.&quot; + s.substr(i);
-        res.push_back(cur);
-<A NAME="0"></A>    }
-    return {1, res};
-}
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>vector&lt;string&gt; ambiguousCoordinates(string s) {
-    int n = s.size();
-    vector&lt;string&gt; res;
-    for (int i = 2; i &lt; n - 1; i++) {
-        string x = s.substr(1, i - 1), y = s.substr(i, n - 1 - i);
-        pair&lt;bool, vector&lt;string&gt;&gt; a = work(x), b = work(y);</B></FONT>
-        if(a.first &amp;&amp; b.first) {
-            for (string x1 : a.second) {
-                for (string x2 : b.second) {
-                    stringstream ss;
-                    ss &lt;&lt; &quot;(&quot; &lt;&lt; x1 &lt;&lt; &quot;, &quot; &lt;&lt; x2 &lt;&lt; &quot;)&quot;;
-                    res.push_back(ss.str());
-                }
-            }
-        }
+    if(!(N&gt;=2 &amp;&amp; s[0]=='0')) res.pb(s);
+    for(int i=0;i&lt;N-1;i++){
+      if(i&gt;=1 &amp;&amp; s[0]=='0') continue;
+      if(s[N-1]=='0') continue;
+      res.pb(s.substr(0,i+1)+&quot;.&quot;+s.substr(i+1));
     }
     return res;
-}
-};
+  }
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+      string s=S.substr(1,S.size()-2);
+      int N=s.size();
+<A NAME="0"></A>      vector&lt;string&gt; res;
+      for(int i=0;i&lt;N-1;i++){
+	auto v1=poss(s.substr(0,i+1));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	auto v2=poss(s.substr(i+1));
+	for(auto&amp; s1:v1){
+	  for(auto&amp; s2:v2){
+	    res.pb(&quot;(&quot;+s1+&quot;, &quot;+s2+&quot;)&quot;);
+	  }
+	}
+      }
+      return res;
+    }
+};</B></FONT>
+
 </PRE>
 </BODY>
 </HTML>

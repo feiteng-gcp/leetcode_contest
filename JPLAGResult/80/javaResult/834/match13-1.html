@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_tongtong1990.java</TITLE>
+ <TITLE>64_vonzcy.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>59_tongtong1990.java</CENTER></H3><HR>
+<H3><CENTER>64_vonzcy.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
         S = S.substring(1, S.length() - 1);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
         for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; firstNum = getCord(S.substring(0, i));
-            List&lt;String&gt; secondNum = getCord(S.substring(i, S.length()));
-            for (String first : firstNum) {
-                for (String second : secondNum) {
-                    result.add(&quot;(&quot; + first + &quot;, &quot; + second + &quot;)&quot;);
+<A NAME="0"></A>            String first = S.substring(0, i);
+            String second = S.substring(i);
+            List&lt;String&gt; front = distribute(first);
+            List&lt;String&gt; back = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>distribute(second);
+            for (String f : front) {
+                for (String b : back) {
+                    res.add(&quot;(&quot; + f + &quot;, &quot; + b + &quot;)&quot;);
                 }
             }
         }
-<A NAME="1"></A>        return result;
+        return res;
     }
-    private static List&lt;String&gt; getCord(String s) {
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; s.length(); i++) {
-<A NAME="0"></A>            String firstPart = s.substring(0, i+1);
-            String secondPart = s.substring</B></FONT>(i+1, s.length());
-            if (noLeadingZero(firstPart) &amp;&amp; noTailingZero(secondPart)) {
-                String resultStr = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>secondPart.isEmpty() ? firstPart : firstPart + &quot;.&quot; + secondPart;
-                result.add(resultStr);
-            }
+    
+    private List&lt;String&gt; distribute(String num) {
+        List&lt;String&gt; res = new</B></FONT> ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; num.length(); i++) {
+            String front = num.substring(0, i);
+            String second = num.substring(i);
+            if ((front.charAt(0) != '0' || front.length() == 1) 
+               &amp;&amp; !second.endsWith(&quot;0&quot;)) {
+                res.add(front + &quot;.&quot; + second);
+            }    
         }
-        return result;
-    }
-    private static boolean noLeadingZero(String s) {</B></FONT>
-        if (s.length() &lt;= 1) return true;
-        return s.charAt(0) != '0';
-    }
-    private static boolean noTailingZero(String s) {
-        if (s.isEmpty()) return true;
-        return s.charAt(s.length() - 1) != '0';
+        if (num.length() &gt; 0 &amp;&amp; (num.charAt(0) != '0' || num.length() == 1)) {
+            res.add(num);
+        }
+        return res;
     }
 }
 </PRE>

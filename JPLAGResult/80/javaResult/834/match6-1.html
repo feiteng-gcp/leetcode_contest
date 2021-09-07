@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>71_yangxk15.java</TITLE>
+ <TITLE>40_fcxjlsw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>71_yangxk15.java</CENTER></H3><HR>
+<H3><CENTER>40_fcxjlsw.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public List&lt;String&gt; ambiguousCoordinates(String S) {
-        S = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.substring(1, S.length() - 1);
-        
+class Solution {
+<A NAME="2"></A>    public List&lt;String&gt; ambiguousCoordinates(String S) {
         List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        
-        for (int i = 0; i + 1 &lt; S.length(); i++) {
-            List&lt;String&gt; A = show</B></FONT>(S.substring(0, i + 1));
-<A NAME="1"></A>            List&lt;String&gt; B = show(S.substring(i + 1));
-            for (String a : A) {
-                for (String b : B) {
-                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.add(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
+        S = S.substring(1, S.length()-1);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=1;i&lt;S.length();i++) {
+            String left = S.substring(0, i);
+            String right = S.substring(i);
+            List&lt;String&gt; leftList = getCoor(left);
+            List&lt;String&gt; rightList = getCoor</B></FONT>(right);
+            for(String l : leftList) {
+                for(String r: rightList) {
+                    res.add(&quot;(&quot;+l+&quot;, &quot;+r+&quot;)&quot;);
                 }
             }
         }
-        
         return res;
     }
+<A NAME="1"></A>    
+    private List&lt;String&gt; getCoor(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(isValidInt(S)) res.add(S);
+        for(int i=1;i&lt;S.length();i++) {
+            String left = S.substring(0, i);
+            String right = S.substring(i);
+            if(isValidInt</B></FONT>(left) &amp;&amp; isValidDeci(right)) {
+                res.add(left + &quot;.&quot; + right);
+<A NAME="0"></A>            }
+        }
+        return res;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
     
-    private List&lt;String&gt; show(String s) {
-        List&lt;String&gt; l = new</B></FONT> ArrayList&lt;&gt;();
-        
-        if (s.length() == 1) {
-            l.add(s);
-            return l;
-        }
-        
-        if (s.charAt(0) != '0') {
-<A NAME="2"></A>            l.add(s);
-        }
-        
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i + 1 &lt; s.length(); i++) {
-            String a = s.substring(0, i + 1);
-            String b = s.substring(i + 1);
-            if ((a.charAt(0) != '0' || a.length() == 1) &amp;&amp; b.charAt</B></FONT>(b.length() - 1) != '0') {
-                l.add(a + &quot;.&quot; + b);
-            }
-        }
-        
-        return l;
+    private boolean isValidInt(String s) {
+        return s.charAt(0)!='0' || s.length()==1;
+    }
+    
+    private boolean isValidDeci(String s) {</B></FONT>
+        return Integer.parseInt(s)!=0 &amp;&amp; s.charAt(s.length()-1)!='0';
     }
 }
 </PRE>

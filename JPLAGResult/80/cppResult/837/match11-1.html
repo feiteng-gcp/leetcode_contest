@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>35_QingqingXii0iii.cpp</TITLE>
+ <TITLE>19_hamlet_fiis.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>35_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>19_hamlet_fiis.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-        string s = paragraph;
-        for(int i = 0;i &lt; s.length();i++){
-            if(s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z') s[i] += 32;
+    string mostCommonWord(string s, vector&lt;string&gt;&amp; banned) {
+        for(int i=0;i&lt;s.size();i++){
+            s[i]=tolower(s[i]);
+            if( !(s[i]&gt;='a' &amp;&amp; s[i]&lt;='z') ){
+                s[i]=' ';
+            }    
         }
-        map&lt;string,int&gt; mp;
-        for(int i = 0;i &lt; s.length();){
-            int j = i;
-            while(j + 1 &lt; s.length() &amp;&amp; (s[j + 1] &lt;= 'z' &amp;&amp; s[j + 1] &gt;= 'a'))
-                j++;
-            string word = &quot;&quot;;
-            for(int k = i;k &lt;= j;k++)
-                word += s[k];
-            bool flag = 1;
-            for(int k = 0;k &lt; banned.size();k++)
-                if(banned[k] == word){
-                    flag = 0;
+        
+        map&lt;string,int&gt;m;
+        istringstream is(s);
+        string aux;
+        while(is&gt;&gt;aux){
+            m[aux]++;
+        }
+        
+        vector&lt;pair&lt;string,int&gt; &gt;v(m.begin(),m.end());
+        int maxi=-1;
+        set&lt;string&gt;S;
+        
+        for(int i=0;i&lt;banned.size();i++){
+            for(int j=0;j&lt;banned[i].size();j++)
+                banned[i][j]=tolower(banned[i][j]);
+            S.insert(banned[i]);
+        }
+<A NAME="0"></A>        
+        string ans=&quot;&quot;;
+        for(int i=0;i&lt;v.size();i++){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(S.find(v[i].first)==S.end() ){
+                if(v[i].second&gt;maxi){
+                    maxi=v[i].second;
+                    ans=v[i].first;
                 }
-            if(flag) mp[word]++;
-            i = j + 1;
-            while(i &lt; s.length() &amp;&amp; (s[i] &gt; 'z' || s[i] &lt; 'a'))
-<A NAME="0"></A>                i++;
-        }
-        string ans = &quot;&quot;;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
-        for(auto x:mp){
-            if(x.second &gt; ret){
-                ans = x.first;
-                ret = x.second;
             }
         }
+        
         return ans;
     }
 };</B></FONT>

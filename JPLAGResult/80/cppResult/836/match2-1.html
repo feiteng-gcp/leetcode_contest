@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ChaouS.cpp</TITLE>
+ <TITLE>20_kasie.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,74 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>20_kasie.cpp</CENTER></H3><HR>
 <PRE>
-const int maxN = 100005;
-const int maxK = 21;
-const int mod = (int)1e9 + 7;
-const int inf = (int)1e9;
+const int N = 21e3, M = 33, O = 16, INF = 0x3f3f3f3f;
 
-int d[2 * maxN + 5][2][maxK];
-
+int dis[N][M];
 
 class Solution {
 public:
-        int racecar(int target) {
+  int racecar(int n) {
+    int s = 0;
+    static queue&lt;int&gt; q;
+    static bool inq[N][M] = {false};
+    memset(dis, 0x3f, sizeof(dis)), dis[s][O] = 0;
+    inq[s][O] = true;
+    for(q.push(s), q.push(O); !q.empty(); ) {
+      int v, u = q.front(); q.pop();
+      int y, x = q.front(); q.pop();
+      inq[u][x] = false;
 
-        for(int i = 0; i &lt; 2 * maxN + 5; ++i){
-            for(int sign = 0; sign &lt; 2; sign++){
-                for(int k = 0; k &lt; maxK; ++k){
-                    d[i][sign][k] = inf;
-                }
-            }
+      if(x &gt;= O) {
+        y = O-1;
+      } else {
+        y = O;
+      }
+      v = u;
+      if(dis[v][y] &gt; dis[u][x]+1) {
+        dis[v][y] = dis[u][x]+1;
+        if(!inq[v][y]) {
+          inq[v][y] = true;
+          q.push(v);
+          q.push(y);
         }
-        d[0 + maxN][0][0] = 0;
-        queue&lt;int&gt; q;
-<A NAME="0"></A>        q.push(0);
-        q.push(0);
-        q.push(0);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while(!q.empty()){
-            int position = q.front(); q.pop();
-            int sign = q.front(); q.pop();
-            int power = q.front(); q.pop();
+      }
 
-
-            int val = d[position + maxN][sign][power];
-            if(position == target){</B></FONT>
-                return val;
-            }
-            sign = (sign == 0 ? +1 : -1);
-            int velocity = 1 &lt;&lt; power;
-
-          //  bug3(position , sign , velocity);
-
-            int newposition = position + sign * velocity;
-            int newpower = power + 1;
-            int newsign = (sign == +1 ? 0 : 1);
-            //bug3(newposition , newpower , newsign);
-
-            if(newposition &gt; -maxN &amp;&amp; newposition &lt; maxN)
-            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
-                d[newposition + maxN][newsign][newpower] = 1 + val ;
-                q.push(newposition);
-                q.push(newsign);
-                q.push(newpower);
-            }
-
-            newposition = position;
-            newpower = 0;
-            newsign = (sign == +1 ? 1 : 0);
-            if(1 + val &lt; d[newposition + maxN][newsign][newpower]){
-                d[newposition + maxN][newsign][newpower] = 1 + val;
-                q.push(newposition);
-                q.push(newsign);
-                q.push(newpower);
-            }
+      int speed;
+      if(x &gt;= O) {
+        speed = 1 &lt;&lt; x-O;
+        y = x+1;
+      } else {
+        speed = -(1&lt;&lt;O-1-x);
+        y = x-1;
+      }
+      v = u+speed;
+<A NAME="0"></A>      if(y &lt; 0 || y &gt;= M || v &lt; 0 || v &gt;= n*2+10) continue;
+      if(dis[v][y] &gt; dis[u][x]+1) {
+        dis[v][y] = dis[u][x]+1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(!inq[v][y]) {
+          inq[v][y] = true;
+          q.push(v);
+          q.push(y);
         }
-        return 0;
+      }
     }
-
-
+    int ans = INF;
+    for(int i = 0; i &lt; M; i++) ans = min(ans, dis[n][i]);</B></FONT>
+    return ans;
+  }
 };
 </PRE>
 </BODY>

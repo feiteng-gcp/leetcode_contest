@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>86_wyh9346.cpp</TITLE>
+ <TITLE>19_hamlet_fiis.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>86_wyh9346.cpp</CENTER></H3><HR>
+<H3><CENTER>19_hamlet_fiis.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    bool valid(const string &amp;s, bool flag) {
-        if (s.length() &gt;= 2 &amp;&amp; s[0] == '0' &amp;&amp; s[1] != '.') {
-            return false;
+    
+    bool correct(string s){
+        if(s.size()==0)return 0;
+        
+        if(s.size()&gt;=2){
+            if(s[0]=='0' &amp;&amp; s[1]=='0')return 0;
+            if(s[0]=='0' &amp;&amp; s[1]!='.')return 0;
         }
-        if (s.back() == '.') {
-            return false;
-        }
-        if (flag &amp;&amp; s.back() == '0') {
-            return false;
-        }
-        return true;
+        bool haspoint=0;
+        
+        for(int i=0;i&lt;s.size();i++)
+            if(s[i]=='.')haspoint=1;
+        
+        if(haspoint &amp;&amp; s[s.size()-1]=='0')return 0;
+        return 1;
     }
-    vector&lt;string&gt; getValid(const string &amp;s) {
-        // cout &lt;&lt; &quot;s = &quot; &lt;&lt; s &lt;&lt; endl;
-        vector&lt;string&gt; res;
-        if (valid(s, false)) {
-            res.push_back(s);
+    
+    vector&lt;string&gt;g(string s){
+        vector&lt;string&gt;dev;    
+        
+        if(correct(s))dev.push_back(s);
+        
+        for(int i=1;i&lt;s.size();i++){
+            string h=&quot;&quot;;
+            h+=s.substr(0,i);
+            h+=&quot;.&quot;;
+            h+=s.substr(i);
+            if(correct(h))dev.push_back(h);
         }
-        for (int i = 0; i &lt; s.length() - 1; i++) {
-            if (valid(s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1), true)) {
-                res.push_back(s.substr(0, i + 1) + &quot;.&quot; + s.substr(i + 1));
+        
+        return dev;
+<A NAME="0"></A>    }
+    
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;string&gt;f(string a,string b){
+        vector&lt;string&gt;x= g(a);
+        vector&lt;string&gt;y= g(b);
+        vector&lt;string&gt;dev;
+        
+        for(int i=0;i&lt;x.size();i++){
+            for(int j=0;j&lt;y.size();j++){</B></FONT>
+                string h=&quot;&quot;;
+                h+=&quot;(&quot;;
+                h+=x[i];
+                h+=&quot;, &quot;;
+                h+=y[j];
+                h+=&quot;)&quot;;
+                dev.push_back(h);
             }
         }
-        return res;
+        
+        return dev;
     }
-<A NAME="0"></A>    vector&lt;string&gt; ambiguousCoordinates(string S) {
-        S = S.substr(1, S.length() - 2);
-        vector&lt;string&gt; res;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; S.length() - 1; i++) {
-            vector&lt;string&gt; lvalid = getValid(S.substr(0, i + 1));
-            vector&lt;string&gt; rvalid = getValid(S.substr(i + 1));
-            for (string l : lvalid) {
-                for (string r : rvalid) {
-                    res.push_back(&quot;(&quot; + l + &quot;, &quot; + r + &quot;)&quot;);
-                }
-            }
+    
+    vector&lt;string&gt; ambiguousCoordinates(string s) {
+        s=s.substr(1,s.size()-2);
+        vector&lt;string&gt;v;
+        for(int i=1;i&lt;s.size();i++){
+            string a=s.substr(0,i);
+            string b=s.substr(i);
+            vector&lt;string&gt;x=f(a,b);
+            for(int j=0;j&lt;x.size();j++)v.push_back(x[j]);
         }
-        return res;
+        return v;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

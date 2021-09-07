@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_wangzi6147.java</TITLE>
+ <TITLE>40_fcxjlsw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>60_wangzi6147.java</CENTER></H3><HR>
+<H3><CENTER>40_fcxjlsw.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public List&lt;String&gt; ambiguousCoordinates(String S) {
-        S = S.substring(1, S.length() - 1);
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        for (int i = 1; i &lt; S.length(); i++) {
-            List&lt;String&gt; left = allowed(S.substring(0, i));
-            List&lt;String&gt; right = allowed(S.substring(i));
-            for (String ls : left) {
-                for (String rs : right) {
-                    result.add(&quot;(&quot; + ls + &quot;, &quot; + rs + &quot;)&quot;);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        S = S.substring(1, S.length()-1);
+        for(int i=1;i&lt;S.length();i++) {
+<A NAME="0"></A>            String left = S.substring(0, i);
+            String right = S.substring(i);
+            List&lt;String&gt; leftList = getCoor(left);
+            List&lt;String&gt; rightList = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>getCoor(right);
+            for(String l : leftList) {
+                for(String r: rightList) {
+                    res.add(&quot;(&quot;+l+&quot;, &quot;+r+&quot;)&quot;);
                 }
             }
         }
-        return result;
+        return res;
     }
-    private List&lt;String&gt; allowed(String s) {
-        int l = s.length()</B></FONT>;
-        char[] cs = s.toCharArray();
-        List&lt;String&gt; result = new LinkedList&lt;&gt;();
-        if (cs[0] == '0' &amp;&amp; cs[l - 1] == '0') {
-            if (l == 1) {
-                result.add(&quot;0&quot;);
-            }
-            return result;
+    
+    private List&lt;String&gt; getCoor(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        if(isValidInt(S)) res.add(S);
+        for(int i=1;i&lt;S.length();i++) {
+            String left = S.substring</B></FONT>(0, i);
+<A NAME="1"></A>            String right = S.substring(i);
+            if(isValidInt(left) &amp;&amp; isValidDeci(right)) {
+                res.add(left + &quot;.&quot; + right);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        if (cs[0] == '0') {
-            result.add(&quot;0.&quot; + s.substring(1));
-            return result;
-        }
-        if (cs[l - 1] == '0') {
-            result.add(s);
-            return result;
-        }
-        result.add(s);
-        for (int i = 1; i &lt; l; i++) {
-            result.add(s.substring(0, i) + '.' + s.substring(i));
-        }
-        return result;
+        return res;
+    }
+    
+    private boolean isValidInt(String s) {</B></FONT>
+        return s.charAt(0)!='0' || s.length()==1;
+    }
+    
+    private boolean isValidDeci(String s) {
+        return Integer.parseInt(s)!=0 &amp;&amp; s.charAt(s.length()-1)!='0';
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>70_bernardosulzbach.cpp</TITLE>
+ <TITLE>41_yysys.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,75 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>70_bernardosulzbach.cpp</CENTER></H3><HR>
+<H3><CENTER>41_yysys.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; g(string s) {
-        vector&lt;string&gt; candidates{s};
-        for (size_t i = 1; i &lt; s.size(); i++) {
-            auto copy = s;
-            copy.insert(begin(copy) + i, '.');
-            candidates.push_back(copy);
+    
+    vector&lt;string&gt; work(string s) {
+        vector&lt;string&gt; ans;
+        
+        if (s[0] != '0') {
+            ans.push_back(s);
         }
-        vector&lt;string&gt; good;
-        for (auto candidate : candidates) {
-            // Cannot start with a 0 if not &quot;0.&quot;.
-            if (candidate[0] == '0') {
-                if (candidate.size() &gt; 1 &amp;&amp; candidate[1] != '.') {
-                    continue;
+        
+        if (s[0] == '0' &amp;&amp; s[1] == '\0') {
+            ans.push_back(s);
+        }
+        
+        string res;
+        for (int i = 1; i &lt; s.size(); i++) {
+            res.clear();
+            for (int j = 0; j &lt; i; j++) {
+                res = res + s[j];
+            }
+            res = res +&quot;.&quot;;
+            
+            int flag = 0;
+            for (int j = i; j &lt; s.size(); j++) {
+                res = res + s[j];
+                if (s[j] != '0') flag = 1;
+            }
+            
+            if (flag == 1) {
+                if ((i &gt;= 2 &amp;&amp; res[0] == '0') || res[s.size()] == '0') {
+                    
+                }
+                else {
+                    ans.push_back(res);
                 }
             }
-            // Cannot end with &quot;0&quot; if there is a period.
-            if (candidate.back() == '0' &amp;&amp; count(begin(candidate), end(candidate), '.') == 1) {
-                continue;
-            }
-            good.push_back(candidate);
         }
-        return good;
+        
+        
+        return ans;
     }
-    vector&lt;string&gt; ambiguousCoordinates(string s) {
-        vector&lt;string&gt; answers;
-        s.erase(s.begin());
-<A NAME="0"></A>        s.pop_back();
-        for (size_t i = 1; i &lt; s.size(); i++) {
-            const auto va = g(s.substr(0, i));
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            const auto vb = g(s.substr(i));
-            for (auto a : va) {
-                for (auto b : vb) {
-                    answers.push_back(&quot;(&quot; + a + &quot;, &quot; + b + &quot;)&quot;);
+    
+    vector&lt;string&gt; ambiguousCoordinates(string S) {
+        vector&lt;string&gt; ans, res1, res2;
+        
+        string s1, s2;
+        for (int i = 2; i &lt; S.size() - 1; i++) {
+            
+            s1.clear();
+            s2.clear();
+            
+<A NAME="0"></A>            for (int j = 1; j &lt; i; j++) s1 = s1 + S[j];
+            for (int j = i; j &lt; S.size()-1; j++) s2 = s2 + S[j];
+            
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            res1 = work(s1);
+            res2 = work(s2);
+            
+            for (int i = 0; i &lt; res1.size(); i++) {
+                for (int j = 0; j &lt; res2.size(); j++) {</B></FONT>
+                    ans.push_back(&quot;(&quot; + res1[i] + &quot;, &quot; + res2[j] + &quot;)&quot;);
                 }
             }
         }
-        return answers;
-    }</B></FONT>
+        
+        
+        return ans;
+    }
 };
 </PRE>
 </BODY>

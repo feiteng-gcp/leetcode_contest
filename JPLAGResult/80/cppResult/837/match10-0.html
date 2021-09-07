@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>51_tfliao.cpp</TITLE>
+ <TITLE>38_NicoSensei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>51_tfliao.cpp</CENTER></H3><HR>
+<H3><CENTER>38_NicoSensei.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-	string sanitize( const string&amp; word ) {
-		string out;
-		for (char c : word) {
-			if (isalpha(c)) out += tolower(c);
-		}
-		return out;
-	}
-	
-	
+    
 public:
-
     string mostCommonWord(string paragraph, vector&lt;string&gt;&amp; banned) {
-        map&lt;string, int&gt; cnt;
-		istringstream iss(paragraph);
-		for (auto &amp; ban : banned) { cnt[ban] = -99999; }
-
-		string word;
-		while ( iss &gt;&gt; word ) {
-			word = sanitize(word);
-<A NAME="0"></A>			cnt[word] += 1;
-		}
-		int best = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		string ret = &quot;&quot;;
-		for (auto&amp; it : cnt) {
-			if (it.second &gt; best) {
-				ret = it.first;
-				best = it.second;
-			}
-		}
-		return ret;
+        string mark = &quot;!?',;. &quot;;
+        vector&lt;bool&gt;markset(300, false);
+        for (char ch : mark) markset[ch] = true;
+        
+        unordered_set&lt;string&gt; bannedset(banned.begin(), banned.end());
+        map&lt;string, int&gt; wordtable;
+        
+        int N = paragraph.size();
+        int i = 0;
+        while (i &lt; N) {
+            int j = i;
+            string s = &quot;&quot;;
+            
+            while (j &lt; N &amp;&amp; !markset[paragraph[j]]) {
+                char ch = paragraph[j++];
+                if (ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') ch = ch - 'A' + 'a';
+                s.push_back(ch);
+            }
+            if (!s.empty()) {
+                auto it = wordtable.find(s);
+                if (it == wordtable.end()) {
+                    wordtable[s] = 1;
+                } else ++it-&gt;second;
+            }
+            i = j + 1;
+        }
+        
+        string max_wd;
+<A NAME="0"></A>        int max_cnt = -1;
+        for(const auto &amp; itr : wordtable) {
+            auto it = bannedset.find(itr.first);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (it == bannedset.end()) {
+                if (itr.second &gt; max_cnt) {
+                    max_cnt = itr.second;
+                    max_wd = itr.first;
+                }
+            }
+        }
+        return max_wd;
     }
 };</B></FONT>
 </PRE>

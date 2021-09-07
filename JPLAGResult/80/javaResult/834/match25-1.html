@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	private List&lt;String&gt; getList(String string) {
+		
+		List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+		int i , length = string.length();
+		// possible integer
+		if (string.charAt(0) == '0' &amp;&amp; string.length() &gt; 1) {
+			;
+		} else {
+			ans.add(string);
+		}
+		// possible float number
+		for (i = 0;i &lt; length - 1;i ++) {
+			String s1 = string.substring(0 , i + 1);
+			String s2 = string.substring(i + 1);
+			// start with zero
+			if (s1.charAt(0) == '0' &amp;&amp; s1.length() &gt; 1) {
+				continue;
+			}
+			// end with zero
+			if (s2.charAt(s2.length() - 1) == '0') {
+<A NAME="1"></A>				continue;
+			}
+			ans.add(String.format(&quot;%s.%s&quot; , s1 , s2));
+		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		return ans;
+		
+	}
+
+    public List&lt;String&gt; ambiguousCoordinates(String S) {
+     
+    	List&lt;String&gt; ans = new Ar</B></FONT>rayList&lt;&gt;();
+    	String string = S.substring(1 , S.length() - 1);
+<A NAME="0"></A>    	int i;
+    	for (i = 0;i &lt; string.length() - 1;i ++) {
+    		String s1 = string.substring(0 , i + 1);
+    		String s2 = string.sub<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>string(i + 1);
+    		List&lt;String&gt; list1 = getList(s1) , list2 = getList(s2);
+    		for (String string1 : list1) {
+    			for (String string2 : list2) {
+    				ans.add(String.format(&quot;(%s, %s)</B></FONT>&quot; , string1 , string2));
+    			}
+    		}
+    	}
+    	return ans;
+    	
+    }
+	
+}
+</PRE>
+
+</BODY>
+</HTML>
