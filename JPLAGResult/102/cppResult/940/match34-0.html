@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>422_AmSlow.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>422_AmSlow.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int totalFruit(vector&lt;int&gt;&amp; tree) {
+        int res = 0;
+        int n = tree.size();
+        unordered_map&lt;int, int&gt; m; // value -- last index
+        int count = 0;</B></FONT>
+        int prevIndex = -1;
+        for (int i=0; i&lt;tree.size(); ++i) {
+            int type = tree[i];
+            if (m.count(type) == 0) {
+                if (count == 2) {
+                    // need to remove one
+                    //cout &lt;&lt; i &lt;&lt; &quot; - &quot; &lt;&lt; prevIndex &lt;&lt; endl;
+                    res = max(res, i-prevIndex-1);
+                    int maxIndex = INT_MAX;
+                    for (auto kv : m) {
+                        maxIndex = min(maxIndex, kv.second);
+                    }
+                    int key = tree[maxIndex];
+                    prevIndex = maxIndex;
+                    m.erase(key);
+                    --count;
+                }
+                ++count;
+            }
+            m[type] = i;
+        }
+        //cout &lt;&lt; n -1 &lt;&lt; &quot;-&quot; &lt;&lt; prevIndex &lt;&lt; endl;
+        res = max(res, n - prevIndex - 1);
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

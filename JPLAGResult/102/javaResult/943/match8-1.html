@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>391_pumpkin3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>391_pumpkin3.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int sumSubarrayMins(int[] A) {
+        if(A == null || A.length == 0) {
+            return 0;
+<A NAME="0"></A>        }
+        int n = A.length;
+        Deque&lt;Integer&gt; d = new ArrayDeque&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] rightFirstLow = new int[n];
+        for(int i = n - 1; i &gt;= 0; i--) {
+            while(!d.isEmpty() &amp;&amp; A[d.peekFirst()] &gt;= A[i]) {
+                d.removeFirst();
+            }</B></FONT>
+            if(d.isEmpty()) {
+                rightFirstLow[i] = n;
+            } else {
+                rightFirstLow[i] = d.peekFirst();
+            }
+            d.addFirst(i);
+        }
+        
+        int[] dp = new int[n]; //dp[i] is the sum of all subarray minimums from i to n
+        for(int i = n - 1; i &gt;= 0; i--) {
+            dp[i] = (rightFirstLow[i] - i) * A[i];
+            if(rightFirstLow[i] &lt; n) {
+                dp[i] += dp[rightFirstLow[i]];
+            }
+        }
+        long sum = 0;
+        for(int i = 0; i &lt; n; i++) {
+            sum += dp[i];
+        }
+        return (int) (sum % 1000000007);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

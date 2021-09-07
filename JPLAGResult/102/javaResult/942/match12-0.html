@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>46_ZihanWang98.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>46_ZihanWang98.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int superpalindromesInRange(String L, String R) {
+            Set&lt;Integer&gt; inc = new HashSet&lt;&gt;();
+            long l = Long.parseLong(L);
+            long r = Long.parseLong(R);
+            List&lt;Integer&gt; all = getP((int) Math.sqrt(r) + 5);
+            int er = 0;
+            for (int i = 0; i &lt; all.size(); i++) {
+                int t = all.get(i);
+<A NAME="0"></A>                if (inc.contains(t)) continue;
+                inc.add(t);
+                long y = (long) t * t;
+                if (l &lt;= y &amp;&amp; y &lt;= r &amp;&amp; <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>isP((long) t * t)) {
+                    er ++;
+                }
+            }
+            return er;
+        }</B></FONT>
+
+
+        public boolean isP(long v) {
+            String s = Long.toString(v);
+            for (int i = 0; i &lt; s.length() / 2; i++) {
+                if (s.charAt(i) != s.charAt(s.length() - 1 - i)) return false;
+            }
+            return true;
+        }
+
+        public List&lt;Integer&gt; getP(int max) {
+            List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+            for (int i = 0; i &lt; 10; i++) {
+                int number = i;
+                res.add(revCopy(number));
+                res.add(revCopy1(number));
+                for (int j = 0; j &lt; 10; j++) {
+                    if (number == 0) continue;
+                    int number1 = number * 10 + j;
+                    res.add(revCopy(number1));
+                    res.add(revCopy1(number1));
+                    if (res.get(res.size() - 2) &gt; max) continue;
+                    for (int k = 0; k &lt; 10; k++) {
+                        if (number1 == 0) continue;
+                        int number2 = number1 * 10 + k;
+                        res.add(revCopy(number2));
+                        res.add(revCopy1(number2));
+                        if (res.get(res.size() - 2) &gt; max) continue;
+                        for (int l = 0; l &lt; 10; l++) {
+                            if (number2 == 0) continue;
+                            int number3 = number2 * 10 + l;
+                            res.add(revCopy(number3));
+                            res.add(revCopy1(number3));
+                            if (res.get(res.size() - 2) &gt; max) continue;
+                            for (int m = 0; m &lt; 10; m++) {
+                                if (number3 == 0) continue;
+                                int number4 = number3 * 10 + m;
+                                res.add(revCopy1(number4));
+                            }
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+        public int revCopy(int a) {
+            String s = Integer.toString(a);
+            StringBuilder sb = new StringBuilder();
+            sb.append(s);
+            StringBuilder sb2 = new StringBuilder(sb);
+            sb2.reverse();
+            sb.append(sb2);
+
+            return Integer.parseInt(sb.toString());
+        }
+
+        public int revCopy1(int a) {
+            String s = Integer.toString(a);
+            StringBuilder sb = new StringBuilder();
+            sb.append(s);
+            StringBuilder sb2 = new StringBuilder(sb);
+            sb2.reverse();
+            sb.append(sb2.substring(1));
+
+            return Integer.parseInt(sb.toString());
+        }
+}
+</PRE>
+
+</BODY>
+</HTML>

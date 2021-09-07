@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>13_facelessvoid.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>13_facelessvoid.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int totalFruit(vector&lt;int&gt;&amp; tree) {
+        int n = tree.size();
+        unordered_map&lt;int, int&gt; mp;
+        int ans = 0;
+        // while(i &lt; n) {
+        //     int j = i;
+        //     while(j &lt; n &amp;&amp; mp.size() &lt; 3) mp[tree[j++]]++;
+        //     ans = max(ans, j - i);
+        //     while(i &lt; j &amp;&amp; mp.size() &gt; 2) {
+        //         if(--mp[tree[i]] == 0) mp.erase(tree[i]);
+        //         i++;
+        //     }
+        // }
+        for(int i=0, j=0;i&lt;n;i++) {</B></FONT>
+            mp[tree[i]]++;
+            while(mp.size() &gt; 2) {
+                if(--mp[tree[j]] == 0) mp.erase(tree[j]);
+                j++;
+            }
+            ans = max(ans, i - j + 1);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

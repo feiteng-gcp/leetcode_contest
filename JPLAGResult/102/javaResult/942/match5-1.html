@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>202_YYGATECH.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>202_YYGATECH.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public static boolean isPalindrome(long n) {
+		String s = String.valueOf(n);
+		int l = 0;
+		int r = s.length()-1;
+		while (l &lt; r) {
+<A NAME="0"></A>			if (s.charAt(l) != s.charAt(r)) return false;
+			l++;
+			r--;
+		}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		return true;
+	}
+	
+	public static long nextPalindrome(long n) {
+		String s = String.valueOf(n);</B></FONT>
+		int l = s.length();
+		int left, right;
+		if (l % 2 == 0) {
+			left = l / 2 - 1;
+			right = left +1;
+		} else {
+			left = l / 2;
+			right = left;
+		}
+		StringBuilder sb = new StringBuilder(s);
+		while (true) {
+			if (left == -1) break;
+			
+			char lchar = s.charAt(left);
+            // System.out.println(&quot;lchar: &quot; + lchar);
+			if (lchar - '0' != 9) {
+				char nchar = (char) (lchar + 1);
+                // System.out.println(&quot;nchar: &quot; + nchar);
+				sb.replace(left, left+1, nchar + &quot;&quot;);
+				sb.replace(right, right+1, nchar + &quot;&quot;);
+				break;
+			} else {
+				sb.replace(left, left+1, &quot;0&quot;);
+				sb.replace(right, right+1, &quot;0&quot;);
+                left--;
+                right++;
+			}
+		}
+		if (left == -1) {
+			sb.replace(l-1, l, &quot;1&quot;);
+			sb.insert(0, &quot;1&quot;);
+		}
+        long next = Long.parseLong(sb.toString());
+        // System.out.println(&quot;curr: &quot; + n + &quot; next: &quot; + next);
+		return next;
+	}
+	
+	public static int superpalindromesInRange(String L, String R) {
+		double ldouble = Double.parseDouble(L);
+		double rdouble = Double.parseDouble(R);
+        long l = (long) Math.ceil(Math.sqrt(ldouble));
+        long r = (long) Math.floor(Math.sqrt(rdouble));
+        int ct = 0;
+        while (!isPalindrome(l) &amp;&amp; l &lt;= r) l++;
+        
+        while (l &lt;= r) {
+        	if (isPalindrome(l * l)) {
+                // System.out.println(&quot;l: &quot; + l + &quot; ct: &quot; + ct);
+                ct++;
+            }
+            l = nextPalindrome(l);
+        }
+        return ct;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

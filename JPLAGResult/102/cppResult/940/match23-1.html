@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_hopflink.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>242_hopflink.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int totalFruit(vector&lt;int&gt;&amp; tree) {
+        map&lt;int,int&gt; m;
+        int cnt = 0;
+        int n = tree.size();
+        
+        int l=0;
+        int r=0;</B></FONT>
+        m[tree[l]]=1;
+        cnt = 1;
+        int ans = 1;
+        while(r&lt;n-1){
+            r++;
+            if(m.find(tree[r])==m.end() || m[tree[r]]==0){             
+                cnt++;
+            }
+            m[tree[r]]++;
+            
+            while(cnt&gt;2){
+                m[tree[l]]--;
+                if(m[tree[l]]==0)
+                    cnt--;
+                l++;
+            }
+            //cout&lt;&lt;l&lt;&lt;' '&lt;&lt;r&lt;&lt;endl;
+            ans=max(ans, r-l+1);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_Raych.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>44_Raych.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int superpalindromesInRange(String L, String R) {
+        long l = Long.parseLong(L);
+        long r = Long.parseLong(R);
+        int[] res = new int[1];
+        dfs(&quot;&quot;, l, r, res);
+        for (int i = 0; i &lt; 10; i++) {
+            String next = &quot;&quot; + i;
+            dfs(next, l, r, res);
+        }
+        return res[0];
+    }
+    
+    private void dfs(String s, long l, long r, int[] res) {
+        if (s.length() &gt; 9) {
+            return;
+        }
+        
+        if (s.length() &gt; 0 &amp;&amp; s.charAt(0) != 0) {
+            long num = Long.parseLong(s);
+            num *= num;
+            if (num &gt;= l &amp;&amp; num &lt;= r &amp;&amp; isPalindrome(&quot;&quot; + num)) {
+                res[0]++;
+            }
+        }
+        
+        for (int i = 0; i &lt; 10; i++) {
+<A NAME="0"></A>            String next = &quot;&quot; + i + s + i;
+            dfs(next, l, r, res);
+        }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private boolean isPalindrome(String s) {
+        int head = 0;
+        int tail = s.length() - 1;
+        while (head &lt; tail) {
+            if (s.charAt(head) != s.charAt(tail)) {
+                return false;
+            }
+            head++;
+            tail--;
+        }
+        return true;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

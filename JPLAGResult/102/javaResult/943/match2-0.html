@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>388_KitKattie.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>388_KitKattie.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    // public int sumSubarrayMins(int[] A) {
+    //     int n = A.length; 
+    //     int[][] dp = new int[n][n];
+    //     int rst= 0; 
+    //     for(int i=0; i&lt;n; i++){
+    //         dp[i][i] = A[i]; 
+    //         rst = (rst+A[i])%(1000000007); 
+    //     }
+    //     for(int i = 0; i&lt;n; i++){
+    //         for(int j = i+1; j&lt;n; j++){
+    //             dp[i][j] = Math.min(dp[i][j-1], A[j]);
+    //             rst =(rst + dp[i][j])%(1000000007); 
+    //         }
+    //     }
+<A NAME="0"></A>    //     return rst%(1000000007); 
+    // }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int sumSubarrayMins(int[] A) {
+        return helper(A, 0, A.length-1)%(1000000007); 
+    }
+    // [l,r] inclusive 
+    private int helper(int[] A, int l, int r){</B></FONT>
+        if(l &gt; r) return 0; 
+        if(l==r) return A[l]; 
+        int min = 40000; 
+        int idx = -1; 
+        int i; 
+        for( i=l ; i&lt;=r ; i++){
+            if(A[i]&lt;min) {
+                min = A[i]; 
+                idx = i ; 
+            }    
+        }
+        return (min%(1000000007) * (idx-l+1)%(1000000007) * (r-idx+1)%(1000000007))%(1000000007)+ (helper(A,l,idx-1)%(1000000007) + helper(A,idx+1, r)%(1000000007))%1000000007; 
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
