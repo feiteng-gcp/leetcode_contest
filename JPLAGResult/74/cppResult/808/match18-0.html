@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_alncat.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>444_alncat.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+        int count = 0;
+        unordered_set&lt;string&gt; dict(words.begin(), words.end());
+        unordered_set&lt;string&gt; occurred;
+<A NAME="0"></A>        for(auto w: dict){
+            if(checkMatch(S, w)) occurred.insert(w);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; words.size(); i++){
+            if(occurred.count(words[i])) count++;
+        }
+        return count;
+    }
+    bool checkMatch(string&amp; S, string&amp; T){
+        int j = 0;
+        int count = 0;
+        for(int i = 0; i &lt; T.size(); i++){</B></FONT>
+            while(j &lt; S.size() &amp;&amp; S[j] != T[i]) {
+                j++;
+            }
+            if(j == S.size()) break;
+            count++;
+            j++;
+        }
+        return T.size() == count;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

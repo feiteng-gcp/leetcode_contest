@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_ZYCSwing.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_ZYCSwing.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    bool check(vector&lt;string&gt;&amp; board, char ch) {
+        for (int i = 0; i &lt; 3; ++i) {
+            bool ok = true;
+            for (int j = 0; j &lt; 3; ++j) {
+                if (board[i][j] != ch) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return true;
+        }
+
+        for (int i = 0; i &lt; 3; ++i) {
+            bool ok = true;
+            for (int j = 0; j &lt; 3; ++j) {
+                if (board[j][i] != ch) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return true;
+        }
+
+        bool ok = true;
+        for (int i = 0; i &lt; 3; ++i) {
+            if (board[i][i] != ch) {
+                ok = false;
+                break;
+            }
+        }
+        if (ok) return true;
+
+
+        ok = true;
+        for (int i = 0; i &lt; 3; ++i) {
+            if (board[i][2 - i] != ch) {
+                ok = false;
+                break;
+            }
+        }
+<A NAME="0"></A>        return ok;
+    }
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool validTicTacToe(vector&lt;string&gt;&amp; board) {
+        int cntX = 0, cntO = 0;
+        for (int i = 0; i &lt; 3; ++i) {
+            for (int j = 0; j &lt; 3; ++j) {
+                if (board[i][j] == 'X') {</B></FONT>
+                    ++cntX;
+                } else if (board[i][j] == 'O') {
+                    ++cntO;
+                }
+            }
+        }
+        bool x = check(board, 'X');
+        bool o = check(board, 'O');
+        if (x &amp;&amp; o) return false;
+        if (x) {
+            return cntX == cntO + 1;
+        }
+        if (o) {
+            return cntX == cntO;
+        }
+        if (cntX == cntO || cntX == cntO + 1) return true;
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

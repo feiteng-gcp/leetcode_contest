@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_pmnoxx.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>18_pmnoxx.cpp</CENTER></H3><HR>
+<PRE>
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+#define DB(x){if(DEBUG)cerr&lt;&lt;__LINE__&lt;&lt;&quot; &quot;&lt;&lt;#x&lt;&lt;&quot; &quot; &lt;&lt;x&lt;&lt;endl;}
+#define REP(i,b)for(LL (i)=(0);(i)&lt;(LL)(b);++(i))
+#define FOR(i,a,b)for(LL (i)=(a);(i)&lt;=(LL)(b);++(i))
+#define FORD(i,a,b)for(LL (i)=(a);(i)&gt;=(LL)(b);--(i))
+#define ALL(x) (x).begin(),(x).end()
+#define VV vector
+template&lt;typename X,typename Y&gt;void CHECK_MAX(X&amp;a,Y b){a=(a&gt;=b?a:b);}
+template&lt;typename X,typename Y&gt;void CHECK_MIN(X&amp;a,Y b){a=(a&lt;=b?a:b);}
+typedef long long LL;typedef long double LD;
+int DEBUG=0,MULTI=0,GCJ=0;
+
+class Solution {
+<A NAME="0"></A>  public:
+  #define LL long long
+  
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  LL cnt(LL val) {
+    LL res = 0;
+    while (val) {
+      res += val / 5;
+      val /= 5;
+    }
+    return res;
+  }
+  
+  int preimageSizeFZF(int K) {
+    LL res = 0;</B></FONT>
+    {
+      LL le = 0, ri = (LL)1e9;
+      while (le &lt; ri) {
+        LL mid = (le + ri) / 2;
+        if (cnt(mid) &gt;= K) {
+          ri = mid;
+        }
+        else le = mid + 1;
+      }
+      DB(le);
+      res -= le;
+    }
+    {
+      LL le = 0, ri = (LL)1e9;
+      while (le &lt; ri) {
+        LL mid = (le + ri) / 2;
+        if (cnt(mid) &gt; K) {
+          ri = mid;
+        }
+        else le = mid + 1;
+      }
+      DB(le);
+      res += le;
+    }
+    return res;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

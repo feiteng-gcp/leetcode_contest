@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_wzypangpang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_wzypangpang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool validTicTacToe(vector&lt;string&gt;&amp; board) {
+        int xcnt = 0;
+        for(auto str : board){
+            for(auto c : str){
+                if(c == 'X') xcnt++;
+                if(c == 'O') xcnt--;
+            }
+        }
+        
+        if(xcnt != 1 &amp;&amp; xcnt != 0) return false;
+        
+        bool xwin = false, owin = false;
+        for(auto str: board){
+            if(str == &quot;XXX&quot;) xwin = true;
+            if(str == &quot;OOO&quot;) owin = true;
+<A NAME="0"></A>        }
+        
+        for(int k=0; k&lt;3; k++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(board[0][k] == 'X' &amp;&amp; board[1][k] == 'X' &amp;&amp; board[2][k] == 'X') xwin = true;
+            if(board[0][k] == 'O' &amp;&amp; board[1][k] == 'O' &amp;&amp; board[2][k] == 'O') owin = true;
+        }
+        if(board[0][0] == 'X' &amp;&amp; board[1][1] == 'X' &amp;&amp; board[2][2] == 'X') xwin = true;
+        if(board[0][2] == 'X' &amp;&amp; board[1][1] == 'X' &amp;&amp; board[2][0] == 'X') xwin = true;
+        if(board[0][0] == 'O' &amp;&amp; board[1][1] == 'O' &amp;&amp; board[2][2] == 'O') owin = true;
+        if(board[0][2] == 'O' &amp;&amp; board[1][1] == 'O' &amp;&amp; board[2][0] == 'O') owin = true;
+        
+        if(xwin &amp;&amp; owin) return false;
+        if(xwin &amp;&amp; xcnt == 0) return false;
+        if(owin &amp;&amp; xcnt == 1) return false;
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>123_andycoder.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>123_andycoder.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        if (board == null || board.length != 3
+           || board[0] == null || board[0].length() != 3) {
+<A NAME="0"></A>            return false;
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int xCnt = 0;
+        int oCnt = 0;
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                char c = board[i].charAt(j);
+                if (c == 'X') {
+<A NAME="1"></A>                    xCnt++;
+                } else if (c == 'O') {
+                    oCnt++;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}</B></FONT>
+            }
+        }
+        
+        if (oCnt &gt; xCnt || (xCnt - oCnt) &gt; 1) {
+            return false;
+        }</B></FONT>
+        
+        int xWonCnt = wonGameCnt('X', board);
+        int oWonCnt = wonGameCnt('O', board);
+        if (xWonCnt &gt; 0 &amp;&amp; oWonCnt &gt; 0) {
+            return false;
+        }
+        
+        if (xWonCnt &gt; 1|| oWonCnt &gt; 1) {
+            return false;
+        }
+        
+        if (xWonCnt &gt; 0 &amp;&amp; (xCnt - oCnt != 1)) {
+<A NAME="2"></A>            return false;
+        }
+        
+        if (oWonCnt &gt; 0 &amp;&amp; xCnt != oCnt) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private int wonGameCnt(char c, String[] board) {
+        int cnt = 0;
+        for (int i = 0; i &lt; 3; i++) {</B></FONT>
+            int rowCnt = 0;
+            for (int j = 0; j &lt; 3; j++) {
+                if (board[i].charAt(j) == c) {
+                    rowCnt++;
+                }
+            }
+            
+            if (rowCnt == 3) {
+                cnt++;
+            }
+        }
+        
+        for (int j = 0; j &lt; 3; j++) {
+            int colCnt = 0;
+            for (int i = 0; i &lt; 3; i++) {
+                if(board[i].charAt(j) == c) {
+                    colCnt++;
+                }
+            }
+<A NAME="3"></A>            
+            if (colCnt == 3) {
+                cnt++;
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#3',2,'match1-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        if (board[0].charAt(0) == c
+           &amp;&amp; board[1].charAt(1) == c
+           &amp;&amp; board[2].charAt(2) == c) {</B></FONT>
+            cnt++;
+        }
+        
+        if (board[0].charAt(2) == c
+           &amp;&amp; board[1].charAt(1) == c
+           &amp;&amp; board[2].charAt(0) == c) {
+            cnt++;
+        }
+        
+        return cnt;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

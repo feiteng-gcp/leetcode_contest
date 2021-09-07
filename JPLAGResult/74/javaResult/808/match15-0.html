@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394_yanyafeng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>394_yanyafeng.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+     Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+
+	 public int numMatchingSubseq(String S, String[] words) {
+		for (int i = 0; i &lt; S.length(); i++) {
+			char c = S.charAt(i);
+			map.putIfAbsent(c, new ArrayList&lt;&gt;());
+<A NAME="0"></A>			map.get(c).add(i);
+		}
+
+		int count = 0;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		for (String s : words) {
+			if (isSub(s)) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public  boolean isSub(String s) {</B></FONT>
+		int index = -1;
+		for (int i = 0; i &lt; s.length(); i++) {
+			char c = s.charAt(i);
+			
+			if (!map.containsKey(c)) {
+<A NAME="1"></A>				return false;
+			}
+			List&lt;Integer&gt; list = map.get(c);
+				int pos = binarySearch(list,<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> index);
+				if (pos == -1) {
+					return false;
+				} else {
+					index = pos;
+				}
+		}
+		return true;
+	}</B></FONT>
+
+	public  int binarySearch(List&lt;Integer&gt; list, int target) {
+		int start = 0, end = list.size() - 1;
+		while (start + 1 &lt; end) {
+			int mid = start + (end - start) / 2;
+			if (list.get(mid) &lt;= target) {
+				start = mid;
+			} else {
+				end = mid;
+			}
+		}
+		if (list.get(start) &gt; target) {
+			return list.get(start);
+		} else if (list.get(end) &gt; target) {
+			return list.get(end);
+		}
+		return -1;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

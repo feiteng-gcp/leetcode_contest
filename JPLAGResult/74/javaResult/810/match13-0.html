@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_notebook.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>446_notebook.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public boolean validTicTacToe(String[] board) {
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int cx = 0;
+        
+        int co = 0;
+        
+        for (int i=0; i&lt;board.length; i++) {
+            for (int j=0; j&lt;3; j++) {
+                char c = board[i].charAt</B></FONT>(j);
+                if (c == 'X') {
+                    cx ++;
+                } else if (c == 'O') {
+                    co ++;
+                } else if (c != ' ') {
+                    return false;
+                }
+            }
+        }
+        
+        if (cx &lt; co) {
+            return false;
+        }
+        
+        // System.out.println(&quot;the cx: &quot; + cx);
+        // System.out.println(&quot;the co: &quot; + co);
+        
+        if (cx &gt; co + 1) {
+            return false;
+        }
+        
+        if (doesWin(board, 'X') &amp;&amp; doesWin(board, 'O')) {
+            return false;
+        }
+        
+        if (doesWin(board, 'X') &amp;&amp; (cx == co)) {
+            return false;
+        }
+<A NAME="1"></A>        
+        if (doesWin(board, 'O') &amp;&amp; (cx != co)) {
+            return false;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        // if (cx + co == 9 &amp;&amp; !doesWin(board, 'X') &amp;&amp; !doesWin(board, 'O')) {
+        //     return false;
+        // }
+        
+        return true;      
+    }
+    
+    private boolean doesWin(String[] board, char symbol) {
+        
+        String pattern = symbol + &quot;&quot; + symbol + symbol;
+        
+
+        for (int i=0; i&lt;board.length; i++) {
+            if</B></FONT> (board[i].equals(pattern)) {
+                return true;
+            }
+        }
+        
+        for (int i=0; i&lt;3; i++) {
+            if (board[0].charAt(i) == symbol &amp;&amp; board[1].charAt(i) == symbol &amp;&amp; board[2].charAt(i) == symbol) {
+                return true;
+            }
+        }
+        
+        if (board[0].charAt(0) == symbol &amp;&amp; board[1].charAt(1) == symbol &amp;&amp; board[2].charAt(2) == symbol) {
+            return true;
+        }
+        
+        if (board[0].charAt(2) == symbol &amp;&amp; board[1].charAt(1) == symbol &amp;&amp; board[2].charAt(0) == symbol) {
+            return true;
+        }
+        
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

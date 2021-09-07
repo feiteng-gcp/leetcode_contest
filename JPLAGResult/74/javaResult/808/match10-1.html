@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_seraph1212.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>33_seraph1212.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+public int numMatchingSubseq(String S, String[] words) {
+        Map&lt;Character, TreeSet&lt;Integer&gt;&gt; tree = new HashMap&lt;&gt;();
+<A NAME="0"></A>        gao(S, tree);
+        int ans = 0;
+        for (String word : words) {
+            if (ok(word, tree)) ans++<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return ans;
+    }
+    boolean ok(String word, Map&lt;Character, TreeSet&lt;Integer&gt;&gt; tree) {
+        int pos = -1</B></FONT>;
+<A NAME="1"></A>        for (char ch : word.toCharArray()) {
+            TreeSet&lt;Integer&gt; set = tree.get(ch);
+            if (set == null) return false;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Integer next = set.higher(pos);
+            if (next == null) return false;
+            pos = next;
+        }
+        return true;
+    }</B></FONT>
+    void gao(String s, Map&lt;Character, TreeSet&lt;Integer&gt;&gt; tree) {
+        for (int i = 0; i &lt; s.length(); i++) {
+            char ch = s.charAt(i);
+            TreeSet&lt;Integer&gt; set = tree.getOrDefault(ch, new TreeSet&lt;&gt;());
+            set.add(i);
+            tree.putIfAbsent(ch, set);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

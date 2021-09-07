@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_chouclee.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_chouclee.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        int[] rows = new int[3];
+        int[] cols = new int[3];
+        int diagonal = 0;
+        int antiDiagonal = 0;
+        
+        int x = 0;
+        int o = 0;
+        
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                char c = board[i].charAt(j);
+                int diff = c == 'X' ? 1 : c == 'O' ? -1 : 0;
+<A NAME="0"></A>                x+= diff;
+                rows[i] += diff;
+                cols[j] += diff;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (i == j) {
+                    diagonal += diff;
+                } 
+                if (i + j == 2) {
+                    antiDiagonal += diff;
+                }
+            }</B></FONT>
+        }
+        
+        //System.out.println(Arrays.toString(rows));
+        //System.out.println(Arrays.toString(cols));
+        //System.out.println(x);
+        
+        if (x != 0 &amp;&amp; x != 1) return false;
+        int checkx = check(3, rows);
+        checkx += check(3, cols);
+        checkx += check(3, diagonal);
+        checkx += check(3, antiDiagonal);
+        int checko = check(-3, rows);
+        checko += check(-3, cols);
+        checko += check(-3, diagonal);
+        checko += check(-3, antiDiagonal);
+        //System.out.println(checkx);
+<A NAME="1"></A>        //System.out.println(checko);
+        if (checkx &gt; 1) return false;
+        if (checkx &gt; 0 &amp;&amp; checko &gt; 0) return false;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (checko &gt; 1) return false;
+        
+        if (checkx == 1) return x == 1;
+        if (checko == 1) return x == 0;
+        
+        return true;
+        
+    }</B></FONT>
+    
+    
+    private int check(int val, int... inputs) {
+        int res = 0;
+        for (int i : inputs) {
+            if (i == val) res++;
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

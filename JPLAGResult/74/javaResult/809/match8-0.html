@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	private long getZero(long value) {
+		
+		long i , ans = 0;
+<A NAME="0"></A>		for (i = 5;i &lt;= value;i *= 5) {
+			ans += value / i;
+		}
+		return ans;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		
+	}
+	
+	private long lowerValue(long K) {
+		
+		long low = 0 , high = 10000000000L;
+<A NAME="1"></A>		while (low &lt; high) {
+			long mid = (low + high) / 2;</B></FONT>
+			long total = getZero(mid);
+			if (total &lt; K) {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				low = mid + 1;
+			} else {
+				high = mid;
+			}
+		}
+		if (getZero(low) == K) {
+			return low;
+		} else {
+			return - 1;
+		}
+		
+	}
+	
+	private long upperValue(long K) {
+		
+		long low = 0 , high = 10000000000L;
+<A NAME="2"></A>		while (low &lt; high) {
+			long mid = (low + high) / 2;</B></FONT>
+			long total = getZero(mid);
+			if (total &lt;= K) {<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				low = mid + 1;
+			} else {
+				high = mid;
+			}
+		}</B></FONT>
+		high --;
+		if (high &gt;= 0 &amp;&amp; getZero(high) == K) {			
+			return high;
+		} else {
+			return - 1;
+		}
+		
+	}
+	
+    public int preimageSizeFZF(int K) {
+     
+    	long low = lowerValue(K) , up = upperValue(K);
+    	if (low &gt;= 0 &amp;&amp; up &gt;= 0) {
+    		return (int) (up - low + 1);    
+    	} else {
+    		return 0;
+    	}
+    	
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

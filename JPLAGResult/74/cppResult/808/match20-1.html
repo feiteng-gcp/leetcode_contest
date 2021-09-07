@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_ChaouS.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>57_ChaouS.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    vector&lt;int&gt; positions[26];
+    
+    bool valid(string s){
+        int sz = s.size();
+        int last = -1;
+        for(char c : s){
+            int idx = c - 'a';
+            int pos = upper_bound(positions[idx].begin() , positions[idx].end() , last) - positions[idx].begin();
+            if(pos == positions[idx].size()){
+                return false;
+            }
+            last = positions[idx][pos];
+        }
+        return true;
+    }
+    
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+        
+<A NAME="0"></A>        for(int i = 0; i &lt; 26; ++i){
+            positions[i].clear();
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; S.size(); ++i){
+            positions[S[i] - 'a'].push_back(i);
+        }
+       
+        int ans = 0;
+        for(string e : words){
+            if(valid(e)){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
