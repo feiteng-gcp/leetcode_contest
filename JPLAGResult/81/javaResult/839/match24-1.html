@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_sevenlol.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>31_sevenlol.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumLengthEncoding(String[] words) {
+        TrieNode root = new TrieNode();
+        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        for (String s : words) {
+            set.add(s);
+        }
+        for (String s : set) {
+            build(root, s);
+        }
+
+<A NAME="1"></A>        int len = 0;
+        for (String s : set) {
+            int count = count(root, s);
+            if (count == 1) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                len += s.length() + 1;
+            }
+        }
+        return len;
+    }</B></FONT>
+
+    private int count(TrieNode root, String s) {
+        for (int i = s.length() - 1; i &gt;= 0; i--) {
+            char c = s.charAt(i);
+            root = root.next[c - 'a'];
+        }
+        return root.count;
+<A NAME="0"></A>    }
+
+    private void build(TrieNode root, String s) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = s.length() - 1; i &gt;= 0; i--) {
+            root.count++;
+            char c = s.charAt(i);
+            if (root.next[c - 'a'] == null) {
+                r</B></FONT>oot.next[c - 'a'] = new TrieNode();
+            }
+            root = root.next[c - 'a'];
+        }
+        root.count++;
+        root.isWord = true;
+    }
+
+    private class TrieNode {
+        TrieNode[] next = new TrieNode[26];
+        int count;
+        boolean isWord;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
