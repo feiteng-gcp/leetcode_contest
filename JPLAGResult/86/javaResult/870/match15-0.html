@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_aadarsh_kenia.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>471_aadarsh_kenia.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int numMagicSquaresInside(int[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int ans = 0;
+        for(int i=0; i &lt;= rows - 3; i++) {
+            for(int j=0; j &lt;= cols - 3; j++) {
+                if(ok(grid, i, j)) ans++;
+            }
+        }
+        return ans;
+<A NAME="1"></A>    }
+
+    private boolean ok(int[][] grid, int r, int c) {</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i=0; i &lt; 3; i++) {
+            for(int j=0; j &lt; 3; j++) {
+                if(grid[i+r][j+c] &gt; 9 || grid[i+r][j+c] &lt; 1) return false;</B></FONT>
+<A NAME="2"></A>            }
+        }
+        int sum = grid[r][c] + grid[r][c + 1] + grid[r][c + 2];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(grid[r+1][c] + grid[r+1][c+1]+grid[r+1][c+2] != sum) return false;
+        if(grid[r+2][c] + grid[r+2][c+1]+grid[r+2][c+2] != sum) return false;
+        if(grid[r][c] + grid[r+1][c]+grid[r+2][c] != sum) return false;
+        if(grid[r][c+1] + grid[r+1][c+1]+grid[r+2][c+1] != sum) return false;
+        if(grid[r][c+2] + grid[r+1][c+2]+grid[r+2][c+2] != sum) return false;
+        if(grid[r][c] + grid[r+1][c+1] + grid[r+2][c+2] != sum) return false;
+        if(grid[r][c+2] + grid[r+1][c+1] + grid[r+2][c] != sum) return false;
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

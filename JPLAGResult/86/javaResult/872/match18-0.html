@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>442_igor84.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>442_igor84.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private List&lt;Integer&gt; process(String s, int p1, int p2, LinkedList&lt;Integer&gt; current) {
+        long sum = (long) p1 + p2;
+        String sumString = String.valueOf(sum);
+        if (s.equals(sumString) &amp;&amp; s.length() &lt;= 31) {
+            current.add(Integer.parseInt(s));
+            return current;
+        }
+
+        if (s.isEmpty()) {
+            return null;
+        }
+
+        for (int i = 1; i &lt; Math.min(10, s.length()); i++) {
+            String newString = s.substring(0, i);
+            if (newString.startsWith(&quot;0&quot;) &amp;&amp; newString.length() &gt; 1) {
+                continue;
+            }
+
+            long newInt = Long.parseLong(newString);
+            if (newInt &gt; Integer.MAX_VALUE) {
+                continue;
+            }
+
+            if (p1 + p2 != newInt) {
+                continue;
+            }
+
+            current.add((int) newInt);
+            List&lt;Integer&gt; result = process(s.substring(i), p2, (int) newInt, current);
+            if (result != null) {
+                return result;
+            }
+            current.removeLast();
+        }
+
+        return null;
+    }
+
+<A NAME="0"></A>    public List&lt;Integer&gt; splitIntoFibonacci(String S) {
+        int length = S.length();
+
+        for (int i = 1; i &lt; Math.min(10, length - 2); i++) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            for (int j = 1; j &lt; Math.min(10, length - i - 1); j++) {
+                String s1 = S.substring(0, i);
+                if (s1.startsWith</B></FONT>(&quot;0&quot;) &amp;&amp; s1.length() &gt; 1) {
+                    continue;
+                }
+
+                String s2 = S.substring(i, i + j);
+                if (s2.startsWith(&quot;0&quot;) &amp;&amp; s2.length() &gt; 1) {
+                    continue;
+                }
+
+                long i1 = Long.parseLong(s1);
+                if (i1 &gt; Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                long i2 = Long.parseLong(s2);
+                if (i2 &gt; Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                LinkedList&lt;Integer&gt; current = new LinkedList&lt;&gt;();
+                current.add((int)i1);
+<A NAME="1"></A>                current.add((int)i2);
+
+                List&lt;Integer&gt; result = process(S.substring(i + j), (int) i1, (int) i2, current);
+                if (result != null) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    return result;
+                }
+            }
+        }
+
+        return new LinkedList&lt;&gt;();
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

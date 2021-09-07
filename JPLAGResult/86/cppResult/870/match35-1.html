@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_yysys.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_yysys.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    
+    int a[3][3];
+    int b[10];
+    
+    int check() {
+        int flag = 1;
+        
+        memset(b, 0, sizeof b);
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                if (a[i][j] &lt;= 0 || a[i][j] &gt; 9) {
+                    return 0;
+<A NAME="1"></A>                }
+                b[a[i][j]] = 1;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        for (int i = 1; i &lt; 10; i++) if (b[i] == 0) return 0;
+        
+        for (int i = 0; i &lt; 3; i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; 3; j++) {
+                sum += a[i][j];
+            }
+            if (sum != 15) return 0;
+        }
+        
+        for (int i = 0; i &lt; 3; i++) {
+            int sum = 0;
+            for (int j = 0; j &lt; 3; j++) {
+                sum += a[j][i];
+            }
+            if (sum != 15) return 0;
+        }</B></FONT>
+        
+        
+        if ((a[0][0] + a[1][1] + a[2][2]) != 15) {
+            return 0;
+        }
+        
+        if ((a[0][2] + a[2][0] + a[1][1]) != 15) {
+            return 0;
+        }
+        
+        return 1;
+        
+    }
+    
+<A NAME="0"></A>    int numMagicSquaresInside(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        
+        for (int i = 0; i &lt;= n - 3; i++) {
+            for (int j = 0; j &lt;= m - 3; j++) {</B></FONT>
+                for (int x = 0; x &lt; 3; x++) {
+                    for (int y = 0; y &lt; 3; y++) {
+                        a[x][y] = grid[x+i][y+j];
+                    }
+                }
+                ans += check();
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

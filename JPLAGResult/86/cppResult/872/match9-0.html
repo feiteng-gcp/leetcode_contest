@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>344_ohazyi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>344_ohazyi.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+#define rep(i,a,b) for (ll i = (a); i &lt;= (b); ++i)
+#define rep2(i,a,b) for (ll i = (a); i &gt;= (b); --i)
+class Solution {
+    public:
+    ll x[10100];
+    ll MAXNUM = (1LL&lt;&lt;31LL)-1LL;
+    bool check(string s){
+        if (s==&quot;0&quot;)
+            return true;
+        if (s[0]=='0'&amp;&amp;s.size()&gt;1)
+            return false;
+        return true;
+    }
+    vector&lt;int&gt; splitIntoFibonacci(string s) {
+        ll n = s.size();
+        vector&lt;int&gt; ans;
+        if (n==0){
+            return ans;
+        }
+        string s1, s2;
+        ll k, pos;
+        rep (i,0,min(11LL,n-1)){ //0..i, i+1,j, j+1..n-1
+            rep (j,i+1,min(i+1+11,n-1)){
+                if (i==2&amp;&amp;j==5){
+                    ll fuck=1;
+                    fuck++;
+                }
+                ans.clear();
+                s1 = s.substr(0, i+1);
+                s2 = s.substr(i+1, j-i);
+                if (!check(s1)||!check(s2)){
+                    continue;
+                }
+                x[1] = atoll(s1.c_str());
+                x[2] = atoll(s2.c_str());
+                if (x[1]&gt;MAXNUM||x[2]&gt;MAXNUM){
+                    continue;
+                }
+                ans.push_back(x[1]);
+                ans.push_back(x[2]);
+                k = j+1;
+                pos = 2;
+                bool zy=true;
+                while (k &lt; n){
+                    pos++;
+                    x[pos] = x[pos-1] + x[pos-2];
+                    if (x[pos]&gt;MAXNUM){
+                        zy=false;
+<A NAME="0"></A>                        break;
+                    }
+                    string tt = to_string(x[pos]);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    ll l = tt.size();
+                    if (k+l&gt;n){
+                        zy = false;
+                        break;
+                    }
+                    string ss = s.substr(k, l);
+                    cout &lt;&lt; ss &lt;&lt; endl;
+                    if (ss != tt){
+                        zy = false;
+                        break;
+                    }
+                    ans.push_back(x[pos]);
+                    k = k+l;</B></FONT>
+                }
+                if (k==n&amp;&amp;zy&amp;&amp;ans.size()&gt;2){
+                    return ans;
+                }
+            }
+        }
+        ans.clear();
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

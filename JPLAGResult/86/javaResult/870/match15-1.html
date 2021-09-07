@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>251_yun21.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>251_yun21.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int numMagicSquaresInside(int[][] grid) {
+        if (grid.length &lt; 3) return 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ret = 0;
+        for (int i = 0; i + 2 &lt; grid.length; i++) {
+            for (int j = 0; j + 2 &lt; grid.length; j++) {
+                if (isMagic(grid, i, j)) ret++;
+            }
+        }
+        return ret;
+    }
+<A NAME="1"></A>    private boolean isMagic(int[][] grid, int i, int j) {</B></FONT>
+        if (grid[i+1][j+1] != 5) return false;
+        boolean[] visited = new boolean[9];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int x = i; x &lt; i+3; x++) {
+            for (int y = j; y &lt; j+3; y++) {
+                if (grid[x][y] == 0 || grid[x][y] &gt; 9) return false;</B></FONT>
+                if (visited[grid[x][y]-1]) return false;
+                visited[grid[x][y]-1] = true;
+<A NAME="2"></A>            }
+        }
+        if (grid[i][j] + grid[i][j+1] + grid[i][j+2] != 15) return false;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (grid[i+1][j] + grid[i+1][j+2] != 10) return false;
+        if (grid[i+2][j] + grid[i+2][j+1] + grid[i+2][j+2] != 15) return false;
+        if (grid[i][j] + grid[i+1][j] + grid[i+2][j] != 15) return false;
+        if (grid[i][j+1] + grid[i+2][j+1] != 10) return false;
+        if (grid[i][j+2] + grid[i+1][j+2] + grid[i+2][j+2] != 15) return false;
+        if (grid[i][j+2] + grid[i+2][j] != 10) return false;
+        if (grid[i][j] + grid[i+2][j+2] != 10) return false;
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

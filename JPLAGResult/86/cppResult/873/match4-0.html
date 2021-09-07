@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_ghostplant.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>5_ghostplant.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * // This is the Master's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class Master {
+ *   public:
+ *     int guess(string word);
+ * };
+<A NAME="0"></A> */
+class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ok(string &amp;x, string &amp;y) {
+        int tot = 0;
+        for (int i = 0; i &lt; 6; ++i)
+            if (x[i] == y[i])
+                ++tot;
+        return tot;
+    }
+    
+    void find(vector&lt;string&gt; &amp;w, Master &amp;master) {</B></FONT>
+        if (w.size() &lt;= 0)
+            return;
+        int sel = rand() % w.size();
+        int x = master.guess(w[sel]);
+        assert(x &gt;= 0);
+        vector&lt;string&gt; mk;
+        for (int i = 0; i &lt; w.size(); ++i) {
+            if (sel != i &amp;&amp; ok(w[sel], w[i]) == x)
+                mk.push_back(w[i]);
+        }
+        find(mk, master);
+    }
+    
+    void findSecretWord(vector&lt;string&gt;&amp; wordlist, Master&amp; master) {
+        /*
+        abcdef
+        ghijkl
+        mnopqr
+        stuvwx
+        yxabcd
+        efghij
+        klmnop
+        rstuvw
+        xyzabc
+        defghi
+        jklmno
+        pqrstu
+        vwxyza
+        */
+        find(wordlist, master);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

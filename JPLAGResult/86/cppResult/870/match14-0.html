@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_bb123n4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>276_bb123n4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool isMagic(int posX, int posY, vector&lt;vector&lt;int&gt;&gt; &amp;grid) {
+        unordered_set&lt;int&gt; seen;
+<A NAME="0"></A>        int sum = -1;
+        bool hasSum = false;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = posX; i &lt; posX + 3; i++) {
+            int iSum = 0;
+            for (int j = posY; j &lt; posY + 3; j++) {
+                if (grid[i][j] &gt; 9 || grid[i][j] &lt; 1) return false;
+                seen.insert(grid[i][j]);
+                iSum += grid[i][j];
+            }
+            if (!hasSum) {</B></FONT>
+                sum = iSum;
+                hasSum = true;
+            }
+<A NAME="1"></A>            else {
+                if (iSum != sum) return false;
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        
+        for (int i = posY; i &lt; posY + 3; i++) {
+            int iSum = 0;
+            for (int j = posX; j &lt; posX + 3; j++) {
+                iSum += grid[j][i];
+            }
+            if (!hasSum) {</B></FONT>
+                sum = iSum;
+                hasSum = true;
+            }
+            else {
+                if (iSum != sum) return false;
+            }
+        }
+        
+        int iSum = grid[posX][posY] + grid[posX + 1][posY + 1] + grid[posX + 2][posY + 2];
+        if (iSum != sum) return false;
+        iSum = grid[posX + 2][posY] + grid[posX + 1][posY + 1] + grid[posX][posY + 2];
+<A NAME="2"></A>        if (iSum != sum) return false;
+        return seen.size() == 9;
+    }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int numMagicSquaresInside(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int count = 0;
+        for (int i = 0; i &lt;= (int)grid.size() - 3; i++) {
+            for (int j = 0; j &lt;= (int)grid[0].size() - 3; j++) {
+                if (isMagic(i, j, grid)) count++;
+            }
+        }
+        return count;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

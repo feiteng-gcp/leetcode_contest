@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_txingml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_txingml.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    typedef long long LL;
+    vector&lt;LL&gt; solve(string &amp; s, int i, int j) {
+        vector&lt;LL&gt; ret;
+        if (i &lt; 1 || i &gt; 10) return ret;
+        if (j-i &lt; 1 || j-i &gt; 10) return ret;
+        if (s[0] == '0' &amp;&amp; i != 1) return ret;
+        if (s[i] == '0' &amp;&amp; j != i+1) return ret;
+        ret.push_back(stoll(s.substr(0, i)));
+        ret.push_back(stoll(s.substr(i, j-i)));
+        int a = j, n = s.size();
+        while (a &lt; n) {
+            LL tmpn = ret.back() + ret[ret.size()-2];
+            if (tmpn &gt; INT_MAX) return vector&lt;LL&gt;();
+            string tmps = to_string(tmpn);
+            if (tmps.size()+a &gt; n) return vector&lt;LL&gt;();
+            if (s.substr(a, tmps.size()) != tmps) return vector&lt;LL&gt;();
+            a += tmps.size();
+            ret.push_back(tmpn);
+        }
+        return ret;
+<A NAME="0"></A>        
+    }
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; splitIntoFibonacci(string s) {
+        for (int i = 0; i &lt; s.size(); i++) {
+            for (int j = i+1; j &lt; s.size(); j++) {</B></FONT>
+                vector&lt;LL&gt; tmp = solve(s, i, j);
+                if (tmp.empty()) continue;
+                bool flag = true;
+                vector&lt;int&gt; ret;
+                for (LL num : tmp) {
+                    if (num &gt; INT_MAX) {
+                        flag = false;
+                        break;
+                    }
+                    ret.push_back((int)num);
+                }
+                if (flag) return ret;
+            }
+        }
+        return vector&lt;int&gt;();
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

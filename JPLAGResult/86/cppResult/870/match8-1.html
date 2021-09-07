@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_zl1zl.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_zl1zl.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool check(vector&lt;vector&lt;int&gt;&gt; &amp;v, int x, int y) {
+<A NAME="1"></A>        int m = v.size(); int n = v[0].size();
+        if (x + 2 &gt;= m || y + 2 &gt;= n) return false;
+        unordered_set&lt;int&gt; s;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=x; i&lt;x+3; ++i) {
+            int rs = 0;
+            for(int j=y; j&lt;y+3; ++j) {
+                s.insert(v[i][j]);
+                if (v[i][j] &gt; 9 || v[i][j] &lt; 0) return false;
+                rs += v[i][j];
+            }
+            if (rs != 15) return false;
+        }
+        for(int i=y; i&lt;y+3; ++i) {
+            int cs = 0;
+            for(int j=x; j&lt;x+3; ++j) {</B></FONT>
+                cs += v[j][i];
+            }
+            if (cs != 15) return false;
+        }
+       
+        if (v[x][y] + v[x+1][y+1] + v[x+2][y+2] != 15 || v[x+1][y+1] + v[x][y+2] + v[x+2][y] != 15) return false;
+        return s.size() == 9;
+    }
+<A NAME="0"></A>    int numMagicSquaresInside(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int res = 0;
+        if (grid.empty() || grid[0].empty()) return 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;grid.size(); ++i) {
+            for(int j=0; j&lt;grid[0].size(); ++j) {
+                if (check(grid, i, j)) res += 1;
+            }
+        }
+        return res;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

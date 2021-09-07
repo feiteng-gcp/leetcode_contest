@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_Brucewanghahei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_Brucewanghahei.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int numMagicSquaresInside(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int res = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; grid.size(); i++) {
+            for (int j = 0; j &lt; grid[0].size(); j++) {
+                if (isMagicSquare(grid, i, j)) res++;
+            }
+        }
+        return res;
+    }</B></FONT>
+    
+    bool isMagicSquare(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int x, int y) {
+<A NAME="1"></A>        if (x + 2 &gt;= grid.size() || y + 2 &gt;= grid[0].size()) return false;
+        int sum = 0;
+        for (int i = 0; i &lt; 3; i++) sum += grid[x][y + i];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; 3; i++) {
+            int temp = 0;
+            for (int j = 0; j &lt; 3; j++) {
+                if (grid[x + i][y + j] == 0 || grid[x + i][y + j] &gt; 9) return false;
+                temp += grid[x + i][y + j];
+            }
+            if (sum != temp) return false;
+        }
+        for (int j = 0; j &lt; 3; j++) {
+            int temp = 0;
+            for (int i = 0; i &lt; 3; i++) temp += grid[x + i][y + j];</B></FONT>
+            if (sum != temp) return false;
+        }
+        int diag1 = grid[x][y] + grid[x + 1][y + 1] + grid[x + 2][y + 2];
+        if (diag1 != sum) return false;
+        int diag2 = grid[x][y + 2] + grid[x + 1][y + 1] + grid[x + 2][y];
+        if (diag2 != sum) return false;
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

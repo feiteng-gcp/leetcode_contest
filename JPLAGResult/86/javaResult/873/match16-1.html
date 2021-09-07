@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>157_weiyu4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>157_weiyu4.java</CENTER></H3><HR>
+<PRE>
+/**
+ * // This is the Master's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface Master {
+ *     public int guess(String word) {}
+ * }
+ */
+class Solution {
+    public void findSecretWord(String[] wordlist, Master master) {
+        while(true) {
+            String g = wordlist[wordlist.length/2];
+            int score = master.guess(g);
+            if(score == 6) {
+                return;
+            }
+            ArrayList&lt;String&gt; arr = new ArrayList&lt;String&gt;();
+            for(String str: wordlist) {
+                if(comp(str,g) == score) {
+                    arr.add(str);
+                    System.out.println(str);
+                }
+            }
+            String[] newl = new String[arr.size()];
+            for(int i=0; i&lt; arr.size(); i++) {
+                newl[i] =  arr.get(i);
+            }
+            wordlist = newl;
+<A NAME="0"></A>        }
+        
+    }
+    public int comp(String a, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String b) {
+        int score = 0;
+        for(int i=0; i&lt;6;i++) {
+            if(a.substring(i,i+1).equals(b.substring</B></FONT>(i,i+1))) {
+                score++;
+            }
+        }
+        return score;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

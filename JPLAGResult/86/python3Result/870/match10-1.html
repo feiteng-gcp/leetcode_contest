@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_XuWang77.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>360_XuWang77.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numMagicSquaresInside(self, grid):
+        &quot;&quot;&quot;
+        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        m , n = len(grid),len(grid[0])
+        res = 0
+        if m &lt; 3 or n &lt; 3:
+            return res
+        def check(row,col):
+            for add in range(3):
+                if sum(grid[row+add][col:col+3]) != 15:
+<A NAME="0"></A>                    return False
+                if sum([grid[row+i][col+add] for i in range(3)]) != 15:
+                    return False
+            if grid<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[row][col]+grid[row+1][col+1]+grid[row+2][col+2] != 15:
+                return False
+            if grid[row+2][col]+grid[row+1][col+1]+grid[row][</B></FONT>col+2] != 15:
+                return False
+            nums = []
+            for i in range(3):
+                for j in range(3):
+                    nums += grid[row+i][col+j],
+            if set(nums) != set(range(1,10)):
+                return False
+            return True
+        for i in range(m-2):
+            for j in range(n-2):
+                if check(i,j):
+                    res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>297_wang21.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>297_wang21.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numMagicSquaresInside(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        int res = 0;
+        for (int i=0; i&lt;n-2; ++i) {
+            for (int j=0; j&lt;m-2; ++j) {
+                int all[9] = {0};</B></FONT>
+                bool valid = true;
+                for (int ii=0; ii&lt;3; ++ii)
+                    for (int jj=0; jj&lt;3; ++jj) {
+                        int g = grid[i+ii][j+jj];
+                        if (g&lt;1 || g&gt;9)
+                            valid = false;
+                        if (!valid) continue;
+                        if (all[g-1])
+                            valid = false;                        
+                        all[g-1] = 1;
+<A NAME="1"></A>                    }                    
+                if (!valid)
+                    continue;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int r1 = grid[i][j]+grid[i][j+1]+grid[i][j+2];
+                int r2 = grid[i+1][j]+grid[i+1][j+1]+grid[i+1][j+2];
+                int r3 = grid[i+2][j]+grid[i+2][j+1]+grid[i+2][j+2];
+                int c1 = grid[i][j]+grid[i+1][j]+grid[i+2][j];
+                int c2 = grid[i][j+1]+grid[i+1][j+1]+grid[i+2][j+1];
+                int c3 = grid[i][j+2]+grid[i+1][j+2]+grid[i+2][j+2];
+                int d1 = grid[i][j]+grid[i+1][j+1]+grid[i+2][j+2];
+                int d2 = grid[i][j+2]+grid[i+1][j+1]+grid[i+2][j];</B></FONT>
+                if (r2==r1 &amp;&amp; r3==r1 &amp;&amp; c1==r1 &amp;&amp; c2==r1 &amp;&amp; c3==r1 &amp;&amp; d1==r1 &amp;&amp; d2==r1)
+                    res++;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
