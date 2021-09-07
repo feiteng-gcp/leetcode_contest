@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_numerology.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_numerology.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] threeEqualParts(int[] A) {
+        // Three parts must contain the same number of 1s
+        // say there are 3k 1s
+        // consider how to arrange zeros to split them
+        // watch for the pos of 0th, kth and 2kth 1
+<A NAME="0"></A>        int n = A.length;
+        int nOnes = 0;
+        for(int i : A) {
+            if (i == 1) nOnes ++<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        }
+        int k = 0;
+        if (nOnes == 0) {
+            return new int[]{0, n - 1};
+        }
+        if (nOnes % 3 != 0) {
+            return new int[]{-1, -1};
+        }</B></FONT> else {
+            k = nOnes / 3;
+        }
+        // find 2kth 1
+        int cnt = 0;
+        int criticalPos = 0;
+        int zeroth = 0;
+        int kth = 0;
+        for (int i = 0; i &lt; A.length; i++) {
+            if (A[i] == 1) {
+                if(cnt == 0) {
+                    zeroth = i;
+                }
+                if(cnt == k) {
+                    kth = i;
+                }
+                if(cnt == 2 * k) {
+                    criticalPos = i;
+                    break;
+                }
+                cnt++;
+            }
+        }
+        
+        int[] sample = new int[n - criticalPos];
+        for (int i = criticalPos; i &lt; n; i++) {
+            sample[i - criticalPos] = A[i];
+        }
+        
+        int tailing0 = 0;
+        int m = sample.length;
+        for (int i = m - 1; i &gt;= 0; i--) {
+            if (sample[i] == 1) break;
+            tailing0 ++;
+        }
+        // if the second part want to be equas
+        // its last ones must be separated against criticalPos by
+        // at least the number of tailing 0 sample has
+        /**
+        int 2tailing0 = 0;
+        for (int i = criticalPos - 1; i&gt;=0 ; i--) {
+            if (sample[i] == 1) break;
+            2tailing0 ++;
+        }
+        if (2tailing0 &lt; tailing0) {
+            return new int[]{-1, -1};
+        }
+        */
+        // compare the first part
+        for (int i = zeroth; i &lt; zeroth + m; i++) {
+            if (sample[i - zeroth] != A[i]) {
+                System.out.println(&quot;mismatch in first part&quot;);
+                return new int[]{-1, -1};
+            }
+        }
+        
+<A NAME="1"></A>        for (int i = kth; i &lt; kth + m; i++) {
+            if (sample[i - kth] != A[i]) {
+                System.out.println(&quot;mismatch in second part&quot;);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return new int[]{-1, -1};
+            }
+        }
+        
+        
+        return new int[]{zeroth + m - 1 , kth + m};
+        
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>201_wenboz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>201_wenboz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        HashSet&lt;Integer&gt; inf = new HashSet&lt;Integer&gt;();
+        Arrays.sort(initial);
+        int min = Integer.MAX_VALUE;
+        int minn = 0;
+        for(int i = 0; i &lt; initial.length; i++){
+            inf.add(initial[i]);
+        }
+<A NAME="0"></A>        
+        for(int i = 0; i &lt; initial.length; i++){
+            int infect = countInf(new HashSet&lt;Integer&gt;(inf), initial[i], graph, initial);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(infect &lt; min){
+                min = infect;
+                minn = initial[i];
+            }
+        }
+        return minn;
+    }
+    
+    int countInf(HashSet&lt;Integer&gt; inf, int removed, int[][] graph</B></FONT>, int[] initial){
+        Deque&lt;Integer&gt; s = new ArrayDeque&lt;Integer&gt;();
+        int count = 0;
+        for(int i = 0; i &lt; initial.length; i++){
+<A NAME="1"></A>            if(initial[i] != removed){
+                s.push(initial[i]);
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        while(!s.isEmpty()){
+            int cur = s.pop();
+            count++;
+            for(int i = 0; i &lt; graph[cur].length; i++){
+                if(i != cur &amp;&amp; graph[cur][i] == 1 &amp;&amp; !inf.contains(i)){
+                    s.push(i);
+                    inf.add(i);
+                }
+            }
+        }
+        return count;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

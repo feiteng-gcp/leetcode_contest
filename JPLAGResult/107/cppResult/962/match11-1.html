@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_x9527.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_x9527.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+int minFlipsMonoIncr(string str) {
+    int n = str.length();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; dp1(n, 0);  // starting with 0
+    vector&lt;int&gt; dp2(n, 0);  // starting with 1
+    
+    if (str[n - 1] == '0') {
+        dp1[n - 1] = 0;
+        dp2[n - 1] = 1;
+    } else {
+        dp1[n - 1] = 1;
+        dp2[n - 1] = 0;
+    }
+    
+    
+    for (int i = n - 2; i &gt;= 0; i--) {
+        if (str[i] == '0') {
+            dp1[i] = min(dp1[i + 1], dp2[i + 1]);
+            dp2[i] = 1 + dp2[i + 1];
+        } else {
+            dp1[i] = 1 + min(dp1[i + 1], dp2[i + 1]);
+            dp2[i] = dp2[i + 1];
+        } 
+    }
+    
+    return min(dp1[0], dp2[0]);
+}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

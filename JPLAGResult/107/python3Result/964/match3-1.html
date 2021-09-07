@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_galIe.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_galIe.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minMalwareSpread(self, graph, initial):
+        &quot;&quot;&quot;
+        :type graph: List[List[int]]
+        :type initial: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+
+        def helper(graph, initial, badpoint):
+            V = len(graph)
+
+            visited = [False for i in range(V)]
+            q = []
+            for i in initial:
+                if i == badpoint: continue
+                visited[i] = True
+                q.append(i)
+
+            while q:
+                v = q.pop(0)
+                for w in range(V):
+                    if (not visited[w]) and (w != badpoint) and (graph[v][w] == 1):
+                        visited[w] = True
+                        q.append(w)
+
+            count = 0
+            for i in visited:
+                if i: count += 1
+
+<A NAME="0"></A>            return count
+
+        min_count = len(graph) + 1
+        index <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= -1;
+
+        for badpoint in initial:
+            count = helper(graph, initial, badpoint)
+
+            if (count &lt; min_count) or (count == min_count and badpoint &lt; index):
+                min_count = count
+                index = badpoint
+
+        re</B></FONT>turn index
+</PRE>
+
+</BODY>
+</HTML>

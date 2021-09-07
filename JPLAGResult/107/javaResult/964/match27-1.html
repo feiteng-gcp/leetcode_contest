@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_FanBu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_FanBu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; myGraph = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; graph.length; i++) {
+            myGraph.put(i, new HashSet&lt;&gt;());
+            for (int j = 0; j &lt; graph[0].length; j++) {
+                if (graph[i][j] == 1) {
+                    myGraph.get(i).add(j);
+                }
+            }
+        }
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        for (int num : initial) {
+            visited.add(num);
+            queue.offer(num);
+        }
+        while (!queue.isEmpty()) {
+            int curr = queue.poll();
+            for (int neighbor : myGraph.get(curr)) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.offer(neighbor);
+                }
+            }
+        }
+        int smallest = Integer.MAX_VALUE;
+        int key = -1;
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; badGraph = new HashMap&lt;&gt;();
+        for (int num : visited) {
+            badGraph.put(num, new HashSet&lt;&gt;());
+            for (int j = 0; j &lt; graph[num].length; j++) {
+                if (graph[num][j] == 1 &amp;&amp; visited.contains(j)) {
+                    badGraph.get(num).add(j);
+<A NAME="0"></A>                }
+            }
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int num : initial) {
+            int level = getLevel(badGraph, num, initial);
+            if (level &lt; smallest) {
+                smallest = level;
+                key = num;
+            }</B></FONT> else if (level == smallest) {
+<A NAME="1"></A>                if (num &lt; key) {
+                    key = num;
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return key;
+    }
+    
+    private int getLevel(Map&lt;Integer, Set&lt;Integer&gt;&gt; graph, int delete, int[] initial) {
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        for (int num : initial) {
+            if</B></FONT> (num != delete) {
+<A NAME="2"></A>                visited.add(num);
+                queue.offer(num);
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+                int curr = queue.poll();
+                for (int neighbor</B></FONT> : graph.get(curr)) {
+                    if (!visited.contains(neighbor) &amp;&amp; neighbor != delete) {
+<A NAME="3"></A>                        visited.add(neighbor);
+                        queue.offer(neighbor);
+                    }
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return visited.size();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

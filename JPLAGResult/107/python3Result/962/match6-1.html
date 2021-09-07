@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_lihuoran.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_lihuoran.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minFlipsMonoIncr(self, S):
+        &quot;&quot;&quot;
+        :type S: str
+        :rtype: int
+        &quot;&quot;&quot;
+        a = [int(e) for e in S]
+        n = len(a)
+        z = [None for _ in range(n)]
+        o = [None for _ in range(n)]
+
+        z[0] = 1 if a[0] == 0 else 0
+        o[0] = 1 if a[0] != 0 else 0
+        for i in range(1, n):
+            if a[i] == 0:
+                z[i] = z[i - 1] + 1
+                o[i] = o[i - 1]
+            else:
+                z[i] = z[i - 1]
+                o[i] = o[i - 1] + 1
+
+        # print(a)
+<A NAME="0"></A>        # print('z', z)
+        # print('o', o)
+
+        ans = min(sum(a), n - sum<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(a))
+        for i in range(n - 1):
+            # print(i, (o[i]), (z[n - 1] - z[i]))
+            ans = min(ans, (o[i]) + (z[n - 1] - z[i]))
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

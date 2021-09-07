@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>397_zhang835.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>397_zhang835.py</CENTER></H3><HR>
+<PRE>
+class Solution(object):
+    def minFlipsMonoIncr(self, S):
+        &quot;&quot;&quot;
+        :type S: str
+        :rtype: int
+        &quot;&quot;&quot;
+        if not S:
+            return 0
+        
+        # 一个符合要求的string他的前面的substring一定也是符合要求的
+        # 不可能说一个string str符合要求 结果str[:k]是不符合要求的
+        # 于是转化子问题
+        # f[i][0] 表示把S[:i+1]变成结尾为0的符合要求的字符串所需的最小flip
+        # f[i][0] 表示把S[:i+1]变成结尾为1的符合要求的字符串所需的最小flip
+        f = [ [math.inf] * 2 for _ in S]
+<A NAME="0"></A>        f[0][0] = 0 if S[0] == &quot;0&quot; else 1
+        f[0][1] = 0 if S[0] == &quot;1&quot; else 1
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1, len(S)):
+            if S[i] == &quot;0&quot;:
+                f[i][0] = f[i-1][0]
+                f[i][1] = min(f[i-1][1], f[</B></FONT>i-1][0]) + 1
+            else:
+                f[i][0] = f[i-1][0] + 1
+                f[i][1] = min(f[i-1][1], f[i-1][0])
+        return min(f[-1])
+</PRE>
+
+</BODY>
+</HTML>

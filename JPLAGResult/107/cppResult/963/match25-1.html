@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>113_liuyuchen0921.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>113_liuyuchen0921.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; threeEqualParts(vector&lt;int&gt;&amp; A) {
+        int n = A.size();
+        int lead0[n + 1];
+        lead0[n] = 0;
+        for (int k = n - 1;k &gt;= 0;k --) {
+            if (A[k] == 0) {
+                lead0[k] = lead0[k + 1] + 1;
+            } else {</B></FONT>
+                lead0[k] = 0;
+            }
+        }
+        if (lead0[0] == n) {// All zero
+            return {0, 2};
+        }
+        
+        int first = lead0[0];
+        for (int second = first + 1; second &lt; n; second ++) {
+            int j = second + lead0[second];
+            int i = first;
+            while (i &lt; second &amp;&amp; j &lt; n &amp;&amp; A[i] == A[j]) {
+                i ++;
+                j ++;
+            }
+            if (i == second &amp;&amp; j &lt; n) {
+                i = i + lead0[i];
+                int third = j;
+                j = j + lead0[j];
+                while (j &lt; n &amp;&amp; A[i] == A[j]) {
+                   i ++;
+                   j ++;
+                }
+                if (i == third &amp;&amp; j == n) {
+                    return {second - 1, third};
+                }
+            }
+        }
+        return {-1, -1};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

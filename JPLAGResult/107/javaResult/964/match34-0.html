@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>341_LoveXN.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>341_LoveXN.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int n = graph.length, index = n, max = 1;
+        HashSet&lt;Integer&gt; initialSet = new HashSet&lt;&gt;();
+        boolean[] visited = new boolean[n];
+        Queue&lt;Integer&gt; q = new LinkedList&lt;Integer&gt;();
+        for (int i : initial){
+            initialSet.add(i);
+            index = Math.min(index, i);
+        } 
+        for (int i : initial){
+            if (!visited[i]){
+                boolean dup = false;
+                int count = 1;
+                q.offer(i);
+                visited[i] = true;
+                // connectedGraph.add(i);
+                // HashSet&lt;Integer&gt; connectedGraph = new HashSet&lt;&gt;();
+                // connectedGraph.add(i);
+<A NAME="0"></A>                HashSet&lt;Integer&gt; malwareNode = new HashSet&lt;&gt;();
+                malwareNode.add(i);
+                
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!q.isEmpty()){
+                    int cur = q.poll();
+                    for (int j = 0; j &lt; n; j++){
+                        if</B></FONT> ((!visited[j]) &amp;&amp; (graph[cur][j] == 1)){
+                            if (initialSet.contains(j)){
+                                dup = true;
+                                malwareNode.add(j);
+                            }
+                            q.offer(j);
+                            visited[j] = true;
+                            count++;
+                        }
+                    }
+                }
+                
+                if ((!dup) &amp;&amp; (count &gt; max)){
+                    max = count;
+                    index = i;
+                }
+                
+<A NAME="1"></A>                if (dup){
+                    for (int possibleNode : malwareNode){
+                        boolean[] v = new boolean[n];
+                        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int savedNode = 1;
+                        for (int j = 0; j &lt; n; j++){
+                            if ((!v[j]) &amp;&amp; (graph[possibleNode][j] == 1) &amp;&amp; (j != possibleNode)){
+                                savedNode += bfs(v, possibleNode, j, initialSet, n, graph);
+                            }
+                        }</B></FONT>
+                        // System.out.println(possibleNode);
+                        // System.out.println(savedNode);
+                        if (savedNode &gt; max || ((savedNode == max) &amp;&amp; (possibleNode &lt; index))){
+                            max = savedNode;
+                            index = possibleNode;
+<A NAME="2"></A>                        }
+                    }
+                }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return index;
+    }
+    
+    int bfs(boolean[] v, int possibleNode, int initialNode, HashSet&lt;Integer&gt; initialSet</B></FONT>, int n, int[][] graph){
+        
+        Queue&lt;Integer&gt; q = new LinkedList&lt;Integer&gt;();
+        q.offer(initialNode);
+        v[initialNode] = true;
+        boolean encounterMal = false;
+        if (initialSet.contains(initialNode)){
+            encounterMal = true;
+        }
+        int count = 1;
+        
+        while (!q.isEmpty()){
+            int cur = q.poll();
+            for (int j = 0; j &lt; n; j++){
+                if ((j != possibleNode) &amp;&amp; (!v[j]) &amp;&amp; (graph[cur][j] == 1)){
+                    if (initialSet.contains(j)){
+                        encounterMal = true;
+                    }
+                    q.offer(j);
+                    v[j] = true;
+                    count++;
+                }
+            }
+        }
+        //System.out.printf(&quot;init: %d, poss: %d, count: %d  %b\n&quot;, initialNode, possibleNode, count, encounterMal);
+        if (encounterMal){
+            return 0;
+        } else {
+            return count;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

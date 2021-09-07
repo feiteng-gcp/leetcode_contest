@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_FanBu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_FanBu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minFlipsMonoIncr(String S) {
+        int[] minZeroCost = new int[S.length()];
+<A NAME="0"></A>        int[] minOneCost = new int[S.length()];
+        int minZero = 0;
+        int minOne = 0;
+        for (int i = 0; i &lt; minZeroCost.length; i++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if (S.charAt(i) == '1') {
+                minZero++;
+<A NAME="1"></A>            }
+            minZeroCost[i] = minZero;
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = minOneCost.length - 1; i &gt;= 0; i--) {
+            if (S.charAt(i) == '0') {
+                minOne++;
+            }
+<A NAME="2"></A>            minOneCost[i] = minOne;
+        }
+        int minCost = Integer.MAX_VALUE;
+        for (int i = 0</B></FONT>; i &lt; S.length() - 1; i++) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if (minZeroCost[i] + minOneCost[i + 1] &lt; minCost) {
+                minCost = minZeroCost[i] + minOneCost[i + 1];
+            }
+        }
+        return</B></FONT> Math.min(minCost, Math.min(minZeroCost[S.length() - 1], minOneCost[0]));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

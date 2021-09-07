@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_goddice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_goddice.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>template &lt;typename T&gt;
+void print_seq(T&amp;&amp; v) {
+    cout &lt;&lt; &quot;[ &quot;;
+    for(auto&amp; x : v) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; &quot;]\n&quot;;
+}
+
+class Solution {
+public:
+    int minMalwareSpread(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; initial) {
+        int M = INT_MAX;
+        int idx = INT_MAX;
+        
+        //
+        //cout &lt;&lt; nums(graph, initial) &lt;&lt; endl;
+        //
+        
+        
+        vector&lt;vector&lt;int&gt;&gt; graph_copy;
+        vector&lt;int&gt; initial_copy;
+        
+        for (int i = 0; i &lt; initial.size(); ++i) {
+            int u = initial[i];
+            graph_copy = graph;
+            for (int i = 0; i &lt; graph_copy.size(); ++i) {
+                graph_copy[i][u] = 0;
+                graph_copy[u][i] = 0;
+            }
+            initial_copy = {};
+            for (int j = 0; j &lt; initial.size(); ++j) {
+                if (j != i) {
+                    initial_copy.push_back(initial[j]);
+                }
+            }
+            
+            /////////////////
+            //print_seq(initial_copy);
+            //for(auto&amp; v: graph_copy) {
+            //    print_seq(v);
+            //}
+            /////////////////
+            
+            int MM = nums(graph_copy, initial_copy);
+            
+            //cout &lt;&lt; u &lt;&lt; &quot;: &quot; &lt;&lt; MM &lt;&lt; endl;
+            
+            if (MM &lt; M) {
+                M = MM;
+                idx = u;
+            }
+            else if (MM == M) {
+                idx = min(idx, u);
+            }
+        }
+        
+        return idx;
+    }
+private:
+    int nums(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; initial) {
+        unordered_map&lt;int, bool&gt; visited;
+        int count = 0;
+        for (int&amp; u : initial) {
+            dfs(graph, u, visited, count);
+        }
+        return count;
+    }
+    
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int u, unordered_map&lt;int, bool&gt;&amp; visited, int&amp; count) {
+        if (!visited[u]) {
+            visited[u] = true;
+            ++count;
+            for (int v = 0; v &lt; graph[u].size(); ++v) {
+                if (!visited[v] &amp;&amp; v != u &amp;&amp; graph[u][v] == 1) {
+                    dfs(graph, v, visited, count);
+                }
+            }
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

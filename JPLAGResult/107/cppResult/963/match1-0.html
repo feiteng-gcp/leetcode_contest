@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_goddice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_goddice.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; threeEqualParts(vector&lt;int&gt;&amp; A) {
+        int c = 0;
+        for (auto&amp; x : A) {
+            if (x == 1) {
+                ++c;
+            }
+        }
+        
+        if (c % 3 != 0) {
+            return {-1, -1};
+        }
+        if (c == 0) {
+            return {0,2};
+        }
+        
+        int n = c / 3;
+        int nZero = 0;</B></FONT>
+        for (int i = A.size()-1; i &gt;= 0; --i) {
+            if (A[i] == 0) {
+                ++nZero;
+            }
+            else {
+                break;
+            }
+        }
+        
+        int a, b;
+        
+        a = 0;
+        c = 0;
+        while(c &lt; n) {
+            if (A[a] == 0) {
+                ++a;
+            }
+            else {
+                ++a;
+                ++c;
+            }
+        }
+        c = 0;
+        while(c &lt; nZero) {
+            if (A[a] == 0) {
+                ++c;
+                ++a;
+            }
+            else {
+                return {-1, -1};
+            }
+        }
+        --a;
+        
+        
+        b = a + 1;       
+        c = 0;
+        while(c &lt; n) {
+            if (A[b] == 0) {
+                ++b;
+            }
+            else {
+                ++b;
+                ++c;
+            }
+        }
+        c = 0;
+        while(c &lt; nZero) {
+            if (A[b] == 0) {
+                ++c;
+                ++b;
+            }
+            else {
+                return {-1, -1};
+            }
+        }
+        
+        // varify a, b
+        if (verify(A, 0, a, a+1, b-1) &amp;&amp; verify(A, 0, a, b, A.size()-1)) {
+            return {a, b};
+        }
+        else {
+            return {-1, -1};
+        }
+    }
+private:
+    bool verify(vector&lt;int&gt;&amp; A, int lo1, int hi1, int lo2, int hi2) {
+        int p1 = lo1;
+        int p2 = lo2;
+        while(A[p1] == 0 &amp;&amp; p1 &lt;= hi1) ++p1;
+        while(A[p2] == 0 &amp;&amp; p2 &lt;= hi2) ++p2;
+        
+        if (hi1 - p1 != hi2 - p2) {
+            return false;
+        }
+        
+        while(p1 &lt; hi1) {
+            if (A[p1] != A[p2]) {
+                return false;
+            }
+            else {
+                ++p1;
+                ++p2;
+            }
+        }
+        
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
