@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>55_pkacprzak.cpp</TITLE>
+ <TITLE>76_fsqhxrcjw.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,73 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>55_pkacprzak.cpp</CENTER></H3><HR>
+<H3><CENTER>76_fsqhxrcjw.cpp</CENTER></H3><HR>
 <PRE>
-const int n = 2;
-const int m = 3;
-
-using board = vector&lt;vector&lt;int&gt;&gt;;
-
-board target = {{1,2,3},{4,5,0}};
-bool solved(const board&amp; a) {
-    return a == target;
-}
-
-int dx[] = {-1,0,1,0};
-int dy[] = {0,1,0,-1};
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
-        set&lt;board&gt; visited;
-        deque&lt;pair&lt;board, int&gt;&gt; qu = {{a,0}};
-        while (!qu.empty()) {
-            auto a = qu.front().first;
-            int d = qu.front().second;
-            qu.pop_front();
-<A NAME="0"></A>            if (visited.find(a) != visited.end()) continue;
-            visited.insert(a);
-            if (solved(a)) return d;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int x, y;
-            for (int i = 0; i &lt; n; ++i) {
-                for (int j = 0; j &lt; m; ++j) {
-                    if (a[i][j] == 0) {
-                        x = i;
-                        y = j;
+
+    int encode(const vector&lt;vector&lt;int&gt;&gt;&amp; a) {
+        int ret = 0;
+        for (int i=0; i&lt;2; ++i)
+            for (int j=0; j&lt;3; ++j) 
+                ret = ret*10 + a[i][j];
+        return ret;
+    }
+<A NAME="0"></A>    
+    vector&lt;vector&lt;int&gt;&gt; decode(int x) {
+        auto ret = vector&lt;vector&lt;int&gt;&gt;(2, vector&lt;int&gt;(3, 0));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=1; i&gt;=0; --i)
+            for (int j=2; j&gt;=0; --j) {
+                ret[i][j] = x % 10;
+                x /= 10;
+            }</B></FONT>
+        return ret;
+    }
+    
+    vector&lt;int&gt; dx = {-1, 0, 1, 0};
+    vector&lt;int&gt; dy = {0, 1, 0, -1};
+    
+    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+        queue&lt;pair&lt;int,int&gt;&gt; q; // state, dis
+        int target = encode(vector&lt;vector&lt;int&gt;&gt;{{1,2,3},{4,5,0}});
+        int start = encode(board);
+        if (target==start)
+            return 0;
+        q.push({start, 0});
+        unordered_set&lt;int&gt; vis;
+        vis.insert(start);
+
+        
+        while (!q.empty()) {
+            auto state = decode(q.front().first);
+            int dis   = q.front().second;
+            q.pop();
+            
+            int x, y;
+            for (int i=0; i&lt;2; ++i)
+                for (int j=0; j&lt;3; ++j)
+                    if (state[i][j]==0) {
+                        x = i, y = j;
+                        break;
+                    }
+            
+            for (int dir=0; dir&lt;4; ++dir) {
+                int tx=x+dx[dir], ty=y+dy[dir];
+                if (tx&gt;=0 &amp;&amp; tx&lt;2 &amp;&amp; ty&gt;=0 &amp;&amp; ty&lt;3) {
+                    auto after = state;
+                    swap(after[x][y], after[tx][ty]);
+                    int nxt = encode(after);
+                    // cout &lt;&lt; nxt &lt;&lt; endl;
+                    if (vis.find(nxt)==vis.end()) {
+                        q.push({nxt, dis+1});
+                        vis.insert(nxt);
+                        if (nxt==target) 
+                            return dis+1;
                     }
                 }
-            }
-            for (int k = 0; k &lt; 4; ++k) {
-                int nx = x+dx[k];
-                int ny = y+dy[k];
-                if (nx &gt;= 0 and nx &lt; n and ny &gt;= 0 and ny &lt; m) {</B></FONT>
-                    auto b = a;
-                    swap(b[x][y], b[nx][ny]);
-                    if (visited.find(b) == visited.end()) {
-                        qu.push_back({b, d+1});
-                    }
-                }
-            }
+            }    
         }
+        
         return -1;
     }
 };

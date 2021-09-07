@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>93_ZhengkaiWei.cpp</TITLE>
+ <TITLE>355_comicfans44.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,83 +15,112 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>93_ZhengkaiWei.cpp</CENTER></H3><HR>
+<H3><CENTER>355_comicfans44.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+#include &lt;bitset&gt;
+#include &lt;unordered_set&gt;
+#include &lt;cassert&gt;
+#include &lt;utility&gt;
+#include &lt;numeric&gt;
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;iostream&gt;
+#include &lt;climits&gt;
+#include &lt;set&gt;
+
+using namespace std;
+
+
+
+
+
+typedef vector&lt;vector&lt;int&gt;&gt; Grid;
 class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; dict4={{1,0},{-1,0},{0,1},{0,-1}};
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-    queue&lt;int&gt; q;
-    int code=getHash(board);
-    unordered_set&lt;int&gt; hset;
-    int finalCode=123450;
-    if(code==finalCode)
-        return 0;
-    int ans=1;
-    q.push(code);
-    hset.insert(code);
-    int x=0,y=0;
-    int thislevel=1;
-    int nextlevel=0;
-    while(!q.empty()){
-        if(thislevel==0){
-            ++ans;
-<A NAME="0"></A>            thislevel=nextlevel;
-            nextlevel=0;
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        code=q.front();
-        q.pop();
-        --thislevel;
-        getBoard(board,code);
-        for(int i=0;i&lt;2;++i){
-            for(int j=0;j&lt;3;++j){
-                if(board[i][j]==0){
-<A NAME="1"></A>                    x=i;
-                    y=j;</B></FONT>
-                    break;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+
+
+    public:
+        int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+
+            Grid dest={{1,2,3},{4,5,0}};
+
+            map&lt;Grid,int&gt; reached;
+<A NAME="0"></A>            reached.insert({board,0});
+            pair&lt;int ,int &gt;  zeroPos;
+            bool foundZero=false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int y=0;(y&lt;2)&amp;&amp;!foundZero;++y){
+                for(int x=0;x&lt;3;++x){
+                    if (board[y][x]==0) {
+                        zeroPos.first=y;
+                        zeroPos.second=x;</B></FONT>
+                        foundZero=true;
+                        break;
+                    }
+                }
             }
+
+            int currentMin=INT_MAX;
+
+            recuFind(board,dest,zeroPos,reached,0,currentMin);
+            
+            if(currentMin==INT_MAX) return -1;
+            return currentMin;
+
         }
 
-        for(int i=0;i&lt;4;++i){
-            int newx=x+dict4[i][0];
-            int newy=y+dict4[i][1];
-            if(newx&lt;0||newx&gt;=2||newy&lt;0||newy&gt;=3)</B></FONT>
-                continue;
-            swap(board[x][y],board[newx][newy]);
-            code=getHash(board);
+        bool inRange(int y,int x){
+            return (x&gt;=0) &amp;&amp; (y&gt;=0) &amp;&amp; (x&lt;3) &amp;&amp; (y&lt;2);
+        }
 
-            if(code==finalCode)
-                return ans;
-            if(hset.count(code)==0){
-                hset.insert(code);
-                q.push(code);
-                ++nextlevel;
-               // cout&lt;&lt;code&lt;&lt;endl;
-               // show(board);
+        void recuFind(Grid&amp; from,const Grid&amp; dest,const pair&lt;int,int&gt; zeroPos,map&lt;Grid,int&gt;&amp; reached, const int currentStep, int &amp; currentMin){
+
+            if (from==dest) {
+
+                currentMin=min(currentMin,currentStep);
+
+                return;
             }
-            swap(board[x][y],board[newx][newy]);
+
+            if(currentStep&gt;currentMin){
+                return;
+            }
+
+
+            int offset[4][2]={
+                {0,1},{0,-1},{1,0},{-1,0}
+            };
+
+            for(int i=0;i&lt;4;++i){
+
+                pair&lt;int,int&gt; swapPos= {zeroPos.first+offset[i][0],zeroPos.second+offset[i][1]};
+
+                if (!inRange(swapPos.first,swapPos.second)) {
+                    continue;
+                }
+
+
+                Grid swapped (from);
+
+                swap(swapped[zeroPos.first][zeroPos.second],swapped[swapPos.first][swapPos.second]);
+
+                int thisSteps=currentStep+1;
+                auto pos =reached.find(swapped);
+                if((pos!=reached.end())&amp;&amp; (pos-&gt;second&lt;thisSteps)){
+                    continue;
+                }
+
+                reached[swapped]=thisSteps;
+
+                recuFind(swapped,dest,swapPos,reached,currentStep+1,currentMin);
+            }
         }
-    }
-    return -1;
-}
-    int getHash(vector&lt;vector&lt;int&gt;&gt;&amp; board){
-    int code=0;
-    for(int i=0;i&lt;2;++i){
-        for(int j=0;j&lt;3;++j){
-            code=code*10+board[i][j];
-        }
-    }
-<A NAME="2"></A>    return code;
-}
-void getBoard(vector&lt;vector&lt;int&gt;&gt;&amp; board,int code){
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match6-1.html#2',3,'match6-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(int i=1;i&gt;=0;--i){
-        for(int j=2;j&gt;=0;--j){
-            board[i][j]=code%10;
-            code/=10;
-        }
-    }</B></FONT>
-}
 };
 </PRE>
 </BODY>

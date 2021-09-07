@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>223_yangmw.cpp</TITLE>
+ <TITLE>289_jerryhui.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,78 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>223_yangmw.cpp</CENTER></H3><HR>
+<H3><CENTER>289_jerryhui.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int steps = 0;
-        const vector&lt;vector&lt;int&gt;&gt; target = {{1,2,3}, {4,5,0}};
-        
-        set&lt;vector&lt;vector&lt;int&gt;&gt;&gt; visited;
-        visited.insert(board);
+        unordered_set&lt;string&gt; visited;
         queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
-        q.push(board);
+<A NAME="0"></A>        int x, y;
+        int step = 0;
         
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; board.size(); ++i) {
+            for (int j = 0; j &lt; board[0].size(); ++j) {
+                if (board[i][j] == 0) {
+                    x = i;
+                    y = j;
+                } // if
+            } // for
+        } // for</B></FONT>
+        
+        vector&lt;int&gt; dx = {0, 0, -1, 1};
+        vector&lt;int&gt; dy = {-1, 1, 0, 0};
+        
+        q.push(board);
         while (!q.empty()) {
-            int size = q.size();
-            for (int index = 0; index &lt; size; ++index) {
-                const vector&lt;vector&lt;int&gt;&gt;&amp; b = q.front();
-                
-<A NAME="0"></A>                if (b == target) return steps;
-                
-                // 定位0之所在
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int i = 0, j = 0;
-                for (int ind0 = 0; ind0 &lt; 2; ++ind0) {
-                    for (int ind1 = 0; ind1 &lt; 3; ++ind1) {
-                        if (b[ind0][ind1] == 0) {
-                            i = ind0; j = ind1; break; // !
-                        }
-                    }
-                }
-                
-                if (i-1 &gt;= 0) {
-                    vector&lt;vector&lt;int&gt;&gt; b2 = b;
-                    swap(b2[i][j], b2[i-1][j]);
-                    if (visited.find(b2) == visited.end()) {
-                        visited.insert(b2);
-                        q.push(b2);
-                    }
-                }
-                
-                if (i+1 &lt;= 1) {
-                    vector&lt;vector&lt;int&gt;&gt; b2 = b;
-                    swap(b2[i][j], b2[i+1][j]);
-                    if (visited.find(b2) == visited.end()) {
-                        visited.insert(b2);
-                        q.push(b2);
-                    }                    
-                }
-                
-                if (j-1 &gt;= 0) {
-                    vector&lt;vector&lt;int&gt;&gt; b2 = b;
-                    swap(b2[i][j], b2[i][j-1]);
-                    if (visited.find(b2) == visited.end()) {
-                        visited.insert(b2);
-                        q.push(b2);
-                    }                    
-                }
-                
-                if (j+1 &lt;= 2) {
-                    vector&lt;vector&lt;int&gt;&gt; b2 = b;
-                    swap(b2[i][j], b2[i][j+1]);
-                    if (visited.find(b2) == visited.end()) {
-                        visited.insert(b2);
-                        q.push(b2);
-                    }                   
-                }
-                
+            int qSize = q.size();
+            for (int idx = 0; idx &lt; qSize; ++idx) {
+                vector&lt;vector&lt;int&gt;&gt; brd = q.front();
                 q.pop();
-
-            }
+                
+                string key = &quot;&quot;;
+                for (int i = 0; i &lt; brd.size(); ++i) {
+                    for (int j = 0; j &lt; brd[0].size(); ++j) { 
+                        key += to_string(brd[i][j]);
+                        if (brd[i][j] == 0) {
+                            x = i;
+                            y = j;
+                        } // if
+                    } // for
+                } // for
+                
+                if (visited.find(key) != visited.end())
+                    continue;
+                if (key == &quot;123450&quot;) 
+                    return step;
+                
+                visited.insert(key);
+                
+                for (int k = 0; k &lt; 4; ++k) {
+                    int xNew = x + dx[k];
+                    int yNew = y + dy[k];
+                    if (xNew &lt; 0 || xNew == board.size() || yNew &lt; 0 || yNew == board[0].size())
+                        continue;
             
-            ++steps;</B></FONT>
-        }
+                    swap(brd[x][y], brd[xNew][yNew]);
+                    q.push(brd);
+                    swap(brd[x][y], brd[xNew][yNew]);
+                } // for
+            
+            } // for
+            
+            ++step;
+        } // while
         
         return -1;
     }

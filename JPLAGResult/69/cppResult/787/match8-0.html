@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>3_lympanda.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>3_lympanda.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>typedef vector&lt;vector&lt;int&gt;&gt; item;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};</B></FONT>
+<A NAME="0"></A>
+map&lt;vector&lt;vector&lt;int&gt; &gt;, int&gt; mp;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int neigh[4][2]={{0,1},{1,0},{0,-1},{-1,0}};</B></FONT>
 
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        queue&lt;item&gt; Q;
-        map&lt;item, int&gt; dp;
-        Q.push(board);
-        dp[board] = 0;
-        int n = 2, m = 3;
-        while (!Q.empty()) {
-            auto a = Q.front();
-<A NAME="1"></A>            int cur = dp[a];
-            Q.pop();
-            int x, y;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; n; ++i) {
-                for (int j = 0; j &lt; m; ++j) {
-                    if (a[i][j] == 0) {
-                        x = i;
-                        y = j;
-                    }
-                }
+    int slidingPuzzle(vector&lt;vector&lt;int&gt; &gt;&amp; board) {
+      int i,j,k,b1,l,o,p,x,y,z;
+      vector&lt;vector&lt;int&gt; &gt; a;
+      vector&lt;int&gt; tmp;
+      vector&lt;vector&lt;vector&lt;int&gt; &gt; &gt; q;
+      tmp.clear();
+      tmp.push_back(1);
+      tmp.push_back(2);
+      tmp.push_back(3);
+      a.push_back(tmp);
+      tmp.clear();
+      tmp.push_back(4);
+      tmp.push_back(5);
+      tmp.push_back(0);
+      a.push_back(tmp);
+      mp.clear();
+      mp[a]=0;
+      q.clear();
+      q.push_back(a);
+      for (i=0;i&lt;q.size();i++)
+      {
+        a=q[i];
+        z=mp[a];
+        b1=0;
+        for (j=0;j&lt;2;j++)
+        {
+          for (k=0;k&lt;3;k++)
+          {
+            if (a[j][k]==0)
+            {
+              b1=1;break;
             }
-            for (int k = 0; k &lt; 4; ++k) {
-                int nx = x + d[k][0];
-                int ny = y + d[k][1];
-                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;</B></FONT>
-                swap(a[x][y], a[nx][ny]);
-                if (!dp.count(a)) {
-                    dp[a] = cur + 1;
-                    Q.push(a);
-                }
-                swap(a[x][y], a[nx][ny]);
-            }   
+          }
+          if (b1==1) break;
         }
-        item target = {{1, 2, 3}, {4, 5, 0}};
-        if (dp.count(target)) return dp[target];
-        return -1;
-        
+        for (o=0;o&lt;4;o++)
+        {
+          x=j+neigh[o][0];
+          y=k+neigh[o][1];
+          if ((x&gt;=0)&amp;&amp;(x&lt;2)&amp;&amp;(y&gt;=0)&amp;&amp;(y&lt;3))
+          {
+            swap(a[j][k],a[x][y]);
+            if (mp.find(a)==mp.end())
+            {
+              mp[a]=z+1;
+              q.push_back(a);
+            }
+            swap(a[j][k],a[x][y]);
+          }
+        }
+      }
+      if (mp.find(board)==mp.end()) return -1;
+      else return mp[board];
     }
 };
 </PRE>

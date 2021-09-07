@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>172_jamescao.java</TITLE>
+ <TITLE>243_haggaibadguy.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,180 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>172_jamescao.java</CENTER></H3><HR>
+<H3><CENTER>243_haggaibadguy.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-     public int slidingPuzzle(int[][] board) {
-    Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
-    q.offer(board);
-<A NAME="0"></A>    Set&lt;String&gt; visited = new HashSet&lt;&gt;();
-    visited.add(mkString(board));
-    int step = 0;
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(!q.isEmpty()) {
-      int qsize = q.size();
-      for(int i=0; i&lt;qsize; i++) {
-        int[][] curr = q.poll();
-        if(mkString</B></FONT>(curr).equals(&quot;123450&quot;)) return step;
-        for(int[][] next: mkNext(curr)) {
-          if(!visited.contains(mkString(next))) {
-<A NAME="1"></A>            q.offer(next);
-            visited.add(mkString(next));
-          }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-      }
-      step++;
+
+    class Vertex {
+
+        int[][] board;
+        int value;
+
+        Vertex(int[][] board) {
+            this.board = board;
+            this.value = getValue();
+        }
+
+        // [[1,2,3],[4,5,0]]
+        Set&lt;Vertex&gt; getAdjacentVertices() {
+            Set&lt;Vertex&gt; vertices = new HashSet&lt;&gt;();
+            if (board[0][0] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 0, 0, 0, 1);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 0, 0, 1, 0);
+                vertices.add(new Vertex(copy));
+            } else if (board[0][1] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 0, 1, 0, 0);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 0, 1, 1, 1);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 0, 1, 0, 2);
+                vertices.add(new Vertex(copy));
+            } else if (board[0][2] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 0, 2, 0, 1);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 0, 2, 1, 2);
+                vertices.add(new Vertex(copy));
+            } else if (board[1][0] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 1, 0, 0, 0);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 1, 0, 1, 1);
+                vertices.add(new Vertex(copy));
+            } else if (board[1][1] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 1, 1, 1, 0);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 1, 1, 1, 2);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 1, 1, 0, 1);
+                vertices.add(new Vertex(copy));
+            } else if (board[1][2] == 0) {
+                int[][] copy = getCopy(board);
+                swap(copy, 1, 2, 0, 2);
+                vertices.add(new Vertex(copy));
+
+                copy = getCopy(board);
+                swap(copy, 1, 2, 1, 1);
+                vertices.add(new Vertex(copy));
+            }
+
+            return vertices;
+        }
+
+        private int[][] getCopy(int[][] board) {
+            int[][] copy = {{0, 0, 0}, {0, 0, 0}};
+            copy[0][0] = board[0][0];
+            copy[0][1] = board[0][1];
+            copy[0][2] = board[0][2];
+            copy[1][0] = board[1][0];
+            copy[1][1] = board[1][1];
+            copy[1][2] = board[1][2];
+            return copy;
+        }
+
+        private void swap(int[][] b, int ax, int ay, int bx, int by) {
+            int temp = b[ax][ay];
+            b[ax][ay] = b[bx][by];
+            b[bx][by] = temp;
+        }
+
+        // [[1,2,3],[4,5,0]]
+        boolean isGoal() {
+            if (board[0][0] != 1) {
+                return false;
+            }
+
+            if (board[0][1] != 2) {
+                return false;
+            }
+
+            if (board[0][2] != 3) {
+                return false;
+            }
+
+            if (board[1][0] != 4) {
+                return false;
+            }
+
+            if (board[1][1] != 5) {
+                return false;
+            }
+
+            if (board[1][2] != 0) {
+                return false;
+            }
+
+            return true;
+        }
+
+        int getValue() {
+            int sum = 0;
+            sum += board[0][0] * 100000;
+            sum += board[0][1] * 10000;
+            sum += board[0][2] * 1000;
+            sum += board[1][0] * 100;
+            sum += board[1][1] * 10;
+            sum += board[1][2];
+            return sum;
+        }
+
     }
 
-    return -1;
-  }
-<A NAME="2"></A>  String mkString(int[][] board) {
-    StringBuilder sb = new StringBuilder();
-    for(int[] l: board) {
-      for(int i</B></FONT>: l) sb.append(i)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-    }
-    return sb.toString();
-  }
+<A NAME="1"></A>    public int slidingPuzzle(int[][] board) {
+        Vertex startVertex = new Vertex(board);
+        Queue&lt;FrontierItem&gt; frontier = new LinkedList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        frontier.add(new FrontierItem(0, startVertex));
+        seen.add(startVertex.value);
 
-<A NAME="3"></A>  List&lt;int[][]&gt; mkNext(int[][] b) {
-    List&lt;int[][]&gt; res = new ArrayList&lt;&gt;();
-    int[] idx = new int[]{0,0};</B></FONT>
-    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#3',2,'match0-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0; i&lt;2; i++) {
-      for(int j=0; j&lt;3; j++) {
-<A NAME="4"></A>        if(b[i][j]==0) {
-          i</B></FONT>dx = new int[]{i, j};
-          break;
-        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#4',2,'match0-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-      }
+        while (!frontier.isEmpty()) {
+            FrontierItem item = frontier.remove();
+            Vertex vertex = item.vertex</B></FONT>;
+            if (vertex.isGoal()) {
+                return item.depth;
+            }
+
+            for (Vertex adjacentVertex : vertex.getAdjacentVertices()) {
+                if (!seen.contains(adjacentVertex.value)) {
+                    seen.add(adjacentVertex.value);
+                    frontier.add(new FrontierItem(item.depth + 1, adjacentVertex));
+                }
+            }
+        }
+
+<A NAME="0"></A>        return -1;
     }
-    int[][] dirs = {{-1,0},{0,-1},{0,1},{1,0}};
-    for(int[] d: dirs) {
-      int ni = idx[0] + d[0];
-      int nj = idx[1] + d[1];
-      if(ni&gt;=0 &amp;&amp; ni&lt;2 &amp;&amp; nj&gt;=0 &amp;&amp; nj &lt; 3) {</B></FONT>
-        int[][] next = new int[2][3];
-        next[0] = b[0].clone();
-        next[1] = b[1].clone();
-        next[ni][nj] = 0;
-        next[idx[0]][idx[1]] = b[ni][nj];
-        res.add(next);
-      }
-    }
-    return res;
-  }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class FrontierItem {
+
+        int depth;
+        Vertex vertex;
+
+        FrontierItem(int depth, Vertex vertex) {
+            this.depth = depth;
+            this.vertex = vertex;
+        }
+
+    }</B></FONT>
+
 }
 </PRE>
 

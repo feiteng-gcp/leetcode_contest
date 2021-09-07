@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_magica.cpp</TITLE>
+ <TITLE>355_comicfans44.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,112 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>28_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>355_comicfans44.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+#include &lt;bitset&gt;
+#include &lt;unordered_set&gt;
+#include &lt;cassert&gt;
+#include &lt;utility&gt;
+#include &lt;numeric&gt;
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;iostream&gt;
+#include &lt;climits&gt;
+#include &lt;set&gt;
+
+using namespace std;
+
+
+
+
+
+typedef vector&lt;vector&lt;int&gt;&gt; Grid;
 class Solution {
-private:
-  int getIndex(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-<A NAME="0"></A>    return board[0][0] * 1 + board[0][1] * 6 + board[0][2] * 36 +
-      board[1][0] * 216 + board[1][1] * 1296 + board[1][2] * 7776;
-  }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  vector&lt;vector&lt;int&gt;&gt; direction = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};</B></FONT>
-public:
-  int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-    queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
-    vector&lt;vector&lt;int&gt;&gt; vgoal = {{1, 2, 3}, {4, 5, 0}};
-    int goal = getIndex(vgoal);
-    vector&lt;int&gt; dist(50000, -1);
-    dist[getIndex(board)] = 0;
-    q.push(board);
-    while (!q.empty() &amp;&amp; dist[goal] == -1) {
-<A NAME="1"></A>      vector&lt;vector&lt;int&gt;&gt; h = q.front();
-      q.pop();
-      int x, y;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for (int i = 0; i &lt; 2; ++i) {
-        for (int j = 0; j &lt; 3; ++j) {
-          if (h[i][j] == 0) {
-            x = i; y = j;
-            break;
-          }
+
+
+    public:
+        int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+
+            Grid dest={{1,2,3},{4,5,0}};
+
+            map&lt;Grid,int&gt; reached;
+            reached.insert({board,0});
+            pair&lt;int ,int &gt;  zeroPos;
+            bool foundZero=false;
+            for(int y=0;(y&lt;2)&amp;&amp;!foundZero;++y){
+                for(int x=0;x&lt;3;++x){
+                    if (board[y][x]==0) {
+                        zeroPos.first=y;
+                        zeroPos.second=x;
+                        foundZero=true;
+                        break;
+                    }
+                }
+            }
+
+            int currentMin=INT_MAX;
+
+            recuFind(board,dest,zeroPos,reached,0,currentMin);
+            
+            if(currentMin==INT_MAX) return -1;
+            return currentMin;
+
         }
-      }
-      for (auto&amp; d: direction) {</B></FONT>
-        int tx = x + d[0], ty = y + d[1];
-        if (tx &gt;= 0 &amp;&amp; tx &lt; 2 &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; 3) {
-          vector&lt;vector&lt;int&gt;&gt; next = h;
-          swap(next[x][y], next[tx][ty]);
-          if (dist[getIndex(next)] == -1) {
-            dist[getIndex(next)] = dist[getIndex(h)] + 1;
-            q.push(next);
-          }
+
+        bool inRange(int y,int x){
+            return (x&gt;=0) &amp;&amp; (y&gt;=0) &amp;&amp; (x&lt;3) &amp;&amp; (y&lt;2);
         }
-      }
-    }
-    return dist[goal];
-  }
+
+        void recuFind(Grid&amp; from,const Grid&amp; dest,const pair&lt;int,int&gt; zeroPos,map&lt;Grid,int&gt;&amp; reached, const int currentStep, int &amp; currentMin){
+
+            if (from==dest) {
+
+                currentMin=min(currentMin,currentStep);
+
+                return;
+            }
+
+            if(currentStep&gt;currentMin){
+                return;
+            }
+<A NAME="0"></A>
+
+            int offset[4][2]={
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                {0,1},{0,-1},{1,0},{-1,0}
+            };
+
+            for(int i=0;i&lt;4;++i){</B></FONT>
+
+                pair&lt;int,int&gt; swapPos= {zeroPos.first+offset[i][0],zeroPos.second+offset[i][1]};
+
+                if (!inRange(swapPos.first,swapPos.second)) {
+                    continue;
+                }
+
+
+                Grid swapped (from);
+
+                swap(swapped[zeroPos.first][zeroPos.second],swapped[swapPos.first][swapPos.second]);
+
+                int thisSteps=currentStep+1;
+                auto pos =reached.find(swapped);
+                if((pos!=reached.end())&amp;&amp; (pos-&gt;second&lt;thisSteps)){
+                    continue;
+                }
+
+                reached[swapped]=thisSteps;
+
+                recuFind(swapped,dest,swapPos,reached,currentStep+1,currentMin);
+            }
+        }
 };
 </PRE>
 </BODY>

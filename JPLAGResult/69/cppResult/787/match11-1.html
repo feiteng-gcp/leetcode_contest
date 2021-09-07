@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cuiaoxiang.cpp</TITLE>
+ <TITLE>193_zhengkai2001.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,89 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>193_zhengkai2001.cpp</CENTER></H3><HR>
 <PRE>
-typedef vector&lt;vector&lt;int&gt;&gt; item;
-const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-
 class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        queue&lt;item&gt; Q;
-        map&lt;item, int&gt; dp;
-        Q.push(board);
-        dp[board] = 0;
-        int n = 2, m = 3;
-        while (!Q.empty()) {
-<A NAME="0"></A>            auto a = Q.front();
-            int cur = dp[a];
-            Q.pop();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int x, y;
-            for (int i = 0; i &lt; n; ++i) {
-                for (int j = 0; j &lt; m; ++j) {
-                    if (a[i][j] == 0) {
-                        x = i;
-                        y = j;
-                    }
-                }
-            }
-            for (int k = 0; k &lt; 4; ++k) {
-                int nx = x + d[k][0];</B></FONT>
-                int ny = y + d[k][1];
-                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) continue;
-                swap(a[x][y], a[nx][ny]);
-                if (!dp.count(a)) {
-                    dp[a] = cur + 1;
-                    Q.push(a);
-                }
-                swap(a[x][y], a[nx][ny]);
-            }   
-        }
-        item target = {{1, 2, 3}, {4, 5, 0}};
-        if (dp.count(target)) return dp[target];
-        return -1;
-        
-    }
+	const vector&lt;vector&lt;int&gt;&gt; directions = vector&lt;vector&lt;int&gt;&gt;{
+		vector&lt;int&gt;{0, 1},
+		vector&lt;int&gt;{0, -1},
+		vector&lt;int&gt;{1, 0} ,
+		vector&lt;int&gt;{-1, 0}
+	};
+
+	int step;
+
+	int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+		unordered_set&lt;int&gt; visited;
+		queue&lt;vector&lt;vector&lt;int&gt;&gt;&gt; q;
+		q.emplace(board);
+
+		for (int step = 0; !q.empty(); step++) {
+			int size = q.size();
+			for (int qi = 0; qi &lt; size; qi++) {
+				vector&lt;vector&lt;int&gt;&gt; b = q.front();
+				q.pop();
+
+				addToVisited(b, visited);
+
+				if (isSolved(b)) {
+					return step;
+				}
+
+				vector&lt;int&gt; pos = foundZero(b);
+				int i = pos[0];
+				int j = pos[1];
+
+				for (vector&lt;int&gt; direction : directions) {
+					int x = i + direction[0];
+					int y = j + direction[1];
+					if (0 &lt;= x &amp;&amp; x &lt;= 1 &amp;&amp; 0 &lt;= y &amp;&amp; y &lt;= 2) {
+						vector&lt;vector&lt;int&gt;&gt; newB = b;
+
+						int temp = newB[i][j];
+						newB[i][j] = newB[x][y];
+						newB[x][y] = temp;
+
+						if (!isVisited(newB, visited)) {
+							q.emplace(newB);
+						}
+					}
+				}
+			}
+		}
+
+		return -1;
+<A NAME="0"></A>	}
+
+	vector&lt;int&gt; foundZero(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for (int i = 0; i &lt; 2; i++) {
+			for (int j = 0; j &lt; 3; j++) {
+				if (board[i][j] == 0) {</B></FONT>
+					return vector&lt;int&gt;{i, j};
+				}
+			}
+		}
+		return vector&lt;int&gt;{-1, -1};
+	}
+
+	int getValue(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+		return board[0][0] * 100000 + board[0][1] * 10000 + board[0][2] * 1000
+			+ board[1][0] * 100 + board[1][1] * 10 + board[1][2];
+	}
+
+	void addToVisited(vector&lt;vector&lt;int&gt;&gt;&amp; board, unordered_set&lt;int&gt;&amp; visited) {
+		visited.insert(getValue(board));
+	}
+
+	bool isVisited(vector&lt;vector&lt;int&gt;&gt;&amp; board, unordered_set&lt;int&gt;&amp; visited) {
+		return visited.find(getValue(board)) != visited.end();
+	}
+
+	bool isSolved(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
+		return board[0][0] == 1 &amp;&amp; board[0][1] == 2 &amp;&amp; board[0][2] == 3
+			&amp;&amp; board[1][0] == 4 &amp;&amp; board[1][1] == 5 &amp;&amp; board[1][2] == 0;
+	}
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_ZYCSwing.cpp</TITLE>
+ <TITLE>3_lympanda.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>3_lympanda.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="2"></A>class Solution {
-    unordered_set&lt;int&gt; dp;
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int convert(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int tmp = 0;
-        for (int i = 0; i &lt; 2; ++i) {
-            for (int j = 0; j &lt; 3; ++j) {
-                tmp = tmp * 10 + board[i][j];
-            }
-        }
-        return tmp;
-    }</B></FONT>
 
-    int dx[4] = {0, 0, -1, 1};
-    int dy[4] = {1, -1, 0, 0};
+map&lt;vector&lt;vector&lt;int&gt; &gt;, int&gt; mp;
+
+int neigh[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
+
+class Solution {
 public:
-    int slidingPuzzle(vector&lt;vector&lt;int&gt;&gt;&amp; board) {
-        int terminal = 123450;
-        queue&lt;pair&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt;&gt; qq;
-        qq.push({board, 0});
-        while (!qq.empty()) {
-            auto cur = qq.front();
-            qq.pop();
-
-            vector&lt;vector&lt;int&gt;&gt; vv = cur.first;
-            int id = convert(vv);
-            if (id == terminal) return cur.second;
-            if (dp.find(id) != dp.end()) {
-                continue;
-<A NAME="0"></A>            }
-            dp.insert(id);
-            int row, col;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool found = false;
-            for (int i = 0; i &lt; 2; ++i) {
-                for (int j = 0; j &lt; 3; ++j) {
-                    if (vv[i][j] == 0) {
-                        found = true;
-                        row = i;</B></FONT>
-                        col = j;
-                        break;
-                    }
-<A NAME="1"></A>                }
-                if (found) break;
-
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-
-            for (int i = 0; i &lt; 4; ++i) {
-                int x = row + dx[i];
-                int y = col + dy[i];
-
-                if (x &lt; 0 || x &gt;= 2 || y &lt; 0 || y &gt;= 3) continue;</B></FONT>
-                swap(vv[row][col], vv[x][y]);
-                qq.push({vv, cur.second + 1});
-                swap(vv[row][col], vv[x][y]);
+    int slidingPuzzle(vector&lt;vector&lt;int&gt; &gt;&amp; board) {
+      int i,j,k,b1,l,o,p,x,y,z;
+      vector&lt;vector&lt;int&gt; &gt; a;
+      vector&lt;int&gt; tmp;
+      vector&lt;vector&lt;vector&lt;int&gt; &gt; &gt; q;
+      tmp.clear();
+      tmp.push_back(1);
+      tmp.push_back(2);
+      tmp.push_back(3);
+      a.push_back(tmp);
+      tmp.clear();
+      tmp.push_back(4);
+      tmp.push_back(5);
+      tmp.push_back(0);
+      a.push_back(tmp);
+      mp.clear();
+      mp[a]=0;
+      q.clear();
+      q.push_back(a);
+      for (i=0;i&lt;q.size();i++)
+      {
+        a=q[i];
+        z=mp[a];
+        b1=0;
+        for (j=0;j&lt;2;j++)
+        {
+          for (k=0;k&lt;3;k++)
+          {
+            if (a[j][k]==0)
+            {
+              b1=1;break;
             }
+          }
+          if (b1==1) break;
+<A NAME="0"></A>        }
+        for (o=0;o&lt;4;o++)
+        {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>          x=j+neigh[o][0];
+          y=k+neigh[o][1];
+          if ((x&gt;=0)&amp;&amp;(x&lt;2)&amp;&amp;(y&gt;=0)&amp;&amp;(y&lt;3))
+          {
+            swap(a[j][k],a[x][y]);
+            if (mp.find(a)==mp.end())
+            {
+              mp[a]=z+1;
+              q.push_back(a);
+            }
+            swap(a[j][k],a[x][y]);
+          }
         }
-
-        return -1;
+      }
+      if (mp.find(board)==mp.end()) return -1;</B></FONT>
+      else return mp[board];
     }
 };
 </PRE>
