@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>262_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int bagOfTokensScore(int[] tokens, int P) {
+        int power = P;
+        int score = 0;
+        int maxScore = 0;
+        Arrays.sort(tokens);
+        if (tokens == null || tokens.length == 0 || power &lt; tokens[0])
+            return maxScore;
+        List&lt;Integer&gt; tokensList = new ArrayList&lt;Integer&gt;();
+        int length = tokens.length;
+        for (int i = 0; i &lt; length; i++)
+            tokensList.add(tokens[i]);
+        while (!tokensList.isEmpty()) {
+            if (!tokensList.isEmpty() &amp;&amp; score &gt; 0) {
+                power += tokensList.remove(tokensList.size() - 1);
+                score--;
+            }
+            while (!tokensList.isEmpty() &amp;&amp; power &gt;= tokensList.get(0)) {
+                power -= tokensList.remove(0);
+                score++;
+                maxScore = Math.max(maxScore, score);
+            }
+        }
+        return maxScore;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

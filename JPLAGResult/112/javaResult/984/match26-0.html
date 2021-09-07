@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_kliu4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>164_kliu4.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+        int m = 10000;
+    private int toX(int a, int b) {
+        return a * m + b;
+    }
+    
+    public int removeStones(int[][] stones) {
+        int k = stones.length;
+        UnionFind uf = new UnionFind(k);
+
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int d = 0;
+        for (int i = 0; i &lt; k; i++) {
+<A NAME="0"></A>            map.put(toX(stones[i][0], stones[i][1]), d++);
+        }
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; k; i++) {
+            for (int j = i + 1; j &lt; k; j++) {
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    uf.union</B></FONT>(map.get(toX(stones[i][0], stones[i][1])), map.get(toX(stones[j][0], stones[j][1])));
+                }
+            }
+        }
+<A NAME="1"></A>        return k - uf.count;
+    }
+
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class UnionFind{
+        int[] root;
+        int[] size;
+        int n;
+        int count;
+
+        public UnionFind(int n) {
+            t</B></FONT>his.n = n;
+            root = new int[n];
+            size = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                root[i] = i;
+            }
+            count = n;
+            Arrays.fill(size, 1);
+        }
+
+        public int find(int a) {
+            if (a == root[a]) {
+<A NAME="2"></A>                return a;
+            }
+            root[a] = find(root[a]);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return root[a];
+        }
+
+        public void union(int a, int b) {
+            int rootA = find(a);
+            int rootB = find(b);
+            if (rootA != rootB) {</B></FONT>
+                root[rootA] = rootB;
+                size[rootB] += size[rootA];
+                count--;
+            }
+        }
+
+        public int size(int a) {
+            return size[find(a)];
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

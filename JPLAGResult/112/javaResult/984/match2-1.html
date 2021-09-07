@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>463_amie0106.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>463_amie0106.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    class UnionFind {
+        int[] ids;
+        int[] szs;
+        int size;
+        public UnionFind(int size) {
+            this.size = size;
+            ids = new int[size];
+            szs = new int[size];
+            for (int i = 0; i &lt; size; i++) {
+                ids[i] = i;
+                szs[i] = 1;
+            }
+        }
+        
+        public boolean find(int a</B></FONT>, int b) {
+            return getRoot(a) == getRoot(b);
+        }
+        
+        private int getRoot(int a) {
+            int cur = a;
+            while(cur != ids[cur]) {
+                ids[cur] = ids[ids[cur]];
+<A NAME="1"></A>                cur = ids[cur];
+            }
+            ids[a] = cur;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return cur;
+        }
+        
+<A NAME="2"></A>        public void union(int a, int b) {
+            int A = getRoot(a);
+            int B = getRoot</B></FONT>(b);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (szs[A] &gt; szs[B]) {
+                ids[B] = A;
+                szs[A] += szs[B];
+            } else {
+                ids[A] = B;
+                szs[B] += szs[A];
+            }
+            this.size--;
+        }
+    }
+    public int removeStones(int[][] stones) {
+        int row = stones.length;
+        int col = stones[0].length</B></FONT>;
+        UnionFind uf = new UnionFind(stones.length);
+        HashMap&lt;Integer, Set&lt;Integer&gt;&gt; xMap = new HashMap&lt;&gt;();
+        HashMap&lt;Integer, Set&lt;Integer&gt;&gt; yMap = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; stones.length; i++) {
+            int x = stones[i][0];
+            int y = stones[i][1];
+            if (!xMap.containsKey(x)) xMap.put(x, new HashSet&lt;&gt;());
+            if (!yMap.containsKey(y)) yMap.put(y, new HashSet&lt;&gt;());
+            xMap.get(x).add(i);
+            yMap.get(y).add(i);
+            for (int idx:xMap.get(x)) {
+<A NAME="3"></A>                if (!uf.find(idx,i)) uf.union(idx,i);
+            }
+            for (int idx:yMap.get(y)) {
+                if (!uf.find(idx,i)) uf.union(idx,i)<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#3',2,'match2-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        return stones.length - uf.size;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

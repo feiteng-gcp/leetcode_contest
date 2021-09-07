@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_WSY.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_WSY.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int removeStones(int[][] stones) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; xmap = new HashMap();
+        Map&lt;Integer, List&lt;Integer&gt;&gt; ymap = new HashMap();
+        
+        for (int[] stone : stones) {
+            if (!xmap.containsKey(stone[0]))
+                xmap.put(stone[0], new ArrayList());
+            xmap.get(stone[0]).add(stone[1]);
+            if (!ymap.containsKey(stone[1]))
+                ymap.put(stone[1], new ArrayList());
+<A NAME="0"></A>            ymap.get(stone[1]).add(stone[0]);
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; set = new HashSet();
+        int res = 0;
+        for (int[] stone : stones) {
+            String next = stone[0] + &quot;#&quot; + stone[1];
+            if (!set.contains(next)) {
+                setRemove(xmap, ymap, set, stone[0], stone[1]);
+                res++;
+            }
+        }
+        
+        return stones.length - res;
+    }
+    
+    private void setRemove(Map&lt;Integer, List&lt;Integer&gt;&gt; xmap, Map&lt;Integer, List&lt;Integer&gt;&gt; ymap, Set&lt;String&gt; set</B></FONT>, int r, int c) {
+        for (int y : xmap.get(r)) {
+            String next = r + &quot;#&quot; + y;
+            if (!set.contains(next)) {
+                set.add(next);
+                setRemove(xmap, ymap, set, r, y);
+            }
+        }
+        
+        for (int x : ymap.get(c)) {
+            String next = x + &quot;#&quot; + c;
+            if (!set.contains(next)) {
+                set.add(next);
+                setRemove(xmap, ymap, set, x, c);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

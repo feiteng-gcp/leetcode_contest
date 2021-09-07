@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_Hexadecimal.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>135_Hexadecimal.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def removeStones(self, stones):
+        &quot;&quot;&quot;
+        :type stones: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+<A NAME="0"></A>        rows,cols=collections.defaultdict(list),collections.defaultdict(list)
+        n=len(stones)
+        for i,s in enumerate(stones):
+            rows<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[s[0]].append(i)
+            cols[s[1]].append(i)
+        v=[False]*n
+        left=0
+        for</B></FONT> i in range(n):
+            if not v[i]:
+                v[i]=True
+                left+=1
+                b=[i]
+                j=0
+                while j&lt;len(b):
+                    x,y=stones[b[j]]
+                    for p in rows[x]:
+                        if not v[p]:
+                            v[p]=True
+                            b.append(p)
+                    for p in cols[y]:
+                        if not v[p]:
+                            v[p]=True
+                            b.append(p)                    
+                    j+=1
+        return n-left        
+</PRE>
+
+</BODY>
+</HTML>

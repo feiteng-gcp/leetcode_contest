@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>387_kaijie_zhang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>387_kaijie_zhang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int[] size;
+    int[] parent;
+    int count = 0;
+    public void init(int n) {
+        count = n;
+        size = new int[n];
+        parent = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            size[i] = 1;
+            parent[i] = i;
+        }
+    }
+    public int removeStones(int[][] stones) {</B></FONT>
+        Map&lt;Integer, Integer&gt; map1 = new HashMap&lt;&gt;();
+        Map&lt;Integer,Integer&gt; map2 = new HashMap&lt;&gt;();
+        int n = stones.length;
+        init(n);
+        for (int i = 0; i &lt; n; i++) {
+            int row = stones[i][0];
+            int col = stones[i][1];
+
+            if (!map1.containsKey(row) &amp;&amp; !map2.containsKey(col)) {
+                map1.put(row, i);
+                map2.put(col, i);
+            }else {
+                Integer n1 = map1.get(row);
+                Integer n2 = map2.get(col);
+                if (n1 != null) {
+                    union(n1, i);
+                }
+                if (n2 != null) {
+                    union(n2, i);
+                }
+                map1.put(row, find(i));
+<A NAME="1"></A>                map2.put(col, find(i));
+            }
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return count;
+    }
+    public void union(int i, int j) {
+        int rootA = find(i);
+<A NAME="2"></A>        int rootB = find(j);
+        if</B></FONT> (rootA == rootB) {
+            return;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        count--;
+        if (size[rootA] &gt;= size[rootB]) {
+            size[rootA] += size[rootB];
+            parent[rootB] = rootA;
+        } else {
+            size[rootB] += size[rootA];
+            parent[rootA] = rootB;
+        }</B></FONT>
+        return;
+    }
+    public int find(int i) {
+        if (parent[i] != i) {
+            int root = find(parent[i]);
+            parent[i] = root;
+        }
+        return parent[i];
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>
