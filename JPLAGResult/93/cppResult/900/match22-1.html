@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_Beach.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_Beach.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool reorderedPowerOf2(int N) {
+        //N = 635824465;
+        int Max = 1000000000;
+        int a[40][15] = {0};
+        int n = 0;
+        int d = 1;
+        while(d &lt;= Max){
+            //cout&lt;&lt;d&lt;&lt;endl;
+            int k = d;
+            int l = 0;
+            while(k != 0){
+                l++;
+                a[n][l] = k % 10;
+                k = k/10;
+            }
+            a[n][0] = l;
+            n++;
+            d = d*2;
+        }
+        
+        int b[15] = {0};
+        int l = 0;
+        while(N != 0){
+            l++;
+            b[l] = N%10;
+            N = N/10;
+        }
+        b[0] = l;
+        for(int i = 0; i &lt; n; i++){
+            if(a[i][0] == b[0]){
+                bool c[15] = {0};
+                bool succ = true;
+                int k;
+                for(int j = 1; j &lt;= b[0]; j++){
+                    for(k = 1; k &lt;= b[0]; k++){
+                        if(!c[k] &amp;&amp; b[j] == a[i][k]){
+                            c[k] = true;
+<A NAME="0"></A>                            break;
+                        }
+                    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(k &gt; b[0]){
+                        succ = false;
+                        break;
+                    }
+                }
+                if(succ)
+                    return true;
+            }
+        }
+        return false;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

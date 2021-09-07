@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>264_happybelly.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>264_happybelly.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+     TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+
+    public int[] advantageCount(int[] A, int[] B) {
+<A NAME="0"></A>        for (int n : A) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] ans = new int[A.length];
+        Arrays.fill(ans, -1);
+        for (int i = 0; i &lt; B.length; i++) {
+            Integer k = map.higherKey(B[i]);
+            if</B></FONT> (k == null) continue;
+<A NAME="1"></A>            ans[i] = k;
+            int v = map.get(k);
+            if (v == 1) map.remove(k);
+            else map.put(k, v - 1)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        int i = 0;
+<A NAME="2"></A>        for (Map.Entry&lt;Integer, Integer&gt; e : map.entrySet()) {
+            int k = e.getKey(), v = e.getValue();
+            while (v-- &gt; 0) {
+                while</B></FONT> (ans[i] != -1) i++<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+                ans[i] = k;
+            }
+        }
+        return ans;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

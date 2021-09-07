@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>272_liuyubobobo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>272_liuyubobobo.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool reorderedPowerOf2(int N) {
+
+        vector&lt;int&gt; digits = getDigits(N);
+        sort(digits.begin(), digits.end());
+        do{
+            if(digits[0] == 0)
+                continue;
+            if(isPower2(digits))
+                return true;
+        }while(next_permutation(digits.begin(), digits.end()));
+
+        return false;
+    }
+
+private:
+    bool isPower2(const vector&lt;int&gt;&amp; digits){
+
+        int num = 0;
+        for(int digit: digits)
+            num = num * 10 + digit;
+        return isPower2(num);
+    }
+
+    bool isPower2(int x){
+<A NAME="0"></A>        for(int i = 0 ; i &lt;= 31 ; i ++)
+            if(x == (1&lt;&lt;i))
+                return true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return false;
+    }
+
+    vector&lt;int&gt; getDigits(int N){
+        vector&lt;int&gt; res;
+        while(N){
+            res.push_back(N % 10);
+            N /= 10;
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

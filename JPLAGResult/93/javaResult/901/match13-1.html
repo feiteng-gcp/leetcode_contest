@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_gubrian890512.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_gubrian890512.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    class ElementPos {
+        int element;
+        int position;
+        
+        public ElementPos(int element, int position) {
+            this.element = element;
+            this.position = position;
+        }
+    }
+    
+    public int[] advantageCount(int[] A, int[] B) {
+        Comparator&lt;ElementPos&gt; comparator = new Comparator&lt;ElementPos&gt;() {</B></FONT>
+            public int compare(ElementPos a, ElementPos b) {
+                return b.element - a.element;
+            }
+        };
+        Arrays.sort(A);
+        ElementPos[] array = new ElementPos[B.length];
+        for (int i = 0; i &lt; B.length; i++) {
+            array[i] = new ElementPos(B[i], i);
+        }
+<A NAME="1"></A>        Arrays.sort(array, comparator);
+        List&lt;Integer&gt; rest = new ArrayList&lt;Integer&gt;();
+        int j = A.length - 1;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; A.length; i++) {
+            if (A[j] &gt; array[i].element) {
+                B[array[i].position] = A[j];
+                j--;
+            } else {</B></FONT>
+<A NAME="2"></A>                rest.add(array[i].position);
+            }
+        }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i : rest) {
+            B[i] = A[j--];
+        }
+        return B;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

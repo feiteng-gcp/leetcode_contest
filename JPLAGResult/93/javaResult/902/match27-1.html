@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_xicliuxicliu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_xicliuxicliu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minRefuelStops(int target, int startFuel, int[][] stations) {
+        int result = 0;
+        int fuel = startFuel;
+        PriorityQueue&lt;Integer&gt; que = new PriorityQueue&lt;&gt;(new Comparator&lt;Integer&gt;() {</B></FONT>
+            @Override
+            public int compare(Integer a, Integer b) {
+                return b - a;
+            }
+        });
+        if(stations.length == 0) {
+            if(target &lt;= startFuel)
+                return 0;
+            else
+                return -1;
+        }
+        if(startFuel &gt;= target)
+            return 0;
+        for(int i = 0; i &lt; stations.length; i++) {
+            if(fuel &gt;= stations[i][0]) {
+                que.offer(stations[i][1]);
+            } else {
+                while(fuel &lt; stations[i][0]) {
+                    if(que.size() == 0)
+                        return -1;
+                    fuel = fuel + que.poll();
+                    result++;
+                }
+                if(fuel &gt;= target)
+                    return result;
+                que.offer(stations[i][1]);
+            }
+        }
+        while(fuel &lt; target) {
+            if(que.size() == 0)
+                return -1;
+            fuel = fuel + que.poll();
+            result++;
+        }
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

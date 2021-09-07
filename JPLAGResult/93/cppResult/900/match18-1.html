@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>147_CD_Khan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>147_CD_Khan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    bool reorderedPowerOf2(int N) {
+        if (N == 1)
+            return true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; count(10, 0);
+        int temp = N;
+        int Nlen = 0;
+        while (temp != 0)
+        {
+            count[temp % 10] += 1;
+            temp /= 10;
+            Nlen += 1;
+        }
+        long cur = 1;</B></FONT>
+        int curlen = 0;
+        long curtemp = cur;
+        while (curtemp != 0)
+        {
+            curtemp /= 10;
+            curlen += 1;
+        }
+        
+        while (curlen &lt;= Nlen)
+        {
+            cur *= 2;
+            curtemp = cur;
+            curlen = 0;
+            vector&lt;int&gt; curcount(10, 0);
+            while (curtemp != 0)
+            {
+                curcount[curtemp % 10] += 1;
+                curtemp /= 10;
+                curlen += 1;
+            }
+            bool check = true;
+            for(int i = 0; i &lt; 10; i++)
+                if (curcount[i] != count[i])
+                {
+                    check = false;
+                    break;
+                }
+            if (check)
+                return true;
+        }
+        
+        return false;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>
