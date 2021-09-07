@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>426_ghost_liu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>426_ghost_liu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+        int hash[128];
+        memset( hash , 0 , sizeof( hash ) ) ;
+        bool swapsame = false ; 
+        for( int i=0 ; i&lt;A.size() ; i++){
+            hash[A[i]]++;
+<A NAME="0"></A>            if( hash[A[i]] &gt;=2 )
+                swapsame = true ; 
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for( int i=0 ; i&lt;B.size() ; i++){
+            hash[B[i]]--;
+        }
+        for( int i=0 ; i&lt;128;i++){
+            if( hash[i])
+                return false; 
+        }</B></FONT>
+        int left =-1;
+        int right = -1 ; 
+        for( int i=0 ; i&lt;A.size() ; i++){
+            if( A[i] != B[i] ) {
+                if( left == -1 ) 
+                    left = i ; 
+                else if( right ==-1 )
+                    right =i ;
+                else
+                    return false ; 
+            }
+        }
+        if( left ==-1 &amp;&amp; right ==-1 &amp;&amp; swapsame )
+            return true  ; 
+        if( left !=-1 &amp;&amp; right !=-1 ){
+            swap( A[left], A[right] ) ;
+            return A==B ;
+        }
+        return false ; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

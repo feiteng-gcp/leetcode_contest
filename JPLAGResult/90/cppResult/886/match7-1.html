@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_rico_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_rico_cpp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int scoreOfParentheses(string S) {
+        stack&lt;int&gt; ss;
+        for (auto ch:S)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        {
+            if (ch == '(')  ss.push(-1);
+            else
+            {
+                int pre = 0;
+                while (ss.top() &gt; 0)
+                {
+                    pre += ss.top();
+                    ss.pop();
+                }
+                ss.pop();
+                if (pre) ss.push(pre*2);
+                else ss.push(1);
+            }
+        }
+        int res = 0;
+        while (not ss.empty())
+        {
+            res += ss.top();
+            ss.pop();
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_danzhi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>134_danzhi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public boolean buddyStrings(String A, String B) {
+        if (A.length() != B.length()) return false;
+        if (A.length() &lt; 2) return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        int i1= -1;
+        int i2= -1;
+        for (int i = 0; i &lt; A.length(); i++) {
+            if (A.charAt(i) != B.charAt(i)) {
+                if (i1 &lt; 0) {
+                    i1 = i;
+                } else if (i2 &lt; 0) {
+                    i2 = i;
+                } else {
+                    return false;
+                }
+            }
+        }
+        if (i1 &gt;= 0 &amp;&amp; i2 &gt;= 0) {
+            return A.charAt(i1) == B.charAt(i2) &amp;&amp; A.charAt(i2) == B.charAt(i1);
+        }</B></FONT> else if (i1 &lt; 0 &amp;&amp; i2 &lt; 0) {
+            // A has dup characters
+            Map&lt;Character, Integer&gt; cm = new HashMap&lt;Character, Integer&gt;();
+            for (int i = 0; i &lt; A.length(); i++) {
+                char c = A.charAt(i);
+                cm.put(c, cm.getOrDefault(c,0) + 1);
+                if (cm.get(c) &gt;= 2) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_hsuan-ting.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>77_hsuan-ting.cpp</CENTER></H3><HR>
+<PRE>
+struct Elem {
+    int q, w;
+    bool operator&lt;(const Elem&amp;b) const {
+        return w*b.q &lt; q*b.w;
+<A NAME="0"></A>    }
+    Elem(int _q, int _w) {
+        q = _q;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        w = _w;
+    }
+} ;
+class Solution {
+public:
+    double mincostToHireWorkers(vector&lt;int&gt;&amp; quality, vector&lt;int&gt;&amp; wage, int K) {
+        vector&lt;Elem&gt; lst;
+        int N = quality.size();
+        for(int i=0; i&lt;N; i++) {</B></FONT>
+            lst.push_back(Elem(quality[i], wage[i]));
+        }
+        sort(lst.begin(), lst.end());
+        priority_queue&lt;int&gt; heap;
+        int heap_sum = 0;
+        double ans;
+        for(int i=0; i&lt;K; i++) {
+            heap_sum += lst[i].q;
+            heap.push(lst[i].q);
+        }
+        ans = (double)lst[K-1].w / lst[K-1].q * heap_sum;
+        //printf(&quot;i=%d nans=%f push %d %f\n&quot;, K-1, ans, lst[K-1].q, (double)lst[K-1].w / lst[K-1].q);
+        for(int i=K; i&lt;N; i++) {
+            heap_sum += lst[i].q;
+            heap.push(lst[i].q);
+            heap_sum -= heap.top();
+            heap.pop();
+            double nans = (double)lst[i].w / lst[i].q * heap_sum;
+            //printf(&quot;i=%d nans=%f push %d pop %d %f\n&quot;, i, nans, lst[i].q, to_del, (double)lst[i].w / lst[i].q);
+            if(ans &gt; nans) ans = nans;
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

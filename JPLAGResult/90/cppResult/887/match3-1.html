@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>66_luanshaotong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>66_luanshaotong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    struct Data {
+        int q, w;
+        double r() const { return (double)w/q;}
+        bool operator &lt; ( const Data &amp;t) const { return r()&lt;t.r();}
+<A NAME="0"></A>    } d[10010];
+    int h1[10010];
+    int h2[10010];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    double mincostToHireWorkers(vector&lt;int&gt;&amp; quality, vector&lt;int&gt;&amp; wage, int K) {
+        int n = wage.size();
+        for (int i=0;i&lt;wage.size();i++) d[i].w= wage[i], d[i].q=quality[i];</B></FONT>
+        sort(d,d+wage.size());
+        int t1=0,t2=0;
+        int now = 0;
+        double score= 1e10;
+        for (int i=0;i&lt;K-1;i++) {
+            cout &lt;&lt; d[i].w &lt;&lt; &quot; &quot; &lt;&lt; d[i].q;
+            h2[t2++]=d[i].q;
+            push_heap(h2,h2+t2,less&lt;int&gt;());
+            now += d[i].q;
+        }
+        for (int i=K-1;i&lt;n;i++) {
+            if (score&gt;(now+d[i].q)*d[i].r()) score = (now+d[i].q)*d[i].r();
+            h2[t2++]=d[i].q;
+            now += d[i].q;
+            push_heap(h2,h2+t2,less&lt;int&gt;());
+            //for (int i=0;i&lt;t2;i++) cout &lt;&lt; h2[i] &lt;&lt; &quot; &quot;;cout &lt;&lt;endl;
+            pop_heap(h2,h2+t2,less&lt;int&gt;());
+            //for (int i=0;i&lt;t2;i++) cout &lt;&lt; h2[i] &lt;&lt; &quot; &quot;;cout &lt;&lt;endl;
+            --t2;
+            now -= h2[t2];
+            
+        }
+        return score;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

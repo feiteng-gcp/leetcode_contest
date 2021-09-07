@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>95_00000.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>95_00000.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
+class Solution {
+    public double mincostToHireWorkers(int[] quality, int[] wage, int K) {
+        ArrayList&lt;Worker&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; wage.length; i++) {
+            list.add(new Worker(wage[i], quality[i]));
+        }
+        Collections.sort(list, new Comparator&lt;Worker&gt;() {
+            @Override
+            public int compare(Worker w1, Worker w2) {
+                if (w1.ratio &lt; w2.ratio)
+                    return -1;
+                if (w1.ratio &gt; w2.ratio)
+                    return 1;
+                return 0;
+<A NAME="0"></A>            }
+        });
+        double minRatio = list.get(K - 1).ratio;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>PriorityQueue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;(K, new Comparator&lt;Integer&gt;() {
+            @Override
+            public int compare(Integer i1, Integer i2) {
+                return</B></FONT> i2 - i1;
+            }
+        });
+        int qSum = 0;
+        for (int i = 0; i &lt; K; i++) {
+            int q = list.get(i).quality;
+            queue.add(q);
+            qSum += q;
+        }
+        double minSum = minRatio * qSum;
+        for (int i = K; i &lt; wage.length; i++) {
+            int q = list.get(i).quality;
+            int maxQ = queue.peek();
+            if (q &gt; maxQ)
+                continue;
+            queue.poll();
+            queue.add(q);
+            minRatio = list.get(i).ratio;
+            qSum = 0;
+            Iterator&lt;Integer&gt; it = queue.iterator();
+            for (int j = 0; j &lt; K; j++) {
+                qSum += it.next();
+            }
+            minSum = Math.min(minSum, qSum * minRatio);
+        }
+        return minSum;
+    }
+    
+    class Worker {
+        int quality;
+        double ratio;
+        public Worker(int w, int q) {quality = q; ratio = 1.0 * w / q;}
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

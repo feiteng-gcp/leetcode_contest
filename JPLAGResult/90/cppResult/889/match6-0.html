@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_dnetdvp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>435_dnetdvp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+<A NAME="0"></A>        int lena = A.size();
+        int lenb = B.size();
+        if (lena != lenb) return false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (lena == 0) return false;
+        
+        int diffindex = -1;
+        vector&lt;int&gt; count(26, 0);
+        bool dup = false;
+        for (int i = 0; i &lt; lena; i++)
+        {
+            if (A[i] != B[i])</B></FONT>
+            {
+                if (diffindex == -1)
+                {
+                    diffindex = i;
+                }
+                else if (diffindex == -2) return false;
+                else if (A[i] == B[diffindex] &amp;&amp; B[i] == A[diffindex])
+                {
+                    diffindex = -2;
+                }
+                else return false;
+            }
+            
+            count[A[i] - 'a'] ++;
+            if (count[A[i] - 'a'] &gt; 1) dup = true;
+        }
+        
+        cout &lt;&lt; diffindex &lt;&lt; &quot; &quot; &lt;&lt; dup &lt;&lt; endl;
+        return (diffindex == -1 &amp;&amp; dup) || diffindex == -2;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
