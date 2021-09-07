@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_wangzi6147.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>262_wangzi6147.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int robotSim(int[] commands, int[][] obstacles) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int[] obs : obstacles) {
+            if (!map.containsKey(obs[0])) {
+                map.put(obs[0], new HashSet&lt;&gt;());
+            }
+<A NAME="1"></A>            map.get(obs[0]).add(obs[1]);
+        }
+        int[][] dirs = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}</B></FONT>;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int d = 0, x = 0, y = 0, result = 0;
+        for (int c : commands) {
+            if (c == -1) {
+<A NAME="2"></A>                d++;
+                if (d == 4) {
+                    d</B></FONT> = 0;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            } else if (c == -2) {
+                d--;
+                if (d == -1) {
+                    d</B></FONT> = 3;
+                }
+            } else {
+                int i = 0;
+                while (i &lt; c &amp;&amp; (!map.containsKey(x) || !map.get(x).contains(y))) {
+                    x += dirs[d][0];
+                    y += dirs[d][1];
+                    i++;
+                }
+                if (map.containsKey(x) &amp;&amp; map.get(x).contains(y)) {
+                    x -= dirs[d][0];
+                    y -= dirs[d][1];
+                }
+            }
+            result = Math.max(result, x * x + y * y);
+        }
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

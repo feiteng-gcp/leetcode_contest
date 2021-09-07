@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>365_Fighting_Y1M.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>365_Fighting_Y1M.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+       //  [3,6,7,11], H = 8
+        //  1 2 2 3
+        // 3 7
+        int low = 0;
+        int high = 0;
+        for(int i=0;i&lt;piles.length;i++){
+            high = Math.max</B></FONT>(piles[i],high);
+        }
+        int k = high;
+        while(low&lt;=high){
+            int mid = (low+high)/2;
+            if(check(h,piles,mid)){
+<A NAME="1"></A>                k = Math.min(k,mid);
+                high = mid-1;
+            }
+            else <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>low = mid+1;
+        }
+        return k;
+    }
+    
+    public boolean check(int h,int[] piles,int speed){
+            double time = 0.0;
+            for(int i=0;i&lt;piles.length;i++){</B></FONT>
+                time+=(int)(Math.ceil((double)piles[i]/speed));
+            }
+            if(time&lt;=h) return true;
+            return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

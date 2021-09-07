@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>341_wannacry89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>341_wannacry89.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+
+        List&lt;Integer&gt; accum1 = new ArrayList&lt;Integer&gt;();
+        List&lt;Integer&gt; accum2 = new ArrayList&lt;Integer&gt;();
+        dfs(root1, accum1);
+        dfs(root2, accum2);
+
+        if (accum1.size() != accum2.size()) { return false; }
+        for (int i = 0; i &lt; accum1.size(); i++) {
+            if (accum1.get(i)+1 != accum2.get(i)+1) { return false; }
+        }
+        return true;
+
+    }
+
+    private void dfs(TreeNode node, List&lt;Integer&gt; accum) {
+
+        if (node == null) { return; }
+
+        // leaf node.
+        if (node.left == null &amp;&amp; node.right == null) {
+            accum.add(node.val);
+            return;
+        }</B></FONT>
+
+        // non-leaf node, could have left or right or both children.
+        if (node.left != null) {
+            dfs(node.left, accum);
+        }
+        if (node.right != null) {
+            dfs(node.right, accum);
+        }
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

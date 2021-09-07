@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_mzchen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>213_mzchen.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int robotSim(vector&lt;int&gt;&amp; commands, vector&lt;vector&lt;int&gt;&gt;&amp; obs) {
+        int x = 0, y = 0, dir = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int deltas[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
+        unordered_map&lt;int, unordered_set&lt;int&gt;&gt; bx;</B></FONT>
+        for (auto &amp;ob : obs)
+            bx[ob[0]].insert(ob[1]);
+        int ret = 0;
+        for (int cmd : commands) {
+            if (cmd == -2)
+                dir = (dir + 3) % 4;
+            else if (cmd == -1)
+                dir = (dir + 1) % 4;
+            else {
+                for (int i = 0; i &lt; cmd; i++) {
+                    int x2 = x + deltas[dir][0];
+                    int y2 = y + deltas[dir][1];
+                    if (bx.count(x2) &amp;&amp; bx[x2].count(y2))
+                        break;
+                    x = x2;
+                    y = y2;
+                    ret = max(ret, x * x + y * y);
+                }
+            }
+            //cout &lt;&lt; dir &lt;&lt; ' ' &lt;&lt; x &lt;&lt; ',' &lt;&lt; y &lt;&lt; endl;
+        }
+        //cout &lt;&lt; endl;
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

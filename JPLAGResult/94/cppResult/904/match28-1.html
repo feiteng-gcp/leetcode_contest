@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>319_ekaanshgoel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>319_ekaanshgoel.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    
+    void calc(vector&lt;int&gt;&amp; leaf, TreeNode* root) {
+        if(root==NULL)
+            return;
+        calc(leaf, root-&gt;left);
+        if(root-&gt;left==NULL &amp;&amp; root-&gt;right==NULL) {
+            leaf.push_back(root-&gt;val);
+        }
+        calc(leaf, root-&gt;right);
+    } 
+    
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector&lt;int&gt; leaf1;</B></FONT>
+        vector&lt;int&gt;leaf2;
+        calc(leaf1,root1);
+        calc(leaf2,root2);
+        if(leaf1.size()!=leaf2.size())
+            return false;
+        for(int i=0;i&lt;leaf1.size();i++) {
+            if(leaf1[i]!=leaf2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

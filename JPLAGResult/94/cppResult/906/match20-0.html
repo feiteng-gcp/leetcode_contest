@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>98_xumzsy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>98_xumzsy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int robotSim(vector&lt;int&gt;&amp; commands, vector&lt;vector&lt;int&gt;&gt;&amp; obstacles) {
+        int x = 0;
+        int y = 0;
+        int max_distances2 = 0;
+        int direction = 0; // north, anti clock
+        unordered_map&lt;int, unordered_set&lt;int&gt;&gt; obstacles_map;
+<A NAME="0"></A>        for(auto obstacle:obstacles){
+            obstacles_map[obstacle[0]].insert(obstacle[1]);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int command:commands){
+            if(command == -2){
+                direction = (direction + 1) % 4;
+            } else if(command == -1){
+                direction = (direction + 3) % 4;
+            } else{
+                forward(direction, x, y, command, obstacles_map);
+            }</B></FONT>
+            max_distances2 = max(max_distances2, x*x + y*y);
+        }
+        return max_distances2;
+    }
+    
+    void forward(int direction, int&amp; x, int&amp; y, int command,unordered_map&lt;int, unordered_set&lt;int&gt;&gt;&amp; obstacles_map){
+<A NAME="1"></A>        if(direction == 0){
+            for(int i=0;i&lt;command;++i){
+                if(obstacles_map[x].count(y+1) == 0) y++;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                else return;
+            }
+<A NAME="2"></A>        } else if(direction == 1){
+            for(int i=0;i&lt;command;++i){</B></FONT>
+                if(obstacles_map[x-1].count(y) == 0) x--;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                else return;
+            }
+        } else if(direction == 2){
+            for(int i=0;i&lt;command;++i){</B></FONT>
+                if(obstacles_map[x].count(y-1) == 0) y--;
+                else return;
+            }
+        } else{
+            for(int i=0;i&lt;command;++i){
+                if(obstacles_map[x+1].count(y) == 0) x++;
+                else return;
+            }
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

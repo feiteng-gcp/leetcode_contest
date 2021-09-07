@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>384_zornlemma.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>384_zornlemma.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def leafSimilar(self, root1, root2):
+        &quot;&quot;&quot;
+        :type root1: TreeNode
+        :type root2: TreeNode
+<A NAME="0"></A>        :rtype: bool
+        &quot;&quot;&quot;
+        def post(root, leafList):
+            childCnt <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0
+            if root.left is not None:
+                childCnt += 1
+                post(root.left, leafList)
+            if root.right is not None:
+                childCnt +=1
+                post(root.</B></FONT>right, leafList)
+            if childCnt==0:
+                leafList.append(root.val)
+        leafs1 = []
+        leafs2 = []
+        if root1 is not None:
+            post(root1, leafs1)
+        if root2 is not None:
+            post(root2, leafs2)
+        if len(leafs1) != len(leafs2):
+            return False
+        else:
+            if all(x==y for x, y in zip(leafs1, leafs2)):
+                return True
+            else:
+                return False
+</PRE>
+
+</BODY>
+</HTML>

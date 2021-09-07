@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>365_Fighting_Y1M.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>365_Fighting_Y1M.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+    public class tuple{
+        int x;
+        int y;
+        public tuple(int x,int y){
+            this.x = x;
+            this.y = y;
+        }
+        
+        @Override
+        public int hashCode(){
+            return this.x+this.y;
+        }
+        
+        @Override
+        public boolean equals(Object o){
+            tuple another = (tuple)(o);
+            if(another.x==this.x&amp;&amp;another.y==this.y) return true;
+<A NAME="0"></A>            return false;
+        }
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int robotSim(int[] commands, int[][] Obstacles) {
+        Set&lt;tuple&gt; obstacles = new HashSet();
+        for(int i=0;i&lt;Obstacles.length;i++){</B></FONT>
+            obstacles.add(new tuple(Obstacles[i][0],Obstacles[i][1]));
+        }
+        int direct = 0; // 0 means north 1 means west 2means south 3 means east
+        tuple cur = new tuple(0,0);
+<A NAME="1"></A>        int res = 0;
+        for(int i=0;i&lt;commands.length;i++){
+            int command = commands[i];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(command==-2){
+                direct = (direct+1)%4;
+            }
+            else if(command==-1){
+                direct = (direct+3)%4;
+            }</B></FONT>
+            else{
+                int move = command;
+                while(move&gt;0){
+                    tuple next;
+                    int x = cur.x;
+                    int y = cur.y;
+                    if(direct==0){
+                        next = new tuple(x,y+1);
+                        if(obstacles.contains(next)) break;
+                        cur.y +=1;
+                    }
+                    else if(direct==1){
+                        next = new tuple(x-1,y);
+                        if(obstacles.contains(next)) break;
+                        cur.x -=1;
+                    }
+                    else if(direct==2){
+                         next = new tuple(x,y-1);
+                         if(obstacles.contains(next)) break;
+                          cur.y -=1;
+                    }
+                    else{
+                        next = new tuple(x+1,y);
+                        if(obstacles.contains(next)) break;
+                        cur.x +=1;
+<A NAME="2"></A>                    }
+                    move--;
+                }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+           res = Math.max(cur.x*cur.x+cur.y*cur.y,res);
+        }
+        return res;
+        // x x x x   
+        // x 
+        // x
+        // x
+        // x
+        //   x
+        //   x
+        //   x
+        //   x          
+        // x x  
+        // x
+        // x
+        // x
+        // x
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
