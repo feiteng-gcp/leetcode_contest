@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>356_jokeman.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>356_jokeman.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    class Node{
+		int n;
+		int se;
+		
+		Node(int n, int se){
+			this.n = n;
+			this.se = se;
+		}
+	}
+	
+	public Interval[] intervalIntersection(Interval[] A, Interval[] B) {
+        ArrayList&lt;Node&gt; l = new ArrayList&lt;&gt;();
+        
+        for(Interval inter : A) {
+        	Node s = new Node(inter.start, -1);
+        	l.add(s);
+        	Node e = new Node(inter.end, 1);
+        	l.add(e);
+        }
+        
+        for(Interval inter : B) {
+        	Node s = new Node(inter.start, -1);
+        	l.add(s);
+        	Node e = new Node(inter.end, 1);
+<A NAME="0"></A>        	l.add(e);
+        }
+        
+        Collections.sort(l, (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>a, b)-&gt;{
+        	if(a.n != b.n) {
+        		return a.n-b.n;
+        	}else {
+        		return a.se-b.se;
+        	}
+        }</B></FONT>);
+        
+        ArrayList&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        Interval inter = new Interval(0, 0);
+        int v = 0;
+        for(Node n : l) {
+        	int oldv = v;
+        	if(n.se == -1) {
+        		v++;
+        	}else {
+        		v--;
+        	}
+        	
+        	if(v &gt; 1) inter.start = n.n;
+        	else if(oldv &gt; 1 &amp;&amp; v == 1) {
+<A NAME="1"></A>        		inter.end = n.n;
+        		res.add(inter);
+        		inter = new Interval(0, 0);
+        	}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        }
+        
+        Interval[] ret = new Interval[res.size()];
+        
+        for(int i = 0; i &lt; res.size(); i++) {
+        	ret[i] = res.get(i);
+        }
+        
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

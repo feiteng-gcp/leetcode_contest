@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>168_IRAgent8.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>168_IRAgent8.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public Interval[] intervalIntersection(Interval[] A, Interval[] B) {
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        int lenA = A.length;
+        int lenB = B.length;
+        
+        int ia = 0;
+        int ib = 0;
+        
+        while (ia &lt; lenA &amp;&amp; ib &lt; lenB) {
+            Interval a = A[ia];
+            Interval b = B[ib];
+            
+            if (a.start &lt;= b.start) {
+                if (a.end &lt; b.start) {</B></FONT>
+                    ia++;
+                } else if (a.end &lt;= b.end) {
+                    res.add(new Interval(b.start, a.end));
+                    ia++;
+                } else {
+                    res.add(new Interval(b.start, b.end));
+                    ib++;
+                }
+            } else {
+                if (b.end &lt; a.start) {
+                    ib++;
+                } else if (b.end &lt;= a.end) {
+                    res.add(new Interval(a.start, b.end));
+                    ib++;
+<A NAME="1"></A>                } else {
+                    res.add(new Interval(a.start, a.end));
+                    ia++;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            
+<A NAME="2"></A>        }
+        
+        Interval[] r = new Interval[res.size()];
+        for (int i = 0</B></FONT>; i &lt; r.length; i++) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#2',2,'match8-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            r[i] = res.get(i);
+        }
+        
+        return r;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

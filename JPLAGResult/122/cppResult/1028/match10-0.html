@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>182_wobuxihuannile.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>182_wobuxihuannile.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;Interval&gt; intervalIntersection(vector&lt;Interval&gt;&amp; A, vector&lt;Interval&gt;&amp; B) {
+        vector&lt;Interval&gt; res;
+        int i=0,j=0;
+        while(i&lt;A.size()&amp;&amp;j&lt;B.size()){
+            if(A[i].start&gt;B[j].end) j++;
+            else if(A[i].end&lt;B[j].start) i++;
+            else{</B></FONT>
+                int s=max(A[i].start,B[j].start);
+                int e=min(A[i].end,B[j].end);
+                Interval temp= Interval(s,e);
+                res.push_back(temp);
+                if(A[i].end&lt;B[j].end) i++;
+                else j++;
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

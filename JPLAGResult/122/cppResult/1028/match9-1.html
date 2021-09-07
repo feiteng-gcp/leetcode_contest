@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_shiyinong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>336_shiyinong.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;Interval&gt; intervalIntersection(vector&lt;Interval&gt;&amp; A, vector&lt;Interval&gt;&amp; B) {
+        int len1=A.size(),len2=B.size(),i=0,j=0;
+        vector&lt;Interval&gt; ans;
+        while(i&lt;len1&amp;&amp;j&lt;len2){
+            if(A[i].end&gt;B[j].start&amp;&amp;A[i].start&lt;B[j].end){</B></FONT>
+                ans.push_back(Interval(max(A[i].start,B[j].start),min(A[i].end,B[j].end)));
+            }
+            if(A[i].end==B[j].start){
+                ans.push_back(Interval(A[i].end,A[i].end));
+            }
+            if(A[i].start==B[j].end){
+                ans.push_back(Interval(A[i].start,A[i].start));
+            }
+            if(A[i].end&gt;B[j].end) j++;
+            else if(A[i].end&lt;B[j].end) i++;
+            else{
+                i++;
+                j++;
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

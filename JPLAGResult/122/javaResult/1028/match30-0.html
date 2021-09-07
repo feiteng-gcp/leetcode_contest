@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>373_jaysleetcode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>373_jaysleetcode.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public Interval[] intervalIntersection(Interval[] A, Interval[] B) {
+        if (A == null || A.length == 0 || B == null || B.length == 0) {
+            return new Interval[0];
+        }
+        
+        Queue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((it1, it2) -&gt; {</B></FONT>
+            if (it1[0] == it2[0]) {
+                return it1[1] &lt;= it2[1] ? -1 : 1;
+            }
+            return it1[0] &lt;= it2[0] ? -1 : 1;
+        });
+        
+        for (Interval it : A) {
+            pq.offer(new int[]{it.start, 0, 0});
+            pq.offer(new int[]{it.end, 1, 0});
+        }
+        for (Interval it : B) {
+            pq.offer(new int[]{it.start, 0, 1});
+            pq.offer(new int[]{it.end, 1, 1});
+        }
+        
+        List&lt;Interval&gt; result = new ArrayList&lt;Interval&gt;();
+        boolean[] statusInfo = new boolean[2];
+        int[] posInfo = new int[2];
+        while (!pq.isEmpty()) {
+            int[] head = pq.poll();
+            int group = head[2];
+            int pos = head[0];
+            int open = head[1];
+            
+            if (open == 0) {
+                statusInfo[group] = true;
+                posInfo[group] = pos;
+            } else {
+                if (statusInfo[0] &amp;&amp; statusInfo[1]) {
+                    int start = Math.max(posInfo[0], posInfo[1]);
+                    result.add(new Interval(start, pos));
+                    
+                    statusInfo[group] = false;
+                    
+                    int other = (group == 1 ? 0 : 1);
+                    
+                    // break into different parts to avoid duplicates
+                    posInfo[other] = pos;
+                } else {
+                    statusInfo[group] = false;
+                }
+            }
+<A NAME="1"></A>        }
+        
+        Interval[] finalResult = new Interval[result.size()];
+        for (int i = 0; i &lt; finalResult.length; i++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            finalResult[i] = result.get(i);
+        }
+        return finalResult;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

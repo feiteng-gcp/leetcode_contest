@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_fluffymoon.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>252_fluffymoon.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+<A NAME="0"></A>public:
+  vector&lt;vector&lt;int&gt;&gt; verticalTraversal(TreeNode* root) {
+    vector&lt;vector&lt;int&gt;&gt; results (2001, vector&lt;int&gt; ());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    queue&lt;pair&lt;TreeNode*, int&gt;&gt; q;
+    q.push({root, 1001});
+    while (q.empty() == false) {
+      int q_size = q.size();
+      unordered_map&lt;int, vector&lt;int&gt;&gt; mp;
+      for (int i = 0; i &lt; q_size; ++i) {</B></FONT>
+        auto curr = q.front(); q.pop();
+        mp[curr.second].push_back(curr.first-&gt;val);
+        if (curr.first-&gt;left)
+          q.push({curr.first-&gt;left, curr.second - 1});
+        if (curr.first-&gt;right)
+          q.push({curr.first-&gt;right, curr.second + 1});
+      }
+      for (auto iter = mp.begin(); iter != mp.end(); ++iter) {
+        // cout &lt;&lt; iter-&gt;first &lt;&lt; &quot; : &quot;;
+        // for (int j = 0; j &lt; iter-&gt;second.size(); ++j) {
+        //   cout &lt;&lt; iter-&gt;second[j] &lt;&lt; &quot;, &quot;;
+        // }
+        // cout&lt;&lt; endl;
+        vector&lt;int&gt; bin = iter-&gt;second;
+        sort(bin.begin(), bin.end());
+        results[iter-&gt;first].insert(results[iter-&gt;first].end(), bin.begin(), bin.end());
+        // cout &lt;&lt; bin.size() &lt;&lt; endl;
+      }
+    }
+    vector&lt;vector&lt;int&gt;&gt; final_results;
+    for (int i = 0; i &lt; results.size(); ++i) {
+        if (results[i].empty()) continue;
+        final_results.push_back(results[i]);
+    }
+    return final_results;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

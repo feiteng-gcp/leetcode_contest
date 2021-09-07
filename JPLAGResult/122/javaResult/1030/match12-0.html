@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>339_goodluck_yh2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>339_goodluck_yh2018.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    String res = null;
+    public String smallestFromLeaf(TreeNode root) {
+        helper(new StringBuffer(), root);
+        return res;
+    }
+    
+    private void helper(StringBuffer sb, TreeNode node) {
+        if(node.left == null &amp;&amp; node.right == null) {
+            String s = (char)(node.val + 'a') + sb.toString();
+            res = compare(res, s);
+            return;
+        }
+        
+        sb.insert(0, (char)(node.val + 'a'));
+        if(node.left == null) {
+            helper(sb, node.right);
+        } else if(node.right == null) {
+            helper(sb, node.left);
+        } else {
+            helper(sb, node.left);
+            helper(sb, node.right);
+<A NAME="0"></A>        }
+        sb.deleteCharAt(0);
+        
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private String compare(String a, String b) {
+        if(a == null)
+            return b;</B></FONT>
+        for(int i = 0; i &lt; a.length() &amp;&amp; i &lt; b.length(); i++) {
+            if(a.charAt(i) &lt; b.charAt(i)) {
+                return a;
+            } else if(a.charAt(i) &gt; b.charAt(i)) {
+                return b;
+            }
+        }
+        return a.length() &lt;= b.length() ? a : b;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_leonti.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>372_leonti.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    TreeMap&lt;Integer, PriorityQueue&lt;Point&gt;&gt; map;
+    public List&lt;List&lt;Integer&gt;&gt; verticalTraversal(TreeNode root) {
+        map = new TreeMap&lt;&gt;();
+        
+        dfs(root, 0, 0);
+        
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        while (!map.isEmpty()) { 
+            PriorityQueue&lt;Point&gt; p = map.pollFirstEntry().getValue();
+            List&lt;Integer&gt; next = new ArrayList&lt;&gt;();
+            
+            while (!p.isEmpty()) {
+                next.add(p.poll().val);
+            }
+            
+            res.add(next);
+        }
+        
+        return res;
+    }
+    
+    private void dfs(TreeNode node, int x, int y) {
+        if (node == null) return;
+        
+<A NAME="0"></A>        map.computeIfAbsent(x, k -&gt; new PriorityQueue&lt;&gt;()).offer(new Point(y, node.val));
+        dfs(node.left, x - 1, y + 1);
+        dfs(node.right, x + 1, y + 1);
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    private class Point implements Comparable&lt;Point&gt; {
+        int y;
+        int val;
+
+        public Point(int y, int val) {
+            this.y = y;
+            this.val = val;
+        }
+
+        @Override
+        public int compareTo(Point o) {</B></FONT>
+            int res = Integer.compare(y, o.y);
+            if (res == 0) return Integer.compare(val, o.val);
+            else return res;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

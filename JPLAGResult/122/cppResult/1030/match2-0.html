@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>411_taoyouh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>411_taoyouh.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    string smallest;
+public:
+    string smallestFromLeaf(TreeNode* root) {
+        if (root == nullptr) {
+            return &quot;&quot;;
+        }
+        
+        string minStr;
+        iterate(root, &quot;&quot;, minStr);
+        return minStr;
+    }
+    
+    void iterate(TreeNode *node, const string &amp;prefix, string &amp;minStr) {
+        cout &lt;&lt; prefix &lt;&lt; endl;
+        string newPrefix = string(1, 'a' + node-&gt;val);
+        newPrefix += prefix;
+        
+        if (node-&gt;left == nullptr &amp;&amp; node-&gt;right == nullptr) {
+            if (minStr.empty()) {
+                minStr = newPrefix;
+<A NAME="0"></A>            } else {
+                minStr = min(newPrefix, minStr);
+            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        } else {
+            if (node-&gt;left != nullptr) {
+                iterate(node-&gt;left, newPrefix, minStr);
+            }
+            if (node-&gt;right != nullptr) {
+                iterate(node-&gt;right, newPrefix, minStr);
+            }
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

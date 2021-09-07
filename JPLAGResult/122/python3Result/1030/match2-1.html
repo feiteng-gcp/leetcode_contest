@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>165_void-main.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>165_void-main.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def smallestFromLeaf(self, root: 'TreeNode') -&gt; 'str':
+        self.smallest = &quot;z&quot; * 1000
+        
+        def dfs(prev, node):
+            if not node.left and not node.right:
+                prev = prev[:]
+                prev.append(node.val)
+                chars = ''.join([chr(ord('a') + i) for i in prev[::-1]])
+<A NAME="0"></A>                if chars &lt; self.smallest:
+                    self.smallest = chars
+            else:
+                prev = prev<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[:]
+                prev.append(node.val)
+                
+                if node.left:
+                    dfs(prev, node.left)
+                
+                if node.right:
+                    dfs(prev, node.right)
+        
+        dfs([], root)
+        return</B></FONT> self.smallest
+        
+</PRE>
+
+</BODY>
+</HTML>

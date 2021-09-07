@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>269_Patric-Lee.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>269_Patric-Lee.py</CENTER></H3><HR>
+<PRE>
+# Definition for an interval.
+# class Interval:
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution:
+    def intervalIntersection(self, A: 'List[Interval]', B: 'List[Interval]') -&gt; 'List[Interval]':
+        answer = []
+        
+        
+        index_A = index_B = 0
+        while index_A &lt; len(A) and index_B &lt; len(B):
+            while index_A &lt; len(A) and index_B &lt; len(B) and A[index_A].start == B[index_B].start and A[index_A].end == B[index_B].end:
+                answer.append(A[index_A])
+                index_A += 1
+                index_B += 1
+                
+            if not (index_A &lt; len(A) and index_B &lt; len(B)):
+<A NAME="0"></A>                break
+            
+            if A[index_A].start &lt; B[index_B].start or A[index_A].start == B[index_B].start and A[index_A].end &gt; B[index_B].end:
+                while index_B &lt; len(B) and B<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[index_B].end &lt; A[index_A].end:
+                    answer.append(Interval(B[index_B].start, B[index_B].end))
+                    index_B +=</B></FONT> 1
+                if len(B) &gt; index_B and B[index_B].start &lt;= A[index_A].end:
+                    answer.append(Interval(B[index_B].start, A[index_A].end))
+                index_A += 1
+                
+            if not (index_A &lt; len(A) and index_B &lt; len(B)):
+                break
+<A NAME="1"></A>                
+            if A[index_A].start &gt; B[index_B].start or A[index_A].start == B[index_B].start and A[index_A].end &lt; B[index_B].end:
+                
+                while index_A &lt; len(A) and A<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[index_A].end &lt; B[index_B].end:
+                    answer.append(Interval(A[index_A].start, A[index_A].end))
+                    index_A +=</B></FONT> 1
+                if len(A) &gt; index_A and A[index_A].start &lt;= B[index_B].end:
+                    answer.append(Interval(A[index_A].start, B[index_B].end))
+                index_B += 1
+            
+            
+        return answer
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

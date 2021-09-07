@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_Jim2015.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>337_Jim2015.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    public Interval[] intervalIntersection(Interval[] A, Interval[] B) {
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        int i = 0,j=0;
+        while(i&lt;A.length&amp;&amp;j&lt;B.length){
+<A NAME="0"></A>            Interval c = intersection(A[i],B[j]);
+            if(c!=null){
+                list.add(c);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            if(A[i].end&gt;B[j].end){
+                j++;
+            }else if(A[i].end&lt;B[j].end){
+                i++;
+            }else{
+                i++;
+                j++;
+            }
+        }
+        Interval[] ret = new Interval[list.size</B></FONT>()];
+        for(int k=0;k&lt;list.size();k++){
+            ret[k] = list.get(k);
+        }
+        return ret;
+    }
+    public Interval intersection(Interval a,Interval b){
+        int start = Math.max(a.start,b.start);
+        int end = Math.min(a.end,b.end);
+        if(start&gt;end) return null;
+        return new Interval(start,end);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
