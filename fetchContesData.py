@@ -308,10 +308,14 @@ def update_indexMD():
     MDFileLocation = 'index.md'
     f = open(MDFileLocation, 'w')
     f.write(banner)
-    for key in sorted(rowDict.keys(), reverse = True):
+    contest_list = rowDict.keys()
+    # sorted(list, key = lambda x : (int(x)), reverse=True)
+    sorted_list = sorted(contest_list, key = lambda x : (int(x)), reverse = True)
+    print(sorted_list)
+    for key in sorted_list:# sorted(rowDict.keys(), reverse = True):
         # contestKey = contestTimeDict[key]
         # print(contestKey)
-        f.write(rowDict[key])
+        f.write(rowDict[str(key)])
     f.close()
 
 
@@ -335,8 +339,8 @@ if __name__ == '__main__':
         update_indexMD()
 
 
-        commit_and_pushtoGithub('JPLAGResult/' + contest)
-        commit_and_pushtoGithub('index.md')
+        # commit_and_pushtoGithub('JPLAGResult/' + contest)
+        # commit_and_pushtoGithub('index.md')
 
         contest_int = contest_int + 1
 
