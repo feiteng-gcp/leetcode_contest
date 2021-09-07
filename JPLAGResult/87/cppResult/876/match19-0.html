@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>341_rajatchourasia7.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>341_rajatchourasia7.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool isNStraightHand(vector&lt;int&gt;&amp; hand, int w) {
+        int i,j,k,ln = hand.size();
+        if(ln%w != 0)
+        {
+            return false;
+        }
+        set&lt;int&gt; s;
+        map&lt;int,int&gt; m;</B></FONT>
+        for(i = 0;i&lt;ln;i++)
+        {
+            m[hand[i]]++;
+            s.insert(hand[i]);
+        }
+        while(!s.empty())
+        {
+            j = *(s.begin());
+            //cout&lt;&lt;j&lt;&lt;&quot;\n&quot;;
+            m[j]--;
+            if(m[j] == 0)
+            {
+                s.erase(j);
+            }
+            for(i = 2;i&lt;=w;i++)
+            {
+                if(s.find(j+1) != s.end())
+                {
+                    m[j+1]--;
+                    if(m[j+1] == 0)
+                    {
+                        s.erase(j+1);
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                j++;
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

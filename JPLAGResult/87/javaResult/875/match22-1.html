@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>313_yrclamb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>313_yrclamb.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestMountain(int[] A) {
+    	if(A.length == 0) return 0;
+<A NAME="0"></A>    	int[] cArr = new int[A.length];
+    	int combo = 1;
+    	cArr[0] = 1;
+    	int<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> ans = 0;
+    	for(int i = 1; i &lt; A.length; i++) {
+    		if(A[i] &gt; A[i-1]) {
+    			combo++;
+    		}
+    		else {
+    			combo=1;
+    		}
+    		cArr[i] = combo;
+    	}
+<A NAME="1"></A>    	
+    	cArr</B></FONT>[A.length-1] = 1;
+    	combo = 1;
+    	for<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(int i = A.length-2; i &gt;= 0; i--) {
+    		if(A[i] &gt; A[i+1]) {
+    			combo++;
+    		}
+    		else {
+    			combo=1;
+    		}
+    		
+    		if(cArr[i] =</B></FONT>= 1 || combo == 1) cArr[i] = 0;
+    		else cArr[i] = combo + cArr[i] - 1;
+    		ans = Math.max(cArr[i], ans);
+    	}
+    	
+    	return ans;
+    }
+	
+}
+</PRE>
+
+</BODY>
+</HTML>

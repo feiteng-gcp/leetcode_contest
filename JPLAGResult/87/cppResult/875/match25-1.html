@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>208_PiersPlowman.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>208_PiersPlowman.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int longestMountain(vector&lt;int&gt;&amp; A) {
+        int N = A.size();
+        if (N &lt;= 2) return 0;
+        int ind = 0;
+        int max_m = 0;
+        
+        while (ind &lt; N - 1)
+        {
+            int i = ind + 1;</B></FONT>
+            if (A[i] &lt;= A[ind]) ++ind; // Need to go up at least once
+            else
+            {
+                // Go up as far as we can
+                while (i &lt; N - 1 &amp;&amp; A[i + 1] &gt; A[i]) ++i;
+                if (i == N - 1) ind = N - 1; // Need to go down at least once
+                else
+                {
+                    int j = i + 1;
+                    if (A[j] == A[i]) ind = j; // Need to go down at least once
+                    else
+                    {
+                        while (j &lt; N &amp;&amp; A[j] &lt; A[j - 1]) ++j;
+                    }
+                    int mountain_len = j - ind;
+                    if (mountain_len &gt; max_m) max_m = mountain_len;
+                    ind = j - 1;
+                }
+            }
+        }
+        return max_m;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

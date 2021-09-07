@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>7_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+ 
+	
+	private static int[][] dp = new int[(1 &lt;&lt; 13)][13];
+	private static int[][] dist = new int[15][15];
+	
+    public int shortestPathLength(int[][] graph) {
+        	
+    	int i , j , k , n = graph.length;
+    	
+    	for (i = 0;i &lt; n;i ++) {
+    		for (j = 0;j &lt; n;j ++) {
+    			dist[i][j] = - 1;
+    		}
+    	}
+    	for (i = 0;i &lt; n;i ++) {
+<A NAME="0"></A>    		dist[i][i] = 0;
+    	}
+    	for (i = 0;i &lt; n;i ++) {
+    		for (int v<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> : graph[i]) {
+    			dist[i][v] = 1;
+    		}
+    	}
+    	
+    	for (k</B></FONT> = 0;k &lt; n;k ++) {
+    		for (i = 0;i &lt; n;i ++) {
+    			for (j = 0;j &lt; n;j ++) {
+    				if (k != i &amp;&amp; k != j &amp;&amp; i != j) {
+    					if (dist[i][k] &gt;= 0 &amp;&amp; dist[k][j] &gt;= 0) {
+    						int temp = dist[i][k] + dist[k][j];
+    						if (temp &lt; dist[i][j] || dist[i][j] &lt; 0) {
+<A NAME="1"></A>    							dist[i][j] = temp;
+    						}
+    					}
+    				}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+    			}
+    		}
+    	}
+    	
+    	int ans = - 1;
+    	for (i</B></FONT> = 0;i &lt; n;i ++) {
+    		
+    		for (j = 0;j &lt; dp.length;j ++) {
+    			for (k = 0;k &lt; dp[0].length;k ++) {
+    				dp[j][k] = - 1;
+    			}
+    		}
+    		
+    		int result = dfs((1 &lt;&lt; i) , n , i);
+    		if (result &lt; ans || ans &lt; 0) {
+    			ans = result;
+    		}
+    	}
+    	return ans;
+    	
+    }
+    
+    private int dfs(int bitmap , int n , int last) {
+    	
+    	if (bitmap == (1 &lt;&lt; n) - 1) {
+    		return 0;
+    	} else {
+    		if (dp[bitmap][last] &gt;= 0) {
+    			return dp[bitmap][last];
+    		} else {
+    			int ans = - 1;
+    			for (int i = 0;i &lt; n;i ++) {
+    				if ((bitmap &amp; (1 &lt;&lt; i)) == 0) {
+    					int temp = dist[last][i] + dfs(bitmap | (1 &lt;&lt; i) , n , i);
+    					if (temp &lt; ans || ans &lt; 0) {
+    						ans = temp;
+    					}
+    				}    				
+    			}
+    			return dp[bitmap][last] = ans;
+    		}
+    	}
+    	
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

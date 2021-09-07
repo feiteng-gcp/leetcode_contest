@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>84_unicorn2014.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>84_unicorn2014.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    public boolean isNStraightHand(int[] hand, int W) {
+        int n = hand.length;
+        if (n % W != 0) return false;
+        
+        int ng = n / W;
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int v : hand){
+            if (map.containsKey(v)) map.put(v,map.get(v)+1);
+            else map.put(v,1);
+        }
+        
+        
+        for (int i = 0;  i&lt; ng; ++i){
+            
+            int first = map.firstKey();
+            int cnt = map.get(first);
+            if (cnt == 1) map.remove(first);
+            else          map.put(first, cnt - 1);
+            
+            for (int j = 1; j &lt; W; ++j){
+                ++first;
+                if (!map.containsKey(first)) return false;
+<A NAME="0"></A>                
+                cnt = map.get(first);
+                if (cnt == 1) map.remove(first);
+                else          <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.put(first, cnt - 1);
+            }
+        }
+        return true;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>
