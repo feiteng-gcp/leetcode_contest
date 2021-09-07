@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_ZihanWang98.java</TITLE>
+ <TITLE>36_ibmtp380.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>13_ZihanWang98.java</CENTER></H3><HR>
+<H3><CENTER>36_ibmtp380.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String similarRGB(String color) {
-            Map&lt;Character, Integer&gt; m = new HashMap&lt;&gt;();
-            for (int i = 0; i &lt;= 9; i++) {
-                m.put((char)(i + '0'), i);
+        String res = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; i++) {
+            char c1 = color.charAt(i * 2 + 1);
+            char c2 = color.charAt(i * 2 + 2);
+            if (c1 == c2) {
+                res += c1;
+            } else {
+                res += get(c1, c2);
             }
-            m.put('a', 10);
-            m.put('b', 11);
-            m.put('c', 12);
-            m.put('d', 13);
-            m.put('e', 14);
-            m.put('f', 15);
-            int c = m.get(color.charAt(6)) + 16 * m.get(color.charAt(5));
-<A NAME="0"></A>            int b = m.get(color.charAt(4)) + 16 * m.get(color.charAt(3));
-            int a = m.get(color.charAt(2)) + 16 * m.get(color.charAt(1));
-            StringBuilder sb =new StringBuilder();
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sb.append(&quot;#&quot;).append(findnear(a)).append(findnear(b)).append(findnear(c));
-            return sb.toString();
         }
-        public char findnear(int a){
-            int max = Integer.MIN_VALUE</B></FONT>;
-            int best = 0;
-            for (int i = 0; i &lt; 16; i++) {
-                int b = i + 16 * i;
-                b = calcDiff(a, b);
-                if (b &gt;= max) {
-                    max = b;
-                    best = i;
-                }
-            }
-            if (best &lt; 10) return (char) (best + '0');
-            return (char) (best + 'a' - 10);
-        }
+        return res;
+    }
 
-        public int sq(int a){
-            return a * a;
+    char get(char c1, char c2) {
+        int orig = toInt(c1) * 16 + toInt(c2);
+        int min = Integer.MAX_VALUE;
+        char res = 0;
+        for (int i = 0; i &lt; 10; i++) {
+            int diff = Math.abs(i * 16 + i - orig);
+            if (diff &lt; min) {
+                res = (char)(i + '0');
+                min = diff;
+            }
+<A NAME="0"></A>        }
+        for (char c = 'a'; c &lt;= 'f'; c++) {
+            int i = toInt(c);
+            int diff = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.abs(i * 16 + i - orig);
+            //System.out.println(c + &quot; &quot; + i + &quot; &quot; + diff + &quot; &quot; + (i * 16 + i ) + &quot; &quot; + orig);
+            if (diff &lt; min) {
+                res = c;
+                min = diff;
+            }
         }
-        public int calcDiff(int a, int ca){
-            return -(sq(a - ca));
+        return res;
+    }
+
+    int toInt(char c) {</B></FONT>
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            return c - '0';
+        } else {
+            return c - 'a' + 10;
         }
+    }
+
+    void test() {
+        System.out.println(similarRGB(&quot;#09f166&quot;));
+    }
 
 }
 </PRE>

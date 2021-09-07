@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_KakaHiguain.java</TITLE>
+ <TITLE>306_1moretry.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>2_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>306_1moretry.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
-        List&lt;Integer&gt; ans=new ArrayList&lt;&gt;();
-        List&lt;List&lt;Integer&gt;&gt; in=new ArrayList&lt;&gt;();
-        Queue&lt;Integer&gt; q=new ArrayDeque&lt;&gt;();
-        int n=graph.length;
-        int[] out=new int[n];
-        for (int i=0;i&lt;n;i++) in.add(new ArrayList&lt;&gt;());
-        for (int i=0;i&lt;n;i++)
-        {
-            out[i]=graph[i].length;
-            for (int j:graph[i])
-            {
-<A NAME="0"></A>                in.get(j).add(i);
-            }
+    public List&lt;Integer&gt; eventualSafeNodes(int[][] a) {
+        int n = a.length;
+        Boolean[] memo = new Boolean[n];
+        boolean[] onPath = new boolean[n];
+        Set&lt;Integer&gt; res = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            if (memo[i] == null) {
+                if (!dfs(res, a, onPath, memo, i)) res.add(i);
+<A NAME="0"></A>            }
         }
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0;i&lt;n;i++)
-            if (out[i]==0) q.add(i);
-        while (!q.isEmpty())
-        {
-            int x=q.poll();
-            ans.add</B></FONT>(x);
-            for (int y:in.get(x))
-            {
-                out[y]--;
-                if (out[y]==0) q.add(y);
-            }
-        }
-        Collections.sort(ans);
-        return ans;
+        List&lt;Integer&gt; resList = new ArrayList&lt;&gt;(res);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Collections.sort(resList);
+        return resList;
     }
+
+    private boolean dfs(Set&lt;Integer&gt; res, int[][] a, boolean[] onpath, Boolean[] memo, int u) {
+        if</B></FONT> (onpath[u]) return true;
+        if (memo[u] != null) return memo[u];
+        onpath[u] = true;
+        boolean cyclic = false;
+        for (int v : a[u]) {
+            if (dfs(res, a, onpath, memo, v)) cyclic = true;
+            else res.add(v);
+        }
+        onpath[u] = false;
+        memo[u] = cyclic;
+        return cyclic;
+    }
+
 }
 </PRE>
 

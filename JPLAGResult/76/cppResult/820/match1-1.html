@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>6_wyh9346.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,79 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>6_wyh9346.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+#define MAXN 10010
 public:
-    const static int maxn = 1e4 + 5;
-    int deg[maxn];
-    vector&lt;int&gt; rG[maxn];
-    vector&lt;int&gt; eventualSafeNodes(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        int n = graph.size();
-        queue&lt;int&gt; q;
-        for(int i = 0;i &lt; n;i++){
-            for(int j = 0;j &lt; graph[i].size();j++){
-                int v = graph[i][j];
-                int u = i;
-                rG[v].push_back(u);
-<A NAME="0"></A>                deg[u]++;
+    vector&lt;int&gt; stack, DFN, Low, Belong, instack, hole;
+    int cnt, scnt, top;
+    vector&lt;int&gt; res;
+    void Tarjan(int v, vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        DFN[v] = Low[v] = ++cnt;
+        instack[v] = 1;
+        stack[top++] = v;
+        for (int i = 0; i &lt; graph[v].size(); i++) {
+            int j = graph[v][i];
+            if (v == j) {
+                hole[v] = true;
+            }
+            if (!DFN[j]) {
+                Tarjan(j, graph);
+                if (Low[v] &gt; Low[j]) {
+                    Low[v] = Low[j];
+                }
+            } else if (instack[j] &amp;&amp; DFN[j] &lt; Low[v]) {
+                hole[v] = hole[j] = true;
+                Low[v] = DFN[j];
+            }
+            if (hole[j]) {
+                hole[v] = true;
             }
         }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; ans;
-        for(int i = 0;i &lt; n;i++){
-            if(deg[i] == 0) q.push(i);
-        }
-        while(!q.empty()){
-            int p = q.front();q.pop();
-            ans.push_back(p);
-            for(int i = 0;i &lt; rG[p].size();i++){</B></FONT>
-                int to = rG[p][i];
-                deg[to]--;
-                if(deg[to] == 0) q.push(to);
+        if (DFN[v] == Low[v]) {
+            scnt++;
+            int tt = 0;
+            int t = -1;
+            bool has_hole = false;
+            do {
+                t = stack[--top];
+                instack[t] = 0;
+                Belong[t] = scnt;
+                tt++;
+                if (hole[t]) {
+                    has_hole = true;
+                }
+            } while (t != v);
+            if (has_hole) {
+                hole[v] = true;
+            }
+            if (tt == 1 &amp;&amp; !has_hole) {
+                res.push_back(v);
             }
         }
-        sort(ans.begin(),ans.end());
-        return ans;
     }
-};
+    vector&lt;int&gt; eventualSafeNodes(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        stack.resize(MAXN);
+        Belong.resize(MAXN, INT_MIN);
+        Low.resize(MAXN);
+        instack.resize(MAXN);
+        hole.resize(MAXN);
+<A NAME="0"></A>        scnt = cnt = top = 0;
+        DFN.resize(MAXN);
+        int n = graph.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++) {
+            if (!DFN[i]) {
+                Tarjan(i, graph);
+            }
+        }
+        // for (int i = 0; i &lt; n; i++) {
+        //     cout &lt;&lt; i &lt;&lt; &quot;\t&quot; &lt;&lt; Belong[i] &lt;&lt; endl;
+        // }
+        sort(res.begin(), res.end());
+        return res;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

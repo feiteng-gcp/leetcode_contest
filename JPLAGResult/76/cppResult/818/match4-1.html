@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>389_GourdEighth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>389_GourdEighth.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    int t(char c){
-        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
-        else return 10 + c - 'a';
-    }
-    char T(int x){
-        if(x &gt;= 0 &amp;&amp; x &lt;= 9) return x + '0';
-        else return x - 10 + 'a';
-    }
-    int sqr(int x){
-        return x * x;
-    }
+<A NAME="0"></A>public:
     string similarRGB(string color) {
-        int dif = 1e8;
-<A NAME="0"></A>        int x = t(color[1]) * 16 + t(color[2]);
-        int y = t(color[3]) * 16 + t(color[4]);
-        int z = t(color[5]) * 16 + t(color[6]);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string ans = &quot;&quot;;
-<A NAME="1"></A>        for(int i = 0;i &lt; 16;i++){
-            for(int j = 0;j &lt; 16;j++){
-                for(int k = 0;k &lt; 16;k++){</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if(sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z) &lt; dif){
-                        cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
-                        ans = &quot;#&quot;;
-                        ans += T(i);
-                        ans += T(j);
-                        ans += T(k);
-                        cout &lt;&lt; ans &lt;&lt; endl;
-                        dif = sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z);
-                    }
-                }
+        string rgb = &quot;#&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 3; ++i) {
+          int ab = 0;
+          if (isdigit(color[i * 2 + 1])) {
+            ab += 16 * (color[i * 2 + 1] - '0');
+          } else {
+            ab += 16 * (color[i * 2 + 1] - 'a' + 10);
+          }
+          if (isdigit(color[i * 2 + 2])) {
+            ab += color[i * 2 + 2] - '0';
+          } else {
+            ab += color[i * 2 + 2] - 'a' + 10;
+          }</B></FONT>
+          int m  = INT_MAX;
+          int r = 0;
+          for (int j = 0; j &lt;= 16; ++j) {
+            if (abs(j * 16 + j - ab) &lt; m) {
+              m = abs(j * 16 + j - ab);
+              r = j;
             }
+          }
+            cout &lt;&lt; ab &lt;&lt; endl;
+          if (r &lt; 10) {
+            rgb.push_back(r + '0');
+          } else {
+            rgb.push_back(r + 'a' - 10);
+          }
         }
-        return ans;
+        return rgb;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

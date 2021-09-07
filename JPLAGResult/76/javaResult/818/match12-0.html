@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>286_zheyangc.java</TITLE>
+ <TITLE>239_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>286_zheyangc.java</CENTER></H3><HR>
+<H3><CENTER>239_flyman3046.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public String similarRGB(String color) {
-        char[] table = new char[]{'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        map.put('0', 0);
-        map.put('1', 1);
-        map.put('2', 2);
-        map.put('3', 3);
-        map.put('4', 4);
-        map.put('5', 5);
-        map.put('6', 6);
-        map.put('7', 7);
-        map.put('8', 8);
-        map.put('9', 9);
-        map.put('a', 10);
-        map.put('b', 11);
-        map.put('c', 12);
-        map.put('d', 13);
-        map.put('e', 14);
-        map.put('f', 15);
-        
+<A NAME="0"></A>class Solution {
+    public String similarRGB(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String color) {
+<A NAME="1"></A>        String res = &quot;#&quot;;
+        for (int i = 1; i &lt; color.length(); i += 2) {
+            String sub = color.substring</B></FONT>(i, i + 2);
+            String tmp = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>findMin(sub);
+            res += tmp;
+        }
+
+        return res;
+    }
+
+    public String findMin(String sub) {</B></FONT>
+        int dist = Integer.MAX_VALUE;
         String res = &quot;&quot;;
-        int min = Integer.MIN_VALUE;
-        
-        for (int i = 0; i &lt; 16; i++) {
-<A NAME="0"></A>            for (int j = 0; j &lt; 16; j++) {
-                for (int k = 0; k &lt; 16; k++) {
-                    String str = &quot;&quot; + table[i] + table[i] + table[j] + table[j] + table[k] + table[k];
-                    int cal = cal(str, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>color.substring(1), map);
-                    if (cal &gt; min) {
-                        min = cal;
-                        res = str;
-                    }
-                }</B></FONT>
+        for (int i = 0; i &lt; 10; i++) {
+            String can = &quot;&quot;;
+            can += i;
+            can += i;
+            int d = distance(sub, can);
+            if (dist &gt; d) {
+                dist = d;
+                res = &quot;&quot; + i;
             }
         }
-        
-        return &quot;#&quot; + res;
-<A NAME="1"></A>    }
-    
-    public int cal(String s1, String s2, Map&lt;Character, Integer&gt; map) {
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char[] a = s1.toCharArray();
-        char[] b = s2.toCharArray();
-        // System.out.println(s1);
-        return calHelper(a[0],a[1],b[0],b[1], map) 
-            + calHelper(a[2],a[3],b[2],b[3], map) 
-            + calHelper(a[4],a[5],b[4],b[5], map);
+
+        for (char c = 'a'; c &lt;= 'f'; c++) {
+            String can = &quot;&quot;;
+            can += c;
+            can += c;
+            int d = distance(sub, can);
+            if (dist &gt; d) {
+                dist = d;
+                res = &quot;&quot; + c;
+<A NAME="2"></A>            }
+        }
+        return res;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    public int distance(String s1, String s2) {
+        int v1 = getValue(s1);
+        int v2 = getValue(s2)</B></FONT>;
+        return (v1 - v2) * (v1 - v2);
     }
-    
-    public int calHelper(char a1</B></FONT>, char a2, char b1, char b2, Map&lt;Character, Integer&gt; map) {
-        int tmp = map.get(a1) * 16 + map.get(a2) - map.get(b1) * 16 - map.get(b2);
-        return -tmp * tmp;
+<A NAME="3"></A>
+    public int getValue(String s1) {
+        int res = hexBase(s1.charAt(0));
+        res = res * 16 + hexBase(<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match12-1.html#3',3,'match12-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s1.charAt(1));
+
+        return res;
     }
+    public int hexBase(char c) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            return c - '0';
+        }
+        else {
+            return c - 'a' + 10;
+        }
+    }</B></FONT>
 }
 </PRE>
 

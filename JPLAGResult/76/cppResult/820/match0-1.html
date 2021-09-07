@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>119_freehunter.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>119_freehunter.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
-    const static int maxn = 1e4 + 5;
-    int deg[maxn];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;int&gt; rG[maxn];
+public:
     vector&lt;int&gt; eventualSafeNodes(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        int n = graph.size();
-        queue&lt;int&gt; q;
-        for(int i = 0;i &lt; n;i++){
-            for(int j = 0;j &lt; graph[i].size();j++){</B></FONT>
-                int v = graph[i][j];
-                int u = i;
-                rG[v].push_back(u);
-                deg[u]++;
+        vector&lt;int&gt; res; 
+        int n=(int)graph.size(); 
+        vector&lt;int&gt; out_degree (n, 0); 
+        vector&lt;vector&lt;int&gt;&gt; pre_node (n); 
+        queue&lt;int&gt; my_q; 
+        for(int i=0; i&lt;n; i++) {
+            if((int)graph[i].size()==0) {
+                res.push_back(i); 
+                my_q.push(i); 
+            }
+            else {
+                out_degree[i]=graph[i].size(); 
+                for(auto x:graph[i]) {
+                    pre_node[x].push_back(i); 
+                }
+<A NAME="0"></A>            }    
+        }
+        while((int)my_q.size()!=0) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int now=my_q.front(); 
+            my_q.pop(); 
+            for(auto x:pre_node[now]) {
+                out_degree[x]--; 
+                if(out_degree[x]==0) {
+                    res.push_back(x); 
+                    my_q.push(x); 
+                }
             }
         }
-<A NAME="1"></A>        vector&lt;int&gt; ans;
-        for(int i = 0;i &lt; n;i++){
-            if(deg[i] == 0) q.push(i);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        while(!q.empty()){
-            int p = q.front();q.pop();
-            ans.push_back(p);
-            for(int i = 0;i &lt; rG[p].size();i++){
-                int to = rG[p][i];
-                deg[to]--;
-                if(deg[to] == 0) q.push(to);</B></FONT>
-            }
-        }
-        sort(ans.begin(),ans.end());
-        return ans;
+        sort(res.begin(), res.end()); 
+        return res; 
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

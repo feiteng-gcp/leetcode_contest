@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>135_nearSGB.cpp</TITLE>
+ <TITLE>334_klldmofashi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>135_nearSGB.cpp</CENTER></H3><HR>
+<H3><CENTER>334_klldmofashi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string similarRGB(string color) {
-        string res = &quot;#&quot;;
-        for(int i = 1; i &lt; 6; i += 2) {
-            string tmp = color.substr(i, 2);
-            int num = 0;
-            if(isdigit(tmp[0]))
-                num = 16*(tmp[0]-'0');
-            else
-                num = 16*(tmp[0]-'a'+10);
-            if(isdigit(tmp[1]))
-                num += tmp[1]-'0';
-<A NAME="0"></A>            else
-                num += tmp[1]-'a'+10;
-            int minNum = INT_MAX;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int k = 0;
-            for(int j = 0; j &lt; 16; j++) {
-                if(abs(16*j+j-num) &lt; minNum) {
-                    minNum = abs(16*j+j-num);
-                    k = j;
-                }
+    string findSimilar(string c) {
+        int count = 0;
+        
+        if (c[0] &gt;= 'a') count += (c[0] - 'a' + 10)*16;
+        else count += (c[0] - '0')*16;
+        
+<A NAME="0"></A>        if (c[1] &gt;= 'a') count += (c[1] - 'a' + 10);
+        else count += (c[1] - '0');
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int bestI = 0;
+        int minGap = INT_MAX;
+        for (int i = 0; i &lt; 16; i++) {
+            if (abs(i * 17 - count) &lt; minGap) {
+                minGap = abs(i * 17 - count);</B></FONT>
+                bestI = i;
             }
-            if(k &lt; 10)
-                res += to_string(k);
-            else</B></FONT>
-                res.push_back('a'+k-10);
         }
         
-            
-        return res;
+        string ans;
+        if (bestI &lt; 10) ans += '0' + bestI;
+        else ans += bestI - 10 + 'a';
+        
+        return ans;
+    }
+    
+    
+    string similarRGB(string color) {
+        string ans = &quot;#&quot;;
+        ans += findSimilar(color.substr(1,2));
+        ans += findSimilar(color.substr(3,2));
+        ans += findSimilar(color.substr(5,2));
+        
+        return ans;
     }
 };
 </PRE>

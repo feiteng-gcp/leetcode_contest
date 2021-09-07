@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>202_yzhaowbo.cpp</TITLE>
+ <TITLE>246_nevergum.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>202_yzhaowbo.cpp</CENTER></H3><HR>
+<H3><CENTER>246_nevergum.cpp</CENTER></H3><HR>
 <PRE>
+int value(char c)
+{
+    if (c &gt;= 'a') {
+        return (c - 'a' + 10);
+    }
+    
+    return c - '0';
+}
+
+
+void read(const string&amp; color, int* input)
+{
+    for (int i = 0; i &lt; 3; ++i) {
+        int k = (value(color[1 + i*2])) * 16 + value(color[i*2 +2]);
+        input[i] = k;
+    }
+}
+
+int sqr(int x)
+{
+    return x * x;
+}
+
+
 class Solution {
-private:
-    string near_num(string s) {
-        static const vector&lt;string&gt; str = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
+public:
+    string similarRGB(string color) {
         
-        int x;   
-        stringstream ss;
-<A NAME="0"></A>        ss &lt;&lt; std::hex &lt;&lt; s;
-        ss &gt;&gt; x;
+        int input[3];
+        read(color, input);
         
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mx = 500, j;
-        for(int i=0; i&lt;16; i++) {
-            int k = i*16 + i;
-            if(abs(k-x) &lt; mx) {
-                mx = abs(k-x);
-                j = i;
+        int best = -1000000;
+        int output[3];
+        
+        for (int i = 0; i &lt; 16; ++i) {
+<A NAME="0"></A>            int x = sqr((i * 16 + i) - input[0]);
+            for (int j = 0; j &lt; 16; ++j) {
+                int y = sqr((j * 16 + j) - input[1]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int k = 0; k &lt; 16; ++k) {
+                    int z = x + y + sqr((k * 16 + k) - input[2]);
+                    if (-z &gt; best) {
+                        best = -z;
+                        output[0] = i;
+                        output[1] = j;
+                        output[2] = k;
+                    }
+                }
             }
+        }</B></FONT>
+        
+        std::string ret = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; ++i) {
+            char c = (output[i] &gt;= 10 ? output[i] - 10 + 'a' : output[i] + '0');
+            ret += c;
         }
         
-        return str[j];
-    }</B></FONT>
-    
-public:
-    string similarRGB(string c) {
-        return &quot;#&quot; + near_num(c.substr(1,2)) + near_num(c.substr(3,2)) + near_num(c.substr(5,2));
+        return ret;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>202_yzhaowbo.cpp</TITLE>
+ <TITLE>119_freehunter.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>202_yzhaowbo.cpp</CENTER></H3><HR>
+<H3><CENTER>119_freehunter.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    string near_num(string s) {
-        static const vector&lt;string&gt; str = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
-        
-        int x;   
-        stringstream ss;
-<A NAME="0"></A>        ss &lt;&lt; std::hex &lt;&lt; s;
-        ss &gt;&gt; x;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mx = 500, j;
-        for(int i=0; i&lt;16; i++) {
-            int k = i*16 + i;
-            if(abs(k-x) &lt; mx) {
-                mx = abs(k-x);
-                j = i;
-            }
-        }</B></FONT>
-        
-        return str[j];
+public:
+    int h2d(char c) {
+        if((int)(c-'0')&lt;=9)
+            return (int)(c-'0'); 
+        return (int)(10+(int)(c-'a')); 
     }
     
-public:
-    string similarRGB(string c) {
-        return &quot;#&quot; + near_num(c.substr(1,2)) + near_num(c.substr(3,2)) + near_num(c.substr(5,2));
+    int dist(int a, int b) {
+        return (a-b)*(a-b); 
+    }
+    
+    char n2h(int n) {
+        if(n&lt;10)
+            return '0'+n; 
+        return (char)('a'+(n-10)); 
+    }
+    
+    string similarRGB(string color) {
+        string res=&quot;#&quot;; 
+<A NAME="0"></A>        for(int i=1; i&lt;=5; i=i+2) {
+            int num_1=h2d(color[i])*16+h2d(color[i+1]); 
+            int record=INT_MAX; 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int dig=0; 
+            for(int j=0; j&lt;16; j++) {
+                int num_2=j*16+j; 
+                int tmp=dist(num_1, num_2); 
+                if(tmp&lt;record) {
+                    dig=j; 
+                    record=tmp; 
+                }
+            }</B></FONT>
+            char c=n2h(dig); 
+            res.push_back(c); 
+        }
+        return res; 
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>291_user4865w.cpp</TITLE>
+ <TITLE>248_cqbaoyi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>291_user4865w.cpp</CENTER></H3><HR>
+<H3><CENTER>248_cqbaoyi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string similarRGB(string color) {
-        int a,b,c;
-        int tmp[6];
-        for(int i=1;i&lt;7;i++){
-            if('0'&lt;=color[i]&amp;&amp;color[i]&lt;='9')
-                tmp[i-1]=color[i]-'0';
-            if('a'&lt;=color[i]&amp;&amp;color[i]&lt;='f')
-                tmp[i-1]=10+color[i]-'a'; 
+        string token1 = color.substr(1, 2);
+        string token2 = color.substr(3, 2);
+        string token3 = color.substr(5, 2);
+        int n1 = hex_dec(token1), n2 = hex_dec(token2), n3 = hex_dec(token3);
+        string res = &quot;#&quot;;
+        int sim = INT_MAX, best_x = 0;
+        for (int i = 0; i &lt;= 15; i++) {
+            int tmp = i + i * 16;
+            if ((tmp - n1) * (tmp - n1) &lt; sim) {
+                sim = (tmp - n1) * (tmp - n1);
+<A NAME="0"></A>                best_x = i;
+            }            
         }
-        a=tmp[0]*16+tmp[1];
-        b=tmp[2]*16+tmp[3];
-        c=tmp[4]*16+tmp[5];
-        vector&lt;int&gt;all;
-<A NAME="0"></A>        for(int i=0;i&lt;16;i++){
-            all.push_back(i*16+i);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sim = INT_MAX;
+        int best_y = 0;
+        for (int i = 0; i &lt;= 15; i++) {
+            int tmp = i + i * 16;
+            if ((tmp - n2) * (tmp - n2) &lt; sim) {
+                sim = (tmp - n2) * (tmp - n2);
+                best_y = i;
+            }            
+        }</B></FONT>
+        sim = INT_MAX;
+        int best_z = 0;
+        for (int i = 0; i &lt;= 15; i++) {
+            int tmp = i + i * 16;
+            if ((tmp - n3) * (tmp - n3) &lt; sim) {
+                sim = (tmp - n3) * (tmp - n3);
+                best_z = i;
+            }            
         }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string rtn=&quot;#&quot;;
-        int smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-a)*(all[i]-a)&lt;smallest){
-                smallest=(all[i]-a)*(all[i]-a);
-                num=all[i]%16;
-            }
-        }
-        string s;
-        if(num&gt;=10)</B></FONT>
-            s='a'+(num-10);
-        else 
-            s='0'+num;
-        rtn= rtn+s+s;
-        smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-b)*(all[i]-b)&lt;smallest){
-                smallest=(all[i]-b)*(all[i]-b);
-                num=all[i]%16;
-            }
-        }
-        if(num&gt;=10)
-            s='a'+(num-10);
-        else 
-            s='0'+num;
-        rtn= rtn+s+s;
-        smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-c)*(all[i]-c)&lt;smallest){
-                smallest=(all[i]-c)*(all[i]-c);
-                num=all[i]%16;
-            }
-        }
-        if(num&gt;=10)
-            s='a'+(num-10);
-        else 
-            s='0'+num;
-        rtn= rtn+s+s;
-        return rtn;
+        if (best_x &gt;= 10) res += 'a' + best_x - 10;
+        else res += to_string(best_x);
+        if (best_y &gt;= 10) res += 'a' + best_y - 10;
+        else res += to_string(best_y);
+        if (best_z &gt;= 10) res += 'a' + best_z - 10;
+        else res += to_string(best_z);
+        return res;
     }
+    int hex_dec(string token) {
+        stringstream ss(token);
+        int y;
+        ss &gt;&gt; std::hex &gt;&gt; y;
+        return y;
+    }
+    
 };
 </PRE>
 </BODY>

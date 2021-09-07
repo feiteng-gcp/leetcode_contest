@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_wyh9346.cpp</TITLE>
+ <TITLE>111_nblx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>6_wyh9346.cpp</CENTER></H3><HR>
+<H3><CENTER>111_nblx.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
-    int minSwap(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
-        int n = A.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt; &gt; dp(n, vector&lt;int&gt;(2, INT_MAX));
-        dp[0][0] = 0;
-        dp[0][1] = 1;
-        for (int i = 1; i &lt; n; i++) {
-            if (A[i] &gt; A[i - 1] &amp;&amp; B[i] &gt; B[i - 1]) {
-                dp[i][0] = min(dp[i][0], dp[i - 1][0]);
-                dp[i][1] = min(dp[i][1], dp[i - 1][1] + 1);
-            }
-            if (A[i] &gt; B[i - 1] &amp;&amp; B[i] &gt; A[i - 1]) {
-                dp[i][0] = min(dp[i][0], dp[i - 1][1]);
-                dp[i][1] = min(dp[i][1], dp[i - 1][0] + 1);
-            }
-        }
-        return min(dp[n - 1][0], dp[n - 1][1]);
+public:
+  int minSwap(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
+<A NAME="0"></A>    int n=A.size(), i, j;
+    vector&lt;int&gt; last_switched (n, n+1), last_unswitched (n, n+1);
+    last_switched[0] = 1, last_unswitched[0] = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (i=1; i&lt;n; ++i) {
+      if (A[i]&gt;A[i-1] &amp;&amp; B[i]&gt;B[i-1]) {
+        last_unswitched[i] = last_unswitched[i-1];
+        last_switched[i] = last_switched[i-1] + 1;  // switch A[i] &amp; B[i] will make a feasible solution
+      }
+      if (A[i]&gt;B[i-1] &amp;&amp; B[i]&gt;A[i-1]) {
+        last_switched[i] = min(last_switched[i], last_unswitched[i-1]+1);
+        last_unswitched[i] = min(last_unswitched[i], last_switched[i-1]);
+      }
+      // cout &lt;&lt; &quot;i=&quot; &lt;&lt; i &lt;&lt; &quot;: switched[i]=&quot; &lt;&lt; last_switched[i] &lt;&lt; &quot;, unswitched[i]=&quot; &lt;&lt; last_unswitched[i] &lt;&lt; endl;
     }
+    return min(last_switched[n-1], last_unswitched[n-1]);
+  }
 };</B></FONT>
 </PRE>
 </BODY>

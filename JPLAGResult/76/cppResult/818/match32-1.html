@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_Fr0benius.cpp</TITLE>
+ <TITLE>401_czq92.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,72 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_Fr0benius.cpp</CENTER></H3><HR>
+<H3><CENTER>401_czq92.cpp</CENTER></H3><HR>
 <PRE>
-#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;sstream&gt;
-#include &lt;iomanip&gt;
-#include &lt;algorithm&gt;
-#include &lt;numeric&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;set&gt;
-#include &lt;map&gt;
-#include &lt;queue&gt;
-#include &lt;stack&gt;
-#include &lt;cmath&gt;
-#include &lt;cstring&gt;
-#include &lt;unordered_set&gt;
-#include &lt;unordered_map&gt;
-using namespace std;
-
-#define pb push_back
-#define fst first
-#define snd second
-
-typedef long long ll;
-typedef pair&lt;int,int&gt; pii;
-template&lt;typename T&gt; using min_queue=priority_queue&lt;T,vector&lt;T&gt;,greater&lt;T&gt; &gt;;
-
-const ll MOD=1e9+7;
 class Solution {
 public:
-  inline int h(char c){
-    return isdigit(c)?c-'0':c-'a'+10;
-  }
-  inline char inv(int n){
-    return n&lt;10?'0'+n:'a'+n-10;
-  }
-  inline char sim(string s){
-<A NAME="0"></A>    int a=h(s[0])*16+h(s[1]);
-    int best=1e9;
-    char res;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for(int x=0;x&lt;16;x++){
-      int X=x*16+x;
-      if((X-a)*(X-a)&lt;best){
-	best=(X-a)*(X-a);
-	res=inv(x);
-      }
-    }
-    return res;
-  }
-  
-    string similarRGB(string cr) {</B></FONT>
-      int a,b,c;
-      a=h(cr[1])*16+h(cr[2]);
-      b=h(cr[3])*16+h(cr[4]);
-      c=h(cr[5])*16+h(cr[6]);
-      int best=1e9;
-      string res=&quot;#&quot;;
-      res+=sim(cr.substr(1,2));
-      res+=sim(cr.substr(3,2));
-      res+=sim(cr.substr(5,2));
-      cout&lt;&lt;a&lt;&lt;' '&lt;&lt;b&lt;&lt;' '&lt;&lt;c&lt;&lt;'\n';
-      return res;
+    string similarRGB(string color) {
+        string ans = &quot;#&quot;;
+        const char * cc = color.c_str();
+        char c1[2],c2[2],c3[2];
+        c1[0]  = cc[1];
+        c1[1]  = cc[2];
+        c2[0]  = cc[3];
+        c2[1]  = cc[4];
+        c3[0]  = cc[5];
+        c3[1]  = cc[6];
+        int a[3];
+        sscanf(c1,&quot;%x&quot;,&amp;a[0]);
+        sscanf(c2,&quot;%x&quot;,&amp;a[1]);
+<A NAME="0"></A>        sscanf(c3,&quot;%x&quot;,&amp;a[2]);
+        //cout &lt;&lt; a[0] &lt;&lt; a[1] &lt;&lt; a[2];
+        for (int k = 0;k &lt; 3;k++) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int ta = (0-a[k])*(0-a[k]),tr = 0;
+        for (int i = 1;i &lt; 16;i++) {
+            int t = i * 16 + i;
+            int tp = (t-a[k])*(t-a[k]);
+            if (tp &lt; ta) {
+                ta = tp;
+                tr = i;</B></FONT>
+            }
+        }
+            sprintf(c1,&quot;%x&quot;,tr);
+            ans += char(c1[0]);
+        }
+        return ans;
     }
 };
-
 </PRE>
 </BODY>
 </HTML>

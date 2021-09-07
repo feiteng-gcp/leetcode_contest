@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_wgh000.cpp</TITLE>
+ <TITLE>246_nevergum.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>38_wgh000.cpp</CENTER></H3><HR>
+<H3><CENTER>246_nevergum.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    string similarRGB(string color) {
-        int l=color.length();
-        string s=color;
-        string ans=&quot;#&quot;;
-        for(int i=1;i&lt;l;i+=2)
-        {
-            int o=0;
-            if(s[i]&lt;='9'&amp;&amp;s[i]&gt;='0')
-            {
-                o+=(s[i]-'0')*16;</B></FONT>
-            }
-            if(s[i]&gt;='a'&amp;&amp;s[i]&lt;='f')
-            {
-                o+=(s[i]-'a'+10)*16;
-            }
+int value(char c)
+{
+    if (c &gt;= 'a') {
+        return (c - 'a' + 10);
+    }
+    
+    return c - '0';
+}
 
-            if(s[i+1]&lt;='9'&amp;&amp;s[i+1]&gt;='0')
-            {
-                o+=(s[i+1]-'0');
-            }
-            if(s[i+1]&gt;='a'&amp;&amp;s[i+1]&lt;='f')
-            {
-                o+=(s[i+1]-'a'+10);
-            }
-            int mi=99999999,p=0;
-            for(int j=0;j&lt;=15;j++)
-            {
-                if(abs(j*17-o)&lt;mi)
-                {
-                    p=j;
-                    mi=abs(j*17-o);
+
+void read(const string&amp; color, int* input)
+{
+    for (int i = 0; i &lt; 3; ++i) {
+        int k = (value(color[1 + i*2])) * 16 + value(color[i*2 +2]);
+        input[i] = k;
+    }
+}
+
+int sqr(int x)
+{
+    return x * x;
+}
+
+
+class Solution {
+public:
+    string similarRGB(string color) {
+        
+        int input[3];
+        read(color, input);
+        
+<A NAME="0"></A>        int best = -1000000;
+        int output[3];
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 16; ++i) {
+            int x = sqr((i * 16 + i) - input[0]);
+            for (int j = 0; j &lt; 16; ++j) {
+                int y = sqr((j * 16 + j) - input[1]);
+                for (int k = 0; k &lt; 16; ++k) {
+                    int z = x + y + sqr((k * 16 + k) - input[2]);</B></FONT>
+                    if (-z &gt; best) {
+                        best = -z;
+                        output[0] = i;
+                        output[1] = j;
+                        output[2] = k;
+                    }
                 }
             }
-            if(p&lt;10)
-                ans+=char(p+'0');
-            else
-                ans+=char(p+'a'-10);
         }
-        return ans;
+        
+        std::string ret = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; ++i) {
+            char c = (output[i] &gt;= 10 ? output[i] - 10 + 'a' : output[i] + '0');
+            ret += c;
+        }
+        
+        return ret;
     }
 };
 </PRE>

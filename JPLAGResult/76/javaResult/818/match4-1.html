@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_XuhuiWang.java</TITLE>
+ <TITLE>453_cxing1993.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>453_cxing1993.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>public class Solution {
-	public String similarRGB(String color) {
-		StringBuilder <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb = new StringBuilder(&quot;#&quot;);
-		sb.append(getClosest(color.substring(1, 3)));
-		sb.append(getClosest(color.substring(3, 5)));
-		sb.append(getClosest(color.substring(5)));
-		return sb.toString();
-	}
-
-	private String getClosest(String s) {</B></FONT>
-		int val = Integer.valueOf(s, 16);
-		int best = 0, dist = Math.abs(val);
-		for (int i = 1; i &lt; 16; ++i) {
-			int cand = i * 16 + i;
-			if (Math.abs(cand - val) &lt; dist) {
-				dist = Math.abs(cand - val);
-				best = i;
-			}
-		}
-		return Integer.toHexString(best);
-	}
+class Solution {
+    public String similarRGB(String color) {
+        String a = color.substring(1,3);
+        String b = color.substring(3,5);
+        String c = color.substring(5,7);
+        System.out.println(a);
+<A NAME="0"></A>        System.out.println(b);
+        System.out.println(c);
+        String res = &quot;#&quot; + sim(a) + sim(b) + sim(c);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }
+    
+    private String sim(String c){
+        int out = Integer.parseInt(c, 16);
+        int min = Integer.MAX_VALUE;
+        int cur = 0;
+        for(int i = 0; i &lt; 16; i++){
+            int temp = i * 16 + i - out</B></FONT>;
+            temp = Math.abs(temp);
+            if(temp &lt; min){
+                min = temp;
+                cur = i * 16 + i;
+            }
+        }
+        String res =  Integer.toHexString(cur);
+        if(res.equals(&quot;0&quot;)) res += &quot;0&quot;;
+        return res;
+    }
 }
 </PRE>
 

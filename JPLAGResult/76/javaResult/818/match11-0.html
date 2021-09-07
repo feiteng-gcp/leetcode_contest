@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>170_vegito2002.java</TITLE>
+ <TITLE>36_ibmtp380.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>170_vegito2002.java</CENTER></H3><HR>
+<H3><CENTER>36_ibmtp380.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public String similarRGB(String color) {
-        return String.format (&quot;#%s%s%s&quot;, getClosest (color.substring (1, 3)), getClosest (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>color.substring (3, 5)), getClosest (color.substring (5, 7)));
+        String res = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; i++) {
+            char c1 = color.charAt(i * 2 + 1);
+            char c2 = color.charAt(i * 2 + 2);
+            if (c1 == c2) {
+<A NAME="0"></A>                res += c1;
+            } else {
+                res += get(c1, c2);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return res;
     }
 
-    String getClosest (String s) {
-        int val = Integer.parseInt (s, 16);
-        int min_square = Integer.MAX_VALUE, min_num = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            int cur_square = Math.abs (i * 16 + i - val);
-            if (cur_square &lt; min_square) {
-                min_square = cur_square;
-                min_num = i;
+    char get(char c1, char c2) {
+        int orig = toInt</B></FONT>(c1) * 16 + toInt(c2);
+<A NAME="1"></A>        int min = Integer.MAX_VALUE;
+        char res = 0;
+        for (int i = 0; i &lt; 10; i++) {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int diff = Math.abs(i * 16 + i - orig);
+            if (diff &lt; min) {
+                res = (char)(i + '0');
+                min = diff;
             }
         }
-        // System.out.printf (&quot;%s returns %s\n&quot;, s, min_num + &quot;&quot;);///
-        return</B></FONT> Integer.toString (min_num, 16);
+        for (char c = 'a'; c &lt;= 'f'; c++) {
+            int i = toInt(c)</B></FONT>;
+            int diff = Math.abs(i * 16 + i - orig);
+            //System.out.println(c + &quot; &quot; + i + &quot; &quot; + diff + &quot; &quot; + (i * 16 + i ) + &quot; &quot; + orig);
+            if (diff &lt; min) {
+                res = c;
+<A NAME="2"></A>                min = diff;
+            }
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res;
     }
+
+    int toInt(char c) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            return c - '0';
+        } else {
+            return c - 'a' + 10;
+        }
+    }</B></FONT>
+
+    void test() {
+        System.out.println(similarRGB(&quot;#09f166&quot;));
+    }
+
 }
 </PRE>
 

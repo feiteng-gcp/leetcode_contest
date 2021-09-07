@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_prakhar15.java</TITLE>
+ <TITLE>139_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>20_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>139_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
-        int[] outEdges = new int[graph.length];
-<A NAME="0"></A>        List&lt;Set&lt;Integer&gt;&gt; reverseGraph = new ArrayList&lt;&gt;();
-        Queue&lt;Integer&gt; safe = new LinkedList&lt;&gt;();
-        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; graph.length; i++) reverseGraph.add(new HashSet&lt;&gt;());
-        for (int i = 0 ; i &lt; graph.length; i++) {
-            o</B></FONT>utEdges[i] = graph[i].length;
-            if (graph[i].length == 0) safe.offer(i);
-            for (int neigh : graph[i]) reverseGraph.get(neigh).add(i);
+        int N = graph.length;
+        int[] safe = new int[N];
+        
+        for (int i = 0; i &lt; N; i++) {
+<A NAME="0"></A>            dfs(graph, i, safe);
         }
-<A NAME="1"></A>        while (!safe.isEmpty()) {
-            int i = safe.poll();
-            if (visited.contains(i)) continue;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited.add(i);
-            for (int neigh : reverseGraph.get(i)) {
-                outEdges[neigh]--;
-                if (outEdges[neigh] == 0) safe.offer(neigh);
+        
+        List&lt;Integer&gt; res = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new ArrayList&lt;&gt;();
+        
+        for (int i = 0; i &lt; N; i++) {
+            if (safe[i] &gt; 0) {
+                res.add(i);
             }
         }</B></FONT>
-        List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; graph.length; i++) if (outEdges[i] == 0) ans.add(i);
-        return ans;
+        
+        return res;
+    }
+    
+    private int dfs(int[][] graph, int i, int[] safe) {
+        if (safe[i] != 0) {
+            return safe[i];
+        }
+        
+        safe[i] = -1;
+        
+        int res = 1;
+        
+        for (int j : graph[i]) {
+            res = Math.min(res, dfs(graph, j, safe));
+            
+            if (res == -1) {
+                break;
+            }
+        }
+        
+        return safe[i] = res;
     }
 }
 </PRE>

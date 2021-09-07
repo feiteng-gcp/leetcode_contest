@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>144_SamZhou19815.java</TITLE>
+ <TITLE>13_ZihanWang98.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>144_SamZhou19815.java</CENTER></H3><HR>
+<H3><CENTER>13_ZihanWang98.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
-    
-    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private static String similarVal(String k) {
-        int val = Integer.parseInt(k, 16);
-        String best = null;
-        int bestDiff = Integer.MAX_VALUE;
-        for (int i = 0; i &lt; 16; i++) {
-            int val0 = i * 16 + i</B></FONT>;
-            int diff = Math.abs(val0 - val);
-<A NAME="2"></A>            if (diff &lt; bestDiff) {
-                bestDiff = diff;
-                best = Integer.toHexString(i);
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+class Solution {
+    public String similarRGB(String color) {
+            Map&lt;Character, Integer&gt; m = new HashMap&lt;&gt;();
+            for (int i = 0; i &lt;= 9; i++) {
+                m.put((char)(i + '0'), i);
+            }
+            m.put('a', 10);
+            m.put('b', 11);
+            m.put('c', 12);
+            m.put('d', 13);
+            m.put('e', 14);
+            m.put('f', 15);
+            int c = m.get(color.charAt(6)) + 16 * m.get(color.charAt(5));
+            int b = m.get(color.charAt(4)) + 16 * m.get(color.charAt(3));
+            int a = m.get(color.charAt(2)) + 16 * m.get(color.charAt(1));
+            StringBuilder sb =new StringBuilder();
+<A NAME="0"></A>            sb.append(&quot;#&quot;).append(findnear(a)).append(findnear(b)).append(findnear(c));
+            return sb.toString();
         }
-        return best;
-    }
-    
-<A NAME="0"></A>    
-    public String similarRGB(String color) {</B></FONT>
-        color = color.substring(1);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String r = color.substring(0, 2),
-                g = color.substring(2, 4),
-                b = color.substring(4, 6);
-        return &quot;#&quot; + similarVal(r) + similarVal(g) + similarVal(b);
-    }</B></FONT>
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public char findnear(int a){
+            int max = Integer.MIN_VALUE;
+<A NAME="1"></A>            int best = 0;
+            for (int i = 0; i &lt; 16; i++) {
+                int b = i + 16 * i</B></FONT>;
+                b = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>calcDiff(a, b);
+                if (b &gt;= max) {
+                    max = b;
+                    best = i;
+                }
+            }</B></FONT>
+            if (best &lt; 10) return (char) (best + '0');
+            return (char) (best + 'a' - 10);
+        }
+
+        public int sq(int a){
+            return a * a;
+        }
+        public int calcDiff(int a, int ca){
+            return -(sq(a - ca));
+        }
+
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>9_cthbst.cpp</TITLE>
+ <TITLE>76_sainideepak119.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>9_cthbst.cpp</CENTER></H3><HR>
+<H3><CENTER>76_sainideepak119.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    int cti(char c){
-        if ( '0'&lt;=c &amp;&amp; c&lt;='9' ) return c-'0';
-        else return 10+c-'a';
+    int diff(string a, string b)
+    {
+        map&lt;char,int&gt; enc({{'0',0},{'1',1},{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'f',15},{'7',7},{'8',8},{'9',9},{'a',10},{'b',11},{'c',12},{'d',13},{'e',14}});
+        int x = enc[a[0]]*16 + enc[a[1]];
+        int y = enc[b[0]]*16 + enc[b[1]];
+        return (x-y)*(x-y);        
     }
-    char itc(int i){
-        if (0&lt;=i &amp;&amp; i&lt;=9) return '0'+i;
-        else return 'a'+i-10;
-    }</B></FONT>
-    char find(string s){
-        vector&lt;int&gt; cost(16);
-        for (int i=0; i&lt;16; i++){
-            cost[i] = (i*16+i)-(cti(s[0])*16+cti(s[1]));
-            cost[i] = cost[i] * cost[i];
+    string similarRGB(string color) 
+<A NAME="0"></A>    {
+        vector&lt;string&gt; list({&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;});
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        string r = color.substr(1,2);
+        string ans_r = &quot;&quot;;
+        int mini_r = INT_MAX;
+        string g = color.substr(3,2);
+        string ans_g = &quot;&quot;;
+        int mini_g = INT_MAX;
+        string b = color.substr(5,2);
+<A NAME="1"></A>        string ans_b = &quot;&quot;;
+        int mini_b = INT_MAX;</B></FONT>
+        for(auto ch:list)
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        {
+            if(diff(ch+ch,r)&lt;mini_r)
+            {
+                mini_r = diff(ch+ch,r);
+                ans_r = ch+ch;
+            }
+            if(diff(ch+ch,g)&lt;mini_g)
+            {
+                mini_g = diff(ch+ch,g);
+                ans_g = ch+ch;
+            }
+            if(diff(ch+ch,b)&lt;mini_b)
+            {
+                mini_b = diff(ch+ch,b);
+                ans_b = ch+ch;
+            }
         }
-        int idx = min_element(cost.begin(),cost.end())-cost.begin();
-        return itc(idx);
+        return &quot;#&quot;+ans_r+ans_g+ans_b;
     }
-    string similarRGB(string color) {
-        string ans = &quot;#000XXX&quot;;
-        ans[1] = ans[2] = find( color.substr(1,2) );
-        ans[3] = ans[4] = find( color.substr(3,2) );
-        ans[5] = ans[6] = find( color.substr(5,2) );
-        return ans;
-    }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

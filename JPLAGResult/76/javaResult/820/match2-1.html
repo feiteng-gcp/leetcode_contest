@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>136_QunWu.java</TITLE>
+ <TITLE>142_yzeng61987.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>136_QunWu.java</CENTER></H3><HR>
+<H3><CENTER>142_yzeng61987.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
-        int len = graph.length;
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        Map&lt;Integer,List&lt;Integer&gt;&gt; toChild = new HashMap&lt;&gt;();
-        int[] out = new int[len];
-        for(int i = 0 ; i &lt; graph.length ; i++){
-            for(int parent : graph[i]){
-                if(!toChild.containsKey(parent))
-                    toChild.put(parent, new ArrayList&lt;&gt;());
-                toChild.get(parent).add(i);
-                out[i]++;
-            }
-<A NAME="0"></A>        }
+        Set&lt;Integer&gt; active = new HashSet();
+        List&lt;Integer&gt; res = new ArrayList();
+        Map&lt;Integer, Boolean&gt; vis = new HashMap();
         
-        Queue&lt;Integer&gt; que = new LinkedList&lt;&gt;();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0 ; i &lt; len ; i++)
-            if(out[i] == 0)
-                que.add(i);
-        
-        while(!que.isEmpty()){
-            int root = que.poll();
-            res.add</B></FONT>(root);
-            List&lt;Integer&gt; childs = toChild.get(root);
-            if(childs!=null)
-                for(int child : childs)
-                    if(--out[child] == 0)
-                        que.add(child);
+        for(int i = 0; i&lt; graph.length; i++){
+<A NAME="0"></A>            DFS(i, graph, res, active, vis);
         }
-        Collections.sort(res);
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Collections.sort(res);
+        
         return res;
     }
+    
+    public boolean DFS(int i, int[][] graph, List&lt;Integer&gt; res, Set&lt;Integer&gt; active, Map&lt;Integer, Boolean&gt; vis){
+        if</B></FONT>(vis.containsKey(i)){
+            return vis.get(i);
+        }
+        
+        active.add(i);
+        for(int j = 0; j&lt; graph[i].length; j++){
+            if(active.contains(graph[i][j]) || !DFS(graph[i][j], graph, res, active, vis)){
+                active.remove(i);
+                vis.put(i, false);
+                return false;   
+            }
+        }
+        
+        active.remove(i);
+        res.add(i);
+        vis.put(i, true);
+        
+        return true;
+    }
+    
+    
+    
 }
 </PRE>
 

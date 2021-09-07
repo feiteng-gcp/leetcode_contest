@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_bb123n4.cpp</TITLE>
+ <TITLE>334_klldmofashi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>334_klldmofashi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int toInt(char c) {
-        if (c &gt;= 'a' &amp;&amp; c &lt;= 'f') return c - 'a' + 10;
-        return c - '0';
+    string findSimilar(string c) {
+        int count = 0;
+        
+        if (c[0] &gt;= 'a') count += (c[0] - 'a' + 10)*16;
+        else count += (c[0] - '0')*16;
+        
+<A NAME="0"></A>        if (c[1] &gt;= 'a') count += (c[1] - 'a' + 10);
+        else count += (c[1] - '0');
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int bestI = 0;
+        int minGap = INT_MAX;
+        for (int i = 0; i &lt; 16; i++) {
+            if (abs(i * 17 - count) &lt; minGap) {
+                minGap = abs(i * 17 - count);
+                bestI = i;
+            }
+        }
+        
+        string ans;
+        if (bestI &lt; 10) ans += '0' + bestI;</B></FONT>
+        else ans += bestI - 10 + 'a';
+        
+        return ans;
     }
-    char toChar(int n) {
-        if (n &gt;= 0 &amp;&amp; n &lt; 10) return '0' + n;
-        return n - 10 + 'a';
-<A NAME="0"></A>    }
+    
+    
     string similarRGB(string color) {
-        string rv = &quot;#&quot;;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = toInt(color[1]) * 16 + toInt(color[2]);
-        int diff = 16 * 16 * 16;
-        int s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }</B></FONT>
-        rv += toChar(s);
-        n = toInt(color[3]) * 16 + toInt(color[4]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }
-        rv += toChar(s);
-        n = toInt(color[5]) * 16 + toInt(color[6]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }
-        rv += toChar(s);
-        return rv;   
+        string ans = &quot;#&quot;;
+        ans += findSimilar(color.substr(1,2));
+        ans += findSimilar(color.substr(3,2));
+        ans += findSimilar(color.substr(5,2));
+        
+        return ans;
     }
 };
 </PRE>

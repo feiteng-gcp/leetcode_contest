@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>416_xmeng525.cpp</TITLE>
+ <TITLE>65_kradmoa.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>416_xmeng525.cpp</CENTER></H3><HR>
+<H3><CENTER>65_kradmoa.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
+    int arr[16];
+    
     string similarRGB(string color) {
-        vector&lt;char&gt; candidate;
-        vector&lt;int&gt; candidateNum;
-        for(int i = 0; i &lt; 16; i++)
-        {
-            char c = i &gt; 9?'a'+ (i-10):i+'0';
-            string s = &quot;&quot;;
-            s = s + c; s = s + c;
-            //cout&lt;&lt; s &lt;&lt; endl;
-            candidate.push_back(s[0]);
-            candidateNum.push_back(getNum(s));
-        }
         
-        string result = &quot;#&quot;;
+        for (int i = 0; i &lt; 16; ++i)
+            arr[i] = i * 17;
         
-        string r = color.substr(1,2);
-        int r_num = getNum(r);
-        result += candidate[getNearest(r_num, candidateNum)];
+        return string() + '#' + process(color[1], color[2]) + process(color[3], color[4]) + process(color[5], color[6]);
         
-        string g = color.substr(3,2);
-        int g_num = getNum(g);
-        result += candidate[getNearest(g_num, candidateNum)];
-        
-        string b = color.substr(5,2);
-        int b_num = getNum(b);
-        result += candidate[getNearest(b_num, candidateNum)];
-        
-        return result;
     }
-    int getNum(string r)
+    
+    char process(char a, char b)
     {
-        int r_num = 0; 
-        r_num += r[0]&gt;'9'? r[0]-'a'+ 10: r[0]-'0';
-        r_num = r_num * 16;
-<A NAME="0"></A>        r_num += r[1]&gt;'9'? r[1]-'a'+ 10: r[1]-'0';
-        return r_num;
-    }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int getNearest(int s, vector&lt;int&gt; candidate)
-    {
-        int minNum = INT_MAX;
-        int minIdx = 0;
-        for(int i = 0; i &lt; 16; i++)
+        int x = 0;
+        
+        if (a &gt;= 'a' &amp;&amp; a &lt;= 'f')
+            x += (a - 'a' + 10) * 16;
+        else if (a &gt;= 'A' &amp;&amp; a &lt;= 'F')
+            x += (a - 'A' + 10) * 16;
+        else
+            x += (a - '0') * 16;
+        
+        if (b &gt;= 'a' &amp;&amp; b &lt;= 'f')
+            x += (b - 'a' + 10);
+        else if (b &gt;= 'A' &amp;&amp; b &lt;= 'F')
+            x += (b - 'A' + 10);
+        else
+            x += (b - '0');
+        
+<A NAME="0"></A>        int diff_min = 999999999;
+        int diff_t;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; 16; ++i)
         {
-            int aa = (candidate[i] - s) * (candidate[i] - s);
-            if(aa &lt; minNum)
+            int diff = x - arr[i];
+            diff *= diff;
+            
+            //cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; diff &lt;&lt; endl;
+            
+            if (diff_min &gt; diff)
             {
-                minNum = aa;
-                minIdx = i;
+                diff_min = diff;
+                diff_t = i;
             }
         }</B></FONT>
-        return minIdx;
+        
+        //cout &lt;&lt; diff_t &lt;&lt; endl;
+        
+        if (diff_t &lt; 10)
+            return diff_t + '0';
+        else
+            return diff_t - 10 + 'a';
     }
 };
 </PRE>

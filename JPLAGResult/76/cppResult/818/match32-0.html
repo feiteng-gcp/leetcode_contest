@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>49_szp14.cpp</TITLE>
+ <TITLE>83_pritam_roy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>49_szp14.cpp</CENTER></H3><HR>
+<H3><CENTER>83_pritam_roy.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string pickNear(map&lt;char, int&gt;&amp; h2d, string s)
-{
-<A NAME="0"></A>    char ans = '0';
-    int n = 16 * h2d[s[0]] + h2d[s[1]];
-    int minN = n;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for(auto p = h2d.begin(); p != h2d.end(); p++)
-    {
-        int nn = 17 * p-&gt;second;
-        if(minN &gt; abs(n - nn))
-        {
-            minN = abs(n - nn);
-            ans = p-&gt;first;
+    string similarRGB(string color) { 
+        vector&lt;int&gt; vec;
+        map&lt;int, char&gt; m;
+        for(char c='0'; c &lt;='9'; c++){
+            m[c-'0'] = c;
+            //cout&lt;&lt;c-'0'&lt;&lt;c&lt;&lt;endl;
         }
+        for(char c='a'; c&lt;='f';c++){
+            m[c-'a'+10] = c;
+            //cout&lt;&lt;c-'a'+10&lt;&lt;c&lt;&lt;endl;
+        }
+        for(int i=1; i&lt;color.size();i++){
+            char c = color[i];
+            if(c &gt;= '0' &amp;&amp; c&lt;='9') vec.push_back(c-'0');
+            else if( c &gt;= 'a' &amp;&amp; c &lt;= 'f') vec.push_back(c-'a'+10);
+        }
+        int first = vec[0]*16+vec[1];
+        int second = vec[2]*16 + vec[3];
+        int third = vec[4]*16 + vec[5];
+        int diff = INT_MAX;
+        string s;
+<A NAME="0"></A>        for(int x = 0; x&lt;16; x++){
+            int xv = x*16 +x;
+            for(int y=0; y&lt;16;y++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int yv = y*16+y;
+                for(int z=0; z&lt;16;z++){
+                    int zv = z*16 +z;
+                    int sum = - (xv-first)*(xv-first) - (yv-second)*(yv-second) - (zv-third)*(zv-third);
+                    if(abs(sum) &lt; abs(diff)){
+                        //cout&lt;&lt;x&lt;&lt;&quot;,&quot;&lt;&lt;m[x]&lt;&lt;&quot;,&quot;&lt;&lt;y&lt;&lt;&quot;,&quot;&lt;&lt;m[y]&lt;&lt;&quot; z&quot;&lt;&lt;z&lt;&lt;&quot;,&quot;&lt;&lt;m[z]&lt;&lt;endl;
+                        s = '#'; s+= m[x]; s += m[y]; s+= m[z];</B></FONT>
+                        diff = sum;
+                    }
+                }
+            }
+        }
+        return s;
     }
-    return string(1, ans);
-}
-
-string similarRGB(string color)
-{</B></FONT>
-    map&lt;char, int&gt; h2d;
-    for(int i = 0; i &lt;= 9; i++) h2d['0' + i] = i;
-    for(char c = 'a'; c &lt;= 'f'; c++) h2d[c] = c - 'a' + 10;
-    return &quot;#&quot; + pickNear(h2d, color.substr(1, 2)) +
-    pickNear(h2d, color.substr(3, 2)) +
-    pickNear(h2d, color.substr(5, 2));
-}
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>72_rzjohn.java</TITLE>
+ <TITLE>239_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>72_rzjohn.java</CENTER></H3><HR>
+<H3><CENTER>239_flyman3046.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String similarRGB(String color) {
         String res = &quot;#&quot;;
-        for(int i=0; i&lt;3; i++){
-            String num = findBest(color.substring(i*2+1, i*2+3));
-            res += num;
+        for (int i = 1; i &lt; color.length(); i += 2) {
+            String sub = color.substring(i, i + 2);
+            String tmp = findMin(sub);
+            res += tmp;
         }
-        
+
 <A NAME="0"></A>        return res;
     }
-    
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private String findBest(String n){
-        int target = Integer.parseInt(n, 16);
-        int best_diff = Integer.MAX_VALUE;
-        int best_i = 0;
-        for(int i=0; i&lt;16; i++){
-            int res = i+16*i;</B></FONT>
-            if(Math.abs(res - target) &lt; best_diff){
-                best_diff = Math.abs(res - target);
-                best_i = i;
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public String findMin(String sub) {
+        int dist = Integer.MAX_VALUE;
+        String res = &quot;&quot;;
+        for (int i = 0; i &lt; 10; i++) {
+            String can = &quot;&quot;</B></FONT>;
+            can += i;
+            can += i;
+            int d = distance(sub, can);
+            if (dist &gt; d) {
+                dist = d;
+                res = &quot;&quot; + i;
             }
         }
-        
-        return Integer.toHexString(best_i);
+
+        for (char c = 'a'; c &lt;= 'f'; c++) {
+<A NAME="1"></A>            String can = &quot;&quot;;
+            can += c;
+            can += c;
+            int d = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>distance(sub, can);
+            if (dist &gt; d) {
+                dist = d;
+                res = &quot;&quot; + c;
+            }
+        }
+        return res;
+    }
+
+    public int distance(String s1</B></FONT>, String s2) {
+        int v1 = getValue(s1);
+        int v2 = getValue(s2);
+        return (v1 - v2) * (v1 - v2);
+    }
+
+    public int getValue(String s1) {
+        int res = hexBase(s1.charAt(0));
+        res = res * 16 + hexBase(s1.charAt(1));
+
+        return res;
+    }
+    public int hexBase(char c) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            return c - '0';
+        }
+        else {
+            return c - 'a' + 10;
+        }
     }
 }
 </PRE>

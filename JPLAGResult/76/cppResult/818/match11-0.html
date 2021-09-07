@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>416_xmeng525.cpp</TITLE>
+ <TITLE>287_dark1412myj.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,62 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>416_xmeng525.cpp</CENTER></H3><HR>
+<H3><CENTER>287_dark1412myj.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string similarRGB(string color) {
-        vector&lt;char&gt; candidate;
-        vector&lt;int&gt; candidateNum;
-        for(int i = 0; i &lt; 16; i++)
-        {
-            char c = i &gt; 9?'a'+ (i-10):i+'0';
-            string s = &quot;&quot;;
-            s = s + c; s = s + c;
-            //cout&lt;&lt; s &lt;&lt; endl;
-            candidate.push_back(s[0]);
-            candidateNum.push_back(getNum(s));
-        }
-        
-        string result = &quot;#&quot;;
-        
-        string r = color.substr(1,2);
-        int r_num = getNum(r);
-        result += candidate[getNearest(r_num, candidateNum)];
-        
-        string g = color.substr(3,2);
-        int g_num = getNum(g);
-        result += candidate[getNearest(g_num, candidateNum)];
-        
-        string b = color.substr(5,2);
-        int b_num = getNum(b);
-        result += candidate[getNearest(b_num, candidateNum)];
-        
-        return result;
-    }
-    int getNum(string r)
-    {
-        int r_num = 0; 
-        r_num += r[0]&gt;'9'? r[0]-'a'+ 10: r[0]-'0';
-        r_num = r_num * 16;
-        r_num += r[1]&gt;'9'? r[1]-'a'+ 10: r[1]-'0';
-        return r_num;
-    }
-<A NAME="0"></A>    int getNearest(int s, vector&lt;int&gt; candidate)
-    {
-        int minNum = INT_MAX;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int minIdx = 0;
-        for(int i = 0; i &lt; 16; i++)
-        {
-            int aa = (candidate[i] - s) * (candidate[i] - s);
-            if(aa &lt; minNum)
+        istringstream isa(color.substr(1,2));
+        istringstream isb(color.substr(3,2));
+        istringstream isc(color.substr(5,2));
+        int a,b,c;
+        isa&gt;&gt;hex&gt;&gt;a;
+        isb&gt;&gt;hex&gt;&gt;b;
+        isc&gt;&gt;hex&gt;&gt;c;
+        int aa,bb,cc,mx=-99999;
+        //cout&lt;&lt;a&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;&quot; &quot;&lt;&lt;c;
+        for(int i=0;i&lt;16;++i)
+<A NAME="0"></A>        {
+            for(int j=0;j&lt;16;++j)
             {
-                minNum = aa;
-                minIdx = i;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for(int k = 0;k&lt;16;++k)
+                {
+                    int cnt = -(i*16+i-a)*(i*16+i-a)-(j*16+j-b)*(j*16+j-b)-(k*16+k-c)*(k*16+k-c);
+                    if(cnt &gt; mx)
+                    {
+                        aa=i;
+                        bb=j;
+                        cc=k;
+                        mx = cnt;
+                        //cout&lt;&lt;endl&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i&lt;&lt;&quot; &quot;&lt;&lt;j*16+j&lt;&lt;&quot; &quot;&lt;&lt;k*16+k&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i-a&lt;&lt;&quot; &quot;&lt;&lt;j*16+j-b&lt;&lt;&quot; &quot;&lt;&lt;k*16+k-c&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
+                    }
+                }
             }
-        }
-        return minIdx;
-    }</B></FONT>
+        }</B></FONT>
+        ostringstream os;
+        //cout&lt;&lt;mx&lt;&lt;endl;
+        os&lt;&lt;'#'&lt;&lt;hex&lt;&lt;aa&lt;&lt;bb&lt;&lt;cc;
+        return os.str();
+    }
 };
 </PRE>
 </BODY>

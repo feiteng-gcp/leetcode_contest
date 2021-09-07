@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_zhangjk95.java</TITLE>
+ <TITLE>26_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_zhangjk95.java</CENTER></H3><HR>
+<H3><CENTER>26_5305519068.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String similarRGB(String color) {
-        StringBuilder builder = new StringBuilder(&quot;#&quot;);
-        for (int i = 0; i &lt; 3; i++) {
-            int r = 0, min = 10000;
-            int o = Integer.parseInt(color.substring(1 + i * 2, 1 + (i + 1) * 2), 16);
-            for (int j = 0; j &lt; 16; j++) {
-<A NAME="0"></A>                if (Math.abs(j * 16 + j - o) &lt; min) {
-                    r = j;
-                    min = Math.abs(j * 16 + j - o);
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            }
-            builder.append(Integer.toString(r, 16));
+        StringBuilder sb = new StringBuilder();
+<A NAME="0"></A>        sb.append('#');
+        for (int i = 1; i &lt; color.length(); i += 2) {
+        	int similarity = Integer.MAX_VALUE;
+        	int ind<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ex = -1;
+        	int value = 0;
+        	for (int j = 0; j &lt; 2; ++j) {
+        		char ch = color.charAt(i + j);
+<A NAME="1"></A>        		if (ch &gt;= '0' &amp;&amp; ch &lt;= '9') {
+        			value = value * 16 + c</B></FONT>h - '0';
+        		} else {
+        			value = value * 16 + <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ch - 'a' + 10;
+        		}
+        	}
+        	for (int j = 0; j &lt; 16; ++j) {
+        		int nvalue = j * 16 + j;</B></FONT>
+        		if ((nvalue - value) * (nvalue - value) &lt; similarity) {
+        			similarity = (nvalue - value) * (nvalue - value);
+        			index = j;
+        		}
+        	}
+        	char x = index &lt; 10 ? (char)(index + '0') : (char)(index - 10 + 'a');
+        	sb.append(x);
         }
-        return builder.toString();
-    }</B></FONT>
+        return sb.toString();
+    }
 }
 </PRE>
 

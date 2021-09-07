@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>461_nxd.cpp</TITLE>
+ <TITLE>287_dark1412myj.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>461_nxd.cpp</CENTER></H3><HR>
+<H3><CENTER>287_dark1412myj.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int ToInt(char c1, char c2) {
-        int n1 = 0, n2 = 0;
-        n1 = isdigit(c1) ? (c1 - '0') : (c1 - 'a' + 10);
-        n2 = isdigit(c2) ? (c2 - '0') : (c2 - 'a' + 10);
-        return n1 * 16 + n2;
-    }
-    
     string similarRGB(string color) {
-        string ans = &quot;#&quot;;
-        for (int i=1; i&lt;color.size(); i+=2) {
-            char c1 = tolower(color[i]), c2 = tolower(color[i+1]);
-<A NAME="0"></A>            if (c1 == c2) {
-                ans.push_back(c1);
-            } else {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int n = ToInt(c1, c2), diff = INT_MIN, m = -1;
-                //cout &lt;&lt; n &lt;&lt; endl;
-                for (int i=0; i&lt;16; i++) {
-                    int d = -1 * (i*16+i - n) * (i*16+i - n);
-                    if (d &gt; diff) {
-                        diff = d;
-                        m = i;
+<A NAME="0"></A>        istringstream isa(color.substr(1,2));
+        istringstream isb(color.substr(3,2));
+        istringstream isc(color.substr(5,2));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int a,b,c;
+        isa&gt;&gt;hex&gt;&gt;a;
+        isb&gt;&gt;hex&gt;&gt;b;
+        isc&gt;&gt;hex&gt;&gt;c;
+        int aa,bb,cc,mx=-99999;
+        //cout&lt;&lt;a&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;&quot; &quot;&lt;&lt;c;
+        for(int i=0;i&lt;16;++i)
+        {
+            for(int j=0;j&lt;16;++j)
+            {
+                for(int k = 0;k&lt;16;++k)
+                {</B></FONT>
+                    int cnt = -(i*16+i-a)*(i*16+i-a)-(j*16+j-b)*(j*16+j-b)-(k*16+k-c)*(k*16+k-c);
+                    if(cnt &gt; mx)
+                    {
+                        aa=i;
+                        bb=j;
+                        cc=k;
+                        mx = cnt;
+                        //cout&lt;&lt;endl&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i&lt;&lt;&quot; &quot;&lt;&lt;j*16+j&lt;&lt;&quot; &quot;&lt;&lt;k*16+k&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i-a&lt;&lt;&quot; &quot;&lt;&lt;j*16+j-b&lt;&lt;&quot; &quot;&lt;&lt;k*16+k-c&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
                     }
-                }</B></FONT>
-                //cout &lt;&lt; m &lt;&lt; endl;
-                ans.push_back(m &gt; 9? ('a' + m-10) : '0' + m);
+                }
             }
         }
-        return ans;
+        ostringstream os;
+        //cout&lt;&lt;mx&lt;&lt;endl;
+        os&lt;&lt;'#'&lt;&lt;hex&lt;&lt;aa&lt;&lt;bb&lt;&lt;cc;
+        return os.str();
     }
 };
 </PRE>

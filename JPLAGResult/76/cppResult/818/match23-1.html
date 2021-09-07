@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>416_xmeng525.cpp</TITLE>
+ <TITLE>28_qwnjc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,63 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>416_xmeng525.cpp</CENTER></H3><HR>
+<H3><CENTER>28_qwnjc.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string similarRGB(string color) {
-        vector&lt;char&gt; candidate;
-        vector&lt;int&gt; candidateNum;
-        for(int i = 0; i &lt; 16; i++)
-        {
-            char c = i &gt; 9?'a'+ (i-10):i+'0';
-            string s = &quot;&quot;;
-            s = s + c; s = s + c;
-            //cout&lt;&lt; s &lt;&lt; endl;
-            candidate.push_back(s[0]);
-            candidateNum.push_back(getNum(s));
-        }
+        string res;
+        string s = color;
+        int r = toInt(s.substr(1,2));
+        int g = toInt(s.substr(3,2));
+        int b = toInt(s.substr(5,2));
         
-        string result = &quot;#&quot;;
+        res = &quot;#&quot;;
+        res += findCloset(r);
+        res += findCloset(g);
+        res += findCloset(b);
         
-        string r = color.substr(1,2);
-        int r_num = getNum(r);
-        result += candidate[getNearest(r_num, candidateNum)];
-        
-        string g = color.substr(3,2);
-        int g_num = getNum(g);
-        result += candidate[getNearest(g_num, candidateNum)];
-        
-        string b = color.substr(5,2);
-        int b_num = getNum(b);
-        result += candidate[getNearest(b_num, candidateNum)];
-        
-        return result;
+        return res;
     }
-    int getNum(string r)
-    {
-        int r_num = 0; 
-        r_num += r[0]&gt;'9'? r[0]-'a'+ 10: r[0]-'0';
-        r_num = r_num * 16;
-        r_num += r[1]&gt;'9'? r[1]-'a'+ 10: r[1]-'0';
-        return r_num;
-<A NAME="0"></A>    }
-    int getNearest(int s, vector&lt;int&gt; candidate)
-    {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int minNum = INT_MAX;
-        int minIdx = 0;
-        for(int i = 0; i &lt; 16; i++)
-        {
-            int aa = (candidate[i] - s) * (candidate[i] - s);
-            if(aa &lt; minNum)
-            {
-                minNum = aa;
-                minIdx = i;
+    
+private:
+    int toInt(string s) {
+        int res = 0;
+        for (auto c : s) {
+            c = toupper(c);
+            if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+                res = res * 16 + (c - '0');  
+            } else if (c &gt;= 'A' &amp;&amp; c &lt;= 'F') {
+                res = res * 16 + (c - 'A' + 10);
             }
+        } 
+        return res;
+<A NAME="0"></A>    }
+    
+    string findCloset(int n) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int d = INT_MAX;
+        int t = 0;
+        // cout &lt;&lt; n &lt;&lt; endl;
+        for (int i = 0; i &lt; 16; ++i) {
+            int m = i * 16 + i;
+            
+            if (abs(m - n) &lt; d) {
+                d = abs(m - n);
+                t = i;
+            }
+        }</B></FONT>
+        // cout &lt;&lt; &quot; f &quot; &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; endl;
+        string res;
+        if (t &lt; 10) {
+            res = '0' + t;
+        } else {
+            res = 'a' + t - 10;
         }
-        return minIdx;
+        
+        return res;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

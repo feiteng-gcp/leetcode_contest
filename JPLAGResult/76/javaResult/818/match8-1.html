@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>464_Stark_.java</TITLE>
+ <TITLE>153_teikoku.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>464_Stark_.java</CENTER></H3><HR>
+<H3><CENTER>153_teikoku.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>    public String similarRGB(String color) {
-        String res = &quot;#&quot;;
-        res = res + help(color.substring(1,3)) + help(color.substring(3,5))+help(color.substring(5,7));
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
-    }   
-    public String help(String c){
-        int color = Integer.parseInt(c,16);
-        int min = 255;
-<A NAME="1"></A>        int digit = 0</B></FONT>;
+    public String similarRGB(String color) {
+        // similar value min (most minus)
+        // R value min, G min, B min
+<A NAME="1"></A>        
+        // AA -&gt; BB or 99
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return &quot;#&quot; + similar(color.substring(1, 3)) + similar(color.substring(3, 5)) + similar(color.substring(5, 7));
+        
+    }</B></FONT>
+    
+    String similar(String digits) {
+        int val = calTwo(digits);
+        List&lt;String&gt; candidates = new ArrayList&lt;&gt;();
+        String m = digits.substring(0, 1);
+        candidates.add(m);
+        if (m.charAt(0) != '0') candidates.add(smaller(m));
+        if (m.charAt(0) != 'f') candidates.add(larger(m));
+<A NAME="0"></A>        int minDiff = Integer.MAX_VALUE;
         String res = &quot;&quot;;
-        for(int i=0;i&lt;16;i++){
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(min &gt; Math.abs(i*16+i-color)){
-                min = Math.abs(i*16+i-color);
-                digit = i;
-            }       
-        }</B></FONT>
-        if(digit == 10)
-            return &quot;a&quot;;
-        if(digit==11)
-            return &quot;b&quot;;
-        if(digit==12)
-            return &quot;c&quot;;
-        if(digit==13)
-            return &quot;d&quot;;
-        if(digit==14)
-            return &quot;e&quot;;
-        if(digit==15)
-            return &quot;f&quot;;
-        return Integer.toString(digit);
+        for (String can : candidates) {
+            int diff = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.abs(calOne(can) - val);
+            if (diff &lt; minDiff) {
+                minDiff = diff;
+                res = can;
+            }
+        }
+        return res;
+    }
+    
+    int calTwo(String digits) {</B></FONT>
+        char a = digits.charAt(0);
+        int va = (a &gt;= '0' &amp;&amp; a &lt;= '9') ? a - '0' : 10 + a - 'a';
+        char b = digits.charAt(1);
+        int vb = (b &gt;= '0' &amp;&amp; b &lt;= '9') ? b - '0' : 10 + b - 'a';
+        return va * 16 + vb;
+    }
+    
+    int calOne(String digit) {
+        char a = digit.charAt(0);
+        int va = (a &gt;= '0' &amp;&amp; a &lt;= '9') ? a - '0' : 10 + a - 'a';
+        return va * 16 + va;
+    }
+    
+    String smaller(String m) {
+        char a = m.charAt(0);
+        if (a == 'a') a = '9';
+        else a--;
+        return &quot;&quot; + a;
+    }
+    
+    String larger(String m) {
+        char a = m.charAt(0);
+        if (a == '9') a = 'a';
+        else a++;
+        return &quot;&quot; + a;
     }
 }
 </PRE>

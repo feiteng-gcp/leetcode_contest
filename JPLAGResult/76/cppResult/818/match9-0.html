@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4___Chaos__.cpp</TITLE>
+ <TITLE>357_lovedsp210.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>357_lovedsp210.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  string similarRGB(string color) {
-    string res = &quot;#&quot;;
-    for (int i = 0; i &lt; 3; ++i) {
-      string tmp = string() + color[i * 2 + 1] + color[i * 2 + 2];
-      res += similarString(tmp);
+    int getVal(char c) {
+        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
+        return 10 + (c - 'a');
     }
-    return res;
-  }
-  int char_to_int(char c) {
-    if (c &lt;= '9' &amp;&amp; c &gt;= '0') {
-      return c - '0';
+    string similarRGB(string color) {
+        vector&lt;int&gt; v;
+        for(int i = 1; i &lt; 7; i += 2) {
+<A NAME="0"></A>            int t = 16 * getVal(color[i]) + getVal(color[i+1]);
+            v.push_back(t);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int mt = INT_MAX;
+        string ans;
+        for(int i = 0; i &lt; 16; i ++) {
+            for(int j = 0; j &lt; 16; j ++) {
+                for(int k = 0; k &lt; 16; k ++) {
+                    int d1 = -(i * 16 + i - v[0]) * (i * 16 + i - v[0]);</B></FONT>
+                    int d2 = -(j * 16 + j - v[1]) * (j * 16 + j - v[1]);
+                    int d3 = -(k * 16 + k - v[2]) * (k * 16 + k - v[2]);
+                    if(abs(d1 + d2 + d3) &lt; mt) {
+                        mt = abs(d1 + d2 + d3);
+                        ans = &quot;#&quot;;
+                        addOne(ans, i);
+                        addOne(ans, j);
+                        addOne(ans, k);
+                    }
+                }
+            }
+        }
+        return ans;
     }
-    return c - 'a' + 10;
-  }
-  char int_to_char(int c) {
-    if (c &lt; 10) {
-      return c + '0';
+    void addOne(string &amp; ans, int x) {
+        if(x &lt;= 9) ans += (x + '0');
+        else ans += (x - 10 + 'a');
     }
-    return c + 'a' - 10;
-  }
-<A NAME="0"></A>  string similarString(const string &amp;s) {
-    string res = &quot;&quot;;
-    int res_sum = 1 &lt;&lt; 30;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int tmp = char_to_int(s[0]) * 16 + char_to_int(s[1]);
-    for (int i = 0; i &lt; 16; ++i) {
-      int x = i * 16 + i;
-      if (abs(tmp - x) &lt; res_sum) {
-        res_sum = abs(tmp - x);
-        res = string() + int_to_char(i);
-      }
-    }
-    return res;
-  }</B></FONT>
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>61_mintyc.java</TITLE>
+ <TITLE>239_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>61_mintyc.java</CENTER></H3><HR>
+<H3><CENTER>239_flyman3046.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public String similarRGB(String color) {
-        String result = &quot;#&quot;;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; 7; i += 2) {
-            String st = color.substring(i, i + 2);
-            Integer target = Integer.parseInt(st, 16);
-            Integer minn = 1234567, ans = -1;
-            for (int j = 0; j &lt; 16; j ++) {</B></FONT>
-                Integer now = j * 16 + j;
-<A NAME="1"></A>                if (Math.abs(now - target) &lt; minn) {
-                    minn = Math.abs(now - target);
-                    ans = Integer.valueOf(j);
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-            }
-            result += Integer.toHexString(ans);
-            result += Integer.toHexString(ans);
+        String res = &quot;#&quot;;
+        for (int i = 1; i &lt; color.length(); i += 2) {
+            String sub = color.substring(i, i + 2);
+            String tmp = findMin(sub);
+            res += tmp;
         }
-        return</B></FONT> result;
+
+<A NAME="0"></A>        return res;
+    }
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public String findMin(String sub) {
+        int dist = Integer.MAX_VALUE;
+        String res = &quot;&quot;;
+        for (int i = 0; i &lt; 10; i++) {
+            String can = &quot;&quot;;
+            can += i;
+            can += i;
+            int d = distance(sub, can)</B></FONT>;
+            if (dist &gt; d) {
+                dist = d;
+                res = &quot;&quot; + i;
+            }
+        }
+
+        for (char c = 'a'; c &lt;= 'f'; c++) {
+            String can = &quot;&quot;;
+            can += c;
+            can += c;
+            int d = distance(sub, can);
+            if (dist &gt; d) {
+<A NAME="1"></A>                dist = d;
+                res = &quot;&quot; + c;
+            }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return res;
+    }
+
+    public int distance(String s1, String s2) {
+        int v1 = getValue(s1)</B></FONT>;
+        int v2 = getValue(s2);
+        return (v1 - v2) * (v1 - v2);
+    }
+
+    public int getValue(String s1) {
+        int res = hexBase(s1.charAt(0));
+        res = res * 16 + hexBase(s1.charAt(1));
+
+        return res;
+    }
+    public int hexBase(char c) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
+            return c - '0';
+        }
+        else {
+            return c - 'a' + 10;
+        }
     }
 }
 </PRE>

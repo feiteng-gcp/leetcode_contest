@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>144_SamZhou19815.java</TITLE>
+ <TITLE>230_lamthao1995.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>144_SamZhou19815.java</CENTER></H3><HR>
+<H3><CENTER>230_lamthao1995.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    
-    private static String similarVal(String k) {
-        int val = Integer.parseInt(k, 16);
-        String best = null;
-<A NAME="0"></A>        int bestDiff = Integer.MAX_VALUE;
-        for (int i = 0; i &lt; 16; i++) {
-            int val0 = i * 16 + i;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int diff = Math.abs(val0 - val);
-            if (diff &lt; bestDiff) {
-                bestDiff = diff;
-                best = Integer.toHexString(i);
-            }
+    static final String comps[] = {&quot;00&quot;, &quot;11&quot;, &quot;22&quot;, &quot;33&quot;, &quot;44&quot;, &quot;55&quot;, &quot;66&quot;, &quot;77&quot;, &quot;88&quot;, &quot;99&quot;, &quot;aa&quot;,
+                                &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;, &quot;ff&quot;};
+    public String similarRGB(String color) {
+        if(color.length() &lt;= 4){
+            color = convert(color);
         }
-        return best;
+        String rs = &quot;&quot;;
+        int dis = Integer.MIN_VALUE;
+        for(int i = 0; i &lt; comps.length; i++){
+            for(int j = 0; j &lt; comps.length; j++){
+                for(int v = 0; v &lt; comps.length; v++){
+                    String co = &quot;#&quot; + comps[i] + comps[j] + comps[v];
+                    int tmp = dis(color, co);
+                    if(dis &lt; tmp){
+                        rs = co;
+                        dis = tmp;
+<A NAME="1"></A>                    }
+                }
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return rs;
     }
-    
-    
-    public Str</B></FONT>ing similarRGB(String color) {
-        color = color.substring(1);
-        String r = color.substring(0, 2),
-                g = color.substring(2, 4),
-                b = color.substring(4, 6);
-        return &quot;#&quot; + similarVal(r) + similarVal(g) + similarVal(b);
+    public String convert(String color){
+        StringBuilder sb=  new StringBuilder(&quot;#&quot;)</B></FONT>;
+        for(int i = 1; i &lt; color.length(); i++){
+            sb.append(color.charAt(i)).append(color.charAt(i));
+<A NAME="0"></A>        }
+        return sb.toString();
+    }
+    public int dis(String s1, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String s2){
+        int dis = 0;
+        for(int i = 1; i &lt;= 5; i += 2){
+            int v =  getVal(s1.charAt</B></FONT>(i), s1.charAt(i + 1)) - getVal(s2.charAt(i), s2.charAt(i + 1));
+            dis -= v * v;
+        }
+        return dis;
+    }
+    public int getVal(char y, char x){
+        int val = 0;
+        if(x &gt;= '0' &amp;&amp; x &lt;= '9') val += x - '0';
+        else val += x - 'a' + 10;
+        if(y &gt;= '0' &amp;&amp; y &lt;= '9') val += (y - '0') * 16;
+        else val += (y - 'a' + 10) * 16;
+        return val;
     }
 }
 </PRE>

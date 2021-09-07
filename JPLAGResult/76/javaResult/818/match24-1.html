@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>144_SamZhou19815.java</TITLE>
+ <TITLE>464_Stark_.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>144_SamZhou19815.java</CENTER></H3><HR>
+<H3><CENTER>464_Stark_.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>    
-    private static String similarVal(String k) {
-        int val = Integer.parseInt(k, 16);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String best = null;
-        int bestDiff = Integer.MAX_VALUE;
-        for (int i = 0; i &lt; 16; i++) {
-            int val0 = i * 16 + i;
-            int diff = Math.abs(val0 - val);
-<A NAME="1"></A>            if</B></FONT> (diff &lt; bestDiff) {
-                bestDiff = diff;
-                best = Integer.toHexString(i);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        return best;
-    }
-    
-    
-    public String similarRGB(String color</B></FONT>) {
-        color = color.substring(1);
-        String r = color.substring(0, 2),
-                g = color.substring(2, 4),
-                b = color.substring(4, 6);
-        return &quot;#&quot; + similarVal(r) + similarVal(g) + similarVal(b);
+<A NAME="0"></A>    public String similarRGB(String color) {
+        String res = &quot;#&quot;;
+        res = res + help(color.substring(1,3)) + help(color.substring(3,5))+help(color.substring(5,7));
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }   
+<A NAME="1"></A>    public String help(String c){
+        int color = Integer.parseInt(c,16);
+        int min = 255</B></FONT>;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int digit = 0;
+        String res = &quot;&quot;;
+        for(int i=0;i&lt;16;i++){
+            if(min &gt; Math.abs(i*16+i-color)){
+                min = Math.abs(i*16+i-color);
+                digit = i;
+            }       
+        }</B></FONT>
+        if(digit == 10)
+            return &quot;a&quot;;
+        if(digit==11)
+            return &quot;b&quot;;
+        if(digit==12)
+            return &quot;c&quot;;
+        if(digit==13)
+            return &quot;d&quot;;
+        if(digit==14)
+            return &quot;e&quot;;
+        if(digit==15)
+            return &quot;f&quot;;
+        return Integer.toString(digit);
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>202_yzhaowbo.cpp</TITLE>
+ <TITLE>287_dark1412myj.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>202_yzhaowbo.cpp</CENTER></H3><HR>
+<H3><CENTER>287_dark1412myj.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    string near_num(string s) {
-        static const vector&lt;string&gt; str = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
-        
-        int x;   
-        stringstream ss;
-<A NAME="0"></A>        ss &lt;&lt; std::hex &lt;&lt; s;
-        ss &gt;&gt; x;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mx = 500, j;
-        for(int i=0; i&lt;16; i++) {
-            int k = i*16 + i;
-            if(abs(k-x) &lt; mx) {
-                mx = abs(k-x);
-                j = i;
+public:
+    string similarRGB(string color) {
+        istringstream isa(color.substr(1,2));
+        istringstream isb(color.substr(3,2));
+        istringstream isc(color.substr(5,2));
+        int a,b,c;
+<A NAME="0"></A>        isa&gt;&gt;hex&gt;&gt;a;
+        isb&gt;&gt;hex&gt;&gt;b;
+        isc&gt;&gt;hex&gt;&gt;c;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int aa,bb,cc,mx=-99999;
+        //cout&lt;&lt;a&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;&quot; &quot;&lt;&lt;c;
+        for(int i=0;i&lt;16;++i)
+        {
+            for(int j=0;j&lt;16;++j)
+            {
+                for(int k = 0;k&lt;16;++k)
+                {
+                    int cnt = -(i*16+i-a)*(i*16+i-a)-(j*16+j-b)*(j*16+j-b)-(k*16+k-c)*(k*16+k-c);</B></FONT>
+                    if(cnt &gt; mx)
+                    {
+                        aa=i;
+                        bb=j;
+                        cc=k;
+                        mx = cnt;
+                        //cout&lt;&lt;endl&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;k&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i&lt;&lt;&quot; &quot;&lt;&lt;j*16+j&lt;&lt;&quot; &quot;&lt;&lt;k*16+k&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
+                        //cout&lt;&lt;endl&lt;&lt;i*16+i-a&lt;&lt;&quot; &quot;&lt;&lt;j*16+j-b&lt;&lt;&quot; &quot;&lt;&lt;k*16+k-c&lt;&lt;&quot; &quot;&lt;&lt;mx&lt;&lt;endl;
+                    }
+                }
             }
         }
-        
-        return str[j];
-    }</B></FONT>
-    
-public:
-    string similarRGB(string c) {
-        return &quot;#&quot; + near_num(c.substr(1,2)) + near_num(c.substr(3,2)) + near_num(c.substr(5,2));
+        ostringstream os;
+        //cout&lt;&lt;mx&lt;&lt;endl;
+        os&lt;&lt;'#'&lt;&lt;hex&lt;&lt;aa&lt;&lt;bb&lt;&lt;cc;
+        return os.str();
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>135_nearSGB.cpp</TITLE>
+ <TITLE>143_ZhengkaiWei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>135_nearSGB.cpp</CENTER></H3><HR>
+<H3><CENTER>143_ZhengkaiWei.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
+    unordered_map&lt;char,int&gt; hmap;
+int discc(char a1,char a2,char c){
+    int p1=hmap[c]-hmap[a1];
+    int p2=p1*16+hmap[c]-hmap[a2];
+    return p2*p2;
+}
+    
+    
     string similarRGB(string color) {
-        string res = &quot;#&quot;;
-        for(int i = 1; i &lt; 6; i += 2) {
-            string tmp = color.substr(i, 2);
-            int num = 0;
-            if(isdigit(tmp[0]))
-                num = 16*(tmp[0]-'0');
-            else
-                num = 16*(tmp[0]-'a'+10);
-            if(isdigit(tmp[1]))
-                num += tmp[1]-'0';
-<A NAME="0"></A>            else
-                num += tmp[1]-'a'+10;
-            int minNum = INT_MAX;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int k = 0;
-            for(int j = 0; j &lt; 16; j++) {
-                if(abs(16*j+j-num) &lt; minNum) {
-                    minNum = abs(16*j+j-num);
-                    k = j;
-                }
-            }
-            if(k &lt; 10)
-                res += to_string(k);</B></FONT>
-            else
-                res.push_back('a'+k-10);
-        }
-        
-            
-        return res;
+    vector&lt;char&gt; vc;
+    for(int i=0;i&lt;=9;++i){
+        hmap['0'+i]=i;
+        vc.push_back('0'+i);
     }
+    for(int i=10;i&lt;16;++i){
+        hmap['a'+i-10]=i;
+        vc.push_back('a'+i-10);
+<A NAME="0"></A>    }
+    string ans=&quot;#&quot;;
+    for(int i=0;i&lt;3;++i){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        char myc='0';
+        int d=INT_MAX;
+        //cout&lt;&lt;color[i*2+1]&lt;&lt;&quot; &quot;&lt;&lt;color[i*2+2]&lt;&lt;endl;
+        for(int j=0;j&lt;vc.size();++j){
+            int dis=discc(color[i*2+1],color[i*2+2],vc[j]);
+            if(dis&lt;d){
+                d=dis;
+                myc=vc[j];
+            }
+        }</B></FONT>
+        ans.push_back(myc);
+        ans.push_back(myc);
+    }
+    return ans;
+}
 };
 </PRE>
 </BODY>

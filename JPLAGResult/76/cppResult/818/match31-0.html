@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>468_kedixa.cpp</TITLE>
+ <TITLE>4___Chaos__.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>468_kedixa.cpp</CENTER></H3><HR>
+<H3><CENTER>4___Chaos__.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    int ctoi (char a) {
-        if(a &gt;= '0' &amp;&amp; a &lt;= '9')
-            return a - '0';
-<A NAME="0"></A>        else return tolower(a) - 'a' + 10;
-    }
-    char simto(char a, char b) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int d = ctoi(a) * 16 + ctoi(b);
-        int mi = 999999999, k = 0;
-        for(int i = 0; i &lt; 16; i++) {
-            //cout &lt;&lt; i * 16 + i &lt;&lt; ' ' &lt;&lt; d &lt;&lt; ' ' &lt;&lt; mi &lt;&lt; endl;
-            if((i * 16 + i - d) * (i * 16 + i - d) &lt; mi) {
-                mi = (i * 16 + i - d) * (i * 16 + i - d);
-                k = i;
-            }
-        }
-        if(k &lt; 10)</B></FONT>
-            return k + '0';
-        else return k - 10 + 'a';
-    }
 public:
-    string similarRGB(string color) {
-        string s = &quot;#      &quot;;
-        s[1] = s[2] = simto(color[1], color[2]);
-        s[3] = s[4] = simto(color[3], color[4]);
-        s[5] = s[6] = simto(color[5], color[6]);
-        return s;
+  string similarRGB(string color) {
+    string res = &quot;#&quot;;
+    for (int i = 0; i &lt; 3; ++i) {
+      string tmp = string() + color[i * 2 + 1] + color[i * 2 + 2];
+      res += similarString(tmp);
     }
+    return res;
+  }
+  int char_to_int(char c) {
+    if (c &lt;= '9' &amp;&amp; c &gt;= '0') {
+      return c - '0';
+    }
+    return c - 'a' + 10;
+  }
+  char int_to_char(int c) {
+    if (c &lt; 10) {
+      return c + '0';
+    }
+    return c + 'a' - 10;
+<A NAME="0"></A>  }
+  string similarString(const string &amp;s) {
+    string res = &quot;&quot;;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int res_sum = 1 &lt;&lt; 30;
+    int tmp = char_to_int(s[0]) * 16 + char_to_int(s[1]);
+    for (int i = 0; i &lt; 16; ++i) {
+      int x = i * 16 + i;
+      if (abs(tmp - x) &lt; res_sum) {
+        res_sum = abs(tmp - x);
+        res = string() + int_to_char(i);
+      }
+    }</B></FONT>
+    return res;
+  }
 };
 </PRE>
 </BODY>

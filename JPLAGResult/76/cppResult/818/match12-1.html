@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>202_yzhaowbo.cpp</TITLE>
+ <TITLE>155_tanghaibao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>202_yzhaowbo.cpp</CENTER></H3><HR>
+<H3><CENTER>155_tanghaibao.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    string near_num(string s) {
-        static const vector&lt;string&gt; str = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
-        
-        int x;   
-        stringstream ss;
-<A NAME="0"></A>        ss &lt;&lt; std::hex &lt;&lt; s;
-        ss &gt;&gt; x;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mx = 500, j;
-        for(int i=0; i&lt;16; i++) {
-            int k = i*16 + i;
-            if(abs(k-x) &lt; mx) {
-                mx = abs(k-x);
-                j = i;
+public:
+    int cc[3];
+    int hexmap[128];
+    char hex[16];
+    
+    string similarRGB(string color) {
+        for (int i = 0; i &lt; 10; i ++) {
+            hexmap[i + '0'] = i;
+            hex[i] = i + '0';
+        }
+        for (int i = 10; i &lt; 16; i ++) {
+            hexmap[i - 10 + 'a'] = i;
+            hex[i] = i - 10 + 'a';
+<A NAME="0"></A>        }
+        // Parse color
+        parseColor(color);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int minCC[3], CC[3];
+        int minSimilarity = INT_MAX;
+        for (int i = 0; i &lt; 16; i ++) {
+            for (int j = 0; j &lt; 16; j ++) {
+                for (int k = 0; k &lt; 16; k ++) {</B></FONT>
+                    CC[0] = i * 16 + i, CC[1] = j * 16 + j, CC[2] = k * 16 + k;
+                    auto sim = similarity(CC, cc);
+                    if (sim &lt; minSimilarity) {
+                        minSimilarity = sim;
+                        minCC[0] = i, minCC[1] = j, minCC[2] = k;
+                    }
+                }
             }
-        }</B></FONT>
-        
-        return str[j];
+        }
+        // Print out
+        string p = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; i ++) {
+            p.push_back(hex[minCC[i]]);
+        }
+        return p;
     }
     
-public:
-    string similarRGB(string c) {
-        return &quot;#&quot; + near_num(c.substr(1,2)) + near_num(c.substr(3,2)) + near_num(c.substr(5,2));
+    void parseColor(string&amp; color) {
+        int j = 0;
+        for (int i = 1; i &lt; color.size() - 1; i += 2) {
+            auto s = color.substr(i, 2);
+            cc[j ++] = hexToInt(s);
+        }
+        // cout &lt;&lt; cc[0] &lt;&lt; &quot; &quot; &lt;&lt; cc[1] &lt;&lt; &quot; &quot; &lt;&lt; cc[2] &lt;&lt; endl;
+    }
+    
+    int hexToInt(string s) {
+        return hexmap[s[0]] * 16 + hexmap[s[1]];
+    }
+    
+    int similarity(int a[3], int b[3]) {
+        return (a[0] - b[0]) * (a[0] - b[0]) + \
+               (a[1] - b[1]) * (a[1] - b[1]) + \
+               (a[2] - b[2]) * (a[2] - b[2]);
     }
 };
 </PRE>

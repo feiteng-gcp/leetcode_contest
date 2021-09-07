@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>475_fatroy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>475_fatroy.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int t(char c){
-        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
-        else return 10 + c - 'a';
-    }
-    char T(int x){
-        if(x &gt;= 0 &amp;&amp; x &lt;= 9) return x + '0';
-        else return x - 10 + 'a';
-    }</B></FONT>
-    int sqr(int x){
-        return x * x;
-    }
     string similarRGB(string color) {
-        int dif = 1e8;
-        int x = t(color[1]) * 16 + t(color[2]);
-        int y = t(color[3]) * 16 + t(color[4]);
-        int z = t(color[5]) * 16 + t(color[6]);
-        string ans = &quot;&quot;;
-        for(int i = 0;i &lt; 16;i++){
-            for(int j = 0;j &lt; 16;j++){
-                for(int k = 0;k &lt; 16;k++){
-                    if(sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z) &lt; dif){
-                        cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
-                        ans = &quot;#&quot;;
-                        ans += T(i);
-                        ans += T(j);
-                        ans += T(k);
-                        cout &lt;&lt; ans &lt;&lt; endl;
-                        dif = sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z);
-                    }
-                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string s1 = color.substr( 1, 2 ), s2 = color.substr( 3, 2 ), s3 = color.substr( 5, 2 );
+        int h1 = stoi( s1, 0, 16 ), h2 = stoi( s2, 0, 16 ), h3 = stoi( s3, 0, 16 );
+        int m1 = INT_MAX, m2 = INT_MAX, m3 = INT_MAX;
+        int i1 = -1, i2 = -1, i3 = -1;</B></FONT>
+<A NAME="1"></A>        vector&lt;int&gt; sColor = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff };
+        vector&lt;string&gt; hexT = { &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot; };
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for( int i = 0; i &lt; sColor.size(); i++ ) {
+            if( abs( sColor[i]-h1 ) &lt; m1 ) {
+                m1 = abs( sColor[i]-h1 );
+                i1 = i;
+            }
+            if( abs( sColor[i]-h2 ) &lt; m2 ) {
+                m2 = abs( sColor[i]-h2 );
+                i2 = i;
+            }
+            if( abs( sColor[i]-h3 ) &lt; m3 ) {
+                m3 = abs( sColor[i]-h3 );
+                i3 = i;
             }
         }
-        return ans;
+        
+        return &quot;#&quot; + hexT[i1] + hexT[i2] + hexT[i3];
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

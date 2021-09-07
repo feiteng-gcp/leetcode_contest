@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_wellcs.cpp</TITLE>
+ <TITLE>401_czq92.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>21_wellcs.cpp</CENTER></H3><HR>
+<H3><CENTER>401_czq92.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string similarRGB(string color) {
-        string r = find(color.substr(1, 2));
-        string g = find(color.substr(3, 2));
-        string b = find(color.substr(5, 2));
-        return &quot;#&quot;+r+g+b;
-    }
-    
-    string find(string s)
-    {
-        map&lt;char, int&gt; m;
-        for(int i = 0; i &lt; 10; ++i)
-        {
-            m.insert({'0' + i, i});
-        }
-        
-        for(int i = 0; i &lt; 6; ++i)
-        {
-<A NAME="0"></A>            m.insert({'a' + i, 10 + i});
-        }
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int val = m[s[0]] * 16 + m[s[1]];
-        int dis = INT_MAX;
-        int res = 0;
-        for(int i = 0; i &lt; 16; ++i)
-        {
-            if(abs(i * 16 + i - val) &lt; dis)
-            {
-                dis = abs(i * 16 + i - val);
-                res = i;
+        string ans = &quot;#&quot;;
+        const char * cc = color.c_str();
+        char c1[2],c2[2],c3[2];
+        c1[0]  = cc[1];
+        c1[1]  = cc[2];
+        c2[0]  = cc[3];
+        c2[1]  = cc[4];
+        c3[0]  = cc[5];
+        c3[1]  = cc[6];
+        int a[3];
+        sscanf(c1,&quot;%x&quot;,&amp;a[0]);
+<A NAME="0"></A>        sscanf(c2,&quot;%x&quot;,&amp;a[1]);
+        sscanf(c3,&quot;%x&quot;,&amp;a[2]);
+        //cout &lt;&lt; a[0] &lt;&lt; a[1] &lt;&lt; a[2];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int k = 0;k &lt; 3;k++) {
+            int ta = (0-a[k])*(0-a[k]),tr = 0;
+        for (int i = 1;i &lt; 16;i++) {</B></FONT>
+            int t = i * 16 + i;
+            int tp = (t-a[k])*(t-a[k]);
+            if (tp &lt; ta) {
+                ta = tp;
+                tr = i;
             }
         }
-        if(res &lt; 10)</B></FONT>
-        {
-            return string(1, '0' + res);
+            sprintf(c1,&quot;%x&quot;,tr);
+            ans += char(c1[0]);
         }
-        else
-        {
-            return string(1, 'a' + res - 10);
-        }
+        return ans;
     }
 };
 </PRE>

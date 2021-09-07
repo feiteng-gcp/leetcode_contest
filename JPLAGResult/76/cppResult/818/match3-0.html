@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_wellcs.cpp</TITLE>
+ <TITLE>389_GourdEighth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>21_wellcs.cpp</CENTER></H3><HR>
+<H3><CENTER>389_GourdEighth.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string similarRGB(string color) {
-        string r = find(color.substr(1, 2));
-        string g = find(color.substr(3, 2));
-        string b = find(color.substr(5, 2));
-        return &quot;#&quot;+r+g+b;
-    }
-    
-    string find(string s)
-    {
-        map&lt;char, int&gt; m;
-        for(int i = 0; i &lt; 10; ++i)
-        {
-            m.insert({'0' + i, i});
-        }
-        
-        for(int i = 0; i &lt; 6; ++i)
-        {
-<A NAME="0"></A>            m.insert({'a' + i, 10 + i});
-        }
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int val = m[s[0]] * 16 + m[s[1]];
-        int dis = INT_MAX;
-        int res = 0;
-        for(int i = 0; i &lt; 16; ++i)
-        {
-            if(abs(i * 16 + i - val) &lt; dis)
-            {
-                dis = abs(i * 16 + i - val);
-                res = i;
+<A NAME="0"></A>    string similarRGB(string color) {
+        string rgb = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; ++i) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>          int ab = 0;
+          if (isdigit(color[i * 2 + 1])) {
+            ab += 16 * (color[i * 2 + 1] - '0');
+          } else {
+            ab += 16 * (color[i * 2 + 1] - 'a' + 10);
+          }
+          if (isdigit(color[i * 2 + 2])) {
+            ab += color[i * 2 + 2] - '0';
+          } else {
+            ab += color[i * 2 + 2] - 'a' + 10;
+          }</B></FONT>
+          int m  = INT_MAX;
+          int r = 0;
+          for (int j = 0; j &lt;= 16; ++j) {
+            if (abs(j * 16 + j - ab) &lt; m) {
+              m = abs(j * 16 + j - ab);
+              r = j;
             }
-        }</B></FONT>
-        if(res &lt; 10)
-        {
-            return string(1, '0' + res);
+          }
+            cout &lt;&lt; ab &lt;&lt; endl;
+          if (r &lt; 10) {
+            rgb.push_back(r + '0');
+          } else {
+            rgb.push_back(r + 'a' - 10);
+          }
         }
-        else
-        {
-            return string(1, 'a' + res - 10);
-        }
+        return rgb;
     }
 };
 </PRE>

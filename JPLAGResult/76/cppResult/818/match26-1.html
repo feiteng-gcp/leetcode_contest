@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_lympanda.cpp</TITLE>
+ <TITLE>225_x9527.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>3_lympanda.cpp</CENTER></H3><HR>
+<H3><CENTER>225_x9527.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int getv(char c)
-{
-  if (c&lt;='9') return c-'0';
-  else return c-'a'+10;
-}
-
-char getc(int x)
-{
-  if (x&lt;=9) return '0'+x;
-  else return 'a'+x-10;
-}</B></FONT>
-
 class Solution {
 public:
-    string similarRGB(string color) {
-      int i,j,k,best,v1,v2,v3;
-      char ans[100];
-      v1=getv(color[1])*16+getv(color[2]);
-      v2=getv(color[3])*16+getv(color[4]);
-      v3=getv(color[5])*16+getv(color[6]);
-      best=2000000000;
-      for (i=0;i&lt;16;i++)
-        for (j=0;j&lt;16;j++)
-          for (k=0;k&lt;16;k++)
-          {
-            if ((v1-i*16-i)*(v1-i*16-i)+(v2-j*16-j)*(v2-j*16-j)+(v3-k*16-k)*(v3-k*16-k)&lt;best)
-            {
-              best=(v1-i*16-i)*(v1-i*16-i)+(v2-j*16-j)*(v2-j*16-j)+(v3-k*16-k)*(v3-k*16-k);
-              sprintf(ans,&quot;#%c%c%c&quot;,getc(i),getc(j),getc(k));
-            }
-          }
-      return ans;
+    
+int convertHex(string str) {
+    int ret = 0;
+    char ch1 = str[0];
+<A NAME="0"></A>    char ch2 = str[1];
+    
+    int digit1 = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int digit2 = 0;
+    if (ch1 &gt;= '0' &amp;&amp; ch1 &lt;= '9') {
+        digit1 = ch1 - '0';
+    } else {
+        digit1 = 10 + ch1 - 'a';
     }
+    
+    if (ch2 &gt;= '0' &amp;&amp; ch2 &lt;= '9') {
+        digit2 = ch2 - '0';
+    } else {
+        digit2 = 10 + ch2 - 'a';
+    }
+    
+    return digit1 * 16 + digit2;
+}</B></FONT>
+    
+string getMin(string str) {  // str has length of 2
+    int target = convertHex(str);
+    
+    string ret;
+    int low = INT_MAX;
+    vector&lt;string&gt; vec = {&quot;00&quot;, &quot;11&quot;, &quot;22&quot;, &quot;33&quot;, &quot;44&quot;, &quot;55&quot;, &quot;66&quot;,
+                          &quot;77&quot;, &quot;88&quot;, &quot;99&quot;, &quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;, &quot;ff&quot;};
+    for (int i = 0; i &lt; vec.size(); i++) {
+        int cur = convertHex(vec[i]);
+        int cost = (target - cur) * (target - cur);
+        if (cost &lt; low) {
+            low = cost;
+            ret = vec[i]; //.substr(0, 1);
+        }
+    }
+    return ret;
+}
+
+    
+string similarRGB(string color) {
+    string ret = &quot;#&quot;;
+    ret += getMin(color.substr(1, 2));
+    ret += getMin(color.substr(3, 2));
+    ret += getMin(color.substr(5, 2));
+    return ret;   
+}
 };
 </PRE>
 </BODY>

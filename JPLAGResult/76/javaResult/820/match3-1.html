@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_XuhuiWang.java</TITLE>
+ <TITLE>144_SamZhou19815.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>144_SamZhou19815.java</CENTER></H3><HR>
 <PRE>
-public class Solution {
-<A NAME="0"></A>	public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
-		int n = graph.length;
-		int[] outDeg = new int[n];
-		List&lt;Integer&gt; <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res =new ArrayList&lt;&gt;();
-		List&lt;List&lt;Integer&gt;&gt; parent = new ArrayList&lt;&gt;();
-		for (int i = 0; i &lt; n; ++i)
-			parent.add(new ArrayList&lt;&gt;());</B></FONT>
-		Queue&lt;Integer&gt; que = new ArrayDeque&lt;&gt;();
-		for (int i = 0; i &lt; n; ++i) {
-			for (int next : graph[i]) {
-				outDeg[i]++;
-				parent.get(next).add(i);
-			}
-		}
-		// check terminals
-		for (int i = 0;i &lt; n; ++i) {
-			if (outDeg[i] == 0)
-				que.offer(i);
-<A NAME="1"></A>		}
-		while (!que.isEmpty()) {
-			int cur = que.poll();
-			res.add(cur);<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-			for (int p : parent.get(cur)) {
-			    if (--outDeg[p] == 0)
-			        que.offer(p);
+class Solution {
+    
+    public List&lt;Integer&gt; eventualSafeNodes(int[][] graph) {
+        boolean[] safe = new boolean[graph.length];
+        for (int i = 0; i &lt; graph.length; i++) {
+            int[] edges = graph[i];
+            if (edges.length == 0) {
+                safe[i] = true;
             }
-		}</B></FONT>
-		Collections.sort(res);
-		return res;
-	}
+        }
+        while (true) {
+            boolean[] newSafe = Arrays.copyOf(safe, safe.length);
+            for (int i = 0; i &lt; graph.length; i++) {
+                if (safe[i]) {
+                    continue;
+                }
+                boolean allSafe = true;
+                for (int to: graph[i]) {
+                    if (!newSafe[to]) {
+                        allSafe = false;
+                        break;
+                    }
+                }
+                if (allSafe) {
+                    newSafe[i] = true;
+                }
+            }
+            if (Arrays.equals(safe, newSafe)) {
+                safe = newSafe;
+                break;
+<A NAME="0"></A>            }
+            safe = newSafe;
+        }
+        List&lt;Integer&gt; list = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new LinkedList&lt;&gt;();
+        for (int i = 0; i &lt; safe.length; i++) {
+            if (safe[i]) {
+                list.add(i);
+            }
+        }</B></FONT>
+        return list;
+    }
 }
 </PRE>
 

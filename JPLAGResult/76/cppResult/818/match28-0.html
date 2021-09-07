@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>461_nxd.cpp</TITLE>
+ <TITLE>83_pritam_roy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>461_nxd.cpp</CENTER></H3><HR>
+<H3><CENTER>83_pritam_roy.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int ToInt(char c1, char c2) {
-        int n1 = 0, n2 = 0;
-        n1 = isdigit(c1) ? (c1 - '0') : (c1 - 'a' + 10);
-        n2 = isdigit(c2) ? (c2 - '0') : (c2 - 'a' + 10);
-        return n1 * 16 + n2;
-    }
-    
-    string similarRGB(string color) {
-        string ans = &quot;#&quot;;
-        for (int i=1; i&lt;color.size(); i+=2) {
-<A NAME="0"></A>            char c1 = tolower(color[i]), c2 = tolower(color[i+1]);
-            if (c1 == c2) {
-                ans.push_back(c1);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            } else {
-                int n = ToInt(c1, c2), diff = INT_MIN, m = -1;
-                //cout &lt;&lt; n &lt;&lt; endl;
-                for (int i=0; i&lt;16; i++) {
-                    int d = -1 * (i*16+i - n) * (i*16+i - n);
-                    if (d &gt; diff) {
-                        diff = d;</B></FONT>
-                        m = i;
+    string similarRGB(string color) { 
+        vector&lt;int&gt; vec;
+        map&lt;int, char&gt; m;
+        for(char c='0'; c &lt;='9'; c++){
+            m[c-'0'] = c;
+            //cout&lt;&lt;c-'0'&lt;&lt;c&lt;&lt;endl;
+        }
+        for(char c='a'; c&lt;='f';c++){
+            m[c-'a'+10] = c;
+            //cout&lt;&lt;c-'a'+10&lt;&lt;c&lt;&lt;endl;
+        }
+        for(int i=1; i&lt;color.size();i++){
+            char c = color[i];
+            if(c &gt;= '0' &amp;&amp; c&lt;='9') vec.push_back(c-'0');
+            else if( c &gt;= 'a' &amp;&amp; c &lt;= 'f') vec.push_back(c-'a'+10);
+        }
+        int first = vec[0]*16+vec[1];
+        int second = vec[2]*16 + vec[3];
+<A NAME="0"></A>        int third = vec[4]*16 + vec[5];
+        int diff = INT_MAX;
+        string s;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int x = 0; x&lt;16; x++){
+            int xv = x*16 +x;
+            for(int y=0; y&lt;16;y++){
+                int yv = y*16+y;
+                for(int z=0; z&lt;16;z++){
+                    int zv = z*16 +z;</B></FONT>
+                    int sum = - (xv-first)*(xv-first) - (yv-second)*(yv-second) - (zv-third)*(zv-third);
+                    if(abs(sum) &lt; abs(diff)){
+                        //cout&lt;&lt;x&lt;&lt;&quot;,&quot;&lt;&lt;m[x]&lt;&lt;&quot;,&quot;&lt;&lt;y&lt;&lt;&quot;,&quot;&lt;&lt;m[y]&lt;&lt;&quot; z&quot;&lt;&lt;z&lt;&lt;&quot;,&quot;&lt;&lt;m[z]&lt;&lt;endl;
+                        s = '#'; s+= m[x]; s += m[y]; s+= m[z];
+                        diff = sum;
                     }
                 }
-                //cout &lt;&lt; m &lt;&lt; endl;
-                ans.push_back(m &gt; 9? ('a' + m-10) : '0' + m);
             }
         }
-        return ans;
+        return s;
     }
 };
 </PRE>

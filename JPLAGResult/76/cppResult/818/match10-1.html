@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>202_yzhaowbo.cpp</TITLE>
+ <TITLE>14_QingqingXii0iii.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>202_yzhaowbo.cpp</CENTER></H3><HR>
+<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    string near_num(string s) {
-        static const vector&lt;string&gt; str = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
-        
-        int x;   
-        stringstream ss;
-        ss &lt;&lt; std::hex &lt;&lt; s;
-<A NAME="0"></A>        ss &gt;&gt; x;
-        
-        int mx = 500, j;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;16; i++) {
-            int k = i*16 + i;
-            if(abs(k-x) &lt; mx) {
-                mx = abs(k-x);
-                j = i;
+public:
+    int t(char c){
+        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
+        else return 10 + c - 'a';
+    }
+    char T(int x){
+        if(x &gt;= 0 &amp;&amp; x &lt;= 9) return x + '0';
+        else return x - 10 + 'a';
+    }
+    int sqr(int x){
+        return x * x;
+    }
+    string similarRGB(string color) {
+        int dif = 1e8;
+<A NAME="0"></A>        int x = t(color[1]) * 16 + t(color[2]);
+        int y = t(color[3]) * 16 + t(color[4]);
+        int z = t(color[5]) * 16 + t(color[6]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string ans = &quot;&quot;;
+        for(int i = 0;i &lt; 16;i++){
+            for(int j = 0;j &lt; 16;j++){
+                for(int k = 0;k &lt; 16;k++){</B></FONT>
+                    if(sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z) &lt; dif){
+                        cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
+                        ans = &quot;#&quot;;
+                        ans += T(i);
+                        ans += T(j);
+                        ans += T(k);
+                        cout &lt;&lt; ans &lt;&lt; endl;
+                        dif = sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z);
+                    }
+                }
             }
         }
-        
-        return str[j];
-    }</B></FONT>
-    
-public:
-    string similarRGB(string c) {
-        return &quot;#&quot; + near_num(c.substr(1,2)) + near_num(c.substr(3,2)) + near_num(c.substr(5,2));
+        return ans;
     }
 };
 </PRE>

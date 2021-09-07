@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_bb123n4.cpp</TITLE>
+ <TITLE>354_zpenglei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>354_zpenglei.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int toInt(char c) {
-        if (c &gt;= 'a' &amp;&amp; c &lt;= 'f') return c - 'a' + 10;
-        return c - '0';
-    }
-    char toChar(int n) {
-        if (n &gt;= 0 &amp;&amp; n &lt; 10) return '0' + n;
-        return n - 10 + 'a';
-    }
     string similarRGB(string color) {
-<A NAME="0"></A>        string rv = &quot;#&quot;;
-        int n = toInt(color[1]) * 16 + toInt(color[2]);
-        int diff = 16 * 16 * 16;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-<A NAME="1"></A>                diff = abs(i * 16 + i - n);
-            }
-        }</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        rv += toChar(s);
-        n = toInt(color[3]) * 16 + toInt(color[4]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-<A NAME="2"></A>                diff = abs(i * 16 + i - n);
-            }
-        }</B></FONT>
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        rv += toChar(s);
-        n = toInt(color[5]) * 16 + toInt(color[6]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }</B></FONT>
-        rv += toChar(s);
-        return rv;   
+<A NAME="1"></A>        string res = &quot;#&quot;;
+        for (int i = 1; i &lt; 7; i += 2) {
+            int col = stoi(color.substr(i, 2), nullptr, 16);</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int minDis = col, minyy = 0;
+            for (int yy = 0; yy &lt; 256; yy += 17) {
+                if (abs(col - yy) &lt; minDis) {
+                    minDis = abs(col - yy);
+                    minyy = yy;
+                }
+            }</B></FONT>
+            res.push_back((minyy % 16 &lt; 10) ? minyy % 16 + '0' : minyy % 16 - 10 + 'a');
+        }
+        return res;
     }
 };
 </PRE>

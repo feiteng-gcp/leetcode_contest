@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_bb123n4.cpp</TITLE>
+ <TITLE>225_x9527.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>225_x9527.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int toInt(char c) {
-        if (c &gt;= 'a' &amp;&amp; c &lt;= 'f') return c - 'a' + 10;
-        return c - '0';
+    
+int convertHex(string str) {
+    int ret = 0;
+    char ch1 = str[0];
+<A NAME="0"></A>    char ch2 = str[1];
+    
+    int digit1 = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int digit2 = 0;
+    if (ch1 &gt;= '0' &amp;&amp; ch1 &lt;= '9') {
+        digit1 = ch1 - '0';
+    } else {
+        digit1 = 10 + ch1 - 'a';
     }
-    char toChar(int n) {
-        if (n &gt;= 0 &amp;&amp; n &lt; 10) return '0' + n;
-        return n - 10 + 'a';
-<A NAME="0"></A>    }
-    string similarRGB(string color) {
-        string rv = &quot;#&quot;;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = toInt(color[1]) * 16 + toInt(color[2]);
-        int diff = 16 * 16 * 16;
-        int s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }</B></FONT>
-        rv += toChar(s);
-        n = toInt(color[3]) * 16 + toInt(color[4]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
+    
+    if (ch2 &gt;= '0' &amp;&amp; ch2 &lt;= '9') {
+        digit2 = ch2 - '0';
+    } else {
+        digit2 = 10 + ch2 - 'a';
+    }</B></FONT>
+    
+    return digit1 * 16 + digit2;
+}
+    
+string getMin(string str) {  // str has length of 2
+    int target = convertHex(str);
+    
+    string ret;
+    int low = INT_MAX;
+    vector&lt;string&gt; vec = {&quot;00&quot;, &quot;11&quot;, &quot;22&quot;, &quot;33&quot;, &quot;44&quot;, &quot;55&quot;, &quot;66&quot;,
+                          &quot;77&quot;, &quot;88&quot;, &quot;99&quot;, &quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;, &quot;dd&quot;, &quot;ee&quot;, &quot;ff&quot;};
+    for (int i = 0; i &lt; vec.size(); i++) {
+        int cur = convertHex(vec[i]);
+        int cost = (target - cur) * (target - cur);
+        if (cost &lt; low) {
+            low = cost;
+            ret = vec[i]; //.substr(0, 1);
         }
-        rv += toChar(s);
-        n = toInt(color[5]) * 16 + toInt(color[6]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
-        }
-        rv += toChar(s);
-        return rv;   
     }
+    return ret;
+}
+
+    
+string similarRGB(string color) {
+    string ret = &quot;#&quot;;
+    ret += getMin(color.substr(1, 2));
+    ret += getMin(color.substr(3, 2));
+    ret += getMin(color.substr(5, 2));
+    return ret;   
+}
 };
 </PRE>
 </BODY>

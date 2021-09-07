@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_JOHNKRAM.cpp</TITLE>
+ <TITLE>389_GourdEighth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1_JOHNKRAM.cpp</CENTER></H3><HR>
+<H3><CENTER>389_GourdEighth.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int A(int x)
-    {
-<A NAME="0"></A>        if(x&lt;0)return -x;
-        return x;
-    }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ci(char c)
-    {
-        if(c&lt;='9')return c^'0';
-        return c-'a'+10;
-    }
-    char ic(int i)
-    {
-        if(i&lt;10)return i+'0';
-        return i+'a'-10;
-    }
     string similarRGB(string color) {
-        string ans=&quot;&quot;;</B></FONT>
-        ans+='#';
-        int i,j,k,l;
-        for(i=1;i&lt;6;i+=2)
-        {
-            j=ci(color[i])*16+ci(color[i+1]);
-            for(k=l=0;k&lt;16;k++)if(A(k*16+k-j)&lt;A(l*16+l-j))l=k;
-            ans+=ic(l);
+        string rgb = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; ++i) {
+          int ab = 0;
+          if (isdigit(color[i * 2 + 1])) {
+            ab += 16 * (color[i * 2 + 1] - '0');
+          } else {
+            ab += 16 * (color[i * 2 + 1] - 'a' + 10);
+          }
+          if (isdigit(color[i * 2 + 2])) {
+            ab += color[i * 2 + 2] - '0';
+<A NAME="0"></A>          } else {
+            ab += color[i * 2 + 2] - 'a' + 10;
+          }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>          int m  = INT_MAX;
+          int r = 0;
+          for (int j = 0; j &lt;= 16; ++j) {
+            if (abs(j * 16 + j - ab) &lt; m) {
+              m = abs(j * 16 + j - ab);
+              r = j;
+            }
+          }
+            cout &lt;&lt; ab &lt;&lt; endl;
+          if (r &lt; 10) {</B></FONT>
+            rgb.push_back(r + '0');
+          } else {
+            rgb.push_back(r + 'a' - 10);
+          }
         }
-        return ans;
+        return rgb;
     }
 };
 </PRE>

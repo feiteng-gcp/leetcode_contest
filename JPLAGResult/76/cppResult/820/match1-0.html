@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>9_cthbst.cpp</TITLE>
+ <TITLE>95_gonglinyuan.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,115 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>9_cthbst.cpp</CENTER></H3><HR>
+<H3><CENTER>95_gonglinyuan.cpp</CENTER></H3><HR>
 <PRE>
+#define MAXN 10000
+int n, idx, blk, dfn[MAXN+10], low[MAXN+10], s[MAXN+10], col[MAXN+10], deg[MAXN+10], q[MAXN+10], f[MAXN+10];
+bool in[MAXN+10];
+vector&lt;vector&lt;int&gt;&gt; g,gg;
+
+void dfs(int x) {
+    dfn[x]=low[x]=++idx; s[++s[0]]=x; in[x]=1;
+    for (int y : g[x]) {
+        if (dfn[y] == 0) {
+            dfs(y);
+            low[x]=min(low[x], low[y]);
+        } else {
+            if (in[y]) low[x]=min(low[x], dfn[y]);
+        }
+    }
+    if (low[x]==dfn[x]) {
+        int y=s[s[0]--]; in[y]=0; col[y]=blk;
+        while (y!=x) {
+            y=s[s[0]--]; in[y]=0; col[y]=blk;
+        }
+        ++blk;
+    }
+}
+
 class Solution {
 public:
-    int n;
-    vector&lt;int&gt; din;
-    vector&lt; vector&lt;int&gt; &gt; rG;
-    vector&lt;int&gt; ans;
-    
-    void init(vector&lt;vector&lt;int&gt;&gt;&amp; G){
-        n = G.size();
-        din = vector&lt;int&gt;(n,0);
-        rG.resize(n, vector&lt;int&gt;(0) );
-        
-        for (int u=0; u&lt;n; u++){
-            for (int v:G[u]){
-                rG[v].push_back(u);
-                din[u]++;
-            }
-        }
-    }
-<A NAME="0"></A>    
     vector&lt;int&gt; eventualSafeNodes(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        init(graph);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;int&gt; que;
-        for (int i=0; i&lt;n; i++){
-            if (din[i]==0) que.push(i);
+        n=graph.size();
+        g.clear();
+        for (int i=0;i&lt;n;++i) {
+            g.push_back(vector&lt;int&gt;());
         }
-        while (que.size()){
-            int u = que.front(); que.pop();
-            ans.push_back(u);
-            for (int v:rG[u]){</B></FONT>
-                din[v]--;
-                if (din[v]==0) que.push(v);
+        for (int x=0;x&lt;n;++x) {
+            for (int y : graph[x]) {
+                g[x].push_back(y);
             }
         }
-        sort(ans.begin(),ans.end());
-        return ans;
+        idx=blk=s[0]=0;
+        for (int i=0;i&lt;n;++i) dfn[i]=low[i]=col[i]=0;
+        for (int i=0;i&lt;n;++i) in[i]=0;
+        for (int i=0;i&lt;n;++i) {
+            if (dfn[i] == 0) dfs(i);
+        }
+        // for (int i=0;i&lt;n;++i) printf(&quot;%d &quot;, dfn[i]); putchar('\n');
+        // for (int i=0;i&lt;n;++i) printf(&quot;%d &quot;, low[i]); putchar('\n');
+        // for (int i=0;i&lt;n;++i) printf(&quot;%d &quot;, col[i]); putchar('\n');
+        for (int i=0;i&lt;n;++i) {
+            if (g[i].size() == 0) {
+                f[col[i]]=1;
+            } else {
+                f[col[i]]=0;
+            }
+        }
+        gg.clear();
+        for (int i=0;i&lt;blk;++i) gg.push_back(vector&lt;int&gt;());
+        for (int i=0;i&lt;blk;++i) deg[i]=0;
+        for (int x=0;x&lt;n;++x) {
+            for (int y : g[x]) {
+                if (col[x]!=col[y]) {
+                    gg[col[x]].push_back(col[y]);
+                    ++deg[col[y]];
+                }
+            }
+        }
+        
+        int l=0,r=0;
+        for (int x=0;x&lt;blk;++x) {
+            if (deg[x] == 0) {
+                q[++r]=x;
+            }
+        }
+        while (l&lt;r) {
+            int x=q[++l];
+            for (int y : gg[x]) {
+                if (--deg[y] == 0) {
+                    q[++r]=y;
+                }
+            }
+        }
+        
+        for (int x=0;x&lt;n;++x) {
+            for (int y : g[x]) {
+                if (col[x]==col[y]) {
+                    gg[col[x]].push_back(col[y]);
+                }
+            }
+        }
+        
+        for (int i=r;i&gt;0;--i) {
+            int x=q[i];
+            if (f[x]==1) continue;
+            f[x]=1;
+            for (int y : gg[x]) {
+                if (y == x || f[y] == 0) {
+                    f[x] = 0; break;
+                }
+<A NAME="0"></A>            }
+        }
+        vector&lt;int&gt; vec;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0;i&lt;n;++i) {
+            if (f[col[i]] == 1) {
+                vec.push_back(i);
+            }
+        }
+        return vec;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

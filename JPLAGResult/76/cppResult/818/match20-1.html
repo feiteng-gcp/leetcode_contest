@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>135_nearSGB.cpp</TITLE>
+ <TITLE>25_garfield175.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>135_nearSGB.cpp</CENTER></H3><HR>
+<H3><CENTER>25_garfield175.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
+<A NAME="0"></A>public:
     string similarRGB(string color) {
-        string res = &quot;#&quot;;
-        for(int i = 1; i &lt; 6; i += 2) {
-            string tmp = color.substr(i, 2);
-            int num = 0;
-            if(isdigit(tmp[0]))
-                num = 16*(tmp[0]-'0');
-            else
-                num = 16*(tmp[0]-'a'+10);
-<A NAME="0"></A>            if(isdigit(tmp[1]))
-                num += tmp[1]-'0';
-            else
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                num += tmp[1]-'a'+10;
-            int minNum = INT_MAX;
-            int k = 0;
-            for(int j = 0; j &lt; 16; j++) {
-                if(abs(16*j+j-num) &lt; minNum) {
-                    minNum = abs(16*j+j-num);
-                    k = j;
+        string srgp = &quot;#&quot;;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; 3; i ++) {
+            int value = 0, num = 0;
+            for(int j = 0; j &lt; 2; j++) {</B></FONT>
+                if (color[i * 2 + j + 1] &gt;= '0' &amp;&amp; color[i * 2 + j + 1] &lt;= '9') {
+                    num = color[i * 2 + j + 1] - '0';
+                } else {
+                    num = color[i * 2 + j + 1] - 'a' + 10;
                 }
+                value = value * 16 + num;
             }
-            if(k &lt; 10)</B></FONT>
-                res += to_string(k);
-            else
-                res.push_back('a'+k-10);
+            cout &lt;&lt; value &lt;&lt; endl;
+            int mini = 0;
+            for(int i = 0; i &lt; 16; i++) {
+                if (abs(value - i * 17) &lt; abs(value - mini * 17)) mini = i;
+            }
+            srgp.append(1, mini &lt; 10 ? mini + '0' : mini - 10 + 'a');
         }
-        
-            
-        return res;
+        return srgp;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>291_user4865w.cpp</TITLE>
+ <TITLE>389_GourdEighth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>291_user4865w.cpp</CENTER></H3><HR>
+<H3><CENTER>389_GourdEighth.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     string similarRGB(string color) {
-        int a,b,c;
-        int tmp[6];
-        for(int i=1;i&lt;7;i++){
-            if('0'&lt;=color[i]&amp;&amp;color[i]&lt;='9')
-                tmp[i-1]=color[i]-'0';
-            if('a'&lt;=color[i]&amp;&amp;color[i]&lt;='f')
-                tmp[i-1]=10+color[i]-'a'; 
+        string rgb = &quot;#&quot;;
+        for (int i = 0; i &lt; 3; ++i) {
+          int ab = 0;</B></FONT>
+          if (isdigit(color[i * 2 + 1])) {
+            ab += 16 * (color[i * 2 + 1] - '0');
+          } else {
+            ab += 16 * (color[i * 2 + 1] - 'a' + 10);
+          }
+          if (isdigit(color[i * 2 + 2])) {
+            ab += color[i * 2 + 2] - '0';
+          } else {
+<A NAME="1"></A>            ab += color[i * 2 + 2] - 'a' + 10;
+          }
+          int m  = INT_MAX;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>          int r = 0;
+          for (int j = 0; j &lt;= 16; ++j) {
+            if (abs(j * 16 + j - ab) &lt; m) {
+              m = abs(j * 16 + j - ab);
+              r = j;
+            }
+          }</B></FONT>
+            cout &lt;&lt; ab &lt;&lt; endl;
+          if (r &lt; 10) {
+            rgb.push_back(r + '0');
+          } else {
+            rgb.push_back(r + 'a' - 10);
+          }
         }
-        a=tmp[0]*16+tmp[1];
-        b=tmp[2]*16+tmp[3];
-        c=tmp[4]*16+tmp[5];
-        vector&lt;int&gt;all;
-        for(int i=0;i&lt;16;i++){
-<A NAME="0"></A>            all.push_back(i*16+i);
-        }
-        string rtn=&quot;#&quot;;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-a)*(all[i]-a)&lt;smallest){
-                smallest=(all[i]-a)*(all[i]-a);
-                num=all[i]%16;
-            }
-        }</B></FONT>
-        string s;
-<A NAME="1"></A>        if(num&gt;=10)
-            s='a'+(num-10);
-        else 
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            s='0'+num;
-        rtn= rtn+s+s;
-        smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-b)*(all[i]-b)&lt;smallest){
-                smallest=(all[i]-b)*(all[i]-b);
-                num=all[i]%16;
-            }
-        }</B></FONT>
-<A NAME="2"></A>        if(num&gt;=10)
-            s='a'+(num-10);
-        else 
-<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            s='0'+num;
-        rtn= rtn+s+s;
-        smallest=20000005,num=-1;
-        for(int i=0;i&lt;all.size();i++){
-            if((all[i]-c)*(all[i]-c)&lt;smallest){
-                smallest=(all[i]-c)*(all[i]-c);
-                num=all[i]%16;
-            }
-        }</B></FONT>
-        if(num&gt;=10)
-            s='a'+(num-10);
-        else 
-            s='0'+num;
-        rtn= rtn+s+s;
-        return rtn;
+        return rgb;
     }
 };
 </PRE>

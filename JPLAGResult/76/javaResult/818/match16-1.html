@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>252_paulwater.java</TITLE>
+ <TITLE>142_yzeng61987.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>252_paulwater.java</CENTER></H3><HR>
+<H3><CENTER>142_yzeng61987.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public String similarRGB(String color) {
-<A NAME="0"></A>        char[] c = color.toCharArray();
-        StringBuilder result = new StringBuilder();
-        result.append('#');
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for ( int i=1; i&lt;6; i+=2) {
-            int temp = val(c[i]);
-            int value = temp*16+val(c[i+1]);
-            int diff = Integer.MAX_VALUE;
-            int index =-1;
-            //System.out.println(&quot;temp = &quot;+ temp);
-            for (int j= temp-1; j&lt;=temp+1; j++) {</B></FONT>
-                if (j&lt;0) continue;
-                if (j&gt;=16) continue;
-                //System.out.println(&quot;j = &quot;+ j);
-                int cal = (j*16+j -value);
-                cal *=cal;
-<A NAME="1"></A>                if (cal&lt;diff) {
-                    diff = cal;
-                    index = j;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            }
-            result.append(toCh(index));
-        }
-        return</B></FONT> result.toString();
-    }
-    public int val (char ch) {
-        if (ch &gt;= '0' &amp;&amp; ch&lt;= '9') return (ch-'0');
-        return (10+ch-'a');
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public String similarRGB(String color) {
+        String d = &quot;0123456789abcdef&quot;;
+        String res = &quot;#&quot;;
+        
+        for(int i = 1;  i&lt; 7; i+= 2){
+            int min = Integer.MAX_VALUE;
+            int j = -1</B></FONT>;
+            int c = convert(color, i);
+            for(int k = 0; k&lt; 16; k++){
+                if((c- k*16-k)*(c- k*16-k)&lt; min){
+                    min = (c- k*16-k)*(c- k*16-k);
+                    j = k;
+                } 
+            }    
+<A NAME="1"></A>            
+            res += d.charAt(j);
+            res += d.charAt(j);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return res;
     }
     
-    public char toCh (int val) {
-        //System.out.println(&quot;val = &quot;+ val);
-        if (val &lt;10) return ((char)(val+'0'));
-        return ((char)(val-10+'a'));
+    public int convert(String color, int i){
+        String d = &quot;0123456789abcdef&quot;</B></FONT>;
+        
+        int res = d.indexOf(color.substring(i, i+1))*16 + d.indexOf(color.substring(i+1, i+2));
+        
+        return res;
+        
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>464_Stark_.java</TITLE>
+ <TITLE>72_rzjohn.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>464_Stark_.java</CENTER></H3><HR>
+<H3><CENTER>72_rzjohn.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String similarRGB(String color) {
-<A NAME="0"></A>        String res = &quot;#&quot;;
-        res = res + help(color.substring(1,3)) + help(color.substring(3,5))+help(color.substring(5,7));
-        return res;
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}   
-    public String help(String c){
-        int color = Integer.parseInt(c,16);
-        int min = 255;
-<A NAME="1"></A>        int digit = 0</B></FONT>;
-        String res = &quot;&quot;;
-        for(int i=0;i&lt;16;i++){
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(min &gt; Math.abs(i*16+i-color)){
-                min = Math.abs(i*16+i-color);
-                digit = i;
-            }       
-        }</B></FONT>
-        if(digit == 10)
-            return &quot;a&quot;;
-        if(digit==11)
-            return &quot;b&quot;;
-        if(digit==12)
-            return &quot;c&quot;;
-        if(digit==13)
-            return &quot;d&quot;;
-        if(digit==14)
-            return &quot;e&quot;;
-        if(digit==15)
-            return &quot;f&quot;;
-        return Integer.toString(digit);
+        String res = &quot;#&quot;;
+        for(int i=0; i&lt;3; i++){
+            String num = findBest(color.substring(i*2+1, i*2+3));
+<A NAME="0"></A>            res += num;
+        }
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res;
+    }
+    
+    private String findBest(String n){
+        int target = Integer.parseInt(n, 16);
+        int best_diff = Integer.MAX_VALUE</B></FONT>;
+<A NAME="1"></A>        int best_i = 0;
+        for(int i=0; i&lt;16; i++){
+            int res = i+16*i;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(Math.abs(res - target) &lt; best_diff){
+                best_diff = Math.abs(res - target);
+                best_i = i;
+            }
+        }
+        
+        return</B></FONT> Integer.toHexString(best_i);
     }
 }
 </PRE>

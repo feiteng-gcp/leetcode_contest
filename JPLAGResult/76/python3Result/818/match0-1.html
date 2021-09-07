@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>331_maltbie.py</TITLE>
+ <TITLE>179_surmenok.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>331_maltbie.py</CENTER></H3><HR>
+<H3><CENTER>179_surmenok.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+class Solution:
     def similarRGB(self, color):
         &quot;&quot;&quot;
         :type color: str
         :rtype: str
-        
-        poss color codes - 
-            hex 10
-            00  0
-            11  17
-            22  34
-            33  51
-            ...
-            FF  255
         &quot;&quot;&quot;
-        red = int(color[1:3], 16)
-        green = int(color[3:5], 16)
-        blue = int(color[5:7], 16)
+        component1 = int(color[1:3], 16)
+<A NAME="0"></A>        component2 = int(color[3:5], 16)
+        component3 = int(color[5:7], 16)
         
-        closest_red =</B></FONT> int(round(red / 17)) *17
-        closest_green = int(round(green / 17)) * 17
-        closest_blue = int(round(blue / 17)) * 17
+        best_shorts <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= None
+        best_similarity = 2**32
         
-        return &quot;#&quot; + hex(closest_red)[2] + hex(closest_green)[2] + hex(closest_blue)[2]
+        for short1 in range(16):
+            for short2 in range(16):
+                for short3 in range(16):
+                    similarity = (short1 * 16 + short1 - component1) ** 2 + \
+                        (short2 * 16 + short2 - component2) ** 2 + \
+                        (short3 * 16 + short3 - component3) ** 2
+                    if similarity &lt; best_similarity:
+                        best_similarity = similarity
+                        best_shorts =</B></FONT> (short1, short2, short3)
+                        
+        return '#' + ''.join([format(s, '01x') + format(s, '01x') for s in best_shorts])
 </PRE>
 
 </BODY>

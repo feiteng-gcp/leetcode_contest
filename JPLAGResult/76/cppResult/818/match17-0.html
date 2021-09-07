@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>53_facelessvoid.cpp</TITLE>
+ <TITLE>334_klldmofashi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>53_facelessvoid.cpp</CENTER></H3><HR>
+<H3><CENTER>334_klldmofashi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    int getrep(int i){
-        return i * 16 + i;
-    }
-    char getcharr(int i){
-        assert(i &gt;= 0);
-        if(i &lt; 10) return '0' + i;
-        i -= 10;
-        return 'a' + i;
-    }
-    
-    int getval(char c){
-        if(isdigit(c)) return c-'0';
-        return 10 + (c - 'a');
-    }
-    
 public:
-<A NAME="0"></A>    
+    string findSimilar(string c) {
+        int count = 0;
+        
+        if (c[0] &gt;= 'a') count += (c[0] - 'a' + 10)*16;
+<A NAME="0"></A>        else count += (c[0] - '0')*16;
+        
+        if (c[1] &gt;= 'a') count += (c[1] - 'a' + 10);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        else count += (c[1] - '0');
+        
+        int bestI = 0;
+        int minGap = INT_MAX;
+        for (int i = 0; i &lt; 16; i++) {
+            if (abs(i * 17 - count) &lt; minGap) {
+                minGap = abs(i * 17 - count);
+                bestI = i;
+            }
+        }
+        
+        string ans;
+        if (bestI &lt; 10) ans += '0' + bestI;</B></FONT>
+        else ans += bestI - 10 + 'a';
+        
+        return ans;
+    }
+    
+    
     string similarRGB(string color) {
         string ans = &quot;#&quot;;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int j=0;j&lt;3;j++){
-            int n1 = getval(color[1 + 2*j]) * 16 + getval(color[1+ 2*j +1]);
-            int minval = -1, mindiff =  INT_MAX;
-            for(int i=0;i&lt;16*16;i++){
-                if(mindiff &gt; abs(n1 - getrep(i))){
-                    mindiff = abs(n1-getrep(i));
-                    minval = i;
-                }
-            }</B></FONT>
-            
-            ans += getcharr(minval);
-        }
+        ans += findSimilar(color.substr(1,2));
+        ans += findSimilar(color.substr(3,2));
+        ans += findSimilar(color.substr(5,2));
         
         return ans;
     }

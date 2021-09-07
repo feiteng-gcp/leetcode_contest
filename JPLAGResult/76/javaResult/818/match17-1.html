@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_zhangjk95.java</TITLE>
+ <TITLE>170_vegito2002.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_zhangjk95.java</CENTER></H3><HR>
+<H3><CENTER>170_vegito2002.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public String similarRGB(String color) {
-        StringBuilder builder = new StringBuilder(&quot;#&quot;);
-        for (int i = 0; i &lt; 3; i++) {
-            int r = 0, min = 10000;
-            int o = Integer.parseInt(color.substring(1 + i * 2, 1 + (i + 1) * 2), 16);
-<A NAME="0"></A>            for (int j = 0; j &lt; 16; j++) {
-                if (Math.abs(j * 16 + j - o) &lt; min) {
-                    r = j;
-                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>min = Math.abs(j * 16 + j - o);
-                }
+        return String.format (&quot;#%s%s%s&quot;, getClosest (color.substring (1, 3)), getClosest (color.substring (3, 5)), getClosest (color.substring (5, 7)));
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+    String getClosest (String s) {
+<A NAME="1"></A>        int val = Integer.parseInt (s, 16);
+        int min_square = Integer.MAX_VALUE, min_num = -1;
+        for (int i = 0; i &lt; 16; i++) {
+            int cur_square = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.abs (i * 16 + i - val</B></FONT>);
+            if (cur_square &lt; min_square) {
+                min_square = cur_square;
+                min_num = i;
             }
-            builder.append(Integer.toString(r, 16));
-        }
-        return</B></FONT> builder.toString();
+        }</B></FONT>
+        // System.out.printf (&quot;%s returns %s\n&quot;, s, min_num + &quot;&quot;);///
+        return Integer.toString (min_num, 16);
     }
 }
 </PRE>

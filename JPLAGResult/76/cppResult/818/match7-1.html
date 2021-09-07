@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>131_henrymoo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>131_henrymoo.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int t(char c){
-        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
-        else return 10 + c - 'a';
-    }
-    char T(int x){
-        if(x &gt;= 0 &amp;&amp; x &lt;= 9) return x + '0';
-        else return x - 10 + 'a';
-    }</B></FONT>
-    int sqr(int x){
-        return x * x;
-    }
     string similarRGB(string color) {
-        int dif = 1e8;
-        int x = t(color[1]) * 16 + t(color[2]);
-        int y = t(color[3]) * 16 + t(color[4]);
-        int z = t(color[5]) * 16 + t(color[6]);
-        string ans = &quot;&quot;;
-        for(int i = 0;i &lt; 16;i++){
-            for(int j = 0;j &lt; 16;j++){
-                for(int k = 0;k &lt; 16;k++){
-                    if(sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z) &lt; dif){
-                        cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
-                        ans = &quot;#&quot;;
-                        ans += T(i);
-                        ans += T(j);
-                        ans += T(k);
-                        cout &lt;&lt; ans &lt;&lt; endl;
-                        dif = sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z);
-                    }
-                }
-            }
+        return &quot;#&quot;+sub(color.substr(1,2))+sub(color.substr(3,2))+sub(color.substr(5,2));
+    }
+    string f(string s){
+        if(s[0]==s[1]) return s.substr(0,1);
+        int x=0, y=0;
+        int n=stoi(s,0,16), m=n;
+        while(n/10 != n%10 || (n&lt;10 and n!=0))
+            n--, x++;
+        while(m/10 != m%10)
+            m++, y++;
+<A NAME="0"></A>        if(x&lt;y) return n&gt;10?to_string(n/10):to_string(n);
+        else return m&gt;10?to_string(m/10):to_string(m);
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    map&lt;char,string&gt; m={{'0',&quot;0&quot;},
+                       {'1',&quot;11&quot;},{'2',&quot;22&quot;},{'3',&quot;33&quot;},{'4',&quot;44&quot;},{'5',&quot;55&quot;},{'6',&quot;66&quot;},
+                       {'7',&quot;77&quot;},{'8',&quot;88&quot;},{'9',&quot;99&quot;},{'a',&quot;aa&quot;},{'b',&quot;bb&quot;},{'c',&quot;cc&quot;},
+                       {'d',&quot;dd&quot;},{'e',&quot;ee&quot;},{'f',&quot;ff&quot;}
+                      };</B></FONT>
+    string sub(string s){
+        if(s[0]==s[1]) return s.substr(0,1);
+        int x=INT_MAX,y=0;
+        string r;
+        for(auto e: m){
+            int t=abs(stoi(e.second,0,16)-stoi(s,0,16));
+            if(t&lt;x) x=t, r=string(1,e.first);
         }
-        return ans;
+        return r;
     }
 };
 </PRE>

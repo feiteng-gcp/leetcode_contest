@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>100_bb123n4.cpp</TITLE>
+ <TITLE>21_wellcs.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>100_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>21_wellcs.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int toInt(char c) {
-        if (c &gt;= 'a' &amp;&amp; c &lt;= 'f') return c - 'a' + 10;
-        return c - '0';
-    }
-    char toChar(int n) {
-        if (n &gt;= 0 &amp;&amp; n &lt; 10) return '0' + n;
-        return n - 10 + 'a';
-    }
     string similarRGB(string color) {
-        string rv = &quot;#&quot;;</B></FONT>
-        int n = toInt(color[1]) * 16 + toInt(color[2]);
-        int diff = 16 * 16 * 16;
-        int s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
+        string r = find(color.substr(1, 2));
+        string g = find(color.substr(3, 2));
+        string b = find(color.substr(5, 2));
+        return &quot;#&quot;+r+g+b;
+    }
+    
+    string find(string s)
+    {
+        map&lt;char, int&gt; m;
+        for(int i = 0; i &lt; 10; ++i)
+        {
+            m.insert({'0' + i, i});
+        }
+        
+        for(int i = 0; i &lt; 6; ++i)
+        {
+            m.insert({'a' + i, 10 + i});
+<A NAME="0"></A>        }
+        
+        int val = m[s[0]] * 16 + m[s[1]];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int dis = INT_MAX;
+        int res = 0;
+        for(int i = 0; i &lt; 16; ++i)
+        {
+            if(abs(i * 16 + i - val) &lt; dis)
+            {
+                dis = abs(i * 16 + i - val);
+                res = i;
             }
         }
-        rv += toChar(s);
-        n = toInt(color[3]) * 16 + toInt(color[4]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
+        if(res &lt; 10)
+        {</B></FONT>
+            return string(1, '0' + res);
         }
-        rv += toChar(s);
-        n = toInt(color[5]) * 16 + toInt(color[6]);
-        diff = 16 * 16 * 16;
-        s = -1;
-        for (int i = 0; i &lt; 16; i++) {
-            if (abs(i * 16 + i - n) &lt; diff) {
-                s = i;
-                diff = abs(i * 16 + i - n);
-            }
+        else
+        {
+            return string(1, 'a' + res - 10);
         }
-        rv += toChar(s);
-        return rv;   
     }
 };
 </PRE>

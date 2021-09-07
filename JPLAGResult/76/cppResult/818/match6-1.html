@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_QingqingXii0iii.cpp</TITLE>
+ <TITLE>169_code_report.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_QingqingXii0iii.cpp</CENTER></H3><HR>
+<H3><CENTER>169_code_report.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int t(char c){
-        if(c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
-        else return 10 + c - 'a';
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    map&lt;char, int&gt; m = {{'0',0},{'1',1},{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'a',10},{'b',11},{'c',12},{'d',13},{'e',14},{'f',15}};
+    
+    int get_val (const char a) {</B></FONT>
+        return m[a] * 16 + m[a];
     }
-    char T(int x){
-        if(x &gt;= 0 &amp;&amp; x &lt;= 9) return x + '0';
-        else return x - 10 + 'a';
-    }
-    int sqr(int x){</B></FONT>
-        return x * x;
-    }
-    string similarRGB(string color) {
-        int dif = 1e8;
-        int x = t(color[1]) * 16 + t(color[2]);
-        int y = t(color[3]) * 16 + t(color[4]);
-        int z = t(color[5]) * 16 + t(color[6]);
-        string ans = &quot;&quot;;
-        for(int i = 0;i &lt; 16;i++){
-            for(int j = 0;j &lt; 16;j++){
-                for(int k = 0;k &lt; 16;k++){
-                    if(sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z) &lt; dif){
-                        cout &lt;&lt; i &lt;&lt; j &lt;&lt; k &lt;&lt; endl;
-                        ans = &quot;#&quot;;
-                        ans += T(i);
-                        ans += T(j);
-                        ans += T(k);
-                        cout &lt;&lt; ans &lt;&lt; endl;
-                        dif = sqr(i * 16 + i - x) + sqr(j * 16 + j - y) + sqr(k * 16 + k - z);
-                    }
-                }
+    
+    string find_min (char a, char b) {
+        int val = m[a] * 16 + m[b];
+        string s;
+        auto it = m.find (a);
+        long diff = 256 * 256;
+        
+        if (it != m.begin ()) {
+            if (pow (get_val (prev (it)-&gt;first) - val, 2) &lt; diff) {
+                cout &lt;&lt; get_val (prev (it)-&gt;first) &lt;&lt; &quot; &quot; &lt;&lt; val &lt;&lt; endl;
+                diff = pow (get_val (prev (it)-&gt;first) - val, 2);
+                s = prev (it)-&gt;first;
+                cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
             }
         }
-        return ans;
+        
+        if (pow (get_val (it-&gt;first) - val, 2) &lt; diff) {
+            diff = pow (get_val (it-&gt;first) - val, 2);
+            s = it-&gt;first;
+            cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
+        }
+        
+        if (it != --m.end ()) {
+            if (pow (get_val (next (it)-&gt;first) - val, 2) &lt; diff) {
+                s = next (it)-&gt;first;
+                cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
+            }
+        }
+        
+        cout &lt;&lt; &quot;xx&quot; &lt;&lt; val &lt;&lt; &quot; &quot; &lt;&lt; s &lt;&lt; endl;
+        
+        return s;
+    }
+    
+    string similarRGB(string c) {
+        return &quot;#&quot; + find_min (c[1], c[2]) + find_min (c[3], c[4]) + find_min (c[5], c[6]);
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_seraph1212.java</TITLE>
+ <TITLE>203_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,70 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>16_seraph1212.java</CENTER></H3><HR>
+<H3><CENTER>203_nevergiveup.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="1"></A>    final String[] T = {&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;};
+<A NAME="0"></A>class Solution {
+
+	private int getDiff(String string1 , String <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>string2) {
+		
+<A NAME="1"></A>		int ans = 0;
+		for (int i = 1;i &lt; string1.length();i += 2) {
+			int value1 = getValue(string1.charAt(i) , </B></FONT>string1.charAt(i + 1));
+			int value2 = getValue(string2.charAt(i) , string2.charAt(i + 1)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>);
+			ans += (- (value1 - value2) * (value1 - value2));
+		}
+		return ans;
+		
+	}
+	
+	private int getValue(char ch) {</B></FONT>
+		if (ch &lt;= '9') {
+			return (int) (ch - '0');
+<A NAME="2"></A>		} else {
+			return (int) (ch - 'a' + 10);
+		}
+	}<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	
+<A NAME="3"></A>	private int getValue(char ch1 , char ch2) {
+	
+		int value1 = getValue(ch1);
+		int value2 = getValue(ch2);<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#3',2,'match12-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B></B></FONT>
+		return value1 * 16 + value2;
+		
+	}
+	
+	private char getChar(int value) {
+		if (value &lt; 10) {
+			return (char) (value + '0');
+		} else {
+			return (char) (value - 10 + 'a');
+		}
+	}</B></FONT>
+	
     public String similarRGB(String color) {
-        String r = color.substring(1, 3);
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String g = color.substring(3, 5);
-        String b = color.substring(5, 7);
-        return &quot;#&quot; + gao(r) + gao(g) + gao(b);
+     
+    	int ans = 1;
+    	String str = &quot;&quot;;
+    	for (int i = 0;i &lt; 16;i ++) {
+    		for (int j = 0;j &lt; 16;j ++) {    			
+    			for (int k = 0;k &lt; 16;k ++) {
+    				String string = &quot;#&quot;;
+    				string += getChar(i) + &quot;&quot; + getChar(i);
+    				string += getChar(j) + &quot;&quot; + getChar(j);
+    				string += getChar(k) + &quot;&quot; + getChar(k);
+    				int diff = getDiff(string , color);
+    				if (diff &gt; ans || ans &gt; 0) {
+    					ans = diff;
+    					str = &quot;#&quot; + getChar(i) + &quot;&quot; + getChar(j) + &quot;&quot; + getChar(k);
+    				}
+    			}
+    		}
+    	}
+    	
+    	return str;
+    	
     }
-    String gao(String c</B></FONT>) {
-        int in = convert(c);
-<A NAME="0"></A>        int diff = 1000;
-        String ans = &quot;&quot;;
-        for (String s : T) {
-            int d = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>convert(s+s) - in;
-            if (d*d &lt; diff) {
-                diff = d*d;
-                ans = s;
-            }
-        }</B></FONT>
-        return ans;
-    }
-    int convert(String c) {
-        return t(c.charAt(0)) * 16 + t(c.charAt(1));
-    }
-    int t(char ch) {
-        for (int i = 0; i &lt; 16; i++) {
-            if (T[i].charAt(0) == ch) return i;
-        }
-        return -1;
-    }
+	
 }
 </PRE>
 

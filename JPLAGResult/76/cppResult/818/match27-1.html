@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_qwnjc.cpp</TITLE>
+ <TITLE>23_tfliao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>28_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>23_tfliao.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string similarRGB(string color) {
-        string res;
-        string s = color;
-        int r = toInt(s.substr(1,2));
-        int g = toInt(s.substr(3,2));
-        int b = toInt(s.substr(5,2));
-        
-        res = &quot;#&quot;;
-        res += findCloset(r);
-        res += findCloset(g);
-        res += findCloset(b);
-        
-        return res;
+    char hex[17] = {&quot;0123456789abcdef&quot;};
+    
+    int toInt(char c) {
+        if (c &lt;= '9') return c-'0';
+        else return c - 'a' + 10;
     }
     
-private:
     int toInt(string s) {
-        int res = 0;
-        for (auto c : s) {
-            c = toupper(c);
-            if (c &gt;= '0' &amp;&amp; c &lt;= '9') {
-                res = res * 16 + (c - '0');  
-            } else if (c &gt;= 'A' &amp;&amp; c &lt;= 'F') {
-                res = res * 16 + (c - 'A' + 10);
-            }
-        } 
-<A NAME="0"></A>        return res;
+        return toInt(s[0]) * 16 + toInt(s[1]);
     }
     
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    string findCloset(int n) {
-        int d = INT_MAX;
-        int t = 0;
-        // cout &lt;&lt; n &lt;&lt; endl;
-        for (int i = 0; i &lt; 16; ++i) {
-            int m = i * 16 + i;
-            
-            if (abs(m - n) &lt; d) {
-                d = abs(m - n);
-                t = i;
-            }
-        }</B></FONT>
-        // cout &lt;&lt; &quot; f &quot; &lt;&lt; t &lt;&lt; &quot; &quot; &lt;&lt; endl;
-        string res;
-        if (t &lt; 10) {
-            res = '0' + t;
-        } else {
-            res = 'a' + t - 10;
+    string similarRGB(string color) {
+        string out = &quot;#&quot;;
+        for (int i=0;i&lt;3;++i) {
+<A NAME="0"></A>            int n = toInt(color.substr(1+i*2, 2));
+            int best = 0;
+            int mindiff = (1&lt;&lt;30);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j=0;j&lt;16;++j) {
+                int diff = (j*16+j - n);
+                diff = diff*diff;
+                if (diff &lt; mindiff) {
+                    mindiff = diff;
+                    best = j;
+                }
+            }</B></FONT>
+            out.append(1, hex[best]);
         }
-        
-        return res;
+        return out;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>185_iburi.cpp</TITLE>
+ <TITLE>169_code_report.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>185_iburi.cpp</CENTER></H3><HR>
+<H3><CENTER>169_code_report.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int fromHex(char c) {
-        if (c &gt;= '0' &amp;&amp; c &lt;= '9') return c - '0';
-        return c - 'a' + 10;
-<A NAME="0"></A>    }
-    char toHex(int c) {
-        if (c &lt;= 9) return c + '0';
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return c + 'a' - 10;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    map&lt;char, int&gt; m = {{'0',0},{'1',1},{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'a',10},{'b',11},{'c',12},{'d',13},{'e',14},{'f',15}};</B></FONT>
+    
+    int get_val (const char a) {
+        return m[a] * 16 + m[a];
     }
-    int sq(int a) { return a * a; }
-    string similarRGB(string color) {
-        int r = fromHex(color[1]) * 16 + fromHex(color[2]);
-        int g = fromHex(color[3]) * 16 + fromHex(color[4]);
-        int b = fromHex(color[5]) * 16 + fromHex(color[6]);
+    
+    string find_min (char a, char b) {
+        int val = m[a] * 16 + m[b];
+        string s;
+        auto it = m.find (a);
+        long diff = 256 * 256;
         
-        int br = 0, bg = 0, bb = 0;</B></FONT>
-        for (int i = 0; i &lt; 16; i++) {
-            if (sq(br * 16 + br - r) &gt; sq(i * 16 + i - r)) br = i;
-                        if (sq(bg * 16 + bg - g) &gt; sq(i * 16 + i - g)) bg = i;
-                        if (sq(bb * 16 + bb - b) &gt; sq(i * 16 + i - b)) bb = i;
+        if (it != m.begin ()) {
+            if (pow (get_val (prev (it)-&gt;first) - val, 2) &lt; diff) {
+                cout &lt;&lt; get_val (prev (it)-&gt;first) &lt;&lt; &quot; &quot; &lt;&lt; val &lt;&lt; endl;
+                diff = pow (get_val (prev (it)-&gt;first) - val, 2);
+                s = prev (it)-&gt;first;
+                cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
+            }
         }
         
-        char cr = toHex(br), cg = toHex(bg), cb = toHex(bb);
-        string s = &quot;#      &quot;;
-        s[1] = s[2] = cr;
-        s[3] = s[4] = cg;
-        s[5] = s[6] = cb;
+        if (pow (get_val (it-&gt;first) - val, 2) &lt; diff) {
+            diff = pow (get_val (it-&gt;first) - val, 2);
+            s = it-&gt;first;
+            cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
+        }
+        
+        if (it != --m.end ()) {
+            if (pow (get_val (next (it)-&gt;first) - val, 2) &lt; diff) {
+                s = next (it)-&gt;first;
+                cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; diff &lt;&lt; endl;
+            }
+        }
+        
+        cout &lt;&lt; &quot;xx&quot; &lt;&lt; val &lt;&lt; &quot; &quot; &lt;&lt; s &lt;&lt; endl;
+        
         return s;
+    }
+    
+    string similarRGB(string c) {
+        return &quot;#&quot; + find_min (c[1], c[2]) + find_min (c[3], c[4]) + find_min (c[5], c[6]);
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>286_zheyangc.java</TITLE>
+ <TITLE>144_SamZhou19815.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>286_zheyangc.java</CENTER></H3><HR>
+<H3><CENTER>144_SamZhou19815.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public String similarRGB(String color) {
-        char[] table = new char[]{'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        map.put('0', 0);
-        map.put('1', 1);
-        map.put('2', 2);
-        map.put('3', 3);
-        map.put('4', 4);
-        map.put('5', 5);
-        map.put('6', 6);
-        map.put('7', 7);
-        map.put('8', 8);
-        map.put('9', 9);
-        map.put('a', 10);
-        map.put('b', 11);
-        map.put('c', 12);
-        map.put('d', 13);
-        map.put('e', 14);
-<A NAME="0"></A>        map.put('f', 15);
-        
-        String res = &quot;&quot;;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int min = Integer.MIN_VALUE;
-        
+<A NAME="0"></A>    
+    private static String similarVal(String k) {
+        int val = Integer.parseInt(k, 16);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String best = null;
+        int bestDiff = Integer.MAX_VALUE;
         for (int i = 0; i &lt; 16; i++) {
-            for (int j = 0; j &lt; 16; j++) {
-                for (int k = 0; k &lt; 16; k++) {
-                    String str = &quot;&quot; + table[i] + table[i] + table[j] + table[j] + table[k] + table[k];
-<A NAME="1"></A>                    int cal = cal(str, color.substring(1), map)</B></FONT>;
-                    if (cal &gt; min) {
-                        min = cal;
-                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res = str;
-                    }
-                }
-            }
+            int val0 = i * 16 + i;
+            int diff = Math.abs(val0 - val);
+<A NAME="1"></A>            if (diff &lt; bestDiff) {
+                bestDiff = diff;
+                b</B></FONT>est = Integer.toHexString(i);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        
-        return &quot;#&quot; + res;
-    }</B></FONT>
-    
-    public int cal(String s1, String s2, Map&lt;Character, Integer&gt; map) {
-        char[] a = s1.toCharArray();
-        char[] b = s2.toCharArray();
-        // System.out.println(s1);
-        return calHelper(a[0],a[1],b[0],b[1], map) 
-            + calHelper(a[2],a[3],b[2],b[3], map) 
-            + calHelper(a[4],a[5],b[4],b[5], map);
+        return best;
     }
     
-    public int calHelper(char a1, char a2, char b1, char b2, Map&lt;Character, Integer&gt; map) {
-        int tmp = map.get(a1) * 16 + map.get(a2) - map.get(b1) * 16 - map.get(b2);
-        return -tmp * tmp;
+    
+    public String similarRGB(String color</B></FONT>) {
+        color = color.substring(1);
+        String r = color.substring(0, 2),
+                g = color.substring(2, 4),
+                b = color.substring(4, 6);
+        return &quot;#&quot; + similarVal(r) + similarVal(g) + similarVal(b);
     }
 }
 </PRE>

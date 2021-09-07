@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>30_merryl.cpp</TITLE>
+ <TITLE>21_wellcs.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>30_merryl.cpp</CENTER></H3><HR>
+<H3><CENTER>21_wellcs.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string similarRGB(string color) {
-        int len = color.size();
-        vector&lt;int&gt; retnum(3);
-        int cnt = 0;
-        for (int i = 1; i &lt; len; i += 2) {
-            char first = color[i];
-            char sec = color[i + 1];
-            int tmp = to_num(first) * 16 + to_num(sec);
-            int low = tmp / 17;
-            int high = low + 1 &gt; 15 ? 15 : low + 1;
-            if (abs(high * 17 - tmp) &lt; abs(low * 17 - tmp)) {
-                retnum[cnt++] = high;
-            } else {
-                retnum[cnt++] = low;
-            }
-        }
-<A NAME="0"></A>        
-        string ret = &quot;#&quot;;
-        for (int i = 0; i &lt; 3; i++) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            ret += to_char(retnum[i]);
-        } 
-        
-        return ret;
+        string r = find(color.substr(1, 2));
+        string g = find(color.substr(3, 2));
+        string b = find(color.substr(5, 2));
+        return &quot;#&quot;+r+g+b;
     }
     
-    int to_num(char c) {
-        if (isdigit(c)) {
-            return c - '0';
-        } 
-        return (c - 'a') + 10;
-    }
-    char to_char(int i) {
-        if (i &lt; 10) {
-            return i + '0';
-        } else {</B></FONT>
-            return (i - 10) + 'a';
+    string find(string s)
+    {
+        map&lt;char, int&gt; m;
+        for(int i = 0; i &lt; 10; ++i)
+        {
+            m.insert({'0' + i, i});
+        }
+        
+        for(int i = 0; i &lt; 6; ++i)
+        {
+            m.insert({'a' + i, 10 + i});
+        }
+<A NAME="0"></A>        
+        int val = m[s[0]] * 16 + m[s[1]];
+        int dis = INT_MAX;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0;
+        for(int i = 0; i &lt; 16; ++i)
+        {
+            if(abs(i * 16 + i - val) &lt; dis)
+            {
+                dis = abs(i * 16 + i - val);
+                res = i;
+            }
+        }</B></FONT>
+        if(res &lt; 10)
+        {
+            return string(1, '0' + res);
+        }
+        else
+        {
+            return string(1, 'a' + res - 10);
         }
     }
 };
