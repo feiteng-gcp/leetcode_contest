@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_szp14.cpp</TITLE>
+ <TITLE>134_kejin.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>21_szp14.cpp</CENTER></H3><HR>
+<H3><CENTER>134_kejin.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="1"></A>class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        set&lt;int&gt; primeSet = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
-<A NAME="1"></A>    int ans = 0;
-    for(int i = L; i &lt;= R; i++)
-    {
-        int N = i, cnt = 0;</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        while(N)
-        {
-            cnt += N &amp; 1;
-            N &gt;&gt;= 1;
+    unordered_set&lt;int&gt; primes{2, 3, 5, 7, 11, 13, 17, 19};
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int bit(int n){
+        int res = 0;
+        while(n){
+            if(n&amp;1) ++res;
+            n &gt;&gt;=1;
         }
-        if(primeSet.find(cnt) != primeSet.end()) ans++;
-    }
-    return ans;
-    }
-};</B></FONT>
+<A NAME="0"></A>        return res;
+    }</B></FONT>
+    int countPrimeSetBits(int L, int R) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0;
+        for(int i = L; i &lt;= R; ++i){
+            int b = bit(i);
+            if(primes.find(b) != primes.end()) ++res;
+        }
+        return res;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>42_crazy_y.java</TITLE>
+ <TITLE>414_cjlly.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>42_crazy_y.java</CENTER></H3><HR>
+<H3><CENTER>414_cjlly.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int[] p = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-        Set&lt;Integer&gt; ps = new HashSet&lt;&gt;();
-        for (int i = 0; i &lt; p.length; ++i) {
-            ps.add(p[i]);
-<A NAME="1"></A>        }
-        int rst = 0;
-        for (int i = L; i &lt;= R; ++i) {</B></FONT>
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (isRst(i, ps)) {
-                rst++;
+        int res = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        set.add(2);
+        set.add(3);
+        set.add(5);
+        set.add(7);
+        set.add(11);
+        set.add(13);
+        set.add(17);
+        set.add</B></FONT>(19);
+<A NAME="1"></A>        set.add(23);
+        set.add(29);
+        set.add(31);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = L; i &lt;= R; i++) {
+            int a = getRes(i);
+            if (set.contains(a)) {
+                res++;
             }
         }
-        return rst;
-    }</B></FONT>
-    
-    private boolean isRst(int n, Set&lt;Integer&gt; ps) {
-        int c = 0;
-        while (n != 0) {
-            if (n % 2 != 0) {
-                c++;
-            }
-            n /= 2;
+        return res;
+    }
+    public int getRes(int n) {
+        int res = 0;
+        while (n != 0) {</B></FONT>
+            n = (n &amp; (n - 1));
+            res++;
         }
-        return ps.contains(c);
+        return res;
     }
 }
 </PRE>

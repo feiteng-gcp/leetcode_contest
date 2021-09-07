@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>422_arton.cpp</TITLE>
+ <TITLE>83_aaaaxiaofei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>422_arton.cpp</CENTER></H3><HR>
+<H3><CENTER>83_aaaaxiaofei.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-        int t[] = {2,3,5,7,11,13,17,19};
-        int ans = 0;
-        for (int i = L; i &lt;= R; ++i) {
-            int numbit = calcNumBit(i);
-            for (int j = 0; j &lt; 8; ++j) {</B></FONT>
-                if (numbit == t[j]) {
-                    ans++;
-                    break;
-                }
-            }
+        
+        set&lt;int&gt; s = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+        int result = 0;
+        for (int i = L; i &lt;= R; i++) {</B></FONT>
+            if (s.find(helper(i)) != s.end()) 
+                result++;
         }
-        return ans;
+        return result;
     }
     
-    int calcNumBit(int x) {
-        int ret = 0;
-        while (x) {
-            x = (x &amp; (x-1));
-            ret++;
+    int helper(int num) {
+        int count = 0;
+        while (num) {
+            count += num % 2;
+            num /= 2;
         }
-        return ret;
+        return count;
     }
 };
 </PRE>

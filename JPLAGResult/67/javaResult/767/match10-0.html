@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>69_prabh2190.java</TITLE>
+ <TITLE>386_C91CBQ.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>69_prabh2190.java</CENTER></H3><HR>
+<H3><CENTER>386_C91CBQ.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        
-        Set&lt;Integer&gt; prime = new HashSet&lt;&gt;();
-        prime.add(2);
-<A NAME="0"></A>        prime.add(3);
-        prime.add(5);
-        prime.add(7);
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>prime.add(11);
-        prime.add(13);
-        prime.add(17);
-        prime.add(19);
-        prime.add(23);
-        prime.add(29);
-        prime.add(31);
-        prime.add(37);
-        
-        int count=0;
-        for(int i = L; i &lt;=R; i++) {
-            
-            int ones = 0;
-            
-            int no=i;
-<A NAME="1"></A>            while(no&gt;0) {</B></FONT>
-                ones += no &amp; 1;
-                no = no&gt;&gt;1;
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-            if(prime.contains(ones)) {
-                count++;
-            }
+        int count = 0;
+        for (int i = L; i &lt;= R; i++) {
+            int num = Integer.bitCount(i);
+            if (isPrime(num)) count++;
         }
         return count;
-        
-        
     }
-}</B></FONT>
+    private boolean isPrime(int n) {
+        if (n == 1) return false;
+        if(n &gt; 2 &amp;&amp; (n &amp; 1) == 0)
+            return false;</B></FONT>
+        // only odd factors need to be tested up to n^0.5
+        for(int i = 3; i * i &lt;= n; i += 2) {
+            if (n % i == 0) 
+                return false;
+        }
+        return true;
+    }
+}
 </PRE>
 
 </BODY>

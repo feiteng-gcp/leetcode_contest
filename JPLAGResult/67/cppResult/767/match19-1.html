@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>409_alexander.cpp</TITLE>
+ <TITLE>21_szp14.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>409_alexander.cpp</CENTER></H3><HR>
+<H3><CENTER>21_szp14.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int countPrimeSetBits(int l, int r) {
-        set&lt;int&gt; primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
-        int cnt = 0;
-        for (int i = l; i &lt;= r; i++) {
-            int bits = 0;
-            for (int n = i; n; n &gt;&gt;= 1) {</B></FONT>
-                bits += n &amp; 1;
-            }
-            cnt += primes.count(bits);
+    int countPrimeSetBits(int L, int R) {
+        set&lt;int&gt; primeSet = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+    int ans = 0;
+    for(int i = L; i &lt;= R; i++)
+    {</B></FONT>
+        int N = i, cnt = 0;
+        while(N)
+        {
+            cnt += N &amp; 1;
+            N &gt;&gt;= 1;
         }
-        return cnt;
+        if(primeSet.find(cnt) != primeSet.end()) ans++;
+    }
+    return ans;
     }
 };
 </PRE>

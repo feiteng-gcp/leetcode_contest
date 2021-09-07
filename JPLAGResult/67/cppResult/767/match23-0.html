@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>422_arton.cpp</TITLE>
+ <TITLE>225_kupe.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>422_arton.cpp</CENTER></H3><HR>
+<H3><CENTER>225_kupe.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-        int t[] = {2,3,5,7,11,13,17,19};
-        int ans = 0;
-        for (int i = L; i &lt;= R; ++i) {
-            int numbit = calcNumBit(i);
-            for (int j = 0; j &lt; 8; ++j) {
-                if (numbit == t[j]) {
-                    ans++;</B></FONT>
-                    break;
-                }
-            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int countPrimeSetBits(int L, int R) {
+        int cnt=0;
+        for(int i=L;i&lt;=R;++i){
+            int n=bitset&lt;32&gt;(i).count();
+            if(isPrime(n)) cnt++;
         }
-        return ans;
-    }
-    
-    int calcNumBit(int x) {
-        int ret = 0;
-        while (x) {
-            x = (x &amp; (x-1));
-            ret++;
-        }
-        return ret;
+        return cnt;
+    }</B></FONT>
+    bool isPrime(int n){
+        if(n&lt;2) return false;
+        for(int i=2;i&lt;(int)sqrt(n)+1;++i)
+            if(n%i==0) return false;
+        return true;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>409_alexander.cpp</TITLE>
+ <TITLE>244_ZhengkaiWei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>409_alexander.cpp</CENTER></H3><HR>
+<H3><CENTER>244_ZhengkaiWei.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int countPrimeSetBits(int l, int r) {
-        set&lt;int&gt; primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
-        int cnt = 0;
-        for (int i = l; i &lt;= r; i++) {
-            int bits = 0;</B></FONT>
-            for (int n = i; n; n &gt;&gt;= 1) {
-                bits += n &amp; 1;
-            }
-            cnt += primes.count(bits);
-        }
-        return cnt;
+    int countPrimeSetBits(int L, int R) {
+        vector&lt;int&gt; prime={0,0,1,1,0,1,0,1,0,0,0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0};
+    int ans=0;
+    for(int i=L;i&lt;=R;++i){
+        int numbit=countBit(i);</B></FONT>
+        if(prime[numbit])
+            ++ans;
     }
+    return ans;
+    }
+int countBit(int a){
+    int ans=0;
+    while(a&gt;0){
+        if(a&amp;1)
+            ++ans;
+        a&gt;&gt;=1;
+    }
+    return ans;
+}
 };
 </PRE>
 </BODY>

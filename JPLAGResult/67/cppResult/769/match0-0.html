@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_Kmcode.cpp</TITLE>
+ <TITLE>1_fsqhxrcjw.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,83 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
+<H3><CENTER>1_fsqhxrcjw.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int a[502][502];
-    int b[502][502];
-    int c[502][502];
-    int d[502][502];
-    vector&lt;vector&lt;int&gt; &gt; v;
-    
-    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        v.assign(N,vector&lt;int&gt;(N,1));
-        for(int i=0;i&lt;mines.size();i++){
-            v[mines[i][0]][mines[i][1]]=0;
-        }
-        memset(a,0,sizeof(a));
-<A NAME="0"></A>        memset(b,0,sizeof(b));
-        memset(c,0,sizeof(c));
-        memset(d,0,sizeof(d));
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;v.size();i++){
-            int cc=0;
-            for(int j=0;j&lt;v[i].size();j++){
-                if(v[i][j]==0){
-                    cc=0;
+    int orderOfLargestPlusSign(int n, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        vector&lt;vector&lt;int&gt;&gt; matrix(n, vector&lt;int&gt;(n, 1));
+        
+        for (auto&amp; zero : mines) 
+            matrix[zero[0]][zero[1]] = 0;
+        
+        vector&lt;vector&lt;int&gt;&gt; lf(n, vector&lt;int&gt;(n, 0));</B></FONT>
+        auto rt=lf, up=lf, dn=lf;
+        
+        for (int i=0; i&lt;n; ++i)
+            for (int j=0; j&lt;n; ++j) 
+                if (matrix[i][j]==1) {
+                    lf[i][j] = j==0 ? 1 : lf[i][j-1]+1;
+                    up[i][j] = i==0 ? 1 : up[i-1][j]+1;
                 }
-                else{
-                    cc++;
+        int ans = 0;        
+        for (int i=n-1; i&gt;=0; --i)
+            for (int j=n-1; j&gt;=0; --j) 
+                if (matrix[i][j]==1) {
+                    rt[i][j] = j==n-1 ? 1 : rt[i][j+1]+1;
+                    dn[i][j] = i==n-1 ? 1 : dn[i+1][j]+1;
+                    
+                    ans = max(ans, min(min(lf[i][j], rt[i][j]),min(up[i][j], dn[i][j])));
                 }
-                a[i][j]=cc;
-            }
-        }
-        for(int i=0;i&lt;v.size();i++){
-            int cc=0;
-            for(int j=v[i].size()-1;j&gt;=0;j--){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                b[i][j]=cc;
-            }
-        }
-        for(int j=0;j&lt;v[0].size();j++){
-            int cc=0;
-            for(int i=0;i&lt;v.size();i++){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                c[i][j]=cc;
-            }
-        }
-         for(int j=0;j&lt;v[0].size();j++){
-            int cc=0;
-            for(int i=v.size()-1;i&gt;=0;i--){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                d[i][j]=cc;
-            }
-        }
-        int ans=0;
-        for(int i=0;i&lt;v.size();i++){
-            for(int j=0;j&lt;v[i].size();j++){
-                int k=a[i][j];
-                k=min(k,b[i][j]);</B></FONT>
-                k=min(k,c[i][j]);
-                k=min(k,d[i][j]);
-                ans=max(ans,k);
-            }
-        }
         return ans;
     }
 };

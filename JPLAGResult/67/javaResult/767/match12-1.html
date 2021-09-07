@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>129_vonzcy.java</TITLE>
+ <TITLE>307_chrislzm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>129_vonzcy.java</CENTER></H3><HR>
+<H3><CENTER>307_chrislzm.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int count = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; primeSet = new HashSet&lt;&gt;();
-        primeSet.add(2);
-        primeSet.add(3);
-        primeSet.add(5);
-        primeSet.add(7);
-        primeSet.add(11);
-        primeSet.add(13);
-        primeSet.add(17);
-        primeSet.add(19);
-        primeSet.add(23);
-        primeSet.add(29);
-        primeSet.add</B></FONT>(31);
-        for (int i = L; i &lt;= R; i++) {
-            int curr = i;
-            int num = 0;
-<A NAME="1"></A>            while (curr != 0) {
-                num++;
-                curr &amp;= curr - 1;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            if (primeSet.contains(num)) {
-                count++;
+        int numPrimeBits = 0;
+        for(int i=L; i&lt;=R; i++) {
+            int bits = numSetBits(i);
+            if(isPrime(bits)) {
+            	numPrimeBits++;
             }
         }
-        return count;
+        return numPrimeBits;
     }
-}</B></FONT>
+    
+    private boolean isPrime(int n) {
+<A NAME="1"></A>        if(n &lt; 2) return false;</B></FONT>
+        for(int i=2; i &lt;= Math.sqrt(n); i++) {
+            if(n%i == 0) return false;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return true;
+    }
+    
+    private int numSetBits(int n) {
+        int setBits = 0;
+        while(n != 0) {</B></FONT>
+            if((n &amp; 1) == 1) setBits++;
+            n &gt;&gt;&gt;= 1;
+        }
+        return setBits;
+    }
+}
 </PRE>
 
 </BODY>

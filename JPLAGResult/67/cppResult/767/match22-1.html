@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>207_wellcs.cpp</TITLE>
+ <TITLE>134_kejin.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>207_wellcs.cpp</CENTER></H3><HR>
+<H3><CENTER>134_kejin.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-        vector&lt;bool&gt; isPrime(33, false);
-        for(int i = 2; i &lt; isPrime.size(); ++i)
-        {
-            bool res = true;
-            for(int k = 2; k * k &lt;= i; ++k)</B></FONT>
-            {
-                if(i % k == 0)
-                {
-                    res = false;
-                    break;
-<A NAME="1"></A>                }
-            }
-            isPrime[i] = res;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        
-        int ret = 0;
-        for(int i = L; i &lt;= R; ++i)
-        {
-            int t = i;
-            int count = 0;
-            while(t &gt; 0)
-            {</B></FONT>
-                count += t &amp; 1;
-                t = (t &gt;&gt; 1);
-            }
-            
-            if(isPrime[count])
-            {
-                ret++;
-            }
+    unordered_set&lt;int&gt; primes{2, 3, 5, 7, 11, 13, 17, 19};
+<A NAME="0"></A>    int bit(int n){
+        int res = 0;
+        while(n){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(n&amp;1) ++res;
+            n &gt;&gt;=1;
         }
-        
-        return ret;
+        return res;
+    }
+    int countPrimeSetBits(int L, int R) {
+        int res = 0;
+        for(int i = L; i &lt;= R; ++i){
+            int b = bit(i);
+            if(primes.find(b) != primes.end()) ++res;</B></FONT>
+        }
+        return res;
     }
 };
 </PRE>

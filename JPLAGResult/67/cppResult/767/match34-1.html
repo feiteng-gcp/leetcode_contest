@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Victor_FW.cpp</TITLE>
+ <TITLE>322_jatin13.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>37_Victor_FW.cpp</CENTER></H3><HR>
+<H3><CENTER>322_jatin13.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-    int C(int n) {
-        int ans = 0;
-        while (n) {
-            ans += (n &amp; 1);
-            n &gt;&gt;= 1;
+public:
+    
+    bool isPrime(int n) {
+        
+        if (n == 1) return false;
+        if (n == 2) return true;
+        
+        int sq = sqrt(n);
+        
+        for (int i = 2; i &lt;= sq; i++) {
+            if (n%i == 0) return false;
         }
-        return ans;
+        
+<A NAME="0"></A>        return true;        
     }
-<A NAME="0"></A>public:
-    int countPrimeSetBits(int L, int R) {
-        unordered_set&lt;int&gt; prime({2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
-        for (int i = L; i &lt;= R; ++i) {
-            int tmp = C(i);
-            if (prime.count(tmp)) {
-                ans++;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countPrimeSetBits(int L, int R) {
+        
+        int res = 0;
+        
+        for (int i = L; i &lt;= R; i++) {
+            int j = 1;
+            int cnt = 0;
+            while (j &lt;= 1000000) {</B></FONT>
+                if (j&amp;i) cnt++;
+                j = j &lt;&lt; 1;
+            }
+            
+            if (isPrime(cnt)) {
+                res++;
             }
         }
-        return ans;
+        
+        return res;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

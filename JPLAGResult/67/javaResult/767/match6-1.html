@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>132_feizoude.java</TITLE>
+ <TITLE>386_C91CBQ.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>132_feizoude.java</CENTER></H3><HR>
+<H3><CENTER>386_C91CBQ.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int ans = 0;
-<A NAME="2"></A>        for (int i = L; i &lt;= R; i++) {
-            int count = numOfOne(i);
-            if (isPrime</B></FONT>(count)) ans++;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return ans;
+        int count = 0;
+        for (int i = L; i &lt;= R; i++) {
+<A NAME="1"></A>            int num = Integer.bitCount(i);
+            if (isPrime(num)) count++;
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return count;
     }
-    
-    private int numOfOne(int n) {
-        int ans = 0;
-        while (n &gt; 0) {</B></FONT>
-<A NAME="1"></A>            if (n % 2 == 1) ans++;
-            n /= 2;
-        }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return ans;
-    }
-    
     private boolean isPrime(int n) {
-        if (n == 1) return false;</B></FONT>
-        for (int i = 2; i &lt;= (int) Math.sqrt(n); i++) {
-            if (n % i == 0) return false;
+        if (n == 1) return false;
+        if(n &gt; 2 &amp;&amp; (n &amp; 1) == 0)
+            return false;
+        // only odd factors need to be tested up to n^0.5
+        for(int i = 3; i * i &lt;= n; i += 2) {
+            if (n % i == 0) 
+                return false;
         }
         return true;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

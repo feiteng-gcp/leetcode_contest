@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>74_tianhao2.cpp</TITLE>
+ <TITLE>322_jatin13.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
+<H3><CENTER>322_jatin13.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    // 10^6&lt;2^20
-    int gets(int i){
-        int ret=0;
-        int curr=i;
-        while(curr&gt;0){
-            ret+=curr%2;
-            curr=curr&gt;&gt;1;
+    
+    bool isPrime(int n) {
+        
+        if (n == 1) return false;
+        if (n == 2) return true;
+<A NAME="0"></A>        
+        int sq = sqrt(n);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 2; i &lt;= sq; i++) {
+            if (n%i == 0) return false;
         }
-        return ret;
+        
+        return true;        
     }
+    
     int countPrimeSetBits(int L, int R) {
-        int ret=0;
-        for(int i=L; i&lt;=R; i++){</B></FONT>
-            int res=gets(i);
-            //cout&lt;&lt;res&lt;&lt;&quot; &quot;;
-            if(res==2 || res==3 || res==5 || res==7 || res==11 || res==13 || res==17 || res==19){
-                ret++;
+        
+        int res = 0;
+        
+        for (int i = L; i &lt;= R; i++) {
+            int j = 1;
+            int cnt = 0;
+            while (j &lt;= 1000000) {
+                if (j&amp;i) cnt++;</B></FONT>
+                j = j &lt;&lt; 1;
+            }
+            
+            if (isPrime(cnt)) {
+                res++;
             }
         }
-        return ret;
+        
+        return res;
     }
 };
 </PRE>

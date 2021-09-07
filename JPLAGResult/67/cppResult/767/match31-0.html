@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>74_tianhao2.cpp</TITLE>
+ <TITLE>7_Kmcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
+<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    // 10^6&lt;2^20
-    int gets(int i){
-        int ret=0;
-        int curr=i;
-        while(curr&gt;0){
-            ret+=curr%2;
-            curr=curr&gt;&gt;1;
-        }
-<A NAME="0"></A>        return ret;
-    }
+    bool isprime(long long int val){
+	if (val &lt;= 1)return false;
+	for (long long int i = 2; i*i &lt;= val; i++){
+		if (val%i == 0LL)return false;
+	}
+	return true;
+}
     int countPrimeSetBits(int L, int R) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret=0;
-        for(int i=L; i&lt;=R; i++){
-            int res=gets(i);
-            //cout&lt;&lt;res&lt;&lt;&quot; &quot;;
-            if(res==2 || res==3 || res==5 || res==7 || res==11 || res==13 || res==17 || res==19){
-                ret++;
+<A NAME="0"></A>        int ans=0;
+        for(int i=L;i&lt;=R;i++){
+            int cnt=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int j=i;
+            while(j){
+                if((j&amp;1)){
+                    cnt++;
+                }
+                j&gt;&gt;=1;
+            }
+            if(isprime(cnt)){
+             ans++;   
             }
         }
-        return ret;
+        return ans;
     }
 };</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>132_feizoude.java</TITLE>
+ <TITLE>233_guzh870423.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>132_feizoude.java</CENTER></H3><HR>
+<H3><CENTER>233_guzh870423.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public int countPrimeSetBits(int L, int R) {
-<A NAME="1"></A>        int ans = 0;
-        for (int i = L; i &lt;= R; i++) {</B></FONT>
-            int count = numOfOne(i);
-            if (isPrime(count)) ans++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        Set&lt;Integer&gt; set =new HashSet&lt;&gt;( <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29));
+        int res = 0;
+        for (int i = L; i &lt;= R; i++) {
+            int c = helper(i);
+            if (set.contains(c)) {
+                res++;
+            }
         }
-        return ans;
+        
+        return res;
+        
     }
     
-    private int numOfOne(int n) {
-        int ans = 0;
-        while (n &gt; 0) {
-            if (n % 2 == 1) ans++;
-            n /= 2;
+    int helper(int i) {
+        int res = 0;
+        while (i != 0) {
+            res += (i &amp; 1);
+            i &gt;&gt;= 1;
         }
-        return ans;
-    }</B></FONT>
-    
-    private boolean isPrime(int n) {
-        if (n == 1) return false;
-        for (int i = 2; i &lt;= (int) Math.sqrt(n); i++) {
-            if (n % i == 0) return false;
-        }
-        return true;
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

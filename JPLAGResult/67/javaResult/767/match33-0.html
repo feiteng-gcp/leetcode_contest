@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>212_zc94zc.java</TITLE>
+ <TITLE>99_watanabe111.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,20 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>212_zc94zc.java</CENTER></H3><HR>
+<H3><CENTER>99_watanabe111.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int n = Integer.bitCount(i);
-            if</B></FONT> (n == 2 || n == 3 || n == 5 || n == 7 || n == 11 || n == 13
-                || n == 17 || n == 19 || n == 23 || n == 29 || n == 31)
-                res++;
+        int ans = 0;
+        
+        for (int i = L; i &lt;= R; i++) {</B></FONT>
+            String bin = Integer.toBinaryString(i);
+            int binCnt = 0;
+            for (int j = 0; j &lt; bin.length(); j++) {
+                if (bin.charAt(j) == '1') {
+<A NAME="1"></A>                    binCnt++;
+                }
+            }
+            if (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>isPrime(binCnt)) {
+                ans++;
+            }
         }
-        return res;
+        
+        return ans;
     }
-}
+    
+    public static boolean isPrime(int num) {</B></FONT>
+        if (num &lt; 2) return false;
+        else if (num == 2) return true;
+<A NAME="2"></A>        else if (num % 2 == 0) return false; // 偶数はあらかじめ除く
+        
+        double sqrtNum = Math.sqrt(num);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 3; i &lt;= sqrtNum; i += 2)
+        {
+            if (num % i == 0)
+            {
+                // 素数ではない
+                return false;
+            }
+        }
+        
+        // 素数である
+        return true;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

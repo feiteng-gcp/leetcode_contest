@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>78_zty263263.cpp</TITLE>
+ <TITLE>7_Kmcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>78_zty263263.cpp</CENTER></H3><HR>
+<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    int getBitNum(int number_in){
-        int now = number_in;
-        int bit_num = 0;
-        while(now&gt;0){
-            bit_num += now&amp;0x01;
-            now &gt;&gt;= 1;
-        }
-        return bit_num;
-    }
-    
+class Solution {
+<A NAME="0"></A>public:
+    bool isprime(long long int val){
+	if (val &lt;= 1)return false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	for (long long int i = 2; i*i &lt;= val; i++){
+		if (val%i == 0LL)return false;
+	}
+	return true;
+}
     int countPrimeSetBits(int L, int R) {
-        
-        int ansNum = 0;
-        
-        bool isPrime[33];
-        for(int i=0;i&lt;33;i++)</B></FONT>
-            isPrime[i]=false;
-        
-        isPrime[2]=true;
-        isPrime[3]=true;
-        isPrime[5]=true;
-        isPrime[7]=true;
-        isPrime[11]=true;
-        isPrime[13]=true;
-        isPrime[17]=true;
-        isPrime[19]=true;
-        isPrime[23]=true;
-        isPrime[29]=true;
-        isPrime[31]=true;
-        
+        int ans=0;
         for(int i=L;i&lt;=R;i++){
-            if(isPrime[getBitNum(i)])
-                ansNum++;
+            int cnt=0;
+            int j=i;
+            while(j){
+                if((j&amp;1)){</B></FONT>
+                    cnt++;
+                }
+                j&gt;&gt;=1;
+            }
+            if(isprime(cnt)){
+             ans++;   
+            }
         }
-        
-        return ansNum;
+        return ans;
     }
 };
 </PRE>

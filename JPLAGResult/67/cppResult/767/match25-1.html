@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>294_shaobol.cpp</TITLE>
+ <TITLE>226_jiadaizhao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>294_shaobol.cpp</CENTER></H3><HR>
+<H3><CENTER>226_jiadaizhao.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int result = 0;
-        for (int i = L; i &lt;= R; i++) {
-            if (isPrime(getSetBit(i))) result++;
+        int count = 0;
+        vector&lt;int&gt; primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+        for (int i = L; i &lt;= R; ++i) {
+            int num = i;</B></FONT>
+            int sum = 0;
+            while (num) {
+                ++sum;
+                num &amp;= (num - 1);
+            }
+            int j = 0;
+            for (j = 0; j &lt; primes.size(); ++j) {
+                if (primes[j] == sum) {
+                    break;
+                }
+            }
+            if (j &lt; primes.size()) {
+                ++count;
+            }
         }
-        return result;
-    }
-    
-    int getSetBit(int a) {
-        int result = 0;
-        while(a &gt; 0) {
-            if (a % 2) result++;
-            a = a / 2;
-        }
-        return result;
-    }</B></FONT>
-    
-    bool isPrime(int a) {
-        if (a == 1) return false;
-        int n = sqrt(a);
-        for (int i = 2; i &lt;= n; i++) {
-            if ((a % i) == 0) return false;
-        }
-        return true;
+        return count;
     }
 };
 </PRE>

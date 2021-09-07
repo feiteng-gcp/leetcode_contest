@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_stormouse.cpp</TITLE>
+ <TITLE>399_zpenglei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_stormouse.cpp</CENTER></H3><HR>
+<H3><CENTER>399_zpenglei.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-        vector&lt;bool&gt; isPrime(32, false);
-        isPrime[2] = isPrime[3] = isPrime[5] = isPrime[7] = true;
-<A NAME="0"></A>        isPrime[11] = isPrime[13] = isPrime[17] = isPrime[19] = true;
-        isPrime[23] = isPrime[29] = isPrime[31] = true;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
-        for(int i=L;i&lt;=R;i++){
-            int j = i;
-            int c = 0;
-            while(j &gt; 0){
-                c += (j &amp; 1);
-                j &gt;&gt;= 1;
-            }
-            if(isPrime[c])
-                ret++;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res = 0;
+        for (int i = L; i &lt;= R; ++i) {
+            if (isPrime(countBits(i))) res++;
         }
-        
-        return ret;
+        return res;
     }
-};</B></FONT>
+    int countBits(int i) {
+        int res = 0;
+        while (i) {
+            i &amp;= (i - 1);
+            res++;
+        }
+        return res;
+    }</B></FONT>
+    bool isPrime(int num) {
+        if (num == 1) return false;
+        if (num == 2 || num == 3 || num == 5) return true;
+        for (int i = 2; i &lt;= num / 2; ++i) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

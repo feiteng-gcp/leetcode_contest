@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>57_txingml.cpp</TITLE>
+ <TITLE>67_linyacool.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>57_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>67_linyacool.cpp</CENTER></H3><HR>
 <PRE>
-int tmp[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-        set&lt;int&gt; primes;
-<A NAME="0"></A>        for (int i = 0; i &lt; 11; i++) {
-            primes.insert(tmp[i]);
+    bool is[32];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool isp(int num)
+    {
+        int cnt = 0;
+        while (num != 0)
+        {
+            num &amp;= (num - 1);
+            ++cnt;
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int cur = i;
-            int cnt = 0;
-            while (cur) {
-                cnt++;
-                cur = (cur-1)&amp;cur;
-            }
-            if (primes.find(cnt) != primes.end()) ret++;
-            
-        }
-        return ret;
-        
+        return is[cnt];
     }
-};</B></FONT>
+    int countPrimeSetBits(int L, int R)</B></FONT>
+    {
+        for (int i = 0; i &lt; 32; ++i)
+            is[i] = false;
+        is[2] = true;
+        is[3] = true;
+        is[5] = true;
+        is[7] = true;
+        is[11] = true;
+        is[13] = true;
+        is[17] = true;
+        is[19] = true;
+        is[23] = true;
+<A NAME="1"></A>        is[29] = true;
+        is[31] = true;
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+        for (int num = L; num &lt;= R; ++num)
+        {
+            if (isp(num))
+                ++ans;
+        }
+        return ans;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

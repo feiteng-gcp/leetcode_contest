@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>46_flyman3046.java</TITLE>
+ <TITLE>383_jwf.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>46_flyman3046.java</CENTER></H3><HR>
+<H3><CENTER>383_jwf.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-<A NAME="1"></A>    public int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for (int i = L; i &lt;= R; i++) {
-            if</B></FONT> (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>check(i)) {
-                res++;
+    public int countPrimeSetBits(int L, int R) {
+        int count=0;
+        
+        for(int num=L;num&lt;=R;num++){
+            int temp=0;</B></FONT>
+            for(int i=0;;i++){
+                int set=1&lt;&lt;i;
+                if(set&gt;num){
+                    break;
+                }
+                if((set &amp; num)!=0){
+<A NAME="1"></A>                    temp++;
+                }
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(isPrime(temp)){
+                count++;
             }
         }
-
-        return res;
+        return count;
     }
-
-    boolean check(int val) {
-        int cnt = 0</B></FONT>;
-        for (int i = 0; i &lt; 32; i++) {
-            if ((val &amp; (1 &lt;&lt; i)) != 0) {
-                cnt++;
-            }
-<A NAME="2"></A>        }
-
-        int[] ls = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; ls.length; i++) {
-            if (ls[i] == cnt) {
-                return true;
-            }
-        }
-
-        return false;
-    }</B></FONT>
-}
+    private boolean isPrime(int num){
+         if(num==2){
+             return true;
+         }</B></FONT>
+<A NAME="2"></A>         if(num&gt;2 &amp;&amp; num%2==0 || num&lt;2 ){
+             return false;
+         }
+         for(int i=3;i&lt;=Math.sqrt(num);i++)<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+             if(num%i==0){
+                 return false;
+             }
+         }
+        return true;
+     }
+}</B></FONT>
 </PRE>
 
 </BODY>

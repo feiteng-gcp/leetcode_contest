@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>43_daren.cpp</TITLE>
+ <TITLE>18_stormouse.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>43_daren.cpp</CENTER></H3><HR>
+<H3><CENTER>18_stormouse.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        vector&lt;vector&lt;int&gt;&gt; field(N, vector&lt;int&gt;(N, 1));
-        for(auto&amp; v: mines)
-            field[v[0]][v[1]]=0;
+        vector&lt;vector&lt;int&gt;&gt; grids(N, vector&lt;int&gt;(N, 1));
+        for(auto&amp; m : mines)
+<A NAME="0"></A>            grids[m[0]][m[1]] = 0;
         
-        vector&lt;vector&lt;int&gt;&gt; dpLeft(N, vector&lt;int&gt;(N));
-        vector&lt;vector&lt;int&gt;&gt; dpRight(N, vector&lt;int&gt;(N));
-<A NAME="0"></A>        vector&lt;vector&lt;int&gt;&gt; dpUp(N, vector&lt;int&gt;(N));
-        vector&lt;vector&lt;int&gt;&gt; dpDown(N, vector&lt;int&gt;(N));
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;N; ++i) {
-            int cnt=0;
-            for(int j=0; j&lt;N; ++j) {
-<A NAME="1"></A>                if(field[i][j]==1)</B></FONT>
-                    dpLeft[i][j]=++cnt;
-                else
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    dpLeft[i][j]=cnt=0;
+        int n = N;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;n;j++){</B></FONT>
+                if(grids[i][j] == 0) continue;
+                int d = min(i, j);
+                d = min(d, n-i-1);
+                d = min(d, n-j-1);
+                int s = 1;
+                for(int k=1;k&lt;=d;k++){
+                    if(grids[i-k][j] &amp;&amp; grids[i+k][j] &amp;&amp; grids[i][j-k] &amp;&amp; grids[i][j+k]){
+                        s++;
+                    }
+                    else break;
+                }
+                ret = max(s, ret);
             }
         }
         
-        for(int i=0; i&lt;N; ++i) {
-            int cnt=0;
-            for(int j=N-1; j&gt;=0; --j) {
-<A NAME="2"></A>                if(field[i][j]==1)</B></FONT>
-                    dpRight[i][j]=++cnt;
-                else
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    dpRight[i][j]=cnt=0;
-            }
-        }
-        
-        for(int i=0; i&lt;N; ++i) {
-            int cnt=0;
-            for(int j=0; j&lt;N; ++j) {
-<A NAME="3"></A>                if(field[j][i]==1)</B></FONT>
-                    dpDown[j][i]=++cnt;
-                else
-<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#3',2,'match1-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    dpDown[j][i]=cnt=0;
-            }
-        }
-        
-        for(int i=0; i&lt;N; ++i) {
-            int cnt=0;
-            for(int j=N-1; j&gt;=0; --j) {
-                if(field[j][i]==1)</B></FONT>
-                    dpUp[j][i]=++cnt;
-                else
-                    dpUp[j][i]=cnt=0;
-            }
-        }
-        
-        int ans=0;
-        for(int i=0; i&lt;N; ++i)
-        for(int j=0; j&lt;N; ++j) {
-            int tmp = min(min(dpLeft[i][j],dpRight[i][j]),min(dpDown[i][j],dpUp[i][j]));
-            ans = max(ans,tmp);
-        }
-        
-        return ans;
-        
+        return ret;
     }
 };
 </PRE>

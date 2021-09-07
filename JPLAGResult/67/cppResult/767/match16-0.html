@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>57_txingml.cpp</TITLE>
+ <TITLE>83_aaaaxiaofei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>57_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>83_aaaaxiaofei.cpp</CENTER></H3><HR>
 <PRE>
-int tmp[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
 class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-        set&lt;int&gt; primes;
-<A NAME="0"></A>        for (int i = 0; i &lt; 11; i++) {
-            primes.insert(tmp[i]);
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int cur = i;
-            int cnt = 0;
-            while (cur) {
-                cnt++;
-                cur = (cur-1)&amp;cur;
-            }
-            if (primes.find(cnt) != primes.end()) ret++;
-            
-        }
-        return ret;
+<A NAME="0"></A>    int countPrimeSetBits(int L, int R) {
         
+        set&lt;int&gt; s = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int result = 0;
+        for (int i = L; i &lt;= R; i++) {
+            if (s.find(helper(i)) != s.end()) 
+                result++;
+        }
+        return result;
     }
-};</B></FONT>
+    
+    int helper(int num) {
+        int count = 0;
+        while (num) {
+            count += num % 2;
+            num /= 2;
+        }
+        return count;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

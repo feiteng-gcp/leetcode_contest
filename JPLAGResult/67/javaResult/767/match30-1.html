@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>212_zc94zc.java</TITLE>
+ <TITLE>24_pedro.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,19 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>212_zc94zc.java</CENTER></H3><HR>
+<H3><CENTER>24_pedro.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int n = Integer.bitCount(i);
-            if</B></FONT> (n == 2 || n == 3 || n == 5 || n == 7 || n == 11 || n == 13
-                || n == 17 || n == 19 || n == 23 || n == 29 || n == 31)
-                res++;
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int countBits(int v) {
+        int ct = 0;
+        while (v &gt; 0) {
+            ct += v%2;
+            v /= 2;
         }
-        return res;
-    }
+        return ct;
+    }</B></FONT>
+    
+<A NAME="0"></A>    public int countPrimeSetBits(int L, int R) {
+        int ct = 0;
+        Set&lt;Integer&gt; primes = new HashSet&lt;Integer&gt;(Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19));
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = L; i &lt;= R; i++) {
+            int ctb = countBits(i);
+            if (primes.contains(ctb)) {
+                ct++;
+            }
+        }
+        return ct;
+    }</B></FONT>
 }
 </PRE>
 

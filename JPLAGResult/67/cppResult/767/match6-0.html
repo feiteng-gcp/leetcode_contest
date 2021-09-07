@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>57_txingml.cpp</TITLE>
+ <TITLE>244_ZhengkaiWei.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>57_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>244_ZhengkaiWei.cpp</CENTER></H3><HR>
 <PRE>
-int tmp[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
 class Solution {
 <A NAME="0"></A>public:
     int countPrimeSetBits(int L, int R) {
-        set&lt;int&gt; primes;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; 11; i++) {
-            primes.insert(tmp[i]);
-        }
-<A NAME="1"></A>        int ret = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int cur = i;</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int cnt = 0;
-            while (cur) {
-                cnt++;
-                cur = (cur-1)&amp;cur;
-            }
-            if (primes.find(cnt) != primes.end()) ret++;
-            
-        }
-        return ret;
-        
+        vector&lt;int&gt; prime={0,0,1,1,0,1,0,1,0,0,0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ans=0;
+    for(int i=L;i&lt;=R;++i){
+        int numbit=countBit(i);
+        if(prime[numbit])
+            ++ans;
+<A NAME="1"></A>    }
+    return ans;
+    }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int countBit(int a){
+    int ans=0;
+    while(a&gt;0){
+        if(a&amp;1)
+            ++ans;
+        a&gt;&gt;=1;
     }
-};</B></FONT>
+    return ans;
+}</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

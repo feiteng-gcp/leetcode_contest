@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_sergeynagin.cpp</TITLE>
+ <TITLE>1_fsqhxrcjw.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>40_sergeynagin.cpp</CENTER></H3><HR>
+<H3><CENTER>1_fsqhxrcjw.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {
-        int ans = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int c = 0, j = i;</B></FONT>
-            while (j) {
-                c += j % 2;
-                j /= 2;
+    
+    bool is_prime(int x) {
+        if (x==1) return false;
+        for (int i=2; i&lt;=sqrt(x); ++i)
+            if (x%i==0)
+                return false;
+<A NAME="0"></A>        return true;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countPrimeSetBits(int L, int R) {
+<A NAME="1"></A>        int ans = 0;
+        for (int x=L; x&lt;=R; ++x) {
+            int count = 0;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int t = x;
+            while (t) {
+                count += t&amp;1;
+                t &gt;&gt;= 1;
             }
-            if (c == 2 || c == 3 || c == 5 || c == 7 || c == 11 || c == 13 || c == 17 || c == 19 || c == 23)  {
-                ans++;
-            }
+            if (is_prime(count)) ++ans;
         }
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

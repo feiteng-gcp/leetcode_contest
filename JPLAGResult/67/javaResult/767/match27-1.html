@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>129_vonzcy.java</TITLE>
+ <TITLE>254_hongjiangl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>129_vonzcy.java</CENTER></H3><HR>
+<H3><CENTER>254_hongjiangl.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int count = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; primeSet = new HashSet&lt;&gt;();
-        primeSet.add(2);
-        primeSet.add(3);
-        primeSet.add(5);
-        primeSet.add(7);
-        primeSet.add(11);
-        primeSet.add(13);
-        primeSet.add(17);
-        primeSet.add</B></FONT>(19);
-        primeSet.add(23);
-        primeSet.add(29);
-        primeSet.add(31);
-        for (int i = L; i &lt;= R; i++) {
-            int curr = i;
-            int num = 0;
-<A NAME="1"></A>            while (curr != 0) {
-                num++;
-                curr &amp;= curr - 1;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            if (primeSet.contains(num)) {
-                count++;
-            }
+        int res = 0;
+        for(int i = L; i &lt;= R; i++)
+        {</B></FONT>
+            int sum = 0;
+            for(int ii = 0; ii &lt; 32; ii++)
+            {
+                sum += (i &gt;&gt;&gt; ii) &amp; 1;
+<A NAME="1"></A>            }
+            
+            res += check(sum) ? 1 : 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return res;
+    }
+    
+    public boolean check(int sum)
+    {
+        if(sum &lt;= 1)
+            return false;
+        
+        for(int i = 2; i &lt; sum; i++)
+        {
+            if(sum % i == 0)
+                return false;
         }
-        return count;
+        return true;
     }
 }</B></FONT>
 </PRE>

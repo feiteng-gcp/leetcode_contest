@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>240_leetNinjaX.cpp</TITLE>
+ <TITLE>207_wellcs.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>240_leetNinjaX.cpp</CENTER></H3><HR>
+<H3><CENTER>207_wellcs.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A>class Solution {
+class Solution {
 public:
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countBits(int i) {
-        int res = 0;
-        while(i) {
-            if(i &amp; 1)
-                res++;
-            i = i &gt;&gt; 1;
-<A NAME="0"></A>        }
-        return res;
-    }</B></FONT>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countPrimeSetBits(int L, int R) {
-        unordered_set&lt;int&gt; primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
-        int res = 0;
-        for(int i = L; i &lt;= R; i++) {
-            if(primes.count(countBits(i)))
-                res++;
+    int countPrimeSetBits(int L, int R) {
+<A NAME="1"></A>        vector&lt;bool&gt; isPrime(33, false);
+        for(int i = 2; i &lt; isPrime.size(); ++i)
+        {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool res = true;
+            for(int k = 2; k * k &lt;= i; ++k)
+            {
+                if(i % k == 0)
+                {
+                    res = false;
+                    break;
+                }
+            }</B></FONT>
+<A NAME="0"></A>            isPrime[i] = res;
         }
-        return res;
-    }</B></FONT>
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
+        for(int i = L; i &lt;= R; ++i)
+        {
+            int t = i;
+            int count = 0;
+            while(t &gt; 0)
+            {
+                count += t &amp; 1;
+                t = (t &gt;&gt; 1);
+            }</B></FONT>
+            
+            if(isPrime[count])
+            {
+                ret++;
+            }
+        }
+        
+        return ret;
+    }
 };
 </PRE>
 </BODY>

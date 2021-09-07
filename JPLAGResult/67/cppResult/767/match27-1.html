@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>113_zhangwei00.cpp</TITLE>
+ <TITLE>225_kupe.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>113_zhangwei00.cpp</CENTER></H3><HR>
+<H3><CENTER>225_kupe.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-        int ans=0;
+        int cnt=0;
         for(int i=L;i&lt;=R;++i){
-            int k=i;
-            int co=0;
-            while(k){</B></FONT>
-                if(k&amp;1) ++co;
-                k&gt;&gt;=1;
-            }
-            bool ju=true;
-            if(co&lt;2) ju=false;
-            for(int j=2;j&lt;co;j++) if(co%j==0) ju=false;
-            if(ju) ++ans;
+            int n=bitset&lt;32&gt;(i).count();</B></FONT>
+            if(isPrime(n)) cnt++;
         }
-        return ans;
+        return cnt;
+    }
+    bool isPrime(int n){
+        if(n&lt;2) return false;
+        for(int i=2;i&lt;(int)sqrt(n)+1;++i)
+            if(n%i==0) return false;
+        return true;
     }
 };
 </PRE>

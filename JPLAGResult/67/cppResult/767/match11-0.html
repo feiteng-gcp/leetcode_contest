@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>74_tianhao2.cpp</TITLE>
+ <TITLE>54_Eternal_Answer.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
+<H3><CENTER>54_Eternal_Answer.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
 public:
-<A NAME="0"></A>    // 10^6&lt;2^20
-    int gets(int i){
-        int ret=0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int curr=i;
-        while(curr&gt;0){
-            ret+=curr%2;
-            curr=curr&gt;&gt;1;
-        }
-        return ret;
-    }
-    int countPrimeSetBits(int L, int R) {
-        int ret=0;
-        for(int i=L; i&lt;=R; i++){
-            int res=gets(i);
-            //cout&lt;&lt;res&lt;&lt;&quot; &quot;;
-            if(res==2 || res==3 || res==5 || res==7 || res==11 || res==13 || res==17 || res==19){
-                ret++;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int countPrimeSetBits(int L, int R) {
+        int res = 0;
+        for (int i = L;i &lt;= R;++i) {
+            int cnt = 0;</B></FONT>
+            for (int x = i;x &gt; 0;x /= 2) {
+                if (x % 2 == 1) ++ cnt;
+            }
+            if (prime(cnt)) {
+                ++ res;
             }
         }
-        return ret;
+<A NAME="1"></A>        return res;
     }
-};</B></FONT>
+    
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool prime(int x) {
+        if (x == 1) return false;
+        for (int i = 2;i * i &lt;= x;++i)
+            if (x % i == 0) return false;
+        return true;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

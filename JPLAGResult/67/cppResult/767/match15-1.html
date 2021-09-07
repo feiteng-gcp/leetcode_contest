@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>57_txingml.cpp</TITLE>
+ <TITLE>328_13777834102.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>57_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>328_13777834102.cpp</CENTER></H3><HR>
 <PRE>
-int tmp[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
 class Solution {
-<A NAME="0"></A>public:
-    int countPrimeSetBits(int L, int R) {
-        set&lt;int&gt; primes;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 11; i++) {
-            primes.insert(tmp[i]);
-        }
-<A NAME="1"></A>        int ret = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int cur = i;</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int cnt = 0;
-            while (cur) {
-                cnt++;
-                cur = (cur-1)&amp;cur;
-            }
-            if (primes.find(cnt) != primes.end()) ret++;
-            
-        }
-        return ret;
-        
-    }
-};</B></FONT>
+public:
+   bool isPrere(int num)
+{
+	int count = 0; 
+	while (num != 0)
+	{
+<A NAME="1"></A>		if (num &amp; 1 == 1) count++;
+		num &gt;&gt;= 1;
+	}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if (count == 1) return false;
+	for (int i = 2; i &lt;= sqrt(count); i++)
+	{
+		if (count%i == 0) return false;
+	}
+<A NAME="0"></A>	return true;
+}</B></FONT>
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int countPrimeSetBits(int L, int R) {
+
+	int count = 0;
+	for (int i = L; i &lt;= R; i++)
+	{
+		if (isPrere(i)) count++;
+	}
+	return count;
+}</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

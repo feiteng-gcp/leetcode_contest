@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_prakhar15.java</TITLE>
+ <TITLE>363_leetge.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>363_leetge.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int ans = 0;
-        for (int x = L; x &lt;= R; x++) if (isPrime(setBits(x))) ans++;
-        return ans;
-    }
-    
-    private static boolean isPrime(int x) {
-        if (x == 1) return false;
-        if (x == 2 || x == 3) return true;</B></FONT>
-        for (int n = 2; n * n &lt;= x; n++) if (x % n == 0) return false;
-        return true;
-    }
-    
-    private static int setBits(int x) {
-        int count = 0;
-        while (x != 0) {
-            count += x % 2 == 1 ? 1 : 0;
-            x /= 2;
+        int cnt = 0;
+        for (int i = L; i &lt;= R; i++) {
+            if (isPrime(numOfBits(i))) {
+                ++cnt;
+            }
         }
-        return count;
+        return cnt;
+    }
+    
+    private int numOfBits(int num) {
+        int cnt = 0;
+        while (num != 0) {</B></FONT>
+            if ((num &amp; 0x1) != 0) {
+                ++cnt;
+<A NAME="1"></A>            }
+            
+            num /= 2;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return cnt;
+    }
+    
+    private boolean isPrime(int cnt) {
+        if (cnt == 2 || cnt == 3 || cnt == 5 || cnt == 7 || cnt == 11 | cnt == 13 | cnt == 17 || cnt == 19 || cnt == 23 || cnt == 31) {
+            return true;
+        }</B></FONT> else {
+            return false;
+        }
     }
 }
 </PRE>

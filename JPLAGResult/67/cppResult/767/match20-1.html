@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Victor_FW.cpp</TITLE>
+ <TITLE>67_linyacool.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>37_Victor_FW.cpp</CENTER></H3><HR>
+<H3><CENTER>67_linyacool.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-private:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int C(int n) {
-        int ans = 0;
-        while (n) {
-            ans += (n &amp; 1);
-            n &gt;&gt;= 1;
+class Solution {
+public:
+<A NAME="0"></A>    bool is[32];
+    bool isp(int num)
+    {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        while (num != 0)
+        {
+            num &amp;= (num - 1);
+            ++cnt;
         }
-        return ans;
-    }</B></FONT>
-<A NAME="1"></A>public:
-    int countPrimeSetBits(int L, int R) {
-        unordered_set&lt;int&gt; prime({2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
-        for (int i = L; i &lt;= R; ++i) {
-            int tmp = C(i);
-            if (prime.count(tmp)) {
-                ans++;
-            }
+        return is[cnt];
+<A NAME="1"></A>    }
+    int countPrimeSetBits(int L, int R)
+    {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 32; ++i)
+            is[i] = false;
+        is[2] = true;
+        is[3] = true;
+        is[5] = true;
+        is[7] = true;
+        is[11] = true;
+        is[13] = true;
+        is[17] = true;
+        is[19] = true;
+        is[23] = true;
+        is[29] = true;
+        is[31] = true;</B></FONT>
+        
+        int ans = 0;
+        for (int num = L; num &lt;= R; ++num)
+        {
+            if (isp(num))
+                ++ans;
         }
         return ans;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

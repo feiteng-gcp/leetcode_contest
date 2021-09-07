@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>43_daren.cpp</TITLE>
+ <TITLE>239_richzhu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>43_daren.cpp</CENTER></H3><HR>
+<H3><CENTER>239_richzhu.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    int countPrimeSetBits(int L, int R) {
-        int ans=0;
-        for(int i=L; i&lt;=R; ++i) {
-            int cnt=0;</B></FONT>
-            for(int j=0; j&lt;31; ++j)
-                cnt += (i&gt;&gt;j)%2;
-            ans += (cnt==2 || cnt==3 || cnt==5 || cnt==7 || cnt==11 || cnt==13 || cnt==17 || cnt==19 || cnt==23 || cnt==29);
-            
-            //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; cnt &lt;&lt; endl;
-        }
-        
-        return ans;
+class Solution {
+    unordered_set&lt;int&gt; p = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+    bool isPrime(int num){
+<A NAME="0"></A>        return p.count(num) == 1;
     }
-};
+public:
+<A NAME="1"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int countPrimeSetBits(int L, int R) {
+        int cnt = 0;
+        for(int i = L; i &lt;= R; i++){
+            int num = 0, n = i;</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            while(n != 0){
+                n = n &amp; (n - 1);
+                num++;
+            }
+            if(num &gt; 1 &amp;&amp; isPrime(num)) cnt++;
+        }
+        return cnt;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

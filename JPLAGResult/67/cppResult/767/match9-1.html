@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_Netario36.cpp</TITLE>
+ <TITLE>304_faisal47.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>23_Netario36.cpp</CENTER></H3><HR>
+<H3><CENTER>304_faisal47.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
-    int countPrimeSetBits(int L, int R) {
-        int ret = 0;
-        for (int i = L; i &lt;= R; ++ i) {
-            int cnt = 0, tmp = i;
-            while (tmp != 0) {
-                cnt += (tmp % 2 == 1);
-                tmp /= 2;
-            }
-            if (cnt &lt; 2) continue;</B></FONT>
-            bool h = true;
-            for (int j = 2; j &lt;= sqrt(cnt); ++ j)
-                if (cnt % j == 0) {
-                    h = false;
-                    break;
-                }
-            if (h) ret ++;
+bool flag[35];
+void pre(){
+    flag[2]=true;
+    flag[3]=true;
+    flag[5]=true;
+    flag[7]=true;
+    flag[11]=true;
+    flag[13]=true;
+    flag[17]=true;
+    flag[19]=true;
+<A NAME="0"></A>    flag[23]=true;
+    flag[29]=true;
+    flag[31]=true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+bool isBitNumberPrime(int num){
+    int bitNumber=0;
+    while(num &gt; 0){
+        if(num &amp; 1)
+            bitNumber++;
+        num&gt;&gt;=1;
+    }
+    return flag[bitNumber];
+<A NAME="1"></A>}</B></FONT>
+
+class Solution {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
+    int countPrimeSetBits(int l, int r) {
+        pre();
+        int ans=0;
+        for(int i=l;i&lt;=r;i++){</B></FONT>
+            ans+= isBitNumberPrime(i) ? 1 : 0;
         }
-        return ret;
+        return ans;
     }
 };
 </PRE>

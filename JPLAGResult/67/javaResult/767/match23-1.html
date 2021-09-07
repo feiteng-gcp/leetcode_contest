@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>129_vonzcy.java</TITLE>
+ <TITLE>233_guzh870423.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>129_vonzcy.java</CENTER></H3><HR>
+<H3><CENTER>233_guzh870423.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public int countPrimeSetBits(int L, int R) {
-        int count = 0;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; primeSet = new HashSet&lt;&gt;();
-        primeSet.add(2);
-        primeSet.add(3);
-        primeSet.add(5);
-        primeSet.add(7);
-        primeSet.add(11);
-        primeSet.add(13);
-        primeSet.add(17);
-        primeSet.add(19);
-        primeSet.add(23);
-        primeSet.add(29);
-        primeSet.add</B></FONT>(31);
-        for (int i = L; i &lt;= R; i++) {
-            int curr = i;
-            int num = 0;
-            while (curr != 0) {
-<A NAME="1"></A>                num++;
-                curr &amp;= curr - 1;
-            }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (primeSet.contains(num)) {
-                count++;
+class Solution {
+<A NAME="1"></A>    public int countPrimeSetBits(int L, int R) {
+        Set&lt;Integer&gt; set =new HashSet&lt;&gt;( Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29));
+        int res = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = L; i &lt;= R; i++) {
+            int c = helper(i);
+            if (set.contains(c)) {
+                res++;
             }
         }
-        return count;
-    }
-}</B></FONT>
+        
+        return res;
+<A NAME="0"></A>        
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int helper(int i) {
+        int res = 0;
+        while (i != 0) {
+            res += (i &amp; 1);
+            i &gt;&gt;= 1;
+        }
+        return res;
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>
