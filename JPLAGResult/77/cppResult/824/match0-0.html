@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>239_qwnjc.cpp</TITLE>
+ <TITLE>397_areke.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>239_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>397_areke.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; numberOfLines(vector&lt;int&gt;&amp; widths, string S) {
-        int l = 1, size = 0;
-        
-        for (auto c : S) {
-            int width = widths[c - 'a'];
-            if (size + width &gt; 100) {
-                ++l;
-                size = width;
-            } else {</B></FONT>
-                size += width;
+        vector&lt;int&gt; res;
+        res.push_back(0);
+        res.push_back(0);
+        int x = 0;
+        for (int i = 0; i &lt; S.size(); i++) {
+            if (x + widths[S[i] - 'a'] &lt;= 100) {
+                x = x + widths[S[i] - 'a'];</B></FONT>
+            } else {
+                x = widths[S[i] - 'a'];
+                res[0]++;
             }
         }
-        
-        return {l, size};
+        if (x &gt; 0) res[0]++;
+        res[1] = x;
+        return res;
     }
 };
 </PRE>

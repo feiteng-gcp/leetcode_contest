@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_ChaouS.cpp</TITLE>
+ <TITLE>6_Reply1988.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>17_ChaouS.cpp</CENTER></H3><HR>
+<H3><CENTER>6_Reply1988.cpp</CENTER></H3><HR>
 <PRE>
-const int maxN = 32;
-const int maxK = 10005;
-const int mod = (int)1e9 + 7;
-const int inf = (int)1e9;
-
-bool dp[maxN][maxK * maxN];
 class Solution {
-public:
-
-
+private:
+    bool helper(vector&lt;int&gt;&amp; A, int idx, int cur_sum, int left, int target){
+        if(left == 0 &amp;&amp; cur_sum == target)
+            return true;
+        if(idx &gt;= A.size() || left == 0 || cur_sum &gt; target)
+<A NAME="0"></A>            return false;
+        return helper(A, idx+1, cur_sum, left, target) || helper(A, idx+1, cur_sum+A[idx], left-1, target);
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
     bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
-        if(A.size() &lt;= 1){
-            return false;
+        int times = A.size()/2;
+        int sum_value = 0;
+        for(int i = 0; i &lt; A.size(); ++i){</B></FONT>
+            sum_value += A[i];
         }
-        int n = A.size();
-        int total = accumulate(A.begin() , A.end() , 0);
-
-        for(int i = 0; i &lt;= n; ++i){
-            for(int k = 0; k &lt;= total; ++k){
-<A NAME="0"></A>                dp[i][k] = false;
-            }
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[0][0] = true;
-        for(int i = 0; i &lt; n; ++i){
-            for(int c = i; c &gt;= 0; c--){
-                for(int sum = 0; sum &lt;= total; sum++){
-                    if(dp[c][sum]){</B></FONT>
-                        dp[c + 1][sum + A[i]] = true;
-                    }
-                }
-            }
-        }
-
-        for(int cant = 1; cant &lt; n; cant++){
-            if( (cant * total) % n == 0){
-                int sum = (cant * total) / n;
-                if(dp[cant][sum]){
+        for(int i = 1; i &lt;= times; ++i){
+            if(((long)sum_value * (long)i)%A.size() != 0)
+                continue;
+            else{
+                int target = ((long)sum_value * i)/A.size();
+                bool tmp = helper(A, 0, 0, i, target);
+                if(tmp == true)
                     return true;
-                }
-            }
+            }    
         }
         return false;
     }
 };
-
 </PRE>
 </BODY>
 </HTML>

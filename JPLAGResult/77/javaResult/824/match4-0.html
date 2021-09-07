@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>83_xtudy.java</TITLE>
+ <TITLE>2_Liangyulin.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>83_xtudy.java</CENTER></H3><HR>
+<H3><CENTER>2_Liangyulin.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int[] numberOfLines(int[] widths, String S) {
-        if (S == null || S.length() &lt; 1) return new int[]{0, 0};
-<A NAME="0"></A>        int lineCount = 1, widthCount = 0;
-        for (char c : S.toCharArray()) {
-            int w = widths[c - 'a'];
-            if (widthCount + w &gt; 100) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                lineCount++;
-                widthCount = 0;
-            }
-            widthCount += w;
+        int lines = 1, curWidth = 0;
+        char[] c = S.toCharArray();
+        
+        for(int i = 0; i &lt; c.length; i++) {
+            int index = c[i] - 'a';
+            if(curWidth + widths[index] &gt; 100) {
+                lines++;
+                curWidth = widths[index];
+<A NAME="0"></A>            }
+            else {
+                curWidth += widths[index];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        return new int[]{lineCount, widthCount};
+        
+        return new int[]{lines, curWidth};
     }
 }</B></FONT>
 </PRE>

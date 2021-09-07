@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>243_nevergiveup.java</TITLE>
+ <TITLE>2_Liangyulin.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>243_nevergiveup.java</CENTER></H3><HR>
+<H3><CENTER>2_Liangyulin.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-
-	
-	public int[] numberOfLines(int[] widths, String S) {
-		
-<A NAME="0"></A>        if (S.isEmpty()) {
-            return new int[] { };
+    public int[] numberOfLines(int[] widths, String S) {
+        int lines = 1, curWidth = 0;
+        char[] c = S.toCharArray();
+<A NAME="0"></A>        
+        for(int i = 0; i &lt; c.length; i++) {
+            int index = c[i] - 'a';
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(curWidth + widths[index] &gt; 100) {
+                lines++;
+                curWidth = widths[index];
+            }
+            else {
+                curWidth += widths[index];
+            }
         }
-		int line = 1 ,<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> last = 0;
-		for (int i = 0;i &lt; S.length();i ++) {
-			int index = S.charAt(i) - 'a';
-			if (last + widths[index] &lt;= 100) {
-				last += widths[index];
-			} else {
-				line ++;
-				last = widths[index];
-			}
-		}
-	    return new int[] {line , last};
-	
-	}
-	
+        
+        return new int[]{lines, curWidth};
+    }
 }</B></FONT>
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>103_zhangwei00.cpp</TITLE>
+ <TITLE>54_BaozhiYu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>103_zhangwei00.cpp</CENTER></H3><HR>
+<H3><CENTER>54_BaozhiYu.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-public:
-    //bitset&lt;300010&gt; dp[16];
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
     bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
-        int su=0;
         int n=A.size();
-        //cout&lt;&lt;n&lt;&lt;endl;
-        for(int i=0;i&lt;n;++i) su+=A[i];
-        for(int i=1;i&lt;=n/2;++i){
-<A NAME="0"></A>            if(su*i%n) continue;
-            int k=su*i/n;
-            bitset&lt;300010&gt; dp[16];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            dp[0][0]=1;
-            for(int j=0;j&lt;n;++j){
-                for(int a=i;a&gt;0;--a){
-                    for(int b=k;b&gt;=A[j];--b){
-                        if(dp[a-1][b-A[j]]) dp[a][b]=1;</B></FONT>
-                    }
-                }
+        int sum = accumulate(A.begin(),A.end(),0);
+        sort(A.begin(),A.end());
+        for(int i=1;i&lt;=n/2;i++){</B></FONT>
+            if(((sum*i)%n)!=0) continue;
+            else if(backPack((sum*i)/n,A,i)) {
+                //cout&lt;&lt;i&lt;&lt;endl;
+                return true;
             }
-            //cout&lt;&lt;i&lt;&lt;' '&lt;&lt;k&lt;&lt;' '&lt;&lt;dp[i][k]&lt;&lt;endl;
-            if(dp[i][k]) return true;
         }
         return false;
+    }
+    
+    bool backPack(int m, vector&lt;int&gt; A , int n) {
+        unordered_set&lt;int&gt; s;
+        dfs(A,vector&lt;int&gt;(),n,0,s);
+        return s.count(m);
+       
+    }
+    
+    void dfs(vector&lt;int&gt; A, vector&lt;int&gt; temp, int bit, int index, unordered_set&lt;int&gt; &amp;s){
+        if(temp.size()==bit){
+            s.insert(accumulate(temp.begin(),temp.end(),0));return;
+        }
+        for(int i=index;i&lt;A.size();i++){
+            temp.push_back(A[i]);
+            dfs(A,temp,bit,i+1,s);
+            temp.pop_back();
+        }
     }
 };
 </PRE>

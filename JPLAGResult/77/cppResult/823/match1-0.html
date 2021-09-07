@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_wcwswswws.cpp</TITLE>
+ <TITLE>54_BaozhiYu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>54_BaozhiYu.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
-        vector&lt;vector&lt;bool&gt;&gt; f(A.size() + 1, vector&lt;bool&gt;(A.size() * 10000 + 1, false));
-        int sum = 0;
-<A NAME="0"></A>        for (const auto&amp; iter : A) {
-            sum += iter;
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        f[0][0] = true;
-        for (int i = 0; i &lt; A.size(); i++) {
-            for (int j = i; j &gt;= 0; j--) {
-                for (int k = 0; k &lt;= sum ;k++) {
-                    if (!f[j][k]) { continue; }</B></FONT>
-                    int cur = k + A[i];
-                    if (cur * (A.size() - j - 1) == (sum - cur) * (j + 1) &amp;&amp; sum - cur != 0) { 
-                        return true; 
-                    }
-                    f[j + 1][cur] = true;
-                }
+        int n=A.size();
+        int sum = accumulate(A.begin(),A.end(),0);
+        sort(A.begin(),A.end());
+        for(int i=1;i&lt;=n/2;i++){</B></FONT>
+            if(((sum*i)%n)!=0) continue;
+            else if(backPack((sum*i)/n,A,i)) {
+                //cout&lt;&lt;i&lt;&lt;endl;
+                return true;
             }
         }
         return false;
+    }
+    
+    bool backPack(int m, vector&lt;int&gt; A , int n) {
+        unordered_set&lt;int&gt; s;
+        dfs(A,vector&lt;int&gt;(),n,0,s);
+        return s.count(m);
+       
+    }
+    
+    void dfs(vector&lt;int&gt; A, vector&lt;int&gt; temp, int bit, int index, unordered_set&lt;int&gt; &amp;s){
+        if(temp.size()==bit){
+            s.insert(accumulate(temp.begin(),temp.end(),0));return;
+        }
+        for(int i=index;i&lt;A.size();i++){
+            temp.push_back(A[i]);
+            dfs(A,temp,bit,i+1,s);
+            temp.pop_back();
+        }
     }
 };
 </PRE>

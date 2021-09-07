@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>415_smallman.cpp</TITLE>
+ <TITLE>441_imzyy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>415_smallman.cpp</CENTER></H3><HR>
+<H3><CENTER>441_imzyy.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    int uniqueMorseRepresentations(vector&lt;string&gt;&amp; words) {
-        vector&lt;string&gt; morse = {&quot;.-&quot;,&quot;-...&quot;,&quot;-.-.&quot;,&quot;-..&quot;,&quot;.&quot;,&quot;..-.&quot;,&quot;--.&quot;,&quot;....&quot;,&quot;..&quot;,&quot;.---&quot;,&quot;-.-&quot;,&quot;.-..&quot;,&quot;--&quot;,&quot;-.&quot;,&quot;---&quot;,&quot;.--.&quot;,&quot;--.-&quot;,&quot;.-.&quot;,&quot;...&quot;,&quot;-&quot;,&quot;..-&quot;,&quot;...-&quot;,&quot;.--&quot;,&quot;-..-&quot;,&quot;-.--&quot;,&quot;--..&quot;};
-        unordered_set&lt;string&gt; s;
-        for(auto w: words){
-            string code = &quot;&quot;;
-            for(auto c: w){</B></FONT>
-                code += morse[c-'a'];
+<A NAME="0"></A>    int uniqueMorseRepresentations(vector&lt;string&gt;&amp; words) {
+        string morse[26]={&quot;.-&quot;,&quot;-...&quot;,&quot;-.-.&quot;,&quot;-..&quot;,&quot;.&quot;,&quot;..-.&quot;,&quot;--.&quot;,&quot;....&quot;,&quot;..&quot;,&quot;.---&quot;,&quot;-.-&quot;,&quot;.-..&quot;,&quot;--&quot;,&quot;-.&quot;,&quot;---&quot;,&quot;.--.&quot;,&quot;--.-&quot;,&quot;.-.&quot;,&quot;...&quot;,&quot;-&quot;,&quot;..-&quot;,&quot;...-&quot;,&quot;.--&quot;,&quot;-..-&quot;,&quot;-.--&quot;,&quot;--..&quot;};
+        unordered_map&lt;string, int&gt; hash;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans=0;
+        int n=words.size();
+        
+        hash.clear();
+        for (int i=0; i&lt;n; i++) {
+            int l=words[i].length();
+            string cur;
+            cur=&quot;&quot;;
+            for (int j=0; j&lt;l; j++) {
+                cur=cur+morse[words[i][j]-'a'];
             }
-            s.insert(code);
+            
+            if (hash.find(cur)==hash.end()) {
+                hash.insert(make_pair(cur, 1));
+                ans++;
+            }
         }
-        return s.size();
+        
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

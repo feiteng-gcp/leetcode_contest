@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_Liangyulin.java</TITLE>
+ <TITLE>142_Pravdenko.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>2_Liangyulin.java</CENTER></H3><HR>
+<H3><CENTER>142_Pravdenko.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public boolean splitArraySameAverage(int[] A) {
-        int sum = 0, len = A.length;
-        for(int i = 0; i &lt; A.length; i++) {
+        Arrays.sort(A);
+        int sum = 0;
+<A NAME="0"></A>        for (int i = 0; i &lt; A.length; i++) {
             sum += A[i];
         }
-        
-        double aver = sum / (double)len;
-<A NAME="2"></A>        
-        for(int i = 1; i &lt;= len / 2; i++) {
-            if(sum * i % len != 0)
-                continue<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-            
-            if(checkSum(A, sum * i / len, i, 0, 0, 0))
-                return true;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt;= A.length / 2; i++) {
+            if (sum * i % A.length != 0) continue; // can't compose out of 
+            if (find(A, 0, i, sum * i, A.length)) return true;
         }
-        
-<A NAME="1"></A>        return false;
-    }</B></FONT>
-    
-    private boolean checkSum(int[] A, int sum, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int num, int start, int curSum, int curCount) {
-        if(curCount == num &amp;&amp; sum == curSum)
-            return true;
-        if(curCount == num)
-<A NAME="0"></A>            return false;
-        
-        for(int i = start; i &lt; A.length; i++) {
-            if</B></FONT>(curSum + A[i] &lt;= sum) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if(checkSum(A, sum, num, i + 1, curSum + A[i], curCount + 1))
-                    return true;
-            }
-        }
-        
         return false;
-    }</B></FONT>
+    }
+    
+    private boolean find(int[] A, int index, int count, int sum, int factor</B></FONT>) {
+        if (index &gt;= A.length) return false;
+        if (count == 1) {
+            // todo binary search
+            for (int i = index; i &lt; A.length; i++) {
+                int c = A[i] * factor;
+                if (c == sum) return true;
+                else if (c &gt; sum) return false; // it's sorted, can't find
+            }
+            return false;
+        } else {
+            for (int i = index; i &lt; A.length; i++) {
+                int rem = sum - A[i] * factor;
+                if (rem &lt; 0) return false;
+                if (find(A, i + 1, count - 1, rem, factor)) return true;
+            }
+            return false;
+        }
+    }
 }
 </PRE>
 

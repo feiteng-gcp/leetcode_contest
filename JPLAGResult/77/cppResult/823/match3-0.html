@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_wangyisong.cpp</TITLE>
+ <TITLE>6_Reply1988.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4_wangyisong.cpp</CENTER></H3><HR>
+<H3><CENTER>6_Reply1988.cpp</CENTER></H3><HR>
 <PRE>
-static bool f[30][300005];
-
 class Solution {
+private:
+    bool helper(vector&lt;int&gt;&amp; A, int idx, int cur_sum, int left, int target){
+        if(left == 0 &amp;&amp; cur_sum == target)
+            return true;
+        if(idx &gt;= A.size() || left == 0 || cur_sum &gt; target)
+            return false;
+        return helper(A, idx+1, cur_sum, left, target) || helper(A, idx+1, cur_sum+A[idx], left-1, target);
+<A NAME="0"></A>    }
 public:
     bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
-        int *a = A.data();
-        int n = (int)A.size();
-        int sum = 0;
-        for (int i = 0; i &lt; n; i++) {
-            sum += a[i];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int times = A.size()/2;
+        int sum_value = 0;
+        for(int i = 0; i &lt; A.size(); ++i){
+            sum_value += A[i];
         }
-        memset(f, 0, sizeof(f));
-<A NAME="0"></A>        f[0][0] = 1;
-        int s = 0;
-        for (int i = 0; i &lt; n; i++) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int x = a[i];
-            s += x;
-            for (int cnt = i; cnt &gt;= 0; cnt--) {
-                for (int j = s - x; j &gt;= 0; j--) {</B></FONT>
-                    f[cnt + 1][j + x] |= f[cnt][j];
-                }
-            }
-        }
-        for (int i = 1; i &lt; n; i++) {
-            if (sum * i % n == 0 &amp;&amp; f[i][sum * i / n]) {
-                return true;
-            }
+        for(int i = 1; i &lt;= times; ++i){</B></FONT>
+            if(((long)sum_value * (long)i)%A.size() != 0)
+                continue;
+            else{
+                int target = ((long)sum_value * i)/A.size();
+                bool tmp = helper(A, 0, 0, i, target);
+                if(tmp == true)
+                    return true;
+            }    
         }
         return false;
     }

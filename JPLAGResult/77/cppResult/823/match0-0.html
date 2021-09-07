@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>86_w12379564.cpp</TITLE>
+ <TITLE>145_jacklv.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>86_w12379564.cpp</CENTER></H3><HR>
+<H3><CENTER>145_jacklv.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>bool dp[16][300000+5];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    bool splitArraySameAverage(vector&lt;int&gt;&amp; A)
-    {
-        int len=A.size();
+    int sum,n;
+    vector&lt;int&gt; a;
+    //int f[31][16][150001];
+    int ff(int sta,int sum,int m){
+        //cout&lt;&lt;sum&lt;&lt;' '&lt;&lt;m&lt;&lt;endl;
+        if (m==0&amp;&amp;sum!=0) return 0;
+        if (sum==0&amp;&amp;m==0) return 1;
+        //if (f[sta][sum][m]==1) return 1;
+        for (int i=sta;i&lt;n;i++){
+            if (sum-a[i]&lt;0) continue;
+            if (ff(i+1,sum-a[i],m-1)) return 1;
+        }
+        return 0;
+    }
+<A NAME="0"></A>    bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
+        sort(A.begin(),A.end());
+        n=A.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        a=A;
         int sum=0;
-        for(int i=0;i&lt;len;i++) sum+=A[i];</B></FONT>
-        double avg=sum/(double)len;
-
-        for(int lb=1;lb&lt;=len/2;lb++)
-        {
-<A NAME="1"></A>            int sb=lb*avg;
-            if(abs(((double)sb/lb)-avg)&gt;0.00001) continue;
-            memset(dp,false,sizeof dp);
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            dp[0][0]=true;
-            for(int i=0;i&lt;len;i++)
-            {
-                for(int j=sb;j&gt;=A[i];j--)
-                {
-                    for(int k=1;k&lt;=len/2;k++)
-                    {</B></FONT>
-                        dp[k][j]=(dp[k][j]||dp[k-1][j-A[i]]);
-                    }
-                }
-            }
-            if(dp[lb][sb])
-            {
+        for (int i=0;i&lt;n;i++) sum+=A[i];
+        for (int i=1;i&lt;=n/2;i++){
+            if (sum*i%n!=0) continue;</B></FONT>
+            //memset(f,0,sizeof(f));
+            //cout&lt;&lt;i&lt;&lt;endl;
+            if (ff(0,sum*i/n,i)) {
+                //cout&lt;&lt;sum*i/n&lt;&lt;endl;
                 return true;
             }
         }
-
         return false;
-     }
+    }
 };
 </PRE>
 </BODY>
