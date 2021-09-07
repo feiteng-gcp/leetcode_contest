@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>134_tprpc.java</TITLE>
+ <TITLE>328_CharlieBrown.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>134_tprpc.java</CENTER></H3><HR>
+<H3><CENTER>328_CharlieBrown.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public boolean validTicTacToe(String[] board) {
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][][] count = {{{0,0,0},{0,0,0},{0,0,0}}, {{0,0,0},{0,0,0},{0,0,0}</B></FONT>}};
-        
-        for(int i=0;i&lt;board.length;i++) {
-            for(int j=0;j&lt;board[i].length();j++) {
-                char c = board[i].charAt(j);
-                if(c != ' ') {
-                    int p = (c == 'X') ? 0 : 1; // x is first
-                    count[p][0][i]++;
-                    count[p][1][j]++;
-                    if(i==j) count[p][2][0]++;
-                    if(i+j == 2) count[p][2][1]++;
-                    count[p][2][2]++; // total count
-                }
+        int countX = 0, countO = 0;
+        for (int i = 0; i &lt; 3; i++){
+            for (int j = 0; j &lt; 3; j++){
+<A NAME="0"></A>                if (board[i].charAt(j) == 'X'){
+                    countX++;
+                }else if (board[i].charAt(j) == 'O')
+                    countO++<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
             }
         }
-        // The first player always places &quot;X&quot; characters, while the second player always places &quot;O&quot; characters.
-        if(count[0][2][2] - count[1][2][2] &gt; 1 || count[1][2][2] - count[0][2][2] &gt; 0) return false;
-        
-        int[] winner = {0,0};
-        for(int p=0;p&lt;2;p++) {
-            for(int i=0;i&lt;3;i++) {
-                for(int j=0;j&lt;3;j++) {
-                    if(i == 2 &amp;&amp; i == j) continue;
-                    if(count[p][i][j] == 3) {
-                        winner[p] = 1;
-                    }
-                }
-            }
+        if (countX-countO &gt; 1 || countO - countX &gt; 0)
+            return false;</B></FONT>
+        if (board[0].equals(&quot;XXX&quot;) || board[1].equals(&quot;XXX&quot;) || board[2].equals(&quot;XXX&quot;) || (board[0].charAt(0) == 'X' &amp;&amp; board[1].charAt(0) == 'X' &amp;&amp; board[2].charAt(0) == 'X') || (board[0].charAt(1) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(1) == 'X') || (board[0].charAt(2) == 'X' &amp;&amp; board[1].charAt(2) == 'X' &amp;&amp; board[2].charAt(2) == 'X') || (board[0].charAt(0) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(2) == 'X') || (board[0].charAt(2) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(0) == 'X')){
+            if (countX == countO)
+                return false;
         }
-        if(winner[0] == 1 &amp;&amp; winner[1] == 1) return false;
-        if(winner[0] == 1 &amp;&amp; count[0][2][2] != count[1][2][2] + 1) return false;
-        if(winner[1] == 1 &amp;&amp; count[0][2][2] != count[1][2][2]) return false;
-        
+        if (board[0].equals(&quot;OOO&quot;) || board[1].equals(&quot;OOO&quot;) || board[2].equals(&quot;OOO&quot;) || (board[0].charAt(0) == 'O' &amp;&amp; board[1].charAt(0) == 'O' &amp;&amp; board[2].charAt(0) == 'O') || (board[0].charAt(1) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(1) == 'O') || (board[0].charAt(2) == 'O' &amp;&amp; board[1].charAt(2) == 'O' &amp;&amp; board[2].charAt(2) == 'O') || (board[0].charAt(0) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(2) == 'O') || (board[0].charAt(2) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(0) == 'O')){
+            if (countX &gt; countO)
+                return false;
+        }
         return true;
     }
 }

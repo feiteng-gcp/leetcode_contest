@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_lixuchen01.java</TITLE>
+ <TITLE>150_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_lixuchen01.java</CENTER></H3><HR>
+<H3><CENTER>150_xn1990114.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numSubarrayBoundedMax(int[] A, int L, int R) {
-        int res = 0</B></FONT>, n = A.length, inc = 0, exc = 0;
-
-<A NAME="1"></A>        for (int i = 0 ; i &lt; n; ++i) {
-            int cur = A[i];
-            if (A[i] &gt; R) {
-                res += <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>countSubarrys(inc) - countSubarrys(exc);
-                inc = exc = 0;
-            } else if (cur &lt; L) {
-                ++exc;
-                ++inc;
-            } else {
-                res -= countSubarrys(exc);
-                exc = 0;
-                inc++;
+        int[] right=new int[A.length];
+        int res=0;</B></FONT>
+        // val+index
+        Stack&lt;int[]&gt; higher=new Stack&lt;int[]&gt;();
+        for(int i=A.length-1;i&gt;=0;i--){
+            int curr=A[i];
+            while(!higher.isEmpty()&amp;&amp;higher.peek()[0]&lt;=curr){
+                higher.pop();
             }
-        }</B></FONT>
-
-<A NAME="2"></A>        res += countSubarrys(inc) - countSubarrys(exc);
-
+            right[i]=higher.isEmpty()?A.length:higher.peek()[1];
+            higher.push(new int[]{curr,i});
+        }
+        higher.clear();
+        for(int i=0;i&lt;A.length;i++){
+            int curr=A[i];
+            while(!higher.isEmpty()&amp;&amp;higher.peek()[0]&lt;curr){
+                higher.pop();
+            }
+            if(L&lt;=curr&amp;&amp;curr&lt;=R){
+                res=res+(higher.isEmpty()?(i+1):(i-higher.peek()[1]))*(right[i]-i);
+            }
+            higher.push(new int[]{curr,i});
+        }
         return res;
-    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-
-    private long countSubarrys(long n) {
-        return n * (n + 1) / 2;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

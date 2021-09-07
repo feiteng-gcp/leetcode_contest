@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>271_JihaoLiu.java</TITLE>
+ <TITLE>80_XBB_HOME.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>271_JihaoLiu.java</CENTER></H3><HR>
+<H3><CENTER>80_XBB_HOME.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        int count = 0;
-        Map&lt;String, Boolean&gt; map = new HashMap&lt;&gt;();
-<A NAME="0"></A>        for (String str : words) {
-            if (map.containsKey(str)) {
-                count += (map.get(str)) ? 1 : 0;
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
-                if (isSubSequent(S, str)) {
-                    count++;
-                    map.put(str, true);
-                } else map.put(str, false);
-            }
-        }
-        return count;
-    }
-<A NAME="1"></A>
-    boolean isSubSequent(String S, String s) {</B></FONT>
-        int i = 0, j = 0;
-        for (; i &lt; <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.length() &amp;&amp; j &lt; s.length(); i++) {
-            if (S.charAt(i) == s.charAt(j)) j++;
-        }</B></FONT>
-        if (j == s.length()) return true;
-        else return false;
+		int count = 0;
+		Map&lt;String, In<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>teger&gt; wordCounts = new HashMap&lt;&gt;();
+		for (String word : words) {
+<A NAME="1"></A>			wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
+		}
+		for (String word : wordCounts.keySet()) {</B></FONT>
+			if (isSubsequence(wor<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>d, S)) {
+				count += wordCounts.get(word);
+			}
+		}
+		return count;
+	}</B></FONT>
+
+	private boolean isSubsequence(String s, String t) {
+		int si = 0;
+		int ti = 0;
+		while (si &lt; s.length() &amp;&amp; ti &lt; t.length()) {
+			if (s.charAt(si) == t.charAt(ti)) {
+				si++;
+			}
+			ti++;
+		}
+		return si == s.length();
     }
 }
 </PRE>

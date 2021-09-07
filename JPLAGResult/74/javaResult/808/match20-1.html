@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>275_moksh.java</TITLE>
+ <TITLE>409_babyLiyuan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>275_moksh.java</CENTER></H3><HR>
+<H3><CENTER>409_babyLiyuan.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public static int numMatchingSubseq(String S, String[] words) {
-        int count = 0;
-<A NAME="1"></A>        for (String word : words) {
-            if (isSubs</B></FONT>(word, S)) {
-                count++;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+class Solution {
+    public int numMatchingSubseq(String S, String[] words) {
+        Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i=0; i&lt;S.length(); i++) {
+            char c = S.charAt(i);
+            if (!map.containsKey(c)) {
+<A NAME="0"></A>                List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+                map.put(c, list);
+            } 
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(c).add(i);
         }
-        return count;
-    }
-
-    public static boolean isSubs(String word, String S) {</B></FONT>
-        int start = 0, x;
-        for (int i = 0; i &lt; word.length(); i++) {
-            x = S.indexOf(word.charAt(i), start);
-            if (x &lt; 0) {
-                return false;
+        int cnt = 0;
+        for (int i=0; i&lt;words.length; i++) {
+            String word = words[i]</B></FONT>;
+            int last = -1;
+            boolean flag = true;
+            for (int j=0; j&lt;word.length(); j++) {
+                char c = word.charAt(j);
+                if (!map.containsKey(c)){
+                    flag = false;
+                    break;
+                }
+                List&lt;Integer&gt; list = map.get(c);
+                int left = 0;
+                int right = list.size() - 1;
+                int min = Integer.MAX_VALUE;
+                while (left &lt;= right) {
+                    int mid = left + (right - left)/2;
+                    int val = list.get(mid);
+                    if (val &gt; last) {
+                        min = (int)Math.min(val, min);
+                        right = mid - 1;
+                    } else {
+<A NAME="1"></A>                        left = mid + 1;
+                    }
+                }
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (min == Integer.MAX_VALUE) {
+                    flag = false;
+                    break;
+                }
+                last = min;
             }
-            start = x + 1;
+            if (flag) cnt++;         
         }
-        return true;
+        return cnt;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

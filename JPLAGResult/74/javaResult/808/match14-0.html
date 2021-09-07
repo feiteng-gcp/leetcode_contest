@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_nevergiveup.java</TITLE>
+ <TITLE>302_vivianyang2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,64 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_nevergiveup.java</CENTER></H3><HR>
+<H3><CENTER>302_vivianyang2.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-	private List&lt;Integer&gt;[] lists = new ArrayList[26];
-	
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
+        int c = 0;
+        for (String word : words) {
+            if (isSub(S, word)) c++;
+        }
+        return c;
+    }
+    
+    public boolean isSub(String str1, String str2) {
+        int m = str1.length()</B></FONT>;
+        int n = str2.length();
         
-    	int i , length = S.length();
-    	for (i = 0;i &lt; 26;i ++) {
-<A NAME="0"></A>    		lists[i] = new ArrayList&lt;&gt;();
-    	}
-    	for (i = 0;i &lt; length;i ++) {
-    		int index = S.charAt(i<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>) - 'a';
-    		lists[index].add(i);
-    	}
-    	int ans = 0;
-    	for (String word : words) {
-    		if (check(word)) {
-    			ans ++;
-    		}
-    	}
-    	return ans;
-    	
-    }
-    
-    private boolean check(String word) {
-    	
-    	int i , </B></FONT>length = word.length() , prev = 0;
-    	for (i = 0;i &lt; length;i ++) {
-    		int index = word.charAt(i) - 'a';
-    		int pos = lowerBound(index , prev);
-    		if (pos &gt;= 0) {
-<A NAME="1"></A>    			prev = pos + 1;
-    		} else {
-    			return false;
-    		}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-    	}
-    	return true;
-    	
-    }
-    
-    private int lowerBound(int index , int prev) {
-    	
-    	int low = 0 , high = lists[index].size();
-    	while (low &lt; high) {
-    		int mid = (low + high) / 2;
-    		if (lists[index].get(mid) &lt; prev) {
-    			low = mid + 1;
-    		} else {
-    			high = mid;
-    		}
-    	}
-    	if (low &lt; lists[index].size() </B></FONT>&amp;&amp; lists[index].get(low) &gt;= prev) {
-    		return lists[index].get(low);
-    	} else {
-    		return - 1;
-    	}
-    	
+        if (n &gt; m ) return false;
+        
+        int i = 0, j = 0;
+        while (i &lt; m &amp;&amp; j &lt; n) {
+            if (str1.charAt(i) == str2.charAt(j)) {
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+        
+        return j == n;
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_2499370956.java</TITLE>
+ <TITLE>261_zerowsw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_2499370956.java</CENTER></H3><HR>
+<H3><CENTER>261_zerowsw.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        Map&lt;Character, TreeSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-<A NAME="0"></A>        for (int i = 0; i &lt; S.length(); i++) {
-            map.computeIfAbsent(S.charAt(i), k -&gt; new TreeSet&lt;&gt;()).add(i);
+        //List&lt;String&gt; dic = new ArrayList&lt;&gt;();
+        // findSub(dic, S, &quot;&quot;, 0);
+        
+        int count = 0;
+        for (String str : words) {
+            if (findSub(S, str)) count++;
         }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int output = 0;
-        for (String w : words) {
-            if (isMatch(map, w)) {
-                output++;
-            }
-        }
-        return output;
+        return count;
     }
-
-    private boolean isMatch(Map&lt;Character, TreeSet&lt;Integer&gt;&gt; map, String s) {</B></FONT>
-        for (int i = 0, j = 0; i &lt; s.length(); i++) {
-            try {
-                j = map.get(s.charAt(i)).ceiling(j) + 1;
-            } catch (RuntimeException e) {
-                return false;
-            }
-        }
+    
+    public boolean findSub(String a, String b) {
+        int cur = 0</B></FONT>;
+        for (Character chr : b.toCharArray()) {
+            int newc = a.indexOf(chr, cur);
+            if (newc == -1) return false;
+            cur = newc + 1;
+        } 
         return true;
     }
+    
+    // public void findSub(List&lt;String&gt; res, String s, String cur, int index) {
+    //    w
+    //     if (index &gt;= s.length()) {
+    //         res.add(cur);
+    //         return;
+    //     }
+    //    String temp = cur + s.charAt(index);
+    //     findSub(res, s, temp, index + 1);
+    //     findSub(res, s, cur, index + 1);
+    // } 
 }
 </PRE>
 

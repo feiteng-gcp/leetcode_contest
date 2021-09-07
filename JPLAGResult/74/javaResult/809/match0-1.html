@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>177_xuan18.java</TITLE>
+ <TITLE>113_flyman3046.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>177_xuan18.java</CENTER></H3><HR>
+<H3><CENTER>113_flyman3046.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="2"></A>    public int preimageSizeFZF(int K) {
-        int left = findMin(K), right = findMax(K), ret = right - left + 1;
-        if(ret&lt;0) return 0;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return ret * 5;
-    }
-    
-    private int getSum(int v) {
-        // v&lt;=getSum(v)&lt;=(5/4)*v, 
-        int ret = 0;
-        while(v!=0) {
-            ret += v;
-            v /= 5;
-        }
-        return ret;
-    }
-    
-<A NAME="1"></A>    private int pow(int base</B></FONT>, int exp) {
-        int ret = 1;
-        for(int i=0;i&lt;exp;i++) ret *= base;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return ret;
-    }
-    
-    private int findMin(int K) {
-        //return min {v:getSum(v)&gt;=K}
-        int left = K*4/5, right = K;
-        while(right-left&gt;1) {
-            int middle = left + (right-left) / 2;
-            if(getSum(middle)&lt;K) {
-                left = middle;
-            } else {
-                right = middle;
-            }
-<A NAME="0"></A>        }</B></FONT>
-        if(getSum(left)&gt;=K) return left;
-        else return right;
+    public int preimageSizeFZF(int K) {
+        long left = findLeft(K);
+        if (left == -1) {
+            return 0;
+<A NAME="0"></A>        }
+        long right = findRight(K);
+        return (int) (right - left + 1);
     <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    
-    private int findMax(int K) {
-        //return max {v:getSum(v)&lt;=K}
-        int left = K*4/5, right = K;
-        while(right-left&gt;1) {
-            int middle = left + (right-left) / 2;
-            if(getSum(middle)&gt;K) {
-                right = middle;
-            } else {
-                left = middle;
+
+    long findLeft(long K) {
+        long l = 0;
+        long h = Integer.MAX_VALUE;
+
+        while (l &lt; h) {
+            long mid = (l + h) / 2</B></FONT>;
+            if (findTrailingZeros(mid) &gt;= K) {
+                h = mid;
             }
-        }</B></FONT>
-        if(getSum(right)&lt;=K) return right;
-        else return left;
-    }
-    
-    private int numberOfZerosInFactorial(int n) {
-        int ret = 0;
-        while(n!=0) {
-            n /= 5;
-            ret += n;
+            else {
+                l = mid + 1;
+            }
         }
-        return ret;
+        if (findTrailingZeros(l) != K) {
+            return -1;
+        }
+        else {
+            return l;
+        }
+    }
+
+    long findRight(long K) {
+        long l = 0;
+        long h = Integer.MAX_VALUE;
+<A NAME="1"></A>
+        while (l &lt; h) {
+            long mid = (l + h) / 2;
+            if (findTrailingZeros(mid) &lt;= K) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                l = mid + 1;
+            }
+            else {
+                h = mid;
+            }
+        }
+        return l - 1;
+    }</B></FONT>
+
+    int findTrailingZeros(long n) {
+        int res = 0;
+        for (int i = 5; n / i &gt;= 1; i *= 5) {
+            res += n / i;
+        }
+
+        return res;
     }
 }
 </PRE>

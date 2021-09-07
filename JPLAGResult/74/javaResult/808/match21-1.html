@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>123_andycoder.java</TITLE>
+ <TITLE>153_QisFj.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>123_andycoder.java</CENTER></H3><HR>
+<H3><CENTER>153_QisFj.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        if (S == null || S.length() == 0
-           || words == null || words.length == 0) {
-<A NAME="0"></A>            return 0;
+        int ans = 0;
+        Map&lt;String,Integer&gt; m = new HashMap&lt;String,Integer&gt;();
+        for(String subS:words) {</B></FONT>
+            Integer num = m.get(subS);
+            if(num==null) m.put(subS,1);
+            else m.put(subS,num+1);
         }
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int result = 0;
-        for (String word : words) {
-            if (isSubSequence(S, word)) {
-                result++;
+        Iterator it = m.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry entry = (Map.Entry) it.next();
+            if(isSubseq(S,(String)entry.getKey()))
+                ans += (Integer)entry.getValue();
+        }
+<A NAME="1"></A>        return ans;
+    }
+    public boolean isSubseq(String a,String b){
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int j=0;
+<A NAME="2"></A>        for(int i=0;i&lt;a.length();i++){
+            if(a.charAt(i)==b.charAt(j)){</B></FONT>
+                j++;
+                if(j==b.length()) return true<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
             }
         }
-        
-        return result;
+        return false;
     }
-    
-    private boolean isSubSequence(String s, String word) {
-        int start = 0</B></FONT>;
-        for (char c : word.toCharArray()) {
-            int index = s.indexOf(c, start);
-            if (index == -1) {
-                return false;
-            } else {
-                start = index + 1;
-            }
-        }
-        
-        return true;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

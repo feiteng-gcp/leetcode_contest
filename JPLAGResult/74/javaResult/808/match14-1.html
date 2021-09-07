@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>394_yanyafeng.java</TITLE>
+ <TITLE>261_zerowsw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,63 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>394_yanyafeng.java</CENTER></H3><HR>
+<H3><CENTER>261_zerowsw.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-     Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-
-	 public int numMatchingSubseq(String S, String[] words) {
-<A NAME="0"></A>		for (int i = 0; i &lt; S.length(); i++) {
-			char c = S.charAt(i);
-			map.putIfAbsent(c, new ArrayList&lt;&gt;());
-			map.get(c).add(i);<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		}
-
-		int count = 0;
-		for (String s : words) {
-			if (isSub(s)) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	public  boolean isSub(String s) {
-		int index = -1;</B></FONT>
-		for (int i = 0; i &lt; s.length(); i++) {
-			char c = s.charAt(i);
-			
-			if (!map.containsKey(c)) {
-				return false;
-			}
-			List&lt;Integer&gt; list = map.get(c);
-				int pos = binarySearch(list, index);
-				if (pos == -1) {
-<A NAME="1"></A>					return false;
-				} else {
-					index = pos;
-				}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		}
-		return true;
-	}
-
-	public  int binarySearch(List&lt;Integer&gt; list, int target) {
-		int start = 0, end = list.size() - 1;
-		while (start + 1 &lt; end) {
-			int mid = start + (end - start) / 2;
-			if (list.get(mid) &lt;= target) {
-				start = mid;
-			} else {
-				end = mid;
-			}
-		}
-		if (list.get(start) &gt; targ</B></FONT>et) {
-			return list.get(start);
-		} else if (list.get(end) &gt; target) {
-			return list.get(end);
-		}
-		return -1;
-	}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numMatchingSubseq(String S, String[] words) {
+        //List&lt;String&gt; dic = new ArrayList&lt;&gt;();
+        // findSub(dic, S, &quot;&quot;, 0);
+        
+        int count = 0;
+        for (String str : words) {
+            if (findSub(S, str)) count++;
+        }
+        return count;
+    }
+    
+    public boolean findSub(String a, String b) {
+        int cur = 0</B></FONT>;
+        for (Character chr : b.toCharArray()) {
+            int newc = a.indexOf(chr, cur);
+            if (newc == -1) return false;
+            cur = newc + 1;
+        } 
+        return true;
+    }
+    
+    // public void findSub(List&lt;String&gt; res, String s, String cur, int index) {
+    //    w
+    //     if (index &gt;= s.length()) {
+    //         res.add(cur);
+    //         return;
+    //     }
+    //    String temp = cur + s.charAt(index);
+    //     findSub(res, s, temp, index + 1);
+    //     findSub(res, s, cur, index + 1);
+    // } 
 }
 </PRE>
 

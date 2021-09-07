@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_2499370956.java</TITLE>
+ <TITLE>133_Junbo1226.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,80 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_2499370956.java</CENTER></H3><HR>
+<H3><CENTER>133_Junbo1226.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private static int[][] win = {{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6}};
-    public boolean validTicTacToe(String[] board) {</B></FONT>
-        String b = String.join(&quot;&quot;, board);
-        int winO = winCount(b, 'O');
-        int winX = winCount(b, 'X');
-        int countO = b.length() - b.replaceAll(&quot;O&quot;, &quot;&quot;).length();
-        int countX = b.length() - b.replaceAll(&quot;X&quot;, &quot;&quot;).length();
-        int diff = countX - countO;
-        if (winO == 0 &amp;&amp; winX == 0) {
-            return (diff == 0 || diff == 1);
-        } else if (winO == 1 &amp;&amp; winX == 0) {
-            return diff == 0;
-        } else if (winO == 0 &amp;&amp; winX == 1) {
-            return diff == 1;
-        } else {
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        boolean x = false;
+        boolean o = false;
+        int count = 0;
+<A NAME="0"></A>        char[][] b = new char[3][3];
+        for (int i = 0; i &lt; 3; i++) {
+            String temp = board[i];
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; 3; j++) {
+                b[i][j] = temp.charAt(j);
+            }
+        }</B></FONT>
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                char temp = b[i][j];
+                if (temp == ' ') {
+                    continue;
+                }
+                if (temp == 'X') {
+                    count++;
+                }
+                else {
+                    count--;
+                }
+                if (temp == 'X' &amp;&amp; helper(b, i, j)) {
+                    x = true;
+                }
+                if (temp == 'O' &amp;&amp; helper(b, i, j)) {
+                    o = true;
+                }
+            }
+        }
+        if (count &lt; 0 || count &gt; 1) {
             return false;
         }
-    }
-
-    private int winCount(String b, char c) {
-        int output = 0;
-        for (int[] i : win) {
-            boolean isWin = true;
-            for (int j : i) {
-                if (b.charAt(j) != c) {
-                    isWin = false;
-                }
-<A NAME="1"></A>            }
-            if (isWin) {
-                output++;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if (count == 0 &amp;&amp; x) {
+            return false;
         }
-        return output;
+        // System.out.println(count);
+        // System.out.println(o);
+        if (count == 1 &amp;&amp; o) {
+            return false;
+        }
+        if (x &amp;&amp; o) {
+            return false;
+        }
+        return true;
     }
-
-    public static void main(String[] args) {
-        Solution s = new Solution()</B></FONT>;
-
-        System.out.println(s.validTicTacToe(new String[] {&quot;O  &quot;, &quot;   &quot;, &quot;   &quot;}));
-        System.out.println(s.validTicTacToe(new String[] {&quot;XOX&quot;, &quot; X &quot;, &quot;   &quot;}));
-        System.out.println(s.validTicTacToe(new String[] {&quot;XXX&quot;, &quot;   &quot;, &quot;OOO&quot;}));
-        System.out.println(s.validTicTacToe(new String[] {&quot;XOX&quot;, &quot;O O&quot;, &quot;XOX&quot;}));
-        System.out.println(s);
+    
+    public boolean helper(char[][] board, int x, int y) {
+        char cur = board[x][y];
+        if (y == 2) {
+            if (board[x][y - 1] == cur &amp;&amp; board[x][y - 2] == cur) {
+                return true;
+            }
+        }
+        if (x == 2) {
+            if (board[x - 1][y] == cur &amp;&amp; board[x - 2][y] == cur) {
+                return true;
+            }
+        }
+        if (x == 2 &amp;&amp; y == 2) {
+            if (board[x - 1][y - 1] == cur &amp;&amp; board[x - 2][y - 2] == cur) {
+                return true;
+            }
+        }
+        if (x == 0 &amp;&amp; y == 2) {
+            if (board[x + 1][y - 1] == cur &amp;&amp; board[x + 2][y - 2] == cur) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 </PRE>

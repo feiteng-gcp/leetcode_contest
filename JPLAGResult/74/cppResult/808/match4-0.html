@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>249_DenisGubar.cpp</TITLE>
+ <TITLE>76_Aging.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>249_DenisGubar.cpp</CENTER></H3><HR>
+<H3><CENTER>76_Aging.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int numMatchingSubseq( string S, vector&lt;string&gt;&amp; words ) {
-        int result = 0;
-        vector&lt;vector&lt;int&gt;&gt; indexes(26);
-        for (int i = 0; i &lt; S.size(); ++i)</B></FONT>
-            indexes[S[i] - 'a'].push_back( i );
-        for (const string&amp; w : words)
-        {
-            int a = 0, b = 0;
-            while (b &lt; w.size())
-            {
-                auto it = lower_bound( indexes[w[b] - 'a'].begin(), indexes[w[b] - 'a'].end(), a );
-                if (it == indexes[w[b] - 'a'].end())
-                    break;
-                a = *it + 1;
-                ++b;
-            }
-            result += b == w.size();
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;vector&lt;int&gt;&gt; table(26, vector&lt;int&gt;());
+        for (int i = 0; i &lt; S.size(); ++i) {
+            table[S[i] - 'a'].push_back(i);
         }
-        return result;
+        
+        int count = 0;
+        for (int i = 0; i &lt; words.size(); ++i) {</B></FONT>
+            string word = words[i];
+            int pos = -1;
+            bool flag = true;
+            for (int j = 0; j &lt; word.size(); ++j) {
+                auto it = upper_bound(table[word[j] - 'a'].begin(), table[word[j] - 'a'].end(), pos);
+                if (it == table[word[j] - 'a'].end()) {
+                    flag = false;
+                    break;
+                } else 
+                    pos = *it;
+            }
+            if (flag) count++;
+        }
+        return count;
     }
 };
 </PRE>

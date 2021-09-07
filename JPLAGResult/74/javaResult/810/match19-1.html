@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>134_tprpc.java</TITLE>
+ <TITLE>233_kay_deep.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>134_tprpc.java</CENTER></H3><HR>
+<H3><CENTER>233_kay_deep.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public boolean validTicTacToe(String[] board) {
-        int[][][] count = {{{0,0,0},{0,0,0},{0,0,0}}, {{0,0,0},{0,0,0},{0,0,0}}};
-        
-        for(int i=0;i&lt;board.length;i++) {
-            for(int j=0;j&lt;board[i].length();j++) {
-                char c = board[i].charAt(j);
-                if(c != ' ') {
-                    int p = (c == 'X') ? 0 : 1; // x is first
-                    count[p][0][i]++;
-                    count[p][1][j]++;
-<A NAME="0"></A>                    if(i==j) count[p][2][0]++;
-                    if(i+j == 2) count[p][2][1]++;
-                    count[p][2][2]++; // total count
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="0"></A>    public boolean validTicTacToe(String[] board) {
+        int xs=0, os=0;
+        char[][] board1= new char[3][3];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;3;i++){
+            for(int j=0;j&lt;3;j++){
+                char c=board[i].charAt(j);
+                if</B></FONT>(c=='O') os++;
+                else if(c=='X') xs++;
+            board1[i][j]=c;
             }
         }
-        // The first player always places &quot;X&quot; characters, while the second player always places &quot;O&quot; characters.
-        if(count[0][2][2] - count[1][2][2] &gt; 1 || count[1][2][2] - count[0][2][2] &gt; 0) return false;</B></FONT>
-        
-        int[] winner = {0,0};
-        for(int p=0;p&lt;2;p++) {
-            for(int i=0;i&lt;3;i++) {
-                for(int j=0;j&lt;3;j++) {
-                    if(i == 2 &amp;&amp; i == j) continue;
-                    if(count[p][i][j] == 3) {
-                        winner[p] = 1;
-                    }
-<A NAME="1"></A>                }
-            }
-        }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(winner[0] == 1 &amp;&amp; winner[1] == 1) return false;
-        if(winner[0] == 1 &amp;&amp; count[0][2][2] != count[1][2][2] + 1) return false;
-        if(winner[1] == 1 &amp;&amp; count[0][2][2] != count[1][2][2]) return false;
-        
+      //  System.out.println(xs+&quot; &quot;+os);
+        if(xs&lt;os || xs&gt;os+1) return false;
+       // if(xs==os) return checkValid(board1,xs);
+        int[] ans=checkValid(board1,xs);
+     //   System.out.println(xs+&quot; &quot;+os+&quot; &quot;+ans[0]+&quot; &quot;+ans[1]);
+        if(xs==os &amp;&amp; ans[0]&gt;0) return false;
+        if(xs&gt;os &amp;&amp; ans[1]&gt;0) return false;
         return true;
     }
-}</B></FONT>
+    
+    public int[] checkValid(char[][] board,int count){
+        int xs=0,os=0;
+        for(int i=0;i&lt;3;i++){
+            if(board[i][0]==board[i][1] &amp;&amp; board[i][1]==board[i][2]){
+                if(board[i][0]=='O') os++;
+                else if(board[i][0]=='X') xs++;
+            }
+            if(board[0][i]==board[1][i] &amp;&amp; board[1][i]==board[2][i]){
+                if(board[0][i]=='O') os++;
+                else if(board[0][i]=='X') xs++;
+            }
+        }
+        if(board[0][0]==board[1][1] &amp;&amp; board[1][1]==board[2][2]){
+             if(board[0][0]=='O') os++;
+                else if(board[0][0]=='X') xs++;
+        }
+        
+        if(board[0][2]==board[1][1] &amp;&amp; board[1][1]==board[2][0]){
+             if(board[0][2]=='O') os++;
+                else if(board[0][2]=='X') xs++;
+        }
+        int[] res= new int[2];
+        res[0]=xs;res[1]=os;
+        return res;
+    }
+}
 </PRE>
 
 </BODY>

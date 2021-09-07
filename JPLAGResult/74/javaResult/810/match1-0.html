@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>446_notebook.java</TITLE>
+ <TITLE>429_firebird.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,85 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>446_notebook.java</CENTER></H3><HR>
+<H3><CENTER>429_firebird.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public boolean validTicTacToe(String[] board) {
-        
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int cx = 0;
-        
-        int co = 0;
-        
-        for (int i=0; i&lt;board.length; i++) {
-            for (int j=0; j&lt;3; j++) {
-                char c = board[i].charAt(j);
-                if (c == 'X') {
-                    cx ++;
-                } else if (c == 'O') {
-<A NAME="1"></A>                    co ++;
-                }</B></FONT> else if (c != ' ') {
-                    return false;
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-            }
-        }
-        
-        if (cx &lt; co) {
-            return false;
-        }</B></FONT>
-        
-        // System.out.println(&quot;the cx: &quot; + cx);
-        // System.out.println(&quot;the co: &quot; + co);
-        
-        if (cx &gt; co + 1) {
-            return false;
-        }
-        
-        if (doesWin(board, 'X') &amp;&amp; doesWin(board, 'O')) {
-            return false;
-        }
-        
-        if (doesWin(board, 'X') &amp;&amp; (cx == co)) {
-<A NAME="2"></A>            return false;
-        }
-        
-        if (doesWin(board, 'O') &amp;&amp; (cx != co)) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-            return false;
-        }
-        
-        // if (cx + co == 9 &amp;&amp; !doesWin(board, 'X') &amp;&amp; !doesWin(board, 'O')) {
-        //     return false;
-        // }
-        
-        return true;      
-    }
+class Solution {
+  public boolean validTicTacToe(String[] board) {
+    if (board==null || board.length!=3)
+      return false;
     
-    private boolean doesWin(String[] board, char symbol) {
-        
-        String pattern = symbol + &quot;&quot; + symbol + symbol;
-        
-
-        for (int i=0; i&lt;board.length; i++) {</B></FONT>
-            if (board[i].equals(pattern)) {
-                return true;
-            }
-        }
-        
-<A NAME="3"></A>        for (int i=0; i&lt;3; i++) {
-            if (board[0].charAt(i) == symbol &amp;&amp; board[1].charAt(i) == symbol &amp;&amp; board[2].charAt(i) == symbol) {
-                return true;
-            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        }
-        
-        if (board[0].charAt(0) == symbol &amp;&amp; board[1].charAt(1) == symbol &amp;&amp; board[2].charAt(2) == symbol) {</B></FONT>
-            return true;
-        }
-        
-        if (board[0].charAt(2) == symbol &amp;&amp; board[1].charAt(1) == symbol &amp;&amp; board[2].charAt(0) == symbol) {
-            return true;
-        }
-        
+    for (String row : board) {
+      if (row==null || row.length()!=3)
         return false;
     }
+    
+    char[] newBoard = new char[9];
+    for (int i=0; i&lt;3; i++) {
+      for (int j=0; j&lt;3; j++)
+        newBoard[i*3 + j] = board[i].charAt(j);
+    }
+    
+    int x=0, o=0;
+    for (int i=0; i&lt;9; i++) {
+      if (newBoard[i]=='X')
+        x++;
+      if (newBoard[i]=='O')
+        o++;
+    }
+    
+    if (x==o || x==o+1) {
+      if (checkWin(newBoard, 'O')) {
+        if (checkWin(newBoard, 'X')) 
+          return false;
+        return x==o;
+      }
+      
+      if (checkWin(newBoard, 'X'))
+        return x==o+1;
+      
+      return true;
+    }
+    
+    return false;
+<A NAME="0"></A>  }
+  
+  private boolean checkWin(char[] board, char c) {
+<A NAME="1"></A>    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] winCase = {{0,1,2}, {3,4,5}, {6,7,8},
+                       {0,3,6}, {1,4,7}, {2,5,8},
+                       {0,4,8}, {2,4,6}</B></FONT>};
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0; i&lt;8; i++) {
+      if (board[winCase[i][0]]==c &amp;&amp; board[winCase[i][1]]==c &amp;&amp; board[winCase[i][2]]==c)
+        return true;
+    }
+    
+    return false;
+  }</B></FONT>
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_2499370956.java</TITLE>
+ <TITLE>233_kay_deep.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_2499370956.java</CENTER></H3><HR>
+<H3><CENTER>233_kay_deep.java</CENTER></H3><HR>
 <PRE>
 class Solution {
+    
     public int numMatchingSubseq(String S, String[] words) {
-        Map&lt;Character, TreeSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-<A NAME="0"></A>        for (int i = 0; i &lt; S.length(); i++) {
-            map.computeIfAbsent(S.charAt(i), k -&gt; new TreeSet&lt;&gt;()).add(i);
+        int n=S.length();
+        int[][] next= new int[n+1][26];
+        char[] sc= S.toCharArray();
+        
+        Arrays.fill(next[n],-1);
+        for(int i=n-1;i&gt;=0;i--){
+            for(int j=0;j&lt;26;j++){
+                next[i][j]=next[i+1][j];
+<A NAME="0"></A>            }
+           next[i][sc[i]-'a']=i+1; 
         }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int output = 0;
-        for (String w : words) {
-            if (isMatch(map, w)) {
-                output++;
-            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res=0;
+        for(int i=0;i&lt;words.length;i++){
+            if(present(next,words[i])) res++;
         }
-        return output;
+        return res;
+        
     }
-
-    private boolean isMatch(Map&lt;Character, TreeSet&lt;Integer&gt;&gt; map, String s) {</B></FONT>
-        for (int i = 0, j = 0; i &lt; s.length(); i++) {
-            try {
-                j = map.get(s.charAt(i)).ceiling(j) + 1;
-            } catch (RuntimeException e) {
-                return false;
-            }
+    
+    public boolean present(int[][] next,String s){
+        char[] sc= s.toCharArray();
+        int j=0;</B></FONT>
+        for(int i=0;i&lt;sc.length;i++){
+            char c= sc[i];
+            if(next[j][c-'a']&gt;-1) j=next[j][c-'a'];
+            else return false;
         }
         return true;
     }

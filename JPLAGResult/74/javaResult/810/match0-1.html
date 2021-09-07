@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>469_ethic.java</TITLE>
+ <TITLE>341_Tong_Zhang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,82 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>469_ethic.java</CENTER></H3><HR>
+<H3><CENTER>341_Tong_Zhang.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static int[][] win = new int[][] {{0, 1, 2}, // Check first row.
+        {3, 4, 5}, // Check second Row
+        {6, 7, 8}, // Check third Row
+        {0, 3, 6}, // Check first column
+        {1, 4, 7}, // Check second Column
+        {2, 5, 8}, // Check third Column
+        {0, 4, 8}, // Check first Diagonal
+        {2, 4, 6}</B></FONT>};
+    
     public boolean validTicTacToe(String[] board) {
-		int xs = 0, os = 0;
+        int xCount = 0;
+		int oCount = 0;
 
-		for (String row : board) {
-			for (char ox : row.replace(&quot; &quot;, &quot;&quot;).toCharArray())
-				if (ox == 'O')
-					os++;
-				else
-					xs++;
-<A NAME="0"></A>		}
-		if(xs == 0 &amp;&amp; os == 0) return true;
-		if(xs &lt; os) return false;
-		if(xs-os &gt; 1) return false;<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		
-		int win = 0;
-		String winner = &quot;&quot;;
-		
-		for(int i = 0; i &lt; 3; i++) {
-			if(board[i].charAt(0) != ' ' &amp;&amp; board[i].charAt(0) == board[i].charAt(1) &amp;&amp; board[i].charAt(0) == board[i].charAt(2)) {
-<A NAME="1"></A>				win ++;
-				winner = board[i].charAt(0) + &quot;&quot;;
-			}</B></FONT>
-			if(board[0].charAt(i)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> != ' ' &amp;&amp; board[0].charAt(i) == board[1].charAt(i) &amp;&amp; board[0].charAt(i) == board[2].charAt(i)) {
-				win ++;
-				winner = board[0].charAt(i) + &quot;&quot;;
+		String b = board[0] + board[1] + board[2];
+
+		System.out.println(b);
+
+		for (int i = 0; i &lt; 9; i += 1) {
+
+			if (b.charAt(i) == 'X') {
+				xCount += 1;
+<A NAME="0"></A>
+			} else if (b.charAt(i) == 'O') {
+				oCount += 1;
+			}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+		}
+
+		if (xCount == oCount || xCount == oCount + 1) {
+
+			if (isWinner(b, 'O')) {
+
+				if (isWinner(b, 'X')) {</B></FONT>
+					return false;
+				}
+
+				return xCount == oCount;
+
 			}
+<A NAME="1"></A>
+			if (isWinner(b, 'X') &amp;&amp; xCount != oCount + 1) {
+				return false;
+			}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+			return true;
+			
+		}
+
+		return false;
+        
+    }
+    
+    public static boolean isWinner(String board, char piece) {</B></FONT>
+		
+		for(int i=0; i&lt;8; i++) {
+			
+			if(board.charAt(win[i][0]) == piece &amp;&amp;
+					board.charAt(win[i][1]) == piece &amp;&amp;
+					board.charAt(win[i][2])== piece) {
+				return true;
+			}
+			
+			
+			
 		}
 		
-		if(board[0].charAt(0) != ' ' &amp;&amp; board[0].charAt(0) == board[1].charAt(1) &amp;&amp; board[0].charAt(0) == board[2].charAt(2)) {
-			win ++;
-			winner = board[0].charAt(0) + &quot;&quot;;
-		}
-        
-		if(board[0].charAt(2) != ' ' &amp;&amp; board[0].charAt(2) == board[1].charAt(1) &amp;&amp; board[1].charAt(1) == board[2].charAt(0)) {
-			win ++;
-			winner = board[0].charAt(2) + &quot;&quot;;
-		}
-		if(win &gt; 1</B></FONT>
-				|| (win == 1 &amp;&amp; winner.equals(&quot;O&quot;) &amp;&amp; xs &gt; os)
-				|| (win == 1 &amp;&amp; winner.equals(&quot;X&quot;) &amp;&amp; xs - os != 1)) return false;
-
-		return true;
+		return false;
+		
+		
+		
 	}
+    
+    
 }
 </PRE>
 

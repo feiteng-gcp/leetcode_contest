@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_yubowenok.cpp</TITLE>
+ <TITLE>135_merryl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>3_yubowenok.cpp</CENTER></H3><HR>
+<H3><CENTER>135_merryl.cpp</CENTER></H3><HR>
 <PRE>
-
-typedef long long ll;
-typedef vector&lt;int&gt; VI;
-typedef pair&lt;int,int&gt; PII;
-
-#define REP(i,s,t) for(int i=(s);i&lt;(t);i++)
-#define FILL(x,v) memset(x,v,sizeof(x))
-
-const int INF = (int)1E9;
-#define MAXN 100005
-
-VI pos[26];
 class Solution {
 public:
-  int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-    REP(i,0,26) pos[i].clear();
-    REP(i,0,(int)S.size()) pos[S[i] - 'a'].push_back(i);
-
-    int ans = 0;
-    REP(k,0,(int)words.size()) {
-      string w = words[k];
-      int n = w.size();
-<A NAME="0"></A>      int p = 0, fail = 0;
-      REP(i, 0, n) {
-        int c = w[i] - 'a';
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int k = lower_bound(pos[c].begin(), pos[c].end(), p) - pos[c].begin();
-        if (k == pos[c].size()) {
-          fail = 1;
-          break;
+    int numMatchingSubseq(string s, vector&lt;string&gt;&amp; words) {
+        int slen = s.size();
+        int wlen = words.size();
+        if (wlen == 0) {
+            return 0;
         }
-        p = pos[c][k] + 1;
-      }
-      if (!fail) ans++;
+        int ret = 0;
+        if (slen == 0) {
+            for (auto w : words) {
+                if (w == s) {
+                    ret++;
+                }
+            }
+            return ret;
+        }
+        
+        vector&lt;set&lt;int&gt;&gt; bst(26);
+        for (int i = 0; i &lt; slen; i++) {
+            bst[s[i] - 'a'].insert(i);
+        }
+        
+        for (auto w : words) {
+            int ws = w.size();
+<A NAME="0"></A>            int icur = -1;
+            bool flag = true;
+            for (int i  = 0; i &lt; ws; i++) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                auto next = bst[w[i] - 'a'].upper_bound(icur);
+                if (next == bst[w[i] - 'a'].end()) {
+                    flag = false;
+                    break;
+                } else {
+                    icur = *next;
+                }
+            }
+            if (flag == true) {
+                ret++;
+            }
+        }
+        
+        return ret;
+
     }
-    return ans;
-  }
 };</B></FONT>
 </PRE>
 </BODY>

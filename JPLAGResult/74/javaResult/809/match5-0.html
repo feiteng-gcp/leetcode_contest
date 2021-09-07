@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>56_feizoude.java</TITLE>
+ <TITLE>448_vryzhuk.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>56_feizoude.java</CENTER></H3><HR>
+<H3><CENTER>448_vryzhuk.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    private long numOfFive(double d) {
-        long sum = 0;
-        long l = (long) d;
-<A NAME="0"></A>        while (l &gt; 0) {
-            sum += l / 5;
-            l = l / 5;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        return sum;
+    public int preimageSizeFZF(int k) {
+        if(k == 0) {
+            return 5;
+        }
+        long result = 0;
+        ArrayList&lt;Long&gt; zeroes = new ArrayList&lt;&gt;();
+        long x = 5;
+        long zero = 1;
+        while(x &lt;= k * 5L) {
+            zeroes.add(zero);
+            zero = zero * 5 + 1;
+            x = x * 5;
+        }
+        
+        while(k &gt; 0) {
+<A NAME="0"></A>            long nextZeroes = findMax(zeroes, k);
+            if(k / nextZeroes &gt;= 5) {
+                return 0;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            k -= nextZeroes;
+        }
+        return 5; 
     }
     
-    private long firstHasTZero(int T) {
-        double l = 0, r = T * 5;
-        while (r - l &gt;= 1) {
-            double mid = l + (r - l) / 2;
-            if (numOfFive(mid) &gt; T) {
-                r = mid;
-            } else {
-                l = mid;
-            }
-        }</B></FONT>
-        if (numOfFive(l) == T) return ((long) (l / 5)) * 5;
-        if (numOfFive(r) == T) return ((long) (r / 5)) * 5;
-        else return -1;
-    }
-    
-    public int preimageSizeFZF(int K) {
-        long min = firstHasTZero(K);
-        if (min == -1) return 0;
-        long max;
-        while ((max = firstHasTZero(++K)) == -1);
-        return (int) (max - min);
+    private long findMax(ArrayList&lt;Long&gt; zeroes</B></FONT>, long k) {
+        int i = 0;
+        for(; zeroes.get(i) * 5 &lt; k; ++i);
+        return zeroes.get(i);
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>134_tprpc.java</TITLE>
+ <TITLE>302_vivianyang2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>134_tprpc.java</CENTER></H3><HR>
+<H3><CENTER>302_vivianyang2.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public boolean validTicTacToe(String[] board) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] count = {{{0,0,0},{0,0,0},{0,0,0}}, {{0,0,0},{0,0,0},{0,0,0}</B></FONT>}};
+        int countx = 0;
+        int counto = 0;
+        int winx = 0;
+<A NAME="0"></A>        int wino = 0;
+        char[][] bb = new char[3][3];
         
-        for(int i=0;i&lt;board.length;i++) {
-            for(int j=0;j&lt;board[i].length();j++) {
-                char c = board[i].charAt(j);
-                if(c != ' ') {
-                    int p = (c == 'X') ? 0 : 1; // x is first
-                    count[p][0][i]++;
-                    count[p][1][j]++;
-                    if(i==j) count[p][2][0]++;
-                    if(i+j == 2) count[p][2][1]++;
-                    count[p][2][2]++; // total count
-                }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int k = 0;
+        for (String str : board) {
+            for (int i = 0; i &lt; 3; i++) {
+                char c = str.charAt</B></FONT>(i);
+                bb[k][i] = c;
+                if (c == 'X') countx++;
+                else if (c == 'O') counto++;
             }
+            k++;
         }
-        // The first player always places &quot;X&quot; characters, while the second player always places &quot;O&quot; characters.
-        if(count[0][2][2] - count[1][2][2] &gt; 1 || count[1][2][2] - count[0][2][2] &gt; 0) return false;
         
-        int[] winner = {0,0};
-        for(int p=0;p&lt;2;p++) {
-            for(int i=0;i&lt;3;i++) {
-                for(int j=0;j&lt;3;j++) {
-                    if(i == 2 &amp;&amp; i == j) continue;
-                    if(count[p][i][j] == 3) {
-                        winner[p] = 1;
-                    }
-                }
-            }
+        if (countx &lt; counto || countx - counto &gt; 1) return false;
+        
+        for (String str : board) {
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
         }
-        if(winner[0] == 1 &amp;&amp; winner[1] == 1) return false;
-        if(winner[0] == 1 &amp;&amp; count[0][2][2] != count[1][2][2] + 1) return false;
-        if(winner[1] == 1 &amp;&amp; count[0][2][2] != count[1][2][2]) return false;
         
-        return true;
+        
+        for (int i = 0; i &lt; 3; i++) {
+            String str = &quot;&quot; + bb[0][i] + bb[1][i] + bb[2][i];
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
+        }
+        
+        String str1 = &quot;&quot; + bb[0][0] + bb[1][1] + bb[2][2];
+        String str2 = &quot;&quot; + bb[0][2] + bb[1][1] + bb[2][0];
+        
+        if (str1.equals(&quot;XXX&quot;)) winx++;
+        else if (str1.equals(&quot;OOO&quot;)) wino++;
+        
+        if (str2.equals(&quot;XXX&quot;)) winx++;
+        else if (str2.equals(&quot;OOO&quot;)) wino++;
+        //System.out.println(winx + &quot; &quot; + wino + &quot; &quot; + countx  + &quot; &quot; + counto);
+        
+        if (winx == 0 &amp;&amp; wino == 0 || (winx == 0 &amp;&amp; wino == 1 &amp;&amp; countx == counto) || (winx == 1 &amp;&amp; wino == 0 &amp;&amp; countx - counto == 1)) return true;
+        return false;
     }
 }
 </PRE>

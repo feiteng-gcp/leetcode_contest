@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>99_hyp1231.cpp</TITLE>
+ <TITLE>461_dudufish2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>99_hyp1231.cpp</CENTER></H3><HR>
+<H3><CENTER>461_dudufish2.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-private:
-	vector&lt;int&gt; ve[26]; int ans = 0;
 public:
-	int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-        for(int i = 0; i &lt; S.size(); ++i) {
-        	ve[S[i] - 'a'].push_back(i);
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+<A NAME="0"></A>        vector&lt;vector&lt;int&gt;&gt; letterPos(26, vector&lt;int&gt;());
+        for (int i=0; i&lt;S.size(); ++i) {
+            letterPos[S[i]-'a'].push_back(i);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        int cnt = 0;
+        for (int i=0; i&lt;words.size(); ++i) {
+            if (isSub(letterPos, words[i])) ++cnt;
         }
-<A NAME="0"></A>        for(auto i : words) {
-        	int p = -1; bool flag = true;
-        	for(char j : i) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        		auto q = upper_bound(ve[j - 'a'].begin(), ve[j - 'a'].end(), p);
-        		if(q == ve[j - 'a'].end()) { flag = false; break; }
-        		p = ve[j - 'a'][q - ve[j - 'a'].begin()];
-        	}
-        	if(flag)++ans;
+        return cnt;
+    }</B></FONT>
+    
+    bool isSub(vector&lt;vector&lt;int&gt;&gt; &amp;letterPos, string word ) {
+        int target = 0;
+        for (int i=0; i&lt;word.size(); ++i) {
+            vector&lt;int&gt; curr = letterPos[word[i]-'a'];
+            auto low = lower_bound(curr.begin(), curr.end(), target);
+            if (low ==curr.end()) return false;
+            target = curr[low-curr.begin()]+1;
         }
-        return ans;
+        return true;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

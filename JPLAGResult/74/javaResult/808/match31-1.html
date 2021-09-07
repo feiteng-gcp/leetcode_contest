@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>446_notebook.java</TITLE>
+ <TITLE>252_mellu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>446_notebook.java</CENTER></H3><HR>
+<H3><CENTER>252_mellu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        
-        int L = S.length();
-        
-        int[][] dp = new int[L+1][26];
-        
-        for (int i=0; i&lt;26; i++) {
-            dp[L][i] = -1;
+        List&lt;Integer&gt;[] count = new ArrayList[26];
+
+        for (int i = 0; i &lt; S.length(); i++) {
+            char c = S.charAt(i);
+            if (count[c - 'a'] == null) {
+                count[c - 'a'] = new ArrayList&lt;&gt;();
+            }
+
+<A NAME="0"></A>            count[c - 'a'].add(i);
         }
-        
-        for (int i=L-1; i&gt;=0; i--) {
-            dp[i] = Arrays.copyOf(dp[i+1], 26);
-<A NAME="0"></A>            dp[i][S.charAt(i) - 'a'] = i;
-        }
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ct = 0;
-        
-//         for (int i=0; i&lt;dp.length; i++) {
-//             for(int j=0; j&lt;dp[0].length; j++) {
-//                 System.out.print(dp[i][j] + &quot;, &quot;);
-//             }
-            
-//             System.out.println(&quot;&quot;);
-//         }
+
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int total = 0;
+
         for (String word : words) {
-            if (isSub(dp, S, word)) {
-                ct ++;
+            if (isSub(count, word)) {
+                total++;
+                //System.err.println(word);
             }
         }
-        return ct;
-        
+        return total;
     }
-    
-    private boolean isSub(int[][] dp, String S</B></FONT>, String word) {
+
+    boolean isSub(List&lt;Integer&gt;[] count, String word) {
+        int[] index = new int[26]</B></FONT>;
+        Arrays.fill(index, -1);
+
+        int pre = -1;
         int i = 0;
-        int j=0;
-        while (j &lt; word.length()) {
-            i = dp[i][word.charAt(j) - 'a'];
-            if (i &lt; 0) {
+        while (i &lt; word.length()) {
+            char c = word.charAt(i);
+            int in = index[c - 'a'];
+
+            if (count[c - 'a'] == null || count[c - 'a'].size() &lt;= in + 1) {
                 return false;
             }
-            i++;
-            j++;
+
+            int cur = count[c - 'a'].get(in + 1);
+            index[c - 'a']++;
+
+            if (cur &gt; pre) {
+                i++;
+                pre = cur;
+            }
+
         }
-        
+
         return true;
     }
 }

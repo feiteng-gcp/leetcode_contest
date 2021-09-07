@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_climberig.java</TITLE>
+ <TITLE>233_kay_deep.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_climberig.java</CENTER></H3><HR>
+<H3><CENTER>233_kay_deep.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
+    
     public int numMatchingSubseq(String S, String[] words) {
-        Map&lt;String, Integer&gt; m = new HashMap&lt;&gt;();
-        for (String word</B></FONT> : words)
-<A NAME="1"></A>            m.put(word, m.getOrDefault(word, 0) + 1);
-        int count = 0;
-        char[] chars = S.toCharArray();
-        for (String w : m.keySet()) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            int i = 0;
-            for (int j = 0; i &lt; w.length() &amp;&amp; j &lt; S.length(); j++) {
-                if (chars[j] == w.charAt</B></FONT>(i))
-                    i++;
-            }
-            if (i == w.length()) {
-                count += m.get(w);
-            }
+        int n=S.length();
+        int[][] next= new int[n+1][26];
+        char[] sc= S.toCharArray();
+        
+        Arrays.fill(next[n],-1);
+        for(int i=n-1;i&gt;=0;i--){
+            for(int j=0;j&lt;26;j++){
+                next[i][j]=next[i+1][j];
+<A NAME="0"></A>            }
+           next[i][sc[i]-'a']=i+1; 
         }
-        return count;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res=0;
+        for(int i=0;i&lt;words.length;i++){
+            if(present(next,words[i])) res++;
+        }
+        return res;
+        
+    }
+    
+    public boolean present(int[][] next,String s){
+        char[] sc= s.toCharArray();</B></FONT>
+        int j=0;
+        for(int i=0;i&lt;sc.length;i++){
+            char c= sc[i];
+            if(next[j][c-'a']&gt;-1) j=next[j][c-'a'];
+            else return false;
+        }
+        return true;
     }
 }
 </PRE>

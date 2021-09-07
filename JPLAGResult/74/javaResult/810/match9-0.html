@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>358_QinlangC.java</TITLE>
+ <TITLE>328_CharlieBrown.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>358_QinlangC.java</CENTER></H3><HR>
+<H3><CENTER>328_CharlieBrown.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public boolean validTicTacToe(String[] board) {
-        char[] values = new char[9];
-        int x = 0;
-        int o = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            for (int j = 0; j &lt; 3; j++) {
-                values[i * 3 + j] = board[i].charAt(j);
-                if (values[i * 3 + j] == 'X') {
-                    x++;
-                } else if (values[i * 3 + j] == 'O') {
-                    o++;
-                }
+        int countX = 0, countO = 0;
+        for (int i = 0; i &lt; 3; i++){
+            for (int j = 0; j &lt; 3; j++){</B></FONT>
+                if (board[i].charAt(j) == 'X'){
+                    countX++;
+                }else if (board[i].charAt(j) == 'O')
+                    countO++;
             }
         }
-        if (o &gt; x || x &gt; o + 1) {
-<A NAME="0"></A>            return false;
-        }
-        
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] answers = new int[][] {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}</B></FONT>};
-        int ones = 0;
-        int zeros = 0;
-        for (int[] ans: answers) {
-            if (values[ans[0]] == values[ans[1]] &amp;&amp; values[ans[1]] == values[ans[2]]) {
-                if (values[ans[0]] == 'X') {
-                    ones++;
-                } else if (values[ans[0]] == 'O') {
-                    zeros++;
-                }
-            }   
-        }
-        if (zeros + ones &gt; 1 || (zeros == 1 &amp;&amp; x &gt; o) || (ones == 1 &amp;&amp; x == o)) {
+        if (countX-countO &gt; 1 || countO - countX &gt; 0)
             return false;
+        if (board[0].equals(&quot;XXX&quot;) || board[1].equals(&quot;XXX&quot;) || board[2].equals(&quot;XXX&quot;) || (board[0].charAt(0) == 'X' &amp;&amp; board[1].charAt(0) == 'X' &amp;&amp; board[2].charAt(0) == 'X') || (board[0].charAt(1) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(1) == 'X') || (board[0].charAt(2) == 'X' &amp;&amp; board[1].charAt(2) == 'X' &amp;&amp; board[2].charAt(2) == 'X') || (board[0].charAt(0) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(2) == 'X') || (board[0].charAt(2) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[2].charAt(0) == 'X')){
+            if (countX == countO)
+                return false;
+        }
+        if (board[0].equals(&quot;OOO&quot;) || board[1].equals(&quot;OOO&quot;) || board[2].equals(&quot;OOO&quot;) || (board[0].charAt(0) == 'O' &amp;&amp; board[1].charAt(0) == 'O' &amp;&amp; board[2].charAt(0) == 'O') || (board[0].charAt(1) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(1) == 'O') || (board[0].charAt(2) == 'O' &amp;&amp; board[1].charAt(2) == 'O' &amp;&amp; board[2].charAt(2) == 'O') || (board[0].charAt(0) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(2) == 'O') || (board[0].charAt(2) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[2].charAt(0) == 'O')){
+            if (countX &gt; countO)
+                return false;
         }
         return true;
     }

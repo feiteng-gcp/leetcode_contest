@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>29_jingwang517.java</TITLE>
+ <TITLE>261_zerowsw.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>29_jingwang517.java</CENTER></H3><HR>
+<H3><CENTER>261_zerowsw.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        int c = 0;
-<A NAME="1"></A>        for (String w: words) {
-            if (isSubseq</B></FONT>(S, w)) {
-                ++c;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        //List&lt;String&gt; dic = new ArrayList&lt;&gt;();
+        // findSub(dic, S, &quot;&quot;, 0);
+<A NAME="1"></A>        
+        int count = 0;
+        for (String str : words) {
+            if (findSub</B></FONT>(S, str)) count++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
         }
-        return c;
+        return count;
     }
-<A NAME="2"></A>    
-    public boolean isSubseq(String s, String p) {</B></FONT>
-        int i = 0, j = 0;
-        while (i &lt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.length() &amp;&amp; j &lt; p.length()) {
-            if (s.charAt(i) == p.charAt(j)) {
-                ++i;
-                ++j;
-            } else {
-                ++i;
-            }
-        }</B></FONT>
-        
-        return j == p.length();
+    
+    public boolean findSub(String a, String b) {
+        int cur = 0</B></FONT>;
+        for (Character chr : b.toCharArray()) {
+            int newc = a.indexOf(chr, cur);
+            if (newc == -1) return false;
+            cur = newc + 1;
+        } 
+        return true;
     }
+    
+    // public void findSub(List&lt;String&gt; res, String s, String cur, int index) {
+    //    w
+    //     if (index &gt;= s.length()) {
+    //         res.add(cur);
+    //         return;
+    //     }
+    //    String temp = cur + s.charAt(index);
+    //     findSub(res, s, temp, index + 1);
+    //     findSub(res, s, cur, index + 1);
+    // } 
 }
 </PRE>
 

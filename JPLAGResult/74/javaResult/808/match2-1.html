@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>125_Stevan0102.java</TITLE>
+ <TITLE>275_moksh.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>125_Stevan0102.java</CENTER></H3><HR>
+<H3><CENTER>275_moksh.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int numMatchingSubseq(String S, String[] words) {
-        int result = 0;
-        for (int i = 0 ; i &lt; words.length; i++){
-            String word = words[i];
-            int index = -1;
-            boolean hasError = false;
-<A NAME="0"></A>                // System.out.println(&quot;word=&quot; + word);
-            for (int j = 0; j &lt; word.length(); j++){     
-                // System.out.println(&quot;c=&quot; + word.charAt(j));           
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>index = S.indexOf(word.charAt(j), index+1);
-                // System.out.println(&quot;index=&quot; + index);
-                if (index &lt; 0) {
-                    hasError = true;
-                    break;
-                }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public static int numMatchingSubseq(String S, String[] words) {
+        int count = 0;
+        for (String word : words) {
+            if (isSubs(word, S)) {
+                count++;
             }
-            if (!hasError) result++;
         }
-        return result;
+        return count;
     }
-}</B></FONT>
+
+    public static boolean isSubs(String word, String S) {
+        int s</B></FONT>tart = 0, x;
+        for (int i = 0; i &lt; word.length(); i++) {
+            x = S.indexOf(word.charAt(i), start);
+            if (x &lt; 0) {
+                return false;
+            }
+            start = x + 1;
+        }
+        return true;
+    }
+}
 </PRE>
 
 </BODY>

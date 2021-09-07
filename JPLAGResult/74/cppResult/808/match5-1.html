@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_jq_huang.cpp</TITLE>
+ <TITLE>135_merryl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_jq_huang.cpp</CENTER></H3><HR>
+<H3><CENTER>135_merryl.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-    int n = S.size();
-    vector&lt;set&lt;int&gt;&gt; pos(26);
-    for (int i = 0; i != n; ++i)
-      pos[S[i] - 'a'].insert(i);
-    int ret = 0;
-    for (const auto &amp;word: words) {
-      int p = 0;
-<A NAME="0"></A>      bool found = true;
-      for (int i = 0; i != word.size(); ++i) {
-        int c = word[i] - 'a';
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto ite = pos[c].lower_bound(p);
-        if (ite == pos[c].end()) {
-          found = false;
-          break;
-        } 
-        p = *ite + 1;
-      }
-      if (found) ++ret;
+    int numMatchingSubseq(string s, vector&lt;string&gt;&amp; words) {
+        int slen = s.size();
+        int wlen = words.size();
+        if (wlen == 0) {
+            return 0;
+        }
+        int ret = 0;
+        if (slen == 0) {
+            for (auto w : words) {
+                if (w == s) {
+                    ret++;
+                }
+            }
+            return ret;
+        }
+        
+        vector&lt;set&lt;int&gt;&gt; bst(26);
+        for (int i = 0; i &lt; slen; i++) {
+            bst[s[i] - 'a'].insert(i);
+<A NAME="0"></A>        }
+        
+        for (auto w : words) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int ws = w.size();
+            int icur = -1;
+            bool flag = true;
+            for (int i  = 0; i &lt; ws; i++) {
+                auto next = bst[w[i] - 'a'].upper_bound(icur);
+                if (next == bst[w[i] - 'a'].end()) {
+                    flag = false;
+                    break;
+                } else {</B></FONT>
+                    icur = *next;
+                }
+            }
+            if (flag == true) {
+                ret++;
+            }
+        }
+        
+        return ret;
+
     }
-    return ret;
-  }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

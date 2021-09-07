@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>246_txingml.cpp</TITLE>
+ <TITLE>426_narut.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>246_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>426_narut.cpp</CENTER></H3><HR>
 <PRE>
-int dp[26][50000 + 10];
 class Solution {
-    typedef vector&lt;int&gt; vi;
-<A NAME="0"></A>public:
-    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-        int n = S.size();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        memset(dp, -1, sizeof(dp));
-        for (int i = n-1; i &gt;= 0; i--) {
-            for (int j = 0; j &lt; 26; j++) {
-                dp[j][i] = dp[j][i+1];
-            }
-            dp[S[i]-'a'][i] = i;
+public:
+
+  int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+    vector&lt;unsigned short&gt; lookup[26];
+    for (int i=0; i&lt;26; ++i) lookup[i].resize(S.length()+1);    
+    for(int i=0; i&lt;26;++i) {
+      int cur = S.length();
+      char c = 'a'+i;
+      for(int j=S.length()-1; j&gt;=0; --j) {
+        lookup[i][j+1] = cur+1;
+        if (S[j] == c) {
+          cur = j;
         }
-        int cnt = 0;
-        for (string &amp; word : words) {
-            int idx = 0, tmp = 0;</B></FONT>
-            for (char c : word) {
-                idx = dp[c-'a'][idx];
-                // cout &lt;&lt; idx &lt;&lt; endl;
-                if (idx == -1) break;
-                tmp++;
-                idx++;
-                if (idx == n) break;
-                
-            }
-            if (tmp == word.size()) cnt++;
-        }
-        return cnt;
+      }
+      lookup[i][0] = cur+1;
     }
-};
+    int ans = 0;
+    for (auto &amp;w: words) {
+<A NAME="0"></A>      int i = 0;
+      bool found = true;
+      for (char c: w) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (lookup[c-'a'][i] &gt; S.length()) {
+          found = false;
+          break;
+        }
+        i = lookup[c-'a'][i];
+      }
+      if(found) ans++;
+    }
+    return ans;
+  }
+};</B></FONT>
+
 </PRE>
 </BODY>
 </HTML>

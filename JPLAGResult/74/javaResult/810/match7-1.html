@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_thewizard.java</TITLE>
+ <TITLE>133_Junbo1226.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,78 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_thewizard.java</CENTER></H3><HR>
+<H3><CENTER>133_Junbo1226.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-   public static boolean validTicTacToe(String[] board) {
-        int x = 0;
-        int o = 0;
-
-        char[] b = new char[9];
-        int k = 0;
-        for (int i = 0; i &lt; 3; i++)
+    public boolean validTicTacToe(String[] board) {
+        boolean x = false;
+        boolean o = false;
+        int count = 0;
+        char[][] b = new char[3][3];
+        for (int i = 0; i &lt; 3; i++) {
+            String temp = board[i];
             for (int j = 0; j &lt; 3; j++) {
-                b[k++] = board[i].charAt(j);
+                b[i][j] = temp.charAt(j);
             }
-
-
-        for (int i = 0; i &lt; 9; i++) {
-            char z = b[i];
-            if (z == 'X')
-                x++;
-            else if (z == 'O')
-                o++;
         }
-
-        if (x == o || x == o + 1) {
-
-            if (win(b, 'O')) {
-                if (win(b, 'X'))
-                    return false;
-                return (x == o);
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                char temp = b[i][j];
+                if (temp == ' ') {
+                    continue;
+                }
+                if (temp == 'X') {
+                    count++;
+                }
+                else {
+                    count--;
+                }
+                if (temp == 'X' &amp;&amp; helper(b, i, j)) {
+                    x = true;
+<A NAME="0"></A>                }
+                if (temp == 'O' &amp;&amp; helper(b, i, j)) {
+                    o = true;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
-
-            if (win(b, 'X') &amp;&amp; x != o + 1)
-                return false;
-
-            return true;
         }
-
-        return false;
+<A NAME="1"></A>        if (count &lt; 0 || count &gt; 1) {
+            return false;
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (count == 0 &amp;&amp; x) {
+            return false;
+        }
+        // System.out.println(count);
+        // System.out.println(o);
+        if (count == 1 &amp;&amp; o) {
+            return false;
+        }
+        if (x &amp;&amp; o) {
+            return false;
+        }
+        return true;
     }
-<A NAME="0"></A>
-    public static boolean win(char[] b, char x) {
-
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] c = new int[][]{{0, 1, 2},
-                {3, 4, 5},
-                {6, 7, 8},
-                {0, 3, 6},
-                {1, 4, 7},
-                {2, 5, 8},
-                {0, 4, 8},
-                {2, 4, 6}</B></FONT>};
-
-        for (int i = 0; i &lt; c.length; i++) {
-            if (b[c[i][0]] == x &amp;&amp; b[c[i][1]] == x &amp;&amp; b[c[i][2]] == x)
+    
+    public boolean helper(char[][] board, int x</B></FONT>, int y) {
+        char cur = board[x][y];
+        if (y == 2) {
+            if (board[x][y - 1] == cur &amp;&amp; board[x][y - 2] == cur) {
                 return true;
+            }
+        }
+        if (x == 2) {
+            if (board[x - 1][y] == cur &amp;&amp; board[x - 2][y] == cur) {
+                return true;
+            }
+        }
+        if (x == 2 &amp;&amp; y == 2) {
+            if (board[x - 1][y - 1] == cur &amp;&amp; board[x - 2][y - 2] == cur) {
+                return true;
+            }
+        }
+        if (x == 0 &amp;&amp; y == 2) {
+            if (board[x + 1][y - 1] == cur &amp;&amp; board[x + 2][y - 2] == cur) {
+                return true;
+            }
         }
         return false;
     }

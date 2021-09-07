@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>123_andycoder.java</TITLE>
+ <TITLE>150_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>123_andycoder.java</CENTER></H3><HR>
+<H3><CENTER>150_xn1990114.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public boolean validTicTacToe(String[] board) {
-        if (board == null || board.length != 3
-           || board[0] == null || board[0].length() != 3) {
-<A NAME="0"></A>            return false;
-        }
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int xCnt = 0;
-        int oCnt = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            for (int j = 0; j &lt; 3; j++) {
-                char c = board[i].charAt</B></FONT>(j);
-                if (c == 'X') {
-                    xCnt++;
-                } else if (c == 'O') {
-                    oCnt++;
-                }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int countX=0;
+        int countO=0;
+        for(int i=0;i&lt;3;i++){
+            for(int j=0;j&lt;3;j++){
+                char ch=board[i].charAt(j);
+                if(ch=='X'){</B></FONT>
+                    countX++;
+<A NAME="1"></A>                }
+                else if(ch=='O'){
+                    countO++;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
         }
-        
-        if (oCnt &gt; xCnt || (xCnt - oCnt) &gt; 1) {
+        if(countX&lt;countO||countX&gt;countO+1){
             return false;
         }
-        
-        int xWonCnt = wonGameCnt('X', board);
-        int oWonCnt = wonGameCnt('O', board);
-        if (xWonCnt &gt; 0 &amp;&amp; oWonCnt &gt; 0) {
+        int[] resX=countCompleted(board,'X');</B></FONT>
+        int[] resO=countCompleted(board,'O');
+        if(resX[0]&gt;1||resO[0]&gt;1||resX[1]&gt;1||resO[1]&gt;1){
             return false;
         }
-        
-        if (xWonCnt &gt; 1|| oWonCnt &gt; 1) {
+        int totalX=resX[0]+resX[1]+resX[2];
+<A NAME="2"></A>        int totalO=resO[0]+resO[1]+resO[2];
+        if(totalX&gt;0&amp;&amp;totalO&gt;0){
+            return false;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        if(totalX&gt;0&amp;&amp;countX==countO){
             return false;
         }
-        
-        if (xWonCnt &gt; 0 &amp;&amp; (xCnt - oCnt != 1)) {
+        if(totalO&gt;0&amp;&amp;countX&gt;countO){
             return false;
         }
-<A NAME="1"></A>        
-        if (oWonCnt &gt; 0 &amp;&amp; xCnt != oCnt) {
-            return false;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        
-        return true;
+        return</B></FONT> true;
     }
-    
-    private int wonGameCnt(char c, String[] board) {
-        int cnt = 0;
-        for (int i = 0; i &lt; 3; i++) {</B></FONT>
-            int rowCnt = 0;
-            for (int j = 0; j &lt; 3; j++) {
-                if (board[i].charAt(j) == c) {
-                    rowCnt++;
-                }
-            }
-            
-            if (rowCnt == 3) {
-                cnt++;
+    // horizon,veritical,diag
+    public int[] countCompleted(String[] board,char ch){
+        int[] res=new int[3];
+        String target=&quot;&quot;+ch+ch+ch;
+        for(int i=0;i&lt;3;i++){
+            if(board[i].equals(target)){
+                res[0]++;
             }
         }
-        
-        for (int j = 0; j &lt; 3; j++) {
-            int colCnt = 0;
-            for (int i = 0; i &lt; 3; i++) {
-                if(board[i].charAt(j) == c) {
-                    colCnt++;
-                }
-            }
-            
-            if (colCnt == 3) {
-                cnt++;
+        for(int i=0;i&lt;3;i++){
+            String temp=&quot;&quot;+board[0].charAt(i)+board[1].charAt(i)+board[2].charAt(i);
+            if(temp.equals(target)){
+                res[1]++;
             }
         }
-        
-        if (board[0].charAt(0) == c
-           &amp;&amp; board[1].charAt(1) == c
-           &amp;&amp; board[2].charAt(2) == c) {
-            cnt++;
+        if(board[0].charAt(0)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(2)==ch){
+            res[2]++;
         }
-        
-        if (board[0].charAt(2) == c
-           &amp;&amp; board[1].charAt(1) == c
-           &amp;&amp; board[2].charAt(0) == c) {
-            cnt++;
+        if(board[0].charAt(2)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(0)==ch){
+            res[2]++;
         }
-        
-        return cnt;
+        return res;
     }
 }
 </PRE>

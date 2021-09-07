@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>134_tprpc.java</TITLE>
+ <TITLE>133_Junbo1226.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,80 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>134_tprpc.java</CENTER></H3><HR>
+<H3><CENTER>133_Junbo1226.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public boolean validTicTacToe(String[] board) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] count = {{{0,0,0},{0,0,0},{0,0,0}}, {{0,0,0},{0,0,0},{0,0,0}</B></FONT>}};
-        
-        for(int i=0;i&lt;board.length;i++) {
-            for(int j=0;j&lt;board[i].length();j++) {
-                char c = board[i].charAt(j);
-                if(c != ' ') {
-                    int p = (c == 'X') ? 0 : 1; // x is first
-                    count[p][0][i]++;
-                    count[p][1][j]++;
-                    if(i==j) count[p][2][0]++;
-                    if(i+j == 2) count[p][2][1]++;
-                    count[p][2][2]++; // total count
-                }
+        boolean x = false;
+        boolean o = false;
+        int count = 0;
+        char[][] b = new char[3][3];
+        for (int i = 0; i &lt; 3; i++) {
+            String temp = board[i];
+            for (int j = 0; j &lt; 3; j++) {
+                b[i][j] = temp.charAt(j);
             }
         }
-        // The first player always places &quot;X&quot; characters, while the second player always places &quot;O&quot; characters.
-        if(count[0][2][2] - count[1][2][2] &gt; 1 || count[1][2][2] - count[0][2][2] &gt; 0) return false;
-        
-        int[] winner = {0,0};
-        for(int p=0;p&lt;2;p++) {
-            for(int i=0;i&lt;3;i++) {
-                for(int j=0;j&lt;3;j++) {
-                    if(i == 2 &amp;&amp; i == j) continue;
-                    if(count[p][i][j] == 3) {
-                        winner[p] = 1;
-                    }
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 3; j++) {
+                char temp = b[i][j];
+                if (temp == ' ') {
+                    continue;
                 }
+                if (temp == 'X') {
+                    count++;
+                }
+                else {
+                    count--;
+                }
+                if (temp == 'X' &amp;&amp; helper(b, i, j)) {
+                    x = true;
+<A NAME="0"></A>                }
+                if (temp == 'O' &amp;&amp; helper(b, i, j)) {
+                    o = true;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
         }
-        if(winner[0] == 1 &amp;&amp; winner[1] == 1) return false;
-        if(winner[0] == 1 &amp;&amp; count[0][2][2] != count[1][2][2] + 1) return false;
-        if(winner[1] == 1 &amp;&amp; count[0][2][2] != count[1][2][2]) return false;
-        
-        return true;
+        if (count &lt; 0 || count &gt; 1) {
+            return false;
+<A NAME="1"></A>        }</B></FONT>
+        if (count == 0 &amp;&amp; x) {
+            return false;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        // System.out.println(count);
+        // System.out.println(o);
+        if (count == 1 &amp;&amp; o) {
+            return false;
+        }
+        if (x &amp;&amp; o) {
+            return false;
+        }
+        return</B></FONT> true;
+    }
+    
+    public boolean helper(char[][] board, int x, int y) {
+        char cur = board[x][y];
+        if (y == 2) {
+            if (board[x][y - 1] == cur &amp;&amp; board[x][y - 2] == cur) {
+                return true;
+            }
+        }
+        if (x == 2) {
+            if (board[x - 1][y] == cur &amp;&amp; board[x - 2][y] == cur) {
+                return true;
+            }
+        }
+        if (x == 2 &amp;&amp; y == 2) {
+            if (board[x - 1][y - 1] == cur &amp;&amp; board[x - 2][y - 2] == cur) {
+                return true;
+            }
+        }
+        if (x == 0 &amp;&amp; y == 2) {
+            if (board[x + 1][y - 1] == cur &amp;&amp; board[x + 2][y - 2] == cur) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 </PRE>

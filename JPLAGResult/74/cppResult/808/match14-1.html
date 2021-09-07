@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_ZYCSwing.cpp</TITLE>
+ <TITLE>377_spencerzy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>21_ZYCSwing.cpp</CENTER></H3><HR>
+<H3><CENTER>377_spencerzy.cpp</CENTER></H3><HR>
 <PRE>
-int dp[50010][26];
-
+ int a[50010][26];
 class Solution {
-<A NAME="0"></A>public:
-    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-        int len = (int)S.length();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        memset(dp, -1, sizeof(dp));
-        for (int i = len - 1; i &gt;= 0; --i) {
-            for (int j = 0; j &lt; 26; ++j) {
-                dp[i][j] = dp[i + 1][j];
-            }
-            dp[i][S[i] - 'a'] = i;
-        }
+ public:
+	 
 
-        int res = 0;
-        for (string s : words) {
-            int cur = 0, pos = 0;</B></FONT>
-            bool ok = true;
-            while (cur &lt; (int)s.length()) {
-                if (dp[pos][s[cur] - 'a'] == -1) {
-                    ok = false;
-                    break;
-                }
-                pos = dp[pos][s[cur] - 'a'] + 1;
-                ++cur;
-            }
-            if (ok) ++res;
-        }
-        return res;
-    }
-};
+	 int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
+
+		 
+		 for (int i = 0; i &lt;= S.size(); i++) {
+			 if (i == 0) {
+				 for (int j = 0; j &lt; 26; j++) a[i][j] = -1;
+			 }
+			 else {
+				 for (int j = 0; j&lt;26; j++) a[i][j] = a[i - 1][j];
+				 a[i][S[i-1] - 'a'] = i-1;
+			 }
+			 
+
+			 // for (int j = 0; j &lt; 26; j++) cout &lt;&lt; a[i][j] &lt;&lt; &quot; &quot;;
+			 // cout &lt;&lt; endl;
+		 }
+
+
+		 
+
+		 int ret = 0;
+		 for (int i = 0; i &lt; words.size(); i++) {
+			 int cur = S.size();
+<A NAME="0"></A>			 bool flag = true;
+			 for (int j = words[i].size() - 1; j &gt;= 0; j--) {
+				 char c = words[i][j];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>				 if (a[cur][c - 'a'] == -1) {
+					 flag = false;
+					 break;
+				 }
+				 cur = a[cur][c - 'a'];
+
+			 }
+			 if (flag) ret++;
+		 }
+		 return ret;
+
+	 }
+ };</B></FONT>
 </PRE>
 </BODY>
 </HTML>

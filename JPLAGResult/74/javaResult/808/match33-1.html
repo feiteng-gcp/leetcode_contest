@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>120_climberig.java</TITLE>
+ <TITLE>129_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>120_climberig.java</CENTER></H3><HR>
+<H3><CENTER>129_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        Map&lt;String, Integer&gt; m = new HashMap&lt;&gt;();
-        for (String word : words)
-            m.put</B></FONT>(word, m.getOrDefault(word, 0) + 1);
-        int count = 0;
-        char[] chars = S.toCharArray();
-        for (String w : m.keySet()) {
-            int i = 0;
-            for (int j = 0; i &lt; w.length() &amp;&amp; j &lt; S.length(); j++) {
-<A NAME="1"></A>                if (chars[j] == w.charAt(i))
-                    i++;
-            }
-            if (i == w.length()) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                count += m.get(w);
-            }
+        int m = S.length();
+        int[][] dp = new int[26][m];
+        int[] len = new int[26];
+        
+<A NAME="1"></A>        for (int i = 0; i &lt; m; i++) {
+            int k = S.charAt(i) - 'a';
+            dp[k][len[k]++] = i;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        int res = 0;
+        
+        for (String word : words) {
+            if (isSubsequence(dp, len, word)) res++;
         }
-        return count;
-    }
-}</B></FONT>
+        
+        return res;
+    }</B></FONT>
+    
+    private boolean isSubsequence(int[][] dp, int[] len, String word) {
+        int[] idx = new int[26];
+        int min = -1;
+        
+<A NAME="0"></A>        for (char c : word.toCharArray()) {
+            int i = c - 'a';
+            while (idx[i] &lt; len[i] &amp;&amp; dp[i][idx[i]] &lt;= min) idx[i]++;
+            if (idx[i] &gt;= len[i]) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return false;
+            min = Math.max(min, dp[i][idx[i]]);
+        }
+        
+        return true;
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

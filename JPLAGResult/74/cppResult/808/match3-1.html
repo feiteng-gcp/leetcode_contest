@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_jq_huang.cpp</TITLE>
+ <TITLE>16_Fr0benius.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,65 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_jq_huang.cpp</CENTER></H3><HR>
+<H3><CENTER>16_Fr0benius.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+#define pb push_back
+#define fst first
+#define snd second
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+template&lt;typename T&gt; using min_queue=priority_queue&lt;T,vector&lt;T&gt;,greater&lt;T&gt; &gt;;
+
+const ll MOD=1e9+7;
+
 class Solution {
 public:
-  int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-    int n = S.size();
-    vector&lt;set&lt;int&gt;&gt; pos(26);
-    for (int i = 0; i != n; ++i)
-      pos[S[i] - 'a'].insert(i);
-    int ret = 0;
-    for (const auto &amp;word: words) {
-      int p = 0;
-<A NAME="0"></A>      bool found = true;
-      for (int i = 0; i != word.size(); ++i) {
-        int c = word[i] - 'a';
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        auto ite = pos[c].lower_bound(p);
-        if (ite == pos[c].end()) {
-          found = false;
-          break;
-        } 
-        p = *ite + 1;
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; wd) {
+      int N=wd.size();
+      vector&lt;vector&lt;int&gt;&gt; dp(26);
+      vector&lt;int&gt; ix(N);
+      for(int i=0;i&lt;N;i++){
+	dp[wd[i][0]-'a'].pb(i);
       }
-      if (found) ++ret;
-    }
-    return ret;
-  }
-};</B></FONT>
+      for(char c:S){
+	vector&lt;vector&lt;int&gt;&gt; tmp(26);
+	for(int i:dp[c-'a']){
+	  ix[i]++;
+	  if(ix[i]&lt;wd[i].size()){
+	    tmp[wd[i][ix[i]]-'a'].pb(i);
+	  }
+	}
+	dp[c-'a'].clear();
+<A NAME="0"></A>	for(int i=0;i&lt;26;i++){
+	  for(int n:tmp[i]) dp[i].pb(n);
+	}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+      int res=0;
+      for(int i=0;i&lt;wd.size();i++){
+	if(ix[i]==wd[i].size()) res++;
+      }
+      return res;
+    }</B></FONT>
+}; 
+
 </PRE>
 </BODY>
 </HTML>

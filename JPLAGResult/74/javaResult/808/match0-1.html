@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>125_Stevan0102.java</TITLE>
+ <TITLE>290_iamwds.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>125_Stevan0102.java</CENTER></H3><HR>
+<H3><CENTER>290_iamwds.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int numMatchingSubseq(String S, String[] words) {
-        int result = 0;
-        for (int i = 0 ; i &lt; words.length; i++){</B></FONT>
-            String word = words[i];
-            int index = -1;
-            boolean hasError = false;
-<A NAME="1"></A>                // System.out.println(&quot;word=&quot; + word);
-            for (int j = 0; j &lt; word.length(); j++){     
-                // System.out.println(&quot;c=&quot; + word.charAt(j));           
-                index = S.indexOf(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>word.charAt(j), index+1);
-                // System.out.println(&quot;index=&quot; + index);
-                if (index &lt; 0) {
-                    hasError = true;
-                    break;
-                }
-            }
-            if (!hasError) result++;
+    public int numMatchingSubseq(String s, String[] words) {
+        int count = 0;
+<A NAME="1"></A>        for(String word : words){
+            if(isSubsequence</B></FONT>(word, s)){
+                count++;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        return result;
+        return count;
     }
-}</B></FONT>
+    
+<A NAME="2"></A>    public boolean isSubsequence(String s, String t) {
+        int p1 = 0</B></FONT>;
+        int p2 = 0;
+        while(p1 &lt; s.length() &amp;&amp; p2 &lt; t.length())<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if(s.charAt(p1) == t.charAt(p2)){
+                p1++;
+                p2++;
+            }else{
+                p2++;
+            }
+        }
+        return</B></FONT> p1 == s.length();
+    }
+}
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_thewizard.java</TITLE>
+ <TITLE>409_babyLiyuan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_thewizard.java</CENTER></H3><HR>
+<H3><CENTER>409_babyLiyuan.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        int count = 0;
-        if (S.length() == 0)
-            return 0;
-        if (words.length == 0)
-            return 0;
-        
-        HashMap&lt;String, Boolean&gt; map = new HashMap();
-        for (String s : words) {
-            if (map.containsKey(s)) {
-                boolean res = map.get(s);
-                if (res)
-                    count++;
-            }
-            else {
-                if (isSubSeq(S, s)) {
-                    count++;
-                    map.put(s, true);
+        Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i=0; i&lt;S.length(); i++) {
+            char c = S.charAt(i);
+            if (!map.containsKey(c)) {
+                List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+<A NAME="1"></A>                map.put</B></FONT>(c, list);
+            } 
+            map.get(c).add(i);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int cnt = 0;
+        for (int i=0; i&lt;words.length; i++) {
+<A NAME="2"></A>            String word = words[i];
+            int last = -1;
+            boolean flag = true</B></FONT>;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j=0; j&lt;word.length(); j++) {
+                char c = word.charAt(j);
+                if (!map.containsKey(c)){
+                    flag = false;
+                    break;
                 }
-<A NAME="0"></A>                
-                else 
-                    map.put(s, false);
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                List&lt;Integer&gt; list = map.get</B></FONT>(c);
+                int left = 0;
+                int right = list.size() - 1;
+                int min = Integer.MAX_VALUE;
+                while (left &lt;= right) {
+                    int mid = left + (right - left)/2;
+                    int val = list.get(mid);
+                    if (val &gt; last) {
+                        min = (int)Math.min(val, min);
+                        right = mid - 1;
+                    } else {
+                        left = mid + 1;
+                    }
+                }
+                if (min == Integer.MAX_VALUE) {
+                    flag = false;
+                    break;
+                }
+                last = min;
+            }
+            if (flag) cnt++;         
         }
-        
-        return count;
+        return cnt;
     }
-    
-    public boolean isSubSeq(String S, String t) {</B></FONT>
-        if (S.length() == 0)
-<A NAME="1"></A>            return false;
-        if (t.length() == 0)
-            return false;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int j = 0;
-        for (int i = 0;i&lt;S.length() &amp;&amp; j &lt; t.length();i++) {
-            if (S.charAt(i) == t.charAt(j))
-                j++;
-        }
-        
-        return j == t.length();
-    }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

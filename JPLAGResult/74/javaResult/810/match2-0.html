@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>278_haggaibadguy.java</TITLE>
+ <TITLE>429_firebird.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,135 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>278_haggaibadguy.java</CENTER></H3><HR>
+<H3><CENTER>429_firebird.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-
-    public boolean validTicTacToe(String[] board) {
-        if (board == null) {
-            return false;
-        }
-
-        int numXWins = getNumWins(board, 'X');
-        if (numXWins &gt; 1) {
-<A NAME="0"></A>            return false;
-        }
-
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int numOWins = getNumWins(board, 'O');
-        if (numOWins &gt; 1) {
-            return false;
-        }
-
-        if (numXWins == 1 &amp;&amp; numOWins == 1) {
-            return false;
-        }</B></FONT>
-
-<A NAME="1"></A>        int numXs = getNum(board, 'X');
-        int numOs = getNum(board, 'O');
-
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (numXWins == 1) {
-            return numXs == (numOs + 1);
-        }
-
-        if (numOWins == 1) {
-            return numXs == numOs;
-        }
-
-        return (numXs == numOs) || (numXs == (numOs + 1));
+  public boolean validTicTacToe(String[] board) {
+    if (board==null || board.length!=3)
+      return false;
+    
+    for (String row : board) {
+      if (row==null || row.length()!=3)
+        return false;
     }
-
-    private int getNumWins(String[] board, char player) {
-        int count = 0;
-
-        // rows
-        for (String row : board) {</B></FONT>
-            if (allEqual(row, player)) {
-                count += 1;
-            }
-<A NAME="2"></A>        }
-
-        // columns
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match2-1.html#2',3,'match2-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; 3; i++) {
-            if (allEqual(board, player, i)) {
-                count += 1;
-            }
-        }
-
-        // diagonals
-        if</B></FONT> (topLeftDiagonalEqual(board, player)) {
-            count += 1;
-        }
-
-        if (topRightDiagonalEqual(board, player)) {
-            count += 1;
-        }
-
-        return count;
+    
+    char[] newBoard = new char[9];
+    for (int i=0; i&lt;3; i++) {
+      for (int j=0; j&lt;3; j++)
+        newBoard[i*3 + j] = board[i].charAt(j);
     }
-
-    private boolean topRightDiagonalEqual(String[] board, char player) {
-        if (board[0].charAt(2) != player) {
-            return false;
-        }
-        if (board[1].charAt(1) != player) {
-            return false;
-        }
-        if (board[2].charAt(0) != player) {
-            return false;
-        }
+    
+    int x=0, o=0;
+    for (int i=0; i&lt;9; i++) {
+      if (newBoard[i]=='X')
+        x++;
+      if (newBoard[i]=='O')
+        o++;
+    }
+    
+    if (x==o || x==o+1) {
+      if (checkWin(newBoard, 'O')) {
+        if (checkWin(newBoard, 'X')) 
+          return false;
+        return x==o;
+      }
+      
+<A NAME="0"></A>      if (checkWin(newBoard, 'X'))
+        return x==o+1;
+      
+      <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return true;
+    }
+    
+    return false;
+  }
+  
+  private boolean checkWin(char[] board, char c) {
+    int[][] winCase = {{0</B></FONT>,1,2}, {3,4,5}, {6,7,8},
+                       {0,3,6}, {1,4,7}, {2,5,8},
+                       {0,4,8}, {2,4,6}};
+    for (int i=0; i&lt;8; i++) {
+      if (board[winCase[i][0]]==c &amp;&amp; board[winCase[i][1]]==c &amp;&amp; board[winCase[i][2]]==c)
         return true;
     }
-
-    private boolean topLeftDiagonalEqual(String[] board, char player) {
-        if (board[0].charAt(0) != player) {
-            return false;
-        }
-        if (board[1].charAt(1) != player) {
-            return false;
-        }
-        if (board[2].charAt(2) != player) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean allEqual(String[] board, char player, int column) {
-        for (String row : board) {
-            if (row.length() &gt;= column) {
-                return false;
-            }
-
-            if (row.charAt(column) != player) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private boolean allEqual(String row, char player) {
-        for (char r : row.toCharArray()) {
-            if (player != r) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private int getNum(String[] board, char player) {
-        int count = 0;
-        for (String row : board) {
-            for (int i = 0; i &lt; row.length(); i++) {
-                char move = row.charAt(i);
-                if (move == player) {
-                    count += 1;
-                }
-            }
-        }
-        return count;
-    }
-
+    
+    return false;
+  }
 }
 </PRE>
 

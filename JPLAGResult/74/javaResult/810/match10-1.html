@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_uwi.java</TITLE>
+ <TITLE>150_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,81 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<H3><CENTER>150_xn1990114.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public boolean validTicTacToe(String[] board) {
-	        char[] map = new char[9];
-	        for(int i = 0;i &lt; 3;i++){
-	        	for(int j = 0;j &lt; 3;j++){
-	        		map[i*3+j] = board[i].charAt(j);
-	        	}
-	        }
-	        int ox = 0;
-	        for(int i = 0;i &lt; 9;i++){
-	        	if(map[i] != ' ')ox++;
-	        }
-	        
-	        int[] ord = new int[9];
-	        for(int i = 0;i &lt; 9;i++)ord[i] = i;
-	        outer:
-	        do{
-	        	for(int j = 0;j &lt; ox;j++){
-	        		if(map[ord[j]] != (j%2 == 0 ? 'X' : 'O')){
-	        			continue outer;
-	        		}
-	        	}
-	        	char[] t = new char[9];
-	        	Arrays.fill(t, ' ');
-	        	for(int j = 0;j &lt; ox-1;j++){
-	        		t[ord[j]] = map[ord[j]];
-	        		if(end(t))continue outer;
-	        	}
-	        	return true;
-	        }while(nextPermutation(ord));
-<A NAME="0"></A>	        return false;
-	    }
-	    
-	    int[][]<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> q = {
-	    		{0, 1, 2},
-	    		{3, 4, 5},
-	    		{6, 7, 8},
-	    		{0, 3, 6},
-	    		{1, 4, 7},
-	    		{2, 5, 8},
-	    		{0, 4, 8},
-	    		{2, 4, 6}
-	    };</B></FONT>
-	    
-	    boolean end(char[] t)
-	    {
-	    	for(int[] o : q){
-	    		if(t[o[0]] != ' ' &amp;&amp; t[o[0]] == t[o[1]] &amp;&amp; t[o[1]] == t[o[2]])return true;
-	    	}
-	    	return false;
-	    }
-	    
-	    public boolean nextPermutation(int[] a) {
-			int n = a.length;
-			int i;
-			for (i = n - 2; i &gt;= 0 &amp;&amp; a[i] &gt;= a[i + 1]; i--)
-				;
-			if (i == -1)
-				return false;
-			int j;
-			for (j = i + 1; j &lt; n &amp;&amp; a[i] &lt; a[j]; j++)
-				;
-			int d = a[i];
-			a[i] = a[j - 1];
-			a[j - 1] = d;
-			for (int p = i + 1, q = n - 1; p &lt; q; p++, q--) {
-				d = a[p];
-				a[p] = a[q];
-				a[q] = d;
-			}
-			return true;
-		}
-	}
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        int countX=0;
+        int countO=0;
+        for(int i=0;i&lt;3;i++){
+            for(int j=0;j&lt;3;j++){
+                char ch=board[i].charAt(j);
+                if(ch=='X'){
+                    countX++;
+                }
+                else if(ch=='O'){
+                    countO++;
+                }
+            }
+        }
+        if(countX&lt;countO||countX&gt;countO+1){
+            return false;
+        }
+        int[] resX=countCompleted(board,'X');
+        int[] resO=countCompleted(board,'O');
+        if(resX[0]&gt;1||resO[0]&gt;1||resX[1]&gt;1||resO[1]&gt;1){
+            return false;
+        }
+        int totalX=resX[0]+resX[1]+resX[2];
+        int totalO=resO[0]+resO[1]+resO[2];
+        if(totalX&gt;0&amp;&amp;totalO&gt;0){
+            return false;
+        }
+        if(totalX&gt;0&amp;&amp;countX==countO){
+<A NAME="0"></A>            return false;
+        }
+        if(totalO&gt;0&amp;&amp;countX&gt;countO){
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return false;
+        }
+        return true;
+    }
+    // horizon,veritical,diag
+    public int[] countCompleted(String[] board,char ch){</B></FONT>
+        int[] res=new int[3];
+        String target=&quot;&quot;+ch+ch+ch;
+        for(int i=0;i&lt;3;i++){
+            if(board[i].equals(target)){
+                res[0]++;
+            }
+        }
+        for(int i=0;i&lt;3;i++){
+            String temp=&quot;&quot;+board[0].charAt(i)+board[1].charAt(i)+board[2].charAt(i);
+            if(temp.equals(target)){
+                res[1]++;
+            }
+        }
+        if(board[0].charAt(0)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(2)==ch){
+            res[2]++;
+        }
+        if(board[0].charAt(2)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(0)==ch){
+            res[2]++;
+        }
+        return res;
+    }
+}
 </PRE>
 
 </BODY>

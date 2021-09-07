@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>67_guzh870423.java</TITLE>
+ <TITLE>469_ethic.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>67_guzh870423.java</CENTER></H3><HR>
+<H3><CENTER>469_ethic.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        Map&lt;Character, TreeSet&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-        int m = S.length();
-        for (int i = 0; i &lt; m; i++) {
-            char c = S.charAt(i);
-            if (!map.containsKey(c)) {
-                map.put(c, new TreeSet&lt;&gt;());
-            }
-            map.get(c).add(i);
-        }
-        
-        int res = 0;
-        
-        for (String word: words) {
-            Integer i = -1;
-            boolean flag = true;
-            for (char c: word.toCharArray()) {
-                if (!map.containsKey(c)) {
-<A NAME="0"></A>                    flag = false;
-                    break;
-                }
-                i = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(c).higher(i);
-                if (i == null) {
-                    flag = false;
-                    break;
-                }
-            }
-            
-            if (flag) res++;
-            
-        }
-        
-        return res;
-    }
+		
+		int count = 0;
+		for(String word : words) {
+			if(word.length() &gt; S.length())
+				continue;
+			int fromIndex = -1;
+<A NAME="0"></A>			boolean stat = true;
+			for(char ch : word.toCharArray()) {
+				fromIndex = S.indexOf(ch, fromIndex + 1);
+				if(fromIndex == -1) {<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+					stat = false;
+					break;
+				}
+			}
+			if(stat)
+				count++;
+		}
+		return count;
+	}
 }</B></FONT>
 </PRE>
 

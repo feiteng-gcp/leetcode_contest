@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>54_5305519068.java</TITLE>
+ <TITLE>189_LuciferTian2010.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>54_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>189_LuciferTian2010.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-
 class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        int n = words.length;
-        int m = S.length();
-        int[][] next = new int[m + 1][26];
-        for (int[] d : next) {
-        	Arrays.fill(d, -1);
+        Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;Character, List&lt;Integer&gt;&gt;();
+        for(int i = 0; i &lt; S.length(); i++) {
+<A NAME="0"></A>            Character c = new Character(S.charAt(i));
+            List&lt;Integer&gt; list = map.getOrDefault(c, new ArrayList&lt;Integer&gt;());
+            list.add(i);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(c, list);
         }
-        for (int i = m - 1; i &gt;= 0; --i) {
-<A NAME="0"></A>        	for (int j = 0; j &lt; 26; ++j) {
-        		next[i][j] = next[i + 1][j];
-        	}
-        	next[i][S.charA<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>t(i) - 'a'] = i;
+        int count = 0;
+        for(String word : words) {
+            int preIdx = -1;
+            boolean matchWord = true;
+            for(int i = 0; i &lt; word.length(); i++) {
+                Character c = new Character(word.charAt(i))</B></FONT>;
+                List&lt;Integer&gt; list = map.getOrDefault(c, new ArrayList&lt;Integer&gt;());
+                boolean match = false;
+                for(int idx : list) {
+                    if (idx &gt; preIdx) {
+                        preIdx = idx;
+                        match = true;
+                        break;
+                    }
+                }
+<A NAME="1"></A>                if (!match) {
+                    matchWord = false;
+                    break;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            if (matchWord)
+                count ++;
         }
-        int res = 0;
-        for (int i = 0; i &lt; n; ++i) {
-        	int index = 0;
-        	boolean good = true;
-        	for (int j = 0; j &lt; words[i].length(); ++j) {</B></FONT>
-        		int x = words[i].charAt(j) - 'a';
-        		if (next[index][x] == -1) {
-        			good = false;
-<A NAME="1"></A>        			break;
-        		} else {
-        			index = next[index][x] + 1;
-        		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        	}
-        	if (good) ++res;
-        }
-        return res;
+        return count;
+        
     }
 }</B></FONT>
 </PRE>

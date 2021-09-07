@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_cuiaoxiang.cpp</TITLE>
+ <TITLE>225_weida.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>225_weida.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    long long check(long long n) {
-<A NAME="0"></A>        long long ret = 0;
-        while (n) {
-            ret += n / 5;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            n /= 5;
+    int countzeros(int n) {
+        int count = 0;
+        while(n) {
+            count += n / 5;
+            n /= 5;
         }
-        return ret;
+        return count;
     }
     int preimageSizeFZF(int K) {
-      long long low = 0, high = 1LL &lt;&lt; 60;
-        while (low != high) {
-            long long mid = (low + high + 1) / 2;
-            if (check(mid) &gt;= K + 1) {
-              high = mid - 1;
-            } else {
-              low = mid;
-<A NAME="1"></A>            }
+        int l = 0, r = 1 &lt;&lt; 30;
+        while(l &lt; r) {</B></FONT>
+            int mid = l + r &gt;&gt; 1;
+            int midc = countzeros(mid);
+            if(midc == K) {
+                int midl = mid - 1, midr = mid + 1;
+                while(midl &gt;= 0 &amp;&amp; countzeros(midl) == K) midl--;
+                while(countzeros(midr) == K) midr++;
+                return midr - midl - 1;
+            } else if(midc &lt; K) {
+                l = mid + 1;
+            } else
+                r = mid;
         }
-        long long B = high;</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        low = 0, high = 1LL &lt;&lt; 60;
-        while (low != high) {
-            long long mid = (low + high) / 2;
-            if (check(mid) &lt;= K - 1) {
-                low = mid + 1;
-            } else {
-                high = mid;
-            }
-        }</B></FONT>
-        if (check(high) &gt; K - 1) --high;
-        long long A = high;
-        cout  &lt;&lt; A &lt;&lt; &quot; &quot; &lt;&lt; B &lt;&lt; endl;
-        return max(0LL, B - A);
+        return 0;
     }
 };
 </PRE>

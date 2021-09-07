@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_lixuchen01.java</TITLE>
+ <TITLE>302_vivianyang2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,78 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_lixuchen01.java</CENTER></H3><HR>
+<H3><CENTER>302_vivianyang2.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public boolean validTicTacToe(String[] board) {
-        char[] a = new char[9];
-        int i = 0;
-        for (String s : board) {
-            for (char c : s.toCharArray()) {
-                a[i++] = c;
+        int countx = 0;
+        int counto = 0;
+        int winx = 0;
+        int wino = 0;
+        char[][] bb = new char[3][3];
+        
+        int k = 0;
+        for (String str : board) {
+            for (int i = 0; i &lt; 3; i++) {
+<A NAME="0"></A>                char c = str.charAt(i);
+                bb[k][i] = c;
+                if (c == 'X') countx++;
+                else if (c == 'O') counto++<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
             }
-        }
-
-        int x = 0, o = 0;
-        for (char c : a) {
-            if (c == 'X') {
-                ++x;
-            } else if (c == 'O') {
-                ++o;
-            }
-        }
-
-        if (x != o &amp;&amp; x != o + 1) {
-            return false;
-        }
-
-        if (hasWon(a, 'O')) {
-            if (hasWon(a, 'X')) {
-                return false;
-            }
-            return x == o;
-        }
-
-        if (hasWon(a, 'X') &amp;&amp; x != o + 1) {
-            return false;
+            k++;
         }
         
-<A NAME="0"></A>        return true;
-    }
-
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[][] win = new int[][] {
-        {
-            0, 1, 2
-        }, // Check first row.
-        {
-            3, 4, 5
-        }, // Check second Row
-        {
-            6, 7, 8
-        }, // Check third Row
-        {
-            0, 3, 6
-        }, // Check first column
-        {
-            1, 4, 7
-        }, // Check second Column
-        {
-            2, 5, 8
-        }, // Check third Column
-        {
-            0, 4, 8
-        }, // Check first Diagonal
-        {
-            2, 4, 6
+        if (countx &lt; counto || countx - counto &gt; 1) return false;</B></FONT>
+        
+        for (String str : board) {
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
         }
-    };</B></FONT>
-
-    private boolean hasWon(char[] board, char c) {
-        for (int i = 0; i &lt; 8; i++)
-            if (board[win[i][0]] == c &amp;&amp;
-                    board[win[i][1]] == c &amp;&amp;
-                    board[win[i][2]] == c)
-                return true;
+        
+        
+        for (int i = 0; i &lt; 3; i++) {
+            String str = &quot;&quot; + bb[0][i] + bb[1][i] + bb[2][i];
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
+        }
+        
+        String str1 = &quot;&quot; + bb[0][0] + bb[1][1] + bb[2][2];
+        String str2 = &quot;&quot; + bb[0][2] + bb[1][1] + bb[2][0];
+        
+        if (str1.equals(&quot;XXX&quot;)) winx++;
+        else if (str1.equals(&quot;OOO&quot;)) wino++;
+        
+        if (str2.equals(&quot;XXX&quot;)) winx++;
+        else if (str2.equals(&quot;OOO&quot;)) wino++;
+        //System.out.println(winx + &quot; &quot; + wino + &quot; &quot; + countx  + &quot; &quot; + counto);
+        
+        if (winx == 0 &amp;&amp; wino == 0 || (winx == 0 &amp;&amp; wino == 1 &amp;&amp; countx == counto) || (winx == 1 &amp;&amp; wino == 0 &amp;&amp; countx - counto == 1)) return true;
         return false;
     }
 }

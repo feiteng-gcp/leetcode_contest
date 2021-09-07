@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_jq_huang.cpp</TITLE>
+ <TITLE>438_linyacool.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_jq_huang.cpp</CENTER></H3><HR>
+<H3><CENTER>438_linyacool.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-  int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-    int n = S.size();
-    vector&lt;set&lt;int&gt;&gt; pos(26);
-    for (int i = 0; i != n; ++i)
-      pos[S[i] - 'a'].insert(i);
-    int ret = 0;
-<A NAME="0"></A>    for (const auto &amp;word: words) {
-      int p = 0;
-      bool found = true;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      for (int i = 0; i != word.size(); ++i) {
-        int c = word[i] - 'a';
-        auto ite = pos[c].lower_bound(p);
-        if (ite == pos[c].end()) {
-          found = false;
-          break;
-        } 
-        p = *ite + 1;
-      }
-      if (found) ++ret;
+    int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words)
+    {
+        vector&lt;vector&lt;int&gt;&gt; s(26, vector&lt;int&gt;());
+        for (int i = 0; i &lt; S.size(); ++i)
+        {
+            s[S[i] - 'a'].push_back(i);
+        }
+        
+        int cnt = 0;
+        for (auto &amp;str: words)</B></FONT>
+        {
+            int pos = -1;
+            vector&lt;int&gt; idx(26, 0);
+            for (int i = 0; i &lt; str.size(); ++i)
+            {
+                int p = str[i] - 'a';
+                while (idx[p] &lt; s[p].size() &amp;&amp; s[p][idx[p]] &lt;= pos) 
+                    ++idx[p];
+                if (idx[p] == s[p].size()) break;
+                pos = s[p][idx[p]];
+                if (i == str.size() - 1) ++cnt;
+            }
+        }
+        
+        
+        return cnt;
     }
-    return ret;
-  }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

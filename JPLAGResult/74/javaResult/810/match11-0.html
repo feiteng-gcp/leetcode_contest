@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>405_wenboz.java</TITLE>
+ <TITLE>302_vivianyang2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,62 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>405_wenboz.java</CENTER></H3><HR>
+<H3><CENTER>302_vivianyang2.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public boolean validTicTacToe(String[] board) {
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int numO = 0;
-        int numX = 0;
-        int num3O = 0;
-        int num3X = 0;
-        for(int i = 0; i&lt;3; i ++){
-            for(int j =0; j&lt;3; j++){</B></FONT>
-<A NAME="1"></A>                if(board[i].charAt(j) == 'O'){
-                    numO++;
-                }
-                if(board[i].charAt(j) == 'X')<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                    numX++;
-                }
+        int countx = 0;
+        int counto = 0;
+        int winx = 0;
+<A NAME="0"></A>        int wino = 0;
+        char[][] bb = new char[3][3];
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int k = 0;
+        for (String str : board) {
+            for (int i = 0; i &lt; 3; i++) {
+                char c = str.charAt</B></FONT>(i);
+                bb[k][i] = c;
+                if (c == 'X') countx++;
+                else if (c == 'O') counto++;
             }
+            k++;
         }
-        if(numO &gt; numX)
-            return false;</B></FONT>
-        if(numX - numO &gt; 1)
-            return false;
-        for(int i =0; i&lt;3; i++){
-            if(board[i].charAt(0) == 'O' &amp;&amp; board[i].charAt(1) == 'O' &amp;&amp; board[i].charAt(2) == 'O'){
-                num3O++;
-            }
-            if(board[i].charAt(0) == 'X' &amp;&amp; board[i].charAt(1) == 'X' &amp;&amp; board[i].charAt(2) == 'X'){
-                num3X++;
-            }
-            if(board[0].charAt(i) == 'O' &amp;&amp; board[1].charAt(i) == 'O' &amp;&amp; board[2].charAt(i)  == 'O'){
-                num3O++;
-            }
-            if(board[0].charAt(i) == 'X' &amp;&amp; board[1].charAt(i) == 'X' &amp;&amp; board[2].charAt(i)  == 'X'){
-                num3X++;
-            }
+        
+        if (countx &lt; counto || countx - counto &gt; 1) return false;
+        
+        for (String str : board) {
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
         }
-        if(board[0].charAt(0) == 'O' &amp;&amp; board[1].charAt(1)  == 'O' &amp;&amp; board[2].charAt(2)  == 'O'){
-            num3O++;
+        
+        
+        for (int i = 0; i &lt; 3; i++) {
+            String str = &quot;&quot; + bb[0][i] + bb[1][i] + bb[2][i];
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
         }
-        if(board[0].charAt(0) == 'X' &amp;&amp; board[1].charAt(1)  == 'X' &amp;&amp; board[2].charAt(2)  == 'X'){
-            num3X++;
-        }
-        if(board[2].charAt(0) == 'O' &amp;&amp; board[1].charAt(1) == 'O' &amp;&amp; board[0].charAt(2) == 'O'){
-            num3O++;
-<A NAME="2"></A>        }
-        if(board[2].charAt(0) == 'X' &amp;&amp; board[1].charAt(1) == 'X' &amp;&amp; board[0].charAt(2) == 'X'){
-            num3X++;
-        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        if(num3X &gt; 0 &amp;&amp; num3O &gt; 0)
-            return false;
-        if(num3X &gt; 0 &amp;&amp; numX - numO != 1)
-            return false;
-        if(num3O &gt; 0 &amp;&amp; numX - numO != 0)
-            return false;
-        return true;
-    }</B></FONT>
+        
+        String str1 = &quot;&quot; + bb[0][0] + bb[1][1] + bb[2][2];
+        String str2 = &quot;&quot; + bb[0][2] + bb[1][1] + bb[2][0];
+        
+        if (str1.equals(&quot;XXX&quot;)) winx++;
+        else if (str1.equals(&quot;OOO&quot;)) wino++;
+        
+        if (str2.equals(&quot;XXX&quot;)) winx++;
+        else if (str2.equals(&quot;OOO&quot;)) wino++;
+        //System.out.println(winx + &quot; &quot; + wino + &quot; &quot; + countx  + &quot; &quot; + counto);
+        
+        if (winx == 0 &amp;&amp; wino == 0 || (winx == 0 &amp;&amp; wino == 1 &amp;&amp; countx == counto) || (winx == 1 &amp;&amp; wino == 0 &amp;&amp; countx - counto == 1)) return true;
+        return false;
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>183_bribri.java</TITLE>
+ <TITLE>252_mellu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>183_bribri.java</CENTER></H3><HR>
+<H3><CENTER>252_mellu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-        
-    public boolean isMatchingSubseq(String S, String word) {
-        int len = S.length();
-        int curr = 0;
-        int curr_char = word.charAt(0);
-        for (int i = 0; i &lt; len; i++) {
-            if (S.charAt(i) == curr_char) {
-                curr++;
-                if (curr == word.length()) {
-<A NAME="1"></A>                    return true;
-                }
-                curr_char = word.charAt(curr);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        return false;
-<A NAME="0"></A>    }
+    public int numMatchingSubseq(String S, String[] words) {
+        List&lt;Integer&gt;[] count = new ArrayList[26];
 
-    public int numMatchingSubseq(String S, String[] words) {</B></FONT>
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
+        for (int i = 0; i &lt; S.length(); i++) {
+            char c = S.charAt(i);
+            if (count[c - 'a'] == null) {
+                count[c - 'a'] = new ArrayList&lt;&gt;();
+            }
+
+<A NAME="0"></A>            count[c - 'a'].add(i);
+        }
+
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int total = 0;
+
         for (String word : words) {
-            if (isMatchingSubseq(S, word)) {
-                count++;
+            if (isSub(count, word)) {
+                total++;
+                //System.err.println(word);
             }
         }
-        return count;
-    }</B></FONT>
+        return total;
+    }
+
+    boolean isSub(List&lt;Integer&gt;[] count, String word) {
+        int[] index = new int[26]</B></FONT>;
+        Arrays.fill(index, -1);
+
+        int pre = -1;
+        int i = 0;
+        while (i &lt; word.length()) {
+            char c = word.charAt(i);
+            int in = index[c - 'a'];
+
+            if (count[c - 'a'] == null || count[c - 'a'].size() &lt;= in + 1) {
+                return false;
+            }
+
+            int cur = count[c - 'a'].get(in + 1);
+            index[c - 'a']++;
+
+            if (cur &gt; pre) {
+                i++;
+                pre = cur;
+            }
+
+        }
+
+        return true;
+    }
 }
 </PRE>
 

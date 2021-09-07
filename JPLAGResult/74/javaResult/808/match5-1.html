@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>29_jingwang517.java</TITLE>
+ <TITLE>133_Junbo1226.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>29_jingwang517.java</CENTER></H3><HR>
+<H3><CENTER>133_Junbo1226.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public int numMatchingSubseq(String S, String[] words) {
-        int c = 0;
-        for (String w: words) {
-            if (isSubseq(S, w)) {
-                ++c;
+        int count = 0;
+<A NAME="0"></A>        if (S.length() == 0 || words.length == 0) {
+            return 0;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String word : words) {
+            if (helper(word, S)) {
+                count++;
             }
         }
-        return c;
+        return count;
     }
     
-    public boolean isSubseq(String s, String p) {
-        int i = 0</B></FONT>, j = 0;
-        while (i &lt; s.length() &amp;&amp; j &lt; p.length()) {
-            if (s.charAt(i) == p.charAt(j)) {
-                ++i;
-                ++j;
-            } else {
-                ++i;
+    public boolean helper(String word, String S) {
+        int index = 0;
+        char[] cc = word.toCharArray()</B></FONT>;
+        for (char c : cc) {
+            int temp = S.indexOf(c , index);
+            if (temp &lt; 0) {
+                return false;
             }
+            index = temp + 1;
         }
-        
-        return j == p.length();
+        return true;
     }
 }
 </PRE>

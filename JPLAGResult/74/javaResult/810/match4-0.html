@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>441_krishna957.java</TITLE>
+ <TITLE>429_firebird.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,82 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>441_krishna957.java</CENTER></H3><HR>
+<H3><CENTER>429_firebird.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public boolean validTicTacToe(String[] board) {
-        if(board == null || board.length == 0){
-            return false;
-<A NAME="0"></A>        }
-        int arr[] =count(board);
-        if(arr[0]-arr[1] == 0 ){
-           <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean f1 = verify(board,'X');
-            boolean f2 = verify(board,'O');
-            if(f1){
-                return false;
-            }</B></FONT>
-            return true;
-        }
-        else if(arr[0]-arr[1] == 1){
-           boolean f1 = verify(board,'X');
-            boolean f2 = verify(board,'O');
-            if((!f2 &amp;&amp; f1) ||(!f1 &amp;&amp; !f2)){
-                return true;
-            }
-        }
+  public boolean validTicTacToe(String[] board) {
+    if (board==null || board.length!=3)
+      return false;
+    
+    for (String row : board) {
+      if (row==null || row.length()!=3)
         return false;
     }
-    public int[] count(String[] board){
-        int res[] = new int[2];
-        for(String st:board){
-            for(char ch:st.toCharArray()){
-                if(ch == 'X')
-                    res[0]++;
-                else if(ch == 'O')
-                    res[1]++;
-            }
-        }
-        return res;
+    
+    char[] newBoard = new char[9];
+    for (int i=0; i&lt;3; i++) {
+      for (int j=0; j&lt;3; j++)
+        newBoard[i*3 + j] = board[i].charAt(j);
     }
-    public boolean verify(String[] board,char ch){
-        //boolean flag = true;
-        for(int i=0;i&lt;board.length;i++){
-            int count =0;
-            for(int j=0;j&lt;board[i].length();j++){
-                if(board[i].charAt(j) == ch)
-                    count++;
-<A NAME="1"></A>            }
-            if(count == board.length){
-                return true;
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        }
-        for(int j=0;j&lt;3;j++){
-            int count =0;
-            for(int i=0;i&lt;3;i++){
-                if(board[i].charAt(j) == ch){
-                    count++;
-                }
-            }
-            if</B></FONT>(count == 3)
-                return true;
-        }
-        int count =0;
-        for(int i=0;i&lt;3;i++){
-            if(board[i].charAt(i)==ch)
-                count++;
-        }
-        if(count == 3)
-            return true;
-        count =0;
-        for(int i=0;i&lt;3;i++){
-            if(board[i].charAt(2-i) ==ch)
-                count++;
-        }
-        if(count == 3){
-            return true;
-        }
-        return false;
+    
+    int x=0, o=0;
+    for (int i=0; i&lt;9; i++) {
+      if (newBoard[i]=='X')
+        x++;
+      if (newBoard[i]=='O')
+        o++;
     }
+    
+    if (x==o || x==o+1) {
+      if (checkWin(newBoard, 'O')) {
+        if (checkWin(newBoard, 'X')) 
+          return false;
+        return x==o;
+      }
+      
+<A NAME="0"></A>      if (checkWin(newBoard, 'X'))
+        return x==o+1;
+      
+      <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return true;
+    }
+    
+    return false;
+  }
+  
+  private boolean checkWin(char[] board, char c</B></FONT>) {
+    int[][] winCase = {{0,1,2}, {3,4,5}, {6,7,8},
+                       {0,3,6}, {1,4,7}, {2,5,8},
+                       {0,4,8}, {2,4,6}};
+    for (int i=0; i&lt;8; i++) {
+      if (board[winCase[i][0]]==c &amp;&amp; board[winCase[i][1]]==c &amp;&amp; board[winCase[i][2]]==c)
+        return true;
+    }
+    
+    return false;
+  }
 }
 </PRE>
 

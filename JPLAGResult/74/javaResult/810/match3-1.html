@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>123_andycoder.java</TITLE>
+ <TITLE>233_kay_deep.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,94 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>123_andycoder.java</CENTER></H3><HR>
+<H3><CENTER>233_kay_deep.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public boolean validTicTacToe(String[] board) {
-        if (board == null || board.length != 3
-           || board[0] == null || board[0].length() != 3) {
-            return false;
-        }
-        
-        int xCnt = 0;
-        int oCnt = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            for (int j = 0; j &lt; 3; j++) {
-                char c = board[i].charAt(j);
-                if (c == 'X') {
-                    xCnt++;
-                } else if (c == 'O') {
-                    oCnt++;
-                }
+        int xs=0, os=0;
+        char[][] board1= new char[3][3];
+        for(int i=0;i&lt;3;i++){
+            for(int j=0;j&lt;3;j++){
+                char c=board[i].charAt(j);
+                if(c=='O') os++;
+                else if(c=='X') xs++;
+            board1[i][j]=c;
             }
         }
-        
-        if (oCnt &gt; xCnt || (xCnt - oCnt) &gt; 1) {
-            return false;
-        }
-        
-        int xWonCnt = wonGameCnt('X', board);
-        int oWonCnt = wonGameCnt('O', board);
-        if (xWonCnt &gt; 0 &amp;&amp; oWonCnt &gt; 0) {
-            return false;
-        }
-        
-        if (xWonCnt &gt; 1|| oWonCnt &gt; 1) {
-            return false;
-        }
-        
-        if (xWonCnt &gt; 0 &amp;&amp; (xCnt - oCnt != 1)) {
-            return false;
-        }
-        
-        if (oWonCnt &gt; 0 &amp;&amp; xCnt != oCnt) {
-            return false;
-<A NAME="0"></A>        }
-        
+      //  System.out.println(xs+&quot; &quot;+os);
+        if(xs&lt;os || xs&gt;os+1) return false;
+       // if(xs==os) return checkValid(board1,xs);
+<A NAME="0"></A>        int[] ans=checkValid(board1,xs);
+     //   System.out.println(xs+&quot; &quot;+os+&quot; &quot;+ans[0]+&quot; &quot;+ans[1]);
+        if(xs==os &amp;&amp; ans[0]&gt;0) return false;
+        if(xs&gt;os &amp;&amp; ans[1]&gt;0) return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
         return true;
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    }
     
-    private int wonGameCnt(char c, String[] board) {
-        int cnt = 0;
-        for (int i = 0; i &lt; 3; i++) {
-            int rowCnt = 0;
-<A NAME="1"></A>            for (int j = 0; j &lt; 3; j++) {
-                if (board[i].charAt(j) == c) {</B></FONT>
-                    rowCnt++;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    public int[] checkValid(char[][] board,int count){
+        int xs=0,o</B></FONT>s=0;
+        for(int i=0;i&lt;3;i++){
+            if(board[i][0]==board[i][1] &amp;&amp; board[i][1]==board[i][2]){
+                if(board[i][0]=='O') os++;
+                else if(board[i][0]=='X') xs++;
             }
-            
-            if (rowCnt == 3) {
-                cnt++;
-            }
-        }</B></FONT>
-        
-        for (int j = 0; j &lt; 3; j++) {
-            int colCnt = 0;
-            for (int i = 0; i &lt; 3; i++) {
-                if(board[i].charAt(j) == c) {
-                    colCnt++;
-                }
-            }
-            
-            if (colCnt == 3) {
-                cnt++;
+            if(board[0][i]==board[1][i] &amp;&amp; board[1][i]==board[2][i]){
+                if(board[0][i]=='O') os++;
+                else if(board[0][i]=='X') xs++;
             }
         }
-        
-        if (board[0].charAt(0) == c
-           &amp;&amp; board[1].charAt(1) == c
-           &amp;&amp; board[2].charAt(2) == c) {
-            cnt++;
+        if(board[0][0]==board[1][1] &amp;&amp; board[1][1]==board[2][2]){
+             if(board[0][0]=='O') os++;
+                else if(board[0][0]=='X') xs++;
         }
         
-        if (board[0].charAt(2) == c
-           &amp;&amp; board[1].charAt(1) == c
-           &amp;&amp; board[2].charAt(0) == c) {
-            cnt++;
+        if(board[0][2]==board[1][1] &amp;&amp; board[1][1]==board[2][0]){
+             if(board[0][2]=='O') os++;
+                else if(board[0][2]=='X') xs++;
         }
-        
-        return cnt;
+        int[] res= new int[2];
+        res[0]=xs;res[1]=os;
+        return res;
     }
 }
 </PRE>

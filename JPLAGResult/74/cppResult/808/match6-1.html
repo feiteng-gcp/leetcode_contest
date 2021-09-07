@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>61_HMAXS.cpp</TITLE>
+ <TITLE>22_big-time.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>61_HMAXS.cpp</CENTER></H3><HR>
+<H3><CENTER>22_big-time.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     int numMatchingSubseq(string S, vector&lt;string&gt;&amp; words) {
-        vector&lt;int&gt; index[26];
-        int n = S.size();
-        for (int i = 0; i &lt; n; i++) {
-            index[S[i] - 'a'].push_back(i);
-<A NAME="0"></A>        }
-        int cnt = 0;
-        for (string word: words) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int p = 0;
-            for (char c: word) {
-                auto it = lower_bound(index[c - 'a'].begin(), index[c - 'a'].end(), p);
-                if (it == index[c - 'a'].end()) {
-                    p = -1; break;
+        vector&lt;vector&lt;int&gt;&gt; V(26, vector&lt;int&gt;());
+        for (int i = 0; i &lt; S.size(); i++) V[S[i] - 'a'].push_back(i);
+        
+        int res = 0, n = S.size();
+        for (auto&amp; w : words) {
+            int i = -1;
+            bool valid = true;
+<A NAME="0"></A>            
+            for (auto&amp; ch : w) {
+                int idx = ch - 'a';
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                auto it = upper_bound(V[idx].begin(), V[idx].end(), i);
+                if (it == V[idx].end()) {
+                    valid = false;
+                    break;
                 }
-                p = *it + 1;
+                i = *it;
             }
-            if (p != -1) cnt++;
+            
+            if (valid) res++;
         }
-        return cnt;
+        return res;
     }
 };</B></FONT>
 </PRE>

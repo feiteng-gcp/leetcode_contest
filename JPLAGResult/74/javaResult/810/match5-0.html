@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>126_chouclee.java</TITLE>
+ <TITLE>385_cauchy11.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,67 +15,109 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>126_chouclee.java</CENTER></H3><HR>
+<H3><CENTER>385_cauchy11.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public boolean validTicTacToe(String[] board) {
+        if (board == null || board.length == 0) {
+            return false;
+        }
+        
         int[] rows = new int[3];
         int[] cols = new int[3];
-<A NAME="0"></A>        int diagonal = 0;
-        int antiDiagonal = 0;
+<A NAME="0"></A>        int cross = 0;
+        int antiCross = 0;
         
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int x = 0;
-        int o = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int xNum = 0;
+        int oNum = 0;
         
-        for (int i = 0; i &lt; 3; i++) {
-            for (int j = 0; j &lt; 3; j++) {
-                char c = board[i].charAt</B></FONT>(j);
-                int diff = c == 'X' ? 1 : c == 'O' ? -1 : 0;
-                x+= diff;
-                rows[i] += diff;
-                cols[j] += diff;
-                if (i == j) {
-                    diagonal += diff;
-                } 
-                if (i + j == 2) {
-                    antiDiagonal += diff;
+        for (int j = 0; j &lt; 3; j++) {
+            for (int i = 0; i &lt; 3; i++) {
+                char ch = board[j].charAt(i);
+                if (ch == ' ') {</B></FONT>
+                    continue;
                 }
+                
+                if (ch == 'X') {
+                    rows[i] += 1;
+                    cols[j] += 1;
+                    
+                    if (i == j) {
+                        cross += 1;
+                    }
+                    
+                    if (i + j == 2) {
+                        antiCross += 1;
+                    }
+                    xNum++;
+                } else {
+                    rows[i] -= 1;
+                    cols[j] -= 1;
+                    
+                    if (i == j) {
+                        cross -= 1;
+                    }
+                    
+                    if (i + j == 2) {
+<A NAME="1"></A>                        antiCross -= 1;
+                    }
+                    oNum++;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
             }
         }
         
-        //System.out.println(Arrays.toString(rows));
-        //System.out.println(Arrays.toString(cols));
-        //System.out.println(x);
-        
-        if (x != 0 &amp;&amp; x != 1) return false;
-        int checkx = check(3, rows);
-        checkx += check(3, cols);
-        checkx += check(3, diagonal);
-        checkx += check(3, antiDiagonal);
-        int checko = check(-3, rows);
-        checko += check(-3, cols);
-        checko += check(-3, diagonal);
-        checko += check(-3, antiDiagonal);
-        //System.out.println(checkx);
-        //System.out.println(checko);
-        if (checkx &gt; 1) return false;
-        if (checkx &gt; 0 &amp;&amp; checko &gt; 0) return false;
-<A NAME="1"></A>        if (checko &gt; 1) return false;
-        
-        if (checkx == 1) return x == 1;
-        if (checko == 1) return x == 0<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-        
-        return true;
-        
-    }
-    
-    
-    private int check(int val, int... inputs) {
-        int res = 0;
-        for (int i : inputs) {</B></FONT>
-            if (i == val) res++;
+        if (oNum &gt; xNum || (xNum - oNum &gt; 1)) {
+            return false;
         }
-        return res;
+        
+        int count = 0</B></FONT>;
+        boolean xWins = false;
+        boolean oWins = false;
+        for (int i = 0; i &lt; 3; i++) {
+            if (rows[i] == 3) {
+                count++;
+                xWins = true;
+            }
+            if (rows[i] == -3) {
+                count++;
+                oWins = true;
+            }
+            if (cols[i] == 3) {
+                count++;
+                xWins = true;
+            }
+            if (cols[i] == -3) {
+                count++;
+                oWins = true;
+            }
+        }
+        
+        if (cross == 3) {
+            count++;
+            xWins = true;
+        }
+        if (cross == -3) {
+            count++;
+            oWins = true;
+        }
+        if (antiCross == 3) {
+            count++;
+            xWins = true;
+        }
+<A NAME="2"></A>        if (antiCross == -3) {
+            count++;
+            oWins = true;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        if (xWins &amp;&amp; ((xNum - oNum) != 1)) {
+            return false;
+        }
+        
+        if (oWins &amp;&amp; (oNum != xNum)) {
+            return false;
+        }
+        
+        return</B></FONT> count &gt; 1 ? false : true;
     }
 }
 </PRE>

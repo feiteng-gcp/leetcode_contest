@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_thewizard.java</TITLE>
+ <TITLE>302_vivianyang2.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,63 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_thewizard.java</CENTER></H3><HR>
+<H3><CENTER>302_vivianyang2.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-   public static boolean validTicTacToe(String[] board) {
-        int x = 0;
-        int o = 0;
-
-        char[] b = new char[9];
+    public boolean validTicTacToe(String[] board) {
+        int countx = 0;
+        int counto = 0;
+        int winx = 0;
+        int wino = 0;
+        char[][] bb = new char[3][3];
+        
         int k = 0;
-        for (int i = 0; i &lt; 3; i++)
-            for (int j = 0; j &lt; 3; j++) {
-                b[k++] = board[i].charAt(j);
+        for (String str : board) {
+            for (int i = 0; i &lt; 3; i++) {
+<A NAME="0"></A>                char c = str.charAt(i);
+                bb[k][i] = c;
+                if (c == 'X') countx++;
+                else if (c == 'O') counto++<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
             }
-
-
-        for (int i = 0; i &lt; 9; i++) {
-            char z = b[i];
-            if (z == 'X')
-                x++;
-            else if (z == 'O')
-                o++;
+            k++;
         }
-
-        if (x == o || x == o + 1) {
-
-            if (win(b, 'O')) {
-                if (win(b, 'X'))
-                    return false;
-                return (x == o);
-            }
-
-            if (win(b, 'X') &amp;&amp; x != o + 1)
-                return false;
-
-            return true;
+        
+        if (countx &lt; counto || countx - counto &gt; 1) return false;</B></FONT>
+        
+        for (String str : board) {
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
         }
-
+        
+        
+        for (int i = 0; i &lt; 3; i++) {
+            String str = &quot;&quot; + bb[0][i] + bb[1][i] + bb[2][i];
+            if (str.equals(&quot;XXX&quot;)) winx++;
+            else if (str.equals(&quot;OOO&quot;)) wino++;
+        }
+        
+        String str1 = &quot;&quot; + bb[0][0] + bb[1][1] + bb[2][2];
+        String str2 = &quot;&quot; + bb[0][2] + bb[1][1] + bb[2][0];
+        
+        if (str1.equals(&quot;XXX&quot;)) winx++;
+        else if (str1.equals(&quot;OOO&quot;)) wino++;
+        
+        if (str2.equals(&quot;XXX&quot;)) winx++;
+        else if (str2.equals(&quot;OOO&quot;)) wino++;
+        //System.out.println(winx + &quot; &quot; + wino + &quot; &quot; + countx  + &quot; &quot; + counto);
+        
+        if (winx == 0 &amp;&amp; wino == 0 || (winx == 0 &amp;&amp; wino == 1 &amp;&amp; countx == counto) || (winx == 1 &amp;&amp; wino == 0 &amp;&amp; countx - counto == 1)) return true;
         return false;
     }
-<A NAME="0"></A>
-    public static boolean win(char[] b, char x) {
-
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] c = new int[][]{{0, 1, 2},
-                {3, 4, 5},
-                {6, 7, 8},
-                {0, 3, 6},
-                {1, 4, 7},
-                {2, 5, 8},
-<A NAME="1"></A>                {0, 4, 8},
-                {2, 4, 6}</B></FONT>};
-
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; c.length; i++) {
-            if (b[c[i][0]] == x &amp;&amp; b[c[i][1]] == x &amp;&amp; b[c[i][2]] == x)
-                return true;
-        }
-        return false;
-    }</B></FONT>
 }
 </PRE>
 

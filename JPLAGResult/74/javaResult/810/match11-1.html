@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>126_chouclee.java</TITLE>
+ <TITLE>150_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>126_chouclee.java</CENTER></H3><HR>
+<H3><CENTER>150_xn1990114.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public boolean validTicTacToe(String[] board) {
-        int[] rows = new int[3];
-        int[] cols = new int[3];
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int diagonal = 0;
-        int antiDiagonal = 0;
-        
-        int x = 0;
-        int o = 0;
-        
-        for (int i = 0; i &lt; 3; i++) {
-            for (int j = 0; j &lt; 3; j++) {</B></FONT>
-                char c = board[i].charAt(j);
-                int diff = c == 'X' ? 1 : c == 'O' ? -1 : 0;
-                x+= diff;
-                rows[i] += diff;
-                cols[j] += diff;
-<A NAME="1"></A>                if (i == j) {
-                    diagonal += diff;
-                } 
-                if (i + j == 2) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    antiDiagonal += diff;
+<A NAME="0"></A>class Solution {
+    public boolean validTicTacToe(String[] board) {
+        int countX=0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int countO=0;
+        for(int i=0;i&lt;3;i++){
+            for(int j=0;j&lt;3;j++){
+                char ch=board[i].charAt</B></FONT>(j);
+                if(ch=='X'){
+                    countX++;
+                }
+                else if(ch=='O'){
+                    countO++;
                 }
             }
         }
-        
-        //System.out.println(Arrays.toString(rows));
-        //System.out.println(Arrays.toString(cols));
-        //System.out.println(x);
-        
-        if (x != 0 &amp;&amp; x != 1) return false;</B></FONT>
-        int checkx = check(3, rows);
-        checkx += check(3, cols);
-        checkx += check(3, diagonal);
-        checkx += check(3, antiDiagonal);
-        int checko = check(-3, rows);
-        checko += check(-3, cols);
-        checko += check(-3, diagonal);
-        checko += check(-3, antiDiagonal);
-<A NAME="2"></A>        //System.out.println(checkx);
-        //System.out.println(checko);
-        if (checkx &gt; 1) return false;
-        if (checkx &gt; 0 &amp;&amp; checko &gt; 0) return false<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-        if (checko &gt; 1) return false;
-        
-        if (checkx == 1) return x == 1;
-        if (checko == 1) return x == 0;
-        
+        if(countX&lt;countO||countX&gt;countO+1){
+            return false;
+        }
+        int[] resX=countCompleted(board,'X');
+        int[] resO=countCompleted(board,'O');
+        if(resX[0]&gt;1||resO[0]&gt;1||resX[1]&gt;1||resO[1]&gt;1){
+            return false;
+        }
+        int totalX=resX[0]+resX[1]+resX[2];
+        int totalO=resO[0]+resO[1]+resO[2];
+        if(totalX&gt;0&amp;&amp;totalO&gt;0){
+            return false;
+        }
+        if(totalX&gt;0&amp;&amp;countX==countO){
+            return false;
+        }
+        if(totalO&gt;0&amp;&amp;countX&gt;countO){
+            return false;
+        }
         return true;
-        
-    }</B></FONT>
-    
-    
-    private int check(int val, int... inputs) {
-        int res = 0;
-        for (int i : inputs) {
-            if (i == val) res++;
+    }
+    // horizon,veritical,diag
+    public int[] countCompleted(String[] board,char ch){
+        int[] res=new int[3];
+        String target=&quot;&quot;+ch+ch+ch;
+        for(int i=0;i&lt;3;i++){
+            if(board[i].equals(target)){
+                res[0]++;
+            }
+        }
+        for(int i=0;i&lt;3;i++){
+            String temp=&quot;&quot;+board[0].charAt(i)+board[1].charAt(i)+board[2].charAt(i);
+            if(temp.equals(target)){
+                res[1]++;
+            }
+        }
+        if(board[0].charAt(0)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(2)==ch){
+            res[2]++;
+        }
+        if(board[0].charAt(2)==ch&amp;&amp;board[1].charAt(1)==ch&amp;&amp;board[2].charAt(0)==ch){
+            res[2]++;
         }
         return res;
     }
