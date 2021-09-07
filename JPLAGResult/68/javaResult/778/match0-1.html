@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>58_victorzhang21503.java</TITLE>
+ <TITLE>28_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
+<H3><CENTER>28_5305519068.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String reorganizeString(String S) {
-        if(S == null || S.length() == 0){
-            return S;
+        int[] count = new int[26];
+        for (int i = 0; i &lt; S.length(); ++i) {
+        	count[S.charAt(i) - 'a']++;
         }
-        
-        int[] map = new int[26];
-        int[] id = new int[26];
-<A NAME="1"></A>        
-        for(char ch : S.toCharArray()){</B></FONT>
-            map[ch - 'a']++;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i &lt; S.length(); i++){
-            
-            int pick = -1;
-            int max = 0;
-            
-            for(int j = 0; j &lt; 26; j++){
-                if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
-                    pick = j;
-                    max = map[j];
-                }
-            }
-            if(pick == -1){
-                return &quot;&quot;;
-            }</B></FONT>
-            else{
-                sb.append((char)('a' + pick));
-                map[pick]--;
-                id[pick] = i + 2;
-            }
+        char[] res = new char[S.length()]</B></FONT>;
+        for (int i = 0; i &lt; S.length(); ++i) {
+        	int k = -1;
+        	for (int j = 0; j &lt; 26; ++j) {
+        		if (count[j] == 0 || i &gt; 0 &amp;&amp; res[i - 1] - 'a' == j) {
+<A NAME="1"></A>        			continue;
+        		} 
+        		if (k == -1 || count[j] &gt; count[k]) {
+        			k = j;<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+        		}
+        	}
+        	if (k == -1) return &quot;&quot;;
+        	res[i] = (char)('a' + k);
+        	count[k]--;
         }
-        
-        return sb.toString();
+        return</B></FONT> String.valueOf(res);
     }
 }
 </PRE>

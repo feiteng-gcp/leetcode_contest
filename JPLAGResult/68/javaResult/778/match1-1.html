@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>58_victorzhang21503.java</TITLE>
+ <TITLE>183_yliu04.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
+<H3><CENTER>183_yliu04.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String reorganizeString(String S) {
-        if(S == null || S.length() == 0){
-            return S;
-<A NAME="0"></A>        }
-        
-        int[] map = new int[26];
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] id = new int[26];
-        
-        for(char ch : S.toCharArray()){
-<A NAME="1"></A>            map[ch - 'a']++;
+        int[] count = new int[26];
+        for (char c : S.toCharArray()) {</B></FONT>
+            count[c - 'a']++;
         }
-        StringBuilder sb = new</B></FONT> StringBuilder();
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; S.length(); i++){
-            
-            int pick = -1;
-<A NAME="2"></A>            int max = 0;
-            
-            for(int j = 0; j &lt; 26; j++){</B></FONT>
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
-                    pick = j;
-                    max = map[j];
-                }
-            }
-            if(pick == -1){
-                return &quot;&quot;;
-            }</B></FONT>
-            else{
-                sb.append((char)('a' + pick));
-                map[pick]--;
-                id[pick] = i + 2;
+        Queue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a1, a2) -&gt; a2[1] - a1[1]);
+        for (int i = 0; i &lt; 26; i++) {
+            if (count[i] &gt; 0) {
+                pq.offer(new int[] {i, count[i]});
             }
         }
-        
-        return sb.toString();
+        int noGood = -1;
+        StringBuilder res = new StringBuilder();
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            if (cur[0] == noGood) {
+                if (pq.isEmpty()) return &quot;&quot;;
+                int[] next = pq.poll();
+                pq.offer(cur);
+                cur = next;
+            }
+            noGood = cur[0];
+            res.append((char) (cur[0] + 'a'));
+            if (cur[1] &gt; 1)
+                pq.offer(new int[] {cur[0], cur[1] - 1});
+        }
+        return res.toString();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>56_bdhmwz.cpp</TITLE>
+ <TITLE>355_junlonga.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>56_bdhmwz.cpp</CENTER></H3><HR>
+<H3><CENTER>355_junlonga.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-	int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-		int size = arr.size();
-		vector&lt;int&gt; premax(size + 1, -1);
-		premax[0] = arr[0];
-		for (int i = 1; i &lt; size; ++i) {</B></FONT>
-			premax[i] = max(premax[i - 1], arr[i]);
-<A NAME="1"></A>		}
-		vector&lt;int&gt; dp(size + 1, 1);
-		for (int i = 1; i &lt; size; ++i) {
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			int minval = INT_MAX;
-			for (int j = i; j &gt;= 1; --j) {
-				minval = min(minval, arr[j]);
-				if (minval &gt;= premax[j - 1]) {
-					dp[i] = max(dp[i], dp[j - 1] + 1);
-				}
-			}
-		}
-		return dp[size - 1];
-	}
-};</B></FONT>
+    int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
+      vector&lt;int&gt; tmp = arr;
+      sort(tmp.begin(), tmp.end());
+      unordered_map&lt;int, deque&lt;int&gt;&gt; inverse;
+      for (int i = 0; i &lt; tmp.size(); ++i) {</B></FONT>
+        inverse[tmp[i]].push_back(i);
+      }
+      int ma = -1;
+      int count = 0;
+      vector&lt;bool&gt; bitmap(arr.size() + 1, false);
+      for (int i = 0; i &lt; arr.size(); ++i) {
+        int index = inverse[arr[i]].front();
+        inverse[arr[i]].pop_front();
+        if (ma &lt; index) {
+          ma = index;
+        }
+        bitmap[index] = true;
+        bool canSplit = true;
+        for (int rank = 0; rank &lt;= ma; ++rank) {
+          if (!bitmap[rank]) canSplit = false;
+        }
+        if (canSplit) {
+          count ++;
+        }
+      }
+      return count;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>46_zl1zl.cpp</TITLE>
+ <TITLE>355_junlonga.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>46_zl1zl.cpp</CENTER></H3><HR>
+<H3><CENTER>355_junlonga.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
-        if (matrix.empty() || matrix[0].empty()) return true;
-        int m = matrix.size(), n = matrix[0].size();
-        for(int i=0; i+1&lt;m; ++i) {
-            for(int j=0; j+1&lt;n; ++j) {
-                if (matrix[i][j] != matrix[i+1][j+1]) return false;
-            }
+<A NAME="0"></A>    bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+        int n = matrix.size();
+        if (n == 0) return true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = matrix[0].size();
+        for (int i = n - 1; i &gt;= 0; --i) {
+          int val = matrix[i][0];
+<A NAME="1"></A>          for (int j = 1; i + j &lt; n &amp;&amp; j &lt; m; ++j) {</B></FONT>
+            if (matrix[i + j][j] != val) return false;
+          }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        for (int j = 1; j &lt; m; ++j) {
+          int val = matrix[0][j];
+          for (int i = 1; i &lt; n &amp;&amp; i + j &lt; m ; i++) {</B></FONT>
+            if(matrix[i][i + j] != val) return false;
+          }
         }
         return true;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

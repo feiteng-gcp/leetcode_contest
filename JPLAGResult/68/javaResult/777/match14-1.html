@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>671_vitamin_julia.java</TITLE>
+ <TITLE>203_weirongwang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>671_vitamin_julia.java</CENTER></H3><HR>
+<H3><CENTER>203_weirongwang.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public boolean isToeplitzMatrix(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        
-        // check first row
-        for (int col = n-1; col &gt;= 0; --col) {
-        		int val = matrix[0][col];
-        		int i = 1; 
-        		int j = col+1;
-        		while (i &lt; m &amp;&amp; j &lt; n) {
-        			if (matrix[i][j] != val) return false;
-        			++i;
-        			++j;
-        		}
+         int R = matrix.length;
+        int C = matrix[0].length;
+        for (int i=C-2; i&gt;=0;i--)
+        {
+            int c = matrix[0][i];
+            for (int j= 1; j&lt;R &amp; i+j&lt;C; j++)
+            {
+                if (matrix[j][i+j] != c)
+                    return false;
+            }
         }
-        
-        // check first col
-        for (int row = 1; row &lt; m; ++row) {
-        		int val = matrix[row][0];
-        		int i = row + 1;
-        		int j = 1;
-        		while (i &lt; m &amp;&amp; j &lt; n) {
-        			if (matrix[i][j] != val) return false;
-        			++i;
-        			++j;
-        		}
+       for (int i=1; i&lt;R-1;i++)
+        {
+            int c = matrix[i][0];
+            for (int j= 1; i+j&lt;R &amp; j&lt;C; j++)
+            {
+                if (matrix[i+j][j] != c)
+                    return false;
+            }
         }
-        
-        return true;
+       return true;
     }
 }</B></FONT>
 </PRE>

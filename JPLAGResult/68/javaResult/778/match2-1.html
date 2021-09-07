@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_KakaHiguain.java</TITLE>
+ <TITLE>183_yliu04.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>183_yliu04.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String reorganizeString(String S) {
-<A NAME="0"></A>        int[] count=new int[26];
-        for (int i=0;i&lt;S.length();i++) count[S.charAt(i)-97]++;
-        int last=-1;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder sb=new StringBuilder();
-        for (int i=0;i&lt;S.length();i++)
-        {
-            int max=0,maxj=0;
-            for (int j=0;j&lt;26;j++)
-            {
-                if (j!=last &amp;&amp; count[j]&gt;max) 
-                {
-                    max=count[j];
-                    maxj=j;
-                }
-            }
-            if</B></FONT> (max==0) return &quot;&quot;;
-            sb.append((char)(maxj+97));
-            count[maxj]--;
-            last=maxj;
+        int[] count = new int[26];
+        for (char c : S.toCharArray()) {</B></FONT>
+            count[c - 'a']++;
         }
-        return sb+&quot;&quot;;
+        Queue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a1, a2) -&gt; a2[1] - a1[1]);
+        for (int i = 0; i &lt; 26; i++) {
+            if (count[i] &gt; 0) {
+                pq.offer(new int[] {i, count[i]});
+            }
+        }
+        int noGood = -1;
+        StringBuilder res = new StringBuilder();
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            if (cur[0] == noGood) {
+                if (pq.isEmpty()) return &quot;&quot;;
+                int[] next = pq.poll();
+                pq.offer(cur);
+                cur = next;
+            }
+            noGood = cur[0];
+            res.append((char) (cur[0] + 'a'));
+            if (cur[1] &gt; 1)
+                pq.offer(new int[] {cur[0], cur[1] - 1});
+        }
+        return res.toString();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>133_NaoJoeMiao.cpp</TITLE>
+ <TITLE>355_junlonga.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>133_NaoJoeMiao.cpp</CENTER></H3><HR>
+<H3><CENTER>355_junlonga.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) 
-    {
-        int n = matrix.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int m = matrix[0].size();
+    bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) {
+<A NAME="0"></A>        int n = matrix.size();
+        if (n == 0) return true;
+        int m = matrix[0].size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = n - 1; i &gt;= 0; --i) {
+          int val = matrix[i][0];
+          for (int j = 1; i + j &lt; n &amp;&amp; j &lt; m; ++j) {
+            if (matrix[i + j][j] != val) return false;
+<A NAME="1"></A>          }
+        }</B></FONT>
         
-        for (int i = 0; i &lt; n; i++)
-        {
-            int x = i+1, y = 1;
-            while (x &lt; n &amp;&amp; y &lt; m)
-            {
-                if (matrix[x-1][y-1] != matrix[x][y])
-                    return false;
-                
-                x++; y++;
-            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j = 1; j &lt; m; ++j) {
+          int val = matrix[0][j];
+          for (int i = 1; i &lt; n &amp;&amp; i + j &lt; m ; i++) {
+            if(matrix[i][i + j] != val) return false;
+          }
         }
-        
-        for (int j = 0; j &lt; m; j++)
-        {
-            int x = 1, y = j+1;
-            while (x &lt; n &amp;&amp; y &lt; m)
-            {
-                if (matrix[x-1][y-1] != matrix[x][y])
-                    return false;
-                
-                x++; y++;
-            }
-        
-        }
-        
         return true;
-        
     }
 };</B></FONT>
 </PRE>
