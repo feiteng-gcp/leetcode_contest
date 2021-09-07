@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>132_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int profitableSchemes(int G, int P, int[] g, int[] p) {
+        int l = p.length;
+         int s = 0</B></FONT>;
+        for(int pp:p){s+=pp;}
+        int dp[][] = new int[s+1][G+1];
+        
+       
+        
+        
+      //  dp[i][profit][man] =  dp[i-1][profit][man] + dp[i-1][profit-p[i]][man-g[i]];
+        long r = 0;
+        dp[0][0] = 1 ;
+        if(G&gt;=g[0]){
+            dp[p[0]][g[0]] = 1;
+            // if(p[0]&gt;=P){
+            //     r++;
+<A NAME="1"></A>            // }
+        }
+                
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=1;i&lt;l;i++){
+            int ndp[][] = new int[s+1][G+1];
+            for(int j=0;j&lt;=s;j++){
+                for(int k=0;k&lt;=G;k++){
+                    if</B></FONT>(i&gt;=1){
+                        ndp[j][k] = dp[j][k] ;
+                        if(j-p[i]&gt;=0&amp;&amp;k-g[i]&gt;=0){
+                            ndp[j][k] = (ndp[j][k]+dp[j-p[i]][k-g[i]])%1000000007 ;
+                        }
+<A NAME="2"></A>                    }
+                    if(i==l-1&amp;&amp;j&gt;=P){
+                        r = (r+ndp[j][k])%1000000007;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                    
+                }
+            }
+            dp = ndp;
+        }</B></FONT>
+
+        if(g.length==1){
+        
+        for(int i=P;i&lt;=s;i++){
+            for(int k=0;k&lt;=G;k++){
+                r = (r+dp[i][k])%1000000007;
+            }
+        }
+        }
+        
+        
+       
+        return (int)r;
+        
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

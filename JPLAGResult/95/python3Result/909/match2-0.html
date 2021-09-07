@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_bigmiaomiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_bigmiaomiao.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGame(self, piles):
+        &quot;&quot;&quot;
+        :type piles: List[int]
+        :rtype: bool
+        &quot;&quot;&quot;
+        l=len(piles)
+        dp=[[0 for i in range(l)]for j in range(l+1)]
+        s=[0 for i in range(l)]
+        s[0]=piles[0]
+        for i in range(1,l):
+            s[i]=s[i-1]+piles[i]
+        for i in range(l):
+            dp[1][i]=piles[i]
+        for step in range(2,l+1):
+            for i in range(l):
+                j=i+step-1
+<A NAME="0"></A>                if j&gt;=l:
+                    continue
+                if i&gt;0:
+                    dp<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[step][i]=max(piles[i]+s[j]-s[i-1]-dp[step-1][i+1],piles[j]+s[j]-s[i-1]-dp[step-1][i])
+                else:
+                    dp[step][</B></FONT>i]=max(piles[i]+s[j]-dp[step-1][i+1],piles[j]+s[j]-dp[step-1][i])
+        if dp[l][0]*2&gt;s[l-1]:
+            return True
+        return False
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>137_wa007.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>137_wa007.cpp</CENTER></H3><HR>
+<PRE>
+
+typedef long long ll;
+class Solution {
+public:
+    int profitableSchemes(int G, int P, vector&lt;int&gt;&amp; group, vector&lt;int&gt;&amp; profit) {
+        const int mod = 1e9+7;
+        ll dp[105][105][105];
+        memset(dp,0,sizeof(dp));
+        const int maxn = 101;
+        int n=group.size();
+<A NAME="0"></A>        for(int i=0;i&lt;n;i++){
+            dp[i][group[i]][min(P,profit[i])]=1;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=1;i&lt;n;i++){
+            int nowg=group[i],nowp=profit[i];
+            for(int j=1;j&lt;=G;j++){
+                for(int k=0;k&lt;maxn;k++){
+                    int mid = nowp;
+                    if(k+mid&gt;=P){
+                        mid = P-k;
+                    }</B></FONT>
+                    if(j+nowg&lt;=G){
+                        dp[i][j+nowg][k+mid]+=dp[i-1][j][k];
+                        dp[i][j+nowg][k+mid]%=mod;
+                    }
+                    dp[i][j][k]+=dp[i-1][j][k];
+                    dp[i][j][k]%=mod;
+                }
+            }
+        }
+        ll ans=0;
+        for(int i=1;i&lt;maxn;i++){
+            if(i&gt;G)break;
+            ans = (ans + dp[n-1][i][P])%mod;
+        }
+        return (int)ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

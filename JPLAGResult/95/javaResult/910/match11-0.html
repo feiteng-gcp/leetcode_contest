@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>233_DemonSong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>233_DemonSong.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+	public int nthMagicalNumber(int N, int A, int B) {
+		if (A &lt; B) {
+			int sum = A + B;
+			A = sum - A;
+			B = sum - A;
+		}
+		int gcd = gcd(A, B);
+		long lf = 0;
+<A NAME="0"></A>		long rt = Long.MAX_VALUE / 2;
+		while (lf &lt; rt) {
+			long mid = lf + (rt - lf + 1) / 2;
+			if (valid(mid, A, B, N, gcd)) {<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				rt = mid - 1;
+			} else {
+				lf = mid;
+			}
+		}</B></FONT>
+		for (long i = lf; i &gt;= 0; --i) {
+<A NAME="1"></A>			if (i % A == 0 || i % B == 0)
+				return (int) (i % (1000000000 + 7));
+		}
+		return -1;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	}
+
+	int gcd(int m, int n) {
+		while (m &gt; 0) {
+			int c = n % m;
+			n = m;
+			m = c;
+		}
+		return n;
+
+	}</B></FONT>
+
+	public boolean valid(long mid, int A, int B, int N, int gcd) {
+		long sum = 0;
+		if (A % B == 0) {
+			sum += mid / B;
+		} else {
+			sum -= mid / (A / gcd * B / gcd * gcd);
+			sum += mid / A;
+			sum += mid / B;
+		}
+		return sum &gt; N;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

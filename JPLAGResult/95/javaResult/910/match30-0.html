@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>181_pandamaooo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>181_pandamaooo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }</B></FONT>
+<A NAME="1"></A>
+    public int nthMagicalNumber(int N, int A, int B) {
+        long n = (long) N;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int gcd = gcd(A, B);
+        int x = B / gcd;
+        int y = A / gcd;
+        int lcm = x * A;
+        int cnt = x + y - 1;
+<A NAME="2"></A>        int aMultiple = A, bMultiple = B;
+        int[] opt = new int[cnt]</B></FONT>;
+        for (int i = 0; i &lt; cnt; i++) {
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (aMultiple &gt; bMultiple) {
+                opt[i] = bMultiple;
+                bMultiple += B;
+            } else {
+                opt[i] = aMultiple;
+                aMultiple += A;
+            }</B></FONT>
+        }
+//        for (int i = 0; i &lt; cnt; i++) {
+//            System.out.println(i + &quot;: &quot; + opt[i]);
+//        }
+        int more = N % cnt;
+        int times = N / cnt;
+        long MOD = 1000000007L;
+        long ans = ((long) times) * ((long) lcm) % MOD;
+        if (more &gt; 0) {
+            ans = (ans + (long) opt[more - 1]) % MOD;
+        }
+
+        return (int) ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

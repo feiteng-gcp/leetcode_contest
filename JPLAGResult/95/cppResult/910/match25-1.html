@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_yijinru.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_yijinru.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int nthMagicalNumber(int N, int A, int B) {
+        long long mod = 1000000007;
+        int gcd = __gcd(A,B);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int a = A/gcd;
+        int b = B/gcd;
+        int k = N/(a+b-1);
+        int remainder = N % (a+b-1);
+        long long rst = ((long long)k * a * b) % mod;
+
+<A NAME="1"></A>        int ma=a;
+        int mb=b;
+        int residual=0;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0;i&lt;remainder;i++) {
+            if (ma&lt;mb) {
+                residual=ma;
+                ma+=a;
+            } else {
+                residual=mb;
+                mb+=b;
+            }
+        }
+        rst = (rst+residual) % mod;</B></FONT>
+        rst = (rst * gcd) % mod;
+        return (int)rst;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
