@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_tomerry.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>42_tomerry.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool backtracking(int index, int BSum, int totalSum, int BSize, int totalSize, vector&lt;int&gt; &amp;A) {
+        if (index &gt;= totalSize) return false;
+        BSum += A[index];
+        BSize += 1;
+        int CSum = totalSum - BSum;
+        int CSize = totalSize - BSize;
+        if (totalSum * CSize == totalSize * CSum) {
+            //cout &lt;&lt; &quot;trigger&quot; &lt;&lt; CSize &lt;&lt; endl;
+            if (totalSize == BSize) return false;
+<A NAME="0"></A>            return true;
+        }
+        if (totalSum * CSize &gt; totalSize * CSum) return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int ii = index + 1; ii &lt; totalSize; ++ii) {
+            if (backtracking(ii, BSum, totalSum, BSize, totalSize, A)) {
+                return true;
+            }
+        }
+        return false;
+    }</B></FONT>
+    
+    bool splitArraySameAverage(vector&lt;int&gt;&amp; A) {
+        if (A.size() &lt;= 1) return false;
+        sort(A.begin(), A.end());
+        int totalSize = A.size(); 
+        int totalSum = 0;
+        for (auto num : A) totalSum += num;
+        for (int ii = 0; ii &lt; totalSize; ++ii) {
+            if (backtracking(ii, 0, totalSum, 0, totalSize, A)) return true;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
