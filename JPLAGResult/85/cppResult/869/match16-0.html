@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_LeetCoderChen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_LeetCoderChen.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int numSimilarGroups(vector&lt;string&gt;&amp; A) {
+        int size=A.size();
+        vector&lt;vector&lt;int&gt;&gt;g(size,vector&lt;int&gt;());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;size-1;i++){
+            for(int j=i+1;j&lt;size;j++){
+                if(check(A[i],A[j])){</B></FONT>
+                    g[i].push_back(j);
+                    g[j].push_back(i);
+                }
+                //cout&lt;&lt;i&lt;&lt;'\t'&lt;&lt;j&lt;&lt;endl;
+            }
+        }
+        int res=0;
+        vector&lt;int&gt;mark(size,0);
+        for(int i=0;i&lt;size;i++){
+            if(!mark[i]){
+                dfs(i,g,mark);
+                res++;
+            }
+        }
+        return res;
+    }
+private:
+    bool check(string&amp;a,string&amp;b){
+<A NAME="1"></A>        if(a.size()!=b.size())return false;
+        int len=(int)a.size();
+        vector&lt;int&gt;diff;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int counter=0;
+        for(int i=0;i&lt;len;i++){
+            if(a[i]!=b[i]){
+                counter++;
+                diff.push_back(i);
+            }
+        }
+        if(counter&gt;2)return false;</B></FONT>
+        else if(counter==2&amp;&amp;(a[diff[0]]==b[diff[1]]&amp;&amp;a[diff[1]]==b[diff[0]]))return true;
+        return false;
+    }
+    void dfs(int now,vector&lt;vector&lt;int&gt;&gt;&amp;g,vector&lt;int&gt;&amp;mark){
+        mark[now]=1;
+        for(int&amp;i:g[now]){
+            if(!mark[i])dfs(i,g,mark);
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

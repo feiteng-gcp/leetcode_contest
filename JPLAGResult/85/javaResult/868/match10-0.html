@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>250_henrywu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>250_henrywu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String pushDominoes(String dominoes) {
+        char[] array = dominoes.toCharArray();
+        int slow = -1;
+        for (int i = 0; i &lt; array.length; i++) {
+            if (array[i] != '.') {
+<A NAME="0"></A>                //process
+                process(slow, i, array);
+                slow = i;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        //post processing
+        if (slow != -1 &amp;&amp; array[slow] == 'R') {
+            for (int i = slow + 1; i &lt; array.length; i++) {
+                array[i] = 'R';
+            }
+        }
+        return new String(array);
+<A NAME="1"></A>    }</B></FONT>
+
+    //process
+    private void process(int slow, int fast, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char[] array) {
+        if (slow == -1) {
+            if (array[fast] == 'L') {
+                //do something
+                for (int i = slow + 1; i &lt; fast; i++) {
+                    array[i] = 'L';
+                }
+            }</B></FONT>
+        } else if (array[slow] == array[fast]) {
+            for (int i = slow + 1; i &lt; fast; i++) {
+                array[i] = array[slow];
+            }
+        } else if (array[slow] == 'R' &amp;&amp; array[fast] == 'L') {
+            int i = slow + 1;
+            int j = fast - 1;
+            while (i &lt; j) {
+                array[i] = array[slow];
+                array[j] = array[fast];
+                i++;
+                j--;
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

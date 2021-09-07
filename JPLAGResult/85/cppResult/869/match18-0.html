@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_shell32.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_shell32.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    vector&lt;int&gt; uf;
+public:
+<A NAME="0"></A>    int numSimilarGroups(vector&lt;string&gt;&amp; A) {
+        int len = A.size();
+        uf = vector&lt;int&gt;(len);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; len; i++) {
+            uf[i] = i;
+        }
+        for (int i = 1; i &lt; len; i++) {
+            for (int j = 0; j &lt; i; j++) {
+                if (uf[i] == uf[j])</B></FONT>
+<A NAME="1"></A>                    continue;
+                if (similar(A[i], A[j])) {
+                    merge(i, j);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; len; i++) {
+            if (uf[i] == i)
+                ans++;
+        }
+        return ans;
+    }</B></FONT>
+
+    void merge (int n1, int n2) {
+        int h1 = head(n1), h2 = head(n2);
+        if (h1 == h2)
+            return;
+        uf[h2] = h1;
+    }
+
+    int head (int n) {
+        int p = n;
+        while (uf[p] != p) {
+            p = uf[p];
+        }
+        return p;
+    }
+
+    bool similar (const string &amp;s1, const string &amp;s2) {
+        vector&lt;int&gt; pos;
+        int n = 0;
+        for (int i = 0; i &lt; s1.length(); i++) {
+            if (s1[i] != s2[i]) {
+                if (++n &gt; 2) {
+                    return false;
+                }
+                pos.push_back(i);
+            }
+        }
+        if (n != 2)
+            return false;
+        int p1 = pos[0], p2 = pos[1];
+        if (s1[p1] == s2[p2] &amp;&amp; s1[p2] == s2[p1])
+            return true;
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

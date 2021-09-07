@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_Centurion7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_Centurion7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String pushDominoes(String dominoes) {
+        int N = dominoes.length();
+        if (N == 0) return dominoes;
+        
+        int[] closestLeftAction = new int[N];
+        int[] closestRightAction = new int[N];
+        char[] ca = dominoes.toCharArray();
+<A NAME="2"></A>        
+        int lastAction = -1;
+        for (int i = 0; i &lt; N; ++i) {
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ca[i] == '.') {
+                closestLeftAction[i] = lastAction;
+<A NAME="1"></A>            } else {
+                lastAction = i;
+            }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        lastAction = -1;
+        for (int i = N-1; i &gt;= 0; --i) {
+            if (ca[i] == '.') {
+                closestRightAction[i] = lastAction;
+            }</B></FONT> else {
+                lastAction = i;
+            }
+        }
+        
+<A NAME="0"></A>        for (int i = 0; i &lt; N; ++i) {
+            if (ca[i] != '.') continue;
+            int rightPush = -1, leftPush = -1;
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (closestLeftAction[i] &gt;= 0 &amp;&amp; ca[closestLeftAction[i]] == 'R') {
+                rightPush = i - closestLeftAction[i];
+            }
+            if (closestRightAction[i] &gt;= 0 &amp;&amp; ca[closestRightAction[i]] == 'L') {
+                leftPush = closestRightAction[i] - i;
+            }</B></FONT>
+            if (rightPush &gt;= 0 &amp;&amp; leftPush &lt; 0)
+                ca[i] = 'R';
+            else if (rightPush &lt; 0 &amp;&amp; leftPush &gt;= 0) 
+                ca[i] = 'L';
+            else if (rightPush &gt;= 0 &amp;&amp; leftPush &gt;= 0) {
+                if (rightPush != leftPush) {
+                    ca[i] = rightPush &lt; leftPush ? 'R' : 'L';
+                }
+            }
+        }
+        
+        // System.out.print(new String(ca));
+        
+        return new String(ca);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

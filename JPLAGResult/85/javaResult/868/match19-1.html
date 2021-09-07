@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_usagiaoao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>459_usagiaoao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    public String pushDominoes(String dominoes) {
+        if (dominoes == null || dominoes.length() == 0) {
+            return dominoes;
+        }
+        
+        StringBuilder res = new StringBuilder();
+        int index = 0;
+        int lastUpdatedUntil = 0;
+        boolean lastSeenR = false;
+        for (int i = 0; i &lt; dominoes.length(); i++) {</B></FONT>
+            char curt = dominoes.charAt(i);
+<A NAME="1"></A>            if (curt == '.') {
+                res.append('.');
+            } else if (curt == 'R') {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.append('R');
+                if (lastSeenR) {
+                    for (int j = lastUpdatedUntil; j &lt; i; j++) {
+                        res.setCharAt(j, 'R');
+                    }
+                }</B></FONT>
+                lastUpdatedUntil = i + 1;
+                lastSeenR = true;
+            } else {
+                res.append('L');
+<A NAME="2"></A>                if (lastSeenR) {
+                    for (int l = lastUpdatedUntil, r = i - 1; l &lt; r; l++, r--) {
+                        res.setCharAt(l, 'R');
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.setCharAt(r, 'L');
+                    }
+                    
+                } else {
+                    for (int j = lastUpdatedUntil; j &lt; i; j++) {
+                        res.setCharAt(j, 'L');
+                    } 
+                }</B></FONT>
+                
+                lastUpdatedUntil = i + 1;
+                lastSeenR = false;
+            }
+        }
+        
+        if (lastSeenR &amp;&amp; lastUpdatedUntil &lt; dominoes.length()) {
+            for (int j = lastUpdatedUntil; j &lt; dominoes.length(); j++) {
+                res.setCharAt(j, 'R');
+            }
+        }
+        
+        return res.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

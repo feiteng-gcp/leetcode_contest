@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>6_ADJA.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>6_ADJA.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String pushDominoes(String dominoes) {
+        if (dominoes == null || dominoes.length() == 0) {
+            return dominoes;
+        }
+        int n = dominoes.length();
+        int[] left = new int[n];
+        int[] right = new int[n];
+<A NAME="0"></A>        Arrays.fill(left, -1);
+        Arrays.fill(right, -1);
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int lastR = -1;
+        for (int i = 0; i &lt; n; i++) {
+            if (dominoes.charAt(i) == 'R') {
+                lastR = i;
+            } else if (dominoes.charAt(i) == 'L') {
+                lastR = -1;
+            }</B></FONT>
+            if (lastR &lt; 0) {
+                continue;
+            }
+            right[i] = i - lastR;
+<A NAME="1"></A>        }
+        
+        int lastL = -1;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = n - 1; i &gt;= 0; i--) {
+            if (dominoes.charAt(i) == 'L') {
+                lastL = i;
+            } else if (dominoes.charAt(i) == 'R') {
+                lastL = -1;
+<A NAME="2"></A>            }</B></FONT>
+            if (lastL &lt; 0) {
+                continue;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match3-1.html#2',3,'match3-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            left[i] = lastL - i;
+        }
+        
+        //System.out.println(Arrays.toString(left));
+        //System.out.println(Arrays.toString(right));
+        
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i &lt; n; i++) {
+            if (left[i] == right[i]) {
+                result.append(&quot;.&quot;);
+            } else if (right[i] == -1 || (left[i] != -1 &amp;&amp; left[i] &lt; right[i])) {
+<A NAME="3"></A>                result.append(&quot;L&quot;);
+            } else {</B></FONT>
+                result.append(&quot;R&quot;);
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match3-1.html#3',3,'match3-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        return result.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

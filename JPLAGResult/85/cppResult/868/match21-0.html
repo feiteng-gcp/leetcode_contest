@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_LeetCoderChen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_LeetCoderChen.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string pushDominoes(string&amp;dominoes) {
+        bool change=true;
+        int len=dominoes.size();
+        vector&lt;int&gt;mark(len,0);
+        while(change){
+            change=false;
+            for(int i=0;i&lt;len;i++){
+                if(dominoes[i]=='.'){
+                    if((i+1&lt;len&amp;&amp;dominoes[i+1]=='L')&amp;&amp;(i-1&lt;0||dominoes[i-1]!='R')){mark[i]=-1;change=true;}
+                    else if((i-1&gt;=0&amp;&amp;dominoes[i-1]=='R')&amp;&amp;(i+1&gt;=len||dominoes[i+1]!='L')){mark[i]=1;change=true;}
+<A NAME="0"></A>                }
+            }
+            for(int i=0;i&lt;len;i++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(mark[i]==-1){dominoes[i]='L';mark[i]=0;}
+                if(mark[i]==1){dominoes[i]='R';mark[i]=0;}
+            }
+        }</B></FONT>
+        return dominoes;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

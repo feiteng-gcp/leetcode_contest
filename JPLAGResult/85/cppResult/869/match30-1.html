@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>155_ranf999.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>155_ranf999.cpp</CENTER></H3><HR>
+<PRE>
+class UnionFind {
+public:
+	vector&lt;int&gt; parent;
+	vector&lt;int&gt; size;
+	int cnt;
+public:
+	UnionFind(int n) {
+		cnt = n;
+		for(int i = 0; i &lt; n; i++) {
+			parent.push_back(i);
+			size.push_back(1);
+		}
+	}
+	int count();
+	int find(int p);
+	bool connected(int p, int q);
+	void union2(int p, int q);
+};
+
+int UnionFind::count() {
+	return cnt;
+}
+
+int UnionFind::find(int p) {
+	int root = p;
+	while(root != parent[root]) {
+		root = parent[root];
+	}
+	while(root != p) {
+		int newp = parent[p];
+		parent[p] = root;
+		p = newp;
+	}
+	return root;
+}
+
+bool UnionFind::connected(int p, int q) {
+	return find(p) == find(q);
+}
+
+void UnionFind::union2(int p, int q) {
+	int rootP = find(p);
+	int rootQ = find(q);
+	if(rootP == rootQ) return;
+	if(size[rootP] &lt; size[rootQ]) {
+		parent[rootP] = rootQ;
+		size[rootQ] += size[rootP];
+	} else {
+		parent[rootQ] = rootP;
+		size[rootP] += size[rootQ];
+	}
+	cnt--;
+}
+
+
+class Solution {
+public:
+    
+    bool areMetaStrings(string str1, string str2)
+{
+    int len1 = str1.length();
+    int len2 = str2.length();
+ 
+    // Return false if both are not of equal length
+    if (len1 != len2)
+        return false;
+ 
+    // To store indexes of previously mismatched
+    // characters
+    int prev = -1, curr = -1;
+ 
+    int count = 0;
+    for (int i=0; i&lt;len1; i++)
+    {
+        // If current character doesn't match
+        if (str1[i] != str2[i])
+        {
+            // Count number of unmatched character
+            count++;
+ 
+            // If unmatched are greater than 2,
+            // then return false
+            if (count &gt; 2)
+                return false;
+ 
+            // Store both unmatched characters of
+            // both strings
+            prev = curr;
+            curr = i;
+        }
+    }
+ 
+    // Check if previous unmatched of string1
+    // is equal to curr unmatched of string2
+    // and also check for curr unmatched character,
+    // if both are same, then return true
+    return (count == 2 &amp;&amp;
+            str1[prev] == str2[curr] &amp;&amp;
+            str1[curr] == str2[prev]);
+<A NAME="0"></A>}
+    
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int numSimilarGroups(vector&lt;string&gt;&amp; A) {
+        UnionFind uf(A.size());
+        for(int i = 0; i &lt; A.size(); i++) {
+            for(int j = i + 1; j &lt; A.size(); j++) {
+                if(areMetaStrings(A[i], A[j])) {
+                    uf.union2(i,j);
+                } 
+            }
+        }</B></FONT>
+        return uf.count();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

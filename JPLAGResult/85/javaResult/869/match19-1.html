@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>140_poiriot.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>140_poiriot.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numSimilarGroups(String[] A) {
+        Map&lt;String,String&gt; roots = new HashMap&lt;&gt;();
+        Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+        for (String s:A) {
+            roots.put(s, s);
+        }
+        int count = A.length;
+        for (String s:A) {
+<A NAME="0"></A>            if (visited.contains(s))
+                continue;
+            visited.add(s);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String ss:visited) {
+                if (isSimilar(s, ss)) {
+                    String root_ss = findRoot(roots,ss);
+                    String root_s = findRoot</B></FONT>(roots,s);
+                    roots.put(s, root_s);
+                    roots.put(ss, root_ss);
+                    if (!root_ss.equals(root_s)) {
+                        roots.put(root_ss, root_s);
+                        count--;
+                    }
+                }
+<A NAME="1"></A>            }
+        }
+        return count;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="2"></A>    
+    private String findRoot(Map&lt;String,String&gt; roots, String s) {
+        while (roots.get(s)!=s) {</B></FONT>
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s = roots.get(s);
+        }
+        return s;
+    }
+    
+    private boolean isSimilar(String a, String b) {
+        List&lt;Integer&gt; diff = new ArrayList&lt;&gt;()</B></FONT>;
+        for (int i=0;i&lt;a.length();i++) {
+            if (a.charAt(i)!=b.charAt(i))
+                diff.add(i);
+            if (diff.size()&gt;2)
+                return false;
+        }
+        if (diff.size()!=2)
+            return false;
+        if (a.charAt(diff.get(0))==b.charAt(diff.get(1)) &amp;&amp; a.charAt(diff.get(1))==b.charAt(diff.get(0)))
+            return true;
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>116_xidui.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>116_xidui.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;int&gt; parent;
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool similiar(string a, string b) {
+        int c = 0;
+        for (int i = 0; i &lt; a.length(); ++i) {
+            if (a[i] != b[i]) {
+                c++;
+                if (c &gt; 2) return false;
+            }
+        }
+        return c == 2;
+    }</B></FONT>
+    
+    int find(int index) {
+        if (parent[index] != index) 
+            parent[index] = find(parent[index]);
+        return parent[index];
+    }
+    
+    int numSimilarGroups(vector&lt;string&gt;&amp; A) {
+        parent.clear();
+        for (int i = 0; i &lt; A.size(); i++) {
+            parent.push_back(i);
+        }
+        
+        for (int i = 0; i &lt; A.size(); i++) {
+            int root = i;
+            for (int j = 0; j &lt; i; ++j) {
+                if (find(i) == find(j)) {
+                    continue;
+                }
+                if (similiar(A[i], A[j])) {
+                    if (root == i) {
+                        root = find(j);
+                    }
+                    parent[find(j)] = root;
+                    parent[i] = root;
+                }
+            }
+        }
+        
+        unordered_set&lt;int&gt; usi;
+        for (int i = 0; i &lt; A.size(); ++i) {
+            usi.insert(find(i));
+        }
+        return usi.size();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

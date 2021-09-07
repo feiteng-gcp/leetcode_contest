@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_wisdompeak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>223_wisdompeak.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string pushDominoes(string dominoes) 
+    {
+        if (dominoes.size()==1) return dominoes;
+        
+        int N=dominoes.size();
+        while(1)
+        {
+            string temp=dominoes;
+            for (int i=0; i&lt;N; i++)
+            {
+                if (dominoes[i]!='.')
+                    continue;
+                
+                if (i==0)
+                {
+                    if (dominoes[i+1]=='L')
+                        temp[i]='L';                    
+<A NAME="0"></A>                }
+                else if (i==N-1)
+                {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (dominoes[i-1]=='R')
+                        temp[i]='R';
+                }
+                else
+                {                    
+                    if (dominoes[i-1]=='R' &amp;&amp; dominoes[i+1]!='L')
+                        temp[i]='R';
+                    else if (dominoes[i+1]=='L' &amp;&amp; dominoes[i-1]!='R')
+                        temp[i]='L';
+                }
+            }</B></FONT>
+            
+            if (temp==dominoes) break;
+            dominoes = temp;
+        }
+        
+        return dominoes;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

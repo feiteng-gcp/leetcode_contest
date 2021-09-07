@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_zxlwbi199101.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_zxlwbi199101.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string pushDominoes(string dominoes) {
+        if (dominoes.size() &lt; 2) return dominoes;
+        
+        for (int i = 0; i &lt; dominoes.size(); i++) {
+            if (dominoes[i] == 'L') {
+                for (int j = i - 1; j &gt;= 0; j--) {
+                    if (dominoes[j] == '.') dominoes[j] = 'L';
+                    else break;
+                }
+            } else if (dominoes[i] == 'R') {
+                // find the next instruction
+                int next = i + 1;
+                while (next &lt; dominoes.size() &amp;&amp; dominoes[next] == '.') next++;
+<A NAME="0"></A>                    // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; next &lt;&lt; endl;
+                
+                if (next == dominoes.size() || dominoes[next] == 'R') {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    while (i &lt; next) dominoes[i++] = 'R';
+                    i--;
+                } else {
+                    for (int j = 1; i + j &lt; next - j; j++) {
+                        dominoes[i + j] = 'R';
+                        dominoes[next - j] = 'L';
+                    }</B></FONT>
+                    i = next;
+                }
+            }
+        }
+        
+        return dominoes;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

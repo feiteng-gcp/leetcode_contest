@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>17_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>17_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numSimilarGroups(String[] A) {
+        int n = A.length;
+        if (n == 0) {
+            return 0;
+        }
+
+        int m = A[0].length();
+        if (m == 0) {
+            return 1;
+        }
+
+        boolean[][] connected = new boolean[n][n];
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                connected[i][j] = isConnected(A[i], A[j]);
+            }
+        }
+
+        boolean[] vis = new boolean[n];
+        int cnt = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (!vis[i]) {
+                cnt++;
+                Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+                stack.push(i);
+                while (!stack.isEmpty()) {
+                    int cur = stack.pop();
+                    vis[cur] = true;
+                    for (int j = 0; j &lt; n; j++) {
+                        int min = Math.min(cur, j);
+                        int max = Math.max(cur, j);
+                        if (connected[min][max] &amp;&amp; !vis[j]) {
+                            stack.push(j);
+                        }
+<A NAME="0"></A>                    }
+                }
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        return cnt;
+    }
+
+    boolean isConnected(String s1, String s2) {
+        int cnt = 0;
+        for (int i = 0; i &lt; s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                cnt++;
+            }
+        }
+
+        return</B></FONT> cnt == 2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

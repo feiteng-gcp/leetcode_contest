@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>96_NicoSensei.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>96_NicoSensei.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    vector&lt;int&gt; fa;
+    
+    int get_fa(int x) {
+        if (fa[x] &lt; 0) return x;
+        fa[x] = get_fa(fa[x]);
+        return fa[x];
+    }
+    
+    bool merge(int x, int y) {
+        int fx = get_fa(x);
+        int fy = get_fa(y);
+        if (fx != fy) {
+            fa[fx] = fy;
+            return true;
+        }
+        return false;
+    }
+    
+    
+public:
+    int numSimilarGroups(vector&lt;string&gt;&amp; A) {
+        int group = 0;
+<A NAME="0"></A>        int N = A.size();
+        int L = A[0].size();
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        fa = vector&lt;int&gt;(N, -1);
+        
+        for (int i = 0; i &lt; N - 1; ++i) {
+            for (int j = i + 1; j &lt; N; ++j) {
+                int cnt = 0;
+                for (int k = 0; k &lt; L; ++k) {
+                    if (A[i][k] != A[j][k]) {
+                        ++cnt;
+                        if (cnt &gt; 2) break;
+                    }
+                }
+                
+                if (cnt &lt;= 2) {
+                    merge(i, j);
+                }
+            }
+        }
+        
+        
+        vector&lt;bool&gt; vis(N, false);
+        int groups = 0;
+        for (int i = 0; i &lt; N; ++i) {</B></FONT>
+            int fx = get_fa(i);
+            if (!vis[fx]) {
+                vis[fx] = true;
+                ++groups;
+            }
+        }
+        return groups;
+    }
+    
+};
+</PRE>
+</BODY>
+</HTML>
