@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_guzh870423.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>248_guzh870423.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public double minAreaFreeRect(int[][] points) {
+        List&lt;Point&gt; list = new ArrayList&lt;&gt;();
+        Set&lt;Point&gt; set = new HashSet&lt;&gt;();
+        for (int[] p : points) {
+            Point point = new Point(p[0], p[1]);
+            list.add(point);
+            set.add(point);
+        }
+
+        double res = Double.MAX_VALUE;
+        Collections.sort(list);
+<A NAME="1"></A>        //System.out.println(list);
+        //System.out.println(set);
+        int n = list.size()</B></FONT>;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0 ; i &lt; n; i++) {
+            Point p1 = list.get(i);
+            for (int j = i + 1; j &lt; n; j++) {
+                Point p2 = list.get</B></FONT>(j);
+                for (int k = j + 1; k &lt; n; k++) {
+                    Point p3 = list.get(k);
+                    if (p1.x == p2.x) {
+                        if (p3.y == p1.y &amp;&amp; set.contains(new Point(p3.x, p2.y))) {
+                            System.out.println(Arrays.asList(i, j, k));
+                            res = Math.min(res, (p2.y - p1.y) * (p3.x - p1.x));
+                        }
+                    } else {
+                        int v = Math.abs((p2.y - p1.y) * (p3.y - p1.y));
+                        if ( v % (p2.x - p1.x) == 0) {
+                            v /= (p2.x - p1.x);
+                            //System.out.println(Arrays.asList(i, j, k));
+                            //System.out.println(Arrays.asList(v, p3.x - p1.x));
+                            if (v % (p3.x - p1.x) == 0) {
+                                v /= (p3.x - p1.x);
+                                
+                                if (v == 1 || v == -1) {
+                                    //System.out.println(new Point(p3.x + p2.x - p1.x, p3.y + p2.y - p1.y));
+                                    Point point = new Point(p3.x + p2.x - p1.x, p3.y + p2.y - p1.y);
+                                    //Point point = new Point(2, 1);
+                                    if (set.contains(point)) {
+                                        System.out.println(Arrays.asList(i, j, k));
+                                        double a = Math.sqrt((p2.y - p1.y) * (p2.y - p1.y) + (p2.x - p1.x) * (p2.x - p1.x));
+                                        double b = Math.sqrt((p3.y - p1.y) * (p3.y - p1.y) + (p3.x - p1.x) * (p3.x - p1.x));
+                                        res = Math.min(res, a * b);
+<A NAME="2"></A>                                    }
+                                }
+                            }
+                        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                        // double k1 = (p2.y - p1.y) * 1.0 / (p2.x - p1.x);
+                        // double k2 = (p3.y - p1.y) * 1.0 / (p3.x - p1.x);
+                        
+                    }
+                }
+            }
+        }</B></FONT>
+        if (res == Double.MAX_VALUE) return 0;
+<A NAME="3"></A>        return res;
+    }
+    
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>static class Point implements Comparable&lt;Point&gt; {
+        int x, y;
+        public Point(int i, int j) {
+            x = i;
+            y = j;
+        }
+        
+        public i</B></FONT>nt hashCode() {
+            //System.out.println(31 * x + y);
+            return x + y;
+        }
+        
+        //@override
+        public boolean equals(Object obj) {
+            Point that = (Point) obj;
+            //System.out.println(&quot;equal&quot; + that.toString());
+            return this.x == that.x &amp;&amp; this.y == that.y;
+        }
+        
+        public int compareTo(Point that) {
+            //System.out.println(&quot;compare&quot;);
+            if (this.x != that.x) {
+                return this.x - that.x;
+            } else {
+                return this.y - that.y;
+            }
+        }
+        
+        public String toString() {
+            return x + &quot;,&quot; + y;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

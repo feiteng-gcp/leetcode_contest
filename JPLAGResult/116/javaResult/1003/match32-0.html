@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>47_iamwds.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>47_iamwds.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public double minAreaFreeRect(int[][] points) {
+<A NAME="0"></A>        double min = Double.MAX_VALUE;
+        HashMap&lt;Integer, List&lt;int[]&gt;&gt; map = new HashMap&lt;&gt;();
+        int n = points.length;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; n; i++){
+            for(int j = i + 1; j &lt; n; j++){
+                int x1 = points[i][0];
+                int y1 = points[i][1];
+                int x2 = points[j][0];
+                int y2 = points[j][1]</B></FONT>;
+                int d = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+                if(!map.containsKey(d)){
+                    map.put(d, new ArrayList&lt;&gt;());
+                }
+                map.get(d).add(new int[]{x1, y1, x2, y2});
+            }
+        }
+        for(List&lt;int[]&gt; list : map.values()){
+            int m = list.size();
+            for(int i = 0; i &lt; m; i++){
+                for(int j = i + 1; j &lt; m; j++){
+                    int[] p1 = list.get(i);
+                    int[] p2 = list.get(j);
+                    if(p1[0] + p1[2] == p2[0] + p2[2] &amp;&amp; p1[1] + p1[3] == p2[1] + p2[3]){
+                        double w = Math.sqrt(getDistance(p1[0], p1[1], p2[0], p2[1]));
+                        double h = Math.sqrt(getDistance(p1[0], p1[1], p2[2], p2[3]));
+                        double area = w * h;
+                        // System.out.println(area);
+                        // if(Math.abs(area) &lt;= 1e-5){
+                        //     return 0;
+                        // }
+<A NAME="1"></A>                        //if(area != 0){
+                            min = Math.min(min, area);
+                        //}
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        return min == Double.MAX_VALUE ? 0 : min;
+    }</B></FONT>
+    public int getDistance(int x1, int y1, int x2, int y2){
+        return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

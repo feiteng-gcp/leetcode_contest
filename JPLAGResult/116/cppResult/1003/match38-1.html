@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_pernekhan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>122_pernekhan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool check(int ax, int bx, int cx) {
+        return bx - ax + cx - bx == cx - ax;
+    }
+    
+    bool degree90(int bx, int by, int ax, int ay, int cx, int cy) {
+        long long xx = bx - ax;
+        long long yy = by - ay;
+        long long xxx = cx - ax;
+        long long  yyy = cy - ay;
+        return xx * xxx + yy * yyy == 0;
+    }
+    
+    long long getLen(int ax, int ay, int bx, int by) {
+        return (bx - ax) * 1ll * (bx - ax) + (by - ay) * 1ll * (by - ay);
+    }
+    
+    double minAreaFreeRect(vector&lt;vector&lt;int&gt;&gt;&amp; points) {
+        int n = points.size();
+        double mini = 0;
+<A NAME="0"></A>        set &lt; pair &lt;int, int&gt; &gt; S;
+        for (int i=0;i&lt;points.size();i++) S.insert(make_pair(points[i][0], points[i][1]));
+        for (int i=0;i&lt;n;i++) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j=0;j&lt;n;j++) {
+                for (int k=0;k&lt;n;k++) {
+                        if (i == j || i == k || j == k) continue;</B></FONT>
+                        int ax = points[i][0];
+                        int ay = points[i][1];
+                        
+                        int bx = points[j][0];
+                        int by = points[j][1];
+                        
+                        int cx = points[k][0];
+                        int cy = points[k][1];
+                                            
+                        int dx = ax + cx - bx;
+                        int dy = ay + cy - by;
+                            
+                        if (dx == ax &amp;&amp; dy == ay) continue;
+                        if (dx == bx &amp;&amp; dy == by) continue;
+                        if (dx == cx &amp;&amp; dy == cy) continue;
+                        if (S.find(make_pair(dx, dy)) == S.end()) continue;
+                        
+                        
+                        if (!check(ax, bx, cx)) continue;
+                        if (!check(ay, by, cy)) continue;
+                        if (!check(ax, dx, cx)) continue;
+                        if (!check(ay, dy, cy)) continue;
+                        
+                        if (!degree90(ax, ay, bx, by, cx, cy)) continue;
+                        if (!degree90(bx, by, cx, cy, dx, dy)) continue;
+                        if (!degree90(cx, cy, dx, dy, ax, ay)) continue;
+                        if (!degree90(dx, dy, ax, ay, bx, by)) continue;
+                        
+<A NAME="1"></A>                        long long ab = getLen(ax, ay, bx, by);
+                        long long bc = getLen(bx, by, cx, cy);
+                        long long cd = getLen(cx, cy, dx, dy);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#1',2,'match38-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        long long da = getLen(dx, dy, ax, ay);
+                        
+                        if (ab == cd &amp;&amp; bc == da) {
+                            double ans = sqrt(ab * 1.0) * sqrt(bc * 1.0);
+                            if (mini == 0.0 || ans &lt; mini) {
+                                mini = ans;
+                            }
+                        }
+                    }
+                }
+            }</B></FONT>
+        return mini;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

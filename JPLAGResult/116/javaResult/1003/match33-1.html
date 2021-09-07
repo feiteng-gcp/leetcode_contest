@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>152_francisjjf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>152_francisjjf.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private class Line {
+        XY p1;
+        XY p2;
+        XY doubleMid;
+        int powLength;
+
+        Line(int[] p1, int[] p2) {
+            int x1 = p1[0];
+            int x2 = p2[0];
+            int y1 = p1[1];
+            int y2 = p2[1];
+            this.p1 = new XY(x1, y1);
+            this.p2 = new XY(x2, y2);
+            this.doubleMid = new XY((x1 + x2), (y1 + y2));
+            powLength = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+        }
+
+        @Override
+        public String toString() {
+            return  p1 + &quot; --&quot; + p2;
+        }
+    }
+
+    private class XY {
+        int x;
+        int y;
+
+        XY(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            XY other = (XY) obj;
+            return other.x == this.x &amp;&amp; other.y == this.y;
+        }
+
+        @Override
+        public String toString() {
+            return &quot;(&quot; + x + &quot;,&quot; + y +&quot;)&quot;;
+        }
+    }
+
+    public double minAreaFreeRect(int[][] points) {
+        int n = points.length;
+        Map&lt;String, List&lt;Line&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                Line line = new Line(points[i], points[j]);
+                map.computeIfAbsent(line.doubleMid.x + &quot;&amp;&quot; + line.doubleMid.y, k -&gt; new ArrayList&lt;&gt;()).add(line);
+            }
+        }
+        double res = Double.MAX_VALUE;
+        boolean found = false;
+        for (Map.Entry&lt;String, List&lt;Line&gt;&gt; entry : map.entrySet()) {
+//            System.out.println(entry.getKey() + &quot;\t&quot; + entry.getValue());
+            if (entry.getValue().size() &lt; 2) {
+                continue;
+            }
+            Map&lt;Integer, List&lt;Line&gt;&gt; lengthMap = new HashMap&lt;&gt;();
+            for (Line line : entry.getValue()) {
+                lengthMap.computeIfAbsent(line.powLength, k -&gt; new ArrayList&lt;&gt;()).add(line);
+            }
+//            System.out.println(lengthMap);
+
+            for (Map.Entry&lt;Integer, List&lt;Line&gt;&gt; lengthEntry : lengthMap.entrySet()) {
+                if (lengthEntry.getValue().size() &lt; 2) {
+                    continue;
+                }
+                List&lt;Line&gt; lines = lengthEntry.getValue();
+                for (int i = 0; i &lt; lines.size(); i++) {
+                    for (int j = i + 1; j &lt; lines.size(); j++) {
+<A NAME="0"></A>                        Line line1 = lines.get(i);
+                        Line line2 = lines.get(j);
+                        found = true;
+                        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double tmp = Math.sqrt(Math.pow(line1.p1.x - line2.p1.x, 2) + Math.pow(line1.p1.y - line2.p1.y, 2))
+<A NAME="1"></A>                                * Math.sqrt(Math.pow(line1.p2.x - line2.p1.x, 2) + Math.pow(line1.p2.y - line2.p1.y, 2));
+                        res = Math.min(tmp, res);
+                    }</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        return found ? res : 0;
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

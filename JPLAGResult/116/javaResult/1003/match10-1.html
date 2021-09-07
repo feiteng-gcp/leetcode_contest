@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_Aragog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>45_Aragog.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public double minAreaFreeRect(int[][] points) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int N = points.length;
+        double res = Long.MAX_VALUE;
+        boolean f = false;
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = i + 1; j &lt; N; j++) {
+                for (int k = j + 1; k &lt; N; k++) {
+                    for (int l = k + 1; l &lt; N; l++) {</B></FONT>
+                        if (isRect(points[i], points[j], points[k], points[l])) {
+                            long d1 = dis(points[i], points[j]);
+                            long d2 = dis(points[i], points[k]);
+                            long d3 = dis(points[i], points[l]);
+                            f = true;
+                            if (d1 &gt; d2 &amp;&amp; d1 &gt; d3) {
+                                res = Math.min(Math.sqrt(d2) * Math.sqrt(d3), res);
+                            } else if (d2 &gt; d1 &amp;&amp; d2 &gt; d3) {
+                                res = Math.min(Math.sqrt(d1) * Math.sqrt(d3), res);
+<A NAME="1"></A>                            } else {
+                                res = Math.min(Math.sqrt(d1) * Math.sqrt(d2), res);
+                            }
+                        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                    }
+                }
+            }
+        }</B></FONT>
+        if (f) {
+            return res;
+        }
+        return 0;
+    }
+
+    boolean isRect(int[] a, int[] b, int[] c, int[] d) {
+        if (dis(a, b) != dis(c, d)) {
+            return false;
+        }
+        if (dis(a, c) != dis(b, d)) {
+            return false;
+<A NAME="2"></A>        }
+        if (dis(a, d) != dis(b, c)) {
+            return false;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return true;
+    }
+
+    long dis(int[] a, int[] b) {
+        return</B></FONT> (long) (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

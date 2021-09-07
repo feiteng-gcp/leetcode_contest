@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_ccyjava.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>132_ccyjava.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+public:
+    int bin(vector&lt;int&gt;&amp;p ,int l,int r,int t){
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while(l&lt;=r){
+            int m = l+(r-l)/2;
+            if(p[m]&gt;t){
+                l=m+1;
+            }else{
+                r=m-1;
+            }
+        }</B></FONT>
+        return r;
+    }
+    int maxWidthRamp(vector&lt;int&gt;&amp; A) {
+<A NAME="0"></A>        int n = A.size();
+        if(n==0)
+            return 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; p(n,0);
+        p[n-1]=A[n-1];
+        for(int i = n-2;i&gt;=0;i--){
+            p[i]=max(p[i+1],A[i]);
+        }
+        int maxv = 0;
+        for(int i=0;i&lt;n-1;i++){
+            int d = bin(p,i+1,n-1,A[i]-1);</B></FONT>
+            //printf(&quot;%d %d %d %d\n&quot;,i,d,A[i],A[d]);
+            if(d-i&gt;maxv)
+                maxv = d-i;
+        }
+        
+        return maxv;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
