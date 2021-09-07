@@ -59,7 +59,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
     
     cur_folder = str(pathlib.Path().resolve())
 
-    target_folder = cur_folder + '/Contest Ranking/' + contest_str + '/'
+    target_folder = cur_folder + '/Contest_Ranking/' + contest_str + '/'
 
     user_num = 0
 
@@ -112,8 +112,8 @@ def parseSubmissions(contest, page_end):
     print("Crawling submitted codes... %s " % contestName)
 
     # JSON_Location = 'C:/Users/lifeiteng/projects/visualizer/getRank/Contest JSON/' + contestName + '/'
-    Ranking_Folder = cur_folder + '/Contest Ranking/' + contestName + '/'
-    outputLocation = cur_folder + '/Contest Submission/' + contestName + '/'
+    Ranking_Folder = cur_folder + '/Contest_Ranking/' + contestName + '/'
+    outputLocation = cur_folder + '/Contest_Submission/' + contestName + '/'
     if not os.path.exists(outputLocation):
         os.makedirs(outputLocation)
     processedJSON = outputLocation + 'crawled.json'
@@ -227,7 +227,7 @@ def jplag(contest):
     
     str_contest = str(contest)
 
-    cur_folder = str(pathlib.Path().resolve()) + '/Contest Submission/'
+    cur_folder = str(pathlib.Path().resolve()) + '/Contest_Submission/'
     contest_submission_folder = cur_folder + str_contest
     questionList = []
     for folder in os.scandir(contest_submission_folder + '/cpp'):
@@ -239,7 +239,7 @@ def jplag(contest):
 
     command1 = 'java -jar jplag-2.12.1-SNAPSHOT-jar-with-dependencies.jar -l '
     resultFolder = ' -r ./JPLAGResult/' + str_contest + '/'
-    sourceFolder = ' -s "Contest Submission/'
+    sourceFolder = ' -s "Contest_Submission/'
 
     for question in questionList:
         for i in range(0, 3):
@@ -258,7 +258,7 @@ def update_indexMD():
     rowDict = {}
     contestTimeDict = {}
 
-    rank_folder = 'Contest Ranking/'
+    rank_folder = 'Contest_Ranking/'
     jplag_folder = 'JPLAGResult/'
 
     for contest in contestNames:
