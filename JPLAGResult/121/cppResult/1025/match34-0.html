@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_autumn_eel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_autumn_eel.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define rep(i,n)for(int i=0;i&lt;(n);i++)
+#define MOD 1000000007
+#define INF 0x3f3f3f3f
+#define INFL 0x3f3f3f3f3f3f3f3f
+#define EPS (1e-10)
+using namespace std;
+typedef long long ll;
+typedef pair&lt;int,string&gt;P;
+
+#ifdef DEBUG
+struct TreeNode{
+	int val;
+	TreeNode*left;
+	TreeNode*right;
+	TreeNode(int x):val(x),left(NULL),right(NULL){}
+<A NAME="0"></A>};
+#endif
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+	int dp[400];
+	bool b[400];
+    int mincostTickets(vector&lt;int&gt; days, vector&lt;int&gt; costs) {
+        memset(dp,0x3f,sizeof(dp));
+        memset(b,0,sizeof(b));
+        for(int i:days)b[i-1]=true;
+        dp[0]=0;</B></FONT>
+        rep(i,365){
+			if(!b[i])dp[i+1]=min(dp[i+1],dp[i]);
+			else{
+				dp[i+1]=min(dp[i+1],dp[i]+costs[0]);
+				dp[i+7]=min(dp[i+7],dp[i]+costs[1]);
+				dp[i+30]=min(dp[i+30],dp[i]+costs[2]);
+			}
+		}
+		int Min=INF;
+		for(int i=365;i&lt;400;i++)Min=min(Min,dp[i]);
+		return Min;
+    }
+};
+
+#ifdef DEBUG
+int main(){
+	Solution sol;
+	cout&lt;&lt;sol.mincostTickets({1,2,3,4,5,6,7,8,9,10,30,31},{2,7,15})&lt;&lt;endl;
+}
+#endif
+</PRE>
+</BODY>
+</HTML>

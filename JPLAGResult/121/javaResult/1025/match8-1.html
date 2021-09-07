@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_honghongdepengpeng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_honghongdepengpeng.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int M = 365;
+    public int mincostTickets(int[] days, int[] costs) {
+        int[] ans = new int[M + 1];
+        boolean[] f = new boolean[M + 1];
+        for (int d : days) {
+            f[d] = true;
+        }
+        for (int i = 1; i &lt;= M; i++) {
+            if (!f[i]) {
+                ans[i] = ans[i - 1];
+<A NAME="0"></A>            } else {
+                ans[i] = ans[i - 1] + costs[0];
+            }
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (i &gt;= 7) {
+                ans[i] = Math.min(ans[i], ans[i - 7] + costs[1]);
+            }
+            if (i &gt;= 30) {
+                ans[i] = Math.min(ans[i], ans[i - 30] + costs[2]);
+            }
+        }</B></FONT>
+        return ans[M];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

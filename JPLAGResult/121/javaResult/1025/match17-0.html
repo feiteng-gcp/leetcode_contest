@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_claireshc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_claireshc.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        if (days.length == 0) return 0;
+        Map&lt;Integer, Integer&gt; seen = new HashMap&lt;&gt;();
+<A NAME="0"></A>        seen.put(days.length, 0);
+        seen.put(days.length - 1, costs[0]);
+        return mincostTickets(days, 0, costs, seen);
+<A NAME="1"></A>    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private int mincostTickets(int[] days, int i, int[] costs, Map&lt;Integer, Integer&gt; seen) {
+        if</B></FONT> (seen.containsKey(i)) return seen.get(i)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        
+        // 1 day
+        int min = costs[0] + mincostTickets(days, i + 1, costs, seen);
+        // 7 day
+        int next = i + 1;
+        while (next &lt; days.length &amp;&amp; days[next] &lt; days[i] + 7) next++;
+        min = Math.min(min, costs[1] + mincostTickets</B></FONT>(days, next, costs, seen));
+        // 30 day
+        while (next &lt; days.length &amp;&amp; days[next] &lt; days[i] + 30) next++;
+        min = Math.min(min, costs[2] + mincostTickets(days, next, costs, seen));
+        
+        seen.put(i, min);
+        return min;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

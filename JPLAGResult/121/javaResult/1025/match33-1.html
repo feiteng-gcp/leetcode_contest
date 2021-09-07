@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_shenw1991.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>239_shenw1991.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int i=0; i&lt;days.length; i++) {
+<A NAME="0"></A>            int day = days[i];
+            Integer prev1 = map.floorKey(day-1), prev7 = map.floorKey(day-7), prev30 = map.floorKey(day-30);
+            int min1 = prev1 == null ? 0 : map.get(prev1), min7 = prev7 == null ? 0 : map.get(prev7), min30 = prev30 == null ? 0 : map.get(prev30);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int min = Math.min(min1+costs[0], Math.min(min7+costs[1], min30+costs[2]));
+            map.put(day, min);
+        }
+        return map.get(days[days.length-1]);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

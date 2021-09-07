@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>384_francisjjf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>384_francisjjf.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private Map&lt;Integer, Integer&gt; dMap;
+    private Map&lt;Integer, Integer&gt; wMap;
+    private Map&lt;Integer, Integer&gt; mMap;
+
+    public int mincostTickets(int[] days, int[] costs) {
+        dMap = new HashMap&lt;&gt;();
+        wMap = new HashMap&lt;&gt;();
+        mMap = new HashMap&lt;&gt;();
+        return helper(days, 0, 0, costs);
+    }
+
+
+    private int helper(int[] days, int free, int i, int[] costs) {
+        if (i &gt;= days.length) {
+            return 0;
+        }
+        int d = days[i];
+        if (d &lt; free) {
+            return helper(days, free, i + 1, costs);
+        }
+<A NAME="0"></A>        int res = Integer.MAX_VALUE;
+
+        int dCost, wCost, mCost;
+        if(dMap.containsKey(i))<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            dCost = dMap.get(i);
+        }
+        else {
+<A NAME="1"></A>            dCost = costs[0] + helper(days, d, i + 1, costs);
+        }
+
+        if</B></FONT>(wMap.containsKey(i))<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            wCost = wMap.get(i);
+        }
+        else{
+            wCost = costs[1] + helper(days, d + 7, i + 1, costs);
+        }</B></FONT>
+
+        if(mMap.containsKey(i)){
+            mCost = mMap.get(i);
+        }
+        else{
+            mCost = costs[2] + helper(days, d + 30, i + 1, costs);
+        }
+        dMap.put(i, dCost);
+        wMap.put(i, wCost);
+        mMap.put(i, mCost);
+        return Math.min(dCost, Math.min(wCost, mCost));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

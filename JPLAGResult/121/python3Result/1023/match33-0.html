@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_immike.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>471_immike.py</CENTER></H3><HR>
+<PRE>
+class TimeMap:
+
+    def __init__(self):
+        &quot;&quot;&quot;
+        Initialize your data structure here.
+        &quot;&quot;&quot;
+        self.mem = {}
+<A NAME="0"></A>
+    def set(self, key: 'str', value: 'str', timestamp: 'int') -&gt; 'None':
+        if key in self.mem.keys():
+            self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.mem[key].append((timestamp, value))
+        else:
+            self.mem[key] = [(timestamp, value)]
+
+    def get(self, key: 'str', timestamp: 'int') -&gt; 'str':
+        if timestamp &lt; self.</B></FONT>mem[key][0][0]:
+            return &quot;&quot;
+
+        N = len(self.mem[key])
+        if N == 1:
+            return self.mem[key][0][1]
+
+        left = 0
+        right = N - 1
+
+        while left &lt;= right:
+           mid = (left + right)//2
+           if self.mem[key][mid][0] &lt;= timestamp and ((mid + 1 == N) or (self.mem[key][mid + 1][0] &gt; timestamp)):
+               return self.mem[key][mid][1]
+
+           if self.mem[key][mid][0] &lt; timestamp:
+               left = mid + 1
+           else:
+               right = mid
+</PRE>
+
+</BODY>
+</HTML>
