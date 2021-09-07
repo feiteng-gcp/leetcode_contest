@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>98_2f317609.java</TITLE>
+ <TITLE>262_uma10.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>98_2f317609.java</CENTER></H3><HR>
+<H3><CENTER>262_uma10.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-  public void generatePerms(String s, int index, String prefix, List&lt;String&gt; result) {
-    if (index == s.length()) {
-      result.add(prefix);
-<A NAME="0"></A>      return;
-    }
+<A NAME="0"></A>    public List&lt;String&gt; letterCasePermutation(String S) {
+		List&lt;String&gt; aList = new ArrayList&lt;&gt;();
 
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>char c = s.charAt(index);
-    if (Character.isAlphabetic(c)) {
-      generatePerms(s, index + 1, prefix + Character.toLowerCase(c), result);
-      generatePerms(s, index + 1, prefix + Character.toUpperCase(c), result);
-    } else {</B></FONT>
-      generatePerms(s, index + 1, prefix + c, result);
-    }
+		char[] arr = S.toCharArray(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>);
+		helper(arr, aList, 0);
+		return aList;
 
-  }
+	}
 
-  public List&lt;String&gt; letterCasePermutation(String s) {
-    List&lt;String&gt; result = new ArrayList&lt;&gt;();
-    generatePerms(s, 0, &quot;&quot;, result);
-    return result;
-  }
+	public void helper(char[] arr, List&lt;String&gt; aList, int k) {
+
+		if (k == arr.length) {
+			aList.add(new String(arr));</B></FONT>
+			return;
+		}
+
+		if (Character.isAlphabetic(arr[k])) {
+			arr[k] = Character.toLowerCase(arr[k]);
+			helper(arr, aList, k + 1);
+			arr[k] = Character.toUpperCase(arr[k]);
+			helper(arr, aList, k + 1);
+		}else{
+			helper(arr, aList, k + 1);
+		}
+
+	}
 }
 </PRE>
 

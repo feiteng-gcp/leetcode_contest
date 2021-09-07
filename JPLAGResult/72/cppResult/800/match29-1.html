@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>303_shell32.cpp</TITLE>
+ <TITLE>100_hamlet_fiis.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>303_shell32.cpp</CENTER></H3><HR>
+<H3><CENTER>100_hamlet_fiis.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    vector&lt;string&gt; ans;
 public:
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        impl(S, 0);
-        return ans;
-    }
-
-    void impl(string S, int index) {
-        if (index == S.length()) {
-            ans.push_back(S);
-            return ;
-        }
-        int i;</B></FONT>
-        for (i = index; i &lt; S.length(); i++) {
-            if (isalpha(S[i])) {
-                S[i] = toupper(S[i]);
-                impl(S, i + 1);
-                S[i] = tolower(S[i]);
-                impl(S, i + 1);
-                break;
+    vector&lt;string&gt; letterCasePermutation(string s) {
+        int n=s.size();
+        set&lt;string&gt;S;
+        
+        for(int i=0;i&lt;(1&lt;&lt;n);i++){
+            string aux=s;
+            for(int j=0;j&lt;n;j++){
+                if( (i&amp;(1&lt;&lt;j))==0 )</B></FONT>
+                    aux[j]=tolower(aux[j]);
+                else
+                    aux[j]=toupper(aux[j]);
             }
+            S.insert(aux);
         }
-        if (i == S.length())
-            ans.push_back(S);
+        
+        vector&lt;string&gt;dev(S.begin(),S.end());
+        return dev;
     }
 };
 </PRE>

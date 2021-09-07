@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>462_Yida915.cpp</TITLE>
+ <TITLE>146_alncat.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>462_Yida915.cpp</CENTER></H3><HR>
+<H3><CENTER>146_alncat.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        int n = graph.size();
-        vector&lt;int&gt; color(n, 0);
-        //不连通图需要每个顶点都遍历
-        for(int i=0;i&lt;n;i++){
-            if(color[i] == 0){</B></FONT>
-                if(!dfs(graph, color, i, 1)){
-                    return false;
+        vector&lt;bool&gt; visited(graph.size(), false);
+        vector&lt;int&gt; color(graph.size(), 0);
+        queue&lt;int&gt; q;
+        for(int i = 0; i &lt; graph.size(); i++){
+            if(!visited[i]){
+                visited[i] = true;
+                color[i] = 1;
+                q.push(i);
+<A NAME="0"></A>                int c = 1;
+                while(!q.empty()){
+                    int cur = q.front();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    c = 1-color[cur];
+                    visited[cur] = true;
+                    q.pop();
+                    for(int j = 0; j &lt; graph[cur].size(); j++){
+                        int next = graph[cur][j];
+                        if(!visited[next]){
+                            color[next] = c;</B></FONT>
+                            q.push(next);
+                        }
+                        else if(color[next] != c){
+                            return false;
+                        }
+                    }
                 }
-            }
-        }
-        return true;
-    }
-    
-    bool dfs(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt; &amp;color, int v, int c){
-        //顶点v着色c
-        color[v] = c;
-        for(int i=0;i&lt;graph[v].size();i++){
-            //与当前顶点着色相同
-            if(color[graph[v][i]] == c) return false;
-            if(color[graph[v][i]] == 0){
-                bool test = dfs(graph, color, graph[v][i], -c);
-                if(!test) return false;
             }
         }
         return true;

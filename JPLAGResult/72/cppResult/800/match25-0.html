@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>44_jiansun.cpp</TITLE>
+ <TITLE>439_sshindesiddesh.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>44_jiansun.cpp</CENTER></H3><HR>
+<H3><CENTER>439_sshindesiddesh.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    void helper_bk(string&amp; s, int idx, vector&lt;string&gt;&amp; res) {
-        if(idx == s.size()) {
+    vector &lt;string&gt; res;
+    
+    void helper(string s, int index) {
+        if (index &gt;= s.size()) {
             res.push_back(s);
             return;
         }
-        helper_bk(s, idx+1, res);
-        if(s[idx] &gt;= 'a' &amp;&amp; s[idx] &lt;= 'z') {
-            s[idx] = toupper(s[idx]);
-            helper_bk(s, idx+1, res);
-            s[idx] = tolower(s[idx]);
-        }</B></FONT>
+        if (isalpha(s[index])) {
+            s[index] = toupper(s[index]);</B></FONT>
+            helper(s, index + 1);
+            s[index] = tolower(s[index]);
+            helper(s, index + 1);
+        } else helper(s, index + 1);
     }
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        if(S.size() == 0) return {&quot;&quot;};
-        vector&lt;string&gt; res;
-        for(int i = 0; i &lt; S.size(); i++)
-            S[i] = tolower(S[i]);
-        helper_bk(S, 0, res);
+    
+    
+    vector&lt;string&gt; letterCasePermutation(string s) {
+        helper(s, 0);
         return res;
     }
 };

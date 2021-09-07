@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>430_ruby71.java</TITLE>
+ <TITLE>24_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>430_ruby71.java</CENTER></H3><HR>
+<H3><CENTER>24_xn1990114.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; letterCasePermutation(String S) {
-        
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        if (S == null) {
-            return result;
-<A NAME="1"></A>        }</B></FONT>
-        
-        StringBuilder cur = new StringBuilder();
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(S, 0, result, cur);
-        return result;
+class Solution {
+<A NAME="0"></A>    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res=new ArrayList&lt;String&gt;();
+        StringBuilder sb=new StringBuilder();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(S,sb,res);
+        return res;
     }
-    
-    private void dfs(String input, int index, List&lt;String&gt; result, StringBuilder cur) {</B></FONT>
-        while (index &lt; input.length() &amp;&amp; Character.isDigit(input.charAt(index))) {
-            cur.append(input.charAt(index));
-            index++;
+    public void dfs(String S,StringBuilder sb,List&lt;String&gt; res){
+        if(sb.length()==S.length</B></FONT>()){
+            res.add(sb.toString());
+        return;
         }
-        if (index == input.length()) {
-            result.add(new String(cur));
-            return;
+        char ch=S.charAt(sb.length());
+        if(ch&gt;='a'&amp;&amp;ch&lt;='z'){
+            sb.append((char)(ch+'A'-'a'));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
         }
-        int originalLength = cur.length();
-        cur.append(Character.toLowerCase(input.charAt(index)));
-        dfs(input, index + 1, result, cur);
-        cur.setLength(originalLength);
-        
-        cur.append(Character.toUpperCase(input.charAt(index)));
-        dfs(input, index + 1, result, cur);
-        cur.setLength(originalLength);
+        else if(ch&gt;='A'&amp;&amp;ch&lt;='Z'){
+            sb.append((char)(ch-('A'-'a')));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        sb.append(ch);
+        dfs(S,sb,res);
+        sb.deleteCharAt(sb.length()-1);
     }
 }
 </PRE>

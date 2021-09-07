@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>25_zl1zl.cpp</TITLE>
+ <TITLE>380_rz1189.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>25_zl1zl.cpp</CENTER></H3><HR>
+<H3><CENTER>380_rz1189.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    void dfs(string &amp;s, int pos, vector&lt;string&gt;&amp;res) {
-        if (pos == s.size()) {
-            res.push_back(s);
-            return;
-        }
-        if (s[pos] &gt;= '0' &amp;&amp; s[pos] &lt;= '9') {</B></FONT>
-            dfs(s, pos+1, res);
-            return;
-        }
-        s[pos] = toupper(s[pos]);
-        dfs(s, pos+1, res);
-        s[pos] = tolower(s[pos]);
-        dfs(s, pos+1, res);
-    }
     vector&lt;string&gt; letterCasePermutation(string S) {
         vector&lt;string&gt; res;
-        dfs(S, 0, res);
-        return res;
+        // if(!S.size())
+        //     return res;
+        string tuple = &quot;&quot;;
+<A NAME="0"></A>        
+        helper(res, S, tuple, 0);
+            
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return res;
+    }
+    void helper(vector&lt;string&gt; &amp;res, string &amp;S, string &amp;tuple, int pos) {
+        if(pos == S.size()) {
+            res.push_back(tuple);
+            return;
+        }
+        
+        
+        if(islower(S[pos])) {
+            tuple += S[pos];
+            helper(res, S, tuple, pos+1);
+            tuple.pop_back();
+            tuple += toupper(S[pos]);
+            helper(res, S, tuple, pos+1);
+            tuple.pop_back();
+        }
+        else if(isupper(S[pos])) {</B></FONT>
+            tuple += S[pos];
+            helper(res, S, tuple, pos+1);
+            tuple.pop_back();
+            tuple += tolower(S[pos]);
+            helper(res, S, tuple, pos+1);
+            tuple.pop_back();
+        }
+        else {
+            tuple += S[pos];
+            helper(res, S, tuple, pos+1);
+            tuple.pop_back();
+        }
+            
     }
 };
 </PRE>

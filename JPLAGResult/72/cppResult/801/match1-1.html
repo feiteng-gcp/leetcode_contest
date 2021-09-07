@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_zhixiongcai.cpp</TITLE>
+ <TITLE>439_sshindesiddesh.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_zhixiongcai.cpp</CENTER></H3><HR>
+<H3><CENTER>439_sshindesiddesh.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
+public:
     bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
-        vector&lt;char&gt; colors(graph.size(), 0);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; graph.size(); ++i) {
-            if (colors[i] == 0) {
-                if (!paint(graph, colors, i, 1)) {
-                    return false;
+        int n = graph.size();
+        bool check = false;
+        int val = 0;
+        vector &lt;int&gt; vec(n, -1);
+        queue&lt;int&gt; q;
+        
+        for (int i = 0; i &lt; graph.size(); ++i) {
+            if (vec[i] != -1) continue;
+            q.push(i);
+            vec[i] = 5;
+<A NAME="0"></A>            while (!q.empty()) {
+                int u = q.front();
+                q.pop();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int i = 0; i &lt; graph[u].size(); ++i) {
+                    if (vec[graph[u][i]] == -1) {
+                        vec[graph[u][i]] = -vec[u];
+                        q.push(graph[u][i]);
+                    } else if (vec[graph[u][i]] == vec[u]) return false;
                 }
-            }
-        }
-        return true;
-    }
-    
-    bool paint(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;char&gt;&amp; colors, int i, int c) {</B></FONT>
-        if (colors[i] != 0) {
-            return colors[i] == c;
+            }</B></FONT>
+            
         }
         
-        colors[i] = c;
-        for (int j : graph[i]) {
-            if (!paint(graph, colors, j, -c)) {
-                return false;
-            }
-        }
         return true;
     }
 };

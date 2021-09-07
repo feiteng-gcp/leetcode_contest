@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>430_ruby71.java</TITLE>
+ <TITLE>226_moksh.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>430_ruby71.java</CENTER></H3><HR>
+<H3><CENTER>226_moksh.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public List&lt;String&gt; letterCasePermutation(String S) {
-        
-        List&lt;String&gt; result = new ArrayList&lt;&gt;();
-        if (S == null) {
-            return result;
-        }
-<A NAME="0"></A>        
-        StringBuilder cur = new StringBuilder();
-        dfs(S, 0, result, cur);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return result;
+<A NAME="0"></A>class Solution {
+    public static List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        char[] arr = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.toLowerCase().toCharArray();
+        dfs(arr, 0, list);
+        return list;
     }
     
-    private void dfs(String input, int index, List&lt;String&gt; result, StringBuilder cur) {</B></FONT>
-        while (index &lt; input.length() &amp;&amp; Character.isDigit(input.charAt(index))) {
-            cur.append(input.charAt(index));
-            index++;
+    public static void dfs(char[] arr, int i, List&lt;String&gt; list) {
+        if</B></FONT> (i == arr.length) {
+            list.add(String.valueOf(arr));
+            System.out.println(String.valueOf(arr));
+            return;
         }
-        if (index == input.length()) {
-            result.add(new String(cur));
-<A NAME="1"></A>            return;
+
+        if (arr[i] &lt; 'A') {
+            dfs(arr, i + 1, list);
+        } else {
+            dfs(arr, i + 1, list);
+            arr[i] = (char) (arr[i] ^ 32);
+            dfs(arr, i + 1, list);
         }
-        int originalLength = cur.length();
-        cur.append(Character.toLowerCase(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>input.charAt(index)));
-        dfs(input, index + 1, result, cur);
-        cur.setLength(originalLength);
-        
-        cur.append(Character.toUpperCase(input.charAt(index)));
-        dfs(input, index + 1, result, cur);
-        cur.setLength(originalLength);
-    }</B></FONT>
+    }
 }
 </PRE>
 

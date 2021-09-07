@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>462_Yida915.cpp</TITLE>
+ <TITLE>50_nearSGB.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>462_Yida915.cpp</CENTER></H3><HR>
+<H3><CENTER>50_nearSGB.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; result;
-        result.push_back(S);
-        letter(S,0,result);
-        return result;
+        vector&lt;string&gt; res;
+        string ans;
+        dfs(res, ans, S, 0);
+        return res;
     }
-    
-<A NAME="0"></A>    void letter(string S, int index, vector&lt;string&gt; &amp;result){
-        int n = S.size();
-        for(int i=index;i&lt;n;i++){
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if((S[i] &gt;='a' &amp;&amp; S[i]&lt;='z')){
-                S[i] = S[i] - 'a' + 'A';
-                result.push_back(S);
-                letter(S, i + 1, result);
-                S[i] = S[i] - 'A' + 'a';
-            }
-            else if((S[i] &gt;='A' &amp;&amp; S[i]&lt;='Z')){
-                S[i] = S[i] - 'A' + 'a';
-                result.push_back(S);
-                letter(S, i + 1, result);
-                S[i] = S[i] - 'a' + 'A';
-            }
+    void dfs(vector&lt;string&gt;&amp; res, string&amp; ans, string&amp; S, int i) {
+        if(i == S.size()){
+            res.push_back(ans);
+            return;
         }
-    }</B></FONT>
+        if(isdigit(S[i])) {
+            ans.push_back(S[i]);
+            dfs(res, ans, S, i+1);
+            ans.pop_back();
+        }
+        else if(isupper(S[i])){</B></FONT>
+            ans.push_back(S[i]);
+            dfs(res, ans, S, i+1);
+            ans.pop_back();
+            ans.push_back(S[i]-'A'+'a');
+            dfs(res, ans, S, i+1);
+            ans.pop_back();
+        }
+        else {
+            ans.push_back(S[i]+'A'-'a');
+            dfs(res, ans, S, i+1);
+            ans.pop_back();
+            ans.push_back(S[i]);
+            dfs(res, ans, S, i+1);
+            ans.pop_back();            
+        }
+    }
 };
 </PRE>
 </BODY>

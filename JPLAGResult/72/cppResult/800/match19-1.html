@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>161_imprsnt.cpp</TITLE>
+ <TITLE>146_alncat.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>161_imprsnt.cpp</CENTER></H3><HR>
+<H3><CENTER>146_alncat.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-	vector&lt;string&gt; res; 
-	void util(string S, string curRes, int idx)
-	{
-		if(idx == S.size())
-		{
-			res.push_back(curRes);
-			return;
-		}
-
-		util(S, curRes + S[idx], idx + 1);
-		if(S[idx] &gt;= 65 &amp;&amp; S[idx] &lt;= 90)
-		{</B></FONT>
-			 
-			 util(S, curRes + static_cast&lt;char&gt;((S[idx] + ('a' -'A'))), idx + 1);
-		}
-		else if(S[idx] &gt;= 97 &amp;&amp; S[idx] &lt;= 122)
-		{
-			 util(S, curRes + static_cast&lt;char&gt;((S[idx] + ('A' -'a'))), idx + 1);
-		}
-
-	}
-
-    vector&lt;string&gt; letterCasePermutation(string S) 
-    {
-		util(S, &quot;&quot;, 0);		    		    
-		return res;
+    vector&lt;string&gt; letterCasePermutation(string S) {
+        vector&lt;string&gt; res;
+<A NAME="0"></A>        dfs(S, 0, res);
+        return res;
     }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(string&amp; S, int cur, vector&lt;string&gt;&amp; res){
+        locale loc;
+        if(cur == S.size()){
+            res.push_back(S);
+            return;
+        }
+        if(isalpha(S[cur])){
+            string next = S.substr(0,cur)+toupper(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
+            next = S.substr(0,cur)+tolower(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
+        }
+        else{
+            dfs(S, cur+1, res);
+        }
+    }</B></FONT>
 };
 </PRE>
 </BODY>

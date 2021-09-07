@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_bb123n4.cpp</TITLE>
+ <TITLE>439_sshindesiddesh.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>309_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>439_sshindesiddesh.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 <A NAME="0"></A>public:
-    string curS;
-    vector&lt;string&gt; rv;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void cal(string &amp;s, int pos) {
-        if (pos &gt;= s.size()) {
-            rv.push_back(curS);
+    vector &lt;string&gt; res;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void helper(string s, int index) {
+        if (index &gt;= s.size()) {
+            res.push_back(s);
             return;
         }
-        if (s[pos] &lt;= 'z' &amp;&amp; s[pos] &gt;= 'a') {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] - ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
-        }
-        else if (s[pos] &lt;= 'Z' &amp;&amp; s[pos] &gt;= 'A') {</B></FONT>
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] + ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
-        }
-        else {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-        }
+        if (isalpha(s[index])) {
+            s[index] = toupper(s[index]);
+            helper(s, index + 1);
+            s[index] = tolower(s[index]);
+            helper(s, index + 1);
+        } else helper(s, index + 1);</B></FONT>
     }
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        cal(S, 0);
-        return rv;
+    
+    
+    vector&lt;string&gt; letterCasePermutation(string s) {
+        helper(s, 0);
+        return res;
     }
 };
 </PRE>

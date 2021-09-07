@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_142857cs.cpp</TITLE>
+ <TITLE>439_sshindesiddesh.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>34_142857cs.cpp</CENTER></H3><HR>
+<H3><CENTER>439_sshindesiddesh.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>#include&lt;vector&gt;
-using namespace std;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    vector&lt;string&gt; v;
-public:
-    void l(string s,int n) {
-        if(n==s.size())
-        {
-            v.push_back(s);
+class Solution {
+<A NAME="0"></A>public:
+    vector &lt;string&gt; res;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void helper(string s, int index) {
+        if (index &gt;= s.size()) {
+            res.push_back(s);
             return;
         }
-        if(s[n]&gt;='A'&amp;&amp;s[n]&lt;='Z')
-        {
-            s[n]=s[n]-'A'+'a';</B></FONT>
-        }
-        l(s,n+1);
-        if(s[n]&gt;='a'&amp;&amp;s[n]&lt;='z')
-        {
-            s[n]=s[n]-'a'+'A';
-            l(s,n+1);
-        }
+        if (isalpha(s[index])) {
+            s[index] = toupper(s[index]);
+            helper(s, index + 1);
+            s[index] = tolower(s[index]);
+            helper(s, index + 1);
+        } else helper(s, index + 1);</B></FONT>
     }
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        l(S,0);
-        return v;
+    
+    
+    vector&lt;string&gt; letterCasePermutation(string s) {
+        helper(s, 0);
+        return res;
     }
 };
 </PRE>

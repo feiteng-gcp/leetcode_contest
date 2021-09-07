@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_zhixiongcai.cpp</TITLE>
+ <TITLE>146_alncat.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_zhixiongcai.cpp</CENTER></H3><HR>
+<H3><CENTER>146_alncat.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; ans;
-        build(S, 0, ans);
-        return ans;
+        vector&lt;string&gt; res;
+        dfs(S, 0, res);
+        return res;
     }
-    
-    void build(string&amp; S, int i, vector&lt;string&gt;&amp; ans) {
-        if (i == S.size()) {
-            ans.push_back(S);
+    void dfs(string&amp; S, int cur, vector&lt;string&gt;&amp; res){
+        locale loc;
+        if(cur == S.size()){
+            res.push_back(S);
             return;
         }
-        
-        build(S, i + 1, ans);
-        if (!isAlpha(S[i])) {</B></FONT>
-            return;
+        if(isalpha(S[cur])){</B></FONT>
+            string next = S.substr(0,cur)+toupper(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
+            next = S.substr(0,cur)+tolower(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
         }
-        
-        if (isLower(S[i])) {
-            S[i] = S[i] - 'a' + 'A';
-        } else {
-            S[i] = S[i] - 'A' + 'a';
+        else{
+            dfs(S, cur+1, res);
         }
-        build(S, i + 1, ans);
-    }
-    
-    inline bool isLower(const char c) {
-        return c &gt;= 'a' &amp;&amp; c &lt;= 'z';
-    }
-    
-    inline bool isUpper(const char c) {
-        return c &gt;= 'A' &amp;&amp; c &lt;= 'Z';
-    }
-    
-    inline bool isAlpha(const char c) {
-        return isLower(c) || isUpper(c);
     }
 };
 </PRE>

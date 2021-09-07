@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_XuhuiWang.java</TITLE>
+ <TITLE>441_spt.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>441_spt.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>public class Solution {
-	List&lt;String&gt; res = new ArrayList&lt;&gt;();
-	public List&lt;String&gt; letterCasePermutation(String S) {
-		StringBuilder <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sb = new StringBuilder();
-		DFS(S, sb, 0);
-		return res;
-	}
-	private void DFS(String s, StringBuilder sb, int i) {
-		if (i == s.length()) {</B></FONT>
-			res.add(sb.toString());
-			return;
-		}
-		char ch = s.charAt(i);
-		if ((ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') || (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z')) {
-			int delta = ch &lt;= 'Z' ? (ch - 'A') : (ch - 'a');
-			sb.append((char)('A' + delta));
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);
-			sb.append((char)('a' + delta));
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);
-		} else {
-			sb.append(ch);
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);
-		}
-	}
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
+        collect(res, S, &quot;&quot;, 0);
+        return res;
+        
+    }
+    
+    public void collect(List&lt;String&gt; res, String inp, String cur</B></FONT>, int depth) {
+        if (depth == inp.length()) {
+            res.add(cur);
+            return;
+        }
+        
+        
+            char c = inp.charAt(depth);
+            if (Character.isDigit(c)) {
+                collect(res, inp, cur+c, depth+1);
+                return;
+            }
+            
+            collect(res, inp, cur+Character.toLowerCase(c), depth+1);
+            collect(res, inp, cur+Character.toUpperCase(c), depth+1);
+        
+    }
 }
 </PRE>
 

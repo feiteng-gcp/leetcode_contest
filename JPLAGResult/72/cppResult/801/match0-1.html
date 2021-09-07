@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_zhangwei00.cpp</TITLE>
+ <TITLE>2_azneye.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>40_zhangwei00.cpp</CENTER></H3><HR>
+<H3><CENTER>2_azneye.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+#define VERA(i, a, b) for(ll i=(ll)(a);i&lt;(ll)(b);++i)
+#define ANDY(i, a, b) for(ll i=(ll)(a);i&gt;(ll)(b);--i)
+#define RARA(x, seq) for(auto&amp; x:seq)
+#define SIZE(x) ((ll)(x.size()))
+
+typedef long long ll;
+typedef long double dd;
+
 class Solution {
-<A NAME="1"></A>public:
-int color[105];
-int V;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>vector&lt;vector&lt;int&gt; &gt; G;
-bool dfs(int v,int c)
-{
-    color[v] = c;
-    for (int i = 0; i &lt; G[v].size(); i++)
-    {
-        if (color[G[v][i]] == c)
+ public:
+  bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+    const ll n = SIZE(graph);
+    vector&lt;ll&gt; col(n, -1);
+    VERA(st, 0, n) {
+      if (~col[st]) continue;
+      col[st] = 0;
+<A NAME="0"></A>      queue&lt;ll&gt; que;
+      que.push(st);
+      while (not que.empty()) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const ll at = que.front();
+        que.pop();
+        RARA(to, graph[at]) {
+          if (col[to] == -1) {
+            col[to] = col[at] ^ 1;
+            que.push(to);
+          } else if (col[to] == col[at])
             return false;
-        if (color[G[v][i]] == 0 &amp;&amp; !dfs(G[v][i], -c))</B></FONT>
-            return false;
-    }
-    return true;
-}
-<A NAME="0"></A>
-bool solve()
-{
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; V; i++)
-    {
-        if (color[i] == 0)
-        {
-            if (!dfs(i, 1))
-            {
-                return false;
-            }
         }
+      }
     }
     return true;
+  }
+};</B></FONT>
+
+
+#ifdef AZN
+namespace {
+
+void Solve(ll) {
 }
-    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {</B></FONT>
-        G=graph;
-        V=graph.size();
-        memset(color,0,sizeof(color));
-        return solve();
-    }
-};
+
+void Init() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+}
+}
+
+int main() {
+  freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
+  Init();
+  ll tests = 1;
+  VERA(test, 1, tests + 1) Solve(test);
+  return 0;
+}
+
+#endif
 </PRE>
 </BODY>
 </HTML>

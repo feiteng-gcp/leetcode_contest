@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_142857cs.cpp</TITLE>
+ <TITLE>7_taobingxue.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>34_142857cs.cpp</CENTER></H3><HR>
+<H3><CENTER>7_taobingxue.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>#include&lt;vector&gt;
-using namespace std;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    vector&lt;string&gt; v;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    void l(string s,int n) {
-        if(n==s.size())
-        {
-            v.push_back(s);
+    vector&lt;string&gt; letterCasePermutation(string S) {
+        vector&lt;string&gt; res;
+
+        work(S, 0, res);
+        return res;
+    }
+    
+    void work(string S, int p, vector&lt;string&gt; &amp;res) {
+        if (p == S.size()) {
+            res.push_back(S);
             return;
         }
-        if(s[n]&gt;='A'&amp;&amp;s[n]&lt;='Z')
-        {</B></FONT>
-            s[n]=s[n]-'A'+'a';
+        
+        work(S, p+1, res);
+        if (S[p] &gt;= 'a' &amp;&amp; S[p] &lt;= 'z') {
+            S[p] = S[p] - 32;</B></FONT>
+            work(S, p+1, res);
+        } else if (S[p] &gt;= 'A' &amp;&amp; S[p] &lt;= 'Z') {
+            S[p] = S[p] + 32;
+            work(S, p+1, res);
         }
-        l(s,n+1);
-        if(s[n]&gt;='a'&amp;&amp;s[n]&lt;='z')
-        {
-            s[n]=s[n]-'a'+'A';
-            l(s,n+1);
-        }
-    }
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        l(S,0);
-        return v;
     }
 };
 </PRE>

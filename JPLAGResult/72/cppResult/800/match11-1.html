@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_i_love_xiaoshagua_cpp.cpp</TITLE>
+ <TITLE>7_taobingxue.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>38_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<H3><CENTER>7_taobingxue.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-private:
-    void helper(string S, int idx, vector&lt;string&gt; &amp;res) {
-        if (idx == S.size()) {
-            res.push_back(S);
-            return;
-        }
-        if (isalpha(S[idx])) {</B></FONT>
-            S[idx] = tolower(S[idx]);
-            helper(S, idx + 1, res);
-            S[idx] = toupper(S[idx]);
-            helper(S, idx + 1, res);
-        } else {
-            helper(S, idx + 1, res);
-        }
-    }
-    
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
         vector&lt;string&gt; res;
-        helper(S, 0, res);
+
+        work(S, 0, res);
         return res;
+    }
+    
+    void work(string S, int p, vector&lt;string&gt; &amp;res) {
+        if (p == S.size()) {
+            res.push_back(S);
+            return;
+        }
+        
+        work(S, p+1, res);
+        if (S[p] &gt;= 'a' &amp;&amp; S[p] &lt;= 'z') {</B></FONT>
+            S[p] = S[p] - 32;
+            work(S, p+1, res);
+        } else if (S[p] &gt;= 'A' &amp;&amp; S[p] &lt;= 'Z') {
+            S[p] = S[p] + 32;
+            work(S, p+1, res);
+        }
     }
 };
 </PRE>

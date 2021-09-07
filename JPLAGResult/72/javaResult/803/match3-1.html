@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_hahahiehie.java</TITLE>
+ <TITLE>329_jljljljljl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,61 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_hahahiehie.java</CENTER></H3><HR>
+<H3><CENTER>329_jljljljljl.java</CENTER></H3><HR>
 <PRE>
-class Solution {
- 	public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-		int[][] dist = new int[n][n];
-		final int INF = 1 &lt;&lt; 28;
-
-		for (int i = 0; i &lt; n; i++) {
-			for (int j = 0; j &lt; n; j++) {
-<A NAME="0"></A>				if (i != j) {
-					dist[i][j] = INF;
-				}
-			}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		}
-
-		for (int i = 0; i &lt; flights.length; i++) {
-			int u = flights[i][0];
-			int v = flights[i][1];
-			int w = flights[i][2];</B></FONT>
-			dist[u][v] = w;
-		}
-
-		int[] dp = new int[n];
-
-		for (int i = 0; i &lt; n; i++) {
-			if (dist[src][i] &lt; INF) {
-				dp[i] = dist[src][i];
-			} else {
-				dp[i] = INF;
-			}
-
-		}
-		for (int k = 1; k &lt;= K; k++) {
-			int[] dp2 = new int[n];
-			for (int i = 0; i &lt; n; i++) {
-				dp2[i] = INF;
-			}
-			for (int j = 0; j &lt; n; j++) {
-				for (int i = 0; i &lt; n; i++) {
-					if (dp[i] &gt;= INF)
-						continue;
-					if (dist[i][j] &gt;= INF)
-						continue;
-					dp2[j] = Math.min(dp2[j], dp[i] + dist[i][j]);
-<A NAME="1"></A>				}
-			}
-			dp = dp2;
-		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		if (dp[dst] &gt;= INF) {
-			return -1;
-		} else {
-			return dp[dst];
-		}
-	}
-}</B></FONT>
+<A NAME="0"></A>class Solution {
+    boolean flag = false;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        int[] low = new int[n];
+        for(int i=0;i</B></FONT>&lt;low.length;i++)
+            low[i] = Integer.MAX_VALUE;
+        low[src] = 0;
+        helper(flights, low, src, K, 0, dst);
+        return flag?low[dst]:-1;
+    }
+    private void helper(int[][] flights, int[] low, int src, int K, int sum, int dst) {
+        if(K&lt;0)
+            return;
+        for(int i=0;i&lt;flights.length;i++) {
+            if(flights[i][0]==src) {
+                if(flights[i][1]==dst)
+                    flag = true;
+                int newSum = sum + flights[i][2];
+                if(newSum&lt;low[flights[i][1]]) {
+                    low[flights[i][1]] = newSum;
+                    helper(flights, low, flights[i][1], K-1, newSum, dst);
+                }
+            }
+        }
+    }
+}
 </PRE>
 
 </BODY>

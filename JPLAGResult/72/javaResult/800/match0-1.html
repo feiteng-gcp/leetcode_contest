@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_yang_m.java</TITLE>
+ <TITLE>262_uma10.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>45_yang_m.java</CENTER></H3><HR>
+<H3><CENTER>262_uma10.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
+<A NAME="0"></A>    public List&lt;String&gt; letterCasePermutation(String S) {
+		List&lt;String&gt; aList = new ArrayList&lt;&gt;();
 
-    List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-    public void travese(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String s, int pos) {
-        if(pos == s.length()) {
-            ans.add(s);
-            return;
-        }
-        char c = s.charAt(pos);
-        if</B></FONT>((c &lt;= 'z' &amp;&amp; c &gt;= 'a') || (c &lt;= 'Z' &amp;&amp; c &gt;= 'A')) {
-            char[] copy = s.toCharArray();
-            copy[pos] = Character.toLowerCase(c);
-<A NAME="1"></A>            travese(new String(copy), pos + 1);
-            copy[pos] = Character.toUpperCase(c);
-            travese(new String(copy), pos + 1);
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
-            travese(s, pos + 1);
-        }
-    }
-    public List&lt;String&gt; letterCasePermutation(String S) {</B></FONT>
+		char[] arr = S.toCharArray(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>);
+		helper(arr, aList, 0);
+		return aList;
 
-        travese(S, 0);
-        return ans;
-    }
+	}
 
+	public void helper(char[] arr, List&lt;String&gt; aList, int k) {
+
+		if (k == arr.length) {
+			aList.add(new String(arr));
+			return;
+		}</B></FONT>
+
+<A NAME="1"></A>		if (Character.isAlphabetic(arr[k])) {
+			arr[k] = Character.toLowerCase(arr[k]);
+			helper(arr, aList, k + 1);
+			arr[k] = Character.to<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>UpperCase(arr[k]);
+			helper(arr, aList, k + 1);
+		}else{
+			helper(arr, aList, k + 1);
+		}</B></FONT>
+
+	}
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_uwi.java</TITLE>
+ <TITLE>26_lixx2100.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>3_uwi.java</CENTER></H3><HR>
+<H3><CENTER>26_lixx2100.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class Solution {
-	    public List&lt;String&gt; letterCasePermutation(String S) {
-	    	List&lt;String&gt; a = new ArrayList&lt;&gt;();
-	        dfs(S.t<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>oCharArray(), 0, a);
-	        return a;
-	    }
-	    
-	    void dfs(char[] s, int pos, List&lt;String&gt; a)</B></FONT>
-	    {
-	    	if(pos == s.length){
-	    		a.add(new String(s));
-	    		return;
-	    	}
-    		dfs(s, pos+1, a);
-	    	if(s[pos] &gt;= 'A' &amp;&amp; s[pos] &lt;= 'Z' || 
-	    			s[pos] &gt;= 'a' &amp;&amp; s[pos] &lt;= 'z'){
-	    		s[pos] ^= 32;
-	    		dfs(s, pos+1, a);
-	    	}
-	    }
-	}	
+import java.util.*;
+import java.math.*;
+import java.util.stream.*;
+<A NAME="0"></A>
+public class Solution {
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void dfs(String s, int t, String current, List&lt;String&gt; res) {
+        if (t &gt;= s.length()) {
+            res.add</B></FONT>(current);
+        } else {
+            char ch = s.charAt(t);
+            if (Character.isAlphabetic(ch)) {
+                dfs(s, t + 1, current + Character.toLowerCase(ch), res);
+                dfs(s, t + 1, current + Character.toUpperCase(ch), res);
+
+            } else {
+                dfs(s, t + 1, current + ch, res);
+            }
+        }
+    }
+
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        if (S.isEmpty()) {
+            res.add(S);
+        } else {
+            dfs(S, 0, &quot;&quot;, res);
+
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+
+    }
+}
 </PRE>
 
 </BODY>

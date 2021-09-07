@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>45_yang_m.java</TITLE>
+ <TITLE>379_merdogan67.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,62 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>45_yang_m.java</CENTER></H3><HR>
+<H3><CENTER>379_merdogan67.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; prices = new HashMap&lt;&gt;();
-    int [][] dp;
-    int k;
-    public void visit(int cur, int round, int val) {
-        if(round &gt; k) {
-            return;
+    
+    class Pair{
+        int node;
+        int value;
+        int steps;
+        Pair(int node, int value, int steps){
+            this.node = node;
+            this.value = value;
+            this.steps = steps;
+<A NAME="0"></A>        }
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        
+        int[][] arr = new int[n][n];
+        
+        for(int i=0;i</B></FONT>&lt;flights.length;i++){
+            arr[flights[i][0]][flights[i][1]]=flights[i][2];
         }
-        if(round &gt;= 0) {
-            for(int i = 0; i &lt;= round; i++) {
-                if(val &gt; dp[cur][i]) {
-                    return;
+        
+        Queue&lt;Pair&gt; queue = new PriorityQueue&lt;Pair&gt;(1000, new Comparator&lt;Pair&gt;(){
+            public int compare(Pair p1, Pair p2){
+                if(p1.value==p2.value){
+                    if(p1.steps&lt;p2.steps){
+                        return -1;
+                    }
+                }else if(p1.value&lt;p2.value){
+                    return -1;
+                }
+                return 1;
+            }
+        });
+        queue.add(new Pair(src,0,0));
+        
+        while(!queue.isEmpty()){
+            Pair p = queue.poll();
+            
+            //System.out.println(&quot;p.node: &quot; + p.node + &quot; p.val: &quot; + p.value + &quot; p.steps: &quot; + p.steps);
+            
+            if(p.node == dst){
+                return p.value;
+            }
+            
+            for(int i=0;i&lt;n;i++){
+                int val = arr[p.node][i];
+                if(val&gt;0 &amp;&amp; p.steps&lt;=K){
+                    queue.add(new Pair(i,val + p.value,p.steps+1));
                 }
             }
-            dp[cur][round] = val;
+            
         }
-        for(int next : prices.get(cur).keySet()) {
-            visit(next, round + 1, val + prices.get(cur).get(next));
-        }
+        return -1;
     }
-
-    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-        k = K;
-        for(int i = 0; i &lt; n; i++) {
-            prices.put(i, new HashMap&lt;&gt;());
-        }
-        dp = new int[n][K + 1];
-<A NAME="0"></A>        for(int i = 0; i &lt; n; i++) {
-            for(int j = 0; j &lt;= K; j ++) {
-                dp[i][j] =  Integer.MAX_VALUE;
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        }
-        for(int[] flight : flights) {
-            int start = flight[0];
-            int end = flight[1];
-            int p = flight[2]</B></FONT>;
-            prices.get(start).put(end, p);
-        }
-
-        visit(src, -1, 0);
-
-
-<A NAME="1"></A>        int min = Integer.MAX_VALUE;
-        for(int i = 0; i &lt;= K; i++) {
-            min = Math.min(min, dp[dst][i]);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-
-        if(min == Integer.MAX_VALUE) {
-            return -1;
-        } else {
-            return min;
-        }
-    }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

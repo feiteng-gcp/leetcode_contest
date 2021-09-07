@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>83_itsleo.java</TITLE>
+ <TITLE>310_201701.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>83_itsleo.java</CENTER></H3><HR>
+<H3><CENTER>310_201701.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public List&lt;String&gt; letterCasePermutation(String s) {
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        go(res, s, 0, new StringBuilder());
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res;
+<A NAME="0"></A>class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; result = new LinkedList&lt;&gt;();
+        char[] temp = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.toCharArray();
+        helper(result, temp, 0);
+        return result;
     }
-
-    private void go(List&lt;String&gt; res, String s, int i, StringBuilder sb) {</B></FONT>
-        if (i == s.length()) {
-            res.add(sb.toString());
-            return;
-        }
-        char c = s.charAt(i);
-        if (Character.isDigit(c)) {
-            sb.append(c);
-            go(res, s, i + 1, sb);
-<A NAME="1"></A>            sb.deleteCharAt(sb.length() - 1);
-        } else {
-            if (Character.isUpperCase(c)) {
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sb.append(c);
-                go(res, s, i + 1, sb);
-                sb.deleteCharAt(sb.length() - 1);
-                sb.append((char)(c + 32));
-                go(res, s, i + 1, sb);
-                sb.deleteCharAt(sb.length() - 1);
-            }</B></FONT> else {
-                sb.append(c);
-                go(res, s, i + 1, sb);
-                sb.deleteCharAt(sb.length() - 1);
-                sb.append((char)(c - 32));
-                go(res, s, i + 1, sb);
-                sb.deleteCharAt(sb.length() - 1);
-            }
+    private void helper(List&lt;String&gt; result, char[] temp, int start) {
+         if</B></FONT>(!result.contains(temp))
+            result.add(String.valueOf(temp));
+        for(int i = start; i &lt; temp.length; i++) {
+            if(temp[i] &gt;= '0' &amp;&amp; temp[i] &lt;= '9')
+                continue;
+            if(temp[i] &gt;= 'a' &amp;&amp; temp[i] &lt;= 'z')
+            	temp[i] = Character.toUpperCase(temp[i]);
+            else
+            	temp[i] = Character.toLowerCase(temp[i]);
+            helper(result, temp, i + 1);
+            if(temp[i] &gt;= 'a' &amp;&amp; temp[i] &lt;= 'z')
+            	temp[i] = Character.toUpperCase(temp[i]);
+            else
+            	temp[i] = Character.toLowerCase(temp[i]);
         }
     }
-
 }
 </PRE>
 

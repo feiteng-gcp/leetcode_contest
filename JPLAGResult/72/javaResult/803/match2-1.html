@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_5305519068.java</TITLE>
+ <TITLE>366_Cony_Chou.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>366_Cony_Chou.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-<A NAME="0"></A>
-class Solution {
-	final static int MAX = 100000000;
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-        int[][] cost = new</B></FONT> int[n][n];
-        for (int[] d : cost) {
-        	Arrays.fill(d, -1);
-        }
-        for (int i = 0; i &lt; flights.length; ++i) {
-        	int s = flights[i][0];
-        	int t = flights[i][1];
-        	int p = flights[i][2];
-        	cost[s][t] = p;
-        }
-        ++K;
-        int[][] minCost = new int[n][K + 1];
-        for (int[] d : minCost) {
-        	Arrays.fill(d, MAX);
-        }
-        minCost[src][0] = 0;
-        for (int i = 0; i &lt; K; ++i) {
-        	for (int j = 0; j &lt; n; ++j) {
-        		if (minCost[j][i] &lt; MAX) {
-	        		for (int t = 0; t &lt; n; ++t) {
-	        			if (cost[j][t] &gt;= 0) {
-	        				minCost[t][i + 1] = Math.min(minCost[t][i + 1], minCost[j][i] + cost[j][t]);
-	        			}
-	        		}
-        		}
-        	}
-        }
-        int res = MAX;
-        for (int i = 0; i &lt;= K; ++i) {
-        	res = Math.min(res, minCost[dst][i]);
-        }
-        return res == MAX ? -1 : res;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        int[][] dp = new int[n][n]</B></FONT>;
+        for(int f=0; f&lt;flights.length;f++)
+            dp[flights[f][0]][flights[f][1]] = flights[f][2];
+        
+        while(K&gt;0){
+            for(int from = 0; from &lt; n; from++) {
+                for(int to = 0; to &lt; n; to++){
+                    for(int x=0; x&lt;n; x++) {
+                        if(dp[from][x] &gt; 0 &amp;&amp; dp[x][to] &gt; 0 &amp;&amp; (dp[from][to] == 0 || dp[from][to] &gt; (dp[from][x]+dp[x][to])))
+                            dp[from][to] = dp[from][x]+dp[x][to];
+                    }                
+                }
+            }
+            K--;
+        }    
+        return (dp[src][dst]==0)?-1:dp[src][dst];
     }
 }
 </PRE>

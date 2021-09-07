@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_matchalatte.java</TITLE>
+ <TITLE>285_LuciferTian2010.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_matchalatte.java</CENTER></H3><HR>
+<H3><CENTER>285_LuciferTian2010.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public List&lt;String&gt; letterCasePermutation(String S) {
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>helper(S.toCharArray(), 0, res);
-        return res;
+<A NAME="0"></A>        List&lt;String&gt; permutations = new ArrayList&lt;String&gt;();
+        if (S == null)
+            return permutations;
+        char[] cArray = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.toCharArray();
+        permutations.add(S);
+        letterCasePermutation(0, cArray, permutations);
+        return permutations;
+        
     }
     
-    public void helper(char[] S, int i, List&lt;String&gt; res) {
-        if (i == S.length) {
-            res.add(new String(S));
+    private void letterCasePermutation(int idx, char[] cArray, List&lt;String&gt; permutations) {</B></FONT>
+        if (idx == cArray.length)
             return;
+        letterCasePermutation(idx+1, cArray, permutations);
+        char c = cArray[idx];
+        if (c &lt;= 'z' &amp;&amp; c &gt;= 'a') {
+            cArray[idx] = (char)('A' + c - 'a');
+            permutations.add(new String(cArray));
+            letterCasePermutation(idx+1, cArray, permutations);
+            cArray[idx] = c;
+        } else if (c &lt;= 'Z' &amp;&amp; c &gt;= 'A') {
+            cArray[idx] = (char)('a' + c - 'A');
+            permutations.add(new String(cArray));
+            letterCasePermutation(idx+1, cArray, permutations);
+            cArray[idx] = c;
         }
-        char ch = S[i]</B></FONT>;
-        if (Character.isDigit(ch)) {
-            helper(S, i+1, res);
-            return;
-        }
-        if (Character.isLowerCase(ch)) {
-            helper(S, i+1, res);
-            S[i] = Character.toUpperCase(ch);
-             helper(S, i+1, res);            
-        } else {
-            helper(S, i+1, res);
-            S[i] = Character.toLowerCase(ch);
-            helper(S, i+1, res);            
-        }
+        
     }
 }
 </PRE>

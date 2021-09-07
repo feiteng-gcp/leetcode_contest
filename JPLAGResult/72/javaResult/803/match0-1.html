@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_5305519068.java</TITLE>
+ <TITLE>329_jljljljljl.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>329_jljljljljl.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-<A NAME="0"></A>
-class Solution {
-	final static int MAX = 100000000;
+<A NAME="0"></A>class Solution {
+    boolean flag = false;
     <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-        int[][] cost = new</B></FONT> int[n][n];
-        for (int[] d : cost) {
-        	Arrays.fill(d, -1);
-        }
-        for (int i = 0; i &lt; flights.length; ++i) {
-        	int s = flights[i][0];
-        	int t = flights[i][1];
-        	int p = flights[i][2];
-        	cost[s][t] = p;
-        }
-        ++K;
-        int[][] minCost = new int[n][K + 1];
-        for (int[] d : minCost) {
-        	Arrays.fill(d, MAX);
-        }
-        minCost[src][0] = 0;
-        for (int i = 0; i &lt; K; ++i) {
-        	for (int j = 0; j &lt; n; ++j) {
-        		if (minCost[j][i] &lt; MAX) {
-	        		for (int t = 0; t &lt; n; ++t) {
-	        			if (cost[j][t] &gt;= 0) {
-	        				minCost[t][i + 1] = Math.min(minCost[t][i + 1], minCost[j][i] + cost[j][t]);
-	        			}
-	        		}
-        		}
-        	}
-<A NAME="1"></A>        }
-        int res = MAX;
-        for (int i = 0; i &lt;= K; ++i) {
-        	res = M<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ath.min(res, minCost[dst][i]);
-        }
-        return res == MAX ? -1 : res;
+        int[] low = new int[n];
+        for(int i=0;i&lt;low.length;i++)
+            low[i] = Integer.MAX_VALUE;</B></FONT>
+        low[src] = 0;
+        helper(flights, low, src, K, 0, dst);
+        return flag?low[dst]:-1;
     }
-}</B></FONT>
+    private void helper(int[][] flights, int[] low, int src, int K, int sum, int dst) {
+        if(K&lt;0)
+            return;
+        for(int i=0;i&lt;flights.length;i++) {
+            if(flights[i][0]==src) {
+                if(flights[i][1]==dst)
+                    flag = true;
+                int newSum = sum + flights[i][2];
+                if(newSum&lt;low[flights[i][1]]) {
+                    low[flights[i][1]] = newSum;
+                    helper(flights, low, flights[i][1], K-1, newSum, dst);
+                }
+            }
+        }
+    }
+}
 </PRE>
 
 </BODY>

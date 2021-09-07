@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>474_fuziqianlu.cpp</TITLE>
+ <TITLE>321_LimitW.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>474_fuziqianlu.cpp</CENTER></H3><HR>
+<H3><CENTER>321_LimitW.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; res;
-        dfs(S, 0, res);
-        return res;
+vector&lt;string&gt; letterCasePermutation(string S) {
+    vector&lt;string&gt; ans;
+    unordered_set&lt;string&gt; s;
+    int len = S.length();
+    for(int i = 0; i &lt; (1&lt;&lt;len); ++i){
+        string tmp = S;
+        for(int j = 0; j &lt; len; ++j){
+            if(tmp[j] &gt;= 'a' &amp;&amp; tmp[j] &lt;= 'z' &amp;&amp; (i &amp; (1&lt;&lt;j))){</B></FONT>
+                tmp[j] = tmp[j] - 'a' + 'A';
+            }
+            if(tmp[j] &gt;= 'A' &amp;&amp; tmp[j] &lt;= 'Z' &amp;&amp; !(i &amp; (1&lt;&lt;j))){
+                tmp[j] = tmp[j] + 'a' - 'A';
+            }
+        }
+        s.insert(tmp);
     }
-    
-    void dfs(string &amp;s, int i, vector&lt;string&gt;&amp; res){
-        if(i&gt;=s.size()){
-            res.push_back(s);
-            return;
-        }
-        int gap = 'a' - 'A';</B></FONT>
-        dfs(s, i+1, res);
-        if(s[i]&gt;='a'&amp;&amp;s[i]&lt;='z'){
-            s[i] -= gap;
-            dfs(s, i+1, res);
-            s[i]+=gap;
-        }
-        else if(s[i]&gt;='A'&amp;&amp;s[i]&lt;='Z'){
-            s[i] += gap;
-            dfs(s, i+1, res);
-            s[i] -= gap;
-        }
+    for(auto k : s){
+        ans.push_back(k);
     }
+    return ans;
+}
 };
 </PRE>
 </BODY>

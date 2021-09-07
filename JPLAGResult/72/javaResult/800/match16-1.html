@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>329_jljljljljl.java</TITLE>
+ <TITLE>24_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>329_jljljljljl.java</CENTER></H3><HR>
+<H3><CENTER>24_xn1990114.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public List&lt;String&gt; letterCasePermutation(String S) {
-        List&lt;String&gt; res = new ArrayList();
-        res.add(&quot;&quot;);
-        for(int i=0;i&lt;S.length();i++) {
-            char c = S.charAt(i)</B></FONT>;
-            List&lt;String&gt; newRes = new ArrayList();
-            for(int j=0;j&lt;res.size();j++) {
-                if(Character.isLetter(c)) {
-                    newRes.add(res.get(j)+String.valueOf(c).toLowerCase());
-<A NAME="1"></A>                    newRes.add(res.get(j)+String.valueOf(c).toUpperCase());
-                }
-                else
-                    newRes.add(res.get(j)+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String.valueOf(c));
-            }
-            res = newRes;
-        }
+        List&lt;String&gt; res=new ArrayList&lt;String&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder sb=new StringBuilder();
+        dfs(S,sb,res);
         return res;
-    }</B></FONT>
+    }
+    public void dfs(String S,StringBuilder sb,List&lt;String&gt; res){
+        if(sb.length</B></FONT>()==S.length()){
+            res.add(sb.toString());
+        return;
+        }
+        char ch=S.charAt(sb.length());
+        if(ch&gt;='a'&amp;&amp;ch&lt;='z'){
+            sb.append((char)(ch+'A'-'a'));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        else if(ch&gt;='A'&amp;&amp;ch&lt;='Z'){
+            sb.append((char)(ch-('A'-'a')));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        sb.append(ch);
+        dfs(S,sb,res);
+        sb.deleteCharAt(sb.length()-1);
+    }
 }
 </PRE>
 

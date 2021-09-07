@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_bb123n4.cpp</TITLE>
+ <TITLE>34_142857cs.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>309_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>34_142857cs.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>#include&lt;vector&gt;
+using namespace std;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    vector&lt;string&gt; v;
 public:
-    string curS;
-    vector&lt;string&gt; rv;
-    void cal(string &amp;s, int pos) {
-        if (pos &gt;= s.size()) {
-            rv.push_back(curS);
+    void l(string s,int n) {
+        if(n==s.size())
+        {
+            v.push_back(s);
             return;
         }
-        if (s[pos] &lt;= 'z' &amp;&amp; s[pos] &gt;= 'a') {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] - ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
-        }</B></FONT>
-        else if (s[pos] &lt;= 'Z' &amp;&amp; s[pos] &gt;= 'A') {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] + ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
+        if(s[n]&gt;='A'&amp;&amp;s[n]&lt;='Z')
+        {
+            s[n]=s[n]-'A'+'a';</B></FONT>
         }
-        else {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
+        l(s,n+1);
+        if(s[n]&gt;='a'&amp;&amp;s[n]&lt;='z')
+        {
+            s[n]=s[n]-'a'+'A';
+            l(s,n+1);
         }
     }
     vector&lt;string&gt; letterCasePermutation(string S) {
-        cal(S, 0);
-        return rv;
+        l(S,0);
+        return v;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_bb123n4.cpp</TITLE>
+ <TITLE>129_anuj21.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>309_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>129_anuj21.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>public:
-    string curS;
-    vector&lt;string&gt; rv;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void cal(string &amp;s, int pos) {
-        if (pos &gt;= s.size()) {
-            rv.push_back(curS);
-            return;
+<A NAME="0"></A>class Solution {
+    vector&lt;string&gt;ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void recu(string &amp;s, string &amp;temp, int curr)
+    {
+        if(curr == s.size())
+        {
+            ans.push_back(temp);
+            return ;
         }
-        if (s[pos] &lt;= 'z' &amp;&amp; s[pos] &gt;= 'a') {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] - ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
+        
+        if(isalpha(s[curr]))
+        {
+            temp.push_back(tolower(s[curr]));
+            recu(s, temp, curr+1);
+            temp.pop_back();
+            
+            temp.push_back(toupper(s[curr]));
+            recu(s, temp, curr+1);
+            temp.pop_back();
         }
-        else if (s[pos] &lt;= 'Z' &amp;&amp; s[pos] &gt;= 'A') {</B></FONT>
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] + ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
+        else
+        {
+            temp.push_back(s[curr]);
+            recu(s, temp, curr+1);
+            temp.pop_back();
         }
-        else {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-        }
-    }
+    }</B></FONT>
+public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        cal(S, 0);
-        return rv;
+        ans.clear();
+        string temp;
+        recu(S, temp, 0);
+        return ans;
     }
 };
 </PRE>

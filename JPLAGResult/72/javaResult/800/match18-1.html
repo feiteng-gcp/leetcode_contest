@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>211_zqzned.java</TITLE>
+ <TITLE>26_lixx2100.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>211_zqzned.java</CENTER></H3><HR>
+<H3><CENTER>26_lixx2100.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public List&lt;String&gt; letterCasePermutation(String S) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; ans = new ArrayList&lt;String&gt;();
-        for (int i = 0; i &lt; S.length(); i++) {
-            char c = S.charAt(i);
-            if (Character.isLetter(c)) {
-                List&lt;String&gt; left = letterCasePermutation(S.substring</B></FONT>(i+1));
-                String before = S.substring(0, i);
-<A NAME="1"></A>                for (String tmp : left) {
-                    ans.add(before + Character.toLowerCase(c) + tmp);
-                    ans.add(before + Character.toUpperCase(c) + tmp);
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-                break;
+import java.util.*;
+import java.math.*;
+import java.util.stream.*;
+<A NAME="0"></A>
+public class Solution {
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>void dfs(String s, int t, String current, List&lt;String&gt; res) {
+<A NAME="1"></A>        if (t &gt;= s.length()) {
+            res.add</B></FONT>(current);
+        } else {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char ch = s.charAt(t);
+            if (Character.isAlphabetic(ch)) {
+                dfs(s, t + 1, current + Character.toLowerCase(ch), res);
+                dfs(s, t + 1, current + Character.toUpperCase(ch), res);
+
+            } else {
+                dfs</B></FONT>(s, t + 1, current + ch, res);
             }
         }
-        if (ans.size() == 0) {
-            ans.add(S);
-        }
-        return ans;
     }
-}</B></FONT>
+
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        if (S.isEmpty()) {
+            res.add(S);
+        } else {
+            dfs(S, 0, &quot;&quot;, res);
+
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+
+    }
+}
 </PRE>
 
 </BODY>

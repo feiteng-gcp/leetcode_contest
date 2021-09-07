@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>303_shell32.cpp</TITLE>
+ <TITLE>400_romilgadia.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>303_shell32.cpp</CENTER></H3><HR>
+<H3><CENTER>400_romilgadia.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    vector&lt;string&gt; ans;
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        impl(S, 0);
-        return ans;
+        vector&lt;string&gt; sol;
+        permute(S,0,sol);
+        return sol;
     }
-
-    void impl(string S, int index) {
-        if (index == S.length()) {
-            ans.push_back(S);
-            return ;
-        }</B></FONT>
-        int i;
-        for (i = index; i &lt; S.length(); i++) {
-            if (isalpha(S[i])) {
-                S[i] = toupper(S[i]);
-                impl(S, i + 1);
-                S[i] = tolower(S[i]);
-                impl(S, i + 1);
-                break;
-            }
+    
+    void permute(string S, int x, vector&lt;string&gt;&amp; sol){
+        if(x==S.length()) {
+            sol.push_back(S);
+            return;
         }
-        if (i == S.length())
-            ans.push_back(S);
+        
+        if(isNumber(S[x])){
+            permute(S,x+1,sol);
+        }
+        else{</B></FONT>
+            permute(S,x+1,sol);
+            if(isLowerCase(S[x])) S[x] = S[x]-'a'+'A';
+            else S[x] = S[x]-'A'+'a';
+            permute(S,x+1,sol);
+        }
+    }
+    
+    bool isNumber(char ch){
+        return (ch&gt;='0' and ch&lt;='9');
+    }
+    
+    bool isLowerCase(char ch){
+        return (ch&gt;='a' and ch&lt;='z');
     }
 };
 </PRE>

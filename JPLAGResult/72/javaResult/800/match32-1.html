@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>348_snmishra.java</TITLE>
+ <TITLE>24_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>348_snmishra.java</CENTER></H3><HR>
+<H3><CENTER>24_xn1990114.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>    public List&lt;String&gt; letterCasePermutation(String S) {
-        List&lt;String&gt; result=new ArrayList();
-        
-        permute(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>S.toCharArray(),0,S.length()-1,result);
-        return result;
-        
+<A NAME="0"></A>class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res=new ArrayList&lt;String&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder sb=new StringBuilder();
+        dfs(S,sb,res);
+        return res;
     }
-    void permute(char[] c,int i,int end</B></FONT> , List&lt;String&gt; result){
-        if(i&gt;end){
-            result.add(String.valueOf(c));
-            return;
+    public void dfs(String S,StringBuilder sb,List&lt;String&gt; res</B></FONT>){
+        if(sb.length()==S.length()){
+            res.add(sb.toString());
+        return;
         }
-        
-            if(c[i]&gt;=65 &amp;&amp; c[i]&lt;=90){
-                permute(c,i+1,end,result);
-                c[i]=(char)(c[i]+32);
-                permute(c,i+1,end,result);
-                c[i]=(char)(c[i]-32);
-            }else if(c[i]&gt;=97 &amp;&amp; c[i]&lt;=122){
-                permute(c,i+1,end,result);
-                c[i]=(char)(c[i]-32);
-                permute(c,i+1,end,result);
-                c[i]=(char)(c[i]+32);
-            }else{
-                permute(c,i+1,end,result);
-            }
+        char ch=S.charAt(sb.length());
+        if(ch&gt;='a'&amp;&amp;ch&lt;='z'){
+            sb.append((char)(ch+'A'-'a'));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
         }
-    
-    
+        else if(ch&gt;='A'&amp;&amp;ch&lt;='Z'){
+            sb.append((char)(ch-('A'-'a')));
+            dfs(S,sb,res);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        sb.append(ch);
+        dfs(S,sb,res);
+        sb.deleteCharAt(sb.length()-1);
+    }
 }
 </PRE>
 

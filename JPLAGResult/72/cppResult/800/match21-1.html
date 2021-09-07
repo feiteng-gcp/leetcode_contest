@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>309_bb123n4.cpp</TITLE>
+ <TITLE>146_alncat.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>309_bb123n4.cpp</CENTER></H3><HR>
+<H3><CENTER>146_alncat.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    string curS;
-    vector&lt;string&gt; rv;
-    void cal(string &amp;s, int pos) {
-        if (pos &gt;= s.size()) {
-            rv.push_back(curS);
+    vector&lt;string&gt; letterCasePermutation(string S) {
+        vector&lt;string&gt; res;
+<A NAME="0"></A>        dfs(S, 0, res);
+        return res;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(string&amp; S, int cur, vector&lt;string&gt;&amp; res){
+        locale loc;
+        if(cur == S.size()){
+            res.push_back(S);
             return;
         }
-        if (s[pos] &lt;= 'z' &amp;&amp; s[pos] &gt;= 'a') {
-            curS += s[pos];</B></FONT>
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] - ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
+        if(isalpha(S[cur])){
+            string next = S.substr(0,cur)+toupper(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
+            next = S.substr(0,cur)+tolower(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
         }
-        else if (s[pos] &lt;= 'Z' &amp;&amp; s[pos] &gt;= 'A') {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-            curS += s[pos] + ('a' - 'A');
-            cal(s, pos + 1);
-            curS.pop_back();
+        else{</B></FONT>
+            dfs(S, cur+1, res);
         }
-        else {
-            curS += s[pos];
-            cal(s, pos + 1);
-            curS.pop_back();
-        }
-    }
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        cal(S, 0);
-        return rv;
     }
 };
 </PRE>

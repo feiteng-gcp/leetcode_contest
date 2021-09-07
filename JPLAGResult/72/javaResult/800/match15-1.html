@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>24_xn1990114.java</TITLE>
+ <TITLE>41_XuhuiWang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>24_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>41_XuhuiWang.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    public List&lt;String&gt; letterCasePermutation(String S) {
-        List&lt;String&gt; res=new ArrayList&lt;String&gt;();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder sb=new StringBuilder();
-        dfs(S,sb,res);
-        return res;
-    }
-    public void dfs(String S,StringBuilder sb,List&lt;String&gt; res){
-        if(sb.length</B></FONT>()==S.length()){
-            res.add(sb.toString());
-        return;
-        }
-        char ch=S.charAt(sb.length());
-        if(ch&gt;='a'&amp;&amp;ch&lt;='z'){
-            sb.append((char)(ch+'A'-'a'));
-            dfs(S,sb,res);
-            sb.deleteCharAt(sb.length()-1);
-        }
-        else if(ch&gt;='A'&amp;&amp;ch&lt;='Z'){
-            sb.append((char)(ch-('A'-'a')));
-            dfs(S,sb,res);
-            sb.deleteCharAt(sb.length()-1);
-        }
-        sb.append(ch);
-        dfs(S,sb,res);
-        sb.deleteCharAt(sb.length()-1);
-    }
+<A NAME="0"></A>public class Solution {
+	List&lt;String&gt; res = new ArrayList&lt;&gt;();
+	public <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; letterCasePermutation(String S) {
+		StringBuilder sb = new StringBuilder();
+		DFS(S, sb, 0);
+		return res;
+	}
+	private void DFS(String s, StringBuilder sb, int i) {</B></FONT>
+		if (i == s.length()) {
+			res.add(sb.toString());
+			return;
+		}
+		char ch = s.charAt(i);
+		if ((ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z') || (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z')) {
+			int delta = ch &lt;= 'Z' ? (ch - 'A') : (ch - 'a');
+			sb.append((char)('A' + delta));
+			DFS(s, sb, i + 1);
+			sb.deleteCharAt(sb.length() - 1);
+			sb.append((char)('a' + delta));
+			DFS(s, sb, i + 1);
+			sb.deleteCharAt(sb.length() - 1);
+		} else {
+			sb.append(ch);
+			DFS(s, sb, i + 1);
+			sb.deleteCharAt(sb.length() - 1);
+		}
+	}
 }
 </PRE>
 

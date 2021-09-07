@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>132_tyuan73.java</TITLE>
+ <TITLE>430_ruby71.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>132_tyuan73.java</CENTER></H3><HR>
+<H3><CENTER>430_ruby71.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;String&gt; letterCasePermutation(String S) {
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-<A NAME="0"></A>        char[] s = S.toLowerCase().toCharArray();
-        for(char ch : s)
-            System.out.print(ch);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>System.out.println();
-        perm(s, 0, ans);
-        return ans;
+        
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        if (S == null) {
+<A NAME="0"></A>            return result;
+        }
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder cur = new StringBuilder();
+        dfs(S, 0, result, cur);
+        return result;
     }
     
-    private void perm(char[] s, int i, List&lt;String&gt; ans) {
-        if (i == s.length) {
-            ans.add(new String(s));
+    private void dfs(String input, int index, List&lt;String&gt; result, StringBuilder cur) {</B></FONT>
+        while (index &lt; input.length() &amp;&amp; Character.isDigit(input.charAt(index))) {
+            cur.append(input.charAt(index));
+            index++;
+        }
+        if (index == input.length()) {
+            result.add(new String(cur));
             return;
         }
-        //for(int j = i; j &lt; s.length; j++) {
-            char ch = s[i]</B></FONT>;
-            if (ch &gt;='0' &amp;&amp; ch &lt;= '9') {
-                perm(s, i+1, ans);
-            } else {
-            perm(s, i+1, ans);
-            s[i] = (char)('A' + ch - 'a');
-            perm(s, i+1, ans);
-            s[i] = ch;
-            }
-        //}
+        int originalLength = cur.length();
+        cur.append(Character.toLowerCase(input.charAt(index)));
+        dfs(input, index + 1, result, cur);
+        cur.setLength(originalLength);
+        
+        cur.append(Character.toUpperCase(input.charAt(index)));
+        dfs(input, index + 1, result, cur);
+        cur.setLength(originalLength);
     }
 }
 </PRE>

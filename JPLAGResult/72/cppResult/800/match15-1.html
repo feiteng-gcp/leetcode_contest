@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>303_shell32.cpp</TITLE>
+ <TITLE>160_narut.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>303_shell32.cpp</CENTER></H3><HR>
+<H3><CENTER>160_narut.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    vector&lt;string&gt; ans;
-public:
-    vector&lt;string&gt; letterCasePermutation(string S) {
-        impl(S, 0);
-        return ans;
-    }
 
-    void impl(string S, int index) {
-        if (index == S.length()) {
-            ans.push_back(S);
-            return ;
-        }</B></FONT>
-        int i;
-        for (i = index; i &lt; S.length(); i++) {
-            if (isalpha(S[i])) {
-                S[i] = toupper(S[i]);
-                impl(S, i + 1);
-                S[i] = tolower(S[i]);
-                impl(S, i + 1);
-                break;
-            }
+<A NAME="0"></A>class Solution {
+    vector&lt;string&gt; result;
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void solve(string S, int i){
+        if (i==S.length()) {
+            result.push_back(move(S));
+            return;
         }
-        if (i == S.length())
-            ans.push_back(S);
+        if (isalpha(S[i])) {
+            S[i] = tolower(S[i]);
+            solve(S, i+1);
+            S[i] = toupper(S[i]);
+            solve(S, i+1);
+        } else {
+            solve(S, i+1);
+        }
+    }</B></FONT>
+
+    vector&lt;string&gt; letterCasePermutation(string S) {
+        solve(S, 0);
+        return move(result);
     }
 };
 </PRE>

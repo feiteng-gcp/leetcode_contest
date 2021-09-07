@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>241_zjingpopo.java</TITLE>
+ <TITLE>441_spt.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>241_zjingpopo.java</CENTER></H3><HR>
+<H3><CENTER>441_spt.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-    List&lt;String&gt; res = new ArrayList&lt;&gt;();
     public List&lt;String&gt; letterCasePermutation(String S) {
-        char[] s = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S.toCharArray();
-        helper(s, res, 0);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;String&gt; res = new ArrayList&lt;String&gt;();
+        collect(res, S, &quot;&quot;, 0);
         return res;
+        
     }
     
-    void helper(char[] s, List&lt;String&gt; res, int c) {
-        if(c == s.length) {
-            res.add(new String(s));
+    public void collect(List&lt;String&gt; res, String inp, String cur, int depth) {</B></FONT>
+        if (depth == inp.length()) {
+            res.add(cur);
             return;
         }
-        char cur = s[c]</B></FONT>;
-        helper(s, res, c + 1);
-        if(!Character.isDigit(cur)) {
-            if(Character.isLowerCase(cur)) {
-                s[c] = Character.toUpperCase(cur);
-                helper(s, res, c + 1);
-            } else {
-                s[c] = Character.toLowerCase(cur);
-                helper(s, res, c + 1);
+        
+        
+            char c = inp.charAt(depth);
+            if (Character.isDigit(c)) {
+                collect(res, inp, cur+c, depth+1);
+                return;
             }
-            s[c] = cur;
-        }
+            
+            collect(res, inp, cur+Character.toLowerCase(c), depth+1);
+            collect(res, inp, cur+Character.toUpperCase(c), depth+1);
+        
     }
 }
 </PRE>

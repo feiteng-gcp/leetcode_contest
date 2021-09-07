@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>3_uwi.java</TITLE>
+ <TITLE>384_lixz0087.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>3_uwi.java</CENTER></H3><HR>
+<H3><CENTER>384_lixz0087.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class Solution {
-	    public List&lt;String&gt; letterCasePermutation(String S) {
-	    	List&lt;String&gt; a = new ArrayList&lt;&gt;();
-	        dfs(S.toCha<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rArray(), 0, a);
-	        return a;
-	    }
-	    
-	    void dfs(char[] s, int pos, List&lt;String&gt; a)
-	    {
-	    	if(pos == s.</B></FONT>length){
-	    		a.add(new String(s));
-	    		return;
-	    	}
-    		dfs(s, pos+1, a);
-	    	if(s[pos] &gt;= 'A' &amp;&amp; s[pos] &lt;= 'Z' || 
-	    			s[pos] &gt;= 'a' &amp;&amp; s[pos] &lt;= 'z'){
-	    		s[pos] ^= 32;
-	    		dfs(s, pos+1, a);
-	    	}
-	    }
-	}	
+class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        res.add(&quot;&quot;);
+        
+        for (char c : S.toCharArray()) {
+<A NAME="0"></A>            List&lt;String&gt; tmpRes = new ArrayList&lt;&gt;();
+            
+            for (String s : res) {
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (Character.isLetter(c)) {
+                    tmpRes.add(s + Character.toLowerCase(c));
+                    tmpRes.add(s + Character.toUpperCase(c));
+                }
+                else {
+                    tmpRes.add</B></FONT>(s + c);
+                }
+            }
+            
+            res = tmpRes;
+        }
+        
+        return res;
+    }
+}
 </PRE>
 
 </BODY>

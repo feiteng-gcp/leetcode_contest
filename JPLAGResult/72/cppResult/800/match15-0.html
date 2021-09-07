@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>58_dikra.cpp</TITLE>
+ <TITLE>38_i_love_xiaoshagua_cpp.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>58_dikra.cpp</CENTER></H3><HR>
+<H3><CENTER>38_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
+private:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void helper(string S, int idx, vector&lt;string&gt; &amp;res) {
+        if (idx == S.size()) {
+            res.push_back(S);
+            return;
+        }
+        if (isalpha(S[idx])) {
+            S[idx] = tolower(S[idx]);
+            helper(S, idx + 1, res);
+            S[idx] = toupper(S[idx]);
+            helper(S, idx + 1, res);
+        } else {
+            helper(S, idx + 1, res);
+        }
+    }</B></FONT>
+    
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; ans;
-        work(0, &quot;&quot;, S, ans);
-        return ans;
-    }
-    
-    void work(int i, string temp, string&amp; S, vector&lt;string&gt; &amp;ans){
-        if (i &gt;= S.length()){
-            ans.push_back(temp);
-            return;
-        }</B></FONT>
-        
-        char cc = tolower(S[i]);
-        
-        work(i+1, temp + cc, S, ans);
-        if ('a' &lt;= cc &amp;&amp; cc &lt;= 'z')
-            work(i+1, temp + ((char)(cc-'a'+'A')), S, ans);
+        vector&lt;string&gt; res;
+        helper(S, 0, res);
+        return res;
     }
 };
 </PRE>

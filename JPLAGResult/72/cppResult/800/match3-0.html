@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_jiananz.cpp</TITLE>
+ <TITLE>249_JN091623.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_jiananz.cpp</CENTER></H3><HR>
+<H3><CENTER>249_JN091623.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
         vector&lt;string&gt; res;
-        helper(S, 0, res);
+        dfs(S, 0 , res);
         return res;
     }
-    void helper(string S, int start, vector&lt;string&gt;&amp; res) {
-        if (start &gt;= S.size()) {
-            res.push_back(S);
+    void dfs(string s, int index, vector&lt;string&gt; &amp;res) {
+        if (index == s.size()) {
+            res.push_back(s);
             return;
-        }</B></FONT>
-        helper(S, start + 1, res);    
-        if (S[start] &gt;= 'a' &amp;&amp; S[start] &lt;= 'z') {
-            string t = S;
-            t[start] = S[start] - 'a' + 'A';
-            helper(t, start + 1, res);
-        } else if (S[start] &gt;= 'A' &amp;&amp; S[start] &lt;= 'Z') {
-            string t = S;
-            t[start] = S[start] - 'A' + 'a';
-            helper(t, start + 1, res);
+        }
+        dfs(s, index + 1, res);
+        if ('a' &lt;= s[index] &amp;&amp; s[index] &lt;= 'z') {
+            s[index] = s[index] + 'A' - 'a';
+            dfs(s, index + 1, res);
+            s[index] = s[index] + 'a' - 'A';
+        } else if ('A' &lt;= s[index] &amp;&amp; s[index] &lt;= 'Z') {</B></FONT>
+            s[index] = s[index] + 'a' - 'A';
+            dfs(s, index + 1, res);
+            s[index] = s[index] + 'A' - 'a';
         }
     }
 };

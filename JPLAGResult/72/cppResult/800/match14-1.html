@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>474_fuziqianlu.cpp</TITLE>
+ <TITLE>146_alncat.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>474_fuziqianlu.cpp</CENTER></H3><HR>
+<H3><CENTER>146_alncat.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
         vector&lt;string&gt; res;
-        dfs(S, 0, res);
+<A NAME="0"></A>        dfs(S, 0, res);
         return res;
     }
-    
-    void dfs(string &amp;s, int i, vector&lt;string&gt;&amp; res){
-        if(i&gt;=s.size()){
-            res.push_back(s);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(string&amp; S, int cur, vector&lt;string&gt;&amp; res){
+        locale loc;
+        if(cur == S.size()){
+            res.push_back(S);
             return;
-        }</B></FONT>
-        int gap = 'a' - 'A';
-        dfs(s, i+1, res);
-        if(s[i]&gt;='a'&amp;&amp;s[i]&lt;='z'){
-            s[i] -= gap;
-            dfs(s, i+1, res);
-            s[i]+=gap;
         }
-        else if(s[i]&gt;='A'&amp;&amp;s[i]&lt;='Z'){
-            s[i] += gap;
-            dfs(s, i+1, res);
-            s[i] -= gap;
+        if(isalpha(S[cur])){
+            string next = S.substr(0,cur)+toupper(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
+            next = S.substr(0,cur)+tolower(S[cur], loc)+S.substr(cur+1,S.size()-cur-1);
+            dfs(next, cur+1, res);
         }
-    }
+        else{
+            dfs(S, cur+1, res);
+        }
+    }</B></FONT>
 };
 </PRE>
 </BODY>

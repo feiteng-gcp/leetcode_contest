@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>98_2f317609.java</TITLE>
+ <TITLE>310_201701.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>98_2f317609.java</CENTER></H3><HR>
+<H3><CENTER>310_201701.java</CENTER></H3><HR>
 <PRE>
-<A NAME="1"></A><A NAME="0"></A>class Solution {
-  <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public void generatePerms(String s, int index, String prefix, List&lt;String&gt; result) {
-    if (index == s.length()) {</B></FONT>
-      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>result.add(prefix);
-      return;
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; result = new LinkedList&lt;&gt;();
+        char[] temp = S.toCharArray();
+        helper(result, temp, 0);
+        return result;
     }
-
-    char c = s.charAt(index);
-    if (Character.isAlphabetic(c)) {
-      generatePerms(s, index + 1, prefix + Character.toLowerCase(c), result);
-      generatePerms(s, index + 1, prefix + Character.toUpperCase(c), result);
-    } else {</B></FONT>
-      generatePerms(s, index + 1, prefix + c, result);
+    private void helper(List&lt;String&gt; result, char[] temp, int start) {
+         if</B></FONT>(!result.contains(temp))
+            result.add(String.valueOf(temp));
+        for(int i = start; i &lt; temp.length; i++) {
+            if(temp[i] &gt;= '0' &amp;&amp; temp[i] &lt;= '9')
+                continue;
+            if(temp[i] &gt;= 'a' &amp;&amp; temp[i] &lt;= 'z')
+            	temp[i] = Character.toUpperCase(temp[i]);
+            else
+            	temp[i] = Character.toLowerCase(temp[i]);
+            helper(result, temp, i + 1);
+            if(temp[i] &gt;= 'a' &amp;&amp; temp[i] &lt;= 'z')
+            	temp[i] = Character.toUpperCase(temp[i]);
+            else
+            	temp[i] = Character.toLowerCase(temp[i]);
+        }
     }
-
-  }
-
-  public List&lt;String&gt; letterCasePermutation(String s) {
-    List&lt;String&gt; result = new ArrayList&lt;&gt;();
-    generatePerms(s, 0, &quot;&quot;, result);
-    return result;
-  }
 }
 </PRE>
 

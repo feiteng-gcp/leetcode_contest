@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_hahahiehie.java</TITLE>
+ <TITLE>148_bkup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_hahahiehie.java</CENTER></H3><HR>
+<H3><CENTER>148_bkup.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-	int[] flag;
-<A NAME="1"></A>
-	public boolean isBipartite(int[][] graph) {
-		int n = graph.length;
-		flag = new int[n];<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+    public boolean isBipartite(int[][] graph) {
 
-		for (int i = 0; i &lt; n; i++) {
-			if (flag[i] == 0) {
-				if (!dfs(i, graph, 1)) {
+        Queue&lt;Integer&gt; visiting = new ArrayDeque();
 
-					return false;
-				}
-			}
-		}
-		return true;
-	}</B></FONT>
+        int size = graph.length;
+        int[] colors = new int[size];
+        int[] status = new int[size];
 
-	private boolean dfs(int x, int[][] graph, int currFlag) {
+        // colors[0] = 1;
+        // status[0] = 1;
+        // visiting.add(0);
 
-		if (flag[x] &gt; 0) {
-			return flag[x] == currFlag;
-		}
+        int visited = 0;
+        while (visited &lt; size) {
+            if (visiting.isEmpty()) {
+                // try to find the next one to visit
+                for (int i = 0; i &lt; size; i++) {
+                    if (status[i] == 0) {
+                        colors[i] = 1; // index 0 is color 1. we have colors 1 and 2 only
+                        status[i] = 1; // 1 means inside queue. -1 means processed
+                        visiting.add(i);
+                        break;
+                    }
+                }
+            }
 
-		flag[x] = currFlag;
-<A NAME="0"></A>		for (int i = 0; i &lt; graph[x].length; i++) {
-			int v = graph[x][i];
-			int newFlag = (currFlag == 1 ? 2 : 1);
-			if (!dfs(v, graph, ne<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>wFlag)) {
-				return false;
-			}
-		}
-		return true;
-	}</B></FONT>
-}
+            while (!visiting.isEmpty()) {
+                Integer curr = visiting.poll();
+
+                int color = colors[curr];
+                status[curr] = -1; // we're done with it
+                visited++;
+
+                for (Integer neigh: graph[curr]) {
+                    if (status[neigh] == -1 || status[neigh] == 1) {
+                        if (colors[neigh] == color) {
+                            return false;
+                        }
+                    } else {
+                        visiting.add(neigh);
+                        if (color == 1) {
+                            colors[neigh] = 2;
+                        } else {
+<A NAME="0"></A>                            colors[neigh] = 1;
+                        }
+                        status[neigh] = 1;
+                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+            }
+        }
+
+        return true;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

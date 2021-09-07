@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_taobingxue.cpp</TITLE>
+ <TITLE>400_romilgadia.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_taobingxue.cpp</CENTER></H3><HR>
+<H3><CENTER>400_romilgadia.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; res;
-
-        work(S, 0, res);
-        return res;
+        vector&lt;string&gt; sol;
+        permute(S,0,sol);
+        return sol;
     }
     
-    void work(string S, int p, vector&lt;string&gt; &amp;res) {
-        if (p == S.size()) {
-            res.push_back(S);
+    void permute(string S, int x, vector&lt;string&gt;&amp; sol){
+        if(x==S.length()) {
+            sol.push_back(S);
             return;
         }
         
-        work(S, p+1, res);
-        if (S[p] &gt;= 'a' &amp;&amp; S[p] &lt;= 'z') {</B></FONT>
-            S[p] = S[p] - 32;
-            work(S, p+1, res);
-        } else if (S[p] &gt;= 'A' &amp;&amp; S[p] &lt;= 'Z') {
-            S[p] = S[p] + 32;
-            work(S, p+1, res);
+        if(isNumber(S[x])){</B></FONT>
+            permute(S,x+1,sol);
         }
+        else{
+            permute(S,x+1,sol);
+            if(isLowerCase(S[x])) S[x] = S[x]-'a'+'A';
+            else S[x] = S[x]-'A'+'a';
+            permute(S,x+1,sol);
+        }
+    }
+    
+    bool isNumber(char ch){
+        return (ch&gt;='0' and ch&lt;='9');
+    }
+    
+    bool isLowerCase(char ch){
+        return (ch&gt;='a' and ch&lt;='z');
     }
 };
 </PRE>

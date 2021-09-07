@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_XuhuiWang.java</TITLE>
+ <TITLE>390_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>41_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>390_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-public class Solution {
-	List&lt;String&gt; res = new ArrayList&lt;&gt;();
-	public List&lt;String&gt; letterCasePermutation(String S) {
-		StringBuilder sb = new StringBuilder();
-<A NAME="0"></A>		DFS(S, sb, 0);
-		return res;
-	}
-	private void DFS(String <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s, StringBuilder sb, int i) {
-		if (i == s.length()) {
-			res.add(sb.toString());
-			return;
-		}
-<A NAME="1"></A>		char ch = s.charAt(i);
-		if ((ch &gt;= 'A' &amp;</B></FONT>&amp; ch &lt;= 'Z') || (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z')) {
-			int delta = ch &lt;= 'Z' ? (ch - 'A') : (ch - 'a');
-			sb.append((char)('A' <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>+ delta));
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);
-			sb.append((char)('a' + delta));
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);
-		} else {
-			sb.append(ch);
-			DFS(s, sb, i + 1);
-			sb.deleteCharAt(sb.length() - 1);</B></FONT>
-		}
-	}
+class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        dfs(S, 0, new StringBuilder(), res);
+<A NAME="0"></A>        return res;
+    }
+    
+    private void dfs(String S, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i, StringBuilder sb, List&lt;String&gt; res) {
+        if (i &gt;= S.length()) {
+            res.add(sb.toString());
+            return;
+        }
+        
+<A NAME="1"></A>        char c = S.charAt(i);
+        
+        if</B></FONT> (!Character.isLetter(c)) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.append(c);
+            dfs(S, i + 1, sb, res);
+            sb.deleteCharAt(sb.length() - 1);
+        } else {
+            sb.append(Character.toLowerCase(c));
+            dfs(S, i + 1, sb, res);
+            sb.deleteCharAt</B></FONT>(sb.length() - 1);
+            
+            sb.append(Character.toUpperCase(c));
+            dfs(S, i + 1, sb, res);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
 }
 </PRE>
 

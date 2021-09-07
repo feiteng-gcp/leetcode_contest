@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_hahahiehie.java</TITLE>
+ <TITLE>366_Cony_Chou.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_hahahiehie.java</CENTER></H3><HR>
+<H3><CENTER>366_Cony_Chou.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
- 	public<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
-		int[][] dist = new int[n][n];</B></FONT>
-		final int INF = 1 &lt;&lt; 28;
-
-		for (int i = 0; i &lt; n; i++) {
-			for (int j = 0; j &lt; n; j++) {
-				if (i != j) {
-<A NAME="1"></A>					dist[i][j] = INF;
-				}
-			}
-		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-
-		for (int i = 0; i &lt; flights.length; i++) {
-			int u = flights[i][0];
-			int v = flights[i][1];
-			int w = flights[i][2];
-			dist[u][v] = w;
-		}
-
-		int[] dp = new int[n];
-
-		for (int i = 0; i &lt; n; i++) {</B></FONT>
-			if (dist[src][i] &lt; INF) {
-				dp[i] = dist[src][i];
-			} else {
-				dp[i] = INF;
-			}
-
-		}
-		for (int k = 1; k &lt;= K; k++) {
-			int[] dp2 = new int[n];
-			for (int i = 0; i &lt; n; i++) {
-				dp2[i] = INF;
-			}
-			for (int j = 0; j &lt; n; j++) {
-				for (int i = 0; i &lt; n; i++) {
-					if (dp[i] &gt;= INF)
-						continue;
-					if (dist[i][j] &gt;= INF)
-						continue;
-					dp2[j] = Math.min(dp2[j], dp[i] + dist[i][j]);
-				}
-			}
-			dp = dp2;
-		}
-		if (dp[dst] &gt;= INF) {
-			return -1;
-		} else {
-			return dp[dst];
-		}
-	}
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        int[][] dp = new int[n][n];
+        for(int f=0; </B></FONT>f&lt;flights.length;f++)
+            dp[flights[f][0]][flights[f][1]] = flights[f][2];
+        
+        while(K&gt;0){
+            for(int from = 0; from &lt; n; from++) {
+                for(int to = 0; to &lt; n; to++){
+                    for(int x=0; x&lt;n; x++) {
+                        if(dp[from][x] &gt; 0 &amp;&amp; dp[x][to] &gt; 0 &amp;&amp; (dp[from][to] == 0 || dp[from][to] &gt; (dp[from][x]+dp[x][to])))
+                            dp[from][to] = dp[from][x]+dp[x][to];
+                    }                
+                }
+            }
+            K--;
+        }    
+        return (dp[src][dst]==0)?-1:dp[src][dst];
+    }
 }
 </PRE>
 

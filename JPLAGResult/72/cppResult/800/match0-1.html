@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>474_fuziqianlu.cpp</TITLE>
+ <TITLE>273_suilan0602.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>474_fuziqianlu.cpp</CENTER></H3><HR>
+<H3><CENTER>273_suilan0602.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
-        vector&lt;string&gt; res;
-        dfs(S, 0, res);
-        return res;
+        vector&lt;string&gt; results;
+        DFS(results, S, 0);
+        return results;
     }
     
-    void dfs(string &amp;s, int i, vector&lt;string&gt;&amp; res){
-        if(i&gt;=s.size()){
-            res.push_back(s);
+    void DFS(vector&lt;string&gt;&amp; results, string S,int k) {
+        if (k == S.length()) {
+            //cout &lt;&lt; &quot;got it&quot; &lt;&lt; endl;
+            results.push_back(S);
             return;
-<A NAME="1"></A>        }</B></FONT>
-        int gap = 'a' - 'A';
-        dfs(s, i+1, res);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(s[i]&gt;='a'&amp;&amp;s[i]&lt;='z'){
-            s[i] -= gap;
-            dfs(s, i+1, res);
-            s[i]+=gap;
         }
-        else if(s[i]&gt;='A'&amp;&amp;s[i]&lt;='Z'){
-            s[i] += gap;
-            dfs(s, i+1, res);
-            s[i] -= gap;
+        //cout &lt;&lt; &quot;hi&quot; &lt;&lt; &quot; &quot; &lt;&lt; k &lt;&lt; endl;
+        int i = k;
+        if (S[i] &gt;= 'a' &amp;&amp; S[i] &lt;= 'z') {
+            S[i] += ( 'A' - 'a' );
+            DFS(results, S, k + 1);
+            S[i] -= ( 'A' - 'a' );
+
+        } else if (S[i] &gt;= 'A' &amp;&amp; S[i] &lt;= 'Z') {
+            S[i] += ('a' - 'A' );
+            DFS(results, S, k + 1);
+            S[i] -= ('a' - 'A' );
         }
+        DFS(results, S, k + 1);
     }
 };</B></FONT>
 </PRE>

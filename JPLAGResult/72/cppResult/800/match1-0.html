@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>60_jiananz.cpp</TITLE>
+ <TITLE>474_fuziqianlu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>60_jiananz.cpp</CENTER></H3><HR>
+<H3><CENTER>474_fuziqianlu.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; letterCasePermutation(string S) {
         vector&lt;string&gt; res;
-<A NAME="0"></A>        helper(S, 0, res);
+        dfs(S, 0, res);
         return res;
     }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void helper(string S, int start, vector&lt;string&gt;&amp; res) {
-        if (start &gt;= S.size()) {
-            res.push_back(S);
+    
+    void dfs(string &amp;s, int i, vector&lt;string&gt;&amp; res){
+        if(i&gt;=s.size()){
+            res.push_back(s);
             return;
+<A NAME="1"></A>        }</B></FONT>
+        int gap = 'a' - 'A';
+        dfs(s, i+1, res);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(s[i]&gt;='a'&amp;&amp;s[i]&lt;='z'){
+            s[i] -= gap;
+            dfs(s, i+1, res);
+            s[i]+=gap;
         }
-        helper(S, start + 1, res);    
-        if (S[start] &gt;= 'a' &amp;&amp; S[start] &lt;= 'z') {
-            string t = S;
-            t[start] = S[start] - 'a' + 'A';
-            helper(t, start + 1, res);
-        } else if (S[start] &gt;= 'A' &amp;&amp; S[start] &lt;= 'Z') {
-            string t = S;
-            t[start] = S[start] - 'A' + 'a';
-            helper(t, start + 1, res);
-        }</B></FONT>
+        else if(s[i]&gt;='A'&amp;&amp;s[i]&lt;='Z'){
+            s[i] += gap;
+            dfs(s, i+1, res);
+            s[i] -= gap;
+        }
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

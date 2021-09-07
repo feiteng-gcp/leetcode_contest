@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_cuiaoxiang.cpp</TITLE>
+ <TITLE>18_NEU20133823.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>18_NEU20133823.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; a) {
-        int n = a.size();
-        vector&lt;int&gt; c(n);
-        for (int i = 0; i &lt; n; ++i) {
-            if (c[i]) continue;</B></FONT>
-            c[i] = 1;
-            queue&lt;int&gt; Q;
-            Q.push(i);
-            while (!Q.empty()) {
-                int u = Q.front();
-                Q.pop();
-                for (auto&amp; v : a[u]) {
-                    if (c[v]) {
-                        if (c[u] + c[v] != 0) return false;
-                    } else {
-                        c[v] = -c[u];
-                        Q.push(v);
-                    }
-                }
-            }
-        }
-        return true;
-        
+            int deg[105];
+	int col[105];
+	int que[105];
+    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+	int n=graph.size();
+	for(int i=0;i&lt;n;i++)
+	{
+		deg[i]=graph[i].size();
+	}
+	memset(col,0,sizeof(col));
+	int front=0,rear=0;
+	que[rear++]=0;
+	col[0]=1;
+	while(front&lt;rear)
+<A NAME="0"></A>	{
+		while(front&lt;rear)
+		{
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			int now=que[front++];
+			for(int i=0;i&lt;deg[now];i++)
+			{
+				int noww=graph[now][i];
+				if(!col[noww])
+				{
+					col[noww]=3-col[now];</B></FONT>
+					que[rear++]=noww;
+				}
+			}
+		}
+		for(int i=0;i&lt;n;i++)
+		{
+			if(!col[i])
+			{
+				que[rear++]=i;
+                col[i]=1;
+				break;
+			}
+		}
+	}
+	for(int i=0;i&lt;n;i++)
+	{
+		for(int j=0;j&lt;deg[i];j++)
+		{
+			if(col[i]==col[graph[i][j]])return false;
+		}
+	}
+	return true;
     }
 };
 </PRE>
