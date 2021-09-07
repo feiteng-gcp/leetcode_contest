@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_5305519068.java</TITLE>
+ <TITLE>58_victorzhang21503.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>28_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public String reorganizeString(String S) {
-        int[] count = new int[26];
-        for (int i = 0; i &lt; S.length</B></FONT>(); ++i) {
-        	count[S.charAt(i) - 'a']++;
+        if(S == null || S.length() == 0){
+            return S;
         }
-        char[] res = new char[S.length()];
-        for (int i = 0; i &lt; S.length(); ++i) {
-        	int k = -1;
-        	for (int j = 0; j &lt; 26; ++j) {
-        		if (count[j] == 0 || i &gt; 0 &amp;&amp; res[i - 1] - 'a' == j) {
-        			continue;
-        		} 
-        		if (k == -1 || count[j] &gt; count[k]) {
-        			k = j;
-        		}
-        	}
-        	if (k == -1) return &quot;&quot;;
-        	res[i] = (char)('a' + k);
-        	count[k]--;
+        
+        int[] map = new int[26];
+        int[] id = new int[26];
+        
+        for(char ch : S.toCharArray()){
+<A NAME="0"></A>            map[ch - 'a']++;
         }
-        return String.valueOf(res);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i &lt; S.length(); i++)<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            
+            int pick = -1;
+            int max = 0;
+            
+            for(int j = 0; j &lt; 26; j++){
+                if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
+                    pick = j;
+                    max = map[j];
+                }
+            }</B></FONT>
+            if(pick == -1){
+                return &quot;&quot;;
+            }
+            else{
+                sb.append((char)('a' + pick));
+                map[pick]--;
+                id[pick] = i + 2;
+            }
+        }
+        
+        return sb.toString();
     }
 }
 </PRE>

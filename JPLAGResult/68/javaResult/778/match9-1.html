@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_xn1990114.java</TITLE>
+ <TITLE>18_KakaHiguain.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String reorganizeString(String S) {
-        int[] count=new int[256];
-        int max=0;
-        for(int i=0;i&lt;S.length();i++){
-            char ch=S.charAt(i);
-            count[ch]++;
-            max=Math.max(max,count[ch]);
-        }
-        if(max&gt;S.length()-max+1){
-            return &quot;&quot;;
-        }
-        List&lt;StringBuilder&gt; list=new ArrayList&lt;StringBuilder&gt;();
-        for(int i=0;i&lt;max;i++){
-<A NAME="0"></A>            list.add(new StringBuilder());
-        }
-        //0count 1char
-        PriorityQueue&lt;int[]&gt; pq=new PriorityQueue&lt;int[]&gt;(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1,int[] i2){
-                return i2[0]-i1[0];
-            }
-        }</B></FONT>);
-        for(int i=0;i&lt;256;i++){
-            if(count[i]&gt;0){
-                pq.offer(new int[]{count[i],i});
-            }
-        }
-        int index=0;
-        while(!pq.isEmpty()){
-            int[] top=pq.poll();
-            for(int i=0;i&lt;top[0];i++){
-                if(top[0]&lt;max&amp;&amp;index==list.size()-1){
-                    index=0;
+        int[] count=new int[26];
+<A NAME="1"></A>        for (int i=0;i&lt;S.length</B></FONT>();i++) count[S.charAt(i)-97]++;
+        int last=-1;
+        StringBuilder sb=new StringBuilder();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i=0;i&lt;S.length();i++)
+        {
+            int max=0,maxj=0;
+            for (int j=0;j&lt;26;j++)
+            {
+                if</B></FONT> (j!=last &amp;&amp; count[j]&gt;max) 
+                {
+                    max=count[j];
+                    maxj=j;
                 }
-                list.get(index).append((char)top[1]);
-                index=(index+1)%list.size();
             }
+            if (max==0) return &quot;&quot;;
+            sb.append((char)(maxj+97));
+            count[maxj]--;
+            last=maxj;
         }
-        StringBuilder res=new StringBuilder();
-        for(int i=0;i&lt;list.size();i++){
-            res.append(list.get(i).toString());
-        }
-        return res.toString();
+        return sb+&quot;&quot;;
     }
 }
 </PRE>

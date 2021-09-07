@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>707_Berwyn.cpp</TITLE>
+ <TITLE>66_Akatsuki_.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>707_Berwyn.cpp</CENTER></H3><HR>
+<H3><CENTER>66_Akatsuki_.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-private:
-    vector&lt;int&gt; root;
-    int find_root(int key) {
-        while(root[key] != key) {
-            key = root[key];
-        }
-        return key;
-    }
-    void merge(int a, int b) {
-        int root_a = find_root(a);
-        int root_b = find_root(b);
-        
-        root[root_a] = root_b;
-<A NAME="0"></A>    }
+<A NAME="0"></A>class Solution {
 public:
     int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        root = vector&lt;int&gt;(arr.size());
-        for(int i = 0; i &lt; arr.size(); ++i) {
-            root[i] = i;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = arr.size(), ans = 0;
+        int mx = 0;
+        for(int i = 0; i &lt; n; i++){
+            mx = max(mx, arr[i]);
+            if(mx == i)ans++;
         }
-        for(int i = 0; i &lt; arr.size(); ++i) {</B></FONT>
-            for(int j = i; j &lt;= arr[i]; ++j) {
-                merge(j, i);
-            }
-        }
-        
-        set&lt;int&gt; ans;
-        for(int i = 0; i &lt; arr.size(); ++i) {
-            ans.insert(find_root(i));
-        }
-        return ans.size();
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

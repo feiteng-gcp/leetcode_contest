@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_wcwswswws.cpp</TITLE>
+ <TITLE>9_wjli.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>12_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>9_wjli.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    string reorganizeString(string S) {
-        vector&lt;int&gt; l(26, 0);
-        int cur = 0;
-        for (int i = 0; i &lt; S.length(); i++) {
-            if (++l[S[i] - 'a'] &gt; l[cur]) {
-                cur = S[i] - 'a';
-            }
-<A NAME="0"></A>        }
-        string ans;
-        ans += char('a' + cur);
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        l[cur]--;
-        for (int i = 1; i &lt; S.length(); i++) {
-            int temp = -1;
-            for (int j = 0; j &lt; 26; j++) {</B></FONT>
-                if (l[j] &gt; 0 &amp;&amp; (j != ans[i - 1] - 'a') &amp;&amp; (temp == -1 || l[temp] &lt; l[j])) {
-                    temp = j;
-                }
-            }
-            if (temp == -1) { return &quot;&quot;; }
-            l[temp]--;
-            ans += char('a' + temp);
-        }
-        return ans;
-    }
-};
+	string reorganizeString(string s) {
+		int n = s.length(), i, j, k, best, id, last = 0;
+		vector&lt;int&gt; ct(26, 0); 
+		string s2 = &quot;&quot;;
+		for (i = 0; i &lt; n; i++) ct[s[i] - 'a']++;
+<A NAME="0"></A>
+		for (i = 0; i &lt; n; i++) {
+			best = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for (j = 0; j &lt; 26; j++) {
+				if ((ct[j] &gt; best) &amp;&amp; ((i == 0) || (j != last))) {
+					best = ct[j];
+					id = j;
+				}
+			}
+			if (best == 0)
+				return &quot;&quot;;
+			s2 = s2 + (char)('a' + id);
+			ct[id]--;
+			last = id;
+		}
+		return s2;
+	}
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>178_smallcat3.cpp</TITLE>
+ <TITLE>17_littlebryan.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>178_smallcat3.cpp</CENTER></H3><HR>
+<H3><CENTER>17_littlebryan.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
+<A NAME="0"></A>public:
     string reorganizeString(string S) {
-        
-         vector&lt;int&gt; nums(26);
-         string sb = &quot;&quot;;
-		 for(char c: S){
-			 int num = c-'a';
-			 nums[num]++;
-		 }
-		 for(int i:nums){
-			 if(i&gt;(S.size()+1)/2)
-<A NAME="0"></A>				 return sb;
-		 }
-		 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		 int last = -1; int curr = -1;
-		 for(int i=0; i&lt;S.size(); i++){
-			 int max = 0;
-			 for(int j=0; j&lt;nums.size(); j++){
-				 if(j == last)
-					 continue;
-				 if(nums[j] &gt; max){</B></FONT>
-					 max = nums[j];
-					 curr = j;
-				 }
-			 }
-			 sb+=((char)('a'+curr));
-			 nums[curr]--;
-			 last = curr;
-		 }
-		 return sb;
+        vector&lt;int&gt; cnt(26, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int len = S.length();
+        for (int i = 0; i &lt; len; i++) {
+            cnt[S[i] - 'a']++;
+        }
+        for (int i = 0; i &lt; 26; i++) {
+            if (cnt[i] &gt; (len + 1) / 2) return &quot;&quot;;
+<A NAME="1"></A>        }</B></FONT>
+        string ans = &quot;&quot;;
+        int last = -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; len; i++) {
+            int c = -1;
+            for (int j = 0; j &lt; 26; j++) {
+                if (j == last) continue;</B></FONT>
+                if (c == -1 || cnt[c] &lt; cnt[j]) c = j;
+            }
+            last = c;
+            cnt[c]--;
+            ans += ((char) c + 'a');
+        }
+        return ans;
     }
-    
 };
 </PRE>
 </BODY>

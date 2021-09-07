@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_SoulOfCinder.cpp</TITLE>
+ <TITLE>55_HMAXS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>2_SoulOfCinder.cpp</CENTER></H3><HR>
+<H3><CENTER>55_HMAXS.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-        vector&lt;int&gt; copy = arr;
-        
-        map&lt;int, int&gt; count;
-        for (auto x: arr) 
-            count[x]++;
-        
-        int n = arr.size();        
-        int curmin = INT_MAX;
-        int curmax = INT_MIN;
-            
-        int left = count.begin()-&gt;first;
-        int right = left;
-        int sum = 0;
-
-                
-        int i = 0;
-        int ans = 0;
-        int num = 0;
-
-
-<A NAME="0"></A>        for (int i = 0; i &lt; n; ++i) {        
-            curmax = max(curmax, arr[i]);
-            bool valid = true;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = i+1; j &lt; n; ++j) {
-                if (arr[j] &lt; curmax) {
-                    valid = false;
-                    break;
-                };
-            };
-
-            if (valid) {
-                curmax = INT_MIN;
-                ans++;                </B></FONT>
-            };            
-        };
-        return ans;
-        
-                
+        int n = arr.size();
+        vector&lt;int&gt; maxval = arr;
+        for (int i = 1; i &lt; n; i++)
+            maxval[i] = max(maxval[i], maxval[i - 1]);
+        vector&lt;int&gt; dp(n);</B></FONT>
+        for (int i = 0; i &lt; n; i++) {
+            dp[i] = 1;
+            int minval = arr[i];
+            for (int j = i; j &gt; 0; j--) {
+                minval = min(minval, arr[j]);
+                if (minval &gt;= maxval[j - 1]) {
+                    dp[i] = max(dp[i], dp[j - 1] + 1);
+                }
+            }
+        }
+        return dp[n - 1];
     }
 };
 </PRE>

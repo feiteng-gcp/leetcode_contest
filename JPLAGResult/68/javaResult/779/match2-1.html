@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_lixx2100.java</TITLE>
+ <TITLE>6_iamwds.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_lixx2100.java</CENTER></H3><HR>
+<H3><CENTER>6_iamwds.java</CENTER></H3><HR>
 <PRE>
-import java.util.*;
-
-public class Solution {
-
-    public int maxChunksToSorted(int[] arr) {
-        Map&lt;Integer, Deque&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; arr.length; i++) {
-            map.putIfAbsent(arr[i], new ArrayDeque&lt;&gt;());
-            map.get(arr[i]).add(i);
+class Solution {
+    public int maxChunksToSorted(int[] nums) {
+         int n = nums.length;
+        if(n &lt;= 1){
+<A NAME="0"></A>          return n;
         }
-
-        Arrays.sort(arr);
-<A NAME="0"></A>        int cnt = 0, maxInd = 0;
-        for (int i = 0; i &lt; arr.length; i++) {
-            maxInd = Math.max(maxInd, map.get(arr[i]).pollFirst());
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (i &gt;= maxInd) {
-                cnt++;
-            }
+        int res = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] min = new int[n];
+        min[n - 1] = Integer.MAX_VALUE;
+        for(int i = n - 2; i &gt;= 0; i--){
+            min[i] = Math.min(min[i + 1], nums[i + 1]);
         }
-        return cnt;
-    }</B></FONT>
+        //System.out.println(Arrays.toString(min));
+          int max = Integer.MIN_VALUE</B></FONT>;
+          for(int i = 0; i &lt; n; i++){
+              max = Math.max(nums[i], max);
+              if(max &lt;= min[i]){
+                  res++;
+              }
+          }
+        return res;
+    }
 }
-
-
-
 </PRE>
 
 </BODY>

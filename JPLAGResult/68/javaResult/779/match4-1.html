@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_5305519068.java</TITLE>
+ <TITLE>168_lakeshore1986.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>28_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>168_lakeshore1986.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int maxChunksToSorted(int[] arr) {
-    	int N = arr.length;
-        int[] index = new int[N];
-        for (int i = 0; i &lt; N; ++i) {
-        	index[i] = i;
-        }
-        for (int i = 1; i &lt; N; ++i) {
-        	for (int j = i - 1; j &gt;= 0; --j) {
-        		if (arr[index[j + 1]] &lt; arr[index[j]]) {
-        			int tmp = index[j];
-        			index[j] = index[j + 1];
-        			index[j + 1] = tmp;
-        		}
-        	}
-        }
-        for (int i = 0; i &lt; N; ++i) {
-        	System.out.println(i + &quot; : &quot; + index[i]);
-        }
-        int max = -1, res = 0;
-<A NAME="0"></A>        for (int i = 0; i &lt; N; ++i) {
-        	if (index[i] &gt; max) {
-        		max = index[i];
-        	} <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        	if (i == max) {
-        		++res;
-        	}
+        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        int res = 0, max = -1;
+        for (int num : arr)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        for (int num : arr) {
+            max = Math.max(max, num);
+            int count = map.get(num);
+            if (count &gt; 1)
+<A NAME="0"></A>                map.put(num, count - 1);
+            else
+                map.remove(num);
+            if (map.size() == 0 || map.firstKey() &gt;= max) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res++;
+                max = -1;
+            }
         }
         return res;
-    }</B></FONT>
-    
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] arr = new int[]{4,3,2,1,0};
-        System.out.println(solution.maxChunksToSorted(arr));
-      }
-}
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

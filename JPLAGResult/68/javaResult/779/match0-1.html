@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_lixx2100.java</TITLE>
+ <TITLE>44_prakhar15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_lixx2100.java</CENTER></H3><HR>
+<H3><CENTER>44_prakhar15.java</CENTER></H3><HR>
 <PRE>
-import java.util.*;
-
-public class Solution {
-
-    public int maxChunksToSorted(int[] arr) {
-        Map&lt;Integer, Deque&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; arr.length; i++) {
-            map.putIfAbsent(arr[i], new ArrayDeque&lt;&gt;());
-            map.get(arr[i]).add(i);
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="1"></A>    public int maxChunksToSorted(int[] arr) {
+        int[] minToRight = new int[arr.length];
+        minToRight[arr.length-1] = Integer.MAX_VALUE;
+        for (int index = arr.length-2; </B></FONT>index &gt;= 0; index--) minToRight[index] = Math.min(minToRight[index+1], arr[index+1])<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        int result = 0;
+        int max = 0;
+        for (int index = 0; index &lt; arr.length; index++) {
+            max = Math.max(max, arr[index]);
+            if</B></FONT> (max &lt;= minToRight[index]) result++;
         }
-
-<A NAME="0"></A>        Arrays.sort(arr);
-        int cnt = 0, maxInd = 0;
-        for (int i = 0; i &lt; arr.length; i++) {
-            maxInd = Math.max(maxInd, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(arr[i]).pollFirst());
-            if (i &gt;= maxInd) {
-                cnt++;
-            }
-        }
-        return cnt;
+        return result;
     }
-}</B></FONT>
-
-
-
+}
 </PRE>
 
 </BODY>

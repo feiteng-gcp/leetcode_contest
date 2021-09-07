@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_SoulOfCinder.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2_SoulOfCinder.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    
+    string solve(string s) {
+        int k = 2;        
+        unordered_map&lt;char,int&gt; count;
+        for (auto c: s) count[c]++;
+        
+        
+        
+        vector&lt;pair&lt;int, char&gt;&gt; freq;
+        for (auto p: count) 
+            freq.push_back({-p.second, p.first});        </B></FONT>
+        sort(freq.begin(), freq.end());                
+        
+        string ans;
+        
+        while (true) {
+            vector&lt;char&gt; round;
+            bool last = true;
+            for (auto x: freq)
+                if (x.first != -1) {
+                    last =false;
+                    break;
+                };
+            if (last) {
+                for (auto x: freq)
+                    ans.push_back(x.second);
+                break;
+                
+            }
+                
+            if (freq.size() &lt; k) return &quot;&quot;;
+            
+            for (int i = 0; i &lt; k; ++i) 
+                round.push_back(freq[i].second);
+
+            for (auto x: round) {
+                ans.push_back(x);                            
+                count[x]--;                
+            };
+            
+            freq.clear();            
+            for (auto p: count)
+                if (p.second &gt; 0) 
+                    freq.push_back({-p.second, p.first});
+            sort(freq.begin(), freq.end());            
+        };
+        
+        return ans;                
+    }
+    string reorganizeString(string S) {
+        return solve(S);
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_uwi.java</TITLE>
+ <TITLE>95_karutz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<H3><CENTER>95_karutz.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public String reorganizeString(String S) {
-	    	char[] s = S.toCharArray();
-	        int[] f = new int[128];
-	        for(char c : s){
-	        	f[c]++;
-	        }
-	        int n = s.length;
-	        for(int i = 0;i &lt; 128;i++){
-	        	if(f[i] &gt;= (n+3)/2){
-	        		return &quot;&quot;;
-	        	}
-<A NAME="0"></A>	        }
-	        int[][] fi = new int[128][];
-	        for(int i = 0;i &lt; 128;i++)fi[i] = new int[]{f[i], i};
-	        Arrays.sort(fi, new Com<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>parator&lt;int[]&gt;() {
-				public int compare(int[] a, int[] b) {
-					return -(a[0] - b[0]);
-				}
-			});</B></FONT>
-	        char[] ret = new char[n];
-	        int p = 0;
-	        for(int[] u : fi){
-	        	for(int i = 0;i &lt; u[0];i++){
-	        		ret[p] = (char)u[1];
-	        		p += 2;
-	        		if(p &gt;= n)p = 1;
-	        	}
-	        }
-	        return new String(ret);
-	    }
-	}	
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String reorganizeString(String S) {
+        int[] counts = new int[26];
+        
+        for (char ch : S.toCharArray</B></FONT>()) {
+            counts[ch - 'a']++;
+        }
+<A NAME="1"></A>        
+        StringBuilder sb = new StringBuilder();
+        char last = '#';
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; S.length(); i++) {
+            int max = 0;
+            char best = '#';
+            for (char ch = 'a'; ch &lt;= 'z'; ch++) {
+                if</B></FONT> (ch == last) continue;
+                if (counts[ch - 'a'] &gt; max) {
+                    max = counts[ch - 'a'];
+                    best = ch;
+                }
+            }
+            if (max == 0) {
+                return &quot;&quot;;
+            }
+            counts[best - 'a']--;
+            sb.append(best);
+            last = best;
+        }
+        
+        return sb.toString();
+    }
+}
 </PRE>
 
 </BODY>

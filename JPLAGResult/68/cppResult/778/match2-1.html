@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_cchao.cpp</TITLE>
+ <TITLE>178_smallcat3.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_cchao.cpp</CENTER></H3><HR>
+<H3><CENTER>178_smallcat3.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string reorganizeString(string S) {
-<A NAME="0"></A>        int cnt[666] = {};
-        for (char c : S) cnt[c]++;
-        string ans = &quot;&quot;;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int n = S.size();
-        int l = -1;
-        for (int i = 0; i &lt; n; ++i) {
-            int ch = 0;
-            for (int j = 0; j &lt; 128; ++j)</B></FONT>
-                if ((i == 0 || j != l) &amp;&amp; cnt[j] &gt; cnt[ch])
-                    ch = j;
-            if (ch == 0)
-                return &quot;&quot;;
-            cnt[ch]--;
-            ans += char(ch);
-            l = ch;
-        }
-        return ans;
+        
+         vector&lt;int&gt; nums(26);
+         string sb = &quot;&quot;;
+		 for(char c: S){
+			 int num = c-'a';
+			 nums[num]++;
+		 }
+		 for(int i:nums){
+			 if(i&gt;(S.size()+1)/2)
+<A NAME="0"></A>				 return sb;
+		 }
+		 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		 int last = -1; int curr = -1;
+		 for(int i=0; i&lt;S.size(); i++){
+			 int max = 0;
+			 for(int j=0; j&lt;nums.size(); j++){
+				 if(j == last)
+					 continue;
+				 if(nums[j] &gt; max){</B></FONT>
+					 max = nums[j];
+					 curr = j;
+				 }
+			 }
+			 sb+=((char)('a'+curr));
+			 nums[curr]--;
+			 last = curr;
+		 }
+		 return sb;
     }
+    
 };
 </PRE>
 </BODY>

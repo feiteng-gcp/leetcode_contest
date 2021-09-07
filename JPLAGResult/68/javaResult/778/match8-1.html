@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_jq_huang.java</TITLE>
+ <TITLE>75_voidmian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_jq_huang.java</CENTER></H3><HR>
+<H3><CENTER>75_voidmian.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public String reorganizeString(String s) {
-        int n = s.length();
-        int[] count = new int[26];
-        for (int i = 0</B></FONT>; i != n; ++i)
-            count[s.charAt(i) - 'a']++;
-        StringBuffer sb = new StringBuffer();
-        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; count[b] - count[a]);
-        for (int i = 0; i != 26; ++i)
-            if (count[i] &gt; 0) pq.offer(i);
-        int q = -1;
-        while (pq.size() &gt; 0) {
-            int p = pq.poll();
-            sb.append((char)(p + 'a'));
-            --count[p];
-            if (q &gt;= 0 &amp;&amp; count[q] &gt; 0)
-                pq.offer(q);
-            q = p;
+class Solution {
+    public String reorganizeString(String S) {
+        if (S == null || S.length() == 0) {
+            return S;
         }
-        return (sb.length() == n)? sb.toString() : &quot;&quot;;
+
+        int cnt[] = new int[26], next[] = new int[26];
+
+        for (int i = 0; i &lt; S.length(); ++ i) {
+            char c = S.charAt(i);
+            cnt[c - 'a']++;
+        }
+<A NAME="0"></A>
+        StringBuilder sb = new StringBuilder();
+
+<A NAME="1"></A>        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; S.length(); ++ i) {
+            int index = -1, max = 0;
+            for (int t = 0; t &lt; 26; ++ t) {</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (cnt[t] &gt; max &amp;&amp; i &gt;= next[t]) {
+                    max = cnt[t];
+                    index = t;
+                }
+            }
+
+            if (index == -1) {
+                return &quot;&quot;;
+            }
+            sb.append((char)('a' + index));
+            cnt[index]--;
+            next[index] = i + 2;
+        }
+
+        return sb.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

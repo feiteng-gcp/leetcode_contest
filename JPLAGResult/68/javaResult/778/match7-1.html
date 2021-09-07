@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_KakaHiguain.java</TITLE>
+ <TITLE>168_lakeshore1986.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>168_lakeshore1986.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public String reorganizeString(String S) {
-        int[] count=new int[26];
-        for (int i=0;i&lt;S.length</B></FONT>();i++) count[S.charAt(i)-97]++;
-        int last=-1;
-        StringBuilder sb=new StringBuilder();
-        for (int i=0;i&lt;S.length();i++)
-        {
-            int max=0,maxj=0;
-            for (int j=0;j&lt;26;j++)
-            {
-                if (j!=last &amp;&amp; count[j]&gt;max) 
-                {
-                    max=count[j];
-                    maxj=j;
-                }
-            }
-            if (max==0) return &quot;&quot;;
-            sb.append((char)(maxj+97));
-            count[maxj]--;
-            last=maxj;
+        int[] map = new int[26];
+        int[] dist = new int[26];
+        for (int i = 0; i &lt; S.length(); i++)
+            map[S.charAt(i) - 'a']++;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; S.length(); i++) {
+            int idx = next(map, dist, i);
+            if (idx == -1)
+                return &quot;&quot;;
+            map[idx]--;
+            dist[idx] += 2;
+            sb.append((char)(idx + 'a'));
         }
-        return sb+&quot;&quot;;
+<A NAME="0"></A>        return sb.toString();
+    }
+    
+    public int next(int[] map, int[] dist, int pos) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        int ans = 0, idx = -1;
+        for (int i = 0; i &lt; 26; i++) {
+            if (map[i] &gt; ans &amp;&amp; dist[i] &lt;= pos) {
+                ans = map[i];
+                idx = i;
+            }
+        }</B></FONT>
+        return idx;
     }
 }
 </PRE>

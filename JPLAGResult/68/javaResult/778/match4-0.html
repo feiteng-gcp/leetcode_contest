@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>576_z0012420014.java</TITLE>
+ <TITLE>58_victorzhang21503.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,67 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>576_z0012420014.java</CENTER></H3><HR>
+<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    
-    class Key {
-        int freq; // store frequency of character
-        char ch;
-
-        // function for priority_queue to store Key
-        // according to freq
-        public boolean compare(Key k) {
-            return (this.freq &lt; k.freq);
-        }
-        public Key(int freq, char ch) {
-            this.freq = freq;
-            this.ch = ch;
-        }
-    };
-    
     public String reorganizeString(String S) {
-        int n = S.length();
+        if(S == null || S.length() == 0){
+            return S;
+<A NAME="0"></A>        }
         
-        int[] count = new int[26];
-<A NAME="0"></A>        
-        for (int i = 0; i &lt; n; i++) {
-            count[S.charAt(i) - 'a']++;
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        int[] map = new int[26];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] id = new int[26];
         
-        PriorityQueue&lt;Key&gt; pq = new PriorityQueue&lt;&gt;(100, new Comparator&lt;Key&gt;(){
-            public int compare(Key k1, Key k2) {
-                return k2.freq - k1.freq;
-            }
-        });
-        for (char c = 'a'; c &lt;= 'z'; c++) {
-            if (count[c - 'a'] &gt; 0) {
-                pq.offer</B></FONT>(new Key(count[c - 'a'], c));
-            }
+        for(char ch : S.toCharArray()){
+            map[ch - 'a']++;
         }
-        
-        StringBuilder sb = new StringBuilder();
-        
-        Key prev = new Key(-1, '#');
-        while (!pq.isEmpty()) {
-            Key k = pq.poll();
-            sb.append(k.ch);
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        for(int i = 0; i &lt; S.length(); i++){
             
-            if (prev.freq &gt; 0) {
-                pq.offer(prev);
-            }
+            int pick = -1;
+            int max = 0;
             
-            k.freq--;
-            prev = k;
+            for(int j = 0; j &lt; 26; j++){
+                if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
+                    pick = j;
+                    max = map[j];
+                }
+            }
+            if(pick == -1){
+                return &quot;&quot;;
+            }
+            else{
+<A NAME="1"></A>                sb.append((char)('a' + pick));
+                map[pick]--;
+                id[pick] = i + 2;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match4-1.html#1',3,'match4-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        //System.out.println(sb.toString());
-        if (sb.length() != n) {
-            return &quot;&quot;;
-        } else {
-            return sb.toString();
-        }
+        
+        return sb.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

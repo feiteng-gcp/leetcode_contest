@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_5305519068.java</TITLE>
+ <TITLE>18_KakaHiguain.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>28_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int maxChunksToSorted(int[] arr) {
-    	int N = arr.length;
-        int[] index = new int[N];
-        for (int i = 0; i &lt; N; ++i) {
-        	index[i] = i;
+        int n=arr.length;
+        int[][] a=new int[n][2];
+<A NAME="0"></A>        for (int i=0;i&lt;n;i++) { a[i][0]=arr[i]; a[i][1]=i;}
+                                                  
+        Arrays.sort(a,(c,d)-&gt;(c[0]==d[0])?(c[1]-d[1]):(c[0]-d[0]));
+        for (int i=0;i&lt;n;i++) arr[i]=a[i][1]<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        int j=0,ans=0;
+        for (int i=0;i&lt;n;i++)
+        {
+            j=Math.max(j,arr[i]);
+            if (i&gt;=j) ans++;
         }
-        for (int i = 1; i &lt; N; ++i) {
-        	for (int j = i - 1; j &gt;= 0; --j) {
-        		if (arr[index[j + 1]] &lt; arr[index[j]]) {
-        			int tmp = index[j];
-        			index[j] = index[j + 1];
-        			index[j + 1] = tmp;
-        		}
-        	}
-        }
-        for (int i = 0; i &lt; N; ++i) {
-        	System.out.println(i + &quot; : &quot; + index[i]);
-        }
-        int max = -1, res = 0;
-        for (int i = 0; i &lt; N; ++i) {
-<A NAME="0"></A>        	if (index[i] &gt; max) {
-        		max = index[i];
-        	} 
-        	if (i =<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= max) {
-        		++res;
-        	}
-        }
-        return res;
-    }</B></FONT>
-    
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] arr = new int[]{4,3,2,1,0};
-        System.out.println(solution.maxChunksToSorted(arr));
-      }
-}
+        return ans;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

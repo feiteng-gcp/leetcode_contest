@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_joy32812.java</TITLE>
+ <TITLE>58_victorzhang21503.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>38_joy32812.java</CENTER></H3><HR>
+<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public String reorganizeString(String S) {
-
-        Map&lt;Character, Integer&gt; cntMap = new HashMap&lt;&gt;();
-        for (char ch : S.toCharArray()) {
-            cntMap.put(ch, cntMap.getOrDefault(ch, 0) + 1);
-        }</B></FONT>
-
-
+        if(S == null || S.length() == 0){
+            return S;
+        }
+        
+        int[] map = new int[26];
+        int[] id = new int[26];
+<A NAME="1"></A>        
+        for(char ch : S.toCharArray()){</B></FONT>
+            map[ch - 'a']++;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         StringBuilder sb = new StringBuilder();
-
-<A NAME="1"></A>        char last = '-';
-        while (!cntMap.isEmpty()) {
-
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int maxCnt = -1;
-            char nowCh = '-';
-            for (char ch : cntMap.keySet()) {
-                int num = cntMap.get(ch);
-                if (num &gt; maxCnt &amp;&amp; ch != last) {</B></FONT>
-                    maxCnt = num;
-                    nowCh = ch;
+        for(int i = 0; i &lt; S.length(); i++){
+            
+            int pick = -1;
+            int max = 0;
+            
+            for(int j = 0; j &lt; 26; j++){
+                if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
+                    pick = j;
+                    max = map[j];
                 }
             }
-
-            if (maxCnt == -1) return &quot;&quot;;
-
-            if (maxCnt == 1) {
-                cntMap.remove(nowCh);
-            } else {
-                cntMap.put(nowCh, maxCnt - 1);
+            if(pick == -1){
+                return &quot;&quot;;
+            }</B></FONT>
+            else{
+                sb.append((char)('a' + pick));
+                map[pick]--;
+                id[pick] = i + 2;
             }
-            sb.append(nowCh);
-            last = nowCh;
         }
-
-
+        
         return sb.toString();
     }
 }

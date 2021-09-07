@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_yubowenok.cpp</TITLE>
+ <TITLE>167_lijinglun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_yubowenok.cpp</CENTER></H3><HR>
+<H3><CENTER>167_lijinglun.cpp</CENTER></H3><HR>
 <PRE>
-typedef long long ll;
-typedef vector&lt;int&gt; VI;
-typedef pair&lt;int,int&gt; PII;
-
-#define REP(i,s,t) for(int i=(s);i&lt;(t);i++)
-#define FILL(x,v) memset(x,v,sizeof(x))
-
-const int INF = (int)1E9;
-#define MAXN 100005
-
-int cntX[MAXN], cntY[MAXN];
-int xs[MAXN], X;
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-  int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-    int n = arr.size(), s = 0;
-    X = 0;
-    REP(i,0,n) xs[X++] = arr[i];
-    sort(xs, xs+X);
-    X = unique(xs,xs+X) - xs;
-    REP(i,0,n) arr[i] = lower_bound(xs,xs+X,arr[i]) - xs;
-    VI ref = arr;
-    sort(ref.begin(), ref.end());
-
-    int ans = 0;
-<A NAME="0"></A>    while (s &lt; n) {
-      FILL(cntX, 0); FILL(cntY, 0);
-      REP(i,s,n) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        cntY[ref[i]]++; cntX[arr[i]]++;
-        bool ok = true;
-        REP(v,0,X) {
-          if (cntX[v] != cntY[v]) {
-            ok = false;
-            break;
-          }
+    int maxChunksToSorted(vector&lt;int&gt;&amp; a) {
+        int n = a.size();
+        vector&lt;int&gt; mi(n + 1);
+        mi[n] = 1e9;
+        for (int i = n - 1; i &gt;= 0; --i) mi[i] = min(mi[i + 1], a[i]);
+        int ans = 0;</B></FONT>
+        int ma = -1;
+        for (int i = 0; i &lt; n; ++i) {
+            if (ma &lt;= mi[i]) ++ans;
+            ma = max(ma, a[i]);
         }
-        if (ok) {
-          s = i + 1;
-          ans++;</B></FONT>
-          break;
-        }
-      }
+        return ans;
     }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

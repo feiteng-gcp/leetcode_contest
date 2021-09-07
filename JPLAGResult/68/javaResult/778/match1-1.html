@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_KakaHiguain.java</TITLE>
+ <TITLE>58_victorzhang21503.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>58_victorzhang21503.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String reorganizeString(String S) {
-        int[] count=new int[26];
-        for (int i=0;i&lt;S.length();i++) count[S.charAt(i)-97]++;
-        int last=-1;
-        StringBuilder sb=new StringBuilder();
-        for (int i=0;i&lt;S.length();i++)
-        {
-<A NAME="0"></A>            int max=0,maxj=0;
-            for (int j=0;j&lt;26;j++)
-            {
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (j!=last &amp;&amp; count[j]&gt;max) 
-                {
-                    max=count[j];
-                    maxj=j;
+        if(S == null || S.length() == 0){
+            return S;
+<A NAME="0"></A>        }
+        
+        int[] map = new int[26];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] id = new int[26];
+        
+        for(char ch : S.toCharArray()){
+<A NAME="1"></A>            map[ch - 'a']++;
+        }
+        StringBuilder sb = new</B></FONT> StringBuilder();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; S.length(); i++){
+            
+            int pick = -1;
+<A NAME="2"></A>            int max = 0;
+            
+            for(int j = 0; j &lt; 26; j++){</B></FONT>
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(map[j] &gt; max &amp;&amp; id[j] &lt;= i){
+                    pick = j;
+                    max = map[j];
                 }
             }
-            if (max==0) return &quot;&quot;;</B></FONT>
-            sb.append((char)(maxj+97));
-            count[maxj]--;
-            last=maxj;
+            if(pick == -1){
+                return &quot;&quot;;
+            }</B></FONT>
+            else{
+                sb.append((char)('a' + pick));
+                map[pick]--;
+                id[pick] = i + 2;
+            }
         }
-        return sb+&quot;&quot;;
+        
+        return sb.toString();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_daren.cpp</TITLE>
+ <TITLE>36_linyacool.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>23_daren.cpp</CENTER></H3><HR>
+<H3><CENTER>36_linyacool.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    string reorganizeString(string S) {
-        int sz=S.size();
-        int cnts[26]={0};
-        for(char c: S)</B></FONT>
-            ++cnts[c-'a'];
-        int maxCnt=0;
-        for(int i: cnts)
-            maxCnt=max(maxCnt, i);
-        if(maxCnt&gt;sz/2 &amp;&amp; sz%2==0 || maxCnt&gt;sz/2+1 &amp;&amp; sz%2) {
-            return &quot;&quot;;
+    string reorganizeString(string S)
+    {
+        int len = S.size();
+        int cnt[26];
+        memset(cnt, 0, sizeof cnt);
+        for (auto ch: S)
+            ++cnt[ch - 'a'];
+<A NAME="0"></A>        string ans;
+        int last = -1;
+        for (int c = 0; c &lt; len; ++c)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        {
+            int maxnum = 0;
+            int cur = 0;
+            for (int i = 0; i &lt; 26; ++i)
+            {
+                if (cnt[i] &gt; maxnum &amp;&amp; i != last)
+                {
+                    maxnum = cnt[i];
+                    cur = i;
+                }
+            }
+            if (maxnum == 0)
+                return string(&quot;&quot;);
+            ans += char('a' + cur);</B></FONT>
+            --cnt[cur];
+            last = cur;
         }
-        
-        string res;
-        int prev=26;
-        for(int i=0; i&lt;sz; ++i) {
-            int mxIdx = (prev ? 0 : 1);
-            int mx=cnts[mxIdx];
-            for(int j=0; j&lt;26; ++j)
-                if(j!=prev &amp;&amp; cnts[j]&gt;cnts[mxIdx])
-                    mxIdx=j,mx=cnts[j];
-            
-            res.push_back('a'+mxIdx);
-            --cnts[mxIdx];
-            
-            prev=mxIdx;
-        }
-        
-        return res;
-        
+        return ans;
     }
 };
 </PRE>

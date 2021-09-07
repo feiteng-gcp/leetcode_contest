@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_uwi.java</TITLE>
+ <TITLE>107_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<H3><CENTER>107_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public int maxChunksToSorted(int[] a) {
-	    	int n = a.length;
-	        int reach = 0;
-	        int par = 0;
-	        long[] aa = new long[n];
-	        for(int i = 0;i &lt; n;i++)aa[i] = (long)a[i]&lt;&lt;32|i;
-	        long[] bb = Arrays.copyOf(aa, n);
-	        Arrays.sort(bb);
-<A NAME="0"></A>	        int[] to = new int[n];
-	        for(int i = 0;i &lt; n;i++){
-	        	to[i] = Arrays.binarySearch(bb, aa[i]);
-	        }<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-	        outer:
-	        for(int i = 0;i &lt; n;i++){
-	        	for(int j = reach;j &lt;= i;j++){
-	        		if(to[j] &gt; i)continue o</B></FONT>uter;
-	        	}
-	        	reach = i;
-	        	par++;
-	        }
-	        return par;
-	    }
-	}	
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxChunksToSorted(int[] arr) {
+        int n = arr.length;
+        
+        int[] dp = new int[n];
+        
+        for (int i = n - 1</B></FONT>, min = Integer.MAX_VALUE; i &gt;= 0; i--) {
+            min = Math.min(min, arr[i]);
+            dp[i] = min;
+        }
+        
+        int res = 0;
+        
+        for (int i = 0, max = -1; i &lt; n; i++) {
+            max = Math.max(max, arr[i]);
+            
+            if (i == n - 1 || max &lt;= dp[i + 1]) {
+                res++;
+            }
+        }
+        
+        return res;
+    }
+}
 </PRE>
 
 </BODY>

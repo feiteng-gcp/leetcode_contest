@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>345_dikra.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>345_dikra.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
+        vector&lt;int&gt; copyarr = arr;
+        sort(copyarr.begin(), copyarr.end());
+        
+        map&lt;int, queue&lt;int&gt; &gt; ordering;
+        
+        for (int i = 0; i &lt; copyarr.size(); ++i)
+            ordering[copyarr[i]].push(i);
+        
+        int currMin = 0;
+        int currMax = -1;
+        int ans = 0;
+        
+        for (int i = 0; i &lt; arr.size();){
+            bool minFound = 0;
+            
+            int j = i;
+            for (; j &lt; arr.size() &amp;&amp; (minFound == 0 || (j-i)!=(currMax-currMin+1)); ++j){
+                
+                
+<A NAME="0"></A>                int id = ordering[arr[j]].front();
+                ordering[arr[j]].pop();
+                
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (id == currMin){
+                    minFound = 1;
+                }
+                currMax = max(currMax, id);
+            }
+            
+            ++ans;
+            currMin = currMax + 1;
+            i = j;
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

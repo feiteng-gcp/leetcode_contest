@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>35_narut.cpp</TITLE>
+ <TITLE>56_bdhmwz.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>35_narut.cpp</CENTER></H3><HR>
+<H3><CENTER>56_bdhmwz.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-        int n=arr.size();
-        vector&lt;int&gt; idx(n);
-        iota(idx.begin(), idx.end(), 0);
-<A NAME="0"></A>        sort(idx.begin(), idx.end(), [&amp;arr](auto i, auto j){
-            return arr[i] &lt; arr[j] || (arr[i]==arr[j] &amp;&amp; i&lt;j);
-        });
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int max_i = 0;
-        int chunks=0;
-        for(int i=0; i&lt;n; ++i){
-            max_i=max(idx[i], max_i);
-            if(max_i &lt;= i) ++chunks;
-        }
-        return chunks;
-
-    }
+	int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
+		int size = arr.size();
+		vector&lt;int&gt; premax(size + 1, -1);
+		premax[0] = arr[0];
+		for (int i = 1; i &lt; size; ++i) {</B></FONT>
+			premax[i] = max(premax[i - 1], arr[i]);
+<A NAME="1"></A>		}
+		vector&lt;int&gt; dp(size + 1, 1);
+		for (int i = 1; i &lt; size; ++i) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			int minval = INT_MAX;
+			for (int j = i; j &gt;= 1; --j) {
+				minval = min(minval, arr[j]);
+				if (minval &gt;= premax[j - 1]) {
+					dp[i] = max(dp[i], dp[j - 1] + 1);
+				}
+			}
+		}
+		return dp[size - 1];
+	}
 };</B></FONT>
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>35_narut.cpp</TITLE>
+ <TITLE>21_catalin7.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>35_narut.cpp</CENTER></H3><HR>
+<H3><CENTER>21_catalin7.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
+    int N;
+    int dp[2002];
+    int max_val[2002];
+    
     int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-        int n=arr.size();
-        vector&lt;int&gt; idx(n);
-        iota(idx.begin(), idx.end(), 0);
-        sort(idx.begin(), idx.end(), [&amp;arr](auto i, auto j){
-<A NAME="0"></A>            return arr[i] &lt; arr[j] || (arr[i]==arr[j] &amp;&amp; i&lt;j);
-        });
-        int max_i = 0;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int chunks=0;
-        for(int i=0; i&lt;n; ++i){
-            max_i=max(idx[i], max_i);
-            if(max_i &lt;= i) ++chunks;
+        N = arr.size();
+        
+        vector&lt;int&gt; A = {0};
+        for (auto x: arr)
+            A.push_back(x);
+        
+<A NAME="0"></A>        dp[0] = 0;
+        max_val[0] = 0;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt;= N; i++) {
+            max_val[i] = max(max_val[i-1], A[i]);
+            
+            int min_val = A[i];
+            for (int j = i; j &gt;= 1; j--) {
+                min_val = min(min_val, A[j]);
+                
+                if (min_val &gt;= max_val[j-1]) {
+                    // can do
+                    //cout &lt;&lt; i &lt;&lt; &quot; -&gt; &quot; &lt;&lt; j - 1 &lt;&lt; &quot;\n&quot;;
+                    dp[i] = max(dp[i], dp[j-1] + 1);
+                }
+            }
+            
+            //cout &lt;&lt; &quot;dp[&quot; &lt;&lt; i &lt;&lt; &quot;] = &quot; &lt;&lt; dp[i] &lt;&lt; &quot;\n&quot;;
         }
-        return chunks;
-
+        
+        return dp[N];
     }
 };</B></FONT>
 </PRE>

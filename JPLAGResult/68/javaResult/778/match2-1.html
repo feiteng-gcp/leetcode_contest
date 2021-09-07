@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_lixx2100.java</TITLE>
+ <TITLE>18_KakaHiguain.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_lixx2100.java</CENTER></H3><HR>
+<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
 <PRE>
-import java.util.*;
-import java.util.stream.*;
-import java.math.*;
-
-public class Solution {
-
-
-    char findMax(char[] cnt, char no) {
-        int max = 0;
-        char ch = 0;
-        for (char i = 'a'; i &lt;= 'z'; i++) {
-            if (i != no) {
-                if (cnt[i] &gt; max) {
-                    max = cnt[i];
-                    ch = i;
+class Solution {
+    public String reorganizeString(String S) {
+<A NAME="0"></A>        int[] count=new int[26];
+        for (int i=0;i&lt;S.length();i++) count[S.charAt(i)-97]++;
+        int last=-1;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>StringBuilder sb=new StringBuilder();
+        for (int i=0;i&lt;S.length();i++)
+        {
+            int max=0,maxj=0;
+            for (int j=0;j&lt;26;j++)
+            {
+                if (j!=last &amp;&amp; count[j]&gt;max) 
+                {
+                    max=count[j];
+                    maxj=j;
                 }
             }
+            if</B></FONT> (max==0) return &quot;&quot;;
+            sb.append((char)(maxj+97));
+            count[maxj]--;
+            last=maxj;
         }
-        return ch;
-    }
-
-    public String reorganizeString(String S) {
-        if (S.isEmpty()) {
-            return &quot;&quot;;
-        }
-
-        char[] cnt = new char[128];
-        for (char ch : S.toCharArray()) {
-            cnt[ch]++;
-<A NAME="0"></A>        }
-
-        StringBuilder builder = new StringBuilder();
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char pre = 0;
-        for (int i = 0; i &lt; S.length(); i++) {
-            char cur = findMax(cnt, pre);
-            if (cur == 0) {</B></FONT>
-                return &quot;&quot;;
-            } else {
-                builder.append(cur);
-                cnt[cur]--;
-                pre = cur;
-            }
-        }
-        return builder.toString();
-    }
-
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-
-        System.out.println(sol.reorganizeString(&quot;aab&quot;));
-        System.out.println(sol.reorganizeString(&quot;aaab&quot;));
-        System.out.println(sol.reorganizeString(&quot;aaacb&quot;));
+        return sb+&quot;&quot;;
     }
 }
-
-
-
 </PRE>
 
 </BODY>

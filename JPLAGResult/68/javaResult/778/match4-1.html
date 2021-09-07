@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>19_xn1990114.java</TITLE>
+ <TITLE>107_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>19_xn1990114.java</CENTER></H3><HR>
+<H3><CENTER>107_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public String reorganizeString(String S) {
-        int[] count=new int[256];
-        int max=0;
-        for(int i=0;i&lt;S.length();i++){
-            char ch=S.charAt(i);
-            count[ch]++;
-            max=Math.max(max,count[ch]);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] cnt = new int[26];
+        
+        for (char c : S.toCharArray()) {
+            cnt[c - 'a']++;
         }
-        if(max&gt;S.length()-max+1){
-            return &quot;&quot;;
-        }
-<A NAME="0"></A>        List&lt;StringBuilder&gt; list=new ArrayList&lt;StringBuilder&gt;();
-        for(int i=0;i&lt;max;i++){
-            list.add(new StringBuilder());
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        //0count 1char
-        PriorityQueue&lt;int[]&gt; pq=new PriorityQueue&lt;int[]&gt;(new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1,int[] i2){
-                return i2[0]-i1[0];
+        
+        PriorityQueue&lt;Integer&gt; pq = new</B></FONT> PriorityQueue&lt;&gt;(new Comparator&lt;Integer&gt;() {
+            public int compare(Integer i1, Integer i2) {
+                return Integer.compare(cnt[i2], cnt[i1]);
             }
         });
-        for(int i=0;i&lt;256;i++){
-            if(count[i]&gt;0){
-                pq.offer</B></FONT>(new int[]{count[i],i});
+        
+        for (int i = 0; i &lt; cnt.length; i++) {
+            if (cnt[i] &gt; 0) {
+                pq.offer(i);
             }
         }
-        int index=0;
-        while(!pq.isEmpty()){
-            int[] top=pq.poll();
-            for(int i=0;i&lt;top[0];i++){
-                if(top[0]&lt;max&amp;&amp;index==list.size()-1){
-                    index=0;
-                }
-                list.get(index).append((char)top[1]);
-                index=(index+1)%list.size();
+        
+        StringBuilder res = new StringBuilder(S.length());
+        
+        for (int i = 0, j = -1; !pq.isEmpty(); j = i) {
+            i = pq.poll();
+            
+            if (j == i) {
+                return &quot;&quot;;
             }
+            
+            cnt[i]--;
+            
+            if (j &gt;= 0 &amp;&amp; cnt[j] &gt; 0) {
+                pq.offer(j);
+            }
+            
+            res.append((char)(i + 'a'));
         }
-        StringBuilder res=new StringBuilder();
-        for(int i=0;i&lt;list.size();i++){
-            res.append(list.get(i).toString());
+        
+<A NAME="1"></A>        for (int i : cnt) {
+        	if (i &gt; 0) {
+        		return &quot;&quot;;
+        	}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
         }
+        
         return res.toString();
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

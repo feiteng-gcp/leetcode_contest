@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_xingyuwang.cpp</TITLE>
+ <TITLE>55_HMAXS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_xingyuwang.cpp</CENTER></H3><HR>
+<H3><CENTER>55_HMAXS.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-        int n=arr.size(),s=INT_MAX;
-        vector&lt;int&gt; small(n);
-        for(int i=n-1;i&gt;=0;i--)
-        {
-<A NAME="0"></A>            small[i]=s;
-            s=min(s,arr[i]);
+        int n = arr.size();
+        vector&lt;int&gt; maxval = arr;
+        for (int i = 1; i &lt; n; i++)
+            maxval[i] = max(maxval[i], maxval[i - 1]);
+        vector&lt;int&gt; dp(n);</B></FONT>
+        for (int i = 0; i &lt; n; i++) {
+            dp[i] = 1;
+            int minval = arr[i];
+            for (int j = i; j &gt; 0; j--) {
+                minval = min(minval, arr[j]);
+                if (minval &gt;= maxval[j - 1]) {
+                    dp[i] = max(dp[i], dp[j - 1] + 1);
+                }
+            }
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int count=0,large=0;
-        for(int i=0;i&lt;n;i++)
-        {
-            large=max(large,arr[i]);
-            if(large&lt;=small[i])
-                count++;
-        }
-        return count;
+        return dp[n - 1];
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

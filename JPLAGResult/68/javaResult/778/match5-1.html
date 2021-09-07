@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_jq_huang.java</TITLE>
+ <TITLE>166_aihao0331.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_jq_huang.java</CENTER></H3><HR>
+<H3><CENTER>166_aihao0331.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public String reorganizeString(String s) {
-        int n = s.length();
-        int[] count = new int[26];
-        for (int i = 0</B></FONT>; i != n; ++i)
-            count[s.charAt(i) - 'a']++;
-        StringBuffer sb = new StringBuffer();
-        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; count[b] - count[a]);
-        for (int i = 0; i != 26; ++i)
-            if (count[i] &gt; 0) pq.offer(i);
-        int q = -1;
-        while (pq.size() &gt; 0) {
-            int p = pq.poll();
-            sb.append((char)(p + 'a'));
-            --count[p];
-            if (q &gt;= 0 &amp;&amp; count[q] &gt; 0)
-                pq.offer(q);
-            q = p;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String reorganizeString(String S) {
+        if (S == null || S.length() == 0) {
+            return S;
         }
-        return (sb.length() == n)? sb.toString() : &quot;&quot;;
+        
+        int[] count = new</B></FONT> int[26];
+        for (char c : S.toCharArray()) {
+            count[c - 'a']++;
+        }
+        
+        PriorityQueue&lt;Pair&gt; heap = new PriorityQueue&lt;&gt;(26, new Comparator&lt;Pair&gt;(){
+            @Override
+            public int compare(Pair a, Pair b) {
+                return b.count - a.count;
+            }
+        });
+        
+        for (int i = 0; i &lt; 26; i++) {
+<A NAME="1"></A>            if (count[i] &gt; 0) {
+                heap.offer(new Pair((char)(i + 'a'), count[i]));
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        StringBuffer sb = new StringBuffer();
+        
+        for (int i = 0; i &lt; S.length(); i++) {
+            Pair tmp = heap.poll()</B></FONT>;
+            if (sb.length() == 0 || sb.charAt(sb.length() - 1) != tmp.c) {
+                sb.append(tmp.c);
+                tmp.count--;
+                if (tmp.count &gt; 0) {
+                    heap.offer(tmp);
+                }
+            } else {
+                if (heap.isEmpty()) {
+                    return &quot;&quot;;
+                }
+                Pair second = heap.poll();
+                sb.append(second.c);
+                second.count--;
+                if (second.count &gt; 0) {
+                    heap.offer(second);
+                }
+                heap.offer(tmp);
+            }
+            
+        }
+        
+        return sb.toString();
+    }
+    
+    class Pair {
+        char c;
+        int count;
+        public Pair(char c, int count) {
+            this.c = c;
+            this.count = count;
+        }
     }
 }
 </PRE>

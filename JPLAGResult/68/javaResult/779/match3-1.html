@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_zzt93.java</TITLE>
+ <TITLE>43_Ruian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_zzt93.java</CENTER></H3><HR>
+<H3><CENTER>43_Ruian.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int maxChunksToSorted(int[] arr) {
-        int c = 0;
-        int end = 0;
-        int i;
-        for (i = 0; i &lt; arr.length; i++) {
-            int aim = arr[i];
-            boolean small = false;
-            for (int x = i + 1; x &lt; arr.length; x++) {
-                if (aim &gt; arr[x]) {
-                    small = true;
-                    end = Math.max(x,end);
+        int len = arr.length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int max[] = new int[len];
+        max[0] = arr[0];
+        for (int i = 1; i &lt; len; i++) {
+            max[i] = Math.max(arr[i], max[i-1]);
+        }
+        
+        int dp[] = new int[len]</B></FONT>;
+        Arrays.fill(dp, 1);
+        for (int i = 1; i &lt; len; i++) {
+            int cunMin = arr[i];
+            for (int k = i; k &gt; 0; k--) {
+                cunMin = Math.min(cunMin, arr[k]);
+                if (cunMin &lt; max[k-1]) {
+                    continue;
                 }
-            }
-<A NAME="0"></A>            if (!small) {
-                end = Math.max(i,end);
-            }
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (i &gt;= end) {
-                c++;
+                
+                dp[i] = Math.max(dp[i], dp[k-1]+1);
             }
         }
-        return c;
-    }
 
-}</B></FONT>
+        return dp[arr.length-1];
+    }
+}
 </PRE>
 
 </BODY>

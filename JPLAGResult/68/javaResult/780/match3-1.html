@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_iamwds.java</TITLE>
+ <TITLE>18_KakaHiguain.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>6_iamwds.java</CENTER></H3><HR>
+<H3><CENTER>18_KakaHiguain.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public int maxChunksToSorted(int[] nums) {
-        int n = nums.length;
-        if(n &lt;= 1){
-          return n;
+    public int maxChunksToSorted(int[] arr) {
+        int n=arr.length;
+        int[][] a=new int[n][2];
+        for (int i=0;i&lt;n;i++) { a[i][0]=arr[i]; a[i][1]=i;}
+<A NAME="0"></A>                                                  
+        Arrays.sort(a,(c,d)-&gt;(c[0]==d[0])?(c[1]-d[1]):(c[0]-d[0]));
+        for (int i=0;i&lt;n;i++) arr[i]=a[i][1];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int j=0,ans=0;
+        for (int i=0;i&lt;n;i++)
+        {
+            j=Math.max(j,arr[i]);
+            if (i&gt;=j) ans++;
         }
-        int res = 0;
-        int[] min = new int[n];
-        min[n - 1] = Integer.MAX_VALUE;
-        for(int i = n - 2; i &gt;= 0; i--){
-<A NAME="0"></A>            min[i] = Math.min(min[i + 1], nums[i + 1]);
-        }
-        //System.out.println(Arrays.toString(min));
-          <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int max = Integer.MIN_VALUE;
-          for(int i = 0; i &lt; n; i++){
-              max = Math.max(nums[i], max);
-              if(max &lt; min[i]){
-                  res++;
-              }
-          }
-        return res;
+        return ans;
     }
 }</B></FONT>
 </PRE>

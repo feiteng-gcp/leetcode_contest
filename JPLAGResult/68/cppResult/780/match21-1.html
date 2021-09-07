@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>714_playerxq.cpp</TITLE>
+ <TITLE>26_Eternal_Answer.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>714_playerxq.cpp</CENTER></H3><HR>
+<H3><CENTER>26_Eternal_Answer.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-	int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
-		int n = arr.size();
-		if (!n)
-			return 0;
-		if (n == 1)
-			return 1;
-		vector&lt;vector&lt;int&gt;&gt; dp(n+1,vector&lt;int&gt;(n+1,0));
-		for (int i = 0; i &lt; n; i++)
-		{
-<A NAME="0"></A>			dp[i][i] = 1;
-		}
-		vector&lt;vector&lt;int&gt;&gt; mx(n + 1, vector&lt;int&gt;(n + 1, 0));
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		vector&lt;vector&lt;int&gt;&gt; mi(n + 1, vector&lt;int&gt;(n + 1, 0));
-		for (int i = 0; i &lt; n; i++)
-		{
-			mx[i][i] = mi[i][i] = arr[i];
-			for (int j = i+1; j &lt; n; j++)
-			{</B></FONT>
-				mx[i][j] = mi[i][j] = arr[i];
-				for (int k = i; k &lt;= j; k++)
-				{
-					mx[i][j] = max(mx[i][j],arr[k]);
-					mi[i][j] = min(mi[i][j], arr[k]);
-				}
-			}
-		}
-		for (int l = 1; l &lt; n; l++)
-		{
-			for (int i = 0; i+l &lt; n; i++)
-			{
-				int j = i + l;
-				dp[i][j] = 1;
-				for (int k = i; k &lt; j; k++)
-				{
-					if (mx[i][k] &lt; mi[k + 1][j])
-						dp[i][j] = max(dp[i][j],dp[i][k]+dp[k+1][j]);
-				}
-			}
-		}
-		return dp[0][n-1];
-	}
-};
+    int maxChunksToSorted(vector&lt;int&gt;&amp; arr) {
+        int N = arr.size();
+        int min_after[N + 1];
+<A NAME="0"></A>        min_after[N] = 100000001;
+        for (int i = arr.size() - 1;i &gt;= 0;--i)
+            min_after[i] = min(min_after[i + 1], arr[i]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int max_now = -1;
+        int res = 0;
+        for (int i = 0;i &lt; arr.size();++i) {
+            max_now = max(max_now, arr[i]);
+            if (max_now &lt;= min_after[i + 1]) ++ res;
+        }
+        return res;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>178_smallcat3.cpp</TITLE>
+ <TITLE>83_fan225coder.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>178_smallcat3.cpp</CENTER></H3><HR>
+<H3><CENTER>83_fan225coder.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    string reorganizeString(string S) {
-        
-         vector&lt;int&gt; nums(26);
-         string sb = &quot;&quot;;
-		 for(char c: S){
-			 int num = c-'a';
-			 nums[num]++;
-		 }
-		 for(int i:nums){
-			 if(i&gt;(S.size()+1)/2)
-<A NAME="0"></A>				 return sb;
-		 }
-		 
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		 int last = -1; int curr = -1;
-		 for(int i=0; i&lt;S.size(); i++){
-			 int max = 0;
-			 for(int j=0; j&lt;nums.size(); j++){</B></FONT>
-				 if(j == last)
-					 continue;
-				 if(nums[j] &gt; max){
-					 max = nums[j];
-					 curr = j;
-				 }
-			 }
-			 sb+=((char)('a'+curr));
-			 nums[curr]--;
-			 last = curr;
-		 }
-		 return sb;
+  public:
+    string reorganizeString(string s) {
+        const int n = s.length();
+        vector&lt;int&gt; c(26, 0);
+        for (char ch : s) c[ch - 'a']++;
+<A NAME="0"></A>        int r = n;
+        int pre = -1;
+        string a;  // answer
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (r) {
+            int j = -1;
+            for (int i = 0; i &lt; 26; i++) {
+                if (pre == i || c[i] == 0) continue;
+                if (j == -1 || c[i] &gt; c[j]) j = i;
+            }</B></FONT>
+            if (j == -1) return &quot;&quot;;
+            pre = j;
+            c[j]--;
+            a += char('a' + j);
+            r--;
+        }
+        return a;
     }
-    
 };
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>651_maria_john_paul.java</TITLE>
+ <TITLE>95_karutz.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>651_maria_john_paul.java</CENTER></H3><HR>
+<H3><CENTER>95_karutz.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public String reorganizeString(String S) {
-        HashMap&lt;Character,Integer&gt; mp = new HashMap&lt;&gt;();
-        for(char c: S.toCharArray())
-        {
-            mp.put(c,mp.getOrDefault(c,0)+1);
+        int[] counts = new int[26];
+        
+        for (char ch : S.toCharArray()) {
+            counts[ch - 'a']++;
         }
-        if(mp.keySet().size()==1)return &quot;&quot;;
+<A NAME="0"></A>        
         StringBuilder sb = new StringBuilder();
-        for(;;)
-        {
-            int len = sb.length();
-            int t=0;
-            
-            //find bigtwo
-<A NAME="0"></A>            char c1 = '0';
-            char c2 = '0';
-            int min1=0;
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int min2=0;
-            for(Character c:mp.keySet())
-            {
-                int count = mp.get(c);
-                if(count&gt;0){</B></FONT>
-                if(count&gt;min1){c2=c1;c1=c;min2=min1;min1=count;}
-                else if(count&gt;min2){c2=c;min2=count;}
+        char last = '#';
+        for (int i = 0; i &lt; S.length(); i++) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            int max = 0;
+            char best = '#';
+            for (char ch = 'a'; ch &lt;= 'z'; ch++) {
+                if (ch == last) continue;
+                if (counts[ch - 'a'] &gt; max) {
+                    max = counts[ch - 'a'];
+                    best = ch;
                 }
             }
-            if(c1!='0'){sb.append(c1);                
-            mp.put(c1,mp.get(c1)-1); }
-            if(c2!='0'){sb.append(c2);                
-            mp.put(c2,mp.get(c2)-1); }
-            
-           /* for(Character c: mp.keySet())
-            {
-                int count = mp.get(c);
-                if(count&gt;0)
-                {
-                sb.append(c);                
-                mp.put(c,count-1);
-                t++;
-                if(t==2)break;
-                }
-            }*/
-            if(len==sb.length())return sb.toString();
-            if(sb.charAt(sb.length()-2)==sb.charAt(sb.length()-1))break;
+            if</B></FONT> (max == 0) {
+                return &quot;&quot;;
+            }
+            counts[best - 'a']--;
+            sb.append(best);
+            last = best;
         }
-        return &quot;&quot;;
+        
+        return sb.toString();
     }
 }
 </PRE>

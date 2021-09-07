@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12_wcwswswws.cpp</TITLE>
+ <TITLE>158_iwfwcf.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12_wcwswswws.cpp</CENTER></H3><HR>
+<H3><CENTER>158_iwfwcf.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     string reorganizeString(string S) {
-        vector&lt;int&gt; l(26, 0);
-        int cur = 0;
-        for (int i = 0; i &lt; S.length(); i++) {
-            if (++l[S[i] - 'a'] &gt; l[cur]) {
-                cur = S[i] - 'a';
+        int count[26];
+        memset(count, 0, sizeof(count));
+        
+        for (auto ch : S) {
+            count[ch - 'a']++;
+        }
+        
+        int start = -1;
+        for (int i = 0; i &lt; 26; i++) {
+            if (start == -1 || count[i] &gt; count[start]) {
+                start = i;
             }
 <A NAME="0"></A>        }
+        
         string ans;
-        ans += char('a' + cur);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        l[cur]--;
-        for (int i = 1; i &lt; S.length(); i++) {
-            int temp = -1;
-            for (int j = 0; j &lt; 26; j++) {
-                if (l[j] &gt; 0 &amp;&amp; (j != ans[i - 1] - 'a') &amp;&amp; (temp == -1 || l[temp] &lt; l[j])) {</B></FONT>
-                    temp = j;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int last = -1;
+        for (int i = 0; i &lt; S.size(); i++) {
+            int cur = -1;
+            for (int i = 0; i &lt; 26; i++) {
+                if (i != last &amp;&amp; count[i] &gt; 0 &amp;&amp; (cur == -1 || count[i] &gt; count[cur])) {</B></FONT>
+                    cur = i;
                 }
             }
-            if (temp == -1) { return &quot;&quot;; }
-            l[temp]--;
-            ans += char('a' + temp);
+            
+            if (cur == -1) {
+                return &quot;&quot;;
+            } else {
+                count[cur]--;
+                ans.push_back('a' + cur);
+                last = cur;
+            }
         }
+        
         return ans;
     }
 };
