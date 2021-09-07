@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>412_yongfengS.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>412_yongfengS.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numSpecialEquivGroups(String[] A) {
+        int len = A.length;
+        if(len == 0){
+            return 0;
+        }
+<A NAME="0"></A>        Map&lt;Integer,Map&lt;Integer,List&lt;Character&gt;&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 0 ; i &lt; len ; ++i){
+            String s= A[i];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Character&gt; tmp1 = new ArrayList&lt;&gt;();
+            List&lt;Character&gt; tmp2 = new ArrayList&lt;&gt;();
+            for(int j = 0 ; j &lt; s.toCharArray().length ; ++j){
+                if(j % 2 == 0){
+                    tmp1.add(s.toCharArray()[j]);
+                }else{
+                    tmp2.add(s.toCharArray()[j]);
+                }
+            }
+            Collections.sort(tmp1);
+            Collections.sort</B></FONT>(tmp2);
+            Map&lt;Integer,List&lt;Character&gt;&gt; tmp = new HashMap&lt;&gt;();
+            tmp.put(0,tmp1);
+            tmp.put(1,tmp2);
+            map.put(i,tmp);
+        }
+        Map&lt;Integer,Boolean&gt; hasGroup = new HashMap&lt;&gt;();
+        hasGroup.put(0,false);
+        for(int i = 1 ; i &lt; len ; ++i){
+            boolean tag = false;
+            for(int j = 0 ; j &lt; i ; ++j){
+                Map&lt;Integer,List&lt;Character&gt;&gt; tmp1 = map.get(j);
+                Map&lt;Integer,List&lt;Character&gt;&gt; tmp2 = map.get(i);
+                if(tmp1.get(0).size() != tmp2.get(0).size()
+                        || tmp1.get(1).size() != tmp2.get(1).size()){
+                    continue;
+                }
+                int cnt = 0 ;
+                for(int k = 0 ; k &lt;= 1 ; ++k){
+                    for(int l = 0 ; l &lt; tmp1.get(k).size() ; ++l){
+                        if(tmp1.get(k).get(l) != tmp2.get(k).get(l)){
+                            ++cnt;
+                            break;
+                        }
+                    }
+                }
+                if(cnt == 0){
+                    tag = true;
+                    break;
+                }
+            }
+            if(tag){
+                hasGroup.put(i,true);
+            }else{
+                hasGroup.put(i,false);
+            }
+        }
+        int res = 0;
+        for(int i = 0; i &lt; len ; ++i){
+            if(!hasGroup.get(i)){
+                ++res;
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_wangdi814.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_wangdi814.java</CENTER></H3><HR>
+<PRE>
+public class FreqStack {
+    TreeMap&lt;Integer, Set&lt;Integer&gt;&gt; treeMap;
+    Map&lt;Integer, Integer&gt; map;
+    Stack&lt;Integer&gt; st;
+    public FreqStack() {
+<A NAME="0"></A>        treeMap = new TreeMap&lt;&gt;(); //map freq to listofnumber
+        map = new HashMap&lt;&gt;(); //map integer to freq
+        st = new Stack&lt;&gt;();
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public void push(int x) {
+        st.push(x);
+        if (map.containsKey(x)){</B></FONT>
+            int preF = map.get(x);
+            treeMap.get(preF).remove(x);
+            if (!treeMap.containsKey(preF + 1)){
+                treeMap.put(preF + 1, new HashSet&lt;&gt;());
+            }
+            treeMap.get(preF + 1).add(x);
+            map.put(x, map.get(x) + 1);
+        } else {
+            map.put(x, 1);
+            if (!treeMap.containsKey(1)){
+                treeMap.put(1, new HashSet&lt;&gt;());
+            }
+<A NAME="1"></A>            treeMap.get(1).add(x);
+            map.put(x, 1);
+        }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int pop() {
+        int max = treeMap.lastKey();
+        int ans = -1;
+        Set&lt;Integer&gt; set = treeMap.get</B></FONT>(max);
+        
+        Stack&lt;Integer&gt; temp = new Stack&lt;&gt;();
+        while (!set.contains(st.peek())){
+            temp.push(st.pop());
+        }
+        //System.out.print(st.size());
+        ans = st.pop();
+        //reset freq
+        int pref = map.get(ans);
+        treeMap.get(max).remove(ans);
+        if (treeMap.get(max).size() == 0){
+            treeMap.remove(max);
+        }
+        if (pref - 1 &gt; 0) {
+            map.put(ans, pref - 1);
+            if (!treeMap.containsKey(pref - 1)){
+                treeMap.put(pref - 1, new HashSet&lt;&gt;());
+            }
+            treeMap.get(pref - 1).add(ans);
+        } else {
+            map.remove(ans);
+        }
+
+        while (!temp.isEmpty()){
+            st.push(temp.pop());
+        }
+        return ans;
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ */
+</PRE>
+
+</BODY>
+</HTML>

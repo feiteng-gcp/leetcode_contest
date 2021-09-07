@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_breakfrominside.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_breakfrominside.java</CENTER></H3><HR>
+<PRE>
+class FreqStack {
+    private final PriorityQueue&lt;Element&gt; pq;
+    private final Map&lt;Integer, Element&gt; map;
+    private int count = 0;
+
+    public FreqStack() {
+        pq = new PriorityQueue&lt;&gt;((x, y) -&gt; {
+            if (x.freq == y.freq) return Integer.compare(y.getLastPos(), x.getLastPos());
+            return Integer.compare(y.freq, x.freq);
+        });
+        map = new HashMap&lt;&gt;();
+    }
+
+    public void push(int x) {
+        count++;
+
+        if (!map.containsKey(x)) {
+            Element element = new Element(x, 1);
+            element.pos.add(count);
+            map.put(x, element);
+            pq.offer(element);
+            return;
+        }
+
+<A NAME="0"></A>        Element element = map.get(x);
+        pq.remove(element);
+        element.freq++;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>element.pos.add(count);
+        pq.offer(element);
+    }
+
+    public int pop() {
+        Element element = pq.poll();
+        int ans = element.val</B></FONT>;
+        element.freq--;
+        element.pos.remove(element.pos.size() - 1);
+        if (element.freq == 0) {
+            map.remove(ans);
+        } else pq.offer(element); // put back.
+        return ans;
+    }
+
+    private static class Element {
+        int val;
+        int freq;
+        List&lt;Integer&gt; pos;
+
+        public Element(int val, int freq) {
+            this.val = val;
+            this.freq = freq;
+            this.pos = new ArrayList&lt;&gt;();
+        }
+
+        private int getLastPos() {
+            return pos.get(pos.size() - 1);
+        }
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ */
+</PRE>
+
+</BODY>
+</HTML>

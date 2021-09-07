@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>140_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>140_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+class FreqStack {
+    HashMap&lt;Integer, ArrayList&lt;Integer&gt;&gt; hm = new HashMap&lt;Integer, ArrayList&lt;Integer&gt;&gt;();
+    ArrayList&lt;TreeMap&lt;Integer, Integer&gt;&gt; al = new ArrayList&lt;TreeMap&lt;Integer, Integer&gt;&gt;();
+    int max = 0;
+    int calls = 0;
+
+    public FreqStack() {
+        al.add(new TreeMap&lt;Integer, Integer&gt;());
+    }
+    
+    public void push(int x) {
+        int c = 0;
+        if (hm.containsKey(x)) {
+            c = hm.get(x).size();
+        } else {
+            hm.put(x, new ArrayList&lt;Integer&gt;());
+        }
+<A NAME="0"></A>        if (c+1 &gt; max) {
+            max = c+1;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c+1 &gt; al.size()-1) {
+            al.add(new TreeMap&lt;Integer, Integer&gt;());
+        }
+        hm.get</B></FONT>(x).add(calls);
+        al.get(c+1).put(calls, x);
+        calls++;
+    }
+    
+    public int pop() {
+        if (max==0) {
+            System.out.println(al.get(2).size());
+        }
+        int mx = al.get(max).pollLastEntry().getValue();
+        hm.get(mx).remove(max-1);
+        if (al.get(max).isEmpty())
+            max--;
+        return mx;
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ */
+</PRE>
+
+</BODY>
+</HTML>

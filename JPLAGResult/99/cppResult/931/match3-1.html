@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_aixiong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_aixiong.cpp</CENTER></H3><HR>
+<PRE>
+class FreqStack
+{
+public:
+	using Iter = list&lt;int&gt;::iterator;
+	FreqStack()
+	{
+
+	}
+
+	void push(int x)
+	{
+		auto&amp; cnt = num_cnt_[x];
+		++cnt;
+		cnt_map_[cnt].insert(x);
+		if (cnt&gt;1)
+		{
+			cnt_map_[cnt - 1].erase(x);
+		}
+		nums_.push_front(x);
+	}
+
+	int pop()
+<A NAME="0"></A>	{
+		auto pos = cnt_map_.begin();
+		int cnt = pos-&gt;first;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		auto&amp; tmp_set = pos-&gt;second;
+		for (auto it = nums_.begin(); it != nums_.end(); ++it)
+		{
+			if (tmp_set.find(*it) != tmp_set.end())
+			{
+				int val = *it;
+				nums_.erase(it);
+				tmp_set.erase(val);
+				--num_cnt_[val];
+				if (tmp_set.empty())cnt_map_.erase(pos);</B></FONT>
+				if (cnt&gt;1) cnt_map_[cnt - 1].insert(val);
+				return val;
+			}
+		}
+		return -1;
+	}
+private:
+	unordered_map&lt;int, int&gt; num_cnt_;
+	map&lt;int, unordered_set&lt;int&gt;, greater&lt;int&gt;&gt; cnt_map_;
+	list&lt;int&gt; nums_;
+};
+
+/**
+* Your FreqStack object will be instantiated and called as such:
+* FreqStack obj = new FreqStack();
+* obj.push(x);
+* int param_2 = obj.pop();
+*/
+</PRE>
+</BODY>
+</HTML>

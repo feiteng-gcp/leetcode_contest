@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_chuongk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_chuongk.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    Map&lt;Integer, List&lt;TreeNode&gt;&gt; map;
+    public List&lt;TreeNode&gt; allPossibleFBT(int N) {
+        if (N % 2 == 0) return new ArrayList&lt;&gt;();
+        map = new</B></FONT> HashMap&lt;&gt;();
+        return dfs(N);        
+    }
+<A NAME="1"></A>    
+    private List&lt;TreeNode&gt; dfs(int rem){
+        if (map.containsKey(rem)) return map.get(rem);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;TreeNode&gt; lst = new ArrayList&lt;&gt;();
+        if (rem == 1){
+            lst.add(new TreeNode(0));
+            map.put(1, lst);
+            return lst;
+<A NAME="2"></A>        }
+        for (int i = 1; i &lt; rem; ++i){</B></FONT>
+            if (i % 2 == 0) continue;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;TreeNode&gt; left = dfs(i);
+            List&lt;TreeNode&gt; right = dfs(rem-1-i);
+            for (TreeNode leftNode : left){
+                for (TreeNode rightNode: right){
+                    TreeNode root = new TreeNode(0);
+                    root.left = leftNode;
+                    root.right = rightNode;
+                    lst.add(root);
+                }
+            }            
+        }
+        map.put</B></FONT>(rem, lst);
+        return lst;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>385_maozaozao1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>385_maozaozao1.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;TreeNode*&gt; allPossibleFBT(int N) {
+        vector&lt;TreeNode*&gt; ret;
+        if(N==0||N==2){
+            return ret;
+        }
+        else if(N==1){
+            TreeNode *root = new TreeNode(0);
+            ret.push_back(root);
+<A NAME="0"></A>            return ret;
+        }else {
+            for(int i=1;i&lt;N-1;i+=2){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                vector&lt;TreeNode*&gt; left = allPossibleFBT(i);
+                vector&lt;TreeNode*&gt; right = allPossibleFBT(N-1-i);
+                for(int j=0;j&lt;left.size();j++){
+                    for(int k=0;k&lt;right.size();k++){
+                        TreeNode* root = new TreeNode(0);
+                        root-&gt;left = left[j];
+                        root-&gt;right = right[k];
+                        ret.push_back(root);
+                    }
+                }</B></FONT>
+            }
+            return ret;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

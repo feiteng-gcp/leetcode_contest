@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>245_alinmn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>245_alinmn.cpp</CENTER></H3><HR>
+<PRE>
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+#define pb push_back
+#define fst first
+#define snd second
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+template&lt;typename T&gt; using min_queue=priority_queue&lt;T,vector&lt;T&gt;,greater&lt;T&gt;&gt;;
+
+const ll MOD=1e9+7;
+
+static auto __ = [] () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+<A NAME="0"></A>    return 0;
+}();
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct Record {
+    int val = 0;
+    int freq = 0;
+    int last = 0;
+};
+
+struct Cmp {
+    bool operator()(Record&amp; a, Record&amp; b) {</B></FONT>
+        if(a.freq == b.freq) {
+            return a.last &lt; b.last;
+        }
+
+        return a.freq &lt; b.freq;
+    }
+
+};
+
+class FreqStack {
+    private:
+        int cnt = 0;
+        map&lt;int, vector&lt;int&gt;&gt; all;
+        priority_queue&lt;Record, vector&lt;Record&gt;, Cmp&gt; q;
+
+    public:
+            FreqStack() {
+
+            }
+
+            void push(int x) {
+                auto &amp;a = all[x];
+                a.push_back(++cnt);
+                Record r;
+                r.val = x;
+                r.freq = a.size();
+                r.last = cnt;
+                q.push(r);
+            }
+
+            int pop() {
+                while(!q.empty()) {
+                    Record r = q.top();
+                    q.pop();
+
+                    auto&amp; a = all[r.val];
+                    if(a.empty()) {
+                        continue;
+                    }
+
+                    if(r.last != a.back()) {
+                        continue;
+                    }
+
+                    if(r.freq != a.size()) {
+                        continue;
+                    }
+
+                    a.pop_back();
+
+                    if(!a.empty()) {
+                        r.freq--;
+                        r.last = a.back();
+                        q.push(r);
+                    }
+
+                    return r.val;
+                }
+
+                return 0;
+            }
+};
+
+</PRE>
+</BODY>
+</HTML>

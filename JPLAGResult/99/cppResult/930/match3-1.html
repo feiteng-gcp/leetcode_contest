@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_ryang_us.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_ryang_us.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    TreeNode* copy(TreeNode* root) {
+        if (root == NULL) return root;
+        TreeNode* ans = new TreeNode(0);
+        ans-&gt;left = copy(root-&gt;left);
+        ans-&gt;right = copy(root-&gt;right);
+        return ans;
+    }
+    vector&lt;TreeNode*&gt; allPossibleFBT(int N) {</B></FONT>
+        vector&lt;vector&lt;TreeNode*&gt;&gt; dp(N+1);
+        //vector&lt;TreeNode*&gt; ans;
+<A NAME="1"></A>        dp[1].push_back(new TreeNode(0));
+        for (int i=3; i &lt;= N; ++i) {
+            for (int l=1; l &lt; (i-1); ++l) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int r = i -1 - l;
+                if (dp[l].size() &gt; 0 &amp;&amp; dp[r].size() &gt; 0) {
+                    for (int i1=0; i1 &lt; dp[l].size(); ++i1) {
+                        for (int i2=0; i2 &lt; dp[r].size(); ++i2) {
+                            TreeNode* root = new TreeNode(0);
+                            root-&gt;left = copy(dp[l][i1]);
+                            root-&gt;right = copy(dp[r][i2]);
+                            dp[i].push_back(root);
+                        }
+                    }
+                }
+            }
+        }
+        return dp[N];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
