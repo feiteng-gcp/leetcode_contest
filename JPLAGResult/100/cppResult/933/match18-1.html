@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>163_aojueliuyun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>163_aojueliuyun.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+<A NAME="0"></A>    TreeNode* increasingBST(TreeNode* root) {
+        vector&lt;int&gt; seq;
+        traverse(root, seq);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        TreeNode * newRoot = new TreeNode(seq[0]), * p = newRoot;
+        for (int i = 1; i &lt; seq.size(); i ++) {
+            p-&gt;right = new TreeNode(seq[i]);
+            p = p-&gt;right;
+        }
+        return newRoot;
+    }
+    void traverse(TreeNode * root, vector&lt;int&gt; &amp; seq) {
+        if (root) {</B></FONT>
+            traverse(root-&gt;left, seq);
+            seq.push_back(root-&gt;val);
+            traverse(root-&gt;right, seq);
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

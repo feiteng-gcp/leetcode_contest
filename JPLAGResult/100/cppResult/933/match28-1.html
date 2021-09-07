@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>171_crechkr.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>171_crechkr.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; vals;
+    void search(TreeNode* root){
+        if (root!=nullptr){
+            search(root-&gt;left);
+            vals.push_back(root-&gt;val);
+            search(root-&gt;right);
+        }
+<A NAME="0"></A>    }
+    TreeNode* increasingBST(TreeNode* root) {
+        search(root);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        TreeNode* newrt = new TreeNode(vals[0]);
+        TreeNode* cur=newrt;
+        for (int i=1; i&lt;vals.size(); i++){
+            TreeNode* next = new TreeNode(vals[i]);
+            cur-&gt;right=next;
+            cur=next;
+        }
+        return newrt;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>394_lihuoran.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>394_lihuoran.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def convert(self, root):
+        if root is None:
+            return None, None
+        
+        if root.left is None and root.right is None:
+<A NAME="0"></A>            return root, root
+        if root.left is None:
+            rhead, rtail = self.convert(root.right)
+            root<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.right = rhead
+            root.left = None
+            return root, rtail
+        if root.right is None:
+            lhead, ltail = self.convert(root.left)
+            ltail.right =</B></FONT> root
+            root.left = None
+            return lhead, root
+        
+        lhead, ltail = self.convert(root.left)
+        rhead, rtail = self.convert(root.right)
+        ltail.right = root
+        root.left = None
+        root.right = rhead
+        return lhead, rtail
+        
+        
+    def increasingBST(self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: TreeNode
+        &quot;&quot;&quot;
+        return self.convert(root)[0]
+        
+</PRE>
+
+</BODY>
+</HTML>
