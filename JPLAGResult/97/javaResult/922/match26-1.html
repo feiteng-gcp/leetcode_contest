@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>447_xinxing86.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>447_xinxing86.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    class Node {
+        public int id;
+        public List&lt;Node&gt; adj = new ArrayList&lt;Node&gt;();
+        public Node(int idd) {
+            this.id = idd;
+        }
+<A NAME="0"></A>        
+    }
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Node [] nodes = new Node[N];
+        
+        for (int i = 0; i &lt; N; i++)
+        {
+            nodes[i] = new Node(i + 1);
+        }
+        for (int [] dislike: dislikes)
+        {</B></FONT>
+            int d1 = dislike[0];
+            int d2 = dislike[1];
+            
+            nodes[d1 - 1].adj.add(nodes[d2 - 1]);
+            nodes[d2 - 1].adj.add(nodes[d1 - 1]);
+        }
+        
+        int [] mark = new int [N];
+        
+        for (int i = 0; i &lt; N; i++)
+        {
+            if (mark[i] != 0) continue;
+            if (!exploreGraph(nodes[i], mark, 1)) return false;
+        }
+        return true;        
+    }
+    
+    private boolean exploreGraph(Node n, int [] mark, int color)
+    {
+        int mcolor = mark[n.id - 1];
+        if (mcolor != 0 &amp;&amp; mcolor != color) return false;
+        if (mcolor != 0 &amp;&amp; mcolor == color) return true;
+        mark[n.id - 1] = color;
+        for (Node m : n.adj)
+        {
+            if (!exploreGraph(m, mark, -1 * color)) return false;
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

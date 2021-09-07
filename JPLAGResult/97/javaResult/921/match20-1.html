@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>208_KieranYe.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>208_KieranYe.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private int nextRow;
+    private int nextCol;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int[][] spiralMatrixIII(int R, int C, int r0, int c0) {
+        int[][] res = new int[R*C][2];
+        int index = 0</B></FONT>;
+        if (r0 &gt;= 0 &amp;&amp; r0 &lt; R &amp;&amp; c0 &gt;= 0 &amp;&amp; c0 &lt; C) {
+            res[0][0] = r0;
+            res[0][1] = c0;
+            ++index;
+        }
+        nextRow = r0;
+        nextCol = c0;
+        int steps = 1;
+        while (index &lt; R*C) {
+            index = rightAndDown(R,C,res,index,steps);
+            ++steps;
+            index = leftAndUp(R,C,res,index,steps);
+            ++steps;
+        }
+<A NAME="1"></A>        return res;
+    }
+    private int rightAndDown(int R, int C, int[][] res, int index, int steps) {
+        for (int i = 1; i &lt;= steps; ++i) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            ++nextCol;
+            if (nextRow &gt;= 0 &amp;&amp; nextRow &lt; R &amp;&amp; nextCol &gt;= 0 &amp;&amp; nextCol &lt; C) {
+                res[index][0] = nextRow;
+                res[index][1] = nextCol;
+<A NAME="2"></A>                ++index;
+            }
+        }</B></FONT>
+        for (int i = 1; i &lt;= steps; ++i) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            ++nextRow;
+            if (nextRow &gt;= 0 &amp;&amp; nextRow &lt; R &amp;&amp; nextCol &gt;= 0 &amp;&amp; nextCol &lt; C) { 
+                res[index][0] = nextRow;
+                res[index][1] = nextCol;
+                ++index;
+            }
+        }</B></FONT>
+        return index;
+    }
+    private int leftAndUp(int R, int C, int[][] res, int index, int steps) {
+        for (int i = 1; i &lt;= steps; ++i) {
+            --nextCol;
+            if (nextRow &gt;= 0 &amp;&amp; nextRow &lt; R &amp;&amp; nextCol &gt;= 0 &amp;&amp; nextCol &lt; C) {
+                res[index][0] = nextRow;
+                res[index][1] = nextCol;
+                ++index;
+            }
+        }
+        for (int i = 1; i &lt;= steps; ++i) {
+            --nextRow;
+            if (nextRow &gt;= 0 &amp;&amp; nextRow &lt; R &amp;&amp; nextCol &gt;= 0 &amp;&amp; nextCol &lt; C) { 
+                res[index][0] = nextRow;
+                res[index][1] = nextCol;
+                ++index;
+            }
+        }
+        return index;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_charliemeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_charliemeng.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+	bool possibleBipartition(int N, vector&lt;vector&lt;int&gt;&gt;&amp; dislikes) {
+		vector&lt;vector&lt;int&gt;&gt; graph(N, vector&lt;int&gt;());
+		for (auto it : dislikes) {
+			graph[it[0]-1].push_back(it[1]-1);
+			graph[it[1]-1].push_back(it[0]-1);
+		}</B></FONT>
+		return isBipartite(graph);
+	}
+
+	bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+		int i = 0, n = graph.size();
+		vector&lt;int&gt; color(n, -1);
+		vector&lt;pair&lt;int, int&gt;&gt; vec;
+		vector&lt;unordered_set&lt;int&gt;&gt; dom(n, { 0, 1 });
+		for (auto v : graph)
+			vec.push_back({ -(int)v.size(), i }), i++;
+		sort(vec.begin(), vec.end());
+		dom[vec[0].second].erase(1);
+		return canColor(0, n, vec, graph, color, dom);
+	}
+private:
+	bool canColor(int idx, int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; vec, vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; color, vector&lt;unordered_set&lt;int&gt;&gt;&amp; dom) {
+		if (idx == n) return true;
+		int idx2 = vec[idx].second;
+		if (graph[idx2].empty()) return true;
+		for (int i : dom[idx2]) {
+			color[idx2] = i;
+			bool flag = true;
+			unordered_set&lt;int&gt; st;
+			for (int j : graph[idx2]) {
+				if (dom[j].count(i)) {
+					dom[j].erase(i);
+					st.insert(j);
+					if (dom[j].empty()) {
+						flag = false;
+						break;
+					}
+				}
+			}
+			if (flag &amp;&amp; canColor(idx + 1, n, vec, graph, color, dom))
+				return true;
+			color[idx2] = -1;
+			for (int j : st)
+				dom[j].insert(i);
+		}
+		return false;
+	}
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>466_Candelaa.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>466_Candelaa.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int superEggDrop(int K, int N) {
+        int f[105][10005];
+        int g[105][10005];
+        memset(f, 0, sizeof f);
+        for (int i = 1; i &lt;= N; i++) 
+            f[1][i] = i;
+<A NAME="0"></A>        for (int i = 2; i &lt;= K; i++) {
+            f[i][1] = 1;
+            g[i][1] = 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = 2; j &lt;= N; j++) {
+                f[i][j] = f[i - 1][j];
+                g[i][j] = g[i][j - 1];
+                for (int l = g[i][j - 1]; l &lt;= j; l++) {
+                    int tmp = max(f[i][j - l], f[i - 1][l - 1]) + 1;</B></FONT>
+                    if (tmp &lt;= f[i][j]) {
+                        f[i][j] = tmp;
+                        g[i][j] = l;
+                    }
+                    else break;
+                }
+            }
+        }
+        return f[K][N];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

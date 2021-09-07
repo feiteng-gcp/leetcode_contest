@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_lakeshore1986.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_lakeshore1986.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        Set&lt;Integer&gt; setA = new HashSet&lt;&gt;();
+        Set&lt;Integer&gt; setB = new HashSet&lt;&gt;();
+        List&lt;Integer&gt;[] adjList = new ArrayList[N + 1];
+        for (int i = 1; i &lt;= N; i++)
+            adjList[i] = new ArrayList&lt;&gt;();
+        for (int[] pair : dislikes) {
+            adjList[pair[0]].add(pair[1]);
+            adjList[pair[1]].add(pair[0]);
+        }
+        for (int i = 1; i &lt; N; i++) {
+<A NAME="0"></A>            if (!setA.contains(i) &amp;&amp; !setB.contains(i)) {
+                setA.add(i);
+                if (!dfs(setA, setB, i, adjList))
+                    return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        return true;
+    }
+    
+    public boolean dfs(Set&lt;Integer&gt; setA, Set&lt;Integer&gt; setB, int cur</B></FONT>, List&lt;Integer&gt;[] adjList) {
+        for (int next : adjList[cur]) {
+            if (setA.contains(cur)) {
+                if (setA.contains(next))
+                    return false;
+                if (setB.contains(next))
+                    continue;
+                setB.add(next);
+                if (!dfs(setA, setB, next, adjList))
+                    return false;
+            } else {
+                if (setB.contains(next))
+                    return false;
+                if (setA.contains(next))
+<A NAME="1"></A>                    continue;
+                setA.add(next);
+                if (!dfs(setA, setB, next, adjList))
+                    return false<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        return true;
+    } 
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
