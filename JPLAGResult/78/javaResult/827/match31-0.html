@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_shreyansh94.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_shreyansh94.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int expressiveWords(String S, String[] words) {
+        
+        int count = 0 ; 
+        for(String s : words){
+            if(canBe(S, s))count++; 
+        }
+        return count; 
+    }
+    
+    public List&lt;String&gt; breaker(String S</B></FONT>){
+        String temp = &quot;&quot;; 
+        int i = 0; 
+        List&lt;String&gt; set1 = new ArrayList&lt;&gt;(); 
+        while(i &lt; S.length()){
+            if(temp.equals(&quot;&quot;) || S.charAt(i) == S.charAt(i-1)){
+                temp += S.charAt(i); 
+            }else{
+                set1.add(temp); 
+                temp = S.charAt(i)+&quot;&quot;; 
+            }
+            ++i; 
+        }
+        if(!temp.equals(&quot;&quot;))set1.add(temp);
+        return set1; 
+    }
+    
+    public boolean canBe(String S, String s){
+        List&lt;String&gt; set1 = breaker(S); 
+        List&lt;String&gt; set2 = breaker(s); 
+        
+        if(set1.size() != set2.size())return false; 
+        
+        for(int i = 0 ; i &lt; set1.size() ; ++i){
+            String s1 = set1.get(i); 
+            String s2 = set2.get(i); 
+            
+            if(s1.charAt(0) != s2.charAt(0))return false; 
+            if(s2.length() &gt; s1.length())return false; 
+            
+            if(s1.equals(s2))continue; 
+            
+            if(s1.length() &lt; 3) return false; 
+        }
+        
+        return true; 
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

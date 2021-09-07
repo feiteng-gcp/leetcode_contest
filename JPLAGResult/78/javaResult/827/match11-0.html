@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>163_fun4LeetCode.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>163_fun4LeetCode.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+        List&lt;int[]&gt; groups = new ArrayList&lt;&gt;();
+        
+        for (int i = 0; i &lt; S.length();) {
+            char c = S.charAt(i);
+            int j = i;
+            
+            while (i &lt; S.length() &amp;&amp; S.charAt(i) == c) i++;
+            
+<A NAME="0"></A>            groups.add(new int[] {c - 'a', i - j});
+        }
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
+        
+        for (String word : words) {
+            if (isExtendable(groups, word)) {
+                res++;
+            }
+        }
+        
+        return res;
+    }
+    
+    private boolean isExtendable(List&lt;int[]&gt; groups, String word) {
+        int i = 0, k = 0;
+        
+        while (k &lt; groups.size</B></FONT>() &amp;&amp; i &lt; word.length()) {
+            int[] group = groups.get(k++);
+            char c = word.charAt(i);
+            
+            if (group[0] != c - 'a') return false;
+            
+            int j = i;
+            
+            while (i &lt; word.length() &amp;&amp; word.charAt(i) == c) i++;
+            
+            int count = i - j;
+            
+            if (group[1] &lt; count || (group[1] &lt; 3 &amp;&amp; group[1] != i - j)) {
+                return false;
+            }
+        }
+        
+        return (k == groups.size() &amp;&amp; i == word.length());
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

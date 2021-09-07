@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_changeme.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_changeme.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.stream.Collectors;
+<A NAME="0"></A>import java.util.stream.Stream;
+
+// 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
+
+	public List&lt;String&gt; subdomainVisits(String[] cpdomains) {
+
+		HashMap&lt;String, Integer&gt; m = new HashMap&lt;&gt;();
+
+		for (int i = 0; i &lt; cpdomains.length; i++) {
+			String[] t = cpdomains[i].split(&quot; &quot;);
+			int count = Integer.parseInt(t[0]);
+			int index = -1;</B></FONT>
+			do {
+				index = t[1].indexOf('.');
+
+				m.merge(t[1], count, Integer::sum);
+<A NAME="1"></A>				t[1] = t[1].substring(index + 1, t[1].length());
+
+			} while (index != -1);
+		}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+
+		ArrayList&lt;String&gt; res = new ArrayList&lt;&gt;();
+
+		for (Map.Entry&lt;String, Integer&gt; e : m.entrySet()) {
+			res.add(e.getValue() + &quot; &quot; + e.getKey());
+		}
+
+		return res;
+	}</B></FONT>
+
+	public static void main(String[] args) {
+		System.out.println(new Solution().subdomainVisits(
+				new String[] { &quot;900 google.mail.com&quot;, &quot;50 yahoo.com&quot;, &quot;1 intel.mail.com&quot;, &quot;5 wiki.org&quot; }));
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

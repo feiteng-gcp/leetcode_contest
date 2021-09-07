@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_jq_huang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_jq_huang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  struct Seq {
+    char c;
+    int n;
+    
+    Seq(char c, int n):
+      c(c), n(n) {}
+  };
+  
+  int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+    vector&lt;Seq&gt; seqs = make_seq(S);
+    int ret = 0;
+    for (const auto &amp;w: words) {
+      vector&lt;Seq&gt; seqw = make_seq(w);
+      if (valid(seqs, seqw)) ++ret;
+    }
+    return ret;
+  }
+  
+  bool valid(const vector&lt;Seq&gt; &amp;s, const vector&lt;Seq&gt; &amp;w) {
+    if (s.size() != w.size()) return false;
+    for (int i = 0; i != s.size(); ++i) {
+      if (s[i].c != w[i].c) return false;
+      if (s[i].n == w[i].n) continue;
+      if (s[i].n &lt; 3 || w[i].n &gt; s[i].n) return false;
+    }
+    return true;
+  }
+<A NAME="0"></A>  
+  vector&lt;Seq&gt; make_seq(string s) {
+    vector&lt;Seq&gt; seqs;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int count = 1;
+    for (int i = 1; i &lt; s.size(); ++i) {
+      if (s[i] == s[i - 1]) {
+        ++count;
+      } else {
+        seqs.emplace_back(s[i - 1], count);
+        count = 1;
+      }
+    }
+    seqs.emplace_back(s[s.size() - 1], count);
+    return seqs;
+  }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

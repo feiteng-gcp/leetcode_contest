@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>34_brendon4565.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>34_brendon4565.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    
+    int expressiveWords(string a, vector&lt;string&gt;&amp; w) {
+        
+        
+        vector&lt;char&gt; sca;
+        vector&lt;int&gt; sfa;
+<A NAME="0"></A>        rle(a, sca, sfa);
+        
+        int n = w.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 0;
+        for(int i=0; i&lt;n; i++){
+            string word = w[i];
+            
+            vector&lt;char&gt; wca;
+            vector&lt;int&gt; wfa;
+            
+            rle(word, wca, wfa);
+
+            if(wca.size() != sca.size()) continue;
+            bool ok = true;
+            
+            for(int j=0; j&lt;sca.size(); j++){
+                //goto endloop;
+                if(wca[j] != sca[j] || wfa[j] &gt; sfa[j] || (wfa[j] == 1 &amp;&amp; sfa[j] == 2)) ok = false; </B></FONT>
+            }
+            if(!ok) continue;
+            ret++;
+            
+            //endloop:
+            
+        }
+        return ret;
+        
+    }
+    
+    void rle(string s, vector&lt;char&gt;&amp; ca, vector&lt;int&gt;&amp; fa){
+        int n = s.size();
+        
+        int i=0;
+        
+        while(i &lt; n){
+            char c = s[i];
+            int j = i;
+            while(j &lt; n &amp;&amp; s[j] == c){
+                j++;
+            }
+            
+            ca.push_back(c);
+            fa.push_back(j-i);
+            i = j;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

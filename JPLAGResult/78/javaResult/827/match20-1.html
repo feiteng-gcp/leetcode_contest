@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>174_jialuzh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>174_jialuzh.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+<A NAME="0"></A>        if (words == null || words.length == 0) {
+            return 0;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; sa = convert(S);
+        int ans = 0;
+        for (String w : words) {
+            List&lt;String&gt; wa = convert(w);
+            if (wa.size() != sa.size()) {
+                continue;
+            }
+            boolean extend = true</B></FONT>;
+            for (int i = 0; i &lt; wa.size(); ++i) {
+                if (wa.get(i).length() == sa.get(i).length()) {
+<A NAME="1"></A>                    continue;
+                }
+                if (wa.get(i).length() &gt; sa.get(i).length() 
+                    || sa.get(i).length() &lt; 3) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    extend = false;
+                    break;
+                }
+<A NAME="2"></A>            }
+            if (extend) {</B></FONT>
+                ++ans;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return ans;
+    }
+    
+    private List&lt;String&gt; convert(String s) {
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        if (s.length() == 0) {
+            return ans;
+        }
+        int i = 0</B></FONT>;
+        StringBuilder sb = new StringBuilder();
+        while (i &lt; s.length()) {
+            sb.append(s.charAt(i));
+            if (i + 1 == s.length() || s.charAt(i + 1) != s.charAt(i)) {
+                ans.add(sb.toString());
+                // System.out.println(sb.toString());
+                sb.setLength(0);
+            }
+            ++i;
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>160_szfck.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>160_szfck.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 1e6 + 10;
+using ll = long long;
+const int INF = 0x3f3f3f3f;
+using pii = pair&lt;int, int&gt;;
+using vi = vector&lt;int&gt;;
+#define rep(i, a, b) for (int i = (a); i &lt; (b); i++)
+#define mp make_pair 
+#define pb push_back
+#define clr(x, v) memset(x, v, sizeof (x))
+#define all(x) x.begin(), x.end()
+#define fi first
+#define se second
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;pair&lt;char, int&gt;&gt; get(string S) {
+        vector&lt;pair&lt;char, int&gt;&gt; vec;
+        int n = S.size();
+        int cnt = 1;
+        for (int i = 1; i &lt;= n; i++) {
+            if (i == n || S[i] != S[i - 1]) {
+                vec.push_back(mp(S[i - 1], cnt));
+                cnt = 1;
+            } else {
+                cnt++;
+            }
+        }
+        return vec;
+    }</B></FONT>
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        if (S == &quot;&quot;) {
+            int res = 0;
+            for (auto word : words) {
+                if (word == &quot;&quot;) res++;
+            }
+            return res;
+        }
+        int res = 0;
+        auto v1 = get(S);
+        for (auto word : words) {
+            if (word == &quot;&quot;) continue;
+            auto v2 = get(word);
+            if (v1.size() != v2.size()) continue;
+            bool ok = true;
+            // cout &lt;&lt; v1.size() &lt;&lt; endl;
+            rep(i, 0, (int)v1.size()) {
+                if (v1[i].fi != v2[i].fi) {
+                    ok = false;
+                    break;
+                }
+                if (v1[i].se &lt; v2[i].se) {
+                    ok = false;
+                    break;
+                }
+                // cout &lt;&lt; v1[i].se &lt;&lt; &quot; &quot; &lt;&lt; v2[i].se &lt;&lt; endl;
+                if (v1[i].se &gt; v2[i].se &amp;&amp; v1[i].se &lt; 3) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) res++;
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

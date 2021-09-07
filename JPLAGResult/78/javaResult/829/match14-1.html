@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>157_AndreZWei.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>157_AndreZWei.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;String&gt; subdomainVisits(String[] cpdomains) {
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; cpdomains.length; i++){
+            int count = Integer.parseInt</B></FONT>(cpdomains[i].split(&quot; &quot;)[0]);
+            String site = cpdomains[i].split(&quot; &quot;)[1];
+
+            if (map.get(site) == null)
+                map.put(site, 0);
+            map.put(site, map.get(site) + count);
+            
+            String[] tokens = site.split(&quot;\\.&quot;);
+            if (tokens.length == 2){
+                site = tokens[1];
+                if (map.get(site) == null)
+                    map.put(site, 0);
+                map.put(site, map.get(site) + count); 
+            }
+            else {
+                site = tokens[1] + &quot;.&quot; + tokens[2];
+                if (map.get(site) == null)
+                    map.put(site, 0);
+                map.put(site, map.get(site) + count);
+<A NAME="1"></A>                site = tokens[2];
+                if (map.get(site) == null)
+                    map.put(site, 0);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(site, map.get(site) + count);
+            }
+        }
+        
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        
+        for (String s : map.keySet()){
+            String temp = map.get(s) + &quot; &quot; + s;
+            result.add(temp);
+        }
+        
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
