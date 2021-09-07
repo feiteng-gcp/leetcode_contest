@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_chenguanyu1995.java</TITLE>
+ <TITLE>26_BestArya.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>17_chenguanyu1995.java</CENTER></H3><HR>
+<H3><CENTER>26_BestArya.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int minSwapsCouples(int[] row) {
-        int count = 0;
-        for(int i = 0; i &lt; row.length; i+=2){
-            if(row[i]%2==0){
-                if(row[i+1]!=row[i]+1){
-                    for(int j = i+2; j &lt; row.length; j++){
-                        if(row[j]==row[i]+1){
-                            int temp = row[j];
-                            row[j] = row[i+1];
-                            row[i+1] = temp;
-                            count++;
-                            //System.out.println(i);
-                        }
-                    }
-                }
-            } else{
-                if(row[i+1]!=row[i]-1){
-                    for(int j = i+2; j &lt; row.length; j++){
-                        if(row[j]==row[i]-1){
-                            int temp = row[j];
-                            row[j] = row[i+1];
-<A NAME="0"></A>                            row[i+1] = temp;
-                            count++;
-                            //System.out.println(i);
-                        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-                    }
-                }
-            }
-        }</B></FONT>
-        return count;
+        return minSwapsCouples(row, 0);
     }
-}
+
+    private int minSwapsCouples(int[] row, int start) {
+        if (start == row.length) return 0;
+        int result = 0;
+        int currVal = row[start];
+        int pair = currVal ^ 1;
+        if (row[start + 1] != pair) {
+            for (int i = start + 2; i &lt; row.length; i++) {
+                if (row[i] == pair) {
+                    swap(row, i, start + 1);
+                    result = 1;
+                    break;
+                }
+<A NAME="0"></A>            }
+        }
+        return result + minSwapsCouples(row, start + 2);
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    private void swap(int[] row, int i, int j) {
+        int tmp = row[i];
+        row[i] = row[j];
+        row[j] = tmp;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

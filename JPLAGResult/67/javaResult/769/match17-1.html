@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_hahahiehie.java</TITLE>
+ <TITLE>26_BestArya.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,92 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>33_hahahiehie.java</CENTER></H3><HR>
+<H3><CENTER>26_BestArya.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-	void getLeft(int[] grid, int[] res) {
-		for (int i = 0; i &lt; grid.length; i++) {
-			if (grid[i] == 0) {
-				res[i] = 0;
-			} else {
-				if (i == 0) {
-					res[i] = 1;
-				} else {
-					res[i] = res[i - 1] + 1;
-				}
-			}
-		}
-	}
-	
-	void getRight(int[] grid, int[] res) {
-		for (int i = grid.length - 1; i &gt;= 0; i--) {
-			if (grid[i] == 0) {
-				res[i] = 0;
-			} else {
-				if (i == grid.length  - 1) {
-					res[i] = 1;
-				} else {
-					res[i] = res[i + 1] + 1;
-				}
-			}
-		}
-	}
-	
-<A NAME="1"></A>	
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int orderOfLargestPlusSign(int N, int[][] mines) {
+        int[][] board = new int[N][N];
+        for (int i = 0; i &lt; N; i++) {</B></FONT>
+<A NAME="1"></A>            for (int j = 0; j &lt; N; j++) {
+                board[i][j] = 1;
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int[] cell: mines) {
+            board[cell[0]][cell[1]] = 0;
+        }
+        int maxOrder = 0</B></FONT>;
+        int maxPoss = (N - 1) / 2 + 1;
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) {
+                maxOrder = Math.max(maxOrder, orderOfCell(N, board, i, j));
+                if (maxOrder == maxPoss) return maxOrder;
+            }
+        }
+        return maxOrder;
+    }
 
-	public int orderOfLargestPlusSign(int N, int[][] mines) {
-		int[][] grid =<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> new int[N][N];
-		
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				grid[i][j] = 1;
-			}
-		}</B></FONT>
-		
-		for (int i = 0; i &lt; mines.length; i++) {
-			grid[mines[i][0]][mines[i][1]] = 0;
-		}
-		
-		int[][] rowL = new int[N][N];
-		int[][] rowR = new int[N][N];
-		
-	
-		for (int i = 0; i &lt; N; i++) {
-			getLeft(grid[i], rowL[i]);
-			getRight(grid[i], rowR[i]);
-			
-			
-		}
-		
-		int[][] colL = new int[N][N];
-		int[][] colR = new int[N][N];
-		
-		
-		for (int j = 0; j &lt; N; j++) {
-			int[] col = new int[N];
-			for (int i = 0; i &lt; N; i++) {
-				col[i] = grid[i][j];
-			}
-			getLeft(col, colL[j]);
-			getRight(col, colR[j]);
-		}
-		
-//		Util.print2Array(rowL);
-//		Util.print2Array(rowR);
-//		Util.print2Array(colL);
-//		Util.print2Array(colR);
-		int ans = 0;
-		
-		for (int i = 0; i &lt; N; i++) {
-<A NAME="0"></A>			for (int j = 0; j &lt; N; j++) {
-				int t = Math.min(rowL[i][j], rowR[i][j]);
-				t = Math.min(t, Math.min(colL[j][i], colR[j][i]));
-				ans = Math.max(ans, t);<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-				
-			}
-		}
-		return ans;
-	}</B></FONT>
+    private int orderOfCell(int N, int[][] board, int i, int j) {
+        int order = 0;
+        int offset = 0;
+        while (true) {
+            if ((i - offset &gt;= 0 &amp;&amp; board[i - offset][j] == 1)
+               &amp;&amp; (i + offset &lt; N &amp;&amp; board[i + offset][j] == 1)
+               &amp;&amp; (j - offset &gt;= 0 &amp;&amp; board[i][j - offset] == 1)
+               &amp;&amp; (j + offset &lt; N &amp;&amp; board[i][j + offset] == 1)) {
+                order++;
+                offset++;
+            } else {
+                break;
+            }
+        }
+        return order;
+    }
 }
 </PRE>
 

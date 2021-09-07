@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1095_yunhanyu.java</TITLE>
+ <TITLE>232_anhooca.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1095_yunhanyu.java</CENTER></H3><HR>
+<H3><CENTER>232_anhooca.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-       
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        Map&lt;Character, Integer&gt; charCount = new HashMap&lt;&gt;();
         for (int i = 0; i &lt; S.length(); i++) {
-            char c = S.charAt</B></FONT>(i);
-            map.put(c, i);
+          Integer count = charCount.get(S.charAt(i));
+          if (count == null) {
+            charCount.put(S.charAt(i), 1);
+          } else {
+            charCount.put(S.charAt(i), count + 1);
+          }
         }
-        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
-        int len = S.length();
-        
-        int lastCount = -1, tmpCount = 0;
-        for (int i = 0; i &lt; len; i++) {
-            tmpCount = Math.max(tmpCount, map.get(S.charAt(i)));
-            if (i == tmpCount) {
-                res.add(tmpCount - lastCount);
-                lastCount = tmpCount;
-                tmpCount++;
+
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        Set&lt;Character&gt; currentPartChars = new HashSet&lt;&gt;();
+        int currentPartSize = 0;
+
+        for (int i = 0; i &lt; S.length(); i++) {
+          currentPartSize++;
+          currentPartChars.add(S.charAt(i));
+          charCount.put(S.charAt(i), charCount.get(S.charAt(i)) - 1);
+<A NAME="0"></A>
+          boolean uniquePartChars = true;
+          for (Character c: currentPartChars) {
+            if (charCount.get(c) &gt; 0) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+              uniquePartChars = false;
+              break;
             }
+          }
+
+<A NAME="1"></A>          if (uniquePartChars) {
+            result.add</B></FONT>(currentPartSize);
+            currentPartChars.clear();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>currentPartSize = 0;
+          }
         }
-        return res;
+
+        return result;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

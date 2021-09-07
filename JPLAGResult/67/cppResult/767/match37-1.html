@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>37_Victor_FW.cpp</TITLE>
+ <TITLE>41_zhengkai2001.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>37_Victor_FW.cpp</CENTER></H3><HR>
+<H3><CENTER>41_zhengkai2001.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-private:
-    int C(int n) {
-        int ans = 0;
-        while (n) {
-            ans += (n &amp; 1);
-            n &gt;&gt;= 1;
-<A NAME="0"></A>        }
-        return ans;
-    }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
-    int countPrimeSetBits(int L, int R) {
-        unordered_set&lt;int&gt; prime({2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
-        int ans = 0;
-        for (int i = L; i &lt;= R; ++i) {
-            int tmp = C(i);
-            if (prime.count(tmp)) {
-                ans++;
-            }
-        }
-        return ans;
-    }
-};</B></FONT>
+<A NAME="0"></A>class Solution {
+public:
+	int countPrimeSetBits(int L, int R) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		int total = 0;
+		for (int i = L; i &lt;= R; i++) {
+			int b = countBits(i);
+			if (isPrime(b)) {
+				total++;
+			}
+		}
+		return total;
+	}</B></FONT>
+
+	int countBits(int n) {
+		int total = 0;
+		while (n &gt; 0) {
+			int r = n % 2;
+			if (r == 1) {
+				total++;
+			}
+			n /= 2;
+		}
+		return total;
+	}
+
+	bool isPrime(int n) {
+		return n == 2 || n == 3 || n == 5 || n == 7 || n == 11 || n == 13 || n == 17 || n == 19;
+	}
+};
 </PRE>
 </BODY>
 </HTML>

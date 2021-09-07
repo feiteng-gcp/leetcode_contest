@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>78_zty263263.cpp</TITLE>
+ <TITLE>470_milu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>78_zty263263.cpp</CENTER></H3><HR>
+<H3><CENTER>470_milu.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; partitionLabels(string S) {
-        int startPos[26];
-        int endPos[26];
-        for(int i=0;i&lt;26;i++){</B></FONT>
-            startPos[i]=-1;
-            endPos[i]=-1;
-        }
-        
-        for(int i=0;i&lt;S.length();i++){
-            if(startPos[S[i]-'a']==-1)
-                startPos[S[i]-'a'] = i;
-            endPos[S[i]-'a'] = i;
-        }
-        
-        int now = 0;
-        
-        int startingPartPos = -1;
-        int endingPartPos = -1;
-        
-        vector&lt;int&gt; sizeOfPart;
-        
-        while(now&lt;S.length()){
-            if(now&gt;endingPartPos){
-                if(startingPartPos&gt;=0)
-                    sizeOfPart.push_back(now-startingPartPos);
-                startingPartPos = now;
-                endingPartPos = endPos[S[now]-'a'];
-            }else{
-                endingPartPos = max(endingPartPos, endPos[S[now]-'a']);
+        unordered_map&lt;char, pair&lt;int, int&gt;&gt; mmap;
+        for (int i=0; i&lt;S.size(); i++) {</B></FONT>
+            if (mmap.find(S[i]) == mmap.end()) {
+                mmap[S[i]] = make_pair(i, i);
             }
-            now++;
+            else {
+                mmap[S[i]].second = max(mmap[S[i]].second, i);
+            }
         }
-        sizeOfPart.push_back(now-startingPartPos);
-        return sizeOfPart;
+        
+        vector&lt;int&gt; ans;
+        int start = -1, end = -1;
+        for (int i=0; i&lt;S.size(); i++) {
+            if (start == -1) {
+                start = mmap[S[i]].first;
+                end = mmap[S[i]].second;
+            }
+            if (i == end) {
+                ans.push_back(end - start + 1);
+                start = -1, end = -1;
+            }
+            else {
+                end = max(end, mmap[S[i]].second);
+            }
+        }
+
+        return ans;
     }
 };
 </PRE>

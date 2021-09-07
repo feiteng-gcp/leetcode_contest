@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>845_grandyang.cpp</TITLE>
+ <TITLE>78_zty263263.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>845_grandyang.cpp</CENTER></H3><HR>
+<H3><CENTER>78_zty263263.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
+    int getBitNum(int number_in){
+        int now = number_in;
+        int bit_num = 0;
+        while(now&gt;0){
+            bit_num += now&amp;0x01;
+            now &gt;&gt;= 1;
+        }
+        return bit_num;
+    }
+    
     int countPrimeSetBits(int L, int R) {
-		int res = 0;
-<A NAME="1"></A>		for (int i = L; i &lt;= R; ++i) {
-			int t = i, cnt = 0;</B></FONT>
-			while (t &gt; 0) {
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (t &amp; 1 == 1) ++cnt;
-				t &gt;&gt;= 1;
-			}
-			bool succ = true;
-			for (int j = sqrt(cnt); j &gt; 1; --j) {
-				if (cnt % j == 0) {
-					succ = false; break;
-				}
-			}
-			if (succ &amp;&amp; cnt != 1) ++res;</B></FONT>
-		}
-		return res;
+        
+        int ansNum = 0;
+        
+        bool isPrime[33];
+        for(int i=0;i&lt;33;i++)</B></FONT>
+            isPrime[i]=false;
+        
+        isPrime[2]=true;
+        isPrime[3]=true;
+        isPrime[5]=true;
+        isPrime[7]=true;
+        isPrime[11]=true;
+        isPrime[13]=true;
+        isPrime[17]=true;
+        isPrime[19]=true;
+        isPrime[23]=true;
+        isPrime[29]=true;
+        isPrime[31]=true;
+        
+        for(int i=L;i&lt;=R;i++){
+            if(isPrime[getBitNum(i)])
+                ansNum++;
+        }
+        
+        return ansNum;
     }
 };
 </PRE>

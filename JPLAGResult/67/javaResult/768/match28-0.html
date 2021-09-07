@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_prakhar15.java</TITLE>
+ <TITLE>385_atherton.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>385_atherton.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public List&lt;Integer&gt; partitionLabels(String S) {
-        int[] freq = new int[26];
-        for (char c : S.toCharArray()) freq[c - 'a']++;
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        int[] curFreq = new int[26];
-        int len = 0;
-<A NAME="0"></A>        for (char c : S.toCharArray()) {
-            curFreq[c - 'a']++;
-            len++;
-            if (isPartition(curFreq, freq)) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                res.add(len);
-                len = 0;
-            }
+public class Solution {
+    public List&lt;Integer&gt; partitionLabels(String s) {
+        int[][] records = new int[26][2];
+        for (int[] record : records)
+            record[0] = record[1] = -1;
+        for (int i = 0; i &lt; s.length(); ++i) {
+            char c = s.charAt(i);
+            int index = c - 'a';
+            if (records[index][0] == -1)
+                records[index][0] = i;
+            else
+                records[index][1] = i;
         }
-        return res;
-    }</B></FONT>
-    
-    private static boolean isPartition(int[] curFreq, int[] freq) {
-        for (int i = 0; i &lt; 26; i++) {
-            if (curFreq[i] != 0 &amp;&amp; curFreq[i] != freq[i]) return false;
-        }
-        return true;
+        Map&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (int[] record : records)
+            if (record[0] != -1)
+                if (record[1] != -1)
+                    map.put(record[0], record[1]);
+                else
+                    map.put(record[0], record[0]);
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+<A NAME="0"></A>        int start = -1, end = 0;
+        for (int i : map.keySet()) {
+            int j = map.get(i);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (start == -1) {
+                start = i;
+                end = j;
+            } else if (i &gt; end) {
+                list.add(end-start+1);
+                start = i;
+                end = j;
+            } else if (</B></FONT>j &gt; end)
+                end = j;
+        }                
+        list.add(end-start+1);
+        return list;
     }
 }
 </PRE>

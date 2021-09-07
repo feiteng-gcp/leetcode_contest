@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_chenguanyu1995.java</TITLE>
+ <TITLE>27_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_chenguanyu1995.java</CENTER></H3><HR>
+<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int orderOfLargestPlusSign(int N, int[][] mines) {
-        int[][] matrix = new int[N][N];
-        for(int i = 0</B></FONT>; i &lt; mines.length; i++){
-            matrix[mines[i][0]][mines[i][1]] = 1;
+<A NAME="2"></A>import java.util.Arrays;
+
+class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int orderOfLargestPlusSign(int N, int[][] mines) {
+<A NAME="3"></A>        int[][] grid = new int[N][N];
+        for (int[] d : grid) {</B></FONT>
+        	Arrays.fill(d, 1);
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#3',2,'match14-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int[] mine : mines) {
+        	grid[mine[0]][mine[1]] = 0;
         }
-<A NAME="1"></A>        int max = 0;
-        for(int j = 0; j &lt; N; j++){
-            for(int k = 0; k &lt; N; k++){
-                max = Math.max(max,<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>align(N,matrix,j,k));
-            }
+        int[][] U = new int[N][N];
+<A NAME="0"></A>        int[][] D = new</B></FONT> int[N][N];
+        int[][] L = new int[N][N];
+        int[][] R = new int[N][N];
+        for (<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int row = 0; row &lt; N; ++row) {
+        	for (int col = 0; col &lt; N; ++col) {
+        		if (grid[row][col] == 0) {
+        			L[row][col] = 0;
+        		} else {</B></FONT>
+        			L[row][col] = 1;
+        			if (col - 1 &gt;= 0) {
+        				L[row][col] += L[row][col - 1];
+        			}
+<A NAME="1"></A>        		}
+        	}
         }
-        return max;
+        for (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int row = 0; row &lt; N; ++row) {
+        	for (int col = N - 1; col &gt;= 0; --col) {
+        		if (grid[row][col] == 0) {
+        			R[row][col] = 0;
+        		} else {</B></FONT>
+        			R[row][col] = 1;
+        			if (col + 1 &lt; N) {
+        				R[row][col] += R[row][col + 1];
+        			}
+        		}
+        	}
+        }
+        for (int col = 0; col &lt; N; ++col) {
+        	for (int row = 0; row &lt; N; ++row) {
+        		if (grid[row][col] == 0) {
+        			U[row][col] = 0;
+        		} else {
+        			U[row][col] = 1;
+        			if (row - 1 &gt;= 0) {
+        				U[row][col] += U[row - 1][col];
+        			}
+        		}
+        	}
+        }
+        for (int col = 0; col &lt; N; ++col) {
+        	for (int row = N - 1; row &gt;= 0; --row) {
+        		if (grid[row][col] == 0) {
+        			D[row][col] = 0;
+        		} else {
+        			D[row][col] = 1;
+        			if (row + 1 &lt; N) {
+        				D[row][col] += D[row + 1][col];
+<A NAME="4"></A>        			}
+        		}
+        	}
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#4',2,'match14-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int res = 0;
+        for (int row = 0; row &lt; N; ++row) {
+        	for (int col = 0; col &lt; N; ++col) {
+        		int d = Integer.MAX_VALUE;</B></FONT>
+<A NAME="5"></A>        		d = Math.min(d, U[row][col]);
+        		d = Math.min(d, D[row][col]);
+        		d = Math.min(d, L[row][col]);
+        		d = Math.min(d, R[<FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#5',2,'match14-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>row][col]);
+        		res = Math.max(res, d);
+        	}
+        }
+        return res;
     }
-    private int align(int N</B></FONT>, int[][] matrix, int j, int k){
-        int count = 0;
-        while((k+count&lt;N &amp;&amp; matrix[j][k+count]==0)
-             &amp;&amp; (j+count&lt;N &amp;&amp; matrix[j+count][k]==0)
-             &amp;&amp; (k-count&gt;=0 &amp;&amp; matrix[j][k-count]==0)
-             &amp;&amp; (j-count&gt;=0 &amp;&amp; matrix[j-count][k]==0)){
-            count++;
-        }
-        return count;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_KakaHiguain.java</TITLE>
+ <TITLE>14_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>16_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public int minSwapsCouples(int[] row) {
-        int n=row.length/2;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] pos=new int[n*2];
-        for (int i=0;i&lt;2*n;i++) pos[row[i]]=i;
-        int ans=0;
-        for (int i=0;i&lt;n;i++)
-        {
-            int x=row[i*2];
-            int z=row[i*2+1];</B></FONT>
-            int y=x^1;
-            int p=pos[y];
-            if (p==i*2+1) continue;
-            int t=row[p]; row[p]=row[i*2+1]; row[i*2+1]=t;
-            pos[z]=p; pos[y]=i*2+1;
-            ans++;
-        }
-        return ans;
+        int res = 0, n = row.length;
+        
+        int[] idx = new int[n];
+        
+        for (int i = 0; i &lt; n; i++) {
+			idx[row[i]] = i;
+		}
+        
+        for (int k = 0; k &lt; n; k += 2) {
+			for (int i = k, j = partner(i), p = partner(row[i]); p != row[j]; 
+                                            i = idx[p], j = partner(i), p = partner(row[i])) {
+				swap(row, j, idx[p]);
+				res++;
+			}
+		}
+        
+        return res;
     }
-}
+<A NAME="0"></A>    
+    private int partner(int k) {
+		return (k &amp; 1) == 0 ? k + 1 : k - 1;
+	}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                 
+    private void swap(int[] nums, int i, int j) {
+		int t = nums[i];
+		nums[i] = nums[j];
+		nums[j] = t;
+	}
+}</B></FONT>
 </PRE>
 
 </BODY>

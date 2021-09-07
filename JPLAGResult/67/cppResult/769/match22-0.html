@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_magica.cpp</TITLE>
+ <TITLE>2_magila.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>20_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>2_magila.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-    vector&lt;vector&lt;bool&gt;&gt; m = vector&lt;vector&lt;bool&gt;&gt;(N, vector&lt;bool&gt;(N, true));
-    vector&lt;vector&lt;int&gt;&gt; top(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; bottom(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; left(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; right(N, vector&lt;int&gt;(N, 0));
-    for (auto&amp; mine: mines) {
-      m[mine[0]][mine[1]] = false;
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        vector&lt;vector&lt;int&gt;&gt; field(N, vector&lt;int&gt;(N, 1));
+        for(const auto&amp; v : mines) field[v[0]][v[1]] = 0;
+        
+        vector&lt;vector&lt;int&gt;&gt; left(N, vector&lt;int&gt;(N, 0));
+        auto right = left;
+        auto up = left;
+        auto down = left;
+        for(int i = 0; i &lt; N; i++)
+        {
+            for(int j = 1; j &lt; N; j++)
+            {
+                left[i][j] = (field[i][j - 1] == 1 ? 1 + left[i][j - 1] : 0);
+                right[i][N - j - 1] = (field[i][N - j] == 1 ? 1 + right[i][N - j] : 0);
+<A NAME="0"></A>                up[j][i] = (field[j - 1][i] == 1 ? 1 + up[j - 1][i] : 0);
+                down[N - j - 1][i] = (field[N - j][i] == 1 ? 1 + down[N - j][i] : 0);
+            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        int ans = 0;
+        for(int i = 0; i &lt; N; i++)
+            for(int j = 0; j &lt; N; j++)
+            {</B></FONT>
+                if (field[i][j] == 1)
+                {
+                    ans = max(ans, 1 + min(min(up[i][j], down[i][j]), min(left[i][j], right[i][j])));
+                }
+            }
+        return ans;
     }
-    for (int i = 0; i &lt; N; ++i) {
-      for (int j = 0; j &lt; N; ++j) {
-        if (m[i][j]) {
-          left[i][j] = (j == 0 ? 0 : left[i][j - 1]) + 1;
-          top[i][j] = (i == 0 ? 0 : top[i - 1][j]) + 1;
-        }
-      }
-    }
-    for (int i = N - 1; i &gt;= 0; --i) {
-      for (int j = N - 1; j &gt;= 0; --j) {
-        if (m[i][j]) {
-<A NAME="0"></A>          right[i][j] = (j == N - 1 ? 0 : right[i][j + 1]) + 1;
-          bottom[i][j] = (i == N - 1 ? 0 : bottom[i + 1][j]) + 1;
-        }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      }
-    }
-    int ans = 0;
-    for (int i = 0; i &lt; N; ++i) {
-      for (int j = 0; j &lt; N; ++j) {</B></FONT>
-        if (m[i][j]) {
-          ans = max(ans, min(min(min(left[i][j], right[i][j]), top[i][j]), bottom[i][j]));
-        }
-      }
-    }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

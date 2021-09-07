@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_prakhar15.java</TITLE>
+ <TITLE>30_xn1990114.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>30_xn1990114.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;Integer&gt; partitionLabels(String S) {
-        int[] freq = new int[26];
-        for (char c : S.toCharArray()) freq[c - 'a']++;
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        int[] curFreq = new int[26];
-        int len = 0;
-<A NAME="0"></A>        for (char c : S.toCharArray()) {
-            curFreq[c - 'a']++;
-            len++;
-            if (isPartition(curFreq, freq)) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                res.add(len);
-                len = 0;
+<A NAME="0"></A>    public List&lt;Integer&gt; partitionLabels(String S) {
+        List&lt;Integer&gt; res=new ArrayList&lt;Integer&gt;();
+        int[] endPos=new int[26];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;S.length();i++){
+            endPos[S.charAt(i)-'a']=i;
+        }
+        int start=0;</B></FONT>
+        while(start&lt;S.length()){
+            int end=start;
+            for(int i=start;i&lt;=end;i++){
+                end=Math.max(end,endPos[S.charAt(i)-'a']);
             }
+            res.add(end-start+1);
+            start=end+1;
         }
         return res;
-    }</B></FONT>
-    
-    private static boolean isPartition(int[] curFreq, int[] freq) {
-        for (int i = 0; i &lt; 26; i++) {
-            if (curFreq[i] != 0 &amp;&amp; curFreq[i] != freq[i]) return false;
-        }
-        return true;
     }
 }
 </PRE>

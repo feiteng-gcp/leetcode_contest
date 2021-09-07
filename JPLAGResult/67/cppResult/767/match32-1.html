@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>441_shaft_.cpp</TITLE>
+ <TITLE>74_tianhao2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>441_shaft_.cpp</CENTER></H3><HR>
+<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
-    bool prime(int n){
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(n &lt;= 1)
-            return false;
-        for(int i = 2; i &lt; n; i++){
-            if(n % i == 0)
-                return false;
-        }
-        return true;
+    // 10^6&lt;2^20
+    int gets(int i){
+        int ret=0;
+        int curr=i;
+<A NAME="0"></A>        while(curr&gt;0){
+            ret+=curr%2;
+            curr=curr&gt;&gt;1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        return ret;
     }
     int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for(int i = L; i &lt;= R; i++){
-            int x = __builtin_popcount(i);
-            if(prime(x))
-                res++;
+        int ret=0;
+        for(int i=L; i&lt;=R; i++){
+            int res=gets(i);
+            //cout&lt;&lt;res&lt;&lt;&quot; &quot;;
+            if(res==2 || res==3 || res==5 || res==7 || res==11 || res==13 || res==17 || res==19){
+                ret++;
+            }
         }
-        return res;
+        return ret;
     }
 };</B></FONT>
 </PRE>

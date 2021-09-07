@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_magica.cpp</TITLE>
+ <TITLE>32_jskswyq.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>20_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>32_jskswyq.cpp</CENTER></H3><HR>
 <PRE>
+
 class Solution {
 public:
-  int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-    vector&lt;vector&lt;bool&gt;&gt; m = vector&lt;vector&lt;bool&gt;&gt;(N, vector&lt;bool&gt;(N, true));
-    vector&lt;vector&lt;int&gt;&gt; top(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; bottom(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; left(N, vector&lt;int&gt;(N, 0));
-    vector&lt;vector&lt;int&gt;&gt; right(N, vector&lt;int&gt;(N, 0));
-    for (auto&amp; mine: mines) {
-      m[mine[0]][mine[1]] = false;
-    }
-    for (int i = 0; i &lt; N; ++i) {
-      for (int j = 0; j &lt; N; ++j) {
-        if (m[i][j]) {
-          left[i][j] = (j == 0 ? 0 : left[i][j - 1]) + 1;
-          top[i][j] = (i == 0 ? 0 : top[i - 1][j]) + 1;
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        set&lt;int&gt; X[510],Y[510];
+<A NAME="0"></A>        for (auto i : mines) {
+            X[i[0]].insert(i[1]);
+            Y[i[1]].insert(i[0]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        int ans = 0;
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) {</B></FONT>
+                auto it = X[i].lower_bound(j);
+                int x2 = N-1, x1 = 0;
+                if (it != X[i].end()) x2 = *it-1;
+                if (it != X[i].begin()) {
+                    it--;
+                    x1 = *it+1;
+                }
+                it = Y[j].lower_bound(i);
+                int y1 = 0, y2 = N-1;
+                if (it != Y[j].end()) y2 = *it-1;
+                if (it != Y[j].begin()) {
+                    it--;
+                    y1 = *it+1;
+                }
+                ans = max(ans,1+min(min(j-x1,x2-j),min(i-y1,y2-i)));
+            }
         }
-      }
+        return ans;
     }
-    for (int i = N - 1; i &gt;= 0; --i) {
-      for (int j = N - 1; j &gt;= 0; --j) {
-        if (m[i][j]) {
-          right[i][j] = (j == N - 1 ? 0 : right[i][j + 1]) + 1;
-<A NAME="0"></A>          bottom[i][j] = (i == N - 1 ? 0 : bottom[i + 1][j]) + 1;
-        }
-      }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
-    int ans = 0;
-    for (int i = 0; i &lt; N; ++i) {
-      for (int j = 0; j &lt; N; ++j) {</B></FONT>
-        if (m[i][j]) {
-          ans = max(ans, min(min(min(left[i][j], right[i][j]), top[i][j]), bottom[i][j]));
-        }
-      }
-    }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

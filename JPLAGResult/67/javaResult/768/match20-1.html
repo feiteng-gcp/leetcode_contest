@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1076_PhilipLi.java</TITLE>
+ <TITLE>10_prakhar15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,62 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1076_PhilipLi.java</CENTER></H3><HR>
+<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        
-        Map&lt;Character, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt;S.length(); i++) {
-<A NAME="1"></A>            char c = S.charAt</B></FONT>(i);
-            if (!map.containsKey(c))
-            map.put(c, new ArrayList&lt;Integer&gt;());
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(c).add(i);
-        }
-        List&lt;Interset&gt; ret = new ArrayList&lt;&gt;();
-        for (Character c : map.keySet()) {
-            List&lt;Integer&gt; list = map.get(c)</B></FONT>;
-            if (list.size() &gt;= 1)
-            ret.add(new Interset(list.get(0), list.get(list.size() - 1)));
-        }
-        Collections.sort(ret, new Comparator&lt;Interset&gt;() {
-            public int compare(Interset i1, Interset i2) {
-                if (i1.st == i2.st) {
-                    return i1.ed - i2.ed;
-                }
-                return i1.st - i2.st;
-            }
-        });
-        int led = -1, lst = -1;
+        int[] freq = new int[26];
+<A NAME="0"></A>        for (char c : S.toCharArray()) freq[c - 'a']++;
         List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        for (Interset i : ret) {
-            if (i.ed &gt; led) {
-                if (i.st &gt;= led) {
-                    res.add(i.ed - i.st + 1);
-                    lst = i.st;
-                    led = i.ed;
-                }
-                else {
-                    res.remove(res.size() - 1);
-                    res.add(i.ed - lst + 1);
-                    led = i.ed;
-                }
+        int[] curFreq = new int[26];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int len = 0;
+        for (char c : S.toCharArray()) {
+            curFreq[c - 'a']++;
+            len++;
+            if (isPartition(curFreq, freq)) {
+                res.add(len);
+                len = 0;
             }
         }
         return res;
-        
     }
     
-    private class Interset {
-        int st;
-        int ed;
-        
-        public Interset(int st, int ed) {
-            this.st = st;
-            this.ed = ed;
+    private static boolean isPartition(int[] curFreq, int[] freq</B></FONT>) {
+        for (int i = 0; i &lt; 26; i++) {
+            if (curFreq[i] != 0 &amp;&amp; curFreq[i] != freq[i]) return false;
         }
+        return true;
     }
-    
 }
 </PRE>
 

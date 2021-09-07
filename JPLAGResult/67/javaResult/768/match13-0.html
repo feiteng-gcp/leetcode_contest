@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_5305519068.java</TITLE>
+ <TITLE>17_chenguanyu1995.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>17_chenguanyu1995.java</CENTER></H3><HR>
 <PRE>
-import java.util.LinkedList;
-import java.util.List;
-
 class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        int[] total = new int[26];
-        for (int i = 0; i &lt; S.length(); ++i) {
-        	total[S.charAt(i) - 'a']++;
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        if(S.length()==0)return list;
+        
+        int count = 0;
+        char[] alphabet = new char[26];
+        for(int i = 0; i &lt; S.length(); i++){
+            alphabet[S.charAt(i)-'a']++;
         }
-        int[] count = new int[26];
-        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
-        for (int i = 0, last = -1; i &lt; S.length(); ++i) {
-        	count[S.charAt(i) - 'a']++;
-        	boolean good = true;
-        	for (int j = 0; j &lt; 26; ++j) {
-        		if (count[j] == 0 || count[j] == total[j]) {
-        			continue;
-        		} else {
-        			good = false;
-<A NAME="0"></A>        			break;
-        		}
-        	}
-        	if (goo<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>d) {
-        		res.add(i - last);
-        		last = i;
-        	}
+        Set&lt;Character&gt; set = new HashSet&lt;&gt;();
+        for(int j = 0; j &lt; S.length(); j++){
+            char temp = S.charAt(j);
+            alphabet[temp-'a']--;
+            if(alphabet[temp-'a']&gt;0){
+                set.add(temp);
+            } else{
+<A NAME="0"></A>                set.remove(temp);
+            }
+            count++;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(set.size()==0){
+                list.add(count);
+                count=0;
+            }
         }
-        return res;
-    }
-}</B></FONT>
+        
+        return list;
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

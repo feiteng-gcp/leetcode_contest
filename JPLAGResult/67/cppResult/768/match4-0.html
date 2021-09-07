@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>78_zty263263.cpp</TITLE>
+ <TITLE>23_Netario36.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>78_zty263263.cpp</CENTER></H3><HR>
+<H3><CENTER>23_Netario36.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
+public:
     vector&lt;int&gt; partitionLabels(string S) {
-        int startPos[26];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int endPos[26];
-        for(int i=0;i&lt;26;i++){
-            startPos[i]=-1;
-            endPos[i]=-1;
+        vector&lt;int&gt; ret;
+        vector&lt;pair&lt;int, int&gt;&gt; arr;
+        for (char c = 'a'; c &lt;= 'z'; ++ c) {
+            int p = INT_MAX, q = INT_MIN;
+            for (int i = 0; i &lt; S.size(); ++ i)
+                if (S[i] == c) {
+                    p = min(i, p);
+                    q = max(i, q);
+                }
+            if (p &lt;= q) arr.push_back(make_pair(p, q));
         }
-        
-        for(int i=0;i&lt;S.length();i++){</B></FONT>
-            if(startPos[S[i]-'a']==-1)
-                startPos[S[i]-'a'] = i;
-            endPos[S[i]-'a'] = i;
-        }
-        
-        int now = 0;
-        
-        int startingPartPos = -1;
-        int endingPartPos = -1;
-        
-        vector&lt;int&gt; sizeOfPart;
-        
-        while(now&lt;S.length()){
-            if(now&gt;endingPartPos){
-                if(startingPartPos&gt;=0)
-                    sizeOfPart.push_back(now-startingPartPos);
-                startingPartPos = now;
-                endingPartPos = endPos[S[now]-'a'];
-            }else{
-                endingPartPos = max(endingPartPos, endPos[S[now]-'a']);
+<A NAME="0"></A>        sort(arr.begin(), arr.end(), [](pair&lt;int, int&gt;&amp; a, pair&lt;int, int&gt;&amp; b){ return a.first &lt; b.first; });
+        int i = 0;
+        while (i &lt; arr.size()) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int j = i;
+            while (j + 1 &lt; arr.size() &amp;&amp; arr[j + 1].first &lt;= arr[i].second) {
+                arr[i].second = max(arr[i].second, arr[j + 1].second);
+                j ++;
             }
-            now++;
+            ret.push_back(arr[i].second - arr[i].first + 1);
+            i = j + 1;
         }
-        sizeOfPart.push_back(now-startingPartPos);
-        return sizeOfPart;
+        return ret;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1_fsqhxrcjw.cpp</TITLE>
+ <TITLE>12___Chaos__.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1_fsqhxrcjw.cpp</CENTER></H3><HR>
+<H3><CENTER>12___Chaos__.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;int&gt; partitionLabels(string S) {
-        vector&lt;int&gt; cntall(26, 0);
-        for (auto c : S) ++cntall[c-'a'];
-<A NAME="0"></A>        
-        vector&lt;int&gt; ans;
-        vector&lt;int&gt; cntnow(26, 0);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int start = 0;
-        for (int end=0; end&lt;S.size(); ++end) {
-            ++cntnow[S[end]-'a'];
-            bool valid = true;
-            for (int i=0; i&lt;26; ++i)</B></FONT>
-                if (cntnow[i]!=0 &amp;&amp; cntnow[i]!=cntall[i]) {
-                    valid = false;
-                    break;
-                }
-            
-            if (valid) {
-                ans.push_back(end-start+1);
-                fill(cntnow.begin(), cntnow.end(), 0);
-                start = end+1;
-            }
-        }
-        return ans;
+  vector&lt;int&gt; partitionLabels(string S) {
+    int n = S.size();
+    set&lt;char&gt; in;
+    map&lt;char, int&gt; last;
+    for (int i = 0; i &lt; n; ++i) {
+<A NAME="0"></A>      last[S[i]] = i;
     }
-};
+    vector&lt;int&gt; res;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; ++i) {
+      in.insert(S[i]);
+      int r = last[S[i]];
+      for (int j = i; j &lt;= r; ++j) {
+        r = max(r, last[S[j]]);
+      }
+      res.push_back(r - i + 1);
+      i = r;
+    }
+    return res;
+  }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>628_dattaabhishek.cpp</TITLE>
+ <TITLE>73_ZYCSwing.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>628_dattaabhishek.cpp</CENTER></H3><HR>
+<H3><CENTER>73_ZYCSwing.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int cnt(int x) {
+        int res = 0;
+        while (x) {
+            ++res;
+            x &amp;= x - 1;
+        }
+        return res;
+    }
+    bool prime(int x) {
+        if (x == 1) return false;
+        for (int i = 2; i &lt;= sqrt(x); ++i) {
+            if (x % i == 0) return false;
+        }
+        return true;
+    }
 public:
     int countPrimeSetBits(int L, int R) {
-        int prime = 0;
-        for (int i=L; i&lt;=R; i++) {
-            int n = i;
-            int count = 0;
-            while (n)
-            {
-                count += n &amp; 1;
-                n &gt;&gt;= 1;
-            }
-            if(count == 2 || count == 3 || count == 5 || count == 7 || count == 11 || count == 13 || count == 17 || count == 19)
-                prime++;
+        int res = 0;
+        for (int i = L; i &lt;= R; ++i) {
+            if (prime(cnt(i))) ++res;
         }
-        return prime;
+        return res;
     }
 };</B></FONT>
 </PRE>

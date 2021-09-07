@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1107_eeriee.cpp</TITLE>
+ <TITLE>470_milu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1107_eeriee.cpp</CENTER></H3><HR>
+<H3><CENTER>470_milu.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    struct slot {
-        int start;
-        int end;
-    };
-    static bool cmp(slot&amp; a, slot&amp; b) {
-        return a.start &lt; b.start;
-    }
-<A NAME="0"></A>    vector&lt;int&gt; partitionLabels(string S) {
-        unordered_map&lt;char, slot&gt; char_map;
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; S.size(); ++i){
-            if(char_map.find(S[i]) == char_map.end()){
-                char_map[S[i]].start = i;
-                char_map[S[i]].end = i;
-            } else {
-                char_map[S[i]].end = i;
+    vector&lt;int&gt; partitionLabels(string S) {
+        unordered_map&lt;char, pair&lt;int, int&gt;&gt; mmap;
+        for (int i=0; i&lt;S.size(); i++) {
+            if (mmap.find(S[i]) == mmap.end()) {
+                mmap[S[i]] = make_pair(i, i);
             }
-        }</B></FONT>
-        vector&lt;slot&gt; slots;
+            else {
+                mmap[S[i]].second = max(mmap[S[i]].second, i);
+<A NAME="0"></A>            }
+        }
         
-        for(auto element: char_map){
-            char c = element.first;
-            slots.push_back(element.second);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; ans;
+        int start = -1, end = -1;
+        for (int i=0; i&lt;S.size(); i++) {
+            if (start == -1) {
+                start = mmap[S[i]].first;
+                end = mmap[S[i]].second;
+            }</B></FONT>
+            if (i == end) {
+                ans.push_back(end - start + 1);
+                start = -1, end = -1;
+            }
+            else {
+                end = max(end, mmap[S[i]].second);
+            }
         }
-        sort(slots.begin(), slots.end(), cmp);
-        int start = 0;
-        int end = 0;
-        vector&lt;int&gt; res;
-        bool isbegin = true;
-        if(S.empty()){return res;}
-        for(slot s: slots) {
-            if(isbegin){
-                end = s.end;
-                isbegin = false;
-            } 
-            if(s.start &gt; end) {
-                res.push_back(end - start + 1);
-                start = s.start;
-                end = s.end;
-            } 
-            start = min(s.start, start);
-            end = max(end, s.end);
-        }
-        res.push_back(end-start+1);
-        return res;
+
+        return ans;
     }
 };
 </PRE>

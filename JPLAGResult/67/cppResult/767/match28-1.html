@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>287_peace.cpp</TITLE>
+ <TITLE>23_Netario36.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>287_peace.cpp</CENTER></H3><HR>
+<H3><CENTER>23_Netario36.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    bool isPrime(int n) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(n == 1) return false;
-        int nr = sqrt(n);
-        for(int i = 2; i &lt;= nr; i++) {
-            if(n % i == 0) return false;
+    int countPrimeSetBits(int L, int R) {
+        int ret = 0;
+        for (int i = L; i &lt;= R; ++ i) {
+            int cnt = 0, tmp = i;
+            while (tmp != 0) {
+                cnt += (tmp % 2 == 1);
+                tmp /= 2;
+            }
+            if (cnt &lt; 2) continue;</B></FONT>
+            bool h = true;
+            for (int j = 2; j &lt;= sqrt(cnt); ++ j)
+                if (cnt % j == 0) {
+                    h = false;
+                    break;
+                }
+            if (h) ret ++;
         }
-        return true;
+        return ret;
     }
-    int cntSetBits(int n) {
-        int res = 0;
-        while(n) {</B></FONT>
-            if(n % 2 == 1) res++;
-            n /=2;
-<A NAME="1"></A>        }
-        return res;
-    }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for(int n = L; n &lt;= R; n++) {
-            if(isPrime(cntSetBits(n))) res++;
-        }
-        return res;
-    }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

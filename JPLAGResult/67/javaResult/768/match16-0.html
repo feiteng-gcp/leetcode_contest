@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>847_hershey.java</TITLE>
+ <TITLE>360_yang_m.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>847_hershey.java</CENTER></H3><HR>
+<H3><CENTER>360_yang_m.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    
-    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public static final class Range implements Comparable {
-        
-        private final int start;
-        private final int end;
-        
-        public Range(int start, int end) {
-            this.start = start;
-            this.end = end;
+class Solution {
+    public List&lt;Integer&gt; partitionLabels(String S) {
+        int[] last = new int[26];
+        Arrays.fill(last, -1);
+        for(int i = S.length() - 1; i &gt;= 0; i--) {
+            int pos = S.charAt(i) - 'a';
+            if(last[pos] == -1) {
+                last[pos] = i;
+            }
         }
-        
-        public in</B></FONT>t compareTo(Object o) {
-            return Integer.compare(start, ((Range)o).start);
+
+        int start = 0;
+        List&lt;Integer&gt; ans = new ArrayList&lt;Integer&gt;();
+
+        while(start &lt; S.length()) {
+<A NAME="0"></A>            int tmp = start;
+            int end = last[S.charAt(start) - 'a'];
+           // System.out.println(end);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int w = start; w &lt;= end; w++) {
+                end = Math.max(end, last[S.charAt(w) - 'a']);
+            }
+            ans.add(end - start + 1);
+            start = end + 1;
         }
-<A NAME="1"></A>        
+
+        return ans;
     }
-    
-    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;Integer&gt; partitionLabels(String input) {
-        Map&lt;Character, Range&gt; rangesMap = new HashMap&lt;&gt;();
-        for(int i = 0; i &lt; input.length(); i++) {
-            char character = input.charAt(i);
-            if(!rangesMap.containsKey(character)) {
-                rangesMap.put(character, new Range(i, i));
-            } else {</B></FONT>
-                rangesMap.put(character, new Range(rangesMap.get(character).start, i));
-            }
-        }
-        
-        List&lt;Range&gt; ranges = new ArrayList(rangesMap.values());
-        Collections.sort(ranges);
-        
-        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
-        
-        int maxForThisRange = -1;
-        int lowForThisRange = -1;
-        
-        for(Range range : ranges) {
-            if(lowForThisRange == -1) {
-                lowForThisRange = range.start;
-                maxForThisRange = range.end;
-            }
-            
-            if(range.start &gt; maxForThisRange) {
-                result.add(maxForThisRange - lowForThisRange + 1);
-                maxForThisRange = range.end;
-                lowForThisRange = range.start;
-            }
-            
-            if(range.end &gt; maxForThisRange) {
-                maxForThisRange = range.end;
-            }
-        }
-        
-        result.add(maxForThisRange - lowForThisRange + 1);
-        
-        return result;
-    }
-    
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

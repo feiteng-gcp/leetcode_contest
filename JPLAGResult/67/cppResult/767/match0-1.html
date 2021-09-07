@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_quanxie.cpp</TITLE>
+ <TITLE>437_maxxxm.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>52_quanxie.cpp</CENTER></H3><HR>
+<H3><CENTER>437_maxxxm.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-public:
-    int countPrimeSetBits(int L, int R) {
+    int countBits(int x) {
         int res = 0;
-        for (int i = L; i &lt;= R; i++){
-            int tmp = i;
-            int cnt = 0;
-            while (tmp &gt; 0){
-                // cout&lt;&lt;tmp&lt;&lt;&quot; &quot;&lt;&lt;cnt&lt;&lt;endl;
-                cnt = cnt + (tmp &amp; 1);
-                tmp = tmp &gt;&gt; 1;
-            }
-            // cout&lt;&lt;cnt&lt;&lt;endl;
-            if (cnt == 2 || cnt == 3 || cnt == 5 || cnt == 7 || cnt == 11 || cnt == 13 || cnt == 17 || cnt == 19)
-                res++;
-            // cout&lt;&lt;res&lt;&lt;endl;
+        while (x &gt; 0) {
+            res += (x &amp; 1);
+            x &gt;&gt;= 1;
         }
+        
         return res;
+    }
+    
+    bool isPrime(int x) {
+        if (x == 1)
+            return false;
+        
+        for (int d = 2; d &lt; x; d++) {
+            if (x % d == 0)
+                return false;
+        }
+        
+        return true;
+    }
+    
+public:
+    
+    
+    int countPrimeSetBits(int L, int R) {
+        int ans = 0;
+        
+        for (int x = L; x &lt;= R; x++) {
+            if (isPrime(countBits(x)))
+                ans++;
+        }
+        
+        return ans;
     }
 };</B></FONT>
 </PRE>

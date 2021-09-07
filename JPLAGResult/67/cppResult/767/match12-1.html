@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1126_cheissmart.cpp</TITLE>
+ <TITLE>29_lxymmd.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1126_cheissmart.cpp</CENTER></H3><HR>
+<H3><CENTER>29_lxymmd.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int set(int n) {
-        int ct = 0;
-        while(n) {
-            ct += n % 2;
-            n /= 2;
+    bool isOK(int n){
+        if(n == 2 || n == 3 || n == 5 || n == 7 || n == 11 || n == 13 || n == 17 || n == 19 || n == 23 || n == 29 || n == 31 || n == 37)
+            return true;
+<A NAME="0"></A>        else return false;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int cntBit(int n){
+        int res = 0;
+        while(n){
+            n = n &amp; (n-1);
+            res++;
         }
-        return ct;
-    }
-<A NAME="1"></A>    bool isprime(int n) {
-        if(n &lt; 2) return false;
-        for(int i=2;i*i&lt;=n;i++) if(n % i == 0) return false;</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return true;
-    }
+        return res;
+<A NAME="1"></A>    }</B></FONT>
+    
     int countPrimeSetBits(int L, int R) {
-        int ct = 0;
-        for(int i=L;i&lt;=R;i++) {</B></FONT>
-            if(isprime(set(i))) ct++;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for(int i = L; i &lt;= R; i++){
+            int bit = cntBit(i);
+            //cout &lt;&lt; bit &lt;&lt; endl;
+            if(isOK(bit)){
+                cnt++;
+            }
         }
-        return ct;
+        return cnt;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

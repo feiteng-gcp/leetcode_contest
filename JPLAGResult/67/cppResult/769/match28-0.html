@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>8_cchao.cpp</TITLE>
+ <TITLE>3_NEU20133823.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,65 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>8_cchao.cpp</CENTER></H3><HR>
+<H3><CENTER>3_NEU20133823.cpp</CENTER></H3><HR>
 <PRE>
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-#define REP(i, n) for (int i = 0; i &lt; int(n); ++i)
-#define REPE(i, a, b) for (int i = (a); i &lt;= int(b); ++i)
-#define SZ(x) ((int)(x).size())
-#define ALL(x) x.begin(), x.end()
-#define PB push_back
-#define EB emplace_back
-using LL = long long;
-using PII = pair&lt;int, int&gt;;
-#define F first
-#define S second
-void R(int &amp;x) { scanf(&quot;%d&quot;, &amp;x); }
-void R(LL &amp;x) { scanf(&quot;%lld&quot;, &amp;x); }
-void R(double &amp;x) { scanf(&quot;%lf&quot;, &amp;x); }
-template &lt;typename T&gt; void R(T &amp;t) { cin &gt;&gt; t; }
-template &lt;typename T&gt; void R(vector&lt;T&gt; &amp;ar) {
-  for (auto &amp;it : ar)
-    R(it);
-}
-template &lt;typename T, typename... Args&gt; void R(T &amp;t, Args &amp;... args) {
-  R(t);
-  R(args...);
-}
-
-int a[555][555];
-<A NAME="0"></A>int d1[555][555];
-int d2[555][555];
-int d3[555][555];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int d4[555][555];
 class Solution {
 public:
-  int orderOfLargestPlusSign(int n, vector&lt;vector&lt;int&gt;&gt; &amp;mines) {
-    memset(a, 0, sizeof a);
-      memset(d1, 0, sizeof d1);
-      memset(d2, 0, sizeof d2);
-      memset(d3, 0, sizeof d3);
-      memset(d4, 0, sizeof d4);</B></FONT>
-    REPE(i, 1, n) REPE(j, 1, n) a[i][j] = 1;
-    for (auto x : mines)
-      a[x[0]+1][x[1]+1] = 0;
-    REPE(i, 1, n) REPE(j, 1, n) {
-      d1[i][j] = a[i][j] == 0 ? 0 : 1 + d1[i - 1][j];
-      d2[i][j] = a[i][j] == 0 ? 0 : 1 + d2[i][j - 1];
+    int g[505][505];
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        for(int i=0;i&lt;N;i++)
+	{
+		for(int j=0;j&lt;N;j++)
+		{
+			g[i][j]=1;
+		}
+	}
+	int cnt=mines.size();
+	for(int i=0;i&lt;cnt;i++)
+<A NAME="0"></A>	{
+		g[mines[i][0]][mines[i][1]]=0;
+	}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	int ans=0;
+	for(int i=0;i&lt;N;i++)
+	{
+		for(int j=0;j&lt;N;j++)
+		{</B></FONT>
+			for(int c=0;;c++)
+			{
+				if(i-c&gt;=0&amp;&amp;j-c&gt;=0&amp;&amp;i+c&lt;N&amp;&amp;j+c&lt;N&amp;&amp;g[i-c][j]&amp;&amp;g[i][j-c]&amp;&amp;g[i+c][j]&amp;&amp;g[i][j+c])continue;
+				ans=max(ans,c);
+				break;
+			}
+		}
+	}
+	return ans;
     }
-    for (int i = n; i &gt;= 1; --i) for (int j = n; j &gt;= 1; --j) {
-      d3[i][j] = a[i][j] == 0 ? 0 : 1 + d3[i + 1][j];
-      d4[i][j] = a[i][j] == 0 ? 0 : 1 + d4[i][j + 1];
-    }
-    int ans = 0;
-    REPE(i, 1, n) REPE(j, 1, n) {
-      int x = min(d1[i][j], d2[i][j]);
-      int y = min(d3[i][j], d4[i][j]);
-      ans = max(ans, min(x, y));
-    }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

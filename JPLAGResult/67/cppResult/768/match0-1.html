@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>131_Poohdxx.cpp</TITLE>
+ <TITLE>22_zl1zl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>131_Poohdxx.cpp</CENTER></H3><HR>
+<H3><CENTER>22_zl1zl.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;int&gt; partitionLabels(string S) {
-        const int n = S.size();
-        if (n == 0) return {};
-        unordered_map&lt;char, pair&lt;int, int&gt;&gt; hash;
-        for (int i = 0; i &lt; n; i++) {
-            if (hash.find(S[i]) == hash.end()) {
-                hash[S[i]] = {i,i};
-            }
-            else {
-<A NAME="0"></A>                hash[S[i]].second = i;
-            }
+        vector&lt;int&gt; last(26, -1);
+        for(int i=0; i&lt;S.size(); ++i) {
+<A NAME="1"></A>            last[S[i] - 'a'] = i;</B></FONT>
         }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int p = 0;
         vector&lt;int&gt; res;
-        while (p &lt; n) {
-            int start = p;
-            int end = hash[S[p]].second;
-            while (p &lt; end) {
-                p++;
-                end = max(end, hash[S[p]].second);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;S.size(); ) {
+            int cur_end = last[S[i] - 'a'];
+            int j = i+1;
+            while(j&lt;= cur_end) {
+                cur_end = max(last[S[j] - 'a'], cur_end);
+                ++j;
             }
-            res.push_back(end-start+1);
-            p++;
-            
-            
+            res.push_back(j - i);
+            i = j;
         }
         return res;
     }

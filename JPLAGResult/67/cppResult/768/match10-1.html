@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1054_HinderKing.cpp</TITLE>
+ <TITLE>196_sachin34.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1054_HinderKing.cpp</CENTER></H3><HR>
+<H3><CENTER>196_sachin34.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;int&gt; partitionLabels(string S) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;char, int&gt; beginindex, endindex;
-        for (int i = 0; i&lt;S.size(); i++) {
-            if (beginindex.count(S[i]) == 0) {
-                beginindex[S[i]] = i;
-            }
-            endindex[S[i]] = i;</B></FONT>
-        }
-        auto it1 = beginindex.begin();
-        auto it2 = endindex.begin();
-        vector&lt;pair&lt;int, int&gt;&gt; ranges;
-        while (it1 != beginindex.end() &amp;&amp; it2 != endindex.end()) {
-            ranges.push_back(make_pair(it1-&gt;second, it2-&gt;second));
-            it1++;
-            it2++;
-        }
-        sort(ranges.begin(), ranges.end(), [](const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b) {
-            return (a.first&lt;b.first || (a.first == b.first &amp;&amp; a.second&lt;b.second));
-        });
-        vector&lt;int&gt; res;
-        int leftside = 0, rightside = 0;
-        int i = 0;
-        for (; i&lt;ranges.size(); i++) {
-            if (rightside&lt;ranges[i].first) {
-                res.push_back(rightside - leftside + 1);
-                leftside = ranges[i].first;
-                rightside = ranges[i].second;
-            }
-            else {
-                rightside = max(rightside, ranges[i].second);
+        unordered_map&lt;char, int&gt; charPos;
+        for (int i = S.length() - 1; i &gt;= 0; i--) {</B></FONT>
+            if (charPos.count(S[i]) == 0) {
+                charPos[S[i]] = i;
             }
         }
-        if (ranges.size() &gt; 0) {
-            res.push_back(S.size()- leftside);
+        vector&lt;int&gt; ans;
+        int prev_cut = 0;
+        int tentative = 1;
+        int pos = 0;
+        while (pos &lt; S.length()) {
+            while(pos &lt; tentative) {
+               if (charPos[S[pos]] + 1 &gt; tentative) {
+                   tentative = charPos[S[pos]] + 1;
+               } else {
+                   
+               }   
+                pos++;
+            }
+            ans.push_back(tentative - prev_cut);
+            prev_cut = tentative;
+            tentative++;
         }
-
-        return res;
+        return ans;
     }
+    
 };
 </PRE>
 </BODY>

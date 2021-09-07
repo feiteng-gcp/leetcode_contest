@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_nevergiveup.java</TITLE>
+ <TITLE>5_uwi.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,80 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>11_nevergiveup.java</CENTER></H3><HR>
+<H3><CENTER>5_uwi.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-	private static int[][] left = new int[510][510];
-	private static int[][] right = new int[510][510];
-	private static int[][] up = new int[510][510];
-	private static int[][] down = new int[510][510];
-	private static int[][] matrix = new int[510][510];
-	
-    public int orderOfLargestPlusSign(int N, int[][] mines) {
-     
-<A NAME="0"></A>    	int i , j;
-    	for (i = 0;i &lt; N;i ++) {
-    		for (j = 0;j &lt; N;j ++) {
-    			left[i][j] = right[i][j] = up[i][j] = down[i][j] = matrix[i][j] = 0;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-    		}
-    	}
-    	for (int[] array : mines) {
-    		matrix[array[0]][array[1]] = 1;
-    	}</B></FONT>
-    	for (i = 0;i &lt; N;i ++) {
-    		for (j = 0;j &lt; N;j ++) {
-    			if (matrix[i][j] == 0) {
-    				int from = j , to = j , total = 0;
-    				while (j &lt; N &amp;&amp; matrix[i][j] == 0) {
-    					total ++;
-    					to = j;
-    					j ++;
-    				}
-    				int value1 = 0 , value2 = total - 1;
-    				for (int k = from;k &lt;= to;k ++) {
-    					left[i][k] = value1;
-    					right[i][k] = value2;
-    					value1 ++;
-    					value2 --;
-    				}
-    			}
-    		}
-    	}
-    	for (j = 0;j &lt; N;j ++) {
-    		for (i = 0;i &lt; N;i ++) {
-    			if (matrix[i][j] == 0) {
-    				int from = i , to = i , total = 0;
-    				while (i &lt; N &amp;&amp; matrix[i][j] == 0) {
-    					total ++;
-    					to = i;
-    					i ++;
-    				}
-    				int value1 = 0 , value2 = total - 1;
-    				for (int k = from;k &lt;= to;k ++) {
-    					up[k][j] = value1;
-    					down[k][j] = value2;
-    					value1 ++;
-    					value2 --;
-    				}
-    			}
-    		}
-    	}
-    	int ans = 0;
-    	for (i = 0;i &lt; N;i ++) {
-    		for (j = 0;j &lt; N;j ++) {
-    			if (matrix[i][j] == 0) {
-    				int temp = Math.min(Math.min(up[i][j] , down[i][j]) , Math.min(left[i][j] , right[i][j]));
-    				temp ++;
-<A NAME="1"></A>    				if (temp &gt; ans) {
-    					ans = temp;
-    				}
-    			}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-    		}
-    	}
-    	return ans;
-    	
-    }</B></FONT>
-}
+<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
+	    public int orderOfLargestPlusSign(int n, int[][] mines) {
+	        int[][] a = new int[n][n];
+	        for(int i = 0;i &lt; n;</B></FONT>i++)Arrays.fill(a[i], 1);
+	        for(int[] mine : mines)a[mine[0]][mine[1]] = 0;
+	        int[][][] all = makeAll(a);
+	        int ret = 0;
+	        for(int i = 0;i &lt; n;i++){
+	        	for(int j = 0;j &lt; n;j++){
+	        		int ord = 999999;
+<A NAME="1"></A>	        		for(int k = 0;k &lt; 4;k++){
+	        			ord = Math.min(ord, all[k][i][j]);
+	        		}
+	        		ret = Math.max(ret, ord);<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	        	}
+	        }
+	        return ret;
+	    }
+	    
+		public int[][] rot(int[][] a)</B></FONT>
+		{
+			int n = a.length, m = a[0].length;
+			int[][] b = new int[m][n];
+			for(int i = 0;i &lt; n;i++){
+				for(int j = 0;j &lt; m;j++){
+					b[j][n-1-i] = a[i][j];
+				}
+			}
+			return b;
+		}
+	    
+		public int[][][] makeAll(int[][] a)
+		{
+			int[][][] ret = new int[4][][];
+			ret[0] = down(a);
+			a = rot(a);
+			ret[1] = rot(rot(rot(down(a))));
+			a = rot(a);
+			ret[2] = rot(rot(down(a)));
+			a = rot(a);
+			ret[3] = rot(down(a));
+			// a = rot(a);
+			return ret;
+		}
+	    
+		public int[][] down(int[][] map)
+		{
+			int n = map.length, m = map[0].length;
+			int[][] ret = new int[n][m];
+			for(int i = n-1;i &gt;= 0;i--){
+				for(int j = 0;j &lt; m;j++){
+					ret[i][j] = i == n-1 ? 1 : ret[i+1][j] + 1;
+					if(map[i][j] == 0)ret[i][j] = 0;
+				}
+			}
+			return ret;
+		}
+	}	
 </PRE>
 
 </BODY>

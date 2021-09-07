@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>242_Grant6899.cpp</TITLE>
+ <TITLE>21_szp14.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>242_Grant6899.cpp</CENTER></H3><HR>
+<H3><CENTER>21_szp14.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        
-        for(int i = L; i &lt;= R; ++i){
-           // cout &lt;&lt; i &lt;&lt; &quot;:&quot; &lt;&lt; countBit(i) &lt;&lt; endl;
-            if(isPrime(countBit(i)))
-                ++res;
+        set&lt;int&gt; primeSet = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+<A NAME="1"></A>    int ans = 0;</B></FONT>
+    for(int i = L; i &lt;= R; i++)
+    {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int N = i, cnt = 0;
+        while(N)
+        {
+            cnt += N &amp; 1;
+            N &gt;&gt;= 1;
         }
-        return res;
+        if(primeSet.find(cnt) != primeSet.end()) ans++;
     }
-<A NAME="1"></A>
-private:
-    bool isPrime(int num){</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(num &lt;= 1)
-            return false;
-        
-        for(int i = 2; i &lt;= sqrt(num); ++i){
-            if (num % i == 0)
-                return false;
-        }
-        return true;
-    }</B></FONT>
-    
-    int countBit(int num){
-        int count = 0;
-        while(num !=0){
-            if(num % 2)
-                count++;
-            num /= 2;
-        }
-        return count;
+    return ans;
     }
-    
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

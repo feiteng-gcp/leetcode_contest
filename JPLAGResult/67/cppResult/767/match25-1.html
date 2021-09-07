@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>448_zikostav.cpp</TITLE>
+ <TITLE>294_shaobol.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>448_zikostav.cpp</CENTER></H3><HR>
+<H3><CENTER>294_shaobol.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
     int countPrimeSetBits(int L, int R) {
-        int cnt = 0;
-<A NAME="1"></A>    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int result = 0;
         for (int i = L; i &lt;= R; i++) {
-         //   cout &lt;&lt; i &lt;&lt;  endl;
-            int num = i, bits = 0;</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-            while (num) {
-                num = num &amp; (num - 1);
-                bits++;
-            }
-        //    cout &lt;&lt; bits &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; endl;
-            if (isprime(bits)) {
-                cnt++;
-            }
+            if (isPrime(getSetBit(i))) result++;
         }
-        return cnt;
+        return result;
     }
     
-    bool isprime(int num) {</B></FONT>
-        if (num &lt; 2) return false;
-        if (num == 2) return true;
-        for (int i = 2; i * i &lt;= num; i++) if (num % i == 0) return false;
+    int getSetBit(int a) {
+        int result = 0;
+        while(a &gt; 0) {
+            if (a % 2) result++;
+            a = a / 2;
+        }
+        return result;
+    }</B></FONT>
+    
+    bool isPrime(int a) {
+        if (a == 1) return false;
+        int n = sqrt(a);
+        for (int i = 2; i &lt;= n; i++) {
+            if ((a % i) == 0) return false;
+        }
         return true;
     }
 };

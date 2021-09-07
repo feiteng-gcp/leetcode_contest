@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_quanxie.cpp</TITLE>
+ <TITLE>413_linyu203.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>52_quanxie.cpp</CENTER></H3><HR>
+<H3><CENTER>413_linyu203.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
+    int countset(int d){
+        d = (d&amp;0x55555555) + ((d&gt;&gt;1)&amp;0x55555555);
+        d = (d&amp;0x33333333) + ((d&gt;&gt;2)&amp;0x33333333);
+        d = (d&amp;0x0f0f0f0f) + ((d&gt;&gt;4)&amp;0x0f0f0f0f);
+        d = d+(d&gt;&gt;8);
+        d = d+(d&gt;&gt;16);
+        return d&amp;0x3f;
+    }
 public:
     int countPrimeSetBits(int L, int R) {
-        int res = 0;
-        for (int i = L; i &lt;= R; i++){
-            int tmp = i;
-            int cnt = 0;
-            while (tmp &gt; 0){
-                // cout&lt;&lt;tmp&lt;&lt;&quot; &quot;&lt;&lt;cnt&lt;&lt;endl;
-                cnt = cnt + (tmp &amp; 1);
-                tmp = tmp &gt;&gt; 1;
+
+        vector&lt;bool&gt;res(33,true);
+        res[1] = false;
+        for(int i = 2; i &lt; 33; i++){
+            if(res[i]){
+                int j = i+i;
+<A NAME="0"></A>                while(j&lt;33) {res[j] = false; j+=i;}
             }
-            // cout&lt;&lt;cnt&lt;&lt;endl;
-            if (cnt == 2 || cnt == 3 || cnt == 5 || cnt == 7 || cnt == 11 || cnt == 13 || cnt == 17 || cnt == 19)
-                res++;
-            // cout&lt;&lt;res&lt;&lt;endl;
         }
-        return res;</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int out = 0;
+        for(int  i = L; i &lt;= R; i++){
+            int tmp = countset(i);
+            if(res[tmp]){
+                out++;
+            }
+        }
+        return out;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

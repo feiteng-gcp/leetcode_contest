@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>194_wyattliu.cpp</TITLE>
+ <TITLE>1_fsqhxrcjw.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>194_wyattliu.cpp</CENTER></H3><HR>
+<H3><CENTER>1_fsqhxrcjw.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int minSwapsCouples(vector&lt;int&gt;&amp; row) {
-        int sz = row.size();
-        vector&lt;int&gt; mp(sz, 0);
-        for (int i = 0; i &lt; sz; i++) {</B></FONT>
-            mp[row[i]] = i;
-        }
-        int cnt = 0;
-        for (int i = 0; i &lt; sz; i += 2) {
-            if (row[i] / 2 != row[i + 1] / 2) {
-                cnt++;
-                int idx = mp[row[i] % 2 ? row[i] - 1 : row[i] + 1];
-                row[idx] = row[i + 1];
-                mp[row[i + 1]] = idx;
+        int n = row.size();
+        vector&lt;int&gt; pos(n, 0);
+        for (int i=0; i&lt;n; ++i)
+            pos[row[i]] = i;</B></FONT>
+        int ans = 0;
+        for (int i=0; i&lt;n; i+=2) 
+            if (pos[row[i]^1]==i+1) 
+                continue;
+            else {
+                int&amp; p = pos[row[i]^1];
+                int&amp; s = pos[row[i+1]];
+                s = p;
+                p = i+1;
+                swap(row[p], row[s]);
+                ++ans;
             }
-        }
-        return cnt;
+        
+        return ans;
     }
 };
 </PRE>

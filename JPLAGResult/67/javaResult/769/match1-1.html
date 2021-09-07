@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1023_aarnp.java</TITLE>
+ <TITLE>14_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1023_aarnp.java</CENTER></H3><HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-        int[][] grid = new int[N][N];   
+        int[][] grid = new int[N][N];
+        
+        for (int i = 0; i &lt; N; i++) {</B></FONT>
+            Arrays.fill(grid[i], 1);
+        }
+        
+        for (int[] m : mines) {
+            grid[m[0]][m[1]] = 0;
+        }
+        
+        int[][] dpL = new int[N][N];
+        int[][] dpR = new int[N][N];
+        int[][] dpU = new int[N][N];
+        int[][] dpD = new int[N][N];
+        
         for (int i = 0; i &lt; N; i++) {
             for (int j = 0; j &lt; N; j++) {
-                grid[i][j] = 1;
-<A NAME="0"></A>            }
-        }
-
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; mines.length; i++) {
+                if (grid[i][j] != 0) dpL[i][j] = 1 + (j == 0 ? 0 : dpL[i][j - 1]);
+            }
             
-                grid[mines[i][0]][mines[i][1]] = 0;
-            
+            for (int j = N - 1; j &gt;= 0; j--) {
+                if (grid[i][j] != 0) dpR[i][j] = 1 + (j == N - 1 ? 0 : dpR[i][j + 1]);
+            }
         }
-        int max = 0;
+        
+        for (int j = 0; j &lt; N; j++) {
+            for (int i = 0; i &lt; N; i++) {
+                if (grid[i][j] != 0) dpU[i][j] = 1 + (i == 0 ? 0 : dpU[i - 1][j]);
+            }
+            
+<A NAME="1"></A>            for (int i = N - 1; i &gt;= 0; i--) {
+                if (grid[i][j] != 0) dpD[i][j] = 1 + (i == N - 1 ? 0 : dpD[i + 1][j]);
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        int res = 0;
+        
         for (int i = 0; i &lt; N; i++) {
             for (int j = 0; j &lt; N; j++) {</B></FONT>
-<A NAME="1"></A>                int plus = grid[i][j] == 0 ? 0 : getPlus(grid, i, j);
-                if (plus &gt; max) {
-                    max = plus;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="2"></A>                if (grid[i][j] == 0) continue;
+                int LR = Math.min(dpL[i][j], dpR[i][j]);
+                int UD = Math.min(dpU[i][j], dpD[i][j]);
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res = Math.max(res, Math.min(LR, UD));
             }
         }
-        return max;
         
+        return res;
     }</B></FONT>
-    
-    int getPlus(int[][] grid, int i, int j) {
-        int plus = 1;
-        for (int k = 1; k &lt; grid.length; k++) {
-            if (i - k &lt; 0 || grid[i-k][j] != 1 || j - k &lt; 0 || grid[i][j-k] != 1) {
-                break;
-            }
-            if (i + k &gt;= grid.length || grid[i+k][j] != 1 || j + k &gt;= grid.length || grid[i][j+k] != 1) {
-                break;
-            }
-            plus = k + 1;
-            
-        }
-        return plus;
-    }
 }
 </PRE>
 

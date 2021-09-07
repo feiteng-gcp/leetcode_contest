@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_zhengkai2001.cpp</TITLE>
+ <TITLE>74_tianhao2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,79 +15,96 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_zhengkai2001.cpp</CENTER></H3><HR>
+<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-	int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-		vector&lt;vector&lt;bool&gt;&gt; g(N, vector&lt;bool&gt;(N, true));
-		for (vector&lt;int&gt; mine : mines) {
-			g[mine[0]][mine[1]] = false;
-		}
-
-		vector&lt;vector&lt;int&gt;&gt; h(N, vector&lt;int&gt;(N, 0));
-		for (int i = 0; i &lt; N; i++) {
-			int len = 0;
-			for (int j = 0; j &lt; N; j++) {
-				if (g[i][j]) {
-					len++;
-					if (j == N - 1) {
-						markH(h, i, j, len);
-					}
-				}
-
-				if (!g[i][j]) {
-					if (len != 0) {
-						markH(h, i, j - 1, len);
-					}
-					len = 0;
-				}
-			}
-		}
-
-		vector&lt;vector&lt;int&gt;&gt; v(N, vector&lt;int&gt;(N, 0));
-		for (int j = 0; j &lt; N; j++) {		
-			int len = 0;
-			for (int i = 0; i &lt; N; i++) {
-				if (g[i][j]) {
-					len++;
-					if (i == N - 1) {
-						markV(v, j, i, len);
-					}
-				}
-
-				if (!g[i][j]) {
-<A NAME="0"></A>					if (len != 0) {
-						markV(v, j, i - 1, len);
-					}
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>					len = 0;
-				}
-			}
-		}
-
-		int maxOrder = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {</B></FONT>
-				int order = min(h[i][j], v[i][j]);
-				maxOrder = max(maxOrder, order);
-			}
-		}
-		return maxOrder;
-	}
-private:
-	void markH(vector&lt;vector&lt;int&gt;&gt;&amp; h, int i, int endJ, int len) {
-		int startJ = endJ - len + 1;
-		for (int j = startJ; j &lt;= endJ; j++) {
-			h[i][j] = min(j - startJ + 1, endJ - j + 1);
-		}
-	}
-
-	void markV(vector&lt;vector&lt;int&gt;&gt;&amp; v, int j, int endI, int len) {
-		int startI = endI - len + 1;
-		for (int i = startI; i &lt;= endI; i++) {
-			v[i][j] = min(i - startI + 1, endI - i + 1);
-		}
-	}
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        //unordered_map&lt;int, unordered_set&lt;int&gt;&gt; data;
+        //vector&lt;vector&lt;int&gt;&gt; L=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; R=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; U=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; D=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        bool** data=new bool*[N];
+        int** L=new int*[N];
+        int** R=new int*[N];
+        int** U=new int*[N];
+        int** D=new int*[N];
+        for(int i=0; i&lt;N; i++){
+            data[i]=new bool[N];
+            for(int j=0; j&lt;N; j++){
+                data[i][j]=true;
+            }
+            L[i]=new int[N];
+            R[i]=new int[N];
+            U[i]=new int[N];
+            D[i]=new int[N];
+        }
+        for(int i=0; i&lt;mines.size(); i++){
+<A NAME="0"></A>            //data[mines[i][0]].insert(mines[i][1]);
+            data[mines[i][0]][mines[i][1]]=false;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0; i&lt;N; i++){
+            int curr=0;
+            for(int j=0; j&lt;N; j++){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){</B></FONT>
+                    curr=0;
+<A NAME="1"></A>                }else{
+                    curr++;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                L[i][j]=curr;
+            }
+        }
+        for(int i=0; i&lt;N; i++){
+            int curr=0;
+            for(int j=N-1; j&gt;=0; j--){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){</B></FONT>
+                    curr=0;
+<A NAME="2"></A>                }else{
+                    curr++;
+                }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                R[i][j]=curr;
+            }
+        }
+        for(int j=0; j&lt;N; j++){
+            int curr=0;
+            for(int i=0; i&lt;N; i++){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){</B></FONT>
+                    curr=0;
+<A NAME="3"></A>                }else{
+                    curr++;
+                }
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match13-1.html#3',3,'match13-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                U[i][j]=curr;
+            }
+        }
+        for(int j=0; j&lt;N; j++){
+            int curr=0;
+            for(int i=N-1; i&gt;=0; i--){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){</B></FONT>
+                    curr=0;
+                }else{
+                    curr++;
+                }
+                D[i][j]=curr;
+            }
+        }
+        int ret=0;
+        for(int i=0; i&lt;N; i++){
+            for(int j=0; j&lt;N; j++){
+                int res=min(L[i][j], min(R[i][j], min(U[i][j], D[i][j])));
+                ret=max(ret, res);
+            }
+        }
+        return ret;
+    }
 };
 </PRE>
 </BODY>

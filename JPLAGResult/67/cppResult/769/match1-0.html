@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>194_wyattliu.cpp</TITLE>
+ <TITLE>7_Kmcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,84 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>194_wyattliu.cpp</CENTER></H3><HR>
+<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
+    int a[502][502];
+    int b[502][502];
+    int c[502][502];
+    int d[502][502];
+    vector&lt;vector&lt;int&gt; &gt; v;
+    
     int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        unordered_set&lt;int&gt; st;
-        for (auto&amp; m : mines) {
-<A NAME="0"></A>            st.insert(m[0] * N + m[1]);
+        v.assign(N,vector&lt;int&gt;(N,1));
+        for(int i=0;i&lt;mines.size();i++){
+            v[mines[i][0]][mines[i][1]]=0;
         }
-        vector&lt;vector&lt;int&gt;&gt; left(N + 2, vector&lt;int&gt;(N + 2, 0)), up(N + 2, vector&lt;int&gt;(N + 2, 0));
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt;= N; i++) {
-<A NAME="1"></A>            for (int j = 1; j &lt;= N; j++) {
-                if (!st.count((i - 1) * N + (j - 1))) {
-                    left[i][j] = left[i][j - 1] + 1;</B></FONT>
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    up[i][j] = up[i - 1][j] + 1;
+        memset(a,0,sizeof(a));
+<A NAME="0"></A>        memset(b,0,sizeof(b));
+        memset(c,0,sizeof(c));
+        memset(d,0,sizeof(d));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;v.size();i++){
+            int cc=0;
+            for(int j=0;j&lt;v[i].size();j++){
+                if(v[i][j]==0){</B></FONT>
+                    cc=0;
                 }
+<A NAME="1"></A>                else{
+                    cc++;
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                a[i][j]=cc;
             }
         }
-        int res = 0;
-        for (int i = 1; i &lt;= N; i++) {
-            for (int j = 1; j &lt;= N; j++) {</B></FONT>
-                for (int k = 0; ; k++) {
-                    if (left[i][j + k] &gt; 2 * k &amp;&amp; up[i + k][j] &gt; 2 * k) {
-                        res = max(res, k + 1);
-                    }
-                    else {
-                        break;
-                    }
+        for(int i=0;i&lt;v.size();i++){
+            int cc=0;
+            for(int j=v[i].size()-1;j&gt;=0;j--){
+                if(v[i][j]==0){</B></FONT>
+                    cc=0;
                 }
+<A NAME="2"></A>                else{
+                    cc++;
+                }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                b[i][j]=cc;
             }
         }
-        return res;
+        for(int j=0;j&lt;v[0].size();j++){
+            int cc=0;
+            for(int i=0;i&lt;v.size();i++){
+                if(v[i][j]==0){</B></FONT>
+                    cc=0;
+                }
+<A NAME="3"></A>                else{
+                    cc++;
+                }
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                c[i][j]=cc;
+            }
+        }
+         for(int j=0;j&lt;v[0].size();j++){
+            int cc=0;
+            for(int i=v.size()-1;i&gt;=0;i--){
+                if(v[i][j]==0){</B></FONT>
+                    cc=0;
+                }
+                else{
+                    cc++;
+                }
+                d[i][j]=cc;
+            }
+        }
+        int ans=0;
+        for(int i=0;i&lt;v.size();i++){
+            for(int j=0;j&lt;v[i].size();j++){
+                int k=a[i][j];
+                k=min(k,b[i][j]);
+                k=min(k,c[i][j]);
+                k=min(k,d[i][j]);
+                ans=max(ans,k);
+            }
+        }
+        return ans;
     }
 };
 </PRE>

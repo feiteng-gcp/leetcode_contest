@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>39_billydou.cpp</TITLE>
+ <TITLE>37_Victor_FW.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>39_billydou.cpp</CENTER></H3><HR>
+<H3><CENTER>37_Victor_FW.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool IsValid(int x) {
-        int s = 0;
-        while (x &gt; 0) {
-            s += x%2;
-            x &gt;&gt;= 1;
-        }
-        return (s == 2 || s == 3 || s == 5 || s == 7 || s == 11 || s == 13 || s == 17 || s == 19);
-    }
-public:
-    int countPrimeSetBits(int L, int R) {
+class Solution {
+private:
+    int C(int n) {
         int ans = 0;
+        while (n) {
+            ans += (n &amp; 1);
+            n &gt;&gt;= 1;
+        }
+        return ans;
+    }
+<A NAME="0"></A>public:
+    int countPrimeSetBits(int L, int R) {
+        unordered_set&lt;int&gt; prime({2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31});
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
         for (int i = L; i &lt;= R; ++i) {
-            if (IsValid(i)) ++ans;
+            int tmp = C(i);
+            if (prime.count(tmp)) {
+                ans++;
+            }
         }
         return ans;
     }

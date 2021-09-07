@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_uwi.java</TITLE>
+ <TITLE>26_BestArya.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_uwi.java</CENTER></H3><HR>
+<H3><CENTER>26_BestArya.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public List&lt;Integer&gt; partitionLabels(String S) {
-	        char[] s = S.toCharArray();
-	        int[] first = new int[26];
-	        int[] last = new int[26];
-	        Arrays.fill(first, -1);
-	        for(int i = 0;i &lt; s.length;i++){
-	        	if(first[s[i]-'a'] == -1){
-	        		first[s[i]-'a'] = i;
-	        	}
-	        	last[s[i]-'a'] = i;
-	        }
-	        int[][] as = new int[26][];
-	        int p = 0;
-	        for(int i = 0;i &lt; 26;i++){
-<A NAME="0"></A>	        	if(first[i] != -1){
-	        		as[p++] = new int[]{first[i], last[i]};
-	        	}
-	        }<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	        Arrays.sort(as, 0, p, new Comparator&lt;int[]&gt;() {
-				public int compare(int[] a, int[] b) {
-					return a[0] - b[0];
-				}
-			});
-	        List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();</B></FONT>
-	        int pos = -1;
-	        int reach = -1;
-	        for(int i = 0;i &lt; p;i++){
-	        	if(as[i][0] &gt; reach){
-	        		if(pos &lt; reach){
-	        			ret.add(reach - pos);
-	        		}
-	        		pos = reach;
-	        	}
-	        	reach = Math.max(reach, as[i][1]);
-	        }
-	        ret.add(s.length - pos - 1);
-	        return ret;
-	    }
-	}	
+class Solution {
+    public List&lt;Integer&gt; partitionLabels(String S) {
+        List&lt;Integer&gt; result = new LinkedList&lt;Integer&gt;();
+        partitionLabels(S, 0, result);
+        return result;
+    }
+
+    private void partitionLabels(String s, int start, List&lt;Integer&gt; result) {
+        int n = s.length();
+        if (start &gt;= n) return;
+        int end = start;
+<A NAME="0"></A>        int curr = start;
+        while (curr &lt;= end) {
+            char ch = s.charAt(curr);
+            int last = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s.lastIndexOf(ch);
+            if (last &gt; end) {
+                end = last;
+            }
+            curr++;
+        }
+        result.add</B></FONT>(end - start + 1);
+        partitionLabels(s, end + 1, result);
+    }
+}
 </PRE>
 
 </BODY>

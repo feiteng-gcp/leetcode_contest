@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>496_Predator_.cpp</TITLE>
+ <TITLE>6_JohnsonTau.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,20 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>496_Predator_.cpp</CENTER></H3><HR>
+<H3><CENTER>6_JohnsonTau.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int minSwapsCouples(vector&lt;int&gt;&amp; row) 
-    {
-        int count = 0;
-        map&lt;int,int&gt; m;
-        for(int i = 0; i &lt; row.size();i+=2)
-        {</B></FONT>
-            if(row[i]%2==0)
-            {//+1
-                if(row[i]+1 == row[i+1])
-                    continue;
-                auto it = find(row.begin(), row.end(), row[i]+1);
-                swap(*it, row[i+1]);
-                count++;
-            }else{
-                //-1
-                if(row[i]-1 == row[i+1])
-                    continue;
-                auto it = find(row.begin(), row.end(), row[i]-1);
-                swap(*it, row[i+1]);
-                count++;
-            }
+    int minSwapsCouples(vector&lt;int&gt;&amp; row) {
+        int count=0;
+        vector&lt;int&gt; pos(row.size(), -1);
+        for (int i=0; i&lt;row.size(); i++) pos[row[i]]=i;</B></FONT>
+        for (int i=1; i&lt;row.size(); i+=2) if ((row[i-1]^row[i])!=1) {
+            row[pos[row[i-1]^1]]=row[i];
+            pos[row[i]]=pos[row[i-1]^1];
+            row[i]=row[i-1]^1;
+            pos[row[i]]=i;
+            count++;
         }
         return count;
     }

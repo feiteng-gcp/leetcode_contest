@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_chenguanyu1995.java</TITLE>
+ <TITLE>26_BestArya.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>17_chenguanyu1995.java</CENTER></H3><HR>
+<H3><CENTER>26_BestArya.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-        int[][] matrix = new int[N][N];
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; mines.length; i++){
-            matrix[mines[i][0]][mines[i][1]] = 1;
+        int[][] board = new int[N][N];
+        for (int i = 0; i &lt; N; i++) {</B></FONT>
+            for (int j = 0; j &lt; N; j++) {
+                board[i][j] = 1;
+            }
         }
-        int max = 0;
-<A NAME="1"></A>        for(int j = 0; j &lt; N; j++){
-            for(int k = 0; k &lt; N; k++){</B></FONT>
-                max = Math.max(max,align(N,matrix,j,k));
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        for (int[] cell: mines) {
+<A NAME="1"></A>            board[cell[0]][cell[1]] = 0;
         }
-        return max;
+        int maxOrder = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int maxPoss = (N - 1) / 2 + 1;
+        for (int i = 0; i &lt; N; i++) {
+<A NAME="2"></A>            for (int j = 0; j &lt; N; j++) {
+                maxOrder = Math.max(maxOrder, orderOfCell</B></FONT>(N, board, i, j));
+                if (maxOrder == maxPoss) return maxOrder;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return maxOrder;
     }
-    private int align(int N, int[][] matrix, int j</B></FONT>, int k){
-        int count = 0;
-        while((k+count&lt;N &amp;&amp; matrix[j][k+count]==0)
-             &amp;&amp; (j+count&lt;N &amp;&amp; matrix[j+count][k]==0)
-             &amp;&amp; (k-count&gt;=0 &amp;&amp; matrix[j][k-count]==0)
-             &amp;&amp; (j-count&gt;=0 &amp;&amp; matrix[j-count][k]==0)){
-            count++;
+
+    private int orderOfCell(int N, int[][] board, int i, int j) {
+        int order = 0</B></FONT>;
+        int offset = 0;
+        while (true) {
+            if ((i - offset &gt;= 0 &amp;&amp; board[i - offset][j] == 1)
+               &amp;&amp; (i + offset &lt; N &amp;&amp; board[i + offset][j] == 1)
+               &amp;&amp; (j - offset &gt;= 0 &amp;&amp; board[i][j - offset] == 1)
+               &amp;&amp; (j + offset &lt; N &amp;&amp; board[i][j + offset] == 1)) {
+                order++;
+                offset++;
+            } else {
+                break;
+            }
         }
-        return count;
+        return order;
     }
 }
 </PRE>

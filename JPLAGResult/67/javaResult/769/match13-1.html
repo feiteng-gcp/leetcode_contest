@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_XBB_HOME.java</TITLE>
+ <TITLE>10_prakhar15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
+<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
+    static int[][] DIRS = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-		int [][][] dp = new int[N][N][4];
-		int [][] field<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> = new int [N][N];
-		// -1 for mine, 0 for cell
-		for (int[] mine: mines) {
-			field[mine[0]][mine[1]] = -1;
-		}
-		int cnt = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				dp[i][j][0] = cnt;</B></FONT>
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int j = N - 1; j &gt;= 0; j--) {
-				dp[i][j][1] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}
-		for (int j = 0; j &lt; N; j++) {
-			for (int i = 0; i &lt; N; i++) {
-				dp[i][j][2] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int i = N - 1; i &gt;= 0; i--) {
-				dp[i][j][3] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}
-		int max = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				if (field[i][j] == 0) {
-					int localMax = 1 + Math.min(Math.min(dp[i][j][0], dp[i][j][1]), Math.min(dp[i][j][2], dp[i][j][3]));
-					max = Math.max(max, localMax);
-				}
-			}
-		}
-		return max;
+        int[][] maxOnes = new int[N][N];
+<A NAME="0"></A>        boolean[][] ms = new boolean[N][N];
+        for (int[] mine : mines) ms[mine[0]][mine[1]] = true;
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) maxOnes[i][j] = Integer.MAX_VALUE<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        for (int[] dir : DIRS) {
+            for (int unchanging = 0; unchanging &lt; N; unchanging++) {</B></FONT>
+                int x = getStart(dir[0], unchanging, N);
+                int y = getStart(dir[1], unchanging, N);
+                int ones = 0;
+                while (x &gt;= 0 &amp;&amp; x &lt; N &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; N) {
+                    if (!ms[x][y]) ones++;
+                    else ones = 0;
+                    maxOnes[x][y] = Math.min(maxOnes[x][y], ones);
+<A NAME="1"></A>                    x += dir[0];
+                    y += dir[1];
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0</B></FONT>; j &lt; N; j++) ans = Math.max(maxOnes[i][j], ans);
+        }
+        return ans;
+    }
+    
+    private static int getStart(int dir, int unchanging, int N) {
+        if (dir == 1) return 0;
+        else if (dir == -1) return N-1;
+        else return unchanging;
     }
 }
 </PRE>

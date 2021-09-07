@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_KakaHiguain.java</TITLE>
+ <TITLE>5_uwi.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>16_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>5_uwi.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public int orderOfLargestPlusSign(int N, int[][] mines) {
-        boolean[][] bo=new boolean[N][N];
-        int[][] up=new</B></FONT> int[N][N];
-        int[][] down=new int[N][N];
-        int[][] left=new int[N][N];
-        int[][] right=new int[N][N];
-        for (int[] m:mines) bo[m[0]][m[1]]=true;
-        int ans=-1;
-        for (int i=0;i&lt;N;i++)
-            for (int j=0;j&lt;N;j++)
-            {
-                if (bo[i][j]) left[i][j]=-1;
-                else left[i][j]=(j==0)?0:left[i][j-1]+1;
-            }
-        for (int i=0;i&lt;N;i++)
-            for (int j=0;j&lt;N;j++)
-            {
-                if (bo[i][j]) up[i][j]=-1;
-                else up[i][j]=(i==0)?0:up[i-1][j]+1;
-            }
-        for (int i=0;i&lt;N;i++)
-            for (int j=N-1;j&gt;=0;j--)
-            {
-                if (bo[i][j]) right[i][j]=-1;
-                else right[i][j]=(j==N-1)?0:right[i][j+1]+1;
-            }
-        for (int i=N-1;i&gt;=0;i--)
-            for (int j=0;j&lt;N;j++)
-            {
-                if (bo[i][j]) down[i][j]=-1;
-                else down[i][j]=(i==N-1)?0:down[i+1][j]+1;
-            }
-        for (int i=0;i&lt;N;i++)
-            for (int j=0;j&lt;N;j++)
-            {
-                int o=Math.min(up[i][j],down[i][j]);
-                o=Math.min(o,left[i][j]);
-                o=Math.min(o,right[i][j]);
-                ans=Math.max(ans,o);
-            }
-        return ans+1;
-    }
-}
+	class Solution {
+	    public int orderOfLargestPlusSign(int n, int[][] mines) {
+	        int[][] a = new int[n][n];
+	        for(int i = 0;i &lt; n;i++)Arrays.fill(a[i], 1);
+	        for(int[] mine : mines)a[mine[0]][mine[1]] = 0;
+<A NAME="0"></A>	        int[][][] all = makeAll(a);
+	        int ret = 0;
+	        for(int i = 0;i &lt; n;i++){
+	        	for(int j = 0;j &lt; n;j++){<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	        		int ord = 999999;
+	        		for(int k = 0;k &lt; 4;k++){
+	        			ord = Math.min(ord, all[k][i][j]);
+	        		}
+	        		ret = Math.max(ret, ord);
+	        	}</B></FONT>
+	        }
+	        return ret;
+	    }
+	    
+		public int[][] rot(int[][] a)
+		{
+			int n = a.length, m = a[0].length;
+			int[][] b = new int[m][n];
+			for(int i = 0;i &lt; n;i++){
+				for(int j = 0;j &lt; m;j++){
+					b[j][n-1-i] = a[i][j];
+				}
+			}
+			return b;
+		}
+	    
+		public int[][][] makeAll(int[][] a)
+		{
+			int[][][] ret = new int[4][][];
+			ret[0] = down(a);
+			a = rot(a);
+			ret[1] = rot(rot(rot(down(a))));
+			a = rot(a);
+			ret[2] = rot(rot(down(a)));
+			a = rot(a);
+			ret[3] = rot(down(a));
+			// a = rot(a);
+			return ret;
+		}
+	    
+		public int[][] down(int[][] map)
+		{
+			int n = map.length, m = map[0].length;
+			int[][] ret = new int[n][m];
+<A NAME="1"></A>			for(int i = n-1;i &gt;= 0;i--){
+				for(int j = 0;j &lt; m;j++){
+					ret[i][j] = i == n-1 ? 1 : ret[i+1][j] + 1;
+					if(map[i][j] == 0)ret[i][j] = 0;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				}
+			}
+			return ret;
+		}
+	}	</B></FONT>
 </PRE>
 
 </BODY>

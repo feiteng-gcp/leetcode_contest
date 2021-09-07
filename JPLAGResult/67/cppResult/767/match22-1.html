@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>145_lejb.cpp</TITLE>
+ <TITLE>207_wellcs.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>145_lejb.cpp</CENTER></H3><HR>
+<H3><CENTER>207_wellcs.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count1(int n)
-{
-	int count = 0;
-	while (n)
-	{
-		if (n &amp; 1) count++;
-		n /= 2;
-	}
-	return count;
-}</B></FONT>
-
-<A NAME="1"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int memo[33] = {0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0};
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int countPrimeSetBits(int L, int R) 
-	{
-		int count = 0;
-		for (int i = L; i &lt;= R; i++)
-		{
-			if (memo[count1(i)]) count++;
-		}
-		return count;
-	}
-};</B></FONT>
+    int countPrimeSetBits(int L, int R) {
+        vector&lt;bool&gt; isPrime(33, false);
+        for(int i = 2; i &lt; isPrime.size(); ++i)
+        {
+            bool res = true;
+            for(int k = 2; k * k &lt;= i; ++k)</B></FONT>
+            {
+                if(i % k == 0)
+                {
+                    res = false;
+                    break;
+<A NAME="1"></A>                }
+            }
+            isPrime[i] = res;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        int ret = 0;
+        for(int i = L; i &lt;= R; ++i)
+        {
+            int t = i;
+            int count = 0;
+            while(t &gt; 0)
+            {</B></FONT>
+                count += t &amp; 1;
+                t = (t &gt;&gt; 1);
+            }
+            
+            if(isPrime[count])
+            {
+                ret++;
+            }
+        }
+        
+        return ret;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

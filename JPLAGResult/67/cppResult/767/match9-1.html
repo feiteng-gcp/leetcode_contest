@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1126_cheissmart.cpp</TITLE>
+ <TITLE>23_Netario36.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1126_cheissmart.cpp</CENTER></H3><HR>
+<H3><CENTER>23_Netario36.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int set(int n) {
-        int ct = 0;
-        while(n) {
-            ct += n % 2;
-            n /= 2;
-        }
-<A NAME="1"></A>        return ct;
-    }
-    bool isprime(int n) {</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(n &lt; 2) return false;
-        for(int i=2;i*i&lt;=n;i++) if(n % i == 0) return false;
-        return true;
-    }
     int countPrimeSetBits(int L, int R) {
-        int ct = 0;
-        for(int i=L;i&lt;=R;i++) {
-            if(isprime(set(i))) ct++;
+        int ret = 0;
+        for (int i = L; i &lt;= R; ++ i) {
+            int cnt = 0, tmp = i;
+            while (tmp != 0) {
+                cnt += (tmp % 2 == 1);
+                tmp /= 2;
+            }
+            if (cnt &lt; 2) continue;</B></FONT>
+            bool h = true;
+            for (int j = 2; j &lt;= sqrt(cnt); ++ j)
+                if (cnt % j == 0) {
+                    h = false;
+                    break;
+                }
+            if (h) ret ++;
         }
-        return ct;
+        return ret;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

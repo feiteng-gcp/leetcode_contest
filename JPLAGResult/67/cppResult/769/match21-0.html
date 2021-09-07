@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_stormouse.cpp</TITLE>
+ <TITLE>6_JohnsonTau.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>18_stormouse.cpp</CENTER></H3><HR>
+<H3><CENTER>6_JohnsonTau.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        vector&lt;vector&lt;int&gt;&gt; grids(N, vector&lt;int&gt;(N, 1));
-        for(auto&amp; m : mines)
-<A NAME="0"></A>            grids[m[0]][m[1]] = 0;
-        
-        int n = N;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 0;
-        for(int i=0;i&lt;n;i++){
-            for(int j=0;j&lt;n;j++){</B></FONT>
-                if(grids[i][j] == 0) continue;
-                int d = min(i, j);
-                d = min(d, n-i-1);
-                d = min(d, n-j-1);
-                int s = 1;
-                for(int k=1;k&lt;=d;k++){
-                    if(grids[i-k][j] &amp;&amp; grids[i+k][j] &amp;&amp; grids[i][j-k] &amp;&amp; grids[i][j+k]){
-                        s++;
-                    }
-                    else break;
-                }
-                ret = max(s, ret);
+        vector&lt;vector&lt;int&gt;&gt; matrix(N, vector&lt;int&gt;(N, 1));
+        for (const auto&amp; mine: mines)
+            matrix[mine[0]][mine[1]]=0;
+        int ans=0;</B></FONT>
+        for (int i=0; i&lt;N; i++) if (ans&lt;=i &amp;&amp; i+ans&lt;N)
+            for (int j=0; j&lt;N; j++) if (ans&lt;=j &amp;&amp; j+ans&lt;N) {
+                int k=0;
+                while (i-k&gt;=0 &amp;&amp; i+k&lt;N &amp;&amp; j-k&gt;=0 &amp;&amp; j-k&lt;N &amp;&amp; matrix[i-k][j]==1 &amp;&amp; matrix[i][j-k]==1 &amp;&amp; matrix[i][j+k]==1 &amp;&amp; matrix[i+k][j]==1) k++;
+                if (ans&lt;k) ans=k;
             }
-        }
-        
-        return ret;
+        return ans;
     }
 };
 </PRE>

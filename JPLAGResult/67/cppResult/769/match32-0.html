@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_Kmcode.cpp</TITLE>
+ <TITLE>43_daren.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,84 +15,69 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
+<H3><CENTER>43_daren.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int a[502][502];
-    int b[502][502];
-    int c[502][502];
-    int d[502][502];
-    vector&lt;vector&lt;int&gt; &gt; v;
-    
     int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        v.assign(N,vector&lt;int&gt;(N,1));
-        for(int i=0;i&lt;mines.size();i++){
-            v[mines[i][0]][mines[i][1]]=0;
-        }
-        memset(a,0,sizeof(a));
-        memset(b,0,sizeof(b));
-        memset(c,0,sizeof(c));
-        memset(d,0,sizeof(d));
-        for(int i=0;i&lt;v.size();i++){
-            int cc=0;
-            for(int j=0;j&lt;v[i].size();j++){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                a[i][j]=cc;
+        vector&lt;vector&lt;int&gt;&gt; field(N, vector&lt;int&gt;(N, 1));
+        for(auto&amp; v: mines)
+            field[v[0]][v[1]]=0;
+        
+        vector&lt;vector&lt;int&gt;&gt; dpLeft(N, vector&lt;int&gt;(N));</B></FONT>
+        vector&lt;vector&lt;int&gt;&gt; dpRight(N, vector&lt;int&gt;(N));
+        vector&lt;vector&lt;int&gt;&gt; dpUp(N, vector&lt;int&gt;(N));
+        vector&lt;vector&lt;int&gt;&gt; dpDown(N, vector&lt;int&gt;(N));
+        
+        for(int i=0; i&lt;N; ++i) {
+            int cnt=0;
+            for(int j=0; j&lt;N; ++j) {
+                if(field[i][j]==1)
+                    dpLeft[i][j]=++cnt;
+                else
+                    dpLeft[i][j]=cnt=0;
             }
         }
-        for(int i=0;i&lt;v.size();i++){
-            int cc=0;
-            for(int j=v[i].size()-1;j&gt;=0;j--){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                b[i][j]=cc;
+        
+        for(int i=0; i&lt;N; ++i) {
+            int cnt=0;
+            for(int j=N-1; j&gt;=0; --j) {
+                if(field[i][j]==1)
+                    dpRight[i][j]=++cnt;
+                else
+                    dpRight[i][j]=cnt=0;
             }
         }
-        for(int j=0;j&lt;v[0].size();j++){
-            int cc=0;
-            for(int i=0;i&lt;v.size();i++){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-                }
-                c[i][j]=cc;
+        
+        for(int i=0; i&lt;N; ++i) {
+            int cnt=0;
+            for(int j=0; j&lt;N; ++j) {
+                if(field[j][i]==1)
+                    dpDown[j][i]=++cnt;
+                else
+                    dpDown[j][i]=cnt=0;
             }
         }
-         for(int j=0;j&lt;v[0].size();j++){
-            int cc=0;
-            for(int i=v.size()-1;i&gt;=0;i--){
-                if(v[i][j]==0){
-                    cc=0;
-                }
-                else{
-                    cc++;
-<A NAME="0"></A>                }
-                d[i][j]=cc;
+        
+        for(int i=0; i&lt;N; ++i) {
+            int cnt=0;
+            for(int j=N-1; j&gt;=0; --j) {
+                if(field[j][i]==1)
+                    dpUp[j][i]=++cnt;
+                else
+                    dpUp[j][i]=cnt=0;
             }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        }
+        
         int ans=0;
-        for(int i=0;i&lt;v.size();i++){
-            for(int j=0;j&lt;v[i].size();j++){</B></FONT>
-                int k=a[i][j];
-                k=min(k,b[i][j]);
-                k=min(k,c[i][j]);
-                k=min(k,d[i][j]);
-                ans=max(ans,k);
-            }
+        for(int i=0; i&lt;N; ++i)
+        for(int j=0; j&lt;N; ++j) {
+            int tmp = min(min(dpLeft[i][j],dpRight[i][j]),min(dpDown[i][j],dpUp[i][j]));
+            ans = max(ans,tmp);
         }
+        
         return ans;
+        
     }
 };
 </PRE>

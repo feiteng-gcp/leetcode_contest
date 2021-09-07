@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_XBB_HOME.java</TITLE>
+ <TITLE>28_victorzhang21503.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
+<H3><CENTER>28_victorzhang21503.java</CENTER></H3><HR>
 <PRE>
 class Solution {
+    int N;
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-		int [][][] dp = new int[N][N][4];
-		int [][] field = new int [N][N];
-<A NAME="0"></A>		// -1 for mine, 0 for cell
-		for (int[] mine: mines) {
-			field[mine[0]][mine[1]] = -1;
-		}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		int cnt = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {</B></FONT>
-				dp[i][j][0] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int j = N - 1; j &gt;= 0; j--) {
-				dp[i][j][1] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}
-		for (int j = 0; j &lt; N; j++) {
-			for (int i = 0; i &lt; N; i++) {
-				dp[i][j][2] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int i = N - 1; i &gt;= 0; i--) {
-				dp[i][j][3] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}
-		int max = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				if (field[i][j] == 0) {
-					int localMax = 1 + Math.min(Math.min(dp[i][j][0], dp[i][j][1]), Math.min(dp[i][j][2], dp[i][j][3]));
-					max = Math.max(max, localMax);
-				}
-			}
-		}
-		return max;
+        this.N = N;
+        int[][] grid = new int[N][N];
+        for(int[] mine : mines){
+            grid[mine[0]][mine[1]] = 1;
+        }
+        int[][] left = new int[N][N];
+<A NAME="1"></A>        int[][] right = new int[N][N];
+        int[][] upper = new int[N][N];
+        int[][] down = new int[N][N];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
+        for(int i = 0; i &lt; N; i++){
+            for(int j = 0; j &lt; N; j++){
+                if(grid[i][j] == 0){</B></FONT>
+                    if(left[i][j] == 0){
+                        dfs(grid, i, j, left, new int[]{-1, 0});
+                    }
+                    if(right[i][j] == 0){
+                        dfs(grid, i, j, right, new int[]{1, 0});
+                    }
+                    if(upper[i][j] == 0){
+                        dfs(grid, i, j, upper, new int[]{0, 1});
+                    }
+<A NAME="2"></A>                    if(down[i][j] == 0){
+                        dfs(grid, i, j, down, new int[]{0, -1});
+                    }
+                    res = Math.max(res, Math.min(Math.min(left[i][j], right[i][j]), <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(upper[i][j], down[i][j])));
+                }
+            }
+        }
+<A NAME="0"></A>        return res;
+    }</B></FONT>
+    
+    public int dfs(int[][] grid, int x, int y, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dp, int[] move){
+        if(dp[x][y] != 0){
+            return dp[x][y];
+        }
+        
+        int xx = x + move[0]</B></FONT>;
+        int yy = y + move[1];
+        int res = 1;
+        if(xx &gt;= 0 &amp;&amp; xx &lt; N &amp;&amp; yy &gt;= 0 &amp;&amp; yy &lt; N &amp;&amp; grid[xx][yy] == 0){
+            res += dfs(grid, xx, yy, dp, move);
+        }
+        dp[x][y] = res;
+        return res;
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1263_tanvir9982000.cpp</TITLE>
+ <TITLE>145_lejb.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1263_tanvir9982000.cpp</CENTER></H3><HR>
+<H3><CENTER>145_lejb.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>#include&lt;cmath&gt;
-using namespace std;
+<A NAME="1"></A><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count1(int n)
+{
+	int count = 0;
+	while (n)
+	{
+		if (n &amp; 1) count++;
+		n /= 2;
+	}
+	return count;
+}</B></FONT>
 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int countSetBits(int n)
-    {
-        int count = 0;
-        while (n)
-        {
-            count += n &amp; 1;
-            n &gt;&gt;= 1;
-        }
-        return count;
-    }
-<A NAME="1"></A>    
-    bool isPrime(int n){
-        if(n==1 ) return false;</B></FONT>
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=2;i&lt;=sqrt(n);i++){
-            if(n%i==0) return false;
-        }
-        return true;
-    }
-    
-    int countPrimeSetBits(int L, int R) {
-        
-        int count=0;
-        for(int i=L;i&lt;=R;i++){
-            int temp = countSetBits(i);
-            if(isPrime(temp)) {</B></FONT>
-                //cout&lt;&lt;temp&lt;&lt;&quot; &quot;&lt;&lt;isPrime(temp)&lt;&lt;endl;
-                count++;
-            }
-            
-        }
-        return count;
-    }
+    int memo[33] = {0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0};
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int countPrimeSetBits(int L, int R) 
+	{
+		int count = 0;
+		for (int i = L; i &lt;= R; i++)
+		{
+			if (memo[count1(i)]) count++;
+		}
+		return count;
+	}</B></FONT>
 };
 </PRE>
 </BODY>

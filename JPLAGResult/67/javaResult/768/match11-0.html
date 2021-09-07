@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>838_m4574.java</TITLE>
+ <TITLE>27_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>838_m4574.java</CENTER></H3><HR>
+<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
 <PRE>
+import java.util.LinkedList;
+import java.util.List;
+<A NAME="0"></A>
 class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        int[] map = new int[26];
-        for(int x = 0; x &lt; S.length(); x++) {
-            int maxIndex = map[S.charAt(x)-97];
-<A NAME="0"></A>            if(maxIndex &lt; x) {
-                map[S.charAt(x)-97] = x;
-            }
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        // &quot;ababcbaca defegd ehijhklij&quot;
-        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-        for(int x = 0; x &lt; S.length(); x++) {
-            int maxIndex = map[S.charAt</B></FONT>(x)-97];
-            
-            int counter = 1;
-            for(int i = x+1; i &lt;= maxIndex; i++) {
-                int nextMax = map[S.charAt(i)-97];
-                if(nextMax &gt; maxIndex) {
-                    maxIndex = nextMax;
-                }
-                counter++;
-            }
-            list.add(counter);
-            x = maxIndex;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] total = new int[26];
+        for (int i = 0; i &lt; S.length(); ++i) {
+        	total[S.charAt(i) - 'a']++;
         }
-        return list;
+        int[] count = new int[26]</B></FONT>;
+        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
+        for (int i = 0, last = -1; i &lt; S.length(); ++i) {
+        	count[S.charAt(i) - 'a']++;
+        	boolean good = true;
+        	for (int j = 0; j &lt; 26; ++j) {
+        		if (count[j] == 0 || count[j] == total[j]) {
+        			continue;
+        		} else {
+        			good = false;
+<A NAME="1"></A>        			break;
+        		}
+        	}
+        	if (good) {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        		res.add(i - last);
+        		last = i;
+        	}
+        }
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

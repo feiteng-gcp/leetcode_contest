@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_XBB_HOME.java</TITLE>
+ <TITLE>232_anhooca.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
+<H3><CENTER>232_anhooca.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public int countPrimeSetBits(int L, int R) {
-		int maxBits = Integer.toBinaryString(R).length();
-		int n = maxBit<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s + 1;
-		boolean[] isPrime = new boolean[n];
-		for (int i = 2; i &lt; n; i++) {
-			isPrime[i] = true;
-		}
-		for (int i = 2; i * i &lt; n; i++) {
-			if (isPrime[i]) {
-				for (int j = i * i; j &lt; n; j += i) {
-					isPrime[j] = false;
-				}
-			}
-		}
-		int count = 0;
-		for (int i = L; i &lt;= R; i++) {
-			int bits = Integer.bitCount(i);
-			if (isPrime[bits]) {
-				count++;
-			}
-		}
-		return count;
+<A NAME="0"></A>        boolean[] primes = new boolean[33];
+        primes[2] = true;
+        primes[3] = true;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>primes[5] = true;
+        primes[7] = true;
+        primes[11] = true;
+        primes[13] = true;
+        primes[17] = true;
+        primes[19] = true;
+        primes[23] = true;
+        primes[29] = true;
+        primes[31] = true;
+        
+        int primeBitsCount = 0;
+        for (int i = L; i &lt;= R; i++) {
+          if (primes[countsetBits(i)]) primeBitsCount++;
+        }
+
+        return primeBitsCount;
+    }</B></FONT>
+    
+    private int countsetBits(int n) {
+      int setBits = 0;
+      for (int i = 0; i &lt; 32; i++) {
+        if ((n &amp; 1) == 1) setBits++;
+        n = n &gt;&gt;&gt; 1;
+      }
+      return setBits;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1107_eeriee.cpp</TITLE>
+ <TITLE>29_lxymmd.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1107_eeriee.cpp</CENTER></H3><HR>
+<H3><CENTER>29_lxymmd.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    struct slot {
-        int start;
-        int end;
-    };
-    static bool cmp(slot&amp; a, slot&amp; b) {
-        return a.start &lt; b.start;
-    }
-<A NAME="0"></A>    vector&lt;int&gt; partitionLabels(string S) {
-        unordered_map&lt;char, slot&gt; char_map;
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; S.size(); ++i){
-            if(char_map.find(S[i]) == char_map.end()){
-                char_map[S[i]].start = i;
-                char_map[S[i]].end = i;
-            } else {
-                char_map[S[i]].end = i;
-            }
-        }</B></FONT>
-        vector&lt;slot&gt; slots;
-        
-        for(auto element: char_map){
-            char c = element.first;
-            slots.push_back(element.second);
-        }
-        sort(slots.begin(), slots.end(), cmp);
-        int start = 0;
-        int end = 0;
+    vector&lt;int&gt; partitionLabels(string S) {
         vector&lt;int&gt; res;
-        bool isbegin = true;
-        if(S.empty()){return res;}
-        for(slot s: slots) {
-            if(isbegin){
-                end = s.end;
-                isbegin = false;
-            } 
-            if(s.start &gt; end) {
-                res.push_back(end - start + 1);
-                start = s.start;
-                end = s.end;
-            } 
-            start = min(s.start, start);
-            end = max(end, s.end);
+        
+        int len = S.length();
+        if(len == 0) return res;
+        
+        vector&lt;int&gt; first(26, len+1);
+        vector&lt;int&gt; last(26, -1);
+        
+        for(int i = 0; i &lt; len; i++){
+            int idx = S[i] - 'a';
+            first[idx] = min(first[idx], i);
+<A NAME="0"></A>            last[idx] = max(last[idx], i);
         }
-        res.push_back(end-start+1);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int s = 0, e = 0;
+        for(int i = 0; i &lt; len; i++){
+            int idx = S[i] - 'a';
+            if(last[idx] &gt; e){
+                e = last[idx];
+            }
+            if(i == e){</B></FONT>
+                int l = e - s + 1;
+                res.push_back(l);
+                s = i+1;
+                e = i+1;
+            }
+        }
         return res;
     }
 };

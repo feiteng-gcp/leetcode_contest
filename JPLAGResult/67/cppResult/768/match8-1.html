@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_Mrsuyi.cpp</TITLE>
+ <TITLE>65_alok123t.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>65_alok123t.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; partitionLabels(string S) {
-        int N = S.size();
-        int lst[256];
-        for (int i = 0; i &lt; N; ++i)</B></FONT>
-            lst[S[i]] = i;
-        vector&lt;int&gt; res;
-        for (int i = 0, l = 0, r = 0; i &lt; N; ++i)
-        {
-            r = max(r, lst[S[i]]);
-            if (r == i)
-            {
-                res.push_back(r - l + 1);
-                l = r = i + 1;
-            }
+    vector&lt;int&gt; partitionLabels(string s) {
+        // if(s.size() == 0) return 0;
+        map &lt;char, int &gt; last;
+        for(int i = 0; i &lt; s.size(); i++) {
+            last[s[i]] = i;
         }
-        return res;
+        int parts = 0;</B></FONT>
+        int st = 0, en = last[s[0]];
+        int ptr = 0;
+        vector &lt;int&gt; ret;
+        while(ptr != s.size()) {
+            int co = 0;
+            while(ptr &lt;= en) {
+                en = max(en, last[s[ptr]]);
+                co++;
+                ptr++;
+            }
+            ret.push_back(co);
+            en = last[s[ptr]];
+        }
+        return ret;
     }
 };
 </PRE>

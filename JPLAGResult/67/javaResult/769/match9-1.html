@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_prakhar15.java</TITLE>
+ <TITLE>14_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    static int[][] DIRS = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    
+<A NAME="0"></A>class Solution {
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-        int[][] maxOnes = new int[N][N];
-<A NAME="0"></A>        boolean[][] ms = new boolean[N][N];
-        for (int[] mine : mines) ms[mine[0]][mine[1]] = true;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] grid = new int[N][N];
+        
         for (int i = 0; i &lt; N; i++) {
-            for (int j = 0; j &lt; N; j++) maxOnes[i][j] = Integer.MAX_VALUE<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            Arrays.fill(grid[i], 1);
         }
-        for (int[] dir : DIRS) {
-            for (int unchanging = 0; unchanging &lt; N; unchanging++) {</B></FONT>
-                int x = getStart(dir[0], unchanging, N);
-                int y = getStart(dir[1], unchanging, N);
-                int ones = 0;
-                while (x &gt;= 0 &amp;&amp; x &lt; N &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; N) {
-                    if (!ms[x][y]) ones++;
-                    else ones = 0;
-                    maxOnes[x][y] = Math.min(maxOnes[x][y], ones);
-<A NAME="1"></A>                    x += dir[0];
-                    y += dir[1];
-                }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        int ans = 0;
+        
+        for (int[] m : mines) {
+            grid[m[0]][m[1]] = 0;
+        }</B></FONT>
+        
+        int[][] dpL = new int[N][N];
+        int[][] dpR = new int[N][N];
+        int[][] dpU = new int[N][N];
+        int[][] dpD = new int[N][N];
+        
         for (int i = 0; i &lt; N; i++) {
-            for (int j = 0</B></FONT>; j &lt; N; j++) ans = Math.max(maxOnes[i][j], ans);
+            for (int j = 0; j &lt; N; j++) {
+                if (grid[i][j] != 0) dpL[i][j] = 1 + (j == 0 ? 0 : dpL[i][j - 1]);
+<A NAME="1"></A>            }
+            
+            for (int j = N - 1; j &gt;= 0; j--) {
+                if (grid[i][j] != 0) dpR[i][j] = 1 + (j == N - 1 ? 0 : dpR[i][j + 1])<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
         }
-        return ans;
-    }
-    
-    private static int getStart(int dir, int unchanging, int N) {
-        if (dir == 1) return 0;
-        else if (dir == -1) return N-1;
-        else return unchanging;
+        
+        for (int j = 0; j &lt; N; j++) {
+            for (int i = 0; i &lt; N; i++) {
+                if</B></FONT> (grid[i][j] != 0) dpU[i][j] = 1 + (i == 0 ? 0 : dpU[i - 1][j]);
+<A NAME="2"></A>            }
+            
+            for (int i = N - 1; i &gt;= 0; i--) {
+                if (grid[i][j] != 0) dpD[i][j] = 1 + (i == N - 1 ? 0 : dpD[i + 1][j])<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        
+        int res = 0;
+        
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) {
+                if</B></FONT> (grid[i][j] == 0) continue;
+                int LR = Math.min(dpL[i][j], dpR[i][j]);
+                int UD = Math.min(dpU[i][j], dpD[i][j]);
+                res = Math.max(res, Math.min(LR, UD));
+            }
+        }
+        
+        return res;
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_chenguanyu1995.java</TITLE>
+ <TITLE>232_anhooca.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>17_chenguanyu1995.java</CENTER></H3><HR>
+<H3><CENTER>232_anhooca.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-        if(S.length()==0)return list;
-        
-        int count = 0;
-        char[] alphabet = new char[26];
-        for(int i = 0; i &lt; S.length(); i++){
-            alphabet[S.charAt(i)-'a']++;
+        Map&lt;Character, Integer&gt; charCount = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; S.length(); i++) {
+          Integer count = charCount.get(S.charAt(i));
+          if (count == null) {
+            charCount.put(S.charAt(i), 1);
+          } else {
+            charCount.put(S.charAt(i), count + 1);
+          }
         }
-        Set&lt;Character&gt; set = new HashSet&lt;&gt;();
-        for(int j = 0; j &lt; S.length(); j++){
-            char temp = S.charAt(j);
-            alphabet[temp-'a']--;
-            if(alphabet[temp-'a']&gt;0){
-<A NAME="0"></A>                set.add(temp);
-            } else{
-                set.remove(temp);
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-            count++;
-            if(set.size()==0){
-                list.add(count);
-                count=0;
+
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        Set&lt;Character&gt; currentPartChars = new HashSet&lt;&gt;();
+        int currentPartSize = 0;
+
+        for (int i = 0; i &lt; S.length(); i++) {
+          currentPartSize++;
+          currentPartChars.add(S.charAt(i));
+          charCount.put(S.charAt(i), charCount.get(S.charAt(i)) - 1);
+
+          boolean uniquePartChars = true;
+          for (Character c: currentPartChars) {
+            if (charCount.get(c) &gt; 0) {
+              uniquePartChars = false;
+              break;
             }
+          }
+<A NAME="0"></A>
+          if (uniquePartChars) {
+            result.add(currentPartSize);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>currentPartChars.clear();
+            currentPartSize = 0;
+          }
         }
-        
-        return list;
+
+        return result;
     }
 }</B></FONT>
 </PRE>

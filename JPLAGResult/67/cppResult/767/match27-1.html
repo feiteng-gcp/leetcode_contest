@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>211_mike0.cpp</TITLE>
+ <TITLE>113_zhangwei00.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>211_mike0.cpp</CENTER></H3><HR>
+<H3><CENTER>113_zhangwei00.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int numSetBits(int i) {
-        int count = 0;
-        while(i &gt; 0) {
-            
-            i = (i &amp; (i-1));
-            count ++;
-        }
-        return count;
-    }
-    
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int countPrimeSetBits(int L, int R) {</B></FONT>
-        
-        vector&lt;bool&gt; primes(R + 1, true);
-        primes[0] = primes[1] = false;
-        for(int i = 2; i &lt;= R; i ++) {
-<A NAME="1"></A>            for(int j = i + i; j &lt;= R; j += i) {
-                primes[j] = false;
+    int countPrimeSetBits(int L, int R) {
+        int ans=0;
+        for(int i=L;i&lt;=R;++i){
+            int k=i;
+            int co=0;
+            while(k){</B></FONT>
+                if(k&amp;1) ++co;
+                k&gt;&gt;=1;
             }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        
-        int count = 0;
-        for(int i = L; i &lt;= R; i ++) {
-            int bit_set = numSetBits(i);
-            if(primes[bit_set]) {
-                count ++;
-            }
+            bool ju=true;
+            if(co&lt;2) ju=false;
+            for(int j=2;j&lt;co;j++) if(co%j==0) ju=false;
+            if(ju) ++ans;
         }
-        return count;
+        return ans;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

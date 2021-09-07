@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1446_myCafeBabe.java</TITLE>
+ <TITLE>132_feizoude.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1446_myCafeBabe.java</CENTER></H3><HR>
+<H3><CENTER>132_feizoude.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int ans = 0;
-        for (int i = L; i &lt;= R; i++) {
-            int count = setBits(i);
-            if (isPrime(count)) {
-                ans++;
-            }
+<A NAME="1"></A>        int ans = 0;
+        for (int i = L; i &lt;= R; i++) {</B></FONT>
+            int count = numOfOne(i);
+            if (isPrime(count)) ans++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
         }
         return ans;
     }
     
-    public int setBits(int i) {</B></FONT>
-<A NAME="1"></A>        i = i - ((i &gt;&gt; 1) &amp; 0x55555555);
-        i = (i &amp; 0x33333333) + ((i &gt;&gt; 2) &amp; 0x33333333);
-        i = ((i + (i &gt;&gt; 4)) &amp; 0x0F0F0F0F);
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return (i*(0x01010101))&gt;&gt;24;
-    }
+    private int numOfOne(int n) {
+        int ans = 0;
+        while (n &gt; 0) {
+            if (n % 2 == 1) ans++;
+            n /= 2;
+        }
+        return ans;
+    }</B></FONT>
     
-    public boolean isPrime(int n) {
-        if(n &lt; 2) return false;
-<A NAME="2"></A>        if(n == 2 || n == 3) return true;
-        if(n%2 == 0 || n%3 == 0) return false;</B></FONT>
-        long sqrtN = (long)Math.sqrt(n)+1;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(long i = 6L; i &lt;= sqrtN; i += 6) {
-            if(n%(i-1) == 0 || n%(i+1) == 0) return false;
+    private boolean isPrime(int n) {
+        if (n == 1) return false;
+        for (int i = 2; i &lt;= (int) Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
         }
         return true;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

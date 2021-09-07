@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10_prakhar15.java</TITLE>
+ <TITLE>14_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int minSwapsCouples(int[] row) {
-        int index = 0;
-        int ans = 0;
-        while (index &lt; row.length) {
-            int partnerIndex = find(row, getPartner(row[index]));
-            if (partnerIndex != index+1) {
-                swap(row, index+1, partnerIndex);
-                ans++;
-            }
-            index += 2;
-        }
-        return ans;
+        int res = 0, n = row.length;
+        
+        int[] idx = new int[n];
+        
+        for (int i = 0; i &lt; n; i++) {
+			idx[row[i]] = i;
+		}
+        
+        for (int k = 0; k &lt; n; k += 2) {
+			for (int i = k, j = partner(i), p = partner(row[i]); p != row[j]; 
+                                            i = idx[p], j = partner(i), p = partner(row[i])) {
+				swap(row, j, idx[p]);
+				res++;
+			}
+		}
+        
+        return res;
     }
-    
-    private static int getPartner(int x) {
-        if (x % 2 == 0) return x + 1;
-        else return x - 1;
-    }
-    
-<A NAME="0"></A>    private static int find(int[] row, int x) {
-        for (int i = 0; i &lt; row.length; i++) if (row[i] == x) return i;
-        return -1;
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    
-    private static void swap(int[] row, int i1, int i2) {
-        int tmp = row[i1];
-        row[i1] = row[i2];
-        row[i2] = tmp;
-    }
+<A NAME="0"></A>    
+    private int partner(int k) {
+		return (k &amp; 1) == 0 ? k + 1 : k - 1;
+	}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                 
+    private void swap(int[] nums, int i, int j) {
+		int t = nums[i];
+		nums[i] = nums[j];
+		nums[j] = t;
+	}
 }</B></FONT>
 </PRE>
 

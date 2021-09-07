@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>5_uwi.java</TITLE>
+ <TITLE>42_crazy_y.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,102 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>5_uwi.java</CENTER></H3><HR>
+<H3><CENTER>42_crazy_y.java</CENTER></H3><HR>
 <PRE>
-	class Solution {
-	    public int orderOfLargestPlusSign(int n, int[][] mines) {
-	        int[][] a = new int[n][n];
-	        for(int i = 0;i &lt; n;i++)Arrays.fill(a[i], 1);
-	        for(int[] mine : mines)a[mine[0]][mine[1]] = 0;
-	        int[][][] all = makeAll(a);
-	        int ret = 0;
-	        for(int i = 0;i &lt; n;i++){
-	        	for(int j = 0;j &lt; n;j++){
-	        		int ord = 999999;
-	        		for(int k = 0;k &lt; 4;k++){
-	        			ord = Math.min(ord, all[k][i][j]);
-	        		}
-	        		ret = Math.max(ret, ord);
-	        	}
-	        }
-	        return ret;
-	    }
-	    
-		public int[][] rot(int[][] a)
-		{
-			int n = a.length, m = a[0].length;
-			int[][] b = new int[m][n];
-			for(int i = 0;i &lt; n;i++){
-				for(int j = 0;j &lt; m;j++){
-					b[j][n-1-i] = a[i][j];
-				}
-			}
-			return b;
-		}
-	    
-		public int[][][] makeAll(int[][] a)
-		{
-			int[][][] ret = new int[4][][];
-			ret[0] = down(a);
-			a = rot(a);
-			ret[1] = rot(rot(rot(down(a))));
-			a = rot(a);
-			ret[2] = rot(rot(down(a)));
-			a = rot(a);
-			ret[3] = rot(down(a));
-			// a = rot(a);
-			return ret;
-		}
-	    
-		public int[][] down(int[][] map)
-		{
-			int n = map.length, m = map[0].length;
-			int[][] ret = new int[n][m];
-<A NAME="0"></A>			for(int i = n-1;i &gt;= 0;i--){
-				for(int j = 0;j &lt; m;j++){
-					ret[i][j] = i == n-1 ? 1 : ret[i+1][j] + 1;
-					if(map[i][j] == 0)ret[i][j] = 0;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-				}
-			}
-			return ret;
-		}
-	}	</B></FONT>
+<A NAME="0"></A>class Solution {
+    public int orderOfLargestPlusSign(int N, int[][] mines) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean[][] m = new boolean[N][N];
+        for (int i = 0; i &lt; mines.length; ++i) {
+            m[mines[i][0]][mines[i][1]] = true;
+        }
+        int[][] us = new int[N][N];
+        int[][] ds = new int[N][N];
+        int[][] ls = new int[N][N];
+        int[][] rs = new int[N][N];
+        int rst = -1;
+        for (int i = 0; i &lt; N; ++i) {
+            for (int j = 0; j &lt; N; ++j) {
+                if (m[i][j]) {</B></FONT>
+                    continue;
+                }
+                int v = left(i, j, ls, m);
+                v = v == 0 ? v : Math.min(v, right(i, j, rs, m));
+<A NAME="1"></A>                v = v == 0 ? v : Math.min(v, up(i, j, us, m)); 
+                v = v == 0 ? v : Math.min(v, down(i, j, ds, m));
+                rst = Math.max(v, rst);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return rst + 1;
+    }
+    
+    private int left(int i, int j, int[][] ss, boolean[][] m</B></FONT>) {
+        if (ss[i][j] &gt; 0) {
+            return ss[i][j];
+        }
+        int ni = i;
+        int nj = j - 1;
+        if (ni &lt; 0 || ni &gt;= ss.length || nj &lt; 0 || nj &gt;= ss.length) {
+            return 0;
+        }
+        if (m[ni][nj]) {
+            return 0;
+        }
+        int r = left(ni, nj, ss, m);
+        ss[i][j] = r + 1;
+<A NAME="2"></A>        return ss[i][j];
+    }
+    
+    private int right(int i, int j, int[][] ss, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean[][] m) {
+        if (ss[i][j] &gt; 0) {
+            return ss[i][j];
+        }
+        int ni = i;
+        int nj = j + 1</B></FONT>;
+        if (ni &lt; 0 || ni &gt;= ss.length || nj &lt; 0 || nj &gt;= ss.length) {
+            return 0;
+        }
+        if (m[ni][nj]) {
+            return 0;
+        }
+        int r = right(ni, nj, ss, m);
+        ss[i][j] = r + 1;
+        return ss[i][j];
+    }
+    
+    private int up(int i, int j, int[][] ss, boolean[][] m) {
+        if (ss[i][j] &gt; 0) {
+            return ss[i][j];
+        }
+        int ni = i - 1;
+        int nj = j;
+        if (ni &lt; 0 || ni &gt;= ss.length || nj &lt; 0 || nj &gt;= ss.length) {
+            return 0;
+        }
+        if (m[ni][nj]) {
+            return 0;
+        }
+        int r = up(ni, nj, ss, m);
+        ss[i][j] = r + 1;
+        return ss[i][j];
+    }
+    
+    private int down(int i, int j, int[][] ss, boolean[][] m) {
+        if (ss[i][j] &gt; 0) {
+            return ss[i][j];
+        }
+        int ni = i + 1;
+        int nj = j;
+        if (ni &lt; 0 || ni &gt;= ss.length || nj &lt; 0 || nj &gt;= ss.length) {
+            return 0;
+        }
+        if (m[ni][nj]) {
+            return 0;
+        }
+        int r = down(ni, nj, ss, m);
+        ss[i][j] = r + 1;
+        return ss[i][j];
+    }
+}
 </PRE>
 
 </BODY>

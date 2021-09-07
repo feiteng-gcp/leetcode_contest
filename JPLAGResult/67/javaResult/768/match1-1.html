@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_5305519068.java</TITLE>
+ <TITLE>10_prakhar15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
+<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>import java.util.LinkedList;
-import java.util.List;
-
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        int[] total = new int[26];
-        for (int i = 0; i &lt; S.length(); ++i) {
-        	total[S.charAt(i) - 'a']++;
-        }
-        int[] count = new int[26]</B></FONT>;
-        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
-        for (int i = 0, last = -1; i &lt; S.length(); ++i) {
-        	count[S.charAt(i) - 'a']++;
-        	boolean good = true;
-        	for (int j = 0; j &lt; 26; ++j) {
-        		if (count[j] == 0 || count[j] == total[j]) {
-        			continue;
-        		} else {
-        			good = false;
-<A NAME="1"></A>        			break;
-        		}
-        	}
-        	if (good) {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        		res.add(i - last);
-        		last = i;
-        	}
+        int[] freq = new int[26];
+        for (char c : S.toCharArray</B></FONT>()) freq[c - 'a']++;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        int[] curFreq = new int[26];
+        int len = 0;
+<A NAME="1"></A>        for (char c : S.toCharArray()) {
+            curFreq[c - 'a']++;
+            len++;
+            if (isPartition(curFreq, freq)) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res.add(len);
+                len = 0;
+            }
         }
         return res;
+    }</B></FONT>
+    
+    private static boolean isPartition(int[] curFreq, int[] freq) {
+        for (int i = 0; i &lt; 26; i++) {
+            if (curFreq[i] != 0 &amp;&amp; curFreq[i] != freq[i]) return false;
+        }
+        return true;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

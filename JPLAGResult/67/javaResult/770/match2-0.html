@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_fun4LeetCode.java</TITLE>
+ <TITLE>27_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,70 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
+<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public int minSwapsCouples(int[] row) {
-        int res = 0, n = row.length;
-        
-        int[] idx = new int[n];
-        
-        for (int i = 0; i &lt; n; i++) {
-			idx[row[i]] = i;
-		}
-        
-        for (int k = 0; k &lt; n; k += 2) {
-			for (int i = k, j = partner(i), p = partner(row[i]); p != row[j]; 
-                                            i = idx[p], j = partner(i), p = partner(row[i])) {
-				swap(row, j, idx[p]);
-				res++;
-			}
-		}
-        
+    public int minSwapsCouples(int[] index) {
+    	int N = index.length;
+    	int res = 0;
+    	boolean[] mark = new boolean[N];
+    	int[] row = new int[N];
+    	for (int i = 0, val = 0; i &lt; N; i += 2, val++) {
+    		row[index[i]] = val;
+    		row[index[i + 1]] = val;
+    	}
+    	for (int i = 0; i &lt; N; i += 2) {
+    		if (row[i] == row[i + 1]) {
+    			mark[i] = mark[i + 1] = true;
+    		}
+    	}
+        for (int i = 0; i &lt; N; i += 2) {
+        	if (mark[i] &amp;&amp; mark[i + 1]) {
+        		continue;
+        	}
+        	for (int j = i + 2; j &lt; N; j += 2) {
+        		if (mark[i] &amp;&amp; mark[i + 1]) {
+        			continue;
+        		}
+        		if (row[i] == row[j] &amp;&amp; row[i + 1] == row[j + 1]
+        		|| row[i] == row[j + 1] &amp;&amp; row[i + 1] == row[j]) {
+        			mark[i] = mark[i + 1] = true;
+        			mark[j] = mark[j + 1] = true;
+        			++res;
+        		}
+        	}
+        }
+        for (int i = 0; i &lt; N; i += 2) {
+        	if (mark[i] &amp;&amp; mark[i + 1]) {
+        		continue;
+        	}
+        	for (int j = i + 2; j &lt; N; j += 2) {
+            	if (mark[j] &amp;&amp; mark[j + 1]) {
+            		continue;
+            	}
+            	if (row[i] == row[j]) {
+            		++res;
+            		swap(row, i + 1, j);
+            	} else if (row[i] == row[j + 1]) {
+            		++res;
+            		swap(row, i + 1, j + 1);
+            	} else if (row[i + 1] == row[j]) {
+            		++res;
+            		swap(row, i, j);
+            	} else if (row[i + 1] == row[j + 1]) {
+            		++res;
+            		swap(row, i, j + 1);
+            	} 
+<A NAME="0"></A>        	}
+        }
         return res;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    void swap(int[] row, int i, int j) {
+    	int t = row[i];
+    	row[i] = row[j];
+    	row[j] = t;
     }
-<A NAME="0"></A>    
-    private int partner(int k) {
-		return (k &amp; 1) == 0 ? k + 1 : k - 1;
-	}<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-                 
-    private void swap(int[] nums, int i, int j) {
-		int t = nums[i];
-		nums[i] = nums[j];
-		nums[j] = t;
-	}
 }</B></FONT>
 </PRE>
 

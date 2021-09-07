@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_XBB_HOME.java</TITLE>
+ <TITLE>10_prakhar15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
+<H3><CENTER>10_prakhar15.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-		List&lt;int[]&gt; co<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>unts = new ArrayList&lt;&gt;();
-		for (int i = 0; i &lt; S.length(); i++) {
-			char c = S.charAt(i);
-			ListIterator&lt;int[]&gt; iterator = counts.listIterator();</B></FONT>
-			boolean merge = false;
-			int[] merged = new int[26];
-			while (iterator.hasNext()) {
-				int[] count = iterator.next();
-				if (!merge &amp;&amp; count[c - 'a'] &gt; 0) {
-					merge = true;
-				}
-				if (merge) {
-					for (int k = 0; k &lt; count.length; k++) {
-						merged[k] += count[k];
-					}
-					iterator.remove();
-				}
-			}
-			merged[c - 'a']++;
-			counts.add(merged);
-		}
-		List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
-<A NAME="1"></A>		for (int i = 0; i &lt; counts.size(); i++) {
-			int sum = 0;
-			int[] count = counts.get(i);
-			for (int j = 0; j &lt; c<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ount.length; j++) {
-				sum += count[j];
-			}
-			result.add(sum);
-		}
-		return result;
+        int[] freq = new int[26];
+        for (char c : S.toCharArray</B></FONT>()) freq[c - 'a']++;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        int[] curFreq = new int[26];
+        int len = 0;
+<A NAME="1"></A>        for (char c : S.toCharArray()) {
+            curFreq[c - 'a']++;
+            len++;
+            if (isPartition(curFreq, freq)) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res.add(len);
+                len = 0;
+            }
+        }
+        return res;
+    }</B></FONT>
+    
+    private static boolean isPartition(int[] curFreq, int[] freq) {
+        for (int i = 0; i &lt; 26; i++) {
+            if (curFreq[i] != 0 &amp;&amp; curFreq[i] != freq[i]) return false;
+        }
+        return true;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

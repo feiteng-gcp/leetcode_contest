@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_stormouse.cpp</TITLE>
+ <TITLE>20_magica.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_stormouse.cpp</CENTER></H3><HR>
+<H3><CENTER>20_magica.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        vector&lt;vector&lt;int&gt;&gt; grids(N, vector&lt;int&gt;(N, 1));
-        for(auto&amp; m : mines)
-<A NAME="0"></A>            grids[m[0]][m[1]] = 0;
-        
-        int n = N;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ret = 0;
-        for(int i=0;i&lt;n;i++){
-            for(int j=0;j&lt;n;j++){</B></FONT>
-                if(grids[i][j] == 0) continue;
-                int d = min(i, j);
-                d = min(d, n-i-1);
-                d = min(d, n-j-1);
-                int s = 1;
-                for(int k=1;k&lt;=d;k++){
-                    if(grids[i-k][j] &amp;&amp; grids[i+k][j] &amp;&amp; grids[i][j-k] &amp;&amp; grids[i][j+k]){
-                        s++;
-                    }
-                    else break;
-                }
-                ret = max(s, ret);
-            }
-        }
-        
-        return ret;
+  int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+    vector&lt;vector&lt;bool&gt;&gt; m = vector&lt;vector&lt;bool&gt;&gt;(N, vector&lt;bool&gt;(N, true));
+    vector&lt;vector&lt;int&gt;&gt; top(N, vector&lt;int&gt;(N, 0));
+    vector&lt;vector&lt;int&gt;&gt; bottom(N, vector&lt;int&gt;(N, 0));
+    vector&lt;vector&lt;int&gt;&gt; left(N, vector&lt;int&gt;(N, 0));
+    vector&lt;vector&lt;int&gt;&gt; right(N, vector&lt;int&gt;(N, 0));
+    for (auto&amp; mine: mines) {
+      m[mine[0]][mine[1]] = false;
     }
+    for (int i = 0; i &lt; N; ++i) {
+      for (int j = 0; j &lt; N; ++j) {
+        if (m[i][j]) {
+<A NAME="1"></A>          left[i][j] = (j == 0 ? 0 : left[i][j - 1]) + 1;
+          top[i][j] = (i == 0 ? 0 : top[i - 1][j]) + 1;
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      }
+    }
+    for (int i = N - 1; i &gt;= 0; --i) {
+      for (int j = N - 1; j &gt;= 0; --j) {
+        if (m[i][j]) {</B></FONT>
+          right[i][j] = (j == N - 1 ? 0 : right[i][j + 1]) + 1;
+          bottom[i][j] = (i == N - 1 ? 0 : bottom[i + 1][j]) + 1;
+<A NAME="0"></A>        }
+      }
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int ans = 0;
+    for (int i = 0; i &lt; N; ++i) {
+      for (int j = 0; j &lt; N; ++j) {
+        if (m[i][j]) {</B></FONT>
+          ans = max(ans, min(min(min(left[i][j], right[i][j]), top[i][j]), bottom[i][j]));
+        }
+      }
+    }
+    return ans;
+  }
 };
 </PRE>
 </BODY>

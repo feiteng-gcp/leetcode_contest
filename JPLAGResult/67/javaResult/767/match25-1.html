@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1242_Stevan0102.java</TITLE>
+ <TITLE>110_xuan_wu1992.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1242_Stevan0102.java</CENTER></H3><HR>
+<H3><CENTER>110_xuan_wu1992.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>// 1010
+// 1111
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int result = 0;
-            // System.out.println(&quot;--------------&quot;);
-        for (int num = L; num &lt;= R; num++){
-            // System.out.println(&quot;num = &quot; + num);
-            int count = countSetbits</B></FONT>(num);
-<A NAME="1"></A>            // System.out.println(&quot;count = &quot; + count);
-            boolean isP = isPrime(count);
-            // System.out.println(&quot;isPrime = &quot; + isP);
-            if (isP) result++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        int res = 0;
+        for (int i = L; i &lt;= R; i++) {
+            if(isCountPrime(i)) {
+                res++;
+            }
         }
-        return result;
+        return res;
     }
     
-    private int countSetbits(int num){
-        int count = 0;
-<A NAME="2"></A>        while (num &gt; 0){</B></FONT>
-            if (num % 2 == 1) count++;
-            num /= 2;
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return count;
-    }
-    
-    private boolean isPrime(int count){
-<A NAME="3"></A>        if (count == 1 || count == 0) return false;
-        if (count == 2) return true;</B></FONT>
-        int limit = (int)Math.sqrt(count);
-        for (int i = 2; i &lt;= limit; i ++)<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (count % i == 0) return false;
+    private boolean isCountPrime(int num) {
+        int res = 0</B></FONT>;
+<A NAME="1"></A>        if ((num &amp; (num - 1)) == 0) {
+            return false;
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 32; i++) {
+            if (((num &gt;&gt; i) &amp; 1) == 1) {
+                res++;
+            }
+        }</B></FONT>
+        
+        if (res == 1) {
+            return false;
+        }
+        if (res == 2) {
+            return true;
+        }
+        for (int i = 2; i &lt; res; i++) {
+            if (res % i == 0) {
+                return false;
+            }
         }
         return true;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

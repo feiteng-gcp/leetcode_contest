@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>345_gjxhlan.java</TITLE>
+ <TITLE>11_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>345_gjxhlan.java</CENTER></H3><HR>
+<H3><CENTER>11_nevergiveup.java</CENTER></H3><HR>
 <PRE>
 class Solution {
+	private int[] left = new int[26];
+	private int[] right = new int[26];
+	
     public List&lt;Integer&gt; partitionLabels(String S) {
-        int[][] f = new int[26][2];
-
-        for (int i = 0; i &lt; 26; i++) {
-            f[i][0] = S.length();
-            f[i][1] = -1;
-        }
-
-        for (int i = 0; i &lt; S.length(); i++) {
-<A NAME="0"></A>            int j = (int) (S.charAt(i) - 'a');
-            f[j][0] = Math.min(f[j][0], i);
-            f[j][1] = Math.max(f[j][1], i);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-
-
-        Arrays.sort(f, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] a, int[] b) {
-                return a[0] - b[0];
-            }
-        });
-
         
-        int i = 0</B></FONT>;
-        List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
-        int left = 0, right = -1;
-        while (i &lt; 26) {
-            if (f[i][1] != -1) {
-                if (right == -1 || f[i][0] &lt; right) {
-                    right = Math.max(right, f[i][1]);
-                } else {
-                    ans.add(right - left + 1);
-                    left = f[i][0];
-                    right = f[i][1];
-                }
-            }
-            i++;
-        }
-        ans.add(right - left + 1);
-
-        return ans;
+    	List&lt;Integer&gt; ans = new ArrayList&lt;&gt;();
+    	int i , j , length = S.length();
+    	Arrays.fill(left , - 1);
+    	Arrays.fill(right , - 1); 
+    	for (i = 0;i &lt; length;i ++) {
+    		int index = S.charAt(i) - 'a';
+    		if (left[index] &lt; 0) {
+    			left[index] = i;
+    			right[index] = i;
+    		} else {    			
+    			right[index] = i;
+    		}
+    	}
+    	for (i = 0;i &lt; length;i ++) {
+<A NAME="0"></A>    		int index = S.charAt(i) - 'a';
+    		int from = i , to = right[index];
+    		while (i &lt;= to) {
+    			index = S.charAt(i) - 'a'<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+    			if (right[index] &gt; to) {
+    				to = right[index];
+    			}
+    			i ++;
+    		}
+    		i --;
+    		ans.add(to - from</B></FONT> + 1);
+    	}
+    	return ans;
+    	
     }
+	
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>436_mchen67.java</TITLE>
+ <TITLE>442_lily4ever.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>436_mchen67.java</CENTER></H3><HR>
+<H3><CENTER>442_lily4ever.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int countPrimeSetBits(int L, int R) {
-        int cnt = 0;
+        int res = 0; 
         for (int i = L; i &lt;= R; i++) {
-            if (isPrime(Integer.bitCount(i))) cnt += 1;
+            if (hasPrimeSetBits(i)) {
+                res++;
+            }
         }
-        return cnt;
+        return res;
     }
-<A NAME="1"></A>
-    private boolean isPrime(int n) {
-        if (n == 1) return false;</B></FONT>
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 2; 2 * i &lt;= n; i++) {
-            if (n % i == 0) return false;
-        }
-        return true;
+    
+    boolean hasPrimeSetBits(int num) {
+        int count = 0;
+        for (int i = 0; i &lt; 32; i++) {
+            if ((1 &amp; (num &gt;&gt; i)) == 1) {
+                count++;
+            }
+        }</B></FONT>
+        return isPrime(count);
     }
-}</B></FONT>
+    
+    boolean isPrime(int count) {
+        List&lt;Integer&gt; list = Arrays.asList(2,3,5,7,11,13,17,19,23,29,31);
+        Set&lt;Integer&gt; set = new HashSet(list);
+        return set.contains(count);
+    }
+}
 </PRE>
 
 </BODY>

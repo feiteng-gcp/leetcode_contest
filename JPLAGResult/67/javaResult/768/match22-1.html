@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1095_yunhanyu.java</TITLE>
+ <TITLE>13_XBB_HOME.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1095_yunhanyu.java</CENTER></H3><HR>
+<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-       
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; S.length(); i++) {
-            char c = S.charAt(i);
-            map.put(c, i);
-        }
-        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
-        int len = S.length();
-        
-<A NAME="0"></A>        int lastCount = -1, tmpCount = 0;
-        for (int i = 0; i &lt; len; i++) {
-            tmpCount = Math.max(tmpCount, map.get(S.charAt(i)));
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (i == tmpCount) {
-                res.add(tmpCount - lastCount);
-                lastCount = tmpCount;
-                tmpCount++;
-            }
-        }
-        return res;
+		List&lt;int[]&gt; counts = new ArrayList&lt;&gt;();
+		for (int i = 0; i &lt; S.length(); i++) {
+			char c = S.charAt(i);</B></FONT>
+			ListIterator&lt;int[]&gt; iterator = counts.listIterator();
+			boolean merge = false;
+			int[] merged = new int[26];
+			while (iterator.hasNext()) {
+				int[] count = iterator.next();
+				if (!merge &amp;&amp; count[c - 'a'] &gt; 0) {
+					merge = true;
+				}
+				if (merge) {
+					for (int k = 0; k &lt; count.length; k++) {
+						merged[k] += count[k];
+					}
+					iterator.remove();
+				}
+			}
+			merged[c - 'a']++;
+			counts.add(merged);
+		}
+		List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+		for (int i = 0; i &lt; counts.size(); i++) {
+			int sum = 0;
+			int[] count = counts.get(i);
+			for (int j = 0; j &lt; count.length; j++) {
+				sum += count[j];
+			}
+			result.add(sum);
+		}
+		return result;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

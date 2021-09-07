@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>660_yzheng2364.java</TITLE>
+ <TITLE>27_5305519068.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>660_yzheng2364.java</CENTER></H3><HR>
+<H3><CENTER>27_5305519068.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A>import java.util.LinkedList;
+import java.util.List;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;Integer&gt; partitionLabels(String S) {
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
-        for (char c : S.toCharArray()) {
-        	int n = queue.size();
-        	boolean mergeRest = false;</B></FONT>
-        	int i = 0;
-        	int[] tmpSet = new int[26];
-        	for (i = 0; i &lt; n; i++) {
-        		int[] hash = queue.poll();
-        		if (hash[c - 'a'] &gt; 0) {
-        			mergeRest = true;
-        			tmpSet = hash;
-        			break;
-        		}
-        		queue.offer(hash);
-        	}
-        	if (mergeRest) {
-        		for (int j = i + 1; j &lt; n; j++) {
-        			int[] hash = queue.poll();
-        			for (int k = 0; k &lt; 26; k++) {
-        				tmpSet[k] += hash[k];
-        			}
-        		}
-        		tmpSet[c - 'a'] += 1;
-        		queue.offer(tmpSet);
-        	}
-        	else {
-        		int[] newSet = new int[26];
-        		newSet[c - 'a'] = 1;
-        		queue.offer(newSet);
-        	}
+        int[] total = new int[26];
+        for (int i = 0; i &lt; S.length</B></FONT>(); ++i) {
+        	total[S.charAt(i) - 'a']++;
         }
-        int n = queue.size();
-<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) {
-        	int[] hash = queue.poll();
-        	int size = 0;
-        	for (in<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>t k = 0; k &lt; 26; k++) {
-        		size += hash[k];
+        int[] count = new int[26];
+        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
+        for (int i = 0, last = -1; i &lt; S.length(); ++i) {
+        	count[S.charAt(i) - 'a']++;
+        	boolean good = true;
+        	for (int j = 0; j &lt; 26; ++j) {
+        		if (count[j] == 0 || count[j] == total[j]) {
+        			continue;
+        		} else {
+        			good = false;
+<A NAME="1"></A>        			break;
+        		}
         	}
-        	res.add(size);
+        	if (good) {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        		res.add(i - last);
+        		last = i;
+        	}
         }
         return res;
-    }
-}</B></FONT>
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

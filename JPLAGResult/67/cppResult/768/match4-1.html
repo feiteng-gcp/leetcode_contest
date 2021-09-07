@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_sergeynagin.cpp</TITLE>
+ <TITLE>22_zl1zl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>40_sergeynagin.cpp</CENTER></H3><HR>
+<H3><CENTER>22_zl1zl.cpp</CENTER></H3><HR>
 <PRE>
-int Min[1000], Max[1000];
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
     vector&lt;int&gt; partitionLabels(string S) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; ans;
-        for (int c = 'a'; c &lt;= 'z'; c++) {
-            Min[c] = 111111;
-            Max[c] = -1;
+        vector&lt;int&gt; last(26, -1);
+        for(int i=0; i&lt;S.size(); ++i) {
+            last[S[i] - 'a'] = i;
         }
-        for (int i = 0; i &lt; S.size(); i++) {</B></FONT>
-            Min[S[i]] = min(Min[S[i]], i);
-            Max[S[i]] = max(Max[S[i]], i);
-        }
-                
-        int l = 0;
-        while (l &lt; S.size()) {
-            int r = l;
-            int i = l;
-            while (i &lt;= r) {
-                r = max(r, Max[S[i]]);
-                i++;
+<A NAME="0"></A>        vector&lt;int&gt; res;
+        for(int i=0; i&lt;S.size(); ) {
+            int cur_end = last[S[i] - 'a'];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int j = i+1;
+            while(j&lt;= cur_end) {
+                cur_end = max(last[S[j] - 'a'], cur_end);
+                ++j;
             }
-            ans.push_back(r - l + 1);
-            l = r + 1;
+            res.push_back(j - i);
+            i = j;
         }
-        return ans;
+        return res;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

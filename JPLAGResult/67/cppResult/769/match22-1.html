@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>131_Poohdxx.cpp</TITLE>
+ <TITLE>21_szp14.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>131_Poohdxx.cpp</CENTER></H3><HR>
+<H3><CENTER>21_szp14.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-        vector&lt;vector&lt;int&gt;&gt; res(N, vector&lt;int&gt;(N, 0));
-        for (int i = 0; i &lt; N; i++) {
-            for (int j = 0; j &lt; N; j++) {
-                res[i][j] = 1 + min(N-1-i, min(i, min(j,N-1-j)));
-            }
+        vector&lt;set&lt;int&gt; &gt; row(N), col(N);
+    int len = (int)mines.size();
+    for(int i = 0; i &lt; len; i++)
+    {
+        row[mines[i][0]].insert(mines[i][1]);
+        col[mines[i][1]].insert(mines[i][0]);
+    }
+    for(int i = 0; i &lt; N; i++)
+<A NAME="0"></A>    {
+        row[i].insert(-1); row[i].insert(N);
+        col[i].insert(-1); col[i].insert(N);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    int ans = 0;
+    for(int i = 0; i &lt; N; i++)
+        for(int j = 0; j &lt; N; j++)
+        {</B></FONT>
+            int L = *(prev(row[i].lower_bound(j)));
+            int R = *(row[i].lower_bound(j));
+            int U = *(prev(col[j].lower_bound(i)));
+            int D = *(col[j].lower_bound(i));
+            ans = max(ans, min(min(j - L, R - j), min(i - U, D - i)));
         }
-        
-//         for (auto &amp;z : mines) {
-//             res[z[0]][z[1]] = 0;
-//         }
-        
-        
-        
-        for (auto &amp;z : mines) {
-            int x = z[0];
-            int y = z[1];
-            for (int j = 0; j &lt; N; j++) {
-                res[x][j] = min(res[x][j], abs(j-y));
-<A NAME="0"></A>            }
-            for (int i = 0; i &lt; N; i++) {
-                res[i][y] = min(res[i][y], abs(i-x));
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
-        }
-        
-        int r = 0;
-        for (int i = 0; i &lt; N; i++) {
-            for (int j = 0; j &lt; N; j++) {</B></FONT>
-                r = max(r, res[i][j]);
-            }
-        }
-        return r;
+    return ans;
     }
 };
 </PRE>

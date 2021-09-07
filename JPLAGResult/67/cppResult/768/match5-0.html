@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>470_milu.cpp</TITLE>
+ <TITLE>40_sergeynagin.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>470_milu.cpp</CENTER></H3><HR>
+<H3><CENTER>40_sergeynagin.cpp</CENTER></H3><HR>
 <PRE>
+int Min[1000], Max[1000];
 class Solution {
 public:
     vector&lt;int&gt; partitionLabels(string S) {
-        unordered_map&lt;char, pair&lt;int, int&gt;&gt; mmap;
-        for (int i=0; i&lt;S.size(); i++) {
-            if (mmap.find(S[i]) == mmap.end()) {
-                mmap[S[i]] = make_pair(i, i);
-            }
-            else {
-                mmap[S[i]].second = max(mmap[S[i]].second, i);
-<A NAME="0"></A>            }
+        vector&lt;int&gt; ans;
+        for (int c = 'a'; c &lt;= 'z'; c++) {
+            Min[c] = 111111;
+            Max[c] = -1;
         }
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; ans;
-        int start = -1, end = -1;
-        for (int i=0; i&lt;S.size(); i++) {
-            if (start == -1) {
-                start = mmap[S[i]].first;
-                end = mmap[S[i]].second;
-            }</B></FONT>
-            if (i == end) {
-                ans.push_back(end - start + 1);
-                start = -1, end = -1;
-            }
-            else {
-                end = max(end, mmap[S[i]].second);
-            }
+        for (int i = 0; i &lt; S.size(); i++) {
+            Min[S[i]] = min(Min[S[i]], i);
+<A NAME="0"></A>            Max[S[i]] = max(Max[S[i]], i);
         }
-
+                
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int l = 0;
+        while (l &lt; S.size()) {
+            int r = l;
+            int i = l;
+            while (i &lt;= r) {
+                r = max(r, Max[S[i]]);
+                i++;
+            }
+            ans.push_back(r - l + 1);
+            l = r + 1;
+        }
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

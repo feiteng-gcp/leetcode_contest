@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1044_codoge1.java</TITLE>
+ <TITLE>16_KakaHiguain.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,35 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1044_codoge1.java</CENTER></H3><HR>
+<H3><CENTER>16_KakaHiguain.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    public List&lt;Integer&gt; partitionLabels(String S) {
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        int[] alpha = new int[26];
-        for (char c : S.toCharArray()) {
-            alpha[c - 'a']++;
+<A NAME="0"></A>    public List&lt;Integer&gt; partitionLabels(String S) {
+        int[][] a=new int[26][2];
+        List&lt;Integer&gt; ans=new ArrayList&lt;&gt;();
+        for (int i=0;i&lt;26;i++) a[i][0]=10000<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        for (int i=0;i&lt;S.length();i++)
+        {
+            int c=S.charAt(i)-97;
+            if (a[c][0]==10000) a[c][0]=i;
+            a[c][1]=i;
         }
-        int start = 0;
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        int count = 0;
-        for (int i = 0; i &lt; S.length(); i++) {
-            char c = S.charAt(i);
-            if (!map.containsKey(c)) {
-                count++;
+        //if (1==1){
+        //ans.add(a[1][0]); ans.add(a[1][1]); return ans;}
+        Arrays.sort</B></FONT>(a,(c,d)-&gt;(c[0]-d[0]));
+        int l=a[0][0],r=a[0][1];
+        for (int i=1;i&lt;26;i++)
+        {
+            if (a[i][0]==10000) break;
+            if (a[i][0]&gt;r)
+            {
+                ans.add(r-l+1);
+                l=a[i][0];
+                r=a[i][1];
             }
-<A NAME="0"></A>            map.put(c, map.getOrDefault(c, 0) + 1);
-            if (map.get(c) == alpha[c - 'a']) {
-                count--;
-                if (count == 0) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    res.add(i - start + 1);
-                    start = i + 1;
-                }
-            }
+            r=Math.max(r,a[i][1]);
         }
-        return res;
+        ans.add(r-l+1);
+        return ans;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1095_yunhanyu.java</TITLE>
+ <TITLE>360_yang_m.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1095_yunhanyu.java</CENTER></H3><HR>
+<H3><CENTER>360_yang_m.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public List&lt;Integer&gt; partitionLabels(String S) {
-       
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; S.length(); i++) {
-            char c = S.charAt</B></FONT>(i);
-            map.put(c, i);
-        }
-        List&lt;Integer&gt; res = new LinkedList&lt;&gt;();
-        int len = S.length();
-        
-        int lastCount = -1, tmpCount = 0;
-        for (int i = 0; i &lt; len; i++) {
-            tmpCount = Math.max(tmpCount, map.get(S.charAt(i)));
-            if (i == tmpCount) {
-                res.add(tmpCount - lastCount);
-                lastCount = tmpCount;
-                tmpCount++;
+class Solution {
+<A NAME="0"></A>    public List&lt;Integer&gt; partitionLabels(String S) {
+        int[] last = new int[26];
+        Arrays.fill(last, -1);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = S.length() - 1; i &gt;= 0; i--) {
+            int pos = S.charAt(i) - 'a';
+            if(last[pos] == -1) {
+                l</B></FONT>ast[pos] = i;
             }
         }
-        return res;
+
+        int start = 0;
+        List&lt;Integer&gt; ans = new ArrayList&lt;Integer&gt;();
+
+        while(start &lt; S.length()) {
+            int tmp = start;
+            int end = last[S.charAt(start) - 'a'];
+           // System.out.println(end);
+            for(int w = start; w &lt;= end; w++) {
+                end = Math.max(end, last[S.charAt(w) - 'a']);
+            }
+            ans.add(end - start + 1);
+            start = end + 1;
+        }
+
+        return ans;
     }
 }
 </PRE>

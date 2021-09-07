@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>700_MarcusMogg.cpp</TITLE>
+ <TITLE>81_niobium.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>700_MarcusMogg.cpp</CENTER></H3><HR>
+<H3><CENTER>81_niobium.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
-    bool isPrime(int n)
-{
-    if (n == 1||n == 0) return false;
-    if (n == 2) return true;
-    for (int i = 2;i*i&lt;=n;i++)
-    {
-        if (n%i == 0) return false;
+    int countbit(int i) {
+        int numbit = 0;
+        while (i) {
+            numbit += (i &amp; 1);
+            i &gt;&gt;= 1;
+        }
+<A NAME="0"></A>        return numbit;
     }
-    return true;
-}
-bool setBit(int n)</B></FONT>
-{
-    int count = 0;
-    while (n&gt;0)
-    {
-        if (n &amp; 1 == 1)count++;
-        n &gt;&gt;= 1;
-<A NAME="1"></A>    }
-    //cout&lt;&lt;count&lt;&lt;endl;
-    if (isPrime(count)) return true;
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return false;
-}
-int countPrimeSetBits(int L, int R) {
-    int res = 0;
-    for (int i=L;i&lt;=R;i++)
-    {
-        if (setBit(i))res++;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool isprime(int x) {
+        if (x == 1) return false;
+        for (int i = 2; i * i &lt;= x; i++) {
+            if (x % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
-    return res;
-}
-};</B></FONT>
+    
+    int countPrimeSetBits(int L, int R) {
+        int ans = 0;
+        for (int i = L; i &lt;= R; i++) {</B></FONT>
+            int numbits = countbit(i);
+            
+            if (isprime(numbits)) {
+                ans++;
+            }
+        }
+        
+        return ans;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>12___Chaos__.cpp</TITLE>
+ <TITLE>74_tianhao2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,96 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>12___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>74_tianhao2.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt; &amp;mines) {
-    vector&lt;vector&lt;int&gt;&gt; a(N, vector&lt;int&gt;(N, 1));
-    for (const auto &amp;p : mines) {
-      a[p[0]][p[1]] = 0;
-<A NAME="0"></A>    }
-    int n = N;
-    auto l = a, r = a, u = a, d = a;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; ++i) {
-      for (int j = 0; j &lt; n; ++j) {
-        if (j &amp;&amp; a[i][j]) {
-          l[i][j] = max(l[i][j], l[i][j - 1] + 1);</B></FONT>
-<A NAME="1"></A>        }
-        if (i &amp;&amp; a[i][j]) {
-          u[i][j] = max(u[i][j], u[i - 1][j] + 1);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-      }
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        //unordered_map&lt;int, unordered_set&lt;int&gt;&gt; data;
+        //vector&lt;vector&lt;int&gt;&gt; L=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; R=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; U=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        //vector&lt;vector&lt;int&gt;&gt; D=vector&lt;vector&lt;int&gt;&gt;(N, vector&lt;int&gt;(N, 0));
+        bool** data=new bool*[N];
+        int** L=new int*[N];
+        int** R=new int*[N];
+        int** U=new int*[N];
+        int** D=new int*[N];
+        for(int i=0; i&lt;N; i++){
+            data[i]=new bool[N];
+            for(int j=0; j&lt;N; j++){
+                data[i][j]=true;
+            }
+            L[i]=new int[N];
+            R[i]=new int[N];
+            U[i]=new int[N];
+            D[i]=new int[N];
+        }
+        for(int i=0; i&lt;mines.size(); i++){
+<A NAME="0"></A>            //data[mines[i][0]].insert(mines[i][1]);
+            data[mines[i][0]][mines[i][1]]=false;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0; i&lt;N; i++){
+            int curr=0;
+            for(int j=0; j&lt;N; j++){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){
+                    curr=0;
+                }else{
+                    curr++;
+                }
+                L[i][j]=curr;
+            }
+        }
+        for(int i=0; i&lt;N; i++){
+            int curr=0;
+            for(int j=N-1; j&gt;=0; j--){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){
+                    curr=0;
+                }else{
+                    curr++;
+                }
+                R[i][j]=curr;
+            }
+        }
+        for(int j=0; j&lt;N; j++){
+            int curr=0;
+            for(int i=0; i&lt;N; i++){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){
+                    curr=0;
+                }else{
+                    curr++;
+                }
+                U[i][j]=curr;
+            }
+        }
+        for(int j=0; j&lt;N; j++){
+            int curr=0;
+            for(int i=N-1; i&gt;=0; i--){
+                // 0
+                //if(data.find(i)!=data.end() &amp;&amp; data[i].find(j)!=data[i].end()){
+                if(!data[i][j]){
+                    curr=0;
+                }else{
+                    curr++;
+                }
+                D[i][j]=curr;
+            }
+        }
+        int ret=0;
+        for(int i=0; i&lt;N; i++){
+            for(int j=0; j&lt;N; j++){
+                int res=min(L[i][j], min(R[i][j], min(U[i][j], D[i][j])));
+                ret=max(ret, res);</B></FONT>
+            }
+        }
+        return ret;
     }
-    for (int i = n - 1; i &gt;= 0; --i) {
-      for (int j = n - 1; j &gt;= 0; --j) {
-        if (j + 1 &lt; n &amp;&amp; a[i][j]) {
-          r[i][j] = max(r[i][j], r[i][j + 1] + 1);</B></FONT>
-<A NAME="2"></A>        }
-        if (i + 1 &lt; n &amp;&amp; a[i][j]) {
-          d[i][j] = max(d[i][j], d[i + 1][j] + 1);
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-      }
-    }
-    int ans = 0;
-    for (int i = 0; i &lt; n; ++i) {
-      for (int j = 0; j &lt; n; ++j) {</B></FONT>
-        int tmp = l[i][j];
-        tmp = min(tmp, r[i][j]);
-        tmp = min(tmp, u[i][j]);
-        tmp = min(tmp, d[i][j]);
-        ans = max(ans, tmp);
-      }
-    }
-    return ans;
-  }
 };
 </PRE>
 </BODY>

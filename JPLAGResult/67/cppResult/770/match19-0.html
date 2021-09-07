@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_daren.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>43_daren.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minSwapsCouples(vector&lt;int&gt;&amp; row) {
+        int sz=row.size();
+        vector&lt;int&gt; pos(sz);
+        for(int i=0; i&lt;sz; ++i)</B></FONT>
+            pos[row[i]]=i;
+        
+        int ans=0;
+        for(int i=0; i&lt;sz; i+=2) {
+            int mn=min(row[i],row[i+1]);
+            int mx=max(row[i],row[i+1]);
+            
+            if(mn%2==0 &amp;&amp; mx==mn+1) continue;
+            
+            ++ans;
+            if(mn%2) {
+                int target=mn-1;
+                row[pos[target]]=mx;
+                row[pos[mx]]=target;
+                swap(pos[target],pos[mx]);
+            } else {
+                int target=mn+1;
+                row[pos[target]]=mx;
+                row[pos[mx]]=target;
+                swap(pos[target],pos[mx]);
+            }
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

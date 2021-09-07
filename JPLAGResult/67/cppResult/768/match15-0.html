@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_stormouse.cpp</TITLE>
+ <TITLE>7_Kmcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>18_stormouse.cpp</CENTER></H3><HR>
+<H3><CENTER>7_Kmcode.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    struct Rang {
-        char ch;
-        int L;
-        int R;
-        Rang(){L = -1; R = -1;}
-    };
+    deque&lt;int&gt; v[26];
+    vector&lt;int&gt; ans;
     vector&lt;int&gt; partitionLabels(string S) {
-        vector&lt;Rang&gt; range_of_char(26);
-<A NAME="0"></A>        for(int i=0;i&lt;26;i++){
-            range_of_char[i].ch = 'a' + i;
+        for(int i=0;i&lt;S.size();i++){
+<A NAME="0"></A>            v[S[i]-'a'].push_back(i);
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;S.size();i++){
-            if(range_of_char[S[i]-'a'].L == -1){
-                range_of_char[S[i]-'a'].L = i;
-                range_of_char[S[i]-'a'].R = i;
+        int mx=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int lef=0;
+        for(int i=0;i&lt;S.size();i++){
+          int id=S[i]-'a';
+            v[id].pop_front();
+            if(v[id].size()){
+                mx=max(mx,v[id].back());
             }
-            else{
-                range_of_char[S[i]-'a'].R = i;
-            }
-        }</B></FONT>
-        sort(range_of_char.begin(), range_of_char.end(), [](Rang&amp; a, Rang&amp; b){
-            if(a.L == b.L) return a.R &lt; b.R;
-            return a.L &lt; b.L;
-        });
-        
-        vector&lt;int&gt; ret;
-        int l=0, r=0;
-        for(auto&amp; range : range_of_char){
-            if(range.L == -1) continue;
-            if(range.L &lt;= r){
-                r = max(r, range.R);
-            }
-            else {
-                ret.push_back(r-l+1);
-                l = range.L;
-                r = range.R;
+            if(mx==i){</B></FONT>
+                ans.push_back(mx-lef+1);
+            lef=i+1;
+            mx=i+1;
             }
         }
-        ret.push_back(r - l + 1);
-        
-        return ret;
+        return ans;
     }
 };
 </PRE>

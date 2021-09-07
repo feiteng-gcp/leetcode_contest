@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_XBB_HOME.java</TITLE>
+ <TITLE>14_fun4LeetCode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_XBB_HOME.java</CENTER></H3><HR>
+<H3><CENTER>14_fun4LeetCode.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int orderOfLargestPlusSign(int N, int[][] mines) {
-		int [][][] dp = new int[N][N][4];
-		int [][] field = new int [N][N];
-		// -1 for mine, 0 for cell
-		for (int[] mine: mines) {
-			field[mine[0]][mine[1]] = -1;
-		}
-		int cnt = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				dp[i][j][0] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int j = N - 1; j &gt;= 0; j--) {
-				dp[i][j][1] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}
-		for (int j = 0; j &lt; N; j++) {
-			for (int i = 0; i &lt; N; i++) {
-				dp[i][j][2] = cnt;
-				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-			for (int i = N - 1; i &gt;= 0; i--) {
-				dp[i][j][3] = cnt;
-<A NAME="0"></A>				cnt = (field[i][j] == 0) ? cnt + 1 : 0;
-			}
-			cnt = 0;
-		}<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		int max = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {
-				if (field[i][j] == 0) {</B></FONT>
-					int localMax = 1 + Math.min(Math.min(dp[i][j][0], dp[i][j][1]), Math.min(dp[i][j][2], dp[i][j][3]));
-					max = Math.max(max, localMax);
-				}
-			}
-		}
-		return max;
+        int[][] grid = new int[N][N];
+        
+        for (int i = 0</B></FONT>; i &lt; N; i++) {
+            Arrays.fill(grid[i], 1);
+        }
+        
+        for (int[] m : mines) {
+            grid[m[0]][m[1]] = 0;
+        }
+        
+<A NAME="1"></A>        int[][] dpL = new int[N][N];
+        int[][] dpR = new int[N][N];
+        int[][] dpU = new int[N][N];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dpD = new int[N][N];
+        
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) {
+                if</B></FONT> (grid[i][j] != 0) dpL[i][j] = 1 + (j == 0 ? 0 : dpL[i][j - 1]);
+            }
+            
+            for (int j = N - 1; j &gt;= 0; j--) {
+                if (grid[i][j] != 0) dpR[i][j] = 1 + (j == N - 1 ? 0 : dpR[i][j + 1]);
+            }
+        }
+        
+        for (int j = 0; j &lt; N; j++) {
+            for (int i = 0; i &lt; N; i++) {
+                if (grid[i][j] != 0) dpU[i][j] = 1 + (i == 0 ? 0 : dpU[i - 1][j]);
+            }
+            
+            for (int i = N - 1; i &gt;= 0; i--) {
+                if (grid[i][j] != 0) dpD[i][j] = 1 + (i == N - 1 ? 0 : dpD[i + 1][j]);
+            }
+        }
+        
+        int res = 0;
+        
+        for (int i = 0; i &lt; N; i++) {
+            for (int j = 0; j &lt; N; j++) {
+<A NAME="2"></A>                if (grid[i][j] == 0) continue;
+                int LR = Math.min(dpL[i][j], dpR[i][j]);
+                int UD = Math.min(dpU[i][j], dpD[i][j]);
+                res = Math.max(res, <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(LR, UD));
+            }
+        }
+        
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

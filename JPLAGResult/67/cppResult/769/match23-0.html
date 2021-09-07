@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_zhengkai2001.cpp</TITLE>
+ <TITLE>2_magila.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,79 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>41_zhengkai2001.cpp</CENTER></H3><HR>
+<H3><CENTER>2_magila.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-	int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
-		vector&lt;vector&lt;bool&gt;&gt; g(N, vector&lt;bool&gt;(N, true));
-		for (vector&lt;int&gt; mine : mines) {
-			g[mine[0]][mine[1]] = false;
-		}
-
-		vector&lt;vector&lt;int&gt;&gt; h(N, vector&lt;int&gt;(N, 0));
-		for (int i = 0; i &lt; N; i++) {
-			int len = 0;
-			for (int j = 0; j &lt; N; j++) {
-				if (g[i][j]) {
-					len++;
-					if (j == N - 1) {
-						markH(h, i, j, len);
-					}
-				}
-
-				if (!g[i][j]) {
-					if (len != 0) {
-						markH(h, i, j - 1, len);
-					}
-					len = 0;
-				}
-			}
-		}
-
-		vector&lt;vector&lt;int&gt;&gt; v(N, vector&lt;int&gt;(N, 0));
-		for (int j = 0; j &lt; N; j++) {		
-			int len = 0;
-			for (int i = 0; i &lt; N; i++) {
-				if (g[i][j]) {
-					len++;
-					if (i == N - 1) {
-						markV(v, j, i, len);
-					}
-				}
-
-				if (!g[i][j]) {
-					if (len != 0) {
-						markV(v, j, i - 1, len);
-<A NAME="0"></A>					}
-					len = 0;
-				}
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			}
-		}
-
-		int maxOrder = 0;
-		for (int i = 0; i &lt; N; i++) {
-			for (int j = 0; j &lt; N; j++) {</B></FONT>
-				int order = min(h[i][j], v[i][j]);
-				maxOrder = max(maxOrder, order);
-			}
-		}
-		return maxOrder;
-	}
-private:
-	void markH(vector&lt;vector&lt;int&gt;&gt;&amp; h, int i, int endJ, int len) {
-		int startJ = endJ - len + 1;
-		for (int j = startJ; j &lt;= endJ; j++) {
-			h[i][j] = min(j - startJ + 1, endJ - j + 1);
-		}
-	}
-
-	void markV(vector&lt;vector&lt;int&gt;&gt;&amp; v, int j, int endI, int len) {
-		int startI = endI - len + 1;
-		for (int i = startI; i &lt;= endI; i++) {
-			v[i][j] = min(i - startI + 1, endI - i + 1);
-		}
-	}
+    int orderOfLargestPlusSign(int N, vector&lt;vector&lt;int&gt;&gt;&amp; mines) {
+        vector&lt;vector&lt;int&gt;&gt; field(N, vector&lt;int&gt;(N, 1));
+        for(const auto&amp; v : mines) field[v[0]][v[1]] = 0;
+        
+        vector&lt;vector&lt;int&gt;&gt; left(N, vector&lt;int&gt;(N, 0));
+        auto right = left;
+        auto up = left;
+        auto down = left;
+        for(int i = 0; i &lt; N; i++)
+        {
+            for(int j = 1; j &lt; N; j++)
+            {
+                left[i][j] = (field[i][j - 1] == 1 ? 1 + left[i][j - 1] : 0);
+<A NAME="0"></A>                right[i][N - j - 1] = (field[i][N - j] == 1 ? 1 + right[i][N - j] : 0);
+                up[j][i] = (field[j - 1][i] == 1 ? 1 + up[j - 1][i] : 0);
+                down[N - j - 1][i] = (field[N - j][i] == 1 ? 1 + down[N - j][i] : 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        int ans = 0;
+        for(int i = 0; i &lt; N; i++)
+            for(int j = 0; j &lt; N; j++)
+            {
+                if (field[i][j] == 1)</B></FONT>
+                {
+                    ans = max(ans, 1 + min(min(up[i][j], down[i][j]), min(left[i][j], right[i][j])));
+                }
+            }
+        return ans;
+    }
 };
 </PRE>
 </BODY>

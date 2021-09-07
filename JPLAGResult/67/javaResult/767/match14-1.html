@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>851_EliteGarlic.java</TITLE>
+ <TITLE>42_crazy_y.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>851_EliteGarlic.java</CENTER></H3><HR>
+<H3><CENTER>42_crazy_y.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    
     public int countPrimeSetBits(int L, int R) {
-
-        int result = 0;
-<A NAME="1"></A>
-        for (int i = L; i &lt;= R; i++) {</B></FONT>
-            int bitCount = Integer.bitCount(i);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (isPrime(bitCount)) {
-                result++;
+        int[] p = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+        Set&lt;Integer&gt; ps = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; p.length; ++i) {
+            ps.add(p[i]);
+<A NAME="1"></A>        }
+        int rst = 0;
+        for (int i = L; i &lt;= R; ++i) {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (isRst(i, ps)) {
+                rst++;
             }
         }
-
-        return result;
-    }
-
-    private boolean isPrime(int n) {</B></FONT>
-
-        if (n &lt; 2) {
-<A NAME="2"></A>            return false;
-        }
-
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#2',2,'match14-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (n == 2 || n == 3) {
-            return true;
-        }
-
-        int root = (int)Math.sqrt(n);
-
-        for (int i = 2; i &lt;= root; i++) {
-            if (n % i == 0) {
-                return false;
+        return rst;
+    }</B></FONT>
+    
+    private boolean isRst(int n, Set&lt;Integer&gt; ps) {
+        int c = 0;
+        while (n != 0) {
+            if (n % 2 != 0) {
+                c++;
             }
+            n /= 2;
         }
-
-        return true;
+        return ps.contains(c);
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

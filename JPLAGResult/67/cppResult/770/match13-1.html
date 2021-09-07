@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>41_zhengkai2001.cpp</TITLE>
+ <TITLE>43_daren.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>41_zhengkai2001.cpp</CENTER></H3><HR>
+<H3><CENTER>43_daren.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-	int minSwapsCouples(vector&lt;int&gt;&amp; row) {
-		int size = row.size();
-
-		// people no. -&gt; seat no.
-		unordered_map&lt;int, int&gt; m;
-		for (int i = 0; i &lt; size; i++) {</B></FONT>
-			m[row[i]] = i;
-		}
-
-		int swapN = 0;
-		int n = size / 2;
-		for (int i = 0; i &lt; n; i++) {
-			int left = row[2 * i];
-			int shouldRight = findAnother(left);
-			int nowRight = row[2 * i + 1];
-			if (shouldRight != nowRight) {
-				int shouldRightNowSeat = m[shouldRight];
-				swap(row[2 * i + 1], row[shouldRightNowSeat]);
-				m[row[2 * i + 1]] = shouldRight;
-				m[row[shouldRightNowSeat]] = shouldRightNowSeat;
-				swapN++;
-			}
-		}
-		return swapN;
-	}
-private:
-	int findAnother(int one) {
-		return one % 2 == 0 ? one + 1 : one - 1;
-	}
+    int minSwapsCouples(vector&lt;int&gt;&amp; row) {
+        int sz=row.size();
+        vector&lt;int&gt; pos(sz);
+        for(int i=0; i&lt;sz; ++i)
+            pos[row[i]]=i;</B></FONT>
+        
+        int ans=0;
+        for(int i=0; i&lt;sz; i+=2) {
+            int mn=min(row[i],row[i+1]);
+            int mx=max(row[i],row[i+1]);
+            
+            if(mn%2==0 &amp;&amp; mx==mn+1) continue;
+            
+            ++ans;
+            if(mn%2) {
+                int target=mn-1;
+                row[pos[target]]=mx;
+                row[pos[mx]]=target;
+                swap(pos[target],pos[mx]);
+            } else {
+                int target=mn+1;
+                row[pos[target]]=mx;
+                row[pos[mx]]=target;
+                swap(pos[target],pos[mx]);
+            }
+        }
+        
+        return ans;
+    }
 };
 </PRE>
 </BODY>
