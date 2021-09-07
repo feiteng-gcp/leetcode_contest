@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161_knightzf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>161_knightzf.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    string toGoatLatin(string S) {
+        string res;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = S.size();
+        int startIdx = 0;
+        int cnt = 1;
+        for(int i = 0; i &lt;= n; ++i)
+        {
+            if(i == n || S[i] == ' ')</B></FONT>
+            {
+                const auto&amp; subStr = S.substr(startIdx, i - startIdx);
+                if(!subStr.empty())
+                {
+                    string t = subStr;
+                    if(!isVowel(subStr[0]))
+                        t = subStr.substr(1) + subStr[0];
+                    t += &quot;ma&quot; + string(cnt, 'a');
+
+                    res += (res.empty() ? &quot;&quot; : &quot; &quot;) + t;
+                }
+                startIdx = i + 1;
+                ++cnt;
+            }
+        }
+        return res;
+    }
+
+    bool isVowel(char c)
+    {
+        c = tolower(c);
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+};
+</PRE>
+</BODY>
+</HTML>
