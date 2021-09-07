@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>337_Barca37.java</TITLE>
+ <TITLE>59_Ruian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>337_Barca37.java</CENTER></H3><HR>
+<H3><CENTER>59_Ruian.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,51 +28,34 @@
  */
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; intervals = new ArrayList&lt;&gt;();
-        for (List&lt;Interval&gt; its : avails) {
-            for (Interval i : its) {</B></FONT>
-                intervals.add(i);
+        Map&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (List&lt;Interval&gt; emp : avails) {
+            for (Interval interval : emp) {</B></FONT>
+                if (!map.containsKey(interval.start)) map.put(interval.start, 1);
+                else map.put(interval.start, map.get(interval.start) + 1);
+<A NAME="1"></A>
+                if (!map.containsKey(interval.end)) map.put(interval.end, -1);
+                else map.put(interval.end, map.get(interval.end) - 1);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        
+        List&lt;Interval&gt; ans = new ArrayList&lt;&gt;();
+        int count = 0;
+        int start = -1;
+        for (Integer val : map.keySet()) {</B></FONT>
+            if (count == 0 &amp;&amp; start &gt;= 0) {
+                ans.add(new Interval(start, val));
+<A NAME="2"></A>            }
+            
+            count += map.get(val);
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (count == 0) {
+                start = val;
             }
         }
         
-        List&lt;Interval&gt; occupy = merge(intervals);
-        return free(occupy);
+        return ans;
     }
-    
-    public List&lt;Interval&gt; merge(List&lt;Interval&gt; intervals) {
-        if (intervals == null || intervals.size() == 0) {
-            return intervals;
-        }
-        
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        
-        Collections.sort(intervals, new Comparator&lt;Interval&gt;(){
-            public int compare(Interval a, Interval b) {
-                return a.start - b.start;
-            }
-        });
-        
-        Interval prev = null;
-        for (Interval interval : intervals) {
-            if (prev == null || interval.start &gt; prev.end) {
-                res.add(interval);
-                prev = interval;
-            } else {
-                prev.end = Math.max(prev.end, interval.end);
-            }
-        }
-        
-        return res;
-    }
-    
-    public List&lt;Interval&gt; free(List&lt;Interval&gt; intervals) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; intervals.size() - 1; i++) {
-            res.add(new Interval(intervals.get(i).end, intervals.get(i+1).start));
-        }
-        return res;
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

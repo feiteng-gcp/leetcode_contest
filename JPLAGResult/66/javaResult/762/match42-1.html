@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1074_ansdeki.java</TITLE>
+ <TITLE>101_bolobobo.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1074_ansdeki.java</CENTER></H3><HR>
+<H3><CENTER>101_bolobobo.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match42-0.html#0',2,'match42-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-<A NAME="1"></A>    public int[] anagramMappings(int[] A, int[] B) {
-        if (A.length == 1) {
-            return new</B></FONT> int[] {0};
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match42-0.html#1',2,'match42-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();
-        
+    public int[] anagramMappings(int[] A, int[] B) {
+        Map&lt;Integer, Queue&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
         for (int i = 0; i &lt; B.length; i++) {
-            map.put(B[i], i);
+            if (!map.containsKey(B[i])) {
+                map.put(B[i], new LinkedList&lt;&gt;());
+            }
+            map.get(B[i]).offer(i);
+        }
+<A NAME="1"></A>        
+        int[] res = new int[A.length];
+        for (int i = 0; i &lt; A.length; i++) {</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match42-0.html#1',2,'match42-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res[i] = map.get(A[i]).poll();
         }
         
-        int[] arr = new int[A.length];
-        
-        for (int j = 0; j &lt; A.length; j++) {
-            arr[j] = map.get(A[j]);
-        }
-        
-        return arr;
+        return res;
     }
 }</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>928_mouli123.cpp</TITLE>
+ <TITLE>344_aalmamun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>928_mouli123.cpp</CENTER></H3><HR>
+<H3><CENTER>344_aalmamun.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;int&gt; anagramMappings(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
-        if(A.size()==0 || B.size()==0)
-<A NAME="0"></A>            return vector&lt;int&gt;();
-        int s1 = A.size();
-        int s2 = B.size();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; ans;
-        
-        for(int i=0;i&lt;s1;i++)
-        {
-            for(int j=0;j&lt;s2;j++)
-            {
-                if(A[i]==B[j])
-                {
-                    ans.push_back(j);
-                    break;
-                }
-            }
+        map&lt;int, vector&lt;int&gt; &gt; b;
+        for (int i = 0; i &lt; B.size(); i++) {
+            b[B[i]].push_back(i);
         }
-        return ans;
+        vector&lt;int&gt; a;
+        for (int i = 0; i &lt; A.size(); i++) {
+            auto it = b.find(A[i]);
+            a.push_back(*(it-&gt;second.begin()));
+            it-&gt;second.erase(it-&gt;second.begin());
+        }
+        return a;
     }
 };</B></FONT>
 </PRE>

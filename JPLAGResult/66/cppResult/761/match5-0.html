@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>424_ergeda.cpp</TITLE>
+ <TITLE>99_xinyufeng16.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>424_ergeda.cpp</CENTER></H3><HR>
+<H3><CENTER>99_xinyufeng16.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -29,36 +29,30 @@
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int,int&gt;&gt; tmp;
-        for (auto vec : avails) {
-            for (auto v : vec) {
-                tmp.push_back(make_pair(v.start, v.end));
-            }
-        }</B></FONT>
-        
-        sort(tmp.begin(), tmp.end());
-        vector&lt;pair&lt;int,int&gt;&gt; merged;
-        if (tmp.size() &gt; 0) merged.push_back(tmp[0]);
-        for (int i = 1; i &lt; tmp.size(); ++i) {
-            pair&lt;int, int&gt;&amp; top = merged[merged.size()-1];
-            auto curr = tmp[i];
-            if (curr.first &lt;= top.second) {
-                top.second = max(curr.second, top.second);
-            }
-            else {
-                merged.push_back(curr);
+        map&lt;int, int&gt; T;
+        for (auto employee : avails) {
+            for (auto interval : employee) {
+                T[interval.start]++;
+                T[interval.end]--;
             }
         }
-        
-        vector&lt;Interval&gt; result;
-        for (int i = 0; i &lt; merged.size()-1; ++i) {
-            int left = merged[i].second;
-            int right = merged[i+1].first;
-            if (left &lt; right) {
-                result.push_back(Interval(left, right));
+        int cnt = 0;</B></FONT>
+        Interval tmp;
+        bool fill = false;
+        vector&lt;Interval&gt; ans;
+        for (auto entry : T) {
+            cnt += entry.second;
+            if (cnt == 0) {
+                tmp.start = entry.first;
+                fill = true;
+            }
+            if (cnt &gt; 0 &amp;&amp; fill) {
+                tmp.end = entry.first;
+                ans.push_back(tmp);
+                fill = false;
             }
         }
-        return result;
+        return ans;
     }
 };
 </PRE>

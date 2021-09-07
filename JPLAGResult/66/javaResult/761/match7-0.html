@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>473_leetge.java</TITLE>
+ <TITLE>94_yzeng61987.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>473_leetge.java</CENTER></H3><HR>
+<H3><CENTER>94_yzeng61987.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,31 +28,32 @@
  */
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
-        Map&lt;Integer, Integer&gt; events = new TreeMap&lt;&gt;();
-        for (List&lt;Interval&gt; intervals : avails) {
-            for (Interval busy : intervals) {
-                events.put</B></FONT>(busy.start, events.getOrDefault(busy.start, 0) + 1);
-                events.put(busy.end, events.getOrDefault(busy.end, 0) - 1);
+        TreeMap&lt;Integer, Integer&gt; sche = new TreeMap&lt;&gt;();
+        
+        for(List&lt;Interval&gt; employee: avails){
+            for(Interval slot: employee){</B></FONT>
+                sche.put(slot.start, sche.getOrDefault(slot.start, 0)+1);
+                sche.put(slot.end, sche.getOrDefault(slot.end, 0)-1);
             }
         }
         
-        int start = -1;
-        int count = 0;
-        for (Map.Entry&lt;Integer, Integer&gt; e : events.entrySet()) {
-            int time = e.getKey();
-            count += e.getValue();
+<A NAME="1"></A>        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        int busy = 0;
+        int start = Integer.MIN_VALUE;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int key: sche.keySet()){
+            int update = sche.get(key);
+            if(busy == 0 &amp;&amp; update &gt;0 &amp;&amp; start != Integer.MIN_VALUE){
+                res.add(new Interval(start, key));
+            }</B></FONT>
             
-            if (count &gt; 0 &amp;&amp; start != -1 &amp;&amp; time &gt; start) {
-                result.add(new Interval(start, time));
-                start = -1;
-            }
-            
-            if (count == 0) {
-                start = time;
+            busy += update;
+            if(busy == 0 &amp;&amp; update &lt;0){
+                start = key;    
             }
         }
-        return result;
+        
+        
+        return res;
     }
 }
 </PRE>

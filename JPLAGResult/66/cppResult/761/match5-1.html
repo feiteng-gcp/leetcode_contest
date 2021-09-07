@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>238_dpizzle.cpp</TITLE>
+ <TITLE>86_meezoo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>238_dpizzle.cpp</CENTER></H3><HR>
+<H3><CENTER>86_meezoo.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -29,30 +29,25 @@
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int,int&gt;&gt; timeline;
-        for (auto e : avails) {
-            for (auto i : e) {
-                timeline.push_back(make_pair(i.start, i.end));
-            }
-        }</B></FONT>
-        
-        sort(timeline.begin(), timeline.end());
-        
-        vector&lt;Interval&gt; result;
-        
-        //for(auto p : timeline) cout &lt;&lt; p.first &lt;&lt; &quot; &quot; &lt;&lt; p.second &lt;&lt; &quot;, &quot;;
-            
-        if (!timeline.empty()) {
-            int end = timeline[0].second;
-            for (int i = 1; i &lt; timeline.size(); ++i) {
-                if (timeline[i].first &gt; end) {
-                    result.push_back(Interval(end, timeline[i].first));
-                }
-                end = max(end, timeline[i].second);
+        map&lt;int, int&gt; mp;
+        for (auto&amp; emp : avails) {
+            for (auto&amp; inter : emp) {
+                ++mp[inter.start];
+                --mp[inter.end];
             }
         }
-        
-        return result;
+        int cnt = 0;</B></FONT>
+        vector&lt;int&gt; res;
+        for (auto&amp; kv : mp) {
+            if (cnt == 0) res.push_back(kv.first);
+            cnt += kv.second;
+            if (cnt == 0) res.push_back(kv.first);
+        }
+        vector&lt;Interval&gt; ans;
+        for (int i = 1; i &lt; res.size() - 1; i += 2) {
+            ans.push_back({res[i], res[i+1]});
+        }
+        return ans;
     }
 };
 </PRE>

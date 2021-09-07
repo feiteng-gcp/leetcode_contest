@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>238_dpizzle.cpp</TITLE>
+ <TITLE>99_xinyufeng16.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>238_dpizzle.cpp</CENTER></H3><HR>
+<H3><CENTER>99_xinyufeng16.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -29,30 +29,30 @@
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int,int&gt;&gt; timeline;
-        for (auto e : avails) {
-            for (auto i : e) {</B></FONT>
-                timeline.push_back(make_pair(i.start, i.end));
+        map&lt;int, int&gt; T;
+        for (auto employee : avails) {
+            for (auto interval : employee) {
+                T[interval.start]++;
+                T[interval.end]--;
             }
         }
-        
-        sort(timeline.begin(), timeline.end());
-        
-        vector&lt;Interval&gt; result;
-        
-        //for(auto p : timeline) cout &lt;&lt; p.first &lt;&lt; &quot; &quot; &lt;&lt; p.second &lt;&lt; &quot;, &quot;;
-            
-        if (!timeline.empty()) {
-            int end = timeline[0].second;
-            for (int i = 1; i &lt; timeline.size(); ++i) {
-                if (timeline[i].first &gt; end) {
-                    result.push_back(Interval(end, timeline[i].first));
-                }
-                end = max(end, timeline[i].second);
+        int cnt = 0;
+        Interval tmp;
+        bool fill = false;</B></FONT>
+        vector&lt;Interval&gt; ans;
+        for (auto entry : T) {
+            cnt += entry.second;
+            if (cnt == 0) {
+                tmp.start = entry.first;
+                fill = true;
+            }
+            if (cnt &gt; 0 &amp;&amp; fill) {
+                tmp.end = entry.first;
+                ans.push_back(tmp);
+                fill = false;
             }
         }
-        
-        return result;
+        return ans;
     }
 };
 </PRE>

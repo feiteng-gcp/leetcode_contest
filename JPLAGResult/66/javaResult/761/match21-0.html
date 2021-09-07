@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>340_payall4u.java</TITLE>
+ <TITLE>41_ajlohr.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>340_payall4u.java</CENTER></H3><HR>
+<H3><CENTER>41_ajlohr.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; ans = new LinkedList&lt;&gt;();
-        List&lt;List&lt;Interval&gt;&gt; table = new LinkedList&lt;&gt;();
-        for (List&lt;Interval&gt; tmpl: avails) {</B></FONT>
-            List&lt;Interval&gt; tmp = new LinkedList&lt;&gt;();
-            tmp.addAll(tmpl);
-            table.add(tmp);
-        }
-        int end = -1;
-        while (table.size() != 0) {
-            boolean flag = true;
-            int minimum = Integer.MAX_VALUE;
-            int e;
-            List&lt;List&lt;Interval&gt;&gt; n = new LinkedList&lt;&gt;();
-            for (List&lt;Interval&gt; tmp: table) {
-                Interval i = tmp.get(0);
-                if (i.start &lt;= end) {
-                    flag = false;
-                    tmp.remove(0);
-                    end = Math.max(end, i.end);
-                    if (tmp.size() != 0) n.add(tmp);
-                }else {
-                    minimum = Math.min(minimum, i.start);
-                    n.add(tmp);
+        TreeMap&lt;Integer,Interval&gt; startTimes = new TreeMap&lt;&gt;();
+        for(List&lt;Interval&gt; Emp : avails)
+        {
+            for(Interval conf : Emp)
+            {</B></FONT>
+                if(!startTimes.containsKey(conf.start))
+                {
+                    startTimes.put(conf.start,conf);
+                }else{
+                    int e = startTimes.get(conf.start).end;
+                    if(e&lt; conf.end)
+                        startTimes.put(conf.start,conf);
                 }
             }
-            table = n;
-            if (flag) {
-                if (end != -1) ans.add(new Interval(end, minimum));
-                end = minimum;
-            }
         }
-        return ans;
+<A NAME="1"></A>        List&lt;Interval&gt; output = new ArrayList&lt;&gt;();
+        int endtime = startTimes.get(startTimes.firstKey()).end;
+        startTimes.remove(startTimes.firstKey());
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(Integer s : startTimes.navigableKeySet())
+        {
+            Interval c = startTimes.get(s);
+            if(c.start &gt; endtime)
+            {
+                output.add(new</B></FONT> Interval(endtime,c.start));
+            }
+            endtime = Math.max(endtime,c.end);
+        }
+        return output;
     }
+    
 }
 </PRE>
 

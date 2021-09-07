@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>488_krishna957.java</TITLE>
+ <TITLE>37_SaveVMK.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>488_krishna957.java</CENTER></H3><HR>
+<H3><CENTER>37_SaveVMK.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,40 +23,38 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-class Solution {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
-<A NAME="0"></A>        for(List&lt;Interval&gt; list:avails){
-            result.addAll(list);
-        }
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Collections.sort(result,new Comparator&lt;Interval&gt;(){
-           public int compare(Interval f,Interval s){
-               return f.start==s.start?f.end-s.end:f.start-s.start;
-           } 
-        });
-        Interval ref = new Interval()</B></FONT>;
-        List&lt;Interval&gt; new_result = new ArrayList&lt;&gt;();
-        for(int i=0;i&lt;result.size();i++){
-            if(i == 0){
-                ref = result.get(i);
-            }else{
-                if(result.get(i).start &gt; ref.end){
-                    new_result.add(new Interval(ref.end,result.get(i).start));
-                    ref = result.get(i);
+        TreeMap&lt;Integer, Integer&gt; tm = new TreeMap&lt;Integer, Integer&gt;();
+        for (List&lt;Interval&gt; lm : avails) {
+            for (Interval inv : lm) {</B></FONT>
+                if (tm.containsKey(inv.start)) {
+                    if (tm.get(inv.start) &lt; inv.end)
+                        tm.put(inv.start, inv.end);
+                } else {
+                    tm.put(inv.start, inv.end);
                 }
-                else if(result.get(i).start &lt;= ref.end){
-                    ref.end = Math.max(ref.end,result.get(i).end);
-                }
-               
             }
         }
-       // new_result.add(ref);
-        return new_result;
+        ArrayList&lt;Interval&gt; l2 = new ArrayList&lt;Interval&gt;();
+        while (!tm.isEmpty()) {
+            int start = tm.firstKey();
+            int end = tm.remove(start);
+            while (!tm.isEmpty() &amp;&amp; tm.firstKey() &lt;= end) {
+                end = Math.max(end, tm.pollFirstEntry().getValue());
+<A NAME="1"></A>            }
+            l2.add(new Interval(start, end));
+        }
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ArrayList&lt;Interval&gt; ans = new ArrayList&lt;Interval&gt;();
+        for (int i = 0; i &lt; l2.size()-1; i++) {
+            ans.add(new Interval(l2.get(i).end, l2.get(i+1).start));
+        }
+        return ans;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

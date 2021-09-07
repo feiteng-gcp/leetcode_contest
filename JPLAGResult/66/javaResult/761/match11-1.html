@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>473_leetge.java</TITLE>
+ <TITLE>124_voidmian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>473_leetge.java</CENTER></H3><HR>
+<H3><CENTER>124_voidmian.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,38 +23,51 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
-<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
-        Map&lt;Integer, Integer&gt; events = new TreeMap&lt;&gt;();
-        for (List&lt;Interval&gt; intervals</B></FONT> : avails) {
-            for (Interval busy : intervals) {
-                events.put(busy.start, events.getOrDefault(busy.start, 0) + 1);
-                events.put(busy.end, events.getOrDefault(busy.end, 0) - 1);
+class Solution {
+<A NAME="0"></A>    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        if (avails == null || avails.size() == 0) {
+            return new ArrayList&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+
+        for (List&lt;Interval&gt; list : avails) {
+            for (Interval interval : list) {
+                res.add(interval);
             }
         }
-        
-        int start = -1;
-        int count = 0;
-        for (Map.Entry&lt;Integer, Integer&gt; e : events.entrySet()) {
-            int time = e.getKey();
-            count += e.getValue();
-            
-            if (count &gt; 0 &amp;&amp; start != -1 &amp;&amp; time &gt; start) {
-                result.add(new Interval(start, time));
-                start = -1;
+
+        Collections.sort(res, new Comparator&lt;Interval&gt;() {
+            @Overri</B></FONT>de
+            public int compare(Interval a, Interval b) {
+                if (a.start == b.start) {
+                    return a.end - b.end;
+                }
+                return a.start - b.start;
             }
-            
-            if (count == 0) {
-                start = time;
+        });
+
+        Interval tmp = res.get(0);
+        List&lt;Interval&gt; merge = new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; res.size(); ++i) {
+            if (tmp.end &gt;= res.get(i).start) {
+                tmp.end = Math.max(tmp.end, res.get(i).end);
+            } else {
+                merge.add(tmp);
+                tmp = res.get(i);
             }
+<A NAME="1"></A>        }
+        merge.add(tmp);
+        res = new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i + 1 &lt; merge.size(); ++i) {
+            res.add(new Interval(merge.get(i).end, merge.get(i + 1).start));
         }
-        return result;
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

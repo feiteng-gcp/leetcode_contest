@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>484_JihaoLiu.java</TITLE>
+ <TITLE>351_curky.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>484_JihaoLiu.java</CENTER></H3><HR>
+<H3><CENTER>351_curky.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,22 +28,54 @@
  */
 class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; all = new ArrayList&lt;&gt;();
         List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-<A NAME="0"></A>        avails.forEach(x -&gt; all.addAll(x));
-        int curS = Integer.MIN_VALUE, curE = Integer.MIN_VALUE;
-        all.sort(Comparator.comparingInt(o -&gt; o.start));
-        for (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int i = 0, len = all.size(); i &lt; len; i++) {
-            int e = all.get(i).end;
-            int s = all.get(i).start;
-            if (s &gt; curE) {</B></FONT>
-                if (curE != Integer.MIN_VALUE)
-                    res.add(new Interval(curE, s));
-                curS = s;
-                curE = e;
-            } else {
-                curE = Integer.max(curE, e);
+        if(avails == null || avails.size() == 0 || avails.get(0).size() == 0) {
+            return res;
+        }
+        List&lt;Interval&gt; merged = mergeInterval(avails);
+<A NAME="0"></A>        res = findCommon(merged);
+        return res;
+    }
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
+        List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
+        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
+        //Interval pre = avails.get(0).get(0);
+        for(List&lt;Interval&gt; avail : avails) {
+            for(Interval interval : avail) {
+                temp.add(interval);
             }
+        }
+        Collections.sort(temp, (a, b) -&gt; {</B></FONT>
+            if(a.start == b.start) {
+                return a.end - b.end;
+            } else {
+                return a.start - b.start;
+            }
+        });
+        Interval pre = temp.get(0);
+        for(Interval cur : temp) {
+            if(cur.start &lt;= pre.end) {
+                pre.end = Math.max(cur.end, pre.end);
+            } else {
+                merged.add(new Interval(pre.start, pre.end));
+                pre = cur;
+            }
+        }
+        merged.add(new Interval(pre.start, pre.end));
+        return merged;
+    }
+    public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        if(merged.size() == 0) {
+            return res;
+        }
+        for(int i = 0; i &lt; merged.size() - 1; i++) {
+            Interval pre = merged.get(i);
+            Interval cur = merged.get(i + 1);
+            if(pre.end == cur.start) {
+                continue;
+            }
+            res.add(new Interval(pre.end, cur.start));
         }
         return res;
     }

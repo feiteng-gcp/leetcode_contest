@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>334_smttsp.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>334_smttsp.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        int sz = 0;
+        for(int i = 0; i &lt; avails.size(); i++){
+            sz+=avails.get(i).size();
+        }
+        
+        Integer[][] darr = new Integer[sz][2]; 
+        int cnt = 0;
+<A NAME="0"></A>        for(int i = 0; i &lt; avails.size(); i++){
+            for(int j = 0; j &lt; avails.get(i).size(); j++){
+                darr[cnt][0]=avails.get(i).get(j).start;
+                darr[cnt][1]=<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>avails.get(i).get(j).end;
+                cnt++;
+            }
+        }
+        
+        Arrays.sort(darr, new Comparator&lt;Integer[]&gt;() {
+            @Override
+            public int compare(Integer[] o1, Integer[] o2) {</B></FONT>
+                Integer quantityOne = o1[0];
+                Integer quantityTwo = o2[0];
+                // reverse sort on quantity
+                return quantityOne.compareTo(quantityTwo);
+            }
+        });
+        
+        List&lt;Interval&gt; res= new ArrayList&lt;&gt;();
+        if(sz == 0) return res;
+        
+        // if(darr[0][0] &gt; 1)
+        //     res.add(new Interval(1,darr[0][0]));
+        
+        int mn = darr[0][0];
+<A NAME="1"></A>        int mx = darr[0][1];
+
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 1; i &lt; darr.length; i++){
+            // System.out.println(mn + &quot; &quot; + mx);
+            if(mx &lt; darr[i][0]){
+                //add2res and update
+                res.add(new Interval(mx,darr[i][0]));
+                mn = darr[i][0];
+                mx = darr[i][1];
+            }
+            else{</B></FONT>
+                mx=Math.max(mx, darr[i][1]);
+            }
+        }
+        return res;
+    }
+    
+	// private void displayArray(Integer[][] arr) {
+	// 	System.out.println(&quot;-------------------------------------&quot;);
+	// 	for (int i = 0; i &lt; arr.length; i++) {
+	// 		// Integer[] itemRecord = itemIdAndQty[i];
+	// 		System.out.println(arr[i][0] + &quot;\t\t&quot; + arr[i][1]);
+	// 	}
+	// 	System.out.println(&quot;-------------------------------------&quot;);
+	// }
+    
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

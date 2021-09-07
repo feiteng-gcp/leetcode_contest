@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>351_curky.java</TITLE>
+ <TITLE>337_Barca37.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>351_curky.java</CENTER></H3><HR>
+<H3><CENTER>337_Barca37.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,59 +23,52 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if(avails == null || avails.size() == 0 || avails.get(0).size() == 0) {
-            return res;
-        }
-        List&lt;Interval&gt; merged = mergeInterval(avails);
-        res = findCommon(merged);
-        return res;
-    }
-    public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
-        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
-        //Interval pre = avails.get(0).get(0);
-        for(List&lt;Interval&gt; avail : avails) {
-            for(Interval interval : avail) {
-                temp.add(interval);
+        List&lt;Interval&gt; intervals = new ArrayList&lt;&gt;();
+        for (List&lt;Interval&gt; its : avails) {</B></FONT>
+            for (Interval i : its) {
+                intervals.add(i);
             }
         }
-        Collections.sort(temp, (a, b) -&gt; {
-            if(a.start == b.start) {
-                return a.end - b.end;
-            } else {
+        
+        List&lt;Interval&gt; occupy = merge(intervals);
+        return free(occupy);
+    }
+    
+    public List&lt;Interval&gt; merge(List&lt;Interval&gt; intervals) {
+        if (intervals == null || intervals.size() == 0) {
+            return intervals;
+        }
+        
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        
+        Collections.sort(intervals, new Comparator&lt;Interval&gt;(){
+            public int compare(Interval a, Interval b) {
                 return a.start - b.start;
             }
         });
-        Interval pre = temp.get(0);
-        for(Interval cur : temp) {
-            if(cur.start &lt;= pre.end) {
-                pre.end = Math.max(cur.end, pre.end);
+        
+        Interval prev = null;
+<A NAME="1"></A>        for (Interval interval : intervals) {
+            if (prev == null || interval.start &gt; prev.end) {
+                res.add(interval);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>prev = interval;
             } else {
-                merged.add(new Interval(pre.start, pre.end));
-                pre = cur;
+                prev.end = Math.max(prev.end, interval.end);
             }
         }
-<A NAME="0"></A>        merged.add(new Interval(pre.start, pre.end));
-        return merged;
-    }
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
+        
+        return res;
+    }</B></FONT>
+    
+    public List&lt;Interval&gt; free(List&lt;Interval&gt; intervals) {
         List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if(merged.size() == 0) {
-            return res;
-        }</B></FONT>
-        for(int i = 0; i &lt; merged.size() - 1; i++) {
-            Interval pre = merged.get(i);
-            Interval cur = merged.get(i + 1);
-            if(pre.end == cur.start) {
-                continue;
-            }
-            res.add(new Interval(pre.end, cur.start));
+        for (int i = 0; i &lt; intervals.size() - 1; i++) {
+            res.add(new Interval(intervals.get(i).end, intervals.get(i+1).start));
         }
         return res;
     }

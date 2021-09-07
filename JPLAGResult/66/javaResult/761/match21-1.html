@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>135_kangtaku.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>135_kangtaku.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,22 +28,33 @@
  */
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-		List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
-		for (List&lt;Interval&gt; l: avails) {</B></FONT>
-			for (Interval i: l) {
-				list.add(i);
-			}
-		}
-		Collections.sort(list, (a, b) -&gt; a.start == b.start ? b.end - a.end : a.start - b.start);
-		int max_end = list.get(0).end;
-		for (int i = 1; i &lt; list.size(); i++) {
-			if (max_end &lt; list.get(i).start) {
-				res.add(new Interval(max_end, list.get(i).start));
-			}
-			max_end = Math.max(max_end, list.get(i).end);
-		}
-		return res;
+        List&lt;Interval&gt; all=new ArrayList&lt;&gt;();
+        for(List&lt;Interval&gt; avail:avails){
+            for(Interval in:avail){</B></FONT>
+                all.add(in);
+            }
+        }
+        all.sort((x,y)-&gt;{
+            if(x.start!=y.start){
+                return x.start-y.start;
+            }else if(x.end!=y.end){
+                return x.end-y.end;
+            }
+            return 0;
+<A NAME="1"></A>        });
+        int start=all.get(0).start,end=all.get(0).end;
+        List&lt;Interval&gt; ans=new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=1;i&lt;all.size();i++){
+            Interval in=all.get(i);
+            if(end&lt;in.start){
+                ans.add(new</B></FONT> Interval(end,in.start));
+                start=in.start;
+                end=in.end;
+            }else{
+                end=Math.max(end,in.end);
+            }
+        }
+        return ans;
     }
 }
 </PRE>

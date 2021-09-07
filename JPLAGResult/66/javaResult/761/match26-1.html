@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>340_payall4u.java</TITLE>
+ <TITLE>350_tongyingkk.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>340_payall4u.java</CENTER></H3><HR>
+<H3><CENTER>350_tongyingkk.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; ans = new LinkedList&lt;&gt;();
-        List&lt;List&lt;Interval&gt;&gt; table = new LinkedList&lt;&gt;();
-        for (List&lt;Interval&gt; tmpl</B></FONT>: avails) {
-            List&lt;Interval&gt; tmp = new LinkedList&lt;&gt;();
-            tmp.addAll(tmpl);
-            table.add(tmp);
+        List&lt;Interval&gt; sortList = new ArrayList&lt;&gt;();
+        for(List&lt;Interval&gt; list : avails) {
+            for(Interval interval : list) {
+                sortList.add</B></FONT>(interval);
+            }
         }
-        int end = -1;
-        while (table.size() != 0) {
-            boolean flag = true;
-            int minimum = Integer.MAX_VALUE;
-            int e;
-            List&lt;List&lt;Interval&gt;&gt; n = new LinkedList&lt;&gt;();
-            for (List&lt;Interval&gt; tmp: table) {
-                Interval i = tmp.get(0);
-                if (i.start &lt;= end) {
-                    flag = false;
-                    tmp.remove(0);
-                    end = Math.max(end, i.end);
-                    if (tmp.size() != 0) n.add(tmp);
-                }else {
-                    minimum = Math.min(minimum, i.start);
-                    n.add(tmp);
-                }
+        sortList.sort(new Comparator&lt;Interval&gt;() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return o1.start - o2.start;
             }
-            table = n;
-            if (flag) {
-                if (end != -1) ans.add(new Interval(end, minimum));
-                end = minimum;
-            }
+        });
+        int start = sortList.get(0).start;
+        int end = sortList.get(0).end;
+        List&lt;Interval&gt; ans = new ArrayList&lt;&gt;();
+        for(Interval interval : sortList) {
+            if(interval.start &gt; end) {
+                ans.add(new Interval(end,interval.start));
+                start = interval.start;
+<A NAME="1"></A>                end = interval.end;
+            } else if(interval.end &gt; end) {
+                end = interval.end;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
         return ans;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

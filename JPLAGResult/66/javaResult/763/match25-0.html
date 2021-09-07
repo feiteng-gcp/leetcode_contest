@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_Ruian.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_Ruian.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+ 
+    public String makeLargestSpecial(String S) {
+        TreeSet&lt;String&gt; set = new TreeSet&lt;&gt;();
+        dg(set, S);
+        return set.last();
+    }
+
+    void dg(TreeSet&lt;String&gt; set, String str) {
+        if (set.contains(str)) return;
+        set.add(str);
+
+        for (int i = 0; i &lt; str.length(); i++) {
+            if (str.charAt(i) == '0') continue;
+
+            int count = 1;
+            for (int j = i + 1; j &lt; str.length()-2; j++) {
+                count += (str.charAt(j) == '1' ? 1 : -1);
+                if (count &lt; 0) break;
+
+                if (count == 0 &amp;&amp; str.charAt(j+1) == '1') {
+                    int m = j+1;
+                    int count2 = 1;
+                    for (int n = m+1; n &lt; str.length(); n++) {
+                        count2 += (str.charAt(n) == '1' ? 1 : -1);
+
+                        if (count2 &lt; 0) break;
+
+                        if (count2 == 0) {
+                            String left = str.substring(i,j+1);
+                            String right = str.substring(m,n+1);
+                            if (left.compareTo(right) &lt; 0) {
+                                // System.out.println(&quot;left = &quot; + left + &quot;, right = &quot; + right);
+                                String newStr = str.substring(0,i) + right + left + str.substring(n+1);
+<A NAME="0"></A>                                if (set.higher(newStr) == null) {
+                                    dg(set, newStr);
+                                }
+                            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                        }
+                    }
+
+                }
+            }
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

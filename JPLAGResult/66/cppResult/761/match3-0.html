@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>9_SoulOfCinder.cpp</TITLE>
+ <TITLE>84_hbtth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>9_SoulOfCinder.cpp</CENTER></H3><HR>
+<H3><CENTER>84_hbtth.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -26,73 +26,29 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
-
-struct Event {
-    int x;
-    int type;
-    int id;
-};
-
-bool operator&lt;(const Event &amp;a, const Event &amp;b) {
-    if (a.x != b.x) return a.x &lt; b.x;
-    return a.type &lt; b.type;
-};
-
-
 class Solution {
 public:
+    static bool cmp(Interval &amp;a, Interval &amp;b) {
+        if(a.start != b.start) return a.start &lt; b.start;
+        return a.end &lt; b.end;
+    }
+    
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        int n = avails.size();
-        vector&lt;Event&gt; events;
-        
-        for (int i = 0; i &lt; n; ++i) {            
-            for (auto temp: avails[i]) {
-                Event start;
-                start.x = temp.start;
-                start.type = 0;
-                start.id = i;
-                events.push_back(start);
-                Event end;
-                end.x = temp.end;
-                end.type = 1;
-                end.id = i;
-                events.push_back(end);
-            };
-            
+        vector&lt;Interval&gt; vec, ret;
+        for(int i=0;i&lt;avails.size();++i) {
+            for(Interval inter:avails[i]) {
+                vec.push_back(inter);
+<A NAME="0"></A>            }
         }
-        sort(events.begin(), events.end());
-        vector&lt;Interval&gt; ans;
-        int m = events.size();
-        unordered_set&lt;int&gt; cur;        
-        
-        for (int i = 0; i &lt; n; ++i) cur.insert(i);
-<A NAME="0"></A>        
-        int left = INT_MIN;        
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; m; ++i) 
-            if (events[i].type == 1) {
-                cur.insert(events[i].id);
-                if (cur.size() == n) {
-                    left = events[i].x;
-                };
+        sort(vec.begin(), vec.end(), cmp);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int me = vec[0].end;
+        for(int i=1;i&lt;vec.size();++i) {
+            if(vec[i].start &gt; me) {
+                ret.push_back(Interval(me, vec[i].start));
             }
-            else if (events[i].type == 0) {
-                if (cur.size() == n) {</B></FONT>
-                    int right = events[i].x;
-                    if (right != left) {
-                        if (left != INT_MIN) {
-                            Interval temp(left, right);
-                            ans.push_back(temp);                            
-                        }
-                    };                      
-                };
-                cur.erase(events[i].id);
-            };
-        
-        return ans;
-        
-        
-        
+            me = max(me, vec[i].end);
+        }</B></FONT>
+        return ret;
     }
 };
 </PRE>

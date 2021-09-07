@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>70_Lemon-T.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>70_Lemon-T.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
+        if (avails.empty()) return {};
+        vector&lt;Interval&gt; total;
+        for (auto&amp; vec : avails) {
+            for (auto&amp; item : vec) {
+                total.emplace_back(item);
+            }
+        }
+        sort(total.begin(), total.end(), [](const Interval&amp; a, const Interval&amp; b) {
+            if (a.start == b.start) {
+                return a.end &lt; b.end;
+            }
+            return a.start &lt; b.start;
+        });
+<A NAME="0"></A>        vector&lt;Interval&gt; result;
+        result.emplace_back(total[0]);
+        for (int i = 1; i &lt; total.size(); ++i) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (total[i].start &lt;= result.back().end) {
+                result.back().end = max(result.back().end, total[i].end);
+            } else {
+                result.emplace_back(total[i]);
+            }
+        }
+        // for (auto&amp; item : result) {
+        //     cout &lt;&lt; item.start &lt;&lt; ' ' &lt;&lt; item.end &lt;&lt; endl;
+        // }
+        vector&lt;Interval&gt; em;
+        for (int i = 1; i &lt; result.size(); ++i) {
+            int left = result[i - 1].end;
+            int right = result[i].start;
+            if (right - left &gt; 0) {</B></FONT>
+                em.push_back({left, right});
+            }
+        }
+        return em;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

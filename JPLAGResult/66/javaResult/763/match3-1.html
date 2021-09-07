@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_daisylei.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_daisylei.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+        public String makeLargestSpecial(String s) {
+        // return s;
+        StringBuffer sb = new StringBuffer(s);
+        boolean res = move(sb);
+        while(res){
+            res = move(sb);
+        }
+        return sb.toString();
+    }
+    public boolean move(StringBuffer sb){
+<A NAME="1"></A>        boolean res = false;
+        int len = sb.length();
+        for(int i = 1; i &lt; len; i++ ){
+            if(sb.charAt(i) == '1')<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                int end = findEnd(sb, i);
+                int beg = findBeg(sb, i-1);
+                if( beg != -1 &amp;&amp; end != -1 &amp;&amp; sb.substring(beg, i).compareTo(sb.substring(i,end+1)) &lt; 0){</B></FONT>
+                    swap(sb, beg, i, end);
+                    res = true;
+                }
+            }
+        }
+
+        return res;
+    }
+    public void swap(StringBuffer s, int beg, int i, int end){
+        String s1 = s.toString();
+        s.delete(0,s1.length());
+        s.append(s1,0, beg);
+        s.append(s1,i,end+1);
+        s.append(s1,beg, i);
+        s.append(s1,end+1,s1.length());
+    }
+<A NAME="0"></A>    public int findEnd(StringBuffer s, int beg){
+        int cnt = 0;
+        int i = beg;
+        for(; i &lt; <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.length(); i++){
+            if(s.charAt(i) == '1'){
+                cnt++;
+            }else{
+                cnt--;
+            }
+            if</B></FONT>(cnt &lt; 0){
+                return -1;
+            }else if(cnt == 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int findBeg(StringBuffer s, int end){
+        int cnt = 0;
+        int i = end;
+        for(; i &gt;=0 ; i--){
+            if(s.charAt(i) == '0'){
+                cnt++;
+            }else{
+                cnt--;
+            }
+            if(cnt&lt;0){
+                return -1;
+            }else if (cnt == 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

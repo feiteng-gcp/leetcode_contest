@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_KakaHiguain.java</TITLE>
+ <TITLE>49_allister.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_KakaHiguain.java</CENTER></H3><HR>
+<H3><CENTER>49_allister.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,28 +28,37 @@
  */
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; a=new ArrayList&lt;&gt;();
-        List&lt;Interval&gt; ans=new ArrayList&lt;&gt;();
-        for (List&lt;Interval&gt; list</B></FONT>:avails)
-            for (Interval in:list)
-                a.add(in);
-        Collections.sort(a,(c,d)-&gt;(c.start-d.start));
-        int min=a.get(0).start,max=a.get(0).end;
-        for (int i=1;i&lt;a.size();i++)
-        {
-            int l=a.get(i).start,r=a.get(i).end;
-            if (r&lt;=max) continue;
-            if (l&gt;max)
-            {
-                ans.add(new Interval(max,l));
-                min=l;
-                max=r;
+        List&lt;List&lt;Integer&gt;&gt; mainPoints = new ArrayList&lt;&gt;();
+        for (List&lt;Interval&gt; avail : avails) {
+            for(Interval interval : avail) {
+                mainPoints.add</B></FONT>(Arrays.asList(interval.start, 0));
+                mainPoints.add(Arrays.asList(interval.end, 1));
             }
-            else max=r;
         }
-        return ans;
+        mainPoints.sort(Comparator.&lt;List&lt;Integer&gt;&gt;comparingInt(list -&gt; list.get(0)).thenComparingInt(list -&gt; list.get(1)));
+        int last = -1;
+        int used = 0;
+        List&lt;Interval&gt; free = new ArrayList&lt;&gt;();
+        for (List&lt;Integer&gt; point: mainPoints) {
+            if(point.get(1) == 0) {
+                ++ used;
+            }
+            else {
+                -- used;
+            }
+            if(used == 1) {
+                if(last &gt; 0) {
+                    free.add(new Interval(last, point.get(0)));
+                }
+                last = -1;
+<A NAME="1"></A>            }
+            else if(used == 0) {
+                last = point.get(0);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return free;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

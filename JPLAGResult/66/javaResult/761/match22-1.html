@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>334_smttsp.java</TITLE>
+ <TITLE>339_woyaoshuatile1234.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>334_smttsp.java</CENTER></H3><HR>
+<H3><CENTER>339_woyaoshuatile1234.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,66 +28,28 @@
  */
 class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        int sz = 0;
-        for(int i = 0; i &lt; avails.size(); i++){
-            sz+=avails.get(i).size();
-        }
-        
-        Integer[][] darr = new Integer[sz][2]; 
-        int cnt = 0;
-        for(int i = 0; i &lt; avails.size(); i++){
-            for(int j = 0; j &lt; avails.get(i).size(); j++){
-                darr[cnt][0]=avails.get(i).get(j).start;
-                darr[cnt][1]=avails.get(i).get(j).end;
-                cnt++;
+        List&lt;Integer&gt; start = new ArrayList&lt;&gt;(), end = new ArrayList&lt;&gt;();
+            List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+            for (List&lt;Interval&gt; person : avails) {
+<A NAME="0"></A>                for (Interval p : person) {
+                    start.add(p.start);
+                    end.add(p.end);
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
             }
-        }
-        
-        Arrays.sort(darr, new Comparator&lt;Integer[]&gt;() {
-            @Override
-            public int compare(Integer[] o1, Integer[] o2) {
-                Integer quantityOne = o1[0];
-                Integer quantityTwo = o2[0];
-                // reverse sort on quantity
-                return quantityOne.compareTo(quantityTwo);
+            Collections.sort(start);
+            Collections.sort(end);
+            List&lt;Interval&gt; in = new ArrayList&lt;&gt;();
+            for (int i = 0</B></FONT>, j = 0; i &lt; start.size(); ++i) {
+                if (i == start.size() - 1 || start.get(i + 1) &gt; end.get(i)) {
+                    in.add(new Interval(start.get(j), end.get(i)));
+<A NAME="1"></A>                    j = i + 1;
+                }
             }
-        });
-        
-        List&lt;Interval&gt; res= new ArrayList&lt;&gt;();
-        if(sz == 0) return res;
-        
-        // if(darr[0][0] &gt; 1)
-        //     res.add(new Interval(1,darr[0][0]));
-        
-        int mn = darr[0][0];
-        int mx = darr[0][1];
-
-        
-        for(int i = 1; i &lt; darr.length; i++){
-            // System.out.println(mn + &quot; &quot; + mx);
-<A NAME="0"></A>            if(mx &lt; darr[i][0]){
-                //add2res and update
-                res.add(new Interval(mx,darr[i][0]));
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>mn = darr[i][0];
-                mx = darr[i][1];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt; in.size(); ++i) {
+                res.add(new Interval(in.get(i - 1).end, in.get(i).start));
             }
-            else{
-                mx=Math.max(mx, darr[i][1]);
-            }
-        }
-        return res;
+            return res;
     }
-    
-	// private void displayArray(Integer[][] arr) {
-	// 	System.out.println(&quot;-------------------------------------&quot;);
-	// 	for (int i = 0; i &lt; arr.length; i++) {
-	// 		// Integer[] itemRecord = itemIdAndQty[i];
-	// 		System.out.println(arr[i][0] + &quot;\t\t&quot; + arr[i][1]);
-	// 	}
-	// 	System.out.println(&quot;-------------------------------------&quot;);
-	// }
-    
-    
 }</B></FONT>
 </PRE>
 

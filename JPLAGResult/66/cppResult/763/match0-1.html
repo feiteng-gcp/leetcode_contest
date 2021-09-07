@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>10___Chaos__.cpp</TITLE>
+ <TITLE>50_wjli.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>10___Chaos__.cpp</CENTER></H3><HR>
+<H3><CENTER>50_wjli.cpp</CENTER></H3><HR>
 <PRE>
+
 class Solution {
+
 public:
-  bool special(const string &amp;s) {
-    int ones = 0, zeros = 0;
-    for (int i = 0; i &lt; s.size(); ++i) {
-      ones += s[i] == '1';
-      zeros += s[i] == '0';
-      if (ones &lt; zeros) {
-        return false;
-      }
-    }
-    return ones == zeros;
-  }
-  string makeLargestSpecial(string S) {
-    set&lt;string&gt; vis{S};
-<A NAME="0"></A>    priority_queue&lt;string&gt; q;
-    q.push(S);
-    while (!q.empty()) {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      auto s = q.top();
-      q.pop();
-      for (int i = 0; i &lt; s.size(); ++i) {
-        for (int j = i; j &lt; s.size(); ++j) {
-          auto s1 = s.substr(i, j - i + 1);
-          if (!special(s1)) {</B></FONT>
-            continue;
-          }
-          for (int k = j + 1; k &lt; s.size(); ++k) {
-            auto s2 = s.substr(j + 1, k - j);
-            if (!special(s2)) {
-              continue;
-            }
-            auto p1 = s.substr(0, i);
-            auto p2 = s.substr(k + 1);
-            auto v = p1 + s2 + s1 + p2;
-            if (v &lt;= s) {
-              continue;
-            }
-            if (*(vis.rbegin()) &lt; v) {
-              q.push(v);
-              vis.insert(v);
-            }
-          }
-        }
-      }
-    }
-    return *vis.rbegin();
-  }
+	string makeLargestSpecial(string s) {
+		int n = s.length();
+		vector&lt;string&gt; best(n + 1);
+		best[n] = &quot;&quot;;
+		vector&lt;string&gt; ss;
+		string s2;
+
+		int i, j, k, a, b, c0, c1;
+
+		for (i = n - 1; i &gt;= 0; i--) {
+			if (s[i] == '0') best[i] = '0' + best[i + 1];
+			else {
+				best[i] = '1' + best[i + 1];
+<A NAME="0"></A>				s = s.substr(0, i) + best[i];
+				ss.clear();
+				for (a = i; a &lt; n; a++) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>					c0 = 0; c1 = 0;
+					for (b = a; b &lt; n; b++) {
+						if (s[b] == '0') c0++;
+						else c1++;
+						if (c0 &gt; c1) {</B></FONT>
+							sort(ss.begin(), ss.end());
+							reverse(ss.begin(), ss.end());
+							s2 = &quot;&quot;;
+							for (auto sss : ss) s2 = s2 + sss;
+							s2 = s2 + (s.substr(a));
+							goto outer;
+						}
+						if (c0 == c1) {
+							ss.push_back(s.substr(a, b + 1 - a));
+							a = b;
+							break;
+						}
+					}
+				}
+				sort(ss.begin(), ss.end());
+				reverse(ss.begin(), ss.end());
+				s2 = &quot;&quot;;
+				for (auto sss : ss) s2 = s2 + sss;
+				a = 0;
+			outer:
+				best[i] = s2;
+			}
+		}
+
+		return best[0];
+	}
 };
 </PRE>
 </BODY>

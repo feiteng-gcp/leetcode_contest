@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_magica.cpp</TITLE>
+ <TITLE>84_hbtth.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>22_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>84_hbtth.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,32 +28,27 @@
  */
 <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
+    static bool cmp(Interval &amp;a, Interval &amp;b) {
+        if(a.start != b.start) return a.start &lt; b.start;
+        return a.end &lt; b.end;
+    }
+    
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int, int&gt;&gt; ts;
-      for (auto&amp; avail: avails) {
-        for (auto&amp; d: avail) {</B></FONT>
-          ts.push_back(make_pair(d.start, 1));
-          ts.push_back(make_pair(d.end, -1));
+        vector&lt;Interval&gt; vec, ret;
+        for(int i=0;i&lt;avails.size();++i) {</B></FONT>
+            for(Interval inter:avails[i]) {
+                vec.push_back(inter);
+            }
         }
-      }
-      sort(ts.begin(), ts.end());
-      int c = 0;
-      int prev = -1;
-      vector&lt;Interval&gt; ans;
-      for (auto&amp; p: ts) {
-        c += p.second;
-        if (p.second == 1) {
-          if (prev != -1 &amp;&amp; c == 1 &amp;&amp; prev != p.first) {
-            ans.push_back(Interval(prev, p.first));
-            prev = -1;
-          }
-        } else if (p.second == -1) {
-          if (c == 0) {
-            prev = p.first;
-          }
+        sort(vec.begin(), vec.end(), cmp);
+        int me = vec[0].end;
+        for(int i=1;i&lt;vec.size();++i) {
+            if(vec[i].start &gt; me) {
+                ret.push_back(Interval(me, vec[i].start));
+            }
+            me = max(me, vec[i].end);
         }
-      }
-      return ans;
+        return ret;
     }
 };
 </PRE>

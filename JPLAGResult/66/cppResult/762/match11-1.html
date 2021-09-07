@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1388_yuanhang.cpp</TITLE>
+ <TITLE>125_zoulc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1388_yuanhang.cpp</CENTER></H3><HR>
+<H3><CENTER>125_zoulc.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;int&gt; anagramMappings(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
-        unordered_map&lt;int, int&gt; map;
+        vector&lt;vector&lt;int&gt;&gt; indices(100000, vector&lt;int&gt;());
+        for (int i = 0; i &lt; B.size(); ++i)
+            indices[B[i]].push_back(i);
         vector&lt;int&gt; ret;
-        for (int i = 0; i &lt; B.size(); ++i) {</B></FONT>
-            map[B[i]] = i;
-        }
         for (int i = 0; i &lt; A.size(); ++i) {
-            ret.push_back(map[A[i]]);
+            ret.push_back(indices[A[i]].back());
+            indices[A[i]].pop_back();
         }
         return ret;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

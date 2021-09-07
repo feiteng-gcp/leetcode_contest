@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_magica.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_magica.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  string makeLargestSpecial(string S) {
+    if (S.length() == 0) { return S; }
+    string ans = S;
+    bool flag;
+    do {
+      flag = false;
+      int st[55], tail = 0;
+      int f[55];
+      memset(f, 0, sizeof(f));
+      for (int i = 0; i &lt; ans.length(); ++i) {
+        if (ans[i] == '1') {
+          st[tail++] = i;
+<A NAME="0"></A>        } else {
+          int h = st[--tail];
+          int d = i - h + 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>          f[h] = d;
+          f[i] = -d;
+        }
+      }
+      for (int i = 0; i &lt; ans.length() - 1; ++i) {
+        if (f[i] &lt; 0 &amp;&amp; f[i + 1] &gt; 0) {
+          string a = ans.substr(0, i - (-f[i]) + 1);</B></FONT>
+          string b = ans.substr(i - (-f[i]) + 1, -f[i]);
+          string c = ans.substr(i + 1, f[i + 1]);
+          string d = ans.substr(i + 1 + f[i + 1], -1);
+          if (c &gt; b) {
+            ans = a + c + b + d;
+            flag = true;
+            break;
+          }
+        }
+      }
+    } while (flag);
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

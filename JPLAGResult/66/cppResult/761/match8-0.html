@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>517_quantile.cpp</TITLE>
+ <TITLE>99_xinyufeng16.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>517_quantile.cpp</CENTER></H3><HR>
+<H3><CENTER>99_xinyufeng16.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,51 +23,36 @@
  *     int start;
  *     int end;
  *     Interval() : start(0), end(0) {}
- *     Interval(int s, int e) : start(s), end(e) {}
+<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
-class Solution {
-<A NAME="0"></A>public:
-
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      std::map&lt;int, int&gt; timeline;
-      for (int emp = 0; emp &lt; avails.size(); ++emp) {
-      	for (int intervalIndex = 0; intervalIndex &lt; avails[emp].size(); ++intervalIndex) {</B></FONT>
-      		const auto&amp; interval = avails[emp][intervalIndex];
-      		auto res = timeline.insert(std::make_pair(interval.start, 1));
-      		if (res.second == false) {
-      			++timeline[interval.start];
-      		}
-
-      		res = timeline.insert(std::make_pair(interval.end, -1));
-			     if (res.second == false) {
-      			--timeline[interval.end];
-      		}      		
-      	}
-      }
-
-
-	
-	    vector&lt;Interval&gt; result;
-      const int invalid = 200000000;
-
-      int curActive = 0;
-      int inactiveTimeStart = invalid;
-      for (auto it = timeline.begin(); it != timeline.end(); ++it) {
-      	if (inactiveTimeStart != invalid) {
-      		if (inactiveTimeStart - it-&gt;first != 0) {
-      			result.push_back(Interval{inactiveTimeStart, it-&gt;first});
-      		}
-
-      		inactiveTimeStart = invalid;
-      	}
-      	curActive += it-&gt;second;
-      	if (curActive == 0) {
-      		inactiveTimeStart = it-&gt;first;
-      	}
-      }
-
-      return result;
+        map&lt;int, int&gt; T;
+        for (auto employee : avails) {
+            for (auto interval : employee) {</B></FONT>
+                T[interval.start]++;
+                T[interval.end]--;
+            }
+        }
+        int cnt = 0;
+        Interval tmp;
+        bool fill = false;
+        vector&lt;Interval&gt; ans;
+        for (auto entry : T) {
+            cnt += entry.second;
+            if (cnt == 0) {
+                tmp.start = entry.first;
+                fill = true;
+            }
+            if (cnt &gt; 0 &amp;&amp; fill) {
+                tmp.end = entry.first;
+                ans.push_back(tmp);
+                fill = false;
+            }
+        }
+        return ans;
     }
 };
 </PRE>

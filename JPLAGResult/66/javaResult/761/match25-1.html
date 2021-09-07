@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>475_zzt93.java</TITLE>
+ <TITLE>350_tongyingkk.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>475_zzt93.java</CENTER></H3><HR>
+<H3><CENTER>350_tongyingkk.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,31 +28,32 @@
  */
 class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; list = avails.stream().flatMap(List::stream).sorted((i1, i2) -&gt; {
-            int compare = Integer.compare(i1.start, i2.start);
-            if (compare != 0) {
-                return compare;
+        List&lt;Interval&gt; sortList = new ArrayList&lt;&gt;();
+        for(List&lt;Interval&gt; list : avails) {
+<A NAME="0"></A>            for(Interval interval : list) {
+                sortList.add(interval);
             }
-            return Integer.compare(i1.end, i2.end);
-<A NAME="0"></A>        }).collect(Collectors.toList());
-        LinkedList&lt;Interval&gt; stack = new LinkedList&lt;&gt;();
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        stack.addLast(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.get(0));
-        for (int i = 1; i &lt; list.size(); i++) {
-            Interval last = stack.peekLast();
-            Interval now = list.get(i);
-            if</B></FONT> (last.end &gt;= now.start &amp;&amp; last.end &lt;= now.end) {
-                stack.removeLast();
-                stack.addLast(new Interval(last.start, now.end));
-            } else if (last.end &gt; now.end) {
-            } else if (last.end &lt; now.start) {
-                res.add(new Interval(last.end, now.start));
-                stack.addLast(now);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        sortList.sort(new Comparator&lt;Interval&gt;() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                return</B></FONT> o1.start - o2.start;
+            }
+<A NAME="1"></A>        });
+        int start = sortList.get(0).start;
+        int end = sortList.get(0).end;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Interval&gt; ans = new ArrayList&lt;&gt;();
+        for(Interval interval : sortList) {
+            if(interval.start &gt; end) {
+                ans.add(new Interval(end,interval.start));
+                start = interval.start;
+                end = interval.end;
+            } else if(i</B></FONT>nterval.end &gt; end) {
+                end = interval.end;
             }
         }
-        return res;
+        return ans;
     }
-
 }
 </PRE>
 

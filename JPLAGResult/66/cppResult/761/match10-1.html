@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>20_Poohdxx.cpp</TITLE>
+ <TITLE>267_khaladrogo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>20_Poohdxx.cpp</CENTER></H3><HR>
+<H3><CENTER>267_khaladrogo.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -29,30 +29,40 @@
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        map&lt;int, int&gt; mp;
-        for (auto &amp;i : avails) {
-            for (auto &amp;j : i) {</B></FONT>
-                mp[j.start]++;
-                mp[j.end]--;
+        
+        map&lt;int,int&gt; lookup;
+        vector&lt;Interval&gt; result;
+        
+        for(auto avail : avails)
+        {
+            for(auto currAvail : avail)
+            {
+                lookup[currAvail.start]++;
+                lookup[currAvail.end]--;
             }
         }
-        int cur = 0;
-        vector&lt;Interval&gt; res;
-        int last = 0;
-        bool flag = 0;
-        for (auto &amp;i : mp) {
-            cur += i.second;
-            if (cur == 0) {
-                last = i.first;
-                flag = 1;
+        
+        //int iCounter = 0;
+        int counter = 0;</B></FONT>
+        bool isOpen = false;
+        int start = -1;
+        for(auto kv : lookup)
+        {
+            //iCounter++;
+            counter += kv.second;
+            if(isOpen)
+            {
+                //Interval inter(start, kv.first);
+                result.push_back(Interval(start, kv.first));
+                isOpen = false;
             }
-            else if (cur&gt;0 &amp;&amp; flag == 1){
-                res.push_back(Interval(last, i.first));
-                flag = 0;
+            else if(counter == 0)
+            {
+                isOpen = true;
+                start = kv.first;
             }
-            
         }
-        return res;
+        return result;
     }
 };
 </PRE>

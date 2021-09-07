@@ -33,42 +33,42 @@ class Solution {
             return res;
         }
         List&lt;Interval&gt; merged = mergeInterval(avails);
-<A NAME="0"></A>        res = findCommon(merged);
+        res = findCommon(merged);
         return res;
-    }
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
+<A NAME="1"></A>    }
+    public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
         List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
-        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
         //Interval pre = avails.get(0).get(0);
         for(List&lt;Interval&gt; avail : avails) {
             for(Interval interval : avail) {
-                temp.add</B></FONT>(interval);
+                temp.add(interval);
             }
         }
-        Collections.sort(temp, (a, b) -&gt; {
+        Collections.sort</B></FONT>(temp, (a, b) -&gt; {
             if(a.start == b.start) {
                 return a.end - b.end;
             } else {
                 return a.start - b.start;
-            }
+<A NAME="2"></A>            }
         });
         Interval pre = temp.get(0);
-        for(Interval cur : temp) {
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(Interval cur : temp) {
             if(cur.start &lt;= pre.end) {
                 pre.end = Math.max(cur.end, pre.end);
-            } else {
+            } else {</B></FONT>
                 merged.add(new Interval(pre.start, pre.end));
                 pre = cur;
             }
         }
-        merged.add(new Interval(pre.start, pre.end));
+<A NAME="0"></A>        merged.add(new Interval(pre.start, pre.end));
         return merged;
     }
-    public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
         List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
         if(merged.size() == 0) {
             return res;
-        }
+        }</B></FONT>
         for(int i = 0; i &lt; merged.size() - 1; i++) {
             Interval pre = merged.get(i);
             Interval cur = merged.get(i + 1);

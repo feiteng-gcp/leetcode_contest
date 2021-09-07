@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>351_curky.java</TITLE>
+ <TITLE>168_CowboyBebop.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>351_curky.java</CENTER></H3><HR>
+<H3><CENTER>168_CowboyBebop.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -27,57 +27,32 @@
  * }
  */
 class Solution {
-    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if(avails == null || avails.size() == 0 || avails.get(0).size() == 0) {
-            return res;
-        }
-        List&lt;Interval&gt; merged = mergeInterval(avails);
-<A NAME="0"></A>        res = findCommon(merged);
-        return res;
-    }
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
-        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
-        //Interval pre = avails.get(0).get(0);
-        for(List&lt;Interval&gt; avail</B></FONT> : avails) {
-            for(Interval interval : avail) {
-                temp.add(interval);
+<A NAME="0"></A>    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
+        if (avails == null || avails.size() == 0) return result;        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        for (List&lt;Interval&gt; list : avails) {
+            for (Interval interval : list) {
+                map.put(interval.start, map.getOrDefault(interval.start, 0) + 1);
+                map.put(interval.end, map.getOrDefault(interval.end, 0) - 1);
             }
         }
-        Collections.sort(temp, (a, b) -&gt; {
-            if(a.start == b.start) {
-                return a.end - b.end;
-            } else {
-                return a.start - b.start;
-            }
-        });
-        Interval pre = temp.get(0);
-        for(Interval cur : temp) {
-            if(cur.start &lt;= pre.end) {
-                pre.end = Math.max(cur.end, pre.end);
-            } else {
-                merged.add(new Interval(pre.start, pre.end));
-                pre = cur;
+        boolean open = false;
+        int active = 0;
+        for (int key : map.keySet()) {</B></FONT>
+            active += map.get(key);
+            if (active == 0) {
+                Interval interval = new Interval();
+                interval.start = key;
+                result.add(interval);
+                open = true;
+            } else if (open) {
+                result.get(result.size() - 1).end = key;
+                open = false;
             }
         }
-        merged.add(new Interval(pre.start, pre.end));
-        return merged;
-    }
-    public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-<A NAME="1"></A>        if(merged.size() == 0) {
-            return res;
-        }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; merged.size() - 1; i++) {
-            Interval pre = merged.get(i);
-            Interval cur = merged.get(i + 1);
-            if</B></FONT>(pre.end == cur.start) {
-                continue;
-            }
-            res.add(new Interval(pre.end, cur.start));
-        }
-        return res;
+        result.remove(result.size() - 1);
+        return result;
     }
 }
 </PRE>

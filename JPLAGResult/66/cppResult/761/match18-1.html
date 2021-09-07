@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_wisdompeak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_wisdompeak.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+<A NAME="0"></A> *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) 
+    {
+        map&lt;int,int&gt;Map;
+        for (int i=0; i&lt;avails.size(); i++)
+        {
+            for (int j=0; j&lt;avails[i].size(); j++)
+            {</B></FONT>
+                int left = avails[i][j].start;
+                int right = avails[i][j].end;
+                
+                int leftBound = left;
+                auto pos1=Map.lower_bound(left);
+                if (pos1!=Map.begin() &amp;&amp; prev(pos1,1)-&gt;second &gt;= left)  //左边界部分重合
+                leftBound = prev(pos1,1)-&gt;first;
+    
+                int rightBound = right;
+                auto pos2=Map.upper_bound(right);
+                if (pos2!=Map.begin() &amp;&amp; prev(pos2,1)-&gt;first &lt;= right)  //右边界部分重合
+                rightBound = max(right, prev(pos2,1)-&gt;second);
+    
+                Map.erase(pos1,pos2); // 删除一个前闭后开的迭代器区间
+                Map[leftBound]=rightBound;
+            }
+        }
+                
+        vector&lt;Interval&gt;result;
+        for (auto a:Map)
+        {
+            if (result.size()!=0)
+                result.back().end = a.first;
+            result.push_back(Interval(a.second,0));
+        }
+        
+        if (result.size()!=0)
+            result.pop_back();
+        
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>22_magica.cpp</TITLE>
+ <TITLE>18_HMAXS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>22_magica.cpp</CENTER></H3><HR>
+<H3><CENTER>18_HMAXS.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -29,31 +29,20 @@
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int, int&gt;&gt; ts;
-      for (auto&amp; avail: avails) {
-        for (auto&amp; d: avail) {
-          ts.push_back(make_pair(d.start, 1));
-          ts.push_back(make_pair(d.end, -1));
+        map&lt;int, int&gt; mp;
+        for (auto emp: avails) for (auto x: emp) {
+            mp[x.start]++; mp[x.end]--;
         }
-      }</B></FONT>
-      sort(ts.begin(), ts.end());
-      int c = 0;
-      int prev = -1;
-      vector&lt;Interval&gt; ans;
-      for (auto&amp; p: ts) {
-        c += p.second;
-        if (p.second == 1) {
-          if (prev != -1 &amp;&amp; c == 1 &amp;&amp; prev != p.first) {
-            ans.push_back(Interval(prev, p.first));
-            prev = -1;
-          }
-        } else if (p.second == -1) {
-          if (c == 0) {
-            prev = p.first;
-          }
+        int l = -1, s = 0;
+        vector&lt;Interval&gt; R;
+        for (auto pr: mp) {
+            if (s == 0 &amp;&amp; l != -1 &amp;&amp; pr.second) {</B></FONT>
+                R.push_back(Interval(l, pr.first));
+            }
+            s += pr.second;
+            l = s ? -1 : pr.first;
         }
-      }
-      return ans;
+        return R;
     }
 };
 </PRE>

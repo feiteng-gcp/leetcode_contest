@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>123_horrible.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>123_horrible.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -25,27 +25,31 @@
  *     Interval() { start = 0; end = 0; }
  *     Interval(int s, int e) { start = s; end = e; }
  * }
-<A NAME="0"></A> */
+ */
 class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-		List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
-		for (List&lt;Interval&gt; l: avails) {
-			for (Interval i: l) {
-				list.add(i);</B></FONT>
-			}
-		}
-		Collections.sort(list, (a, b) -&gt; a.start == b.start ? b.end - a.end : a.start - b.start);
-		int max_end = list.get(0).end;
-		for (int i = 1; i &lt; list.size(); i++) {
-			if (max_end &lt; list.get(i).start) {
-				res.add(new Interval(max_end, list.get(i).start));
-			}
-			max_end = Math.max(max_end, list.get(i).end);
-		}
-		return res;
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        for(int i = 0;  i &lt; avails.size(); i++){
+            for(int j = 0; j &lt; avails.get(i).size(); j++) list.add(avails.get(i).get(j));
+        }
+        
+        Collections.sort(list, (a,b) -&gt;(a.start == b.start ? a.end - b.end : a.start - b.start));
+<A NAME="0"></A>        List&lt;Interval&gt; res = new LinkedList&lt;&gt;();
+        if(list.size() == 0) return res;
+        int pre = list.get(0).end;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 1; i &lt; list.size(); i++){
+<A NAME="1"></A>            Interval it = list.get(i);
+            if(it.start &gt; pre){
+                res.add(new</B></FONT> Interval(pre, it.start));
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pre = it.end;
+            }
+            else{
+                pre = Math.max(pre, it.end);
+            }
+        }
+        return res;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

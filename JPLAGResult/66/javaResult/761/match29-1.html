@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>339_woyaoshuatile1234.java</TITLE>
+ <TITLE>123_horrible.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>339_woyaoshuatile1234.java</CENTER></H3><HR>
+<H3><CENTER>123_horrible.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,29 +28,28 @@
  */
 class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Integer&gt; start = new ArrayList&lt;&gt;(), end = new ArrayList&lt;&gt;();
-            List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-            for (List&lt;Interval&gt; person : avails) {
-                for (Interval p : person) {
-                    start.add(p.start);
-                    end.add(p.end);
-                }
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        for(int i = 0;  i &lt; avails.size(); i++){
+            for(int j = 0; j &lt; avails.get(i).size(); j++) list.add(avails.get(i).get(j));
+        }
+        
+        Collections.sort(list, (a,b) -&gt;(a.start == b.start ? a.end - b.end : a.start - b.start));
+        List&lt;Interval&gt; res = new LinkedList&lt;&gt;();
+        if(list.size() == 0) return res;
+<A NAME="0"></A>        int pre = list.get(0).end;
+        for(int i = 1; i &lt; list.size(); i++){
+            Interval it = list.get(i);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(it.start &gt; pre){
+                res.add(new Interval(pre, it.start));
+                pre = it.end;
             }
-            Collections.sort(start);
-            Collections.sort(end);
-            List&lt;Interval&gt; in = new ArrayList&lt;&gt;();
-            for (int i = 0, j = 0; i &lt; start.size(); ++i) {
-                if (i == start.size() - 1 || start.get(i + 1) &gt; end.get(i)) {
-                    in.add(new Interval(start.get(j), end.get(i)));
-<A NAME="0"></A>                    j = i + 1;
-                }
+            else{
+                pre = Math.max(pre, it.end);
             }
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 1; i &lt; in.size(); ++i) {
-                res.add(new Interval(in.get(i - 1).end, in.get(i).start));
-            }
-            return res;
-    }</B></FONT>
-}
+        }
+        return res;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

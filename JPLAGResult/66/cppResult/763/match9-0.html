@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_ln1992.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>44_ln1992.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string makeLargestSpecial(string S) {
+        int i, j, k, l;
+        l = S.size();
+        while (1) {
+            string ns = S;
+            for (i = 0; i + 1 &lt; l; i++) {
+<A NAME="0"></A>                if (S[i] == '0' &amp;&amp; S[i + 1] == '1') {
+                    int c0, c1;
+                    c0 = c1 = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    for (j = i; j &gt;= 0; j--) {
+                        if (S[j] == '0') {
+                            c0++;
+                        }
+                        else {
+                            c1++;
+                        }
+                        if (c0 == c1) {</B></FONT>
+                            break;
+                        }
+                    }
+                    c0 = c1 = 0;
+                    for (k = i + 1; k &lt; l; k++) {
+                        if (S[k] == '0') {
+                            c0++;
+                        }
+                        else {
+                            c1++;
+                        }
+                        if (c0 == c1) {
+                            break;
+                        }
+                    }
+                    //cout &lt;&lt; j &lt;&lt; i &lt;&lt; k &lt;&lt; endl;
+                    string a, b;
+                    a = S.substr(j, i - j + 1);
+                    b = S.substr(i + 1, k - i);
+                    //cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; b &lt;&lt; endl;
+                    if (a.compare(b) &lt; 0) {
+                        ns = S.substr(0, j) + b + a + S.substr(k + 1, l - k - 1);
+                        //cout &lt;&lt; ns &lt;&lt; endl;
+                        break;
+                    }
+                }
+            }
+            if (S.compare(ns) == 0) {
+                break;
+            }
+            S = ns;
+        }
+        return S;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

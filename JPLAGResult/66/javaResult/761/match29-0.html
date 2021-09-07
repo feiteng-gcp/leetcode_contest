@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>497_lupengchang2013.java</TITLE>
+ <TITLE>78_XuhuiWang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>497_lupengchang2013.java</CENTER></H3><HR>
+<H3><CENTER>78_XuhuiWang.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -27,46 +27,27 @@
  * }
  */
 class Solution {
-    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; av) {
-<A NAME="0"></A>        List&lt;Interval&gt; ls = kMerge(av);
-        List&lt;Interval&gt; ans = new ArrayList&lt;&gt;();
-        
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 1; i &lt; ls.size(); ++i) {
-            ans.add(new Interval(ls.get(i - 1).end, ls.get(i).start));
-        }
-        return ans;
-    }</B></FONT>
-    private List&lt;Interval&gt; kMerge(List&lt;List&lt;Interval&gt;&gt; av) {
-        PriorityQueue&lt;Node&gt; pr = new PriorityQueue&lt;&gt;((a,b)-&gt;(a.in.start == b.in.start? a.in.end - b.in.end : a.in.start - b.in.start));
-        int[] rec = new int[av.size()];
-        for(int i = 0; i &lt; rec.length; ++i) {
-            pr.add(new Node(av.get(i).get(rec[i]), i));
-        }
-        List&lt;Interval&gt; ls = new ArrayList&lt;&gt;();
-        while(pr.size() &gt; 0) {
-            Node node = pr.poll();
-            if(ls.size() &gt; 0 &amp;&amp; ls.get(ls.size() - 1).end &gt;= node.in.start) {
-                ls.get(ls.size() - 1).end = Math.max(node.in.end, ls.get(ls.size() - 1).end);
-            } else {
-                ls.add(node.in);
-            }
-            int id = node.id;
-            rec[id]++;
-            if(rec[id] &lt; av.get(id).size()) {
-                pr.add(new Node(av.get(id).get(rec[id]), id));
-            }
-        }
-        return ls;
-    }
-    class Node{
-        Interval in;
-        int id;
-        public Node(Interval i, int x) {
-            in = i;
-            id = x;
-        }
-    }
-}
+	public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+		List&lt;Interval&gt; intervals = new LinkedList&lt;&gt;();
+		for (List&lt;Interval&gt; employ : avails) {
+			intervals.addAll(employ);
+		}
+		List&lt;Interval&gt; res = new LinkedList&lt;&gt;();
+		if (intervals.isEmpty())
+			return res;
+<A NAME="0"></A>		intervals.sort((i1, i2) -&gt; Integer.compare(i1.start, i2.start));
+		int end = intervals.get(0).end;
+		for (Interval i : intervals) {
+			if (i.start &gt; end) {<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				res.add(new Interval(end, i.start));
+				end = i.end;
+			} else {
+				end = Math.max(end, i.end);
+			}
+		}
+		return res;
+	}
+}</B></FONT>
 </PRE>
 
 </BODY>

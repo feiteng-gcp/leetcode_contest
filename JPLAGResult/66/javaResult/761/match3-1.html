@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>15_daisylei.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>15_daisylei.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,27 +23,46 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        PriorityQueue&lt;End&gt; pq = new PriorityQueue&lt;&gt;();
+        for(List&lt;Interval&gt; avail: avails){
+            for(Interval it: avail){
+                pq.add</B></FONT>(new End(it.start, 1));
+                pq.add(new End(it.end, -1));
+            }
+        }
+        
         List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-		List&lt;Interval&gt;<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> list = new ArrayList&lt;&gt;();
-		for (List&lt;Interval&gt; l: avails) {
-			for (Interval i: l) {
-				list.add(i);
-			}
-		}</B></FONT>
-		Collections.sort(list, (a, b) -&gt; a.start == b.start ? b.end - a.end : a.start - b.start);
-		int max_end = list.get(0).end;
-		for (int i = 1; i &lt; list.size(); i++) {
-			if (max_end &lt; list.get(i).start) {
-				res.add(new Interval(max_end, list.get(i).start));
-			}
-			max_end = Math.max(max_end, list.get(i).end);
-		}
-		return res;
+<A NAME="1"></A>        End e = pq.poll();
+        int index = -1;
+        int cnt = e.num;
+        while(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>pq.size() &gt; 0){
+            e = pq.poll();
+            if(cnt == 0 &amp;&amp; index != -1){
+                res.add(new Interval(index, e.index));
+                index = -1;
+            }</B></FONT>
+            cnt += e.num;
+            if( cnt == 0 &amp;&amp; pq.size() &gt; 0 &amp;&amp; pq.peek().index != e.index){
+                index = e.index;
+            }
+        }
+        return res;
+    }
+}
+class End implements Comparable&lt;End&gt;{
+    int index;
+    int num;
+    public End(int index, int num){
+        this.index = index;
+        this.num = num;
+    }
+    public int compareTo(End e){
+        return this.index - e.index;
     }
 }
 </PRE>

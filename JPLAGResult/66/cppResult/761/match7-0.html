@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_zikostav.cpp</TITLE>
+ <TITLE>99_xinyufeng16.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>33_zikostav.cpp</CENTER></H3><HR>
+<H3><CENTER>99_xinyufeng16.cpp</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -25,32 +25,34 @@
  *     Interval() : start(0), end(0) {}
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
- */
+<A NAME="0"></A> */
 class Solution {
-<A NAME="0"></A>public:
-    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
-        vector&lt;pair&lt;int, int&gt; &gt; T;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt;avails.size(); i++) {
-            for (int j = 0 ; j &lt; avails[i].size(); j++) {
-                T.push_back(make_pair(avails[i][j].start, 1));
-                T.push_back(make_pair(avails[i][j].end, 0));
-            }
-        }</B></FONT>
-        sort(T.begin(), T.end());
-        int prev = INT_MIN, cnt = 0;
-        vector&lt;Interval&gt; res;
-        for (int i = 0; i &lt; T.size(); i++) {
-            if(T[i].second == 1) {
-                cnt++;
-                if (cnt == 1 &amp;&amp; prev != INT_MIN &amp;&amp; prev != T[i].first) {
-                    res.push_back(*new Interval(prev, T[i].first));
-                }
-            } else {
-                cnt--;
-                prev = T[i].first;
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;Interval&gt; employeeFreeTime(vector&lt;vector&lt;Interval&gt;&gt;&amp; avails) {
+        map&lt;int, int&gt; T;
+        for (auto employee : avails) {
+            for (auto interval : employee) {
+                T[interval.start]++;
+                T[interval.end]--;
             }
         }
-        return res;
+        int cnt = 0;</B></FONT>
+        Interval tmp;
+        bool fill = false;
+        vector&lt;Interval&gt; ans;
+        for (auto entry : T) {
+            cnt += entry.second;
+            if (cnt == 0) {
+                tmp.start = entry.first;
+                fill = true;
+            }
+            if (cnt &gt; 0 &amp;&amp; fill) {
+                tmp.end = entry.first;
+                ans.push_back(tmp);
+                fill = false;
+            }
+        }
+        return ans;
     }
 };
 </PRE>

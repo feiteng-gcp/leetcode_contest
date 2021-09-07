@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>497_lupengchang2013.java</TITLE>
+ <TITLE>94_yzeng61987.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>497_lupengchang2013.java</CENTER></H3><HR>
+<H3><CENTER>94_yzeng61987.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,48 +23,37 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-<A NAME="0"></A>class Solution {
-    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; av) {
-        List&lt;Interval&gt; ls = kMerge(av);
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Interval&gt; ans = new ArrayList&lt;&gt;();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
+        TreeMap&lt;Integer, Integer&gt; sche = new TreeMap&lt;&gt;();
         
-        for(int i = 1; i &lt; ls.size(); ++i) {
-            ans.add(new Interval(ls.get(i - 1).end, ls.get(i).start));
+        for(List&lt;Interval&gt; employee: avails){
+<A NAME="1"></A>            for(Interval slot: employee){
+                sche.put(slot.start, sche.getOrDefault</B></FONT>(slot.start, 0)+1);
+                sche.put(slot.end, sche.getOrDefault(slot.end, 0)-1);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        return ans;
-    }</B></FONT>
-    private List&lt;Interval&gt; kMerge(List&lt;List&lt;Interval&gt;&gt; av) {
-        PriorityQueue&lt;Node&gt; pr = new PriorityQueue&lt;&gt;((a,b)-&gt;(a.in.start == b.in.start? a.in.end - b.in.end : a.in.start - b.in.start));
-        int[] rec = new int[av.size()];
-        for(int i = 0; i &lt; rec.length; ++i) {
-            pr.add(new Node(av.get(i).get(rec[i]), i));
-        }
-        List&lt;Interval&gt; ls = new ArrayList&lt;&gt;();
-        while(pr.size() &gt; 0) {
-            Node node = pr.poll();
-            if(ls.size() &gt; 0 &amp;&amp; ls.get(ls.size() - 1).end &gt;= node.in.start) {
-                ls.get(ls.size() - 1).end = Math.max(node.in.end, ls.get(ls.size() - 1).end);
-            } else {
-                ls.add(node.in);
+        
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+        int busy = 0;
+        int start = Integer.MIN_VALUE;
+        for(int key: sche.keySet()){</B></FONT>
+            int update = sche.get(key);
+            if(busy == 0 &amp;&amp; update &gt;0 &amp;&amp; start != Integer.MIN_VALUE){
+                res.add(new Interval(start, key));
             }
-            int id = node.id;
-            rec[id]++;
-            if(rec[id] &lt; av.get(id).size()) {
-                pr.add(new Node(av.get(id).get(rec[id]), id));
+            
+            busy += update;
+            if(busy == 0 &amp;&amp; update &lt;0){
+                start = key;    
             }
         }
-        return ls;
-    }
-    class Node{
-        Interval in;
-        int id;
-        public Node(Interval i, int x) {
-            in = i;
-            id = x;
-        }
+        
+        
+        return res;
     }
 }
 </PRE>

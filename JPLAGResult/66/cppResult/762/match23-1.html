@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1256_plustone.cpp</TITLE>
+ <TITLE>164_wisdompeak.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>1256_plustone.cpp</CENTER></H3><HR>
+<H3><CENTER>164_wisdompeak.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    vector&lt;int&gt; anagramMappings(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) {
-        vector&lt;int&gt; res(A.size());
-        unordered_multimap&lt;int, int&gt; m;
-        for (int i = 0; i &lt; B.size(); i++)</B></FONT>
-            m.insert(make_pair(B[i], i));
-        
-        for (int i = 0; i &lt; A.size(); i++) {
-            auto it = m.find(A[i]);
-            res[i] = it-&gt;second;
-            m.erase(it);
+    vector&lt;int&gt; anagramMappings(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B) 
+    {
+        unordered_map&lt;int,vector&lt;int&gt;&gt;Map;
+        for (int i=0; i&lt;A.size(); i++)
+        {
+            Map[B[i]].push_back(i);
         }
-        return res;
+        
+        vector&lt;int&gt;result;
+        for (auto num:A)
+        {
+            result.push_back(Map[num].back());
+            Map[num].pop_back();
+        }
+        
+        return result;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

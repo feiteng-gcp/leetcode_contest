@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>27_Brucewanghahei.java</TITLE>
+ <TITLE>41_ajlohr.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>27_Brucewanghahei.java</CENTER></H3><HR>
+<H3><CENTER>41_ajlohr.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -28,23 +28,36 @@
  */
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-		List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
-		for (List&lt;Interval&gt; l: avails) {
-			for (Interval i: l) {
-				list.add(i);</B></FONT>
-			}
-		}
-		Collections.sort(list, (a, b) -&gt; a.start == b.start ? b.end - a.end : a.start - b.start);
-		int max_end = list.get(0).end;
-		for (int i = 1; i &lt; list.size(); i++) {
-			if (max_end &lt; list.get(i).start) {
-				res.add(new Interval(max_end, list.get(i).start));
-			}
-			max_end = Math.max(max_end, list.get(i).end);
-		}
-		return res;
+        TreeMap&lt;Integer,Interval&gt; startTimes = new TreeMap&lt;&gt;();
+        for(List&lt;Interval&gt; Emp : avails)
+        {
+            for(Interval conf : Emp)
+            {</B></FONT>
+                if(!startTimes.containsKey(conf.start))
+                {
+                    startTimes.put(conf.start,conf);
+                }else{
+                    int e = startTimes.get(conf.start).end;
+                    if(e&lt; conf.end)
+                        startTimes.put(conf.start,conf);
+                }
+            }
+        }
+<A NAME="1"></A>        List&lt;Interval&gt; output = new ArrayList&lt;&gt;();
+        int endtime = startTimes.get(startTimes.firstKey()).end;
+        startTimes.remove(startTimes.firstKey());
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(Integer s : startTimes.navigableKeySet())
+        {
+            Interval c = startTimes.get(s);
+            if(c.start &gt; endtime)
+            {
+                output.add(new Interval(endtime,c.start));
+            }</B></FONT>
+            endtime = Math.max(endtime,c.end);
+        }
+        return output;
     }
+    
 }
 </PRE>
 

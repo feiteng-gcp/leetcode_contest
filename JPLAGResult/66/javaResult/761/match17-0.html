@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>488_krishna957.java</TITLE>
+ <TITLE>445_bibaboy00.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>488_krishna957.java</CENTER></H3><HR>
+<H3><CENTER>445_bibaboy00.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,38 +23,53 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
-<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
+ *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; result = new ArrayList&lt;&gt;();
-        for(List&lt;Interval&gt; list:avails){
-            result.addAll(list);
+        List&lt;int[]&gt; list = new ArrayList&lt;&gt;();
+<A NAME="0"></A>        for (int i = 0; i &lt; avails.size(); i++) {
+            for (Interval interval: avails.get(i)) {
+                list.add(new int[] {interval.start, interval.end});
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        Collections.sort</B></FONT>(result,new Comparator&lt;Interval&gt;(){
-           public int compare(Interval f,Interval s){
-               return f.start==s.start?f.end-s.end:f.start-s.start;
-           } 
-        });
-        Interval ref = new Interval();
-        List&lt;Interval&gt; new_result = new ArrayList&lt;&gt;();
-        for(int i=0;i&lt;result.size();i++){
-            if(i == 0){
-                ref = result.get(i);
-            }else{
-                if(result.get(i).start &gt; ref.end){
-                    new_result.add(new Interval(ref.end,result.get(i).start));
-                    ref = result.get(i);
-                }
-                else if(result.get(i).start &lt;= ref.end){
-                    ref.end = Math.max(ref.end,result.get(i).end);
-                }
-               
+        
+        list.sort(new Comparator&lt;int[]&gt;() {
+            @Override
+            public int compare(int[] o1, int[] o2) {</B></FONT>
+                return o1[0] - o2[0];
             }
+<A NAME="1"></A>        });
+        
+        List&lt;int[]&gt; listMerge = merge(list);
+        List&lt;Interval&gt; res = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt; listMerge.size(); i++) {
+            res.add(new Interval(listMerge.get(i - 1)[1], listMerge.get(i)[0]));
         }
-       // new_result.add(ref);
-        return new_result;
+        return res;
+    }</B></FONT>
+    
+    private List&lt;int[]&gt; merge(List&lt;int[]&gt; list) {
+        List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
+<A NAME="2"></A>        int left = list.get(0)[0];
+        int right = list.get(0)[1];
+        int i = 1;
+        while (i &lt; <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.size()) {
+            if (list.get(i)[0] &lt;= right) {
+                right = Math.max(right, list.get(i)[1]);
+            } else {
+                System.out.println</B></FONT>(left + &quot; &quot; + right);
+                res.add(new int[] {left, right});
+                left = list.get(i)[0];
+                right = list.get(i)[1];
+            }
+            i++;
+        }
+        if (i == list.size()) {
+            res.add(new int[] {left, right});
+        }
+        return res;
     }
 }
 </PRE>

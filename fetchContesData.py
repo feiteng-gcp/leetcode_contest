@@ -126,14 +126,14 @@ def parseSubmissions(contest, page_end):
         processedID = json.load(file)
     # assuming 500 pages, usually around 200
     for i in range(1, page_end):
-        # try:
-        Ranking_Page = Ranking_Folder + str(i) + '.json'
-        Ranking_Page_JSON = {}
-        with open(Ranking_Page) as file:
-            Ranking_Page_JSON = json.load(file)
-        # except Exception as err:
-        #     print(err)
-        #     break
+        try:
+            Ranking_Page = Ranking_Folder + str(i) + '.json'
+            Ranking_Page_JSON = {}
+            with open(Ranking_Page) as file:
+                Ranking_Page_JSON = json.load(file)
+        except Exception as err:
+            print(err)
+            break
 
         submissions = Ranking_Page_JSON['submissions']
         total_rank = Ranking_Page_JSON['total_rank']
@@ -326,7 +326,7 @@ def update_indexMD():
 
 if __name__ == '__main__':
 
-    page_end = 3
+    page_end = 20   # check for top 500 people
     while True:
         contest = loadContest()
         contest_int = (int)(contest)
@@ -349,6 +349,6 @@ if __name__ == '__main__':
 
         writeContest(contest_int)
 
-        if page_end < 500: break   
+        # if page_end < 500: break   
 
 

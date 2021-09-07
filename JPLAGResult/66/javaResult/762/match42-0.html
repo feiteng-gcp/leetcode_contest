@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>1496_Majcpatrick.java</TITLE>
+ <TITLE>458_chen_zhe.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>1496_Majcpatrick.java</CENTER></H3><HR>
+<H3><CENTER>458_chen_zhe.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match42-1.html#0',3,'match42-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int[] anagramMappings(int[] A, int[] B) {
-<A NAME="1"></A>        if (A == null || A.length == 0 || B == null || B.length == 0 
-            || A.length != B.length) {
-            return new</B></FONT> int[0];
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match42-1.html#1',3,'match42-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        Map&lt;Integer, Integer&gt; mapB = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; B.length; i++) {
-            mapB.put(B[i], i);
-        }
-        int[] indices = new int[A.length];
+        HashMap&lt;Integer, List&lt;Integer&gt;&gt; hash = new HashMap&lt;Integer, List&lt;Integer&gt;&gt;();
         for (int i = 0; i &lt; A.length; i++) {
-            indices[i] = mapB.get(A[i]);
+            if (!hash.containsKey(A[i])) {
+                hash.put(A[i], new ArrayList&lt;Integer&gt;());
+            }
+            hash.get(A[i]).add(i);
         }
-        return indices;
+<A NAME="1"></A>        int[] ans = new int[A.length];
+        for (int i = 0; i &lt; A.length; i++) {</B></FONT>
+            int index = hash.get(B[i]).get(0);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match42-1.html#1',3,'match42-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans[index] = i;
+            hash.get(B[i]).remove(0);
+        }
+        return ans;
     }
 }</B></FONT>
 </PRE>

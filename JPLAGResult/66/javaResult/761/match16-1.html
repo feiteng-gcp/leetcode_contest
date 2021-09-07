@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>351_curky.java</TITLE>
+ <TITLE>172_XIAOXINWU.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>351_curky.java</CENTER></H3><HR>
+<H3><CENTER>172_XIAOXINWU.java</CENTER></H3><HR>
 <PRE>
 /**
  * Definition for an interval.
@@ -23,61 +23,46 @@
  *     int start;
  *     int end;
  *     Interval() { start = 0; end = 0; }
- *     Interval(int s, int e) { start = s; end = e; }
+<A NAME="0"></A> *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-class Solution {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;Interval&gt; employeeFreeTime(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if(avails == null || avails.size() == 0 || avails.get(0).size() == 0) {
-            return res;
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        for(List&lt;Interval&gt; avail : avails){
+            list.addAll(avail);
         }
-        List&lt;Interval&gt; merged = mergeInterval(avails);
-        res = findCommon(merged);
+        List&lt;Interval&gt; l2 = merge(list);
+        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
+<A NAME="1"></A>        int start = l2.get</B></FONT>(0).end;
+        for(int i = 1; i &lt; l2.size(); i++){
+            res.add(new Interval(start, l2.get(i).start));
+            start = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>l2.get(i).end;
+        }
+        // Map&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
+        // for(List&lt;Interval&gt; avail : avails){
+        //     for(Interval intv : avail){
+        //         map.put(intv.start, map.getOrDefault(intv.start, 0) + 1);
+        //         map.put(intv.end + 1, map.getOrDefault(intv.end, 0) - 1);
+        //     }
+        // }
+        // System.out.println(map);
         return res;
     }
-    public List&lt;Interval&gt; mergeInterval(List&lt;List&lt;Interval&gt;&gt; avails) {
-        List&lt;Interval&gt; temp = new ArrayList&lt;&gt;();
-        List&lt;Interval&gt; merged = new ArrayList&lt;&gt;();
-        //Interval pre = avails.get(0).get(0);
-        for(List&lt;Interval&gt; avail : avails) {
-<A NAME="0"></A>            for(Interval interval : avail) {
-                temp.add(interval);
-            }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        Collections.sort(temp, (a, b) -&gt; {
-            if(a.start == b.start) {
-                return a.end - b.end;
-            } else {</B></FONT>
-                return a.start - b.start;
-            }
+    
+    public List&lt;Interval&gt; merge(List&lt;Interval&gt; intervals) {
+        if(intervals == null || intervals.size() == 0) 
+            return intervals;
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        Collections.sort</B></FONT>(intervals, (a, b)-&gt;{
+            return a.start - b.start;
         });
-        Interval pre = temp.get(0);
-<A NAME="1"></A>        for(Interval cur : temp) {
-            if(cur.start &lt;= pre.end) {
-                pre.end = Math.max(cur.end, pre.end);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>} else {
-                merged.add(new Interval(pre.start, pre.end));
-                pre = cur;
-            }
-        }</B></FONT>
-        merged.add(new Interval(pre.start, pre.end));
-        return merged;
-    }
-    public List&lt;Interval&gt; findCommon(List&lt;Interval&gt; merged) {
-        List&lt;Interval&gt; res = new ArrayList&lt;&gt;();
-        if(merged.size() == 0) {
-            return res;
+        for(Interval interval : intervals){
+            if(list.size() == 0 || interval.start &gt; list.get(list.size() - 1).end)
+                list.add(interval);
+            list.get(list.size() - 1).end = Math.max(interval.end, list.get(list.size() - 1).end);
         }
-        for(int i = 0; i &lt; merged.size() - 1; i++) {
-            Interval pre = merged.get(i);
-            Interval cur = merged.get(i + 1);
-            if(pre.end == cur.start) {
-                continue;
-            }
-            res.add(new Interval(pre.end, cur.start));
-        }
-        return res;
+        return list;
     }
 }
 </PRE>
