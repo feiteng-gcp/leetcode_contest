@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>373_tharun_b.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>373_tharun_b.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int findCheapestPrice(int n, vector&lt;vector&lt;int&gt;&gt;&amp; flights, int src, int dst, int K) {
+        int m = flights.size();</B></FONT>
+
+        vector&lt;vector&lt;int&gt;&gt; cost(n,vector&lt;int&gt; (n,INT_MAX));
+        cost[src][src] =0; 
+        
+        for(int i =0; i&lt;n; i++)
+        {
+            cost[i][i] =0; 
+        }
+        
+        for(int e =0; e&lt;m ; e++)
+        {
+            int s = flights[e][0];
+            int v = flights[e][1];
+            int c = flights[e][2];
+            
+            cost[s][v] = c;
+        }
+        
+        
+        
+        if(K &lt;1) return (cost[src][dst] == INT_MAX)?-1:cost[src][dst];
+        
+        while(K)
+        {
+            for(int e =0; e&lt;m ; e++)
+            {
+                int s = flights[e][0];
+                int v = flights[e][1];
+                int c = flights[e][2];
+
+                if((cost[src][s] ) &lt; (cost[src][v]-c))
+                {
+                    cost[src][v] = cost[src][s] + c; 
+                }
+            }
+        
+            K--; 
+        }
+        
+        
+        return (cost[src][dst] == INT_MAX)?(-1):(cost[src][dst]);
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

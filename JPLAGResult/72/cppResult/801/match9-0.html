@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_i_love_xiaoshagua_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>38_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        int N = graph.size();
+        unordered_map&lt;int, int&gt; group;
+        for (int i = 0; i &lt; N; ++i) {
+            if (group.find(i) == group.end()) {</B></FONT>
+                // BFS from i
+                vector&lt;int&gt; level = {i};
+                group[i] = 0;
+                int n_level = 0;
+                while (!level.empty()) {
+                    n_level = 1 - n_level;
+                    vector&lt;int&gt; new_level;
+                    for (int x : level) {
+                        for (int y : graph[x]) {
+                            if (group.find(y) != group.end() &amp;&amp; group[y] == 1 - n_level) {
+                                return false;
+                            }
+                            if (group.find(y) == group.end()) {
+                                group[y] = n_level;
+                                new_level.push_back(y);
+                            }                            
+                        }
+                    }
+                    level = new_level;
+                }
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

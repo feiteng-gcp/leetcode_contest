@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_Kmcode.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>19_Kmcode.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dp[102][102];
+    priority_queue&lt;pair&lt;int,pair&lt;int,int&gt; &gt; , vector&lt;pair&lt;int,pair&lt;int,int&gt; &gt; &gt; , greater&lt;pair&lt;int,pair&lt;int,int&gt; &gt; &gt; &gt; q;
+    vector&lt;pair&lt;int,int&gt; &gt; vv[102];
+    int findCheapestPrice(int n, vector&lt;vector&lt;int&gt;&gt;&amp; flights, int src, int dst, int K) {
+        K++;
+        memset(dp,-1,sizeof(dp));
+        dp[src][0]=0;
+        q.push(make_pair(0,make_pair(src,0)));
+        for(int i=0;i&lt;n;i++){
+            vv[i].clear();
+        }
+        for(int i=0;i&lt;flights.size();i++){
+            vv[flights[i][0]].push_back(make_pair(flights[i][1],flights[i][2]));
+        }
+        while(!q.empty()){
+            int cost=q.top().first;
+            int a=q.top().second.first;
+            int b=q.top().second.second;
+            q.pop();
+            if(dp[a][b]!=cost){
+                continue;
+            }
+            for(int i=0;i&lt;vv[a].size();i++){
+                int go=vv[a][i].first;
+                int cost=dp[a][b]+vv[a][i].second;
+                int bb=b+1;
+                if(bb&gt;K)continue;
+                if(dp[go][bb]==-1||dp[go][bb]&gt;cost){
+                    dp[go][bb]=cost;
+                    q.push(make_pair(cost,make_pair(go,bb)));
+<A NAME="0"></A>                }
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans=INT_MAX;
+        for(int i=0;i&lt;=K;i++){
+            if(dp[dst][i]!=-1){
+                ans=min(ans,dp[dst][i]);
+            }
+        }</B></FONT>
+        if(ans==INT_MAX)ans=-1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

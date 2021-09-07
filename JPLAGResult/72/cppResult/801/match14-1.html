@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_zhixiongcai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_zhixiongcai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+        vector&lt;char&gt; colors(graph.size(), 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; graph.size(); ++i) {
+            if (colors[i] == 0) {
+                if (!paint(graph, colors, i, 1)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    bool paint(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;char&gt;&amp; colors, int i, int c) {</B></FONT>
+        if (colors[i] != 0) {
+            return colors[i] == c;
+        }
+        
+        colors[i] = c;
+        for (int j : graph[i]) {
+            if (!paint(graph, colors, j, -c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

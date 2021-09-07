@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_i_love_xiaoshagua_cpp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>38_i_love_xiaoshagua_cpp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    // returns true if first &lt;= second
+    bool compar(pair&lt;int, int&gt; first, pair&lt;int, int&gt; second) {
+        long left = (long) first.first * (long) second.second;
+        long right = (long) first.second * (long) second.first;
+        return left &lt;= right;
+    }
+    
+    // search inside [start, end)
+    vector&lt;int&gt; kth(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;start, vector&lt;int&gt; &amp;end, int K) {
+        int n_elem = 0;
+        int N = A.size();
+        vector&lt;int&gt; active_idx;
+        for (int i = 0; i &lt; N; ++i) {
+            if (start[i] &lt; end[i]) {
+                n_elem += end[i] - start[i];
+                active_idx.push_back(i);
+            }
+        }
+        int pivot_start_idx = active_idx[rand() % active_idx.size()];
+        int pivot_end_idx = start[pivot_start_idx] + (rand() % (end[pivot_start_idx] - start[pivot_start_idx]));
+        pair&lt;int, int&gt; pivot = {A[pivot_start_idx], A[pivot_end_idx]};
+        vector&lt;int&gt; middle(N, 0);
+        int n_less_than = 0;
+        for (int i : active_idx) {
+            int left = start[i], right = end[i] - 1;
+            // Search for minimum middle, s.t. A[i] / A[middle] &lt;= pivot
+            if (!compar({A[i], A[right]}, pivot)) {
+                middle[i] = end[i];
+            } else {
+                // binary search
+                while (left &lt; right) {
+                    int mid = left + (right - left) / 2;
+                    if (compar({A[i], A[mid]}, pivot)) {
+                        right = mid;
+                    } else {
+                        left = mid + 1;
+                    }
+                }
+                n_less_than += end[i] - left;
+                middle[i] = left;
+            }
+        }
+        if (n_less_than == K) return {pivot.first, pivot.second};
+        else if (n_less_than &lt; K) {
+<A NAME="0"></A>            return kth(A, start, middle, K - n_less_than);
+        } else {
+            middle[pivot_start_idx] = pivot_end_idx + 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return kth(A, middle, end, K);
+        }
+    }
+
+public:
+    vector&lt;int&gt; kthSmallestPrimeFraction(vector&lt;int&gt;&amp; A, int K) {
+        int N = A.size();
+        vector&lt;int&gt; start, end;
+        for (int i = 0; i &lt; N; ++i) {</B></FONT>
+            start.push_back(i + 1);
+            end.push_back(N);
+        }
+        return kth(A, start, end, K);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

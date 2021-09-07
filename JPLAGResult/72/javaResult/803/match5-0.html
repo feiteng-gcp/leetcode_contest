@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_matchalatte.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>15_matchalatte.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import java.util.*;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        Integer[] memo = new</B></FONT> Integer[n];
+        memo[src] = 0;
+        
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; flights.length; i++) {
+            int s = flights[i][0];
+            map.putIfAbsent(s, new ArrayList&lt;&gt;());
+            map.get(s).add(i);
+        }
+        dfs(n, flights, src, dst, K, memo, map);
+        // System.out.println();
+        if (memo[dst] == null) return -1;
+        return memo[dst];
+    }
+    
+    private void dfs(int n, int[][] flights, int src, int dst, int K, Integer[] memo, Map&lt;Integer, List&lt;Integer&gt;&gt; map) {
+        // System.out.print(src + &quot; cost: &quot; + memo[src]+&quot; &quot;);
+        if (src == dst || K &lt; 0) {
+            // System.out.println();
+            return;
+        }
+        List&lt;Integer&gt; next = map.get(src);
+        if (next == null)  return;
+        for (int i = 0; i &lt; next.size(); i++) {
+            int index = next.get(i);
+            int child = flights[index][1];
+            int cost = flights[index][2];
+            if (memo[child] != null &amp;&amp; memo[src] + cost &gt;= memo[child])  continue;
+            memo[child] = memo[src] + cost;
+            dfs(n, flights, child, dst, K-1, memo, map);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

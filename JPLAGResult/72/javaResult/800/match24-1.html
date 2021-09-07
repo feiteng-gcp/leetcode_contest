@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>430_ruby71.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>430_ruby71.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;String&gt; letterCasePermutation(String S) {
+        
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        if (S == null) {
+            return result;
+        }
+<A NAME="0"></A>        
+        StringBuilder cur = new StringBuilder();
+        dfs(S, 0, result, cur);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return result;
+    }
+    
+    private void dfs(String input, int index, List&lt;String&gt; result, StringBuilder cur) {</B></FONT>
+        while (index &lt; input.length() &amp;&amp; Character.isDigit(input.charAt(index))) {
+            cur.append(input.charAt(index));
+            index++;
+        }
+        if (index == input.length()) {
+            result.add(new String(cur));
+<A NAME="1"></A>            return;
+        }
+        int originalLength = cur.length();
+        cur.append(Character.toLowerCase(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>input.charAt(index)));
+        dfs(input, index + 1, result, cur);
+        cur.setLength(originalLength);
+        
+        cur.append(Character.toUpperCase(input.charAt(index)));
+        dfs(input, index + 1, result, cur);
+        cur.setLength(originalLength);
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

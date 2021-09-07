@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_anindyadas.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>16_anindyadas.cpp</CENTER></H3><HR>
+<PRE>
+#define inf (1&lt;&lt;28)
+
+class Solution {
+public:
+    int calc(const vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, const int dst, vector&lt;vector&lt;int&gt;&gt;&amp; dp, int now, int rem) {
+        if (now == dst)
+                return 0;
+        if (rem == 0) 
+            return inf;
+        if (dp[now][rem] != -1)
+            return dp[now][rem];
+        dp[now][rem] = inf;
+        for (int i = 0; i &lt; graph[now].size(); i++) {
+<A NAME="0"></A>            int v = graph[now][i].second + calc(graph, dst, dp, graph[now][i].first, rem - 1);
+            if (v &lt; dp[now][rem])
+                dp[now][rem] = v;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return dp[now][rem];
+    }
+    int findCheapestPrice(int n, vector&lt;vector&lt;int&gt;&gt;&amp; flights, int src, int dst, int K) {
+        vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph(n, vector&lt;pair&lt;int,int&gt;&gt;());</B></FONT>
+        vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(K + 2, -1));
+        for (int i = 0; i &lt; flights.size(); i++)
+            graph[flights[i][0]].push_back(make_pair(flights[i][1], flights[i][2]));
+        int ret = calc(graph, dst, dp, src, K + 1);
+        if (ret == inf)
+            return -1;
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
