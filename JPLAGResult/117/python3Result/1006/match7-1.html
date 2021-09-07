@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_alexlinzhai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_alexlinzhai.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+
+class Solution:
+    def spellchecker(self, wordlist, queries):
+        &quot;&quot;&quot;
+        :type wordlist: List[str]
+        :type queries: List[str]
+<A NAME="0"></A>        :rtype: List[str]
+        &quot;&quot;&quot;
+        
+        words <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= set(wordlist)
+        bank1 = defaultdict(list)
+        bank2 = defaultdict(list)
+        
+        def devowel(x):
+            for c in 'aeiou':
+                x = x.replace(c, '.')
+            return x
+        
+<A NAME="1"></A>        for</B></FONT> w in wordlist:
+            lowered = w.lower()
+            bank1[lowered].append(w)
+            bank2[devowel(lowered)].append(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>w)
+            
+        ret = []
+        for q in queries:
+            if q in words:
+                ret.append(q)
+                continue
+            lower_q = q.lower()
+            if lower_q in bank1:
+                ret.append(bank1[</B></FONT>lower_q][0])
+                continue
+            
+            qq = devowel(lower_q)
+            if qq in bank2:
+                ret.append(bank2[qq][0])
+                continue
+                
+            ret.append(&quot;&quot;)
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

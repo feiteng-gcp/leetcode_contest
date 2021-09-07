@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_Bent.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_Bent.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def spellchecker(self, wordlist, queries):
+        &quot;&quot;&quot;
+        :type wordlist: List[str]
+        :type queries: List[str]
+        :rtype: List[str]
+        &quot;&quot;&quot;
+        org_wordset = set(wordlist)
+        cap_wordset = {}
+        vow_wordset = {}
+<A NAME="0"></A>        for word in wordlist:
+            if word.lower() not in cap_wordset:
+                cap_wordset[word.lower()] = word
+            new_word <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= self.maskVowels(word)
+            if new_word not in vow_wordset:
+                vow_wordset[new_word] = word
+        ans = []
+        for word in queries:
+            if word in org_wordset:
+                ans.append(word)
+            elif word.lower() in cap_wordset:
+                ans.append(cap_wordset[word.lower()])
+            else:
+                new_word = self.maskVowels(</B></FONT>word)
+                if new_word in vow_wordset:
+                    ans.append(vow_wordset[new_word])
+                else:
+                    ans.append('')
+        return ans
+
+    def maskVowels(self, word):
+        vowels = {'a', 'e', 'i', 'o', 'u'}
+        return ''.join(['*' if c in vowels else c for c in word.lower()])
+</PRE>
+
+</BODY>
+</HTML>

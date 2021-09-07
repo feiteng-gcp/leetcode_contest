@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>250_AdamTai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>250_AdamTai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+	string ToLower(string S)
+	{
+		int j;
+		int N = S.size();
+		string Result = S;
+		
+		for(j = 0; j &lt; N; j++)
+		{
+			Result[j] += (Result[j] &lt; 'a') ? ('a' - 'A') : 0;
+		}
+		
+		return Result;
+	}
+	
+	string ToLowerA(string S)
+	{
+		int j;
+		int N = S.size();
+		string Result = ToLower(S);
+		
+		for(j = 0; j &lt; N; j++)
+		{
+			if((Result[j] == 'e') || (Result[j] == 'i') || (Result[j] == 'o') || (Result[j] == 'u'))
+			{
+				Result[j] = 'a';
+			}
+		}
+		
+		return Result;
+	}
+	
+public:
+    vector&lt;string&gt; spellchecker(vector&lt;string&gt;&amp; wordlist, vector&lt;string&gt;&amp; queries) {
+        int i, j;
+		int N = wordlist.size();
+		int M = queries.size();
+		vector&lt;string&gt; Result;
+		unordered_set&lt;string&gt; Set;
+<A NAME="0"></A>		unordered_map&lt;string, string&gt; Map;
+		unordered_map&lt;string, string&gt; Map1;
+		
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		for(i = 0; i &lt; N; i++)
+		{
+			Set.insert(wordlist[i]);
+			
+			string Temp = ToLower(wordlist[i]);
+			
+			if(Map.count(Temp) == 0)
+			{
+				Map[Temp] = wordlist[i];
+			}
+			
+			Temp = ToLowerA(wordlist[i]);
+			
+			if(Map1.count(Temp) == 0)
+			{
+				Map1[Temp] = wordlist[i];
+			}
+		}
+<A NAME="1"></A>		
+		for(i = 0; i &lt; M; i++)</B></FONT>
+		{
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if(Set.count(queries[i]))
+			{
+				Result.push_back(queries[i]);
+			}
+			else if(Map.count(ToLower(queries[i])))
+			{
+				Result.push_back(Map[ToLower(queries[i])]);
+			}
+			else if(Map1.count(ToLowerA(queries[i])))
+			{
+				Result.push_back(Map1[ToLowerA(queries[i])]);
+			}
+			else
+			{
+				Result.push_back(&quot;&quot;);
+			}
+		}
+		
+		return Result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

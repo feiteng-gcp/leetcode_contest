@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>95_rx782.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>95_rx782.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; spellchecker(vector&lt;string&gt;&amp; wordlist, vector&lt;string&gt;&amp; queries) {
+        unordered_map&lt;string, string&gt; vst;
+        unordered_map&lt;string, string&gt; spl;
+        unordered_map&lt;string, string&gt; ane;
+<A NAME="0"></A>        for (auto &amp;word : wordlist) {
+            vst[word] = word;
+            string x = word;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (auto &amp;ch : x) if ('a' &lt;= ch &amp;&amp; ch &lt;= 'z') ch = ch - 'a' + 'A';
+          //  cout &lt;&lt; x &lt;&lt; &quot;- &quot; &lt;&lt; word &lt;&lt; endl;
+            if (spl.find(x) == spl.end()) spl[x] = word;        
+            for (auto &amp;ch : x) if ('A' == ch || 'E' == ch || 'I' == ch || 'O' == ch || 'U' == ch) ch = '#';
+            if (ane.find(x) == ane.end()) ane[x] = word;                      
+        }
+        vector&lt;string&gt; ans;
+        for (auto &amp;word : queries) {
+            //cout &lt;&lt; word &lt;&lt; endl;
+            if (vst.find(word) != vst.end()) {                      
+                ans.push_back(vst[word]);
+<A NAME="1"></A>                continue;
+            }
+            string x = word;
+            for (auto &amp;ch : x) if ('a' &lt;= ch &amp;&amp; ch &lt;= 'z') ch = ch - 'a' + 'A';</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            //cout &lt;&lt; word &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; endl;
+            if (spl.find(x) != spl.end()) {
+                ans.push_back(spl[x]);
+                continue;
+            }            
+            for (auto &amp;ch : x) if ('A' == ch || 'E' == ch || 'I' == ch || 'O' == ch || 'U' == ch) ch = '#';
+            //cout &lt;&lt; word &lt;&lt; &quot; : &quot; &lt;&lt; x &lt;&lt; endl;
+            if (ane.find(x) != ane.end()) {
+                ans.push_back(ane[x]);                                
+                continue;
+            } 
+            ans.push_back(&quot;&quot;);
+        }
+        return ans;
+    }
+};</B></FONT>
+
+
+/*
+[&quot;kite&quot;,&quot;KiTe&quot;,&quot;KiTe&quot;,&quot;Hare&quot;,&quot;hare&quot;,&quot;&quot;,&quot;&quot;,&quot;KiTe&quot;,&quot;&quot;,&quot;KiTe&quot;]
+[&quot;kite&quot;,&quot;KiTe&quot;,&quot;KiTe&quot;,&quot;Hare&quot;,&quot;hare&quot;,&quot;&quot;,&quot;&quot;,&quot;KiTe&quot;,&quot;&quot;,&quot;KiTe&quot;]
+*/
+</PRE>
+</BODY>
+</HTML>

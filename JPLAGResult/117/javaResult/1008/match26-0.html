@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_abcdefat.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_abcdefat.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int minCameraCover(TreeNode root) {
+        
+<A NAME="0"></A>        int n = helper(root, 0);
+        Integer[][][] cache = new Integer[n][2][2];
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return dp(root, 1, 0, cache);
+        
+    }
+    
+    private int helper(TreeNode root, int id) {
+        // change val to id
+        if (root == null) return id;</B></FONT>
+        root.val = id;
+        ++id;
+        id = helper(root.left, id);
+        return helper(root.right, id);
+    }
+    
+    private int dp(TreeNode root, int state1, int state2, Integer[][][] cache) {
+        // return the number of cameras needed to monitor the tree
+        // state1: 0: the root not needs to be covered, 1: the root has to be covered
+        // state2: 0: no camera already on, 1: has camera on
+        if (root == null) return 0;
+        int id = root.val;
+        
+        if (cache[id][state1][state2] == null) {
+            // 
+            if (state1 == 0) {
+                // the root not needs to be covered
+                // not placing camera at the root
+                int min = 0; 
+                if (state2 == 0) min = dp(root.left, 1, 0, cache) + dp(root.right, 1, 0, cache);
+                else min = dp(root.left, 0, 0, cache) + dp(root.right, 0, 0, cache);
+                // placing camera at the root
+                if (state2 == 0) {
+                    int tmp = 1 + dp(root.left, 0, 0, cache) + dp(root.right, 0, 0, cache);
+<A NAME="1"></A>                    if (tmp &lt; min) min = tmp;
+                }
+                cache[id][state1][state2] = min;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            else {
+                // the root has to be covered, state2 = 0
+                // place camera at the root
+                int min = 1 + dp(root.left, 0, 0, cache) + dp(root.right, 0, 0, cache);
+                // not place at root, has to be placed at either child
+                // place on left
+                int tmp = 1 + dp(root.left, 0, 1, cache) + dp</B></FONT>(root.right, 1, 0, cache);
+                if (tmp &lt; min) min = tmp;
+                // place on right
+                tmp = 1 + dp(root.left, 1, 0, cache) + dp(root.right, 0, 1, cache);
+                if (tmp &lt; min) min = tmp;
+                cache[id][state1][state2] = min;
+            }
+            
+        }
+        
+        return cache[id][state1][state2];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

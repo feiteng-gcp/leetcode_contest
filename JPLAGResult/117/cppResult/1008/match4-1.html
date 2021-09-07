@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_zhou_zzz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_zhou_zzz.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+int dfs(TreeNode* root, int &amp;total)
+{
+	if (!root)
+	{
+		return 4;
+	}
+	if (!root-&gt;left &amp;&amp; !root-&gt;right)
+	{
+<A NAME="0"></A>		return 3;
+	}
+	int nLeft = dfs(root-&gt;left, total);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int nRight = dfs(root-&gt;right, total);
+	if (nLeft == 3 || nRight == 3)
+	{
+		total++;
+		return 1;
+	}
+	if (nLeft == 1 || nRight == 1)
+	{
+		return 2;
+	}
+	return 3;
+}
+
+int minCameraCover(TreeNode* root) {
+	int total = 0;</B></FONT>
+	int result = dfs(root, total);
+	if (result == 3)
+	{
+		total++;
+	}
+	if (total == 0 &amp;&amp; root)
+	{
+		total = 1;
+	}
+	return total;
+}
+
+};
+</PRE>
+</BODY>
+</HTML>

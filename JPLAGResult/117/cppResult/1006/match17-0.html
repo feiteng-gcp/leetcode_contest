@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_hsuan-ting.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>19_hsuan-ting.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string cap(string&amp;w) {
+        string ret;
+        for(auto c: w) {
+            if(c &gt;= 'A' &amp;&amp; c &lt;= 'Z') {
+                c = c - 'A' + 'a';
+            }
+            ret.push_back(c);
+        }
+        //std::cout &lt;&lt; w &lt;&lt; &quot; -&gt; &quot; &lt;&lt; ret &lt;&lt; std::endl;
+        return ret;
+    }
+    string conv(string&amp;w) {
+        string ret;
+        for(auto c: w) {
+            if(c &gt;= 'A' &amp;&amp; c &lt;= 'Z') {
+                c = c - 'A' + 'a';
+            }
+            if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                c = 'a';
+            }
+            ret.push_back(c);
+        }
+<A NAME="0"></A>        //std::cout &lt;&lt; w &lt;&lt; &quot; -&gt; &quot; &lt;&lt; ret &lt;&lt; std::endl;
+        return ret;
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;string&gt; spellchecker(vector&lt;string&gt;&amp; wordlist, vector&lt;string&gt;&amp; queries) {
+        vector&lt;string&gt; ret;
+        map&lt;string, string&gt; dcap;
+        map&lt;string, string&gt; dict;
+        set&lt;string&gt; appear;
+        for(auto w: wordlist) {
+            appear.insert(w);
+            string wc = cap(w);
+            if(dcap.find(wc) == dcap.end()) {
+                dcap[wc] = w;
+            }
+            string w2 = conv(w);
+            if(dict.find(w2) == dict.end()) {
+                dict[w2] = w;
+            }
+        }
+<A NAME="1"></A>        for(auto q: queries) {</B></FONT>
+            string qc = cap(q);
+            string q2 = conv(q);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(appear.find(q) != appear.end()) {
+                ret.push_back(q);
+            }
+            else if(dcap.find(qc) != dcap.end()) {
+                ret.push_back(dcap[qc]);
+            }
+            else if(dict.find(q2) != dict.end()) {
+                ret.push_back(dict[q2]);
+            }
+            else {</B></FONT>
+                ret.push_back(&quot;&quot;);
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

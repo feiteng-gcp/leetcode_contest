@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_bn5171.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_bn5171.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def numsSameConsecDiff(self, N, K):
+        &quot;&quot;&quot;
+        :type N: int
+        :type K: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        def getNums(num):
+            nums = []
+            if num + K &lt; 10:
+                nums.append(num + K)
+            if num - K &gt;= 0 and num - K != num + K:
+                nums.append(num - K)
+            r</B></FONT>eturn nums
+        
+        if N == 1:
+            return [n for n in range(10)]
+        
+        digits = [n for n in range(1, 10)]
+        res = []
+        while digits:
+            d = digits.pop(0)
+            print(d)
+            if len(str(d)) == N:
+                res.append(d)
+            else:
+                nextds = getNums(d % 10)
+                print('%d got back %s' % (d % 10, str(nextds)))
+                if len(nextds) &gt; 0:
+                    digits += [int(str(d) + str(nd)) for nd in nextds]
+                
+        return list(set(res))
+</PRE>
+
+</BODY>
+</HTML>

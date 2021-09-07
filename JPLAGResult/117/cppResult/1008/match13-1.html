@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>155_LaSeineFirenze.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>155_LaSeineFirenze.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    unordered_map&lt;TreeNode*, int&gt; hm, mm;
+    int helper(TreeNode* root) {
+        if (hm.find(root) != hm.end()) return hm[root];
+        if (!root) return 0;
+        int res = 1;
+        if (root-&gt;left) res += min(helper(root-&gt;left), minCameraCover(root-&gt;left-&gt;left) + minCameraCover(root-&gt;left-&gt;right));
+        if (root-&gt;right) res += min(helper(root-&gt;right), minCameraCover(root-&gt;right-&gt;left) + minCameraCover(root-&gt;right-&gt;right));
+        hm[root] = res;
+        return res;
+    }
+public:
+    int minCameraCover(TreeNode* root) {
+        if (mm.find(root) != mm.end()) return mm[root];
+        if (!root) return 0;
+<A NAME="0"></A>        if (!root-&gt;left &amp;&amp; !root-&gt;right) return 1;
+        if (!root-&gt;left) return helper(root-&gt;right);
+        if (!root-&gt;right) return helper(root-&gt;left);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int a = helper(root);
+        int b = helper(root-&gt;left) + minCameraCover(root-&gt;right);
+        int c = helper(root-&gt;right) + minCameraCover(root-&gt;left);
+        int res = min(a, min(b, c));
+        mm[root] = res;
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

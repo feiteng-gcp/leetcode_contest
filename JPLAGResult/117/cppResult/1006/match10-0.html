@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_pjincz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_pjincz.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; spellchecker(vector&lt;string&gt;&amp; wordlist, vector&lt;string&gt;&amp; queries) {
+<A NAME="0"></A>        std::unordered_map&lt;string, string&gt; h1, h2, h3;
+        
+        for (auto &amp; word : wordlist) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            h1[word] = word;
+            
+            string l = lower(word);
+            if (!h2.count(l)) {
+                h2[l] = word;
+            }
+            
+            string nv = novowel(word);
+            if (!h3.count(nv)) {
+                h3[nv] = word;
+            }
+        }
+        
+        vector&lt;string&gt; result;
+        for (auto &amp; q : queries) {
+            if (h1.count(q)) {
+                result.push_back(h1[q]);
+                continue;
+<A NAME="1"></A>            }
+            
+            string l = lower(q);</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (h2.count(l)) {
+                result.push_back(h2[l]);
+                continue;
+            }
+            
+            string nv = novowel(q);
+            if (h3.count(nv)) {
+                result.push_back(h3[nv]);
+                continue;
+            }
+            
+            result.push_back(&quot;&quot;);
+        }
+        
+        return result;
+    }</B></FONT>
+    
+    string lower(string str) {
+        for (char &amp; ch : str) {
+            if (ch &gt;= 'A' &amp;&amp; ch &lt;= 'Z')
+                ch = ch - 'A' + 'a';
+        }
+        return str;
+    }
+    
+    string novowel(string str) {
+        str = lower(str);
+        
+        string r;
+        for (char ch : str) {
+            if (ch != 'a' &amp;&amp; ch != 'e' &amp;&amp; ch != 'i' &amp;&amp; ch != 'o' &amp;&amp; ch != 'u') {
+                r.push_back(ch);
+            } else {
+                r.push_back('*');
+            }
+        }
+        return r;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_RyanYan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_RyanYan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] numsSameConsecDiff(int N, int K) {
+<A NAME="1"></A>        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        backtrack(N, K, -1, 0, new StringBuilder(), res);
+        int[] ret = new int[res.size()];
+        for (int i = 0</B></FONT>; i &lt; res.size(); i++) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            ret[i] = res.get(i);
+        }
+        return ret;
+    }
+    private void backtrack(int N, int K, int pre, int digit, StringBuilder sb, List&lt;Integer&gt; res) {
+        if</B></FONT> (digit == N) {
+            if (sb.length() &gt; 1 &amp;&amp; sb.charAt(sb.length() - 1) == '0')
+                return;
+            res.add(Integer.valueOf(new StringBuilder(sb).reverse().toString()));
+<A NAME="2"></A>            return;
+        }
+        for (int i = 0; i &lt;= 9; i++) {
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#2',2,'match37-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (pre == -1 || pre - i == K || i - pre == K) {
+                sb.append(i);
+                backtrack(N, K, i, digit + 1, sb, res);
+                sb.deleteCharAt(sb.length()-1);
+            }
+        }</B></FONT>
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

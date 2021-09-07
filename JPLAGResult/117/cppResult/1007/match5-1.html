@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_hhhyyyfff.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_hhhyyyfff.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; ans;
+    void dfs(int numlen, int number, int length, int diff) {
+        if (numlen == length) {
+            ans.push_back(number);
+            return;
+        }
+        if (number % 10 - diff &gt;= 0)
+            dfs(numlen + 1, number * 10 + number % 10 - diff, length, diff);
+        if (number % 10 + diff &lt;= 9 &amp;&amp; number % 10 - diff != number % 10 + diff)
+            dfs(numlen + 1, number * 10 + number % 10 + diff, length, diff);
+    }
+    vector&lt;int&gt; numsSameConsecDiff(int N, int K) {</B></FONT>
+        if (N == 1)
+            ans.push_back(0);
+        for (int i = 1; i &lt;= 9; ++i)
+            dfs(1, i, N, K);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

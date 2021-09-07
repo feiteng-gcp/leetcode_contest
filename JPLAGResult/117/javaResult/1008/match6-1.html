@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>112_xuan18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>112_xuan18.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    
+    public class EnhancedNode {
+        int val;
+        EnhancedNode left, right;
+        
+        
+        // minimal number of camera covering the subtree, and also must have a camera on this node
+        int minCameraWithCameraOn;
+        
+        // minimal number of camera covering the subtree, may or may not have a camera installed on this node
+        int minCamera;
+        
+        // minimal number of camera covering the subtree except that this node may or may not be covered at all
+        int minCameraWithoutCoveringSelf;
+        
+        public EnhancedNode(int x) {
+            val = x;
+        }
+<A NAME="0"></A>        
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minCameraCover(TreeNode root) {
+        if (root == null) {
+            return 0;
+<A NAME="1"></A>        }
+        EnhancedNode enhancedRoot = rebuildTree</B></FONT>(root);
+        backfillMinCamera(enhancedRoot);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return enhancedRoot.minCamera;
+    }
+    
+    private EnhancedNode rebuildTree(TreeNode root) {
+        if (root == null) {
+            return</B></FONT> null;
+        }
+        EnhancedNode ret = new EnhancedNode(root.val);
+        ret.left = rebuildTree(root.left);
+        ret.right = rebuildTree(root.right);
+        return ret;
+    }
+    
+    private int getMinCameraWithoutCoveringSelf(EnhancedNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int minCameraLeft = (root.left == null ? 0 : root.left.minCamera);
+        int minCameraRight = (root.right == null ? 0 : root.right.minCamera);
+        return minCameraLeft + minCameraRight;
+    }
+    
+    private void backfillMinCamera(EnhancedNode root) {
+        if (root == null) {
+            return;
+        }
+        backfillMinCamera(root.left);
+        backfillMinCamera(root.right);
+        
+        int minCameraLeft = (root.left == null ? 0 : root.left.minCamera);
+        int minCameraRight = (root.right == null ? 0 : root.right.minCamera);
+        int minCameraLeftNoCover = (root.left == null ? 0 : root.left.minCameraWithoutCoveringSelf);
+        int minCameraRightNoCover = (root.right == null ? 0 : root.right.minCameraWithoutCoveringSelf);
+        
+        root.minCameraWithoutCoveringSelf = minCameraLeft + minCameraRight;
+        root.minCameraWithCameraOn = 1 + minCameraLeftNoCover + minCameraRightNoCover;
+        
+        root.minCamera = root.minCameraWithCameraOn;
+        
+        if (root.left != null) {
+            int tmp = root.left.minCameraWithCameraOn + minCameraRight;
+            if (root.minCamera &gt; tmp) {
+                root.minCamera = tmp;
+            }
+        }
+        
+        if (root.right != null) {
+            int tmp = root.right.minCameraWithCameraOn + minCameraLeft;
+            if (root.minCamera &gt; tmp) {
+                root.minCamera = tmp;
+            }
+        }
+        
+        if (root.minCameraWithoutCoveringSelf &gt; root.minCamera) {
+            root.minCameraWithoutCoveringSelf = root.minCamera;
+        }
+        
+    }
+}
+
+/*
+
+[0,0,null,0,0]
+[0,0,null,0,null,0,null,null,0]
+[0,0,null,0,null,0,null,0,null,0,null]
+[0,0,0,0,0,0,null,0]
+[0,null,0,null,0,null,0,null,0,0,0,null,null,0,0]
+[0,null,0,0,0,null,null,0,0]
+
+
+1
+2
+2
+3
+3
+2
+
+*/
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_shawngao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>252_shawngao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        Set&lt;String&gt; exactMatch = new HashSet&lt;&gt;();
+        for (String word : wordlist) exactMatch.add(word);
+
+        Map&lt;String, String&gt; capitalMatch = new HashMap&lt;&gt;();
+        for (String word : wordlist) {</B></FONT>
+<A NAME="1"></A>            String lowerCase = word.toLowerCase();
+            if (capitalMatch.containsKey(lowerCase)) continue;
+            capitalMatch.put(lowerCase, word);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        Map&lt;String, String&gt; vowelMatch = new HashMap&lt;&gt;();
+        for (String word : wordlist) {
+<A NAME="2"></A>            String wildCard = getWildCard</B></FONT>(word);
+            if (vowelMatch.containsKey(wildCard)) continue;
+            vowelMatch.put(wildCard, word);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        String[] res = new String[queries.length];
+        for (int i = 0; i &lt; queries.length; i++) {
+            String query = queries[i];
+            if (exactMatch.contains</B></FONT>(query)) {
+                res[i] = query;
+                continue;
+            }
+
+            String lowerCase = query.toLowerCase();
+            if (capitalMatch.containsKey(lowerCase)) {
+                res[i] = capitalMatch.get(lowerCase);
+                continue;
+            }
+
+            String wildCard = getWildCard(query);
+            if (vowelMatch.containsKey(wildCard)) {
+                res[i] = vowelMatch.get(wildCard);
+                continue;
+<A NAME="3"></A>            }
+
+            res[i] = &quot;&quot;;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+        return res;
+    }
+    
+<A NAME="4"></A>    private String getWildCard(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toLowerCase().toCharArray</B></FONT>()) {
+            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#4',2,'match28-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                sb.append('?');
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

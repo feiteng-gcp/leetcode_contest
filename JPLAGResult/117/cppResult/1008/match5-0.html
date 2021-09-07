@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_QAMichaelPeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_QAMichaelPeng.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    map&lt;TreeNode*, int&gt; dp;
+public:
+    int getNodeOrTwoKids(TreeNode* node) {
+        return min(dfs(node), dfs(node-&gt;left)+dfs(node-&gt;right));
+    }
+   int dfs(TreeNode* root) {
+       if (!root)return 0;
+       auto it=dp.find(root);
+       if (it!=dp.end())return it-&gt;second;
+       int bests=INT_MAX, bestl=INT_MAX,bestr=INT_MAX;
+       {
+           bests=1;
+           if (root-&gt;left) {
+               bests+=getNodeOrTwoKids(root-&gt;left);
+           }
+           if (root-&gt;right) {
+<A NAME="0"></A>               bests+=getNodeOrTwoKids(root-&gt;right);
+           }
+       }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>       if (root-&gt;left) {
+           bestl=1;
+           if (root-&gt;left-&gt;left) {
+               bestl+=getNodeOrTwoKids(root-&gt;left-&gt;left);
+           }
+           if (root-&gt;left-&gt;right) {
+               bestl+=getNodeOrTwoKids(root-&gt;left-&gt;right);
+           }
+           if (root-&gt;right) {
+<A NAME="1"></A>               bestl+=dfs(root-&gt;right);
+           }
+       }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>       if (root-&gt;right) {
+           bestr=1;
+           if (root-&gt;right-&gt;left) {
+               bestr+=getNodeOrTwoKids(root-&gt;right-&gt;left);
+           }
+           if (root-&gt;right-&gt;right) {
+               bestr+=getNodeOrTwoKids(root-&gt;right-&gt;right);
+           }
+           if (root-&gt;left) {
+               bestr+=dfs(root-&gt;left);
+           }</B></FONT>
+       }
+       return dp[root]=min(min(bests, bestl), bestr);
+
+
+    }
+    int minCameraCover(TreeNode* root) {
+        if (!root)return 0;
+        dp.clear();
+        return dfs(root);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

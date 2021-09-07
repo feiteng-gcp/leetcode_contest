@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>109_user0812N.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>109_user0812N.py</CENTER></H3><HR>
+<PRE>
+import copy
+
+class Solution:
+    def numsSameConsecDiff(self, N, K):
+        &quot;&quot;&quot;
+        :type N: int
+        :type K: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        if N == 1:
+            return [k for k in range(10)]
+        first_nums = [k for k in range(1, 10)]
+        res = []
+        for first in first_nums:
+            num_set = set([first])
+            for _ in range(1, N):
+<A NAME="0"></A>                new_num_set = copy.copy(num_set)
+                for num in num_set:
+                    new_num_set.remove(num)
+                    tmp <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= num % 10
+                    if tmp - K &gt;= 0:
+                        new_num = num * 10 + tmp - K
+                        new_num_set.add(new_num)
+                    if tmp + K &lt; 10:
+                        new_num = num * 10 + tmp + K
+                        new_num_set.add(new_num)
+                num_set =</B></FONT> new_num_set
+            res += list(num_set)
+        return res
+        
+</PRE>
+
+</BODY>
+</HTML>

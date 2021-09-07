@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_beExcited.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_beExcited.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        Map&lt;String, String&gt; correct = new HashMap();
+        Map&lt;String, String&gt; capital = new HashMap();
+        Set&lt;String&gt; exact = new HashSet();
+        for (String word : wordlist) {
+            exact.add(word);
+            String lowerWord = word.toLowerCase();
+            if (!capital.containsKey(lowerWord)) {
+                capital.put(lowerWord, word);
+            }
+            String key = key(lowerWord);
+            if (!correct.containsKey(key)) {
+                correct.put(key, word);
+            }
+<A NAME="1"></A>        }
+        int index = 0</B></FONT>;
+        String[] ans = new String[queries.length];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (String q : queries) {
+            String key = q.toLowerCase();
+            String vowelKey = key(key);
+            
+            if (exact.contains(q)) {
+                ans[index++] = q;
+            } else if (capital.containsKey(key)) {
+                ans[index++] = capital.get(key);
+            } else if (correct.containsKey(vowelKey)) {
+                ans[index++] = correct.get(vowelKey);
+            } else {
+                ans[index++] = &quot;&quot;;
+            }
+        }
+        return ans;
+        
+    }
+    private String key(String lowerWord) {
+        char[] vowels = {'a', 'e', 'i', 'o', 'u'}</B></FONT>;
+        Set&lt;Character&gt; vowelsSet = new HashSet();
+        for (char c : vowels) {
+<A NAME="2"></A>            vowelsSet.add(c);
+        }
+            StringBuilder sb = new StringBuilder();
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; lowerWord.length(); i++) {
+<A NAME="3"></A>                if (!vowelsSet.contains(lowerWord.charAt(i))) {
+                    sb.append</B></FONT>(lowerWord.charAt(i));
+                } else {
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>sb.append('a');
+                }
+            }
+        return sb.toString();
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

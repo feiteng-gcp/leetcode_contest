@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>33_willhacker777.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>33_willhacker777.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    map&lt;pair&lt;TreeNode *, int&gt;, int&gt; dp;
+    int f(TreeNode *node, int st) {
+        pair&lt;TreeNode *, int&gt; pr(node, st);
+        if (dp.find(pr) != dp.end())
+            return dp[pr];
+        int ans, tmp;
+        ans = 1;
+        if (node-&gt;left)
+            ans += f(node-&gt;left, 2);
+        if (node-&gt;right)
+            ans += f(node-&gt;right, 2);
+<A NAME="0"></A>        if (st &gt;= 1) {
+            if (node-&gt;left &amp;&amp; node-&gt;right) {
+                tmp = min(f(node-&gt;left, 0) + f(node-&gt;right, 1), f(node-&gt;left, 1) + f(node-&gt;right, 0));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                ans = min(ans, tmp);
+            } else if (node-&gt;left) {
+                tmp = f(node-&gt;left, 0);
+                ans = min(ans, tmp);
+            } else if (node-&gt;right) {
+                tmp = f(node-&gt;right, 0);</B></FONT>
+                ans = min(ans, tmp);
+            }
+        }
+        if (st == 2) {
+            if (node-&gt;left &amp;&amp; node-&gt;right) {
+                tmp = f(node-&gt;left, 1) + f(node-&gt;right, 1);
+                ans = min(ans, tmp);
+            } else if (node-&gt;left) {
+                tmp = f(node-&gt;left, 1);
+                ans = min(ans, tmp);
+            } else if (node-&gt;right) {
+                tmp = f(node-&gt;right, 1);
+                ans = min(ans, tmp);
+            } else
+                ans = 0;
+        }
+        dp[pr] = ans;
+        return ans;
+    }
+    int minCameraCover(TreeNode* root) {
+        if (root == NULL)
+            return 0;
+        return f(root, 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

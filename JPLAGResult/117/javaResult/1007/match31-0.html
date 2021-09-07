@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_siyulei.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>276_siyulei.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] numsSameConsecDiff(int N, int K) {
+        if (N == 1) {
+            int[] res = new int[10];
+            for (int i = 0; i &lt; res.length; i++) {
+                res[i] = i;
+            }
+<A NAME="0"></A>            return res;
+        } else {
+            List&lt;Integer&gt; res = new ArrayList();
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt;= 9; i++) {
+                helper(res, 1, i + &quot;&quot;, N, K);
+                // helper(res);
+            }
+            int[] ans = new int[res.size()];
+            for (int i = 0</B></FONT>; i &lt; ans.length; i++) {
+                ans[i] = res.get(i);
+<A NAME="1"></A>            }
+            return ans;
+        }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private void helper(List&lt;Integer&gt; res, int index, String cur, int N, int k) {
+        if (index == N) {
+            res.add</B></FONT>(Integer.parseInt(cur));
+<A NAME="2"></A>            return;
+        }
+        int val = cur.charAt(cur.length() - 1) - '0';
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (val - k &gt;= 0) {
+            helper(res, index + 1, cur + (val - k), N, k);
+        }
+        if (k != 0 &amp;&amp; val + k &lt;= 9) {
+            helper(res, index + 1, cur + (val + k), N, k);
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>135_ryang_us.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>135_ryang_us.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+<A NAME="0"></A>    void helper(TreeNode* root, int&amp; bySelf, int&amp; byParent, int&amp; byChild) {
+        bySelf = 1;
+        byParent = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        byChild = 0;
+        
+        int lBySelf = 0;
+        int lByParent = 0;
+        int lByChild = 0;
+        int rBySelf = 0;
+        int rByParent = 0;
+        int rByChild = 0;</B></FONT>
+        if (root == NULL) return;
+        TreeNode* l = root-&gt;left;
+        TreeNode* r = root-&gt;right;
+        if (l == NULL &amp;&amp; r == NULL) {
+            byChild = 1;
+            return;
+        }
+        if (l != NULL) {
+            helper(l, lBySelf, lByParent, lByChild);
+        }
+        if (r != NULL) {
+            helper(r, rBySelf, rByParent, rByChild);
+        }
+        if (l != NULL &amp;&amp; r != NULL) {
+            bySelf += min(lBySelf, min(lByParent, lByChild));
+            bySelf += min(rBySelf, min(rByParent, rByChild));
+            byParent += min(lBySelf, lByChild);
+            byParent += min(rBySelf, rByChild);
+            // use left
+            int useLeft = lBySelf;
+            useLeft += min(rBySelf, rByChild);
+            // use right
+            int useRight = rBySelf;
+            useRight += min(lBySelf, lByChild);
+            byChild = min(useLeft, useRight);
+            return;
+        }
+        if (l != NULL) {
+            bySelf += min(lBySelf, min(lByParent, lByChild));
+            byParent = min(lBySelf, lByChild);
+            byChild = lBySelf;
+        }
+        if (r != NULL) {
+            bySelf += min(rBySelf, min(rByParent, rByChild));
+            byParent += min(rBySelf, rByChild);
+            byChild = rBySelf;
+        }
+    }
+    int minCameraCover(TreeNode* root) {
+        int bySelf = 0;
+        int byParent = 0;
+        int byChild = 0;
+        helper(root, bySelf, byParent, byChild);
+        return min(bySelf, byChild);
+    }
+};
+</PRE>
+</BODY>
+</HTML>
