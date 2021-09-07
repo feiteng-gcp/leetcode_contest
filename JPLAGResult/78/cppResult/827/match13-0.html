@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>351_Zhou_Yu.cpp</TITLE>
+ <TITLE>369_tomerry.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>351_Zhou_Yu.cpp</CENTER></H3><HR>
+<H3><CENTER>369_tomerry.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
-        for(int i = 0; i &lt; words.size(); i++){
-            string word = words[i];
-            int p = 0;
-            int q = 0;</B></FONT>
-            while(p &lt;S.size()){
-                if(q&lt;word.size() &amp;&amp; S[p] == word[q]){
-                    p ++;
-                    q ++;
-                    continue;
-                }
-                if(p == 0 || S[p] != S[p - 1])
-                    break;
-                int count = 0;
-                int k = p;
-                while(k &gt; 0 &amp;&amp; S[k - 1] == S[k]) k --, count ++;
-                while(p &lt; S.size() &amp;&amp; S[p+1] == S[p]) p++, count++;
-                if(count &lt; 2)
-                    break;
-                p++;
+<A NAME="0"></A>        int re = 0;
+        vector&lt;pair&lt;char, int&gt;&gt; v;
+        char lastChar = S[0]; int count = 1; 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int index = 1; index &lt; S.size(); ++index) {
+            if (S[index] == lastChar) count++;
+            else {
+                v.push_back(make_pair(lastChar, count));
+                lastChar = S[index];
+                count = 1;
             }
-            if(p == S.size() &amp;&amp; q == word.size())
-                res ++;
+        }</B></FONT>
+        v.push_back(make_pair(lastChar, count));
+        
+        for (auto word : words) {
+            if (word.size() &gt; S.size()) continue;
+            char lastChar2 = word[0]; int count2 = 1; int vIndex = 0;
+            bool flag = true;
+            for (int index = 1; index &lt; word.size(); ++index) {
+                if (word[index] == lastChar2) count2++;
+                else {
+                    if (vIndex &lt; v.size() &amp;&amp; lastChar2 == v[vIndex].first &amp;&amp; (v[vIndex].second == count2 || (v[vIndex].second &gt; count2 &amp;&amp; v[vIndex].second &gt;= 3))) {
+                        vIndex++;
+                    }
+                    else {
+                        flag = false;
+                        break;
+                    }
+                    lastChar2 = word[index];
+                    count2 = 1;
+                }
+            }
+            if (flag &amp;&amp; vIndex &lt; v.size() &amp;&amp; lastChar2 == v[vIndex].first &amp;&amp; (v[vIndex].second == count2 || (v[vIndex].second &gt; count2 &amp;&amp; v[vIndex].second &gt;= 3))) {
+                vIndex++;
+            } else flag = false;
+            if (vIndex != v.size()) flag = false;
+            if (flag) {
+                //cout &lt;&lt; word &lt;&lt; endl;
+                re++;
+            }
         }
-        return res;
+        return re;
     }
 };
 </PRE>

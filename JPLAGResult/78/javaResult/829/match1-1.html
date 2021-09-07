@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_fcxjlsw.java</TITLE>
+ <TITLE>403_niet.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>206_fcxjlsw.java</CENTER></H3><HR>
+<H3><CENTER>403_niet.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; subdomainVisits(String[] cpdomains) {
-        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
-        for(String s : cpdomains) {
-            String[] sA = s.split</B></FONT>(&quot; &quot;);
-            while(sA[1].length()&gt;0) {
-                map.put(sA[1], map.getOrDefault(sA[1], 0) + Integer.parseInt(sA[0]));
-                int index = sA[1].indexOf(&quot;.&quot;);
-                if(index != -1) {
-                    sA[1] = sA[1].substring(index+ 1);
-                } else {
-<A NAME="1"></A>                    sA[1] = &quot;&quot;;
-                }
+        
+        Map&lt;String, Integer&gt; counts = new HashMap&lt;String, Integer&gt;();
+        
+        for (String domain : cpdomains) {</B></FONT>
+            String[] parts = domain.split(&quot; &quot;);
+            
+            int count = Integer.parseInt(parts[0]);
+            
+            String[] subdomains = parts[1].split(&quot;\\.&quot;);
+            
+            if (subdomains.length == 3) {
+                String a = subdomains[0] + &quot;.&quot; + subdomains[1] + &quot;.&quot; + subdomains[2];
+                String b = subdomains[1] + &quot;.&quot; + subdomains[2];
+                String c = subdomains[2];
+
+                counts.put(a, counts.getOrDefault(a, 0) + count);
+                counts.put(b, counts.getOrDefault(b, 0) + count);
+                counts.put(c, counts.getOrDefault(c, 0) + count);
+            } else {
+                String b = subdomains[0] + &quot;.&quot; + subdomains[1];
+                String c = subdomains[1];
+
+                counts.put(b, counts.getOrDefault(b, 0) + count);
+                counts.put(c, counts.getOrDefault(c, 0) + count);
             }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for(String domain : map.keySet()) {
-            res.add(String.valueOf(map.get(domain)) + &quot; &quot; + domain);
         }
+        
+        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
+        for (String key : counts.keySet()) {
+            res.add(String.format(&quot;%d %s&quot;, counts.get(key), key));
+        }
+        
         return res;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

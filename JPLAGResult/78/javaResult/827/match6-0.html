@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>7_lixx2100.java</TITLE>
+ <TITLE>309_Bing_Wu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>7_lixx2100.java</CENTER></H3><HR>
+<H3><CENTER>309_Bing_Wu.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.*;
-import java.util.stream.*;
-import java.math.*;
-
-public class Solution {
-
+<A NAME="0"></A>class Solution {
     public int expressiveWords(String S, String[] words) {
-        int ans = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int result = 0;
         for (String word : words) {
-            if (isok(S, word)) {
-                ans++;
+            if (helper(S, word)) {
+                result++;
             }
         }
-        return ans;
+        return result;
     }
-
-    boolean isok(String a, String b) {</B></FONT>
-        int i = 0, j = 0;
-        while (i &lt; a.length() &amp;&amp; j &lt; b.length()) {
-            int ii = i + 1, jj = j + 1;
-            while (ii &lt; a.length() &amp;&amp; a.charAt(ii) == a.charAt(i)) ii++;
-            while (jj &lt; b.length() &amp;&amp; b.charAt(jj) == b.charAt(j)) jj++;
-
-            int cnt1 = ii - i, cnt2 = jj - j;
-            if (cnt1 &lt; 3 &amp;&amp; cnt1 != cnt2) return false;
-            if (cnt1 &gt;= 3 &amp;&amp; cnt1 &lt; cnt2) return false;
-
-            i = ii;
-            j = jj;
+<A NAME="1"></A>    private boolean helper(String S, String word) {</B></FONT>
+        int i = 0;
+        int j = 0;
+        while (i &lt; S.length() &amp;&amp; j &lt; word.length()) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (S.charAt(i) != word.charAt(j)) {
+                return false;
+            }
+            int count1 = 1;
+            int count2 = 1</B></FONT>;
+            while (i &lt; S.length() - 1 &amp;&amp; S.charAt(i + 1) == S.charAt(i)) {
+                i++;
+                count1++;
+            }
+            while (j &lt; word.length() - 1 &amp;&amp; word.charAt(j + 1) == word.charAt(j)) {
+                j++;
+                count2++;
+            }
+            if (count1 != count2 &amp;&amp; count1 &lt; 3) {
+                return false;
+            }
+            i++;
+            j++;
         }
-
-        return i &gt;= a.length() &amp;&amp; j &gt;= b.length();
-    }
-
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        System.out.println(sol.expressiveWords(&quot;heeellooo&quot;, new String[]{&quot;hello&quot;, &quot;hi&quot;, &quot;helo&quot;}));
+        if (i == S.length() &amp;&amp; j == word.length()) {
+            return true;
+        }
+        return false;
     }
 }
 </PRE>

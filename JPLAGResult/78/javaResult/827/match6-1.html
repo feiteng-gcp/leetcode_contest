@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>156_changeme.java</TITLE>
+ <TITLE>242_XinyuanGGG.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,82 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>156_changeme.java</CENTER></H3><HR>
+<H3><CENTER>242_XinyuanGGG.java</CENTER></H3><HR>
 <PRE>
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-<A NAME="0"></A>import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-// 
-public class Solution {
-
-	public int expressiveWords(String S, String[] words) {
-
-		int res = 0;
-
-		for (int i = 0; i &lt; words.length; i++) {
-			if (g(S, words[i])) {
-				res++;
-			}
-		}
-
-		return res;
-	}
-
-	private boolean g(String A, String B) {</B></FONT>
-
-		if (A.equals(B)) {
-			return true;
-		}
-
-		char[] a = A.toCharArray();
-		char[] b = B.toCharArray();
-
-		if (a.length &lt;= b.length) {
-			return false;
-		}
-
-		String[] ga = A.split(&quot;(?&lt;=(.))(?!\\1)&quot;);
-		String[] gb = B.split(&quot;(?&lt;=(.))(?!\\1)&quot;);
-
-		if (ga.length != gb.length) {
-			return false;
-		}
-
-		for (int i = 0; i &lt; ga.length; i++) {
-			if (ga[i].equals(gb[i])) {
-				continue;
-			}
-			if (ga[i].length() &lt; gb[i].length()) {
-				return false;
-			}
-			if (ga[i].length() == 2) {
-				return false;
-			}
-			if (ga[i].charAt(0) != gb[i].charAt(0)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(new Solution().expressiveWords(&quot;heeellooo&quot;, new String[] { &quot;hello&quot;, &quot;hi&quot;, &quot;helo&quot; }));
-	}
-
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+<A NAME="0"></A>        if (words == null || words.length == 0) {
+            return 0;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
+        for (String word : words) {
+            if (isExpanded(S, word)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    private boolean isExpanded(String S, String word) {</B></FONT>
+        if (S.equals(word)) {
+            return true;
+        } else if (S.length() &lt; word.length()) {
+            return false;
+        }
+        
+        int nS = S.length();
+<A NAME="1"></A>        int nWord = word.length();
+        int iS = 0;
+        int iWord = 0;
+        while (iS &lt; nS &amp;&amp; iWord &lt; nWord) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if (S.charAt(iS) != word.charAt(iWord)) {
+                return false;
+            }
+            int sLength = 0;
+            char first = S.charAt(iS)</B></FONT>;
+            while (iS &lt; nS &amp;&amp; S.charAt(iS) == first) {
+                iS++;
+                sLength++;
+            }
+            int wordLength = 0;
+            while (iWord &lt; nWord &amp;&amp; word.charAt(iWord) == first) {
+                iWord++;
+                wordLength++;
+            }
+            if (sLength == wordLength || sLength &gt; wordLength &amp;&amp; sLength &gt;= 3) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return iS == nS &amp;&amp; iWord == nWord;
+    }
 }
 </PRE>
 

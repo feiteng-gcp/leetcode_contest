@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>32_jq_huang.cpp</TITLE>
+ <TITLE>20_pmmmm.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>32_jq_huang.cpp</CENTER></H3><HR>
+<H3><CENTER>20_pmmmm.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  struct Seq {
-    char c;
-    int n;
+    vector&lt;pair&lt;char, int&gt;  &gt; conv(string s){
+        vector&lt;pair&lt;char, int&gt;  &gt;  res;
+        pair&lt;char, int&gt; x;
+        x = make_pair((char)27, -1);
+        for(auto c: s){
+            if(c!=x.first){
+                if(x.second&gt;0) res.push_back(x);
+                x = make_pair(c, 1);
+            } else
+<A NAME="0"></A>                x.second++;
+        }
+        if(x.second&gt;0) res.push_back(x);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return res;
+    }
     
-    Seq(char c, int n):
-      c(c), n(n) {}
-  };
-  
-<A NAME="0"></A>  int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-    vector&lt;Seq&gt; seqs = make_seq(S);
-    int ret = 0;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (const auto &amp;w: words) {
-      vector&lt;Seq&gt; seqw = make_seq(w);
-      if (valid(seqs, seqw)) ++ret;
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;pair&lt;char, int&gt; &gt; m;
+        m = conv(S);
+        int ans = 0;
+        for(string w:words){
+            vector&lt;pair&lt;char, int&gt; &gt; f;
+            f = conv(w);
+            if (m.size()!=f.size()) continue;</B></FONT>
+            bool flag=true;
+            for(int i =0;i&lt;m.size();i++)
+                if(m[i].first!=f[i].first||(m[i].second+f[i].second==3)||(m[i].second&lt;3&amp;&amp;f[i].second&gt;=3)) {flag = false; break;}
+            if (flag) ans ++;
+        }
+        return ans;
     }
-    return ret;
-  }
-  
-  bool valid(const vector&lt;Seq&gt; &amp;s, const vector&lt;Seq&gt; &amp;w) {
-    if (s.size() != w.size()) return false;
-    for (int i = 0; i != s.size(); ++i) {
-      if (s[i].c != w[i].c) return false;
-      if (s[i].n == w[i].n) continue;</B></FONT>
-      if (s[i].n &lt; 3 || w[i].n &gt; s[i].n) return false;
-    }
-    return true;
-  }
-  
-  vector&lt;Seq&gt; make_seq(string s) {
-    vector&lt;Seq&gt; seqs;
-    int count = 1;
-    for (int i = 1; i &lt; s.size(); ++i) {
-      if (s[i] == s[i - 1]) {
-        ++count;
-      } else {
-        seqs.emplace_back(s[i - 1], count);
-        count = 1;
-      }
-    }
-    seqs.emplace_back(s[s.size() - 1], count);
-    return seqs;
-  }
 };
 </PRE>
 </BODY>

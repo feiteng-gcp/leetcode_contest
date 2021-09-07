@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>472_shreyansh94.java</TITLE>
+ <TITLE>474_decal.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>472_shreyansh94.java</CENTER></H3><HR>
+<H3><CENTER>474_decal.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public int expressiveWords(String S, String[] words) {
-        
-        int count = 0 ; 
-        for(String s : words){
-            if(canBe(S, s))count++; 
+class Solution {
+    public int getRunLength (String s, int indx) {
+        int i = indx, count = 0;
+        while ((i &lt; s.length()) &amp;&amp; (s.charAt(i) == s.charAt(indx))) {
+            i++;
+            count++;
         }
-        return count; 
+<A NAME="0"></A>        return count;
     }
     
-    public List&lt;String&gt; breaker(String S</B></FONT>){
-        String temp = &quot;&quot;; 
-        int i = 0; 
-        List&lt;String&gt; set1 = new ArrayList&lt;&gt;(); 
-        while(i &lt; S.length()){
-            if(temp.equals(&quot;&quot;) || S.charAt(i) == S.charAt(i-1)){
-                temp += S.charAt(i); 
-            }else{
-                set1.add(temp); 
-                temp = S.charAt(i)+&quot;&quot;; 
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int expressiveWords(String S, String[] words) {
+        int ret = 0;
+        for (String w: words) { 
+            int i = 0</B></FONT>, j = 0, n1 = 0, n2 = 0;
+            boolean found = true;
+            while (i &lt; S.length() &amp;&amp; j &lt; w.length()) {
+                if (S.charAt(i) != w.charAt(j)) {
+                    found = false;
+                    break;
+                }
+                n1 = getRunLength(S, i);
+                n2 = getRunLength(w, j);
+                
+                if (n1 &gt;= 3) {
+                    if (n2 &gt; n1) {
+<A NAME="1"></A>                        found = false;
+                        break;
+                    }
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} else {
+                    if (n1 != n2) {
+                        found = false;
+                        break;
+                    }
+                }
+
+                i += n1;
+                j += n2;
             }
-            ++i; 
-        }
-        if(!temp.equals(&quot;&quot;))set1.add(temp);
-        return set1; 
-    }
-    
-    public boolean canBe(String S, String s){
-        List&lt;String&gt; set1 = breaker(S); 
-        List&lt;String&gt; set2 = breaker(s); 
-        
-        if(set1.size() != set2.size())return false; 
-        
-        for(int i = 0 ; i &lt; set1.size() ; ++i){
-            String s1 = set1.get(i); 
-            String s2 = set2.get(i); 
-            
-            if(s1.charAt(0) != s2.charAt(0))return false; 
-            if(s2.length() &gt; s1.length())return false; 
-            
-            if(s1.equals(s2))continue; 
-            
-            if(s1.length() &lt; 3) return false; 
+            if (found) {</B></FONT>
+                if (i == S.length() &amp;&amp; j == w.length())
+                    ret++;
+            }
         }
         
-        return true; 
+        return ret;
     }
 }
 </PRE>

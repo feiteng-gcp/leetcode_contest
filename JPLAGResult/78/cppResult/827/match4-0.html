@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>460_jhu100.cpp</TITLE>
+ <TITLE>314_AmSlow.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>460_jhu100.cpp</CENTER></H3><HR>
+<H3><CENTER>314_AmSlow.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
-<A NAME="0"></A>public:
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        int res = 0;
         
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int count = 0;
-        
-        for (int i = 0; i &lt; words.size(); i++) {
-            if (isStretchy(S, words[i])) {
-                count++;
-            }
+        for (auto w : words) {
+            if (isStretchy(w, S)) ++res;
+            //cout &lt;&lt; w &lt;&lt; &quot;:&quot; &lt;&lt; res;
         }
-        
-        return count;
+        return res;
     }</B></FONT>
     
-    bool isStretchy (string P, string Q) {
+    bool isStretchy(const string&amp; s, const string&amp;t) {
+        if (s.empty() &amp;&amp; t.empty()) return true;
+        if (s.empty()) return false;
+        if (t.empty()) return false;
         
-        int j = 0;
-        int i = 0;
-        
-        while ( i &lt; P.length()) {
-            
-            int count = 1;
-            char c = P[i];
-            while (P[++i] == c &amp;&amp; i &lt; P.length()) {
-                count++;
-            }
-            
-            if (Q[j] != c) {
-                return false;
-            }
-        
-            int qCount = 1;
-            while (Q[++j] == c &amp;&amp; j &lt; Q.length()) {
-                qCount++;
-            }
-        
-            if ((qCount != count) &amp;&amp; count &lt; 3 || (qCount &gt; count)) {
-                return false;
-            }
-            
-            cout &lt;&lt; c &lt;&lt; endl &lt;&lt; count &lt;&lt; endl &lt;&lt; qCount &lt;&lt; endl;
-            
+        if (s[0] != t[0]) return false;
+        int i=1;
+        while(i&lt;s.size()&amp;&amp; s[i]==s[i-1]) {
+            ++i;
         }
         
-        if (i != P.length()|| j != Q.length()) {
-            return false;
+        int j=1;
+        while(j&lt;t.size() &amp;&amp; t[j]==t[j-1]) ++j;
+        if (j &lt; i) return false;
+        
+        if (i == j || (j &gt;=3)) {
+            auto newS = s.substr(i);
+            auto newT = t.substr(j);
+            return isStretchy(newS, newT);
         }
         
-        return true;
+        return false;
     }
+    
 };
 </PRE>
 </BODY>

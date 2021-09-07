@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_fcxjlsw.java</TITLE>
+ <TITLE>40_jhuang101.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>206_fcxjlsw.java</CENTER></H3><HR>
+<H3><CENTER>40_jhuang101.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int res = 0;
-        for(String word : words) {
-            if(isStrechy(S, word)) {
-                res ++;
-            }
-        }
-        return res;
-    }
-    
-    public boolean isStrechy(String S, String word) {
-        int i = 0;
-        int j = 0</B></FONT>;
-        if(S.length() &lt; word.length()) {
-            return false;
-        }
-        while(i&lt;S.length() &amp;&amp; j&lt;word.length()) {
-            int count = 0;
-            char tmp = ' ';
-            while(i&lt;S.length() &amp;&amp; (tmp == ' ' || S.charAt(i) == tmp)) {
-                
+        int count = 0;
+        for(String each : words){
+            if(can(S,each)){
                 count++;
-                tmp = S.charAt(i);
-                i++;
             }
-            if(count &lt; 3) {
-                for(int l=0;l&lt;count;j++, l++) {
-                    if(j&gt;=word.length() || word.charAt(j)!=tmp) {
-                        return false;
-                    }
-                }
-            } else {
-                int countW = 0;
-                while(j&lt;word.length() &amp;&amp; word.charAt(j) == tmp) {
-                    j++;
-                    countW++;
-                }
-<A NAME="1"></A>                if(countW &gt; count || countW==0) {
+        }
+        return count;
+    }
+    public boolean can(String S, String w){
+        int i = 0;
+        int j = 0;
+        while(i &lt; S.length</B></FONT>() &amp;&amp; j &lt; w.length()){
+            if(S.charAt(i) == w.charAt(j)){
+                int x = count(S,i);
+                int y = count(w,j);
+                if(x &lt; y || (x &gt; y &amp;&amp; x &lt; 3)){
                     return false;
                 }
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                else{
+                    i+=x;
+<A NAME="1"></A>                    j+=y;
+                }
+            }
+            else<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                return false;
+            }
         }
-        return i==S.length() &amp;&amp; j==word.length();
+        if(i == S.length() &amp;&amp; j == w.length</B></FONT>())return true;
+        return false;
     }
-}</B></FONT>
+    public int count(String x, int index){
+        int count = 1;
+        while(x.length() &gt; index+1){
+            if(x.charAt(index) == x.charAt(index+1)){
+                count++;
+            }
+            else{
+                return count;
+            }
+            index++;
+        }
+        return count;
+    }
+}
 </PRE>
 
 </BODY>

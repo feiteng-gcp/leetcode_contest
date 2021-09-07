@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>176_XuhuiWang.java</TITLE>
+ <TITLE>187_Liangyulin.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>176_XuhuiWang.java</CENTER></H3><HR>
+<H3><CENTER>187_Liangyulin.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
-	public int expressiveWords(String S, String[] words) {
-		List&lt;int[]&gt; list = compress(S);
-		int cntRes = 0;
-		for (String word : words) {
-			List&lt;int[]&gt; newList = compress(word);
-			if (newList.size() == list.size() &amp;&amp; canExtend(list,</B></FONT> newList))
-			{
-				cntRes++;
-			}
-		}
-		return cntRes;
-	}
-
-	private boolean canExtend(List&lt;int[]&gt; list, List&lt;int[]&gt; newList) {
-		for (int i = 0; i &lt; list.size(); ++i) {
-			int[] before = newList.get(i), after = list.get(i);
-<A NAME="1"></A>			if (before[0] != after[0])
-				return false;
-			if (!(before[1] == after[1] || (before[1] &lt; after[1] &amp;&amp; after[1] &gt;= 3)))
-				return false;<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		}
-		return true;
-	}
-
-	private List&lt;int[]&gt; compress(String s) {
-		List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
-		int pre = -1, cnt = 0;</B></FONT>
-		for (char ch : s.toCharArray()) {
-			int idx = ch - 'a';
-			if (idx == pre) {
-				cnt++;
-			} else {
-				if (cnt &gt; 0) {
-					res.add(new int[]{pre, cnt});
-				}
-				pre = idx;
-				cnt = 1;
-			}
-		}
-		if (cnt &gt; 0) {
-			res.add(new int[]{pre, cnt});
-		}
-		return res;
-	}
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int expressiveWords(String S, String[] words) {
+        int res = 0;
+        for(int i = 0; i &lt; words.length; i++) {
+            if(isStretchy(S, words[i]))
+                res++;
+        }
+        
+        return res;
+    }
+    
+    private boolean isStretchy(String src, String des) {</B></FONT>
+        if(des.length() &gt; src.length())
+            return false;
+        
+        char[] sc = src.toCharArray();
+        char[] dc = des.toCharArray();
+        
+        int indexS = 0, indexD = 0;
+        while(indexS &lt; sc.length &amp;&amp; indexD &lt; dc.length) {
+            if(sc[indexS] != dc[indexD])
+                return false;
+            
+            int countS = 1;
+            indexS++;
+            while(indexS &lt; sc.length &amp;&amp; sc[indexS] == sc[indexS - 1]) {
+                indexS++;
+                countS++;
+            }
+            
+            int countD = 1;
+            indexD++;
+            while(indexD &lt; dc.length &amp;&amp; dc[indexD] == dc[indexD - 1]) {
+                indexD++;
+                countD++;
+            }
+            
+            if(countS &lt; countD)
+                return false;
+            
+            if(countS != countD &amp;&amp; countS &lt; 3)
+                return false;
+        }
+        
+        return indexS == sc.length &amp;&amp; indexD == dc.length;
+        
+    }
 }
 </PRE>
 

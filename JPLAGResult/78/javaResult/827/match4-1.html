@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>372_zhastdoit.java</TITLE>
+ <TITLE>295_setsuna214.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>372_zhastdoit.java</CENTER></H3><HR>
+<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-     public int expressiveWords(String S, String[] words) {
-<A NAME="0"></A>        if(words == null || words.length == 0) {
-            return 0;
-        }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
-        for(String word : words) {
-            if(check(S, word)) {
-                count++;
-            }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="1"></A>    public int expressiveWords(String S, String[] words) {
+        int count = 0;
+        for(String word : words){
+            if(isMatch</B></FONT>(S, word)) count++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
         }
         return count;
     }
-    private boolean check(String S, String word) {
-        int i = 0;
-        int j = 0;
-        while(i &lt; S.length() &amp;&amp; j &lt; word.length()) {
-            int counti = 1</B></FONT>;
-            if(S.charAt(i) != word.charAt(j)) {
-                return false;
-            }
-            while(i &lt; S.length() - 1 &amp;&amp; S.charAt(i) == S.charAt(i + 1)) {
-                i++;
-                counti++;
-            }
-            int countj = 1;
-            while(j &lt; word.length() - 1 &amp;&amp; word.charAt(j) == word.charAt(j + 1)) {
-                j++;
-                countj++;
-            }
-            if(counti &lt; countj) {
-
-                return false;
-            }
-            if(counti &gt; countj &amp;&amp; counti &lt; 3) {//== countj + 1) {
-                return false;
-            }
-            i++;
-            j++;
+    
+    private boolean isMatch(String s, String w){
+        int i = 0, j = 0;
+        while(i != s.length() &amp;&amp; j != w.length()) {
+            if(s.charAt(i) != w.charAt</B></FONT>(j)) return false;
+            int count1 = 0, count2 = 0;
+            while(i + count1 &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i + count1)) count1++;
+            while(j + count2 &lt; w.length() &amp;&amp; w.charAt(j) == w.charAt(j + count2)) count2++;
+            if(count1 &lt; count2 || count1 &lt; 3 &amp;&amp; count1 != count2) return false;
+            i += count1;
+            j += count2;
         }
-        if(i &lt; S.length()|| j &lt; word.length()) {
-            return false;
-        }
-        
-        return true;
+        return i == s.length() &amp;&amp; j == w.length();
     }
 }
 </PRE>

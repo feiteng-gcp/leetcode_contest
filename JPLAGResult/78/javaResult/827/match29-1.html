@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>276_climberig.java</TITLE>
+ <TITLE>287_BitcoinEvangelist.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>276_climberig.java</CENTER></H3><HR>
+<H3><CENTER>287_BitcoinEvangelist.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int expressiveWords(String S, String[] words) {
-        List&lt;Node&gt; sNodes = toList(S);
-        int r = 0;
-        for (String word : words) {
-            List&lt;Node&gt; nodes = toList(word);
-            if</B></FONT> (nodes.size() != sNodes.size()) continue;
-            int i = 0;
-            for (; i &lt; nodes.size(); i++) {
-                Node sNode = sNodes.get(i), node = nodes.get(i);
-                if (sNode.count &lt; 3 &amp;&amp; sNode.count != node.count) break;
-                if (sNode.count &gt;= 3 &amp;&amp; node.count &gt; sNode.count) break;
-<A NAME="1"></A>            }
-            if (i == nodes.size())
-                r++;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        return r;
-    }
+class Solution {
+	public int expressiveWords(String S, String[] words) {
+<A NAME="0"></A>		a = gen(S.toCharArray());
+		int ans = 0;
+		for (String word : words) {
+			if (check(word.toCharArray())) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+				ans++;
+			}
+		}
+		return ans;
+	}</B></FONT>
 
-    List&lt;Node&gt; toList(String w) {
-        List&lt;Node&gt; nodes = new LinkedList&lt;&gt;()</B></FONT>;
-        int count = 1;
-        for (int i = 1; i &lt; w.length(); i++)
-            if (w.charAt(i - 1) != w.charAt(i)) {
-                nodes.add(new Node(w.charAt(i - 1), count));
-                count = 1;
-            } else count++;
-        nodes.add(new Node(w.charAt(w.length() - 1), count));
-        return nodes;
-    }
+	List&lt;int[]&gt; a;
+<A NAME="1"></A>
+	boolean check(char[] B) {
+		List&lt;int[]&gt; b = gen(B);
+		if (a.size() !<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= b.size()) {
+			return false;
+		}
+		for (int i = 0; i &lt; a.size(); i++) {
+			int[] aa = a.get(i);
+			int[] bb = b.get(i);
+			if (aa[0] != bb[0]) {
+				return false;
+			}</B></FONT>
+			if (aa[1] &gt;= 3) {
+				if (aa[1] &lt; bb[1]) {
+					return false;
+				}
+			} else {
+				if (aa[1] != bb[1]) {
+<A NAME="2"></A>					return false;
+				}
+			}
+		}<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		return true;
+	}
 
-    class Node {
-        final char c;
-        final int count;
+	List&lt;int[]&gt; gen(char[] A) {
+		List&lt;int[]&gt; ans = new ArrayList&lt;&gt;()</B></FONT>;
+		int pre = Integer.MAX_VALUE;
+		int cnt = 0;
+		for (int i = 0; i &lt; A.length; i++) {
+			if (pre != A[i]) {
+				if (cnt &gt; 0) {
+					ans.add(new int[] { pre, cnt });
+					cnt = 0;
+				}
+				pre = A[i];
+			}
+			cnt++;
+		}
+		if (cnt &gt; 0) {
+			ans.add(new int[] { pre, cnt });
+		}
+		return ans;
+	}
 
-        Node(char c, int count) {
-            this.c = c;
-            this.count = count;
-        }
-    }
 }
 </PRE>
 

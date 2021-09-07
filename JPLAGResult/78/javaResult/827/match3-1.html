@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>163_fun4LeetCode.java</TITLE>
+ <TITLE>309_Bing_Wu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>163_fun4LeetCode.java</CENTER></H3><HR>
+<H3><CENTER>309_Bing_Wu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int expressiveWords(String S, String[] words) {
-        List&lt;int[]&gt; groups = new ArrayList&lt;&gt;();
-        
-        for (int i = 0; i &lt; S.length();) {
-            char c = S.charAt(i);
-            int j = i;
-            
-            while (i &lt; S.length() &amp;&amp; S.charAt(i) == c) i++;
-            
-<A NAME="0"></A>            groups.add(new int[] {c - 'a', i - j});
-        }
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
-        
-        for (String word : words) {
-            if (isExtendable(groups, word)) {
-                res++;
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="2"></A>    public int expressiveWords(String S, String[] words) {
+        int result = 0;
+        for (String word : words) {</B></FONT>
+            if (<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>helper(S, word)) {
+                result++;
             }
         }
-        
-        return res;
-    }
-    
-    private boolean isExtendable(List&lt;int[]&gt; groups, String word) {
-        int i = 0, k = 0;
-        
-        while (k &lt; groups.size() &amp;&amp; i &lt; word.length()) {
-            int[] group = groups.get(k++)</B></FONT>;
-            char c = word.charAt(i);
-            
-            if (group[0] != c - 'a') return false;
-            
-            int j = i;
-            
-            while (i &lt; word.length() &amp;&amp; word.charAt(i) == c) i++;
-            
-            int count = i - j;
-            
-            if (group[1] &lt; count || (group[1] &lt; 3 &amp;&amp; group[1] != i - j)) {
+        return result;
+    }</B></FONT>
+    private boolean helper(String S, String word) {
+        int i = 0;
+        int j = 0;
+        while (i &lt; S.length() &amp;&amp; j &lt; word.length()) {
+<A NAME="1"></A>            if (S.charAt(i) != word.charAt(j)) {
                 return false;
             }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count1 = 1;
+            int count2 = 1;
+            while (i &lt; S.length() - 1 &amp;&amp; S.charAt(i + 1) == S.charAt(i)) {
+                i++;
+                count1++;
+            }
+            while (j &lt; word.length() - 1 &amp;&amp; word.charAt(j + 1) == word.charAt(j)) {
+                j++;
+                count2++;
+            }</B></FONT>
+            if (count1 != count2 &amp;&amp; count1 &lt; 3) {
+                return false;
+            }
+            i++;
+            j++;
         }
-        
-        return (k == groups.size() &amp;&amp; i == word.length());
+        if (i == S.length() &amp;&amp; j == word.length()) {
+            return true;
+        }
+        return false;
     }
 }
 </PRE>

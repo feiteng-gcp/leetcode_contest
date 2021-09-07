@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>39_qwnjc.cpp</TITLE>
+ <TITLE>134_l35.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>39_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>134_l35.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        int res = 0;
-        string s = S;
-        for (auto&amp; w : words) {
-            int n = s.length(), m = w.length();
-            bool bExtended = true;
-<A NAME="0"></A>            int i = 0, j = 0;
-            for (i = 0, j = 0; i &lt; n &amp;&amp; j &lt; m; ++i, ++j) {
-                if (s[i] == w[j]) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int groupSize = 1;
-                    while (i + 1 &lt; n &amp;&amp; s[i + 1] == s[i]) {
-                        ++groupSize;
-                        ++i;
-                    }
-                    int actualSize = 1;
-                    while (j + 1 &lt; m &amp;&amp; w[j + 1] == w[j]) {
-                        ++actualSize;
-                        ++j;
-                    }
-                    // cout &lt;&lt; w &lt;&lt; &quot; &quot; &lt;&lt; s[i] &lt;&lt; &quot; &quot; &lt;&lt; groupSize &lt;&lt; &quot; &quot; &lt;&lt; actualSize &lt;&lt; endl; 
-                    if (!(actualSize == groupSize || actualSize &lt; groupSize &amp;&amp; groupSize &gt;= 3)) {
-                        bExtended = false;
-                        break;
-                    }
-                } else {</B></FONT>
-                    bExtended = false;
-                    break;
-                }
-            } 
-            if (bExtended &amp;&amp; i == n &amp;&amp; j == m) {
-                ++res;
+    vector&lt;pair&lt;char, int&gt; &gt; convert(string s){
+        char c = s[0];
+        int count = 1;
+        vector&lt;pair&lt;char, int&gt; &gt; result;
+        for(int i = 1; i &lt; s.size(); i++){
+            if(s[i] == c) ++count;
+            else{
+                result.emplace_back(c, count);
+                c = s[i];
+                count = 1;
             }
         }
-        
-        return res;
+        result.emplace_back(c, count);
+        return result;
+    }
+<A NAME="0"></A>    
+    bool match(const vector&lt;pair&lt;char, int&gt; &gt;&amp; v1, const vector&lt;pair&lt;char, int&gt; &gt;&amp; v2){
+        int n1 = v1.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n2 = v2.size();
+        if(n1 != n2) return false;
+        for(int i = 0; i &lt; n1; i++){
+            if(v1[i].first != v2[i].first) return false;
+            if(v1[i].second != v2[i].second &amp;&amp; v2[i].second &lt; 3) return false;</B></FONT>
+        }
+        return true;
+    }
+    
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;pair&lt;char, int&gt; &gt; sv = convert(S);
+        int result = 0;
+        for(auto x : words){
+            vector&lt;pair&lt;char, int&gt; &gt; word = convert(x);
+            if(match(word, sv)) ++result;
+        }
+        return result;
     }
 };
 </PRE>

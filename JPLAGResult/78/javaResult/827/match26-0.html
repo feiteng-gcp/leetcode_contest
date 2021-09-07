@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_ag1119.java</TITLE>
+ <TITLE>295_setsuna214.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>33_ag1119.java</CENTER></H3><HR>
+<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-        
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ArrayList&lt;String&gt; in = splitWord(S);
-        
-        int ret = 0;
-<A NAME="1"></A>        
-        for(String word: words){
-            ArrayList&lt;String&gt; cur = splitWord(word);
-            if(in.size()!=cur.size</B></FONT>()) continue<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-            boolean match = true;
-            for(int i = 0;i&lt;cur.size() &amp;&amp; match;i++){
-                if(in.get</B></FONT>(i).length()&lt;3){
-                    if(!in.get(i).equals(cur.get(i)))
-                        match = false;
-                }
-                else{
-                    if(in.get(i).length()&lt;cur.get(i).length()) match = false;
-                    
-                    else if(!in.get(i).substring(0,cur.get(i).length()).equals(cur.get(i)))
-                        match = false;
-<A NAME="2"></A>                }
-            }
-            
-            if(match) ret++<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        int count = 0;
+        for(String word : words){
+            if(isMatch(S, word)) count++;
         }
-        
-        return ret;
+        return count;
     }
     
-    
-    ArrayList&lt;String&gt;  splitWord(String s){
-        ArrayList&lt;String&gt; groups = new</B></FONT> ArrayList();
-        StringBuilder word = new StringBuilder();
-        int k = 0;
-        for(int i = 0;i&lt;s.length();i++){
-            if(i+1&lt;s.length() &amp;&amp; s.charAt(i)==s.charAt(i+1)){
-                word.append(s.charAt(i));
-            }
-            else{
-                word.append(s.charAt(i));
-                groups.add(word.toString());
-                word = new StringBuilder();
-            }
+    private boolean isMatch(String s, String w){
+        int i = 0, j = 0;
+        while(i != s.length() &amp;&amp; j != w.length()) {</B></FONT>
+            if(s.charAt(i) != w.charAt(j)) return false;
+            int count1 = 0, count2 = 0;
+            while(i + count1 &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i + count1)) count1++;
+            while(j + count2 &lt; w.length() &amp;&amp; w.charAt(j) == w.charAt(j + count2)) count2++;
+            if(count1 &lt; count2 || count1 &lt; 3 &amp;&amp; count1 != count2) return false;
+            i += count1;
+            j += count2;
         }
-        
-        
-        return groups;
-        
-        
+        return i == s.length() &amp;&amp; j == w.length();
     }
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>119_Mrsuyi.cpp</TITLE>
+ <TITLE>222_saini-rahul.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>119_Mrsuyi.cpp</CENTER></H3><HR>
+<H3><CENTER>222_saini-rahul.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;pair&lt;char, int&gt;&gt; conv(const string&amp; s)
-    {
-        vector&lt;pair&lt;char, int&gt;&gt; res;
-        for (int i = 0; i &lt; s.size(); ++i)
-        {
-            if (i &gt; 0 &amp;&amp; s[i] == s[i - 1])
-                ++res.back().second;
-            else
-                res.push_back({s[i], 1});
-        }
-        return res;
-    }
-    
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        vector&lt;pair&lt;char, int&gt;&gt; ori = conv(S);
-<A NAME="0"></A>        int res = 0;
-        for (const auto&amp; word : words)
-        {
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            vector&lt;pair&lt;char, int&gt;&gt; cur = conv(word);
-            if (cur.size() != ori.size())
-                continue;
-            int ok = 1;
-            for (int i = 0; i &lt; cur.size(); ++i)
-            {
-                if (cur[i].first != ori[i].first)
-                {
-                    ok = 0;
-                    break;
-                }
-                if (cur[i].second == ori[i].second || ori[i].second &gt;= 3 &amp;&amp; cur[i].second &lt; ori[i].second)</B></FONT>
-                    continue;
-                ok = 0;
+    string breakStretch(string S, vector&lt;int&gt;&amp; repeat){//returns diluted string
+        
+        int i =0, n =S.size();
+        string dilute;
+        while(i&lt;n){
+            char prevChar = S[i++];
+            int count = 1;
+            while(i&lt;n &amp;&amp; S[i] == prevChar){
+                ++count;
+                ++i;
             }
-            res += ok;
+            
+            stringstream ss;
+            ss&lt;&lt;prevChar;
+            string temp;
+            ss&gt;&gt;temp;
+            dilute += temp;
+            
+            repeat.push_back(count);
+            
         }
+        
+        return dilute;
+    }
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;int&gt; repeat;
+        string dilute = breakStretch(S,repeat);
+        
+        int res = 0;
+        for(int i =0; i&lt;words.size(); ++i){
+            string word = words[i];
+            vector&lt;int&gt; pos;
+            string dilutedW = breakStretch(word,pos);
+<A NAME="0"></A>            
+            if(dilute != dilutedW)
+                continue;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool ok = true;
+            for(int j =0; j&lt;repeat.size(); ++j){
+                if(repeat[j] &lt; 3){
+                    if(repeat[j] != pos[j]){
+                        ok = false;
+                        break;
+                    }</B></FONT>
+                }
+            }
+            
+            if(!ok)
+                continue;
+            
+            ++res;
+        }
+        
         return res;
     }
 };

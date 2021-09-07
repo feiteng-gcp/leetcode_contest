@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_ag1119.java</TITLE>
+ <TITLE>187_Liangyulin.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>33_ag1119.java</CENTER></H3><HR>
+<H3><CENTER>187_Liangyulin.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int expressiveWords(String S, String[] words) {
-        
-        ArrayList&lt;String&gt; in = splitWord(S);
-        
-        int ret = 0;
-        
-<A NAME="1"></A>        for(String word: words){
-            ArrayList&lt;String&gt; cur = splitWord(word);
-            if(in.size()!=cur.size</B></FONT>()) continue;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>boolean match = true;
-            for(int i = 0;i&lt;cur.size() &amp;&amp; match;i++){
-                if(in.get(i).length()&lt;3){</B></FONT>
-                    if(!in.get(i).equals(cur.get(i)))
-                        match = false;
-                }
-                else{
-                    if(in.get(i).length()&lt;cur.get(i).length()) match = false;
-                    
-                    else if(!in.get(i).substring(0,cur.get(i).length()).equals(cur.get(i)))
-                        match = false;
-<A NAME="2"></A>                }
-            }
-            
-            if(match) ret++<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+<A NAME="1"></A>class Solution {
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int expressiveWords(String S, String[] words) {
+        int res = 0;
+        for(int i = 0; i &lt; words.length; i++) {
+            if(isStretchy</B></FONT>(S, words[i]))
+                res++;
         }
         
-        return ret;
+        return res;
     }
     
-    
-    ArrayList&lt;String&gt;  splitWord(String s){
-        ArrayList&lt;String&gt; groups = new</B></FONT> ArrayList();
-        StringBuilder word = new StringBuilder();
-        int k = 0;
-        for(int i = 0;i&lt;s.length();i++){
-            if(i+1&lt;s.length() &amp;&amp; s.charAt(i)==s.charAt(i+1)){
-                word.append(s.charAt(i));
+    private boolean isStretchy(String src, String des) {
+        if(des.length() &gt; src.length())
+            return false;
+        
+        char[] sc = src.toCharArray();
+        char[] dc = des.toCharArray();
+        
+        int indexS = 0, indexD = 0;
+        while(indexS &lt; sc.length &amp;&amp; indexD &lt; dc.length) {
+            if(sc[indexS] != dc[indexD])
+                return false;
+            
+            int countS = 1;
+            indexS++;
+            while(indexS &lt; sc.length &amp;&amp; sc[indexS] == sc[indexS - 1]) {
+                indexS++;
+                countS++;
             }
-            else{
-                word.append(s.charAt(i));
-                groups.add(word.toString());
-                word = new StringBuilder();
+<A NAME="0"></A>            
+            int countD = 1;
+            indexD++;
+            while(indexD &lt; dc.length &amp;&amp; dc[indexD] == dc[indexD - 1]) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                indexD++;
+                countD++;
             }
-        }
+            
+            if(countS &lt; countD)
+                return false;
+            
+            if(countS != countD &amp;&amp; countS &lt; 3)
+                return false;
+        }</B></FONT>
         
-        
-        return groups;
-        
+        return indexS == sc.length &amp;&amp; indexD == dc.length;
         
     }
 }

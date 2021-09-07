@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>32_jq_huang.cpp</TITLE>
+ <TITLE>232_user9026b.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>32_jq_huang.cpp</CENTER></H3><HR>
+<H3><CENTER>232_user9026b.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-  struct Seq {
-    char c;
-    int n;
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        
+        if (S.size() == 0) return 0;
+        if (words.size() == 0) return 0;
+        
+        vector&lt; pair&lt;char, int&gt; &gt; target;
+        GetVec(S, target);
+        
+        int count = 0;
+        for (int i = 0; i &lt; words.size(); ++i)
+        {                        
+            string curWord = words[i];
+<A NAME="0"></A>            vector&lt; pair&lt;char, int&gt; &gt; cur;
+            GetVec(curWord, cur);
+            
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (cur.size() != target.size()) continue;
+            
+            bool flag = true;
+            for (int t = 0; t &lt; cur.size(); ++t)
+            {
+                if (target[t].first != cur[t].first) 
+                {
+                    flag = false;
+                    break;
+                }
+                
+                if (target[t].second &lt;= 2 &amp;&amp; target[t].second != cur[t].second)</B></FONT>
+                {
+                    flag = false;
+                    break;
+                }
+                
+                if (target[t].second &gt;= 3 &amp;&amp; target[t].second &lt; cur[t].second)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            
+            if (flag == true) ++count;
+        }
+        
+        return count;
+    }
     
-    Seq(char c, int n):
-      c(c), n(n) {}
-  };
-  
-  int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-    vector&lt;Seq&gt; seqs = make_seq(S);
-    int ret = 0;
-    for (const auto &amp;w: words) {
-      vector&lt;Seq&gt; seqw = make_seq(w);
-      if (valid(seqs, seqw)) ++ret;
+    void GetVec(string&amp; s, vector&lt; pair&lt;char, int&gt; &gt;&amp; vec)
+    {
+        for (int i = 0; i &lt; s.size(); ++i)
+        {
+            if (vec.size() == 0) vec.push_back( {s[i], 1} );
+            else
+            {
+                if (vec.back().first == s[i]) vec.back().second++;
+                                         else vec.push_back( {s[i], 1} );
+            }
+        }
     }
-    return ret;
-  }
-  
-  bool valid(const vector&lt;Seq&gt; &amp;s, const vector&lt;Seq&gt; &amp;w) {
-    if (s.size() != w.size()) return false;
-    for (int i = 0; i != s.size(); ++i) {
-      if (s[i].c != w[i].c) return false;
-      if (s[i].n == w[i].n) continue;
-      if (s[i].n &lt; 3 || w[i].n &gt; s[i].n) return false;
-    }
-    return true;
-  }
-<A NAME="0"></A>  
-  vector&lt;Seq&gt; make_seq(string s) {
-    vector&lt;Seq&gt; seqs;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int count = 1;
-    for (int i = 1; i &lt; s.size(); ++i) {
-      if (s[i] == s[i - 1]) {
-        ++count;
-      } else {
-        seqs.emplace_back(s[i - 1], count);
-        count = 1;
-      }
-    }
-    seqs.emplace_back(s[s.size() - 1], count);
-    return seqs;
-  }</B></FONT>
 };
 </PRE>
 </BODY>

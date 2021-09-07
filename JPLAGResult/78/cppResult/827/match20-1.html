@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>160_szfck.cpp</TITLE>
+ <TITLE>11_NEU20133823.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,72 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>160_szfck.cpp</CENTER></H3><HR>
+<H3><CENTER>11_NEU20133823.cpp</CENTER></H3><HR>
 <PRE>
-const int N = 1e6 + 10;
-using ll = long long;
-const int INF = 0x3f3f3f3f;
-using pii = pair&lt;int, int&gt;;
-using vi = vector&lt;int&gt;;
-#define rep(i, a, b) for (int i = (a); i &lt; (b); i++)
-#define mp make_pair 
-#define pb push_back
-#define clr(x, v) memset(x, v, sizeof (x))
-#define all(x) x.begin(), x.end()
-#define fi first
-#define se second
-
 class Solution {
 public:
-    vector&lt;pair&lt;char, int&gt;&gt; get(string S) {
-        vector&lt;pair&lt;char, int&gt;&gt; vec;
-        int n = S.size();
-        int cnt = 1;
-        for (int i = 1; i &lt;= n; i++) {
-            if (i == n || S[i] != S[i - 1]) {
-                vec.push_back(mp(S[i - 1], cnt));
-                cnt = 1;
-            } else {
-                cnt++;
-            }
-        }
-        return vec;
-    }
+    struct fff
+{
+	char s;
+<A NAME="0"></A>	int cnt;
+};
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        if (S == &quot;&quot;) {
-            int res = 0;
-            for (auto word : words) {
-                if (word == &quot;&quot;) res++;
-            }
-            return res;
-        }
-        int res = 0;
-        auto v1 = get(S);
-        for (auto word : words) {
-            if (word == &quot;&quot;) continue;
-            auto v2 = get(word);
-<A NAME="0"></A>            if (v1.size() != v2.size()) continue;
-            bool ok = true;
-            // cout &lt;&lt; v1.size() &lt;&lt; endl;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            rep(i, 0, (int)v1.size()) {
-                if (v1[i].fi != v2[i].fi) {
-                    ok = false;
-                    break;
-                }
-                if (v1[i].se &lt; v2[i].se) {
-                    ok = false;
-                    break;
-                }
-                // cout &lt;&lt; v1[i].se &lt;&lt; &quot; &quot; &lt;&lt; v2[i].se &lt;&lt; endl;
-                if (v1[i].se &gt; v2[i].se &amp;&amp; v1[i].se &lt; 3) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) res++;
-        }
-        return res;
-    }</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int l=S.size(),n=words.size();
+	vector&lt;fff&gt; v;
+	int num=1;
+	for(int i=1;i&lt;l;i++)
+	{
+		if(S[i]==S[i-1])num++;
+		else
+		{
+			fff news;
+			news.s=S[i-1];
+			news.cnt=num;</B></FONT>
+			v.push_back(news);
+			num=1;
+		}
+	}
+	fff news;
+	news.s=S[l-1];
+	news.cnt=num;
+	v.push_back(news);
+	int tot=v.size();
+	int ans=0;
+	for(int c=0;c&lt;n;c++)
+	{
+		int len=words[c].size();
+		int num=1;
+		vector&lt;fff&gt; now;
+		for(int i=1;i&lt;len;i++)
+		{
+			if(words[c][i]==words[c][i-1])num++;
+			else
+			{
+				fff news;
+				news.s=words[c][i-1];
+				news.cnt=num;
+				now.push_back(news);
+				num=1;
+			}
+		}
+		fff news;
+		news.s=words[c][len-1];
+		news.cnt=num;
+		now.push_back(news);
+		if(now.size()!=tot)continue;
+		int ok=1;
+		for(int i=0;i&lt;tot;i++)
+		{
+			if(v[i].s!=now[i].s)
+			{
+				ok=0;
+				break;
+			}
+			if(v[i].cnt&lt;now[i].cnt||(v[i].cnt==2&amp;&amp;now[i].cnt==1))
+			{
+				ok=0;
+				break;
+			}
+		}
+		ans=ans+ok;
+	}
+	return ans;
+    }
 };
 </PRE>
 </BODY>

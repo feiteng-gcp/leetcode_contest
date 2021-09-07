@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>263_zornlemma.py</TITLE>
+ <TITLE>302_hzqjhhjq.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,7 +15,7 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>263_zornlemma.py</CENTER></H3><HR>
+<H3><CENTER>302_hzqjhhjq.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def expressiveWords(self, S, words):
@@ -24,39 +24,45 @@ class Solution:
         :type words: List[str]
         :rtype: int
         &quot;&quot;&quot;
-        def s2wl(S):
-            S += '\t'
-            N = len(S)
-            wList = []
-            cnt = 1
-            for i in range(N-1):
-                if S[i]!=S[i+1]:
-                    wList.append((S[i], cnt))
-                    cnt = 1
-                else:
-                    cnt += 1
-            return wList
-
-        oList = s2wl(S)
-        N = len(oList)
-        cnt = 0
-        # print(oList)
-        for w in words:
-            wList = s2wl(w)
-            # print(wList)
-<A NAME="0"></A>            if len(wList)!=N:
+        res=0
+        l=[]
+        if not S:
+<A NAME="0"></A>            return 0
+        c=S[0]
+        count=1
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1,len(S)):
+            if S[i]!=c:
+                l.append([c,count])
+                c=S[i]
+                count=1
+            else:
+                count+=1
+        l.append([c</B></FONT>,count])
+        for s in words:
+            n=0
+            if not s:
                 continue
-            f = True
-            for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(N):
-                if not (wList[i][0]==oList[i][0]
-                    and (wList[i][1]==oList[i][1]
-                         or (oList[i][1] &gt; wList[i][1] and oList[i][1]&gt;=3)) ):
-                    f = False
-                    b</B></FONT>reak
-            if f:
-                cnt += 1
-
-        return cnt
+            c=s[0]
+            count=1
+            flag=True
+            for i in range(1,len(s)):
+                if s[i]!=c:
+                    if n&gt;=len(l)-1:
+                        flag=False
+                        break
+                    if c!=l[n][0] or count&gt;l[n][1] or (l[n][1]&lt;3 and  l[n][1]!=count):
+                        flag=False
+                        break
+                    else:
+                        c=s[i]
+                        count=1
+                        n+=1
+                else:
+                    count+=1
+                        
+            if flag and c==l[-1][0] and (count==l[-1][1] or (count&lt;l[-1][1] and l[-1][1]&gt;2)):
+                res+=1
+        return res
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>295_setsuna214.java</TITLE>
+ <TITLE>239_luchy0120.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
+<H3><CENTER>239_luchy0120.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int expressiveWords(String S, String[] words) {
-        int count = 0;
-        for(String word : words){
-            if(isMatch(S, word)) count++;
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int expressiveWords(String S, String[] ws) {
+        int ar = 0;
+        for(String w:ws){
+            int lw = w.length()</B></FONT>;
+            int l = S.length();
+            int pw = 0;
+            int p = 0;
+            boolean ok = true;
+            while(pw&lt;lw&amp;&amp;p&lt;l){
+                int cw = 1;int c = 1;
+                while(pw+1&lt;lw&amp;&amp;w.charAt(pw)==w.charAt(pw+1)){
+                    pw++;
+                    cw++;
+                }
+                while(p+1&lt;l&amp;&amp;S.charAt(p)==S.charAt(p+1)){
+                    p++;
+                    c++;
+                }
+<A NAME="1"></A>                if(w.charAt(pw)!=S.charAt(p)){
+                    ok = false;
+                    break;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}else{
+                    if(cw&gt;c||(c&gt;cw&amp;&amp;3&gt;c)){
+                        ok = false;
+                        break;
+                    }
+                    pw++;
+                    p++;
+                }   
+                
+                
+            }
+            if(!ok||pw!=lw||p!=l){</B></FONT>
+                continue;
+            }else{
+                ar++;
+            }
+            
+            
+            
         }
-        return count;
-    }
-    
-    private boolean isMatch(String s</B></FONT>, String w){
-        int i = 0, j = 0;
-        while(i != s.length() &amp;&amp; j != w.length()) {
-            if(s.charAt(i) != w.charAt(j)) return false;
-            int count1 = 0, count2 = 0;
-            while(i + count1 &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i + count1)) count1++;
-            while(j + count2 &lt; w.length() &amp;&amp; w.charAt(j) == w.charAt(j + count2)) count2++;
-            if(count1 &lt; count2 || count1 &lt; 3 &amp;&amp; count1 != count2) return false;
-            i += count1;
-            j += count2;
-        }
-        return i == s.length() &amp;&amp; j == w.length();
+        return ar;
     }
 }
 </PRE>

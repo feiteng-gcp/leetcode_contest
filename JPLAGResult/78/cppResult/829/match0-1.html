@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>26_kangbb.cpp</TITLE>
+ <TITLE>17_thinkpig.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>26_kangbb.cpp</CENTER></H3><HR>
+<H3><CENTER>17_thinkpig.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; cpdomains) {
-        unordered_map&lt;string, int&gt; m;
-        vector&lt;string&gt; v;
-        for (auto s: cpdomains) {
-            // url
-            string num;
-            string tmp;
-            int n = 0;
-            int i = 0;</B></FONT>
-            // find num
-            while (s[i] != ' ') {
-                num += s[i++];
+        unordered_map&lt;string, int&gt; counts;
+        for (auto line : cpdomains) {
+            int n = atoi(line.c_str());
+            int pos = line.find_first_of(' ');</B></FONT>
+            while (pos != string::npos) {
+                counts[line.substr(pos+1)] += n;
+                pos = line.find_first_of('.', pos+1);
             }
-            n = atoi(num.c_str());
-            for (int j = s.length() - 1; j &gt; i; --j) {
-                if (s[j] == '.') m[tmp] += n;
-                tmp = s[j] + tmp;
-            }
-            m[tmp] += n;
-            tmp.clear();
         }
-        for (auto it: m) {
-            string tmp;
-            tmp += to_string(it.second);
-            tmp += ' ';
-            tmp += it.first;
-            // cout &lt;&lt; it.first &lt;&lt; &quot; &quot; &lt;&lt; it.second &lt;&lt; endl;
-            v.push_back(tmp);
+        vector&lt;string&gt; ret;
+        for (auto e : counts) {
+            string line = to_string(e.second);
+            line.push_back(' ');
+            line += e.first;
+            ret.push_back(line);
         }
-        return v;
+        return ret;
     }
 };
 </PRE>

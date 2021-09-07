@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>295_setsuna214.java</TITLE>
+ <TITLE>40_jhuang101.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
+<H3><CENTER>40_jhuang101.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-<A NAME="1"></A>    public int expressiveWords(String S, String[] words) {
+    public int expressiveWords(String S, String[] words) {
         int count = 0;
-        for(String word : words){
-            if(isMatch</B></FONT>(S, word)) count++<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+<A NAME="1"></A>        for(String each : words){
+            if(can</B></FONT>(S,each)){
+                count++;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
         return count;
     }
-    
-    private boolean isMatch(String s, String w){
-        int i = 0</B></FONT>, j = 0;
-        while(i != s.length() &amp;&amp; j != w.length()) {
-            if(s.charAt(i) != w.charAt(j)) return false;
-<A NAME="2"></A>            int count1 = 0, count2 = 0;
-            while(i + count1 &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i + count1)) count1++;
-            while(j + count2 &lt; w.length() &amp;&amp; w.charAt(j) == w.charAt(j + count2)) count2++;
-            if(count1 &lt; count2 || count1 &lt; 3 &amp;&amp; count1 != count2) return false<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-            i += count1;
-            j += count2;
+    public boolean can(String S, String w){
+        int i = 0;
+        int j = 0;
+        while(i &lt; S.length() &amp;&amp; j &lt; w.length()){</B></FONT>
+            if(S.charAt(i) == w.charAt(j)){
+                int x = count(S,i);
+                int y = count(w,j);
+                if(x &lt; y || (x &gt; y &amp;&amp; x &lt; 3)){
+                    return false;
+                }
+                else{
+                    i+=x;
+                    j+=y;
+                }
+<A NAME="2"></A>            }
+            else{
+                return false;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        return i == s.length() &amp;&amp; j == w.length();
+        if(i == S.length() &amp;&amp; j == w.length())return true;
+        return false;
+    }</B></FONT>
+    public int count(String x, int index){
+        int count = 1;
+        while(x.length() &gt; index+1){
+            if(x.charAt(index) == x.charAt(index+1)){
+                count++;
+            }
+            else{
+                return count;
+            }
+            index++;
+        }
+        return count;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

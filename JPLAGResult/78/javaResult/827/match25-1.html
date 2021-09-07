@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>276_climberig.java</TITLE>
+ <TITLE>103_nevergiveup.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>276_climberig.java</CENTER></H3><HR>
+<H3><CENTER>103_nevergiveup.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+	private static class Element {
+		public char ch;
+		public int cnt;
+		public Element(char ch , int cnt) {
+			this.ch = ch;
+			this.cnt = cnt;
+		}
+	}
+	
+	private List&lt;Element&gt; getList(String string){
+		
+		List&lt;Element&gt; list = new ArrayList&lt;&gt;();
+		int i , length = st</B></FONT>ring.length();
+		for (i = 0;i &lt; length;i ++) {
+			char ch = string.charAt(i);
+			int cnt = 0;
+			while (i &lt; length &amp;&amp; (string.charAt(i) == ch)) {
+				i ++;
+				cnt ++;
+			}
+			i --;
+			list.add(new Element(ch , cnt));
+		}
+		return list;
+		
+	}
+	
+	private boolean check(List&lt;Element&gt; list1 , List&lt;Element&gt; list2) {
+		
+		int i = 0 , n1 = list1.size() , n2 = list2.size();
+		if (n1 != n2) {
+			return false;
+		} else {
+			for (i = 0;i &lt; n1;i ++) {
+				Element e1 = list1.get(i) , e2 = list2.get(i);
+				if (e1.ch != e2.ch) {
+					return false;
+				}
+				if (e1.cnt == e2.cnt) {
+					continue;
+				} else if (e1.cnt &lt; e2.cnt) {
+					return false;
+				} else {
+					if (e1.cnt &gt; 2) {
+						continue;
+					} else {
+						return false;
+					}
+				}
+			}
+<A NAME="1"></A>			return true;
+		}
+		
+	}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+	
     public int expressiveWords(String S, String[] words) {
-        List&lt;Node&gt; sNodes = toList(S);
-        int r = 0;
-        for (String word : words) {
-            List&lt;Node&gt; nodes = toList(word);
-            if (nodes.size() != sNodes.size()) continue;
-            int i = 0;
-            for</B></FONT> (; i &lt; nodes.size(); i++) {
-                Node sNode = sNodes.get(i), node = nodes.get(i);
-                if (sNode.count &lt; 3 &amp;&amp; sNode.count != node.count) break;
-<A NAME="1"></A>                if (sNode.count &gt;= 3 &amp;&amp; node.count &gt; sNode.count) break;
-            }
-            if (i == nodes.size())
-                r++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
-        }
-        return r;
-    }
-
-    List&lt;Node&gt; toList(String w) {
-        List&lt;Node&gt; nodes = new LinkedList&lt;&gt;();
-        int count = 1</B></FONT>;
-        for (int i = 1; i &lt; w.length(); i++)
-            if (w.charAt(i - 1) != w.charAt(i)) {
-                nodes.add(new Node(w.charAt(i - 1), count));
-                count = 1;
-            } else count++;
-        nodes.add(new Node(w.charAt(w.length() - 1), count));
-        return nodes;
-    }
-
-    class Node {
-        final char c;
-        final int count;
-
-        Node(char c, int count) {
-            this.c = c;
-            this.count = count;
-        }
+        
+    	List&lt;Element&gt; list = getList(S);
+    	int ans = 0;    	
+    	for (String string : words) {    		
+    		List&lt;Element&gt; temp = getList(string);
+    		if (check(list , te</B></FONT>mp)) {
+    			ans ++;
+    		}
+    	}
+    	return ans;
+    	
     }
 }
 </PRE>

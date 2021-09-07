@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>174_jialuzh.java</TITLE>
+ <TITLE>191_Devin-hyJia.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>174_jialuzh.java</CENTER></H3><HR>
+<H3><CENTER>191_Devin-hyJia.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-<A NAME="0"></A>        if (words == null || words.length == 0) {
-            return 0;
+        int res = 0;
+        for(String word : words){
+        	if(isExpressive(S, word))res++;
         }
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;String&gt; sa = convert(S);
-        int ans = 0;
-        for (String w : words) {
-<A NAME="1"></A>            List&lt;String&gt; wa = convert(w);
-            if (wa.size() != sa.size</B></FONT>()) {
-                continue;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            boolean extend = true;
-            for (int i = 0; i &lt; wa.size(); ++i) {
-                if (wa.get</B></FONT>(i).length() == sa.get(i).length()) {
-                    continue;
-                }
-                if (wa.get(i).length() &gt; sa.get(i).length() 
-                    || sa.get(i).length() &lt; 3) {
-                    extend = false;
-                    break;
-                }
-<A NAME="2"></A>            }
-            if (extend) {
-                ++ans;
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        return ans;
+        return res;
     }
     
-    private List&lt;String&gt; convert(String s) {
-        List&lt;String&gt; ans = new</B></FONT> ArrayList&lt;&gt;();
-        if (s.length() == 0) {
-            return ans;
-        }
-        int i = 0;
-        StringBuilder sb = new StringBuilder();
-        while (i &lt; s.length()) {
-            sb.append(s.charAt(i));
-            if (i + 1 == s.length() || s.charAt(i + 1) != s.charAt(i)) {
-                ans.add(sb.toString());
-                // System.out.println(sb.toString());
-                sb.setLength(0);
-            }
-            ++i;
-        }
-        return ans;
+    public boolean isExpressive(String S, String word){
+    	int i = 0;
+    	int j = 0;
+    	while(i &lt; S.length() &amp;&amp; j &lt; word.length()){</B></FONT>
+    		char ichar = S.charAt(i);
+    		char jchar = word.charAt(j);
+    		if(ichar != jchar)return false;
+    		int inum = 0;
+    		int jnum = 0;
+    		while(i &lt; S.length()){
+    			if(S.charAt(i) == ichar){
+    				i++;
+    				inum++;
+    			}
+    			else break;
+    		}
+    		while(j &lt; word.length()){
+    			if(word.charAt(j) == jchar){
+    				j++;
+    				jnum++;
+    			}
+    			else break;
+    		}
+    		if(jnum &gt; inum)return false;
+    		else if(inum == jnum)continue;
+    		else{
+    			if(inum &gt;= 3)continue;
+    			else return false;
+    		}
+    	}
+    	if(i &lt; S.length() || j &lt; word.length())return false;
+    	return true;
     }
 }
 </PRE>

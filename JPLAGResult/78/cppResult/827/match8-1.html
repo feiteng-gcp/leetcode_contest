@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>17_thinkpig.cpp</TITLE>
+ <TITLE>10_ChaouS.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>17_thinkpig.cpp</CENTER></H3><HR>
+<H3><CENTER>10_ChaouS.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    typedef pair&lt;char, int&gt; cnt_t;
-<A NAME="0"></A>    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        vector&lt;cnt_t&gt; target = count(S);
-        int ret = 0;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto w : words) {
-            vector&lt;cnt_t&gt; cand = count(w);
-            if (extendable(target, cand)) ret++;
+    
+    vector&lt; pair&lt;char,int&gt; &gt; solve(string &amp;s){
+        int n = s.size();
+        vector&lt; pair&lt;char,int&gt; &gt; ans;
+        if(n == 0){
+            return ans;
         }
-        return ret;
+        
+        int c = 1;
+        for(int i = 1; i &lt;= n; ++i){
+            if(i == n || s[i] != s[i-1] ){
+                ans.push_back({ s[i-1] , c});
+                c = 1;
+            }else{
+<A NAME="0"></A>                c++;
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return ans;
     }
-    bool extendable(const vector&lt;cnt_t&gt;&amp; target, const vector&lt;cnt_t&gt;&amp; cand) {
-        if (target.size() != cand.size()) return false;
-        for (int i = 0; i &lt; target.size(); ++i) {
-            if (cand[i].first != target[i].first) return false;
-            if (cand[i].second == target[i].second || (cand[i].second &lt; target[i].second &amp;&amp; target[i].second &gt;= 3)) continue;</B></FONT>
-            return false;
+    
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt; pair&lt;char,int&gt; &gt; main = solve(S);
+        int ans = 0;
+        for(string elem : words){
+            vector&lt; pair&lt;char,int&gt; &gt; current = solve(elem);
+            if(main.size() != current.size()){</B></FONT>
+                continue;
+            }
+            bool ok = true;
+            for(int k = 0; k &lt; current.size(); ++k){
+                if(current[k].first != main[k].first){
+                    ok = false;
+                }
+                if(current[k].second == main[k].second){
+                    continue;
+                }
+                if(main[k].second &lt; current[k].second){
+                    ok = false;
+                }
+                if(main[k].second &lt; 3){
+                    ok = false;
+                }
+                
+            }
+            ans += ok;
         }
-        return true;
-    }
-    vector&lt;cnt_t&gt; count(const string&amp; s) {
-        vector&lt;cnt_t&gt; ret;
-        for (int i = 0; i &lt; s.size();) {
-            int j = i;
-            while (j &lt; s.size() &amp;&amp; s[i] == s[j]) j++;
-            ret.push_back(cnt_t(s[i], j-i));
-            i = j;
-        }
-        return ret;
+        return ans;
     }
 };
 </PRE>

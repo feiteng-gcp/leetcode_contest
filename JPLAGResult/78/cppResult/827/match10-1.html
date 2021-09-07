@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>218_pritam_roy.cpp</TITLE>
+ <TITLE>232_user9026b.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>218_pritam_roy.cpp</CENTER></H3><HR>
+<H3><CENTER>232_user9026b.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    vector&lt;pair&lt;char,int&gt;&gt; Parse(string S){
-        char c = S[0];
-        int count = 1;
-        vector&lt;pair&lt;char,int&gt;&gt; vec;
-        for(int  i=1; i&lt;S.size();i++){
-            if(S[i] == S[i-1]){
-                count++;
-            }
-            else
-            {
-                vec.push_back({c,count});
-                c = S[i];
-                count = 1;
-            }
-        }
-        vec.push_back({c, count});
-<A NAME="0"></A>        return vec;
-    }
-    bool Match(vector&lt;pair&lt;char,int&gt;&gt; vec, vector&lt;pair&lt;char,int&gt;&gt; vec2)
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    {
-        if(vec.size() != vec2.size())
-            return false;
-        for(int j =0 ; j &lt;vec.size();j++){
-            if(vec[j].first != vec2[j].first)
-                return false;
-            if(vec[j].second == vec2[j].second) continue;
-            if(vec[j].second &lt; 3)
-                return false;
-        }
-        return true;
-    }</B></FONT>
 public:
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        if(S.size() == 0) return 0;
-        vector&lt;pair&lt;char,int&gt;&gt; vec = Parse(S);
-        //for (auto x : vec){
-        //    cout&lt;&lt;x.first&lt;&lt;&quot;:&quot;&lt;&lt;x.second&lt;&lt;endl;
-        //}
+        
+        if (S.size() == 0) return 0;
+        if (words.size() == 0) return 0;
+        
+        vector&lt; pair&lt;char, int&gt; &gt; target;
+        GetVec(S, target);
+        
         int count = 0;
-        for(int i=0; i&lt;words.size();i++){
-            string s = words[i];
-            vector&lt;pair&lt;char,int&gt;&gt; vec2 = Parse(s);
-            if(Match(vec,vec2)) count++;
+        for (int i = 0; i &lt; words.size(); ++i)
+        {                        
+            string curWord = words[i];
+<A NAME="0"></A>            vector&lt; pair&lt;char, int&gt; &gt; cur;
+            GetVec(curWord, cur);
+            
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (cur.size() != target.size()) continue;
+            
+            bool flag = true;
+            for (int t = 0; t &lt; cur.size(); ++t)
+            {
+                if (target[t].first != cur[t].first) 
+                {
+                    flag = false;
+                    break;
+                }</B></FONT>
+                
+                if (target[t].second &lt;= 2 &amp;&amp; target[t].second != cur[t].second)
+                {
+                    flag = false;
+                    break;
+                }
+                
+                if (target[t].second &gt;= 3 &amp;&amp; target[t].second &lt; cur[t].second)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            
+            if (flag == true) ++count;
         }
+        
         return count;
+    }
+    
+    void GetVec(string&amp; s, vector&lt; pair&lt;char, int&gt; &gt;&amp; vec)
+    {
+        for (int i = 0; i &lt; s.size(); ++i)
+        {
+            if (vec.size() == 0) vec.push_back( {s[i], 1} );
+            else
+            {
+                if (vec.back().first == s[i]) vec.back().second++;
+                                         else vec.push_back( {s[i], 1} );
+            }
+        }
     }
 };
 </PRE>

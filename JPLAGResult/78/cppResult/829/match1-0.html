@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>92_boyaolin.cpp</TITLE>
+ <TITLE>227_lijinglun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>92_boyaolin.cpp</CENTER></H3><HR>
+<H3><CENTER>227_lijinglun.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; cpdomains) {
-        vector&lt;string&gt; res;
-        unordered_map&lt;string,int&gt; ht;
-        for(auto domain: cpdomains){
-            int ind = domain.find(&quot; &quot;);
-            int cnt = stoi(domain.substr(0,ind));
-            string url = domain.substr(ind+1);</B></FONT>
-            ht[url] += cnt;
-            for(int i=0; i&lt;url.size(); i++){
-                if(url[i]!='.') continue;
-                ht[url.substr(i+1)] += cnt;
+    vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; a) {
+        map&lt;string, int&gt; d;
+        for (auto line : a) {
+            int p = line.find(' ');
+            int cnt = stoi(line.substr(0, p).c_str());</B></FONT>
+            line = line.substr(p + 1);
+            while (!line.empty()) {
+                d[line] += cnt;
+                p = line.find('.');
+                if (p != string::npos) {
+                    line = line.substr(p + 1);
+                } else {
+                    line = &quot;&quot;;
+                }
             }
         }
-        
-        for(auto it: ht){
-            string t = to_string(it.second) + &quot; &quot; + it.first;
-            res.push_back(t);
+        vector&lt;string&gt; ans;
+        for (auto p : d) {
+            string res = to_string(p.second) + &quot; &quot; + p.first;
+            ans.push_back(res);
         }
-        return res;
+        return ans;
     }
 };
 </PRE>

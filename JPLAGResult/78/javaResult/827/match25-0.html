@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>33_ag1119.java</TITLE>
+ <TITLE>184_eterxroc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>33_ag1119.java</CENTER></H3><HR>
+<H3><CENTER>184_eterxroc.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public int expressiveWords(String S, String[] words) {
-        
-        ArrayList&lt;String&gt; in = splitWord(S);
-        
-        int ret = 0;
-        
-        for(String word: words){
-            ArrayList&lt;String&gt; cur = splitWord(word);
-            if(in.size()!=cur.size()) continue;
-            boolean match = true;
-            for</B></FONT>(int i = 0;i&lt;cur.size() &amp;&amp; match;i++){
-                if(in.get(i).length()&lt;3){
-                    if(!in.get(i).equals(cur.get(i)))
-                        match = false;
-                }
-                else{
-                    if(in.get(i).length()&lt;cur.get(i).length()) match = false;
-                    
-                    else if(!in.get(i).substring(0,cur.get(i).length()).equals(cur.get(i)))
-                        match = false;
-<A NAME="1"></A>                }
+    class Data {
+        public char ch;
+        public int cnt;
+        public Data(char ch, int cnt) {
+            this.ch = ch;
+            this.cnt = cnt;
+        }
+    }
+    public List&lt;Data&gt; encode(String input) {
+        List&lt;Data&gt; ret = new ArrayList&lt;&gt;();
+        char[] arr = input.toCharArray()</B></FONT>;
+        int cnt = 1;
+        for(int i = 1; i &lt; arr.length; i++) {
+            if(arr[i] == arr[i - 1]) {
+                cnt++;
+            } else {
+                ret.add(new Data(arr[i - 1], cnt));
+                cnt = 1;
             }
-            
-            if(match) ret++<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        }
+<A NAME="1"></A>        ret.add(new Data(arr[arr.length - 1], cnt));
+        
+        return ret;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int expressiveWords(String S, String[] words) {
+        List&lt;Data&gt; ls = encode(S);
+        int ret = 0;
+        for(int i = 0; i &lt; words.length; i++) {
+            List&lt;Data&gt; lw = encode(words[i]);
+            if(ls.size</B></FONT>() == lw.size()) {
+                boolean can = true;
+                for(int j = 0; j &lt; ls.size(); j++) {
+                    if(lw.get(j).ch == ls.get(j).ch &amp;&amp; (lw.get(j).cnt == ls.get(j).cnt || (ls.get(j).cnt &gt; lw.get(j).cnt &amp;&amp; ls.get(j).cnt != 2))) {
+                        
+                    } else {
+                        can = false;
+                        break;
+                    }
+                }
+                if(can) {
+                    ret++;
+                    
+                }
+            }
         }
         
         return ret;
-    }
-    
-    
-    ArrayList&lt;String&gt;  splitWord(String s){
-        ArrayList&lt;String&gt; groups = new ArrayList();
-        StringBuilder word = new StringBuilder()</B></FONT>;
-        int k = 0;
-        for(int i = 0;i&lt;s.length();i++){
-            if(i+1&lt;s.length() &amp;&amp; s.charAt(i)==s.charAt(i+1)){
-                word.append(s.charAt(i));
-            }
-            else{
-                word.append(s.charAt(i));
-                groups.add(word.toString());
-                word = new StringBuilder();
-            }
-        }
-        
-        
-        return groups;
-        
-        
     }
 }
 </PRE>

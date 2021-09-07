@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>158_hydrogen2.java</TITLE>
+ <TITLE>295_setsuna214.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>158_hydrogen2.java</CENTER></H3><HR>
+<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; subdomainVisits(String[] cpdomains) {
-        Map&lt;String, Integer&gt; counts = new HashMap&lt;&gt;();
-        for (String s: cpdomains) {
-            String[] ss = s.split(&quot; &quot;);
-            String[] ds = ss[1].split</B></FONT>(&quot;\\.&quot;);
-            
-            for (int i = 0; i &lt; ds.length; ++i) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(ds[i]);
-                for (int j = i+1; j &lt; ds.length; ++j) {
-                    sb.append(&quot;.&quot;);
-<A NAME="1"></A>                    sb.append(ds[j]);
-                }
-                String d = sb.toString();
-                counts.put(d, (counts.containsKey(d) ? <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>counts.get(d) : 0)+Integer.parseInt(ss[0]));
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        for(String cpdomain : cpdomains){
+            String[] parts = cpdomain.split(&quot; &quot;);
+            int count = Integer.valueOf(parts[0]);
+            String[] domains = parts[1].split</B></FONT>(&quot;\\.&quot;);
+            String curr = domains[domains.length - 1];
+            map.put(curr, map.getOrDefault(curr, 0) + count);
+            for(int i = domains.length - 2; i &gt;= 0; i--){
+<A NAME="1"></A>                curr = domains[i] + &quot;.&quot; + curr;
+                map.put(curr, map.getOrDefault(curr, 0) + count);
             }
-        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        for (Map.Entry&lt;String, Integer&gt; e: counts.entrySet()) {
-            ans.add(e.getValue()+&quot; &quot;+e.getKey());
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        for(Map.Entry&lt;String, Integer&gt; entry : map.entrySet()){
+            res.add(entry.getValue() + &quot; &quot; + entry.getKey());
         }
-        return ans;
+        return res;
     }
 }</B></FONT>
 </PRE>

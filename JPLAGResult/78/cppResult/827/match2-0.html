@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>218_pritam_roy.cpp</TITLE>
+ <TITLE>252_tanghaibao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>218_pritam_roy.cpp</CENTER></H3><HR>
+<H3><CENTER>252_tanghaibao.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    vector&lt;pair&lt;char,int&gt;&gt; Parse(string S){
-        char c = S[0];
-        int count = 1;
-        vector&lt;pair&lt;char,int&gt;&gt; vec;
-        for(int  i=1; i&lt;S.size();i++){
-            if(S[i] == S[i-1]){
-                count++;
-            }
-            else
-            {
-                vec.push_back({c,count});
-                c = S[i];
-<A NAME="0"></A>                count = 1;
-            }
+public:
+    vector&lt;char&gt; letters;
+    vector&lt;int&gt; counts;
+    
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        tokenize(S, letters, counts);
+        int ans = 0;
+        for (auto &amp;w : words) {
+            if (isExpressive(w)) ans ++;
         }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vec.push_back({c, count});
-        return vec;
+        return ans;
     }
-    bool Match(vector&lt;pair&lt;char,int&gt;&gt; vec, vector&lt;pair&lt;char,int&gt;&gt; vec2)
-    {
-        if(vec.size() != vec2.size())
-            return false;
-        for(int j =0 ; j &lt;vec.size();j++){
-            if(vec[j].first != vec2[j].first)
-                return false;
-            if(vec[j].second == vec2[j].second) continue;
-            if(vec[j].second &lt; 3)</B></FONT>
-                return false;
-        }
+    
+    bool isExpressive(string &amp;s) {
+        vector&lt;char&gt; ll;
+        vector&lt;int&gt; cc;
+        
+        tokenize(s, ll, cc);
+        if (ll.size() != letters.size()) return false;
+        for (int i = 0; i &lt; letters.size(); i ++) {
+            if (ll[i] != letters[i]) return false; // must be of same char
+<A NAME="0"></A>            if (cc[i] &gt; counts[i]) return false;   // must not exceed target counts
+             // non-extendable counts has to match exactly
+            if (counts[i] &lt; 3 and cc[i] != counts[i]) return false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
         return true;
     }
-public:
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        if(S.size() == 0) return 0;
-        vector&lt;pair&lt;char,int&gt;&gt; vec = Parse(S);
-        //for (auto x : vec){
-        //    cout&lt;&lt;x.first&lt;&lt;&quot;:&quot;&lt;&lt;x.second&lt;&lt;endl;
-        //}
-        int count = 0;
-        for(int i=0; i&lt;words.size();i++){
-            string s = words[i];
-            vector&lt;pair&lt;char,int&gt;&gt; vec2 = Parse(s);
-            if(Match(vec,vec2)) count++;
+    
+    void tokenize(string &amp;s, vector&lt;char&gt;&amp; ll, vector&lt;int&gt;&amp; cc) {
+        for (int i = 0; i &lt; s.size() ; i ++) {
+            if (ll.empty() or s[i] != ll.back()) {
+                ll.push_back(s[i]);
+                cc.push_back(1);
+            } else {</B></FONT>
+                cc.back() ++;
+            }
         }
-        return count;
+        // for (int i = 0; i &lt; ll.size(); i ++) cout &lt;&lt; ll[i] &lt;&lt; cc[i]; cout &lt;&lt; endl;        
     }
 };
 </PRE>

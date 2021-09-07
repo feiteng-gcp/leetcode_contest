@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>279_blalalala.java</TITLE>
+ <TITLE>44_xuan18.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,85 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>279_blalalala.java</CENTER></H3><HR>
+<H3><CENTER>44_xuan18.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public List&lt;String&gt; subdomainVisits(String[] cpdomains) {
-        HashMap&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
-        for(String cpdomain : cpdomains) {
-            String[] parts = cpdomain.split(&quot; &quot;);
-            int num = Integer.valueOf(parts[0]);
-            String[] domain = parts[1].split(&quot;\\.&quot;)</B></FONT>;
-            String cur = domain[domain.length - 1];
-            map.put(cur, map.getOrDefault(cur, 0) + num);
-            for(int i = domain.length - 2; i != -1; --i) {
-<A NAME="1"></A>                cur = domain[i] + &quot;.&quot; + cur;
-                map.put(cur, map.getOrDefault(cur, 0) + num);
-            }
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for(String key : map.keySet()) {
-            res.add(Integer.toString(map.get(key)) + &quot; &quot; + key);
+        HashMap&lt;String, Object&gt; root = new HashMap&lt;String, Object&gt;();
+        for(String domain : cpdomains) {</B></FONT>
+            addDomain(root, domain);
         }
-        return res;
-    }</B></FONT>
+        LinkedList&lt;String&gt; ret = new LinkedList&lt;String&gt;();
+        fillResults(ret, root, &quot;&quot;);
+        return ret;
+    }
+    
+    private void addDomain(HashMap&lt;String, Object&gt; root, String domain) {
+        String[] countpair = domain.split(&quot; &quot;);
+        Integer count = Integer.parseInt(countpair[0]);
+        LinkedList&lt;String&gt; link = domainLink(countpair[1]);
+        addCount(root, link, count);
+    }
+    
+    private LinkedList&lt;String&gt; domainLink(String domain) {
+        LinkedList&lt;String&gt; ret = new LinkedList&lt;String&gt;();
+        for(String s : domain.split(&quot;\\.&quot;)) {
+            ret.add(s);
+        }
+        return ret;
+    }
+    
+    private void addCount(HashMap&lt;String, Object&gt; root, LinkedList&lt;String&gt; link, int domainCount) {
+        if (link.size()==0) {
+            return;
+        }
+        String base = link.removeLast();
+        Object o = root.get(base);
+        if(o==null) {
+            o = new HashMap&lt;String, Object&gt;();
+            root.put(base, o);
+        }
+        validateHashMap(o, &quot;not a hashmap at &quot; + base);
+        HashMap&lt;String, Object&gt; map = (HashMap) o;
+        Integer count = (Integer) (map.get(&quot;count&quot;));
+        if (count==null) {
+            count = 0;
+        }
+        map.put(&quot;count&quot;, count+domainCount);
+        Object next = map.get(&quot;next&quot;);
+        if (next==null) {
+            next = new HashMap&lt;String, Object&gt;();
+            map.put(&quot;next&quot;, next);
+        }
+        validateHashMap(next, &quot;not hashmap into &quot; + base);
+        addCount((HashMap)next, link, domainCount);
+    }
+    
+    private void validateHashMap(Object o, String errorMessage) {
+        if(o instanceof HashMap) {
+            return;
+        } else {
+            System.out.println(o.getClass());
+            throw new RuntimeException(errorMessage);
+        }
+    }
+    
+    private void fillResults(LinkedList&lt;String&gt; results, HashMap&lt;String, Object&gt; root, String base) {
+        for(Map.Entry&lt;String, Object&gt; entry : root.entrySet()) {
+            String s = entry.getKey();
+            Object o = entry.getValue();
+            validateHashMap(o, &quot;did not get a map for &quot; + base + s);
+            HashMap&lt;String, Object&gt; map = (HashMap) o;
+            Integer count = (Integer) (map.get(&quot;count&quot;));
+            results.add(count + &quot; &quot; + s + base);
+            HashMap&lt;String, Object&gt; next = (HashMap) (map.get(&quot;next&quot;));
+            if (next==null) {
+                continue;
+            } else {
+                fillResults(results, next, &quot;.&quot; + s + base);
+            }
+        }
+    }
 }
 </PRE>
 

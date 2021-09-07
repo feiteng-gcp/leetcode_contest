@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>198_cthbst.cpp</TITLE>
+ <TITLE>232_user9026b.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>198_cthbst.cpp</CENTER></H3><HR>
+<H3><CENTER>232_user9026b.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-     vector&lt; pair&lt;char,int&gt; &gt; cal(string &amp;s){
-        vector&lt; pair&lt;char,int&gt; &gt; v;
-<A NAME="0"></A>        for (char c:s){
-            if ( v.size() &amp;&amp; v.back().first == c ) v.back().second++;
-            else v.push_back({c,1});
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        
+        if (S.size() == 0) return 0;
+        if (words.size() == 0) return 0;
+        
+        vector&lt; pair&lt;char, int&gt; &gt; target;
+        GetVec(S, target);
+        
+        int count = 0;
+        for (int i = 0; i &lt; words.size(); ++i)
+        {                        
+            string curWord = words[i];
+            vector&lt; pair&lt;char, int&gt; &gt; cur;
+            GetVec(curWord, cur);
+            
+            if (cur.size() != target.size()) continue;
+            
+            bool flag = true;
+            for (int t = 0; t &lt; cur.size(); ++t)
+            {
+                if (target[t].first != cur[t].first) 
+                {
+                    flag = false;
+                    break;
+                }
+                
+                if (target[t].second &lt;= 2 &amp;&amp; target[t].second != cur[t].second)
+                {
+                    flag = false;
+                    break;
+                }
+                
+                if (target[t].second &gt;= 3 &amp;&amp; target[t].second &lt; cur[t].second)
+                {
+                    flag = false;
+                    break;
+                }
+<A NAME="0"></A>            }
+            
+            if (flag == true) ++count;
 <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-         return v;
+        
+        return count;
     }
     
-    bool check(vector&lt; pair&lt;char,int&gt; &gt; &amp;V, vector&lt; pair&lt;char,int&gt; &gt;  &amp;v){
-        if (V.size() != v.size() ) return 0;
-        
-        for (int i=0; i&lt;v.size(); i++){
-            if ( V[i].first != v[i].first )return 0;
-            if ( V[i].second == v[i].second ) continue;
-            if ( V[i].second&gt;=3 &amp;&amp; V[i].second &gt; v[i].second ) continue;</B></FONT>
-            return 0;
+    void GetVec(string&amp; s, vector&lt; pair&lt;char, int&gt; &gt;&amp; vec)
+    {
+        for (int i = 0; i &lt; s.size(); ++i)
+        {
+            if (vec.size() == 0) vec.push_back( {s[i], 1} );
+            else
+            {</B></FONT>
+                if (vec.back().first == s[i]) vec.back().second++;
+                                         else vec.push_back( {s[i], 1} );
+            }
         }
-        
-        return 1;
-    } 
-    
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        auto V = cal(S);
-        int ans = 0;
-        for ( auto &amp;s:words ){
-            auto v = cal(s);
-            ans += check(V,v);
-        }
-        return ans;
     }
 };
 </PRE>

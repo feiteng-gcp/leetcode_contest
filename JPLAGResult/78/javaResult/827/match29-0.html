@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_uwi.java</TITLE>
+ <TITLE>54_lluviay.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>2_uwi.java</CENTER></H3><HR>
+<H3><CENTER>54_lluviay.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
-	    public int expressiveWords(String S, String[] words) {
-	        int[][] fs = tof(S);
-	        int ct = 0;
-	        outer:
-	        for(String w : words){
-	        	int[][] f = tof(w);
-	        	if(fs.length != </B></FONT>f.length)continue;
-	        	for(int i = 0;i &lt; f.length;i++){
-	        		if(fs[i][0] != f[i][0])continue outer;
-	        		if(fs[i][1] &gt;= 3){
-	        			if(f[i][1] &lt;= fs[i][1]){
-	        			}else{
-	        				continue outer;
-	        			}
-	        		}else{
-	        			if(f[i][1] == fs[i][1]){
-	        			}else{
-	        				continue outer;
-	        			}
-<A NAME="1"></A>	        		}
-	        	}
-	        	ct++;
-	        }<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-	        return ct;
-	    }
-	    
-	    int[][] tof(String s)
-	    {
-	    	int n = s.length();</B></FONT>
-	    	int[][] ret = new int[n][];
-	    	int p = 0;
-	    	for(int i = 0;i &lt; n;i++){
-	    		if(i == 0 || s.charAt(i) != s.charAt(i-1)){
-	    			ret[p++] = new int[]{s.charAt(i), 1};
-	    		}else{
-	    			ret[p-1][1]++;
-	    		}
-	    	}
-	    	return Arrays.copyOf(ret, p);
-	    }
-	}	
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+        List&lt;Element&gt; list = transform(S);
+<A NAME="0"></A>        int count = 0;
+        for (String word : words) {
+            List&lt;Element&gt; current = transform(word);
+            if (<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>check(list, current)) {
+                count++;
+            }
+        }
+        return count;
+<A NAME="1"></A>    }</B></FONT>
+    
+    public boolean check(List&lt;Element&gt; a, List&lt;Element&gt; b) {
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (a.size() != b.size()) {
+            return false;
+        }
+        for (int i = 0; i &lt; a.size(); i++) {
+            Element A = a.get(i);
+            Element B = b.get(i);
+            //System.out.println(A.c + &quot;:&quot; + A.count + &quot;,&quot; + B.c + &quot;:&quot; + B.count);
+<A NAME="2"></A>            if (A.c != B.c || (A.count != B.count &amp;&amp; (A.count &lt; 3 || A.count &lt; B.count))) {
+                return false;
+            }</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return true;
+    }
+    
+    public List&lt;Element&gt; transform(String S) {
+        List&lt;Element&gt; result = new</B></FONT> ArrayList&lt;&gt;();
+        if (S.length() == 0) {
+            return result;
+        }
+        char last = S.charAt(0);
+        result.add(new Element(last));
+        for (int i = 1; i &lt; S.length(); i++) {
+            char cur = S.charAt(i);
+            if (cur == last) {
+                result.get(result.size() - 1).count++;
+            } else {
+                result.add(new Element(cur));
+            }
+            last = cur;
+        }
+        return result;
+    }
+    
+    public static class Element {
+        char c;
+        int count;
+        public Element(char c) {
+            this.c = c;
+            count = 1;
+        }
+    }
+}
 </PRE>
 
 </BODY>

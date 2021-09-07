@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>163_fun4LeetCode.java</TITLE>
+ <TITLE>115_hejian2356.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>163_fun4LeetCode.java</CENTER></H3><HR>
+<H3><CENTER>115_hejian2356.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-        List&lt;int[]&gt; groups = new ArrayList&lt;&gt;();
-        
-        for (int i = 0; i &lt; S.length();) {
-            char c = S.charAt(i);
-            int j = i;
-            
-            while (i &lt; S.length() &amp;&amp; S.charAt(i) == c) i++;
-            
-<A NAME="0"></A>            groups.add(new int[] {c - 'a', i - j});
-        }
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int res = 0;
-        
-        for (String word : words) {
-            if (isExtendable(groups, word)) {
-                res++;
+        int cnt = 0;
+        for (String t : words) {
+            if (isStretchy(S, t)) {
+                cnt++;
             }
         }
-        
-        return res;
+        return cnt;
     }
     
-    private boolean isExtendable(List&lt;int[]&gt; groups, String word) {
-        int i = 0</B></FONT>, k = 0;
-        
-        while (k &lt; groups.size() &amp;&amp; i &lt; word.length()) {
-            int[] group = groups.get(k++);
-            char c = word.charAt(i);
-            
-            if (group[0] != c - 'a') return false;
-            
-            int j = i;
-            
-            while (i &lt; word.length() &amp;&amp; word.charAt(i) == c) i++;
-            
-            int count = i - j;
-<A NAME="1"></A>            
-            if (group[1] &lt; count || (group[1] &lt; 3 &amp;&amp; group[1] != i - j)) {
+    boolean isStretchy(String s, String t) {
+        int i = 0, j = 0;
+        while (j &lt; t.length</B></FONT>()) {
+            if (s.charAt(i) != t.charAt(j)) {
                 return false;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            int sta = j;
+            while (j &lt; t.length() &amp;&amp; t.charAt(j) == t.charAt(sta)) {
+                j++;
+            }
+            int len2 = j - sta;
+            sta = i;
+            while (i &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(sta)) {
+                i++;
+            }
+            int len1 = i - sta;
+            if (len1 == len2) {
+                continue;
+            }
+<A NAME="1"></A>            if (len1 &lt; len2) {
+                return false;
+            }
+            if (len1 &gt; len2 &amp;&amp; len1 &lt; 3) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                return false;
+            }
         }
-        
-        return (k == groups.size() &amp;&amp; i == word.length());
+        if (i == s.length() &amp;&amp; j == t.length</B></FONT>()) {
+            return true;
+        }
+        return false;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

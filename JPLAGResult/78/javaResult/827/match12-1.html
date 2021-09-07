@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>124_valgrind.java</TITLE>
+ <TITLE>311_yangxk15.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>124_valgrind.java</CENTER></H3><HR>
+<H3><CENTER>311_yangxk15.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public int expressiveWords(String S, String[] words) {
-        int count = 0;
-        for(String word : words){
-            int i = 0;
-            int j = 0;
-            boolean result = true</B></FONT>;
-            while(i &lt; S.length() &amp;&amp; j &lt; word.length()){
-                char charS = S.charAt(i);
-                char charWord = word.charAt(j);
-                if(charS != charWord){
-<A NAME="1"></A>                    result = false;
-                    break;
-                }
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int countS = 1;
-                int countWord = 1;
-                while(i &lt; S.length() - 1 &amp;&amp; S.charAt(i + 1) == charS){
-                    i++;
-                    countS++;
-                }
-                while(j &lt; word.length() - 1 &amp;&amp; word.charAt(j + 1) == charWord){
-                    j++;
-                    countWord++;
-                }
-                if(countWord &gt; countS || (countWord &lt; countS) &amp;&amp; countS == 2){</B></FONT>
-                    result = false;
-                    break;
-                }
-                i++;
-                j++;
-            }
-            if(result &amp;&amp; i == S.length() &amp;&amp; j == word.length()){
-                count++;
+<A NAME="0"></A>        int num = 0;
+        
+        for (String word : words) {
+            if (isStrechy(S, word)) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                num++;
             }
         }
-        return count;
+        
+        return num;
+    }
+    
+<A NAME="1"></A>    private boolean isStrechy(String s, String w) {
+        if (w.length() == 0) {
+            return</B></FONT> s.length() == 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        if (s.length() &lt; w.length()) {
+            return false;
+        }
+        
+<A NAME="2"></A>        int i = 0</B></FONT>;
+        int j = 0;
+        
+        while (i &lt; s.length() &amp;&amp; j &lt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>w.length()) {
+            if (s.charAt(i) != w.charAt(j)) {
+                return false;
+            }</B></FONT>
+
+            int a = 1;
+            while (i + a &lt; s.length() &amp;&amp; s.charAt(i + a) == s.charAt(i)) {
+                a++;
+            }
+
+            int b = 1;
+            while (j + b &lt; w.length() &amp;&amp; w.charAt(j + b) == w.charAt(j)) {
+                b++;
+            }
+
+            if (a &lt; b || (a &gt; b &amp;&amp; a &lt; 3)) {
+                return false;
+            }
+
+            i += a;
+            j += b;
+        }
+
+        return i == s.length() &amp;&amp; j == w.length();
     }
 }
 </PRE>

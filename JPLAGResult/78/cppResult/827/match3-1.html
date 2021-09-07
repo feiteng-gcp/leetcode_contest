@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>378_zypassword.cpp</TITLE>
+ <TITLE>252_tanghaibao.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,47 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>378_zypassword.cpp</CENTER></H3><HR>
+<H3><CENTER>252_tanghaibao.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
+    vector&lt;char&gt; letters;
+    vector&lt;int&gt; counts;
+    
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        int count = 0;
-      for(int i = 0; i &lt;words.size(); i++) {
-        if(isStretchy(S, words[i])) {
-          count++;
+        tokenize(S, letters, counts);
+        int ans = 0;
+        for (auto &amp;w : words) {
+            if (isExpressive(w)) ans ++;
         }
-      }
-
-      return count;
+        return ans;
     }
     
-    bool isStretchy(string S, string word) {
-      int pos_s = 0;
-      int pos_w = 0;
-      while(pos_s != S.length() &amp;&amp; pos_w != word.length()) {</B></FONT>
-        if(S[pos_s] == word[pos_w]) {
-          int start_s = pos_s;
-          while(pos_s + 1 &lt; S.length() &amp;&amp; S[pos_s + 1] == S[pos_s]) {pos_s++;}
-          pos_s++;
-          int start_w = pos_w;
-          while(pos_w + 1 &lt; word.length() &amp;&amp; word[pos_w + 1] == word[pos_w]) {pos_w++;}
-          pos_w++;
-          int len_s = pos_s - start_s;
-          int len_w = pos_w - start_w;
-          if(len_s != len_w) {
-            if(len_s &lt; len_w || len_s &lt; 3) {
-              return false;
-            }
-          }
-        }else {
-          return false;
+    bool isExpressive(string &amp;s) {
+        vector&lt;char&gt; ll;
+        vector&lt;int&gt; cc;
+        
+        tokenize(s, ll, cc);
+        if (ll.size() != letters.size()) return false;
+        for (int i = 0; i &lt; letters.size(); i ++) {
+            if (ll[i] != letters[i]) return false; // must be of same char
+            if (cc[i] &gt; counts[i]) return false;   // must not exceed target counts
+             // non-extendable counts has to match exactly
+            if (counts[i] &lt; 3 and cc[i] != counts[i]) return false;
         }
-      }
-
-      if(pos_s != S.length() || pos_w != word.length()) {return false;}
-      return true;
-
+<A NAME="0"></A>        return true;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void tokenize(string &amp;s, vector&lt;char&gt;&amp; ll, vector&lt;int&gt;&amp; cc) {
+        for (int i = 0; i &lt; s.size() ; i ++) {
+            if (ll.empty() or s[i] != ll.back()) {
+                ll.push_back(s[i]);
+                cc.push_back(1);
+            } else {
+                cc.back() ++;
+            }
+        }</B></FONT>
+        // for (int i = 0; i &lt; ll.size(); i ++) cout &lt;&lt; ll[i] &lt;&lt; cc[i]; cout &lt;&lt; endl;        
     }
 };
 </PRE>

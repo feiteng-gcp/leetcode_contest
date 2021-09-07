@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>402_jjecii.cpp</TITLE>
+ <TITLE>225_xuchengwen.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>402_jjecii.cpp</CENTER></H3><HR>
+<H3><CENTER>225_xuchengwen.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    void token(string S, vector&lt;string&gt;&amp; tok) {
-        tok.clear();
-        string sub;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; S.size(); ++i) {
-            if (i == 0 || sub.empty() || S[i] == sub.back()) {
-                sub.push_back(S[i]);
-            } else {
-                tok.push_back(sub);
-                sub = S[i];
-            }
-
+<A NAME="0"></A>    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        if(S.length()==0||!words.size()) return 0;
+        vector&lt;pair&lt;char,int&gt;&gt; dp;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int i=0;
+        while(i&lt;S.length()){
+            char ch = S[i];
+            i++;
+            int num = 1;
+            while(i&lt;S.length()&amp;&amp;S[i]==S[i-1]){
+                i++;
+                num++;
+            }</B></FONT>
+            dp.push_back({ch,num});
         }
-        if (sub != &quot;&quot;) {</B></FONT>
-            tok.push_back(sub);
-        }        
-        //for (auto &amp;s: tok) {
-        //    cout&lt;&lt;s&lt;&lt;&quot; &quot;;
-       // }
-        //cout&lt;&lt;endl;
-    }
-    bool cmp(string &amp;s1, string &amp;base) {
-        if (s1[0] != base[0]) return false;
-        if (base.size() &gt; s1.size()) return false;
-        if (s1.size() == base.size()) return true;
-        if (s1.size() &gt;= 3) return true;
-        if ( (s1.size() - base.size()) &gt;= 2 ) return true;
-        return false;
-    }
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        vector&lt;string&gt; tok1;
-        vector&lt;string&gt; tok2;
-        int cnt = 0;
-        token(S, tok1);
-        for (auto &amp;s : words) {
-            token(s, tok2);
-            if (tok1.size() != tok2.size()) continue;
-            bool pass = true;
-            for (int i = 0; i &lt; tok1.size(); ++i) {
-                //cout&lt;&lt;&quot;cmp:&quot;&lt;&lt;tok1[i]&lt;&lt;&quot; - &quot;&lt;&lt;tok2[i]&lt;&lt;&quot; : &quot;&lt;&lt;cmp(tok1[i], tok2[i])&lt;&lt;endl;
-                if (!cmp(tok1[i], tok2[i])) {
-                    pass = false;
+        int res = 0;
+        for(auto st:words){
+            if(!st.length()) continue;
+            if(st==S) continue;
+            vector&lt;pair&lt;char, int&gt;&gt; cur;
+            i = 0;
+            while(i&lt;st.length()){
+                char ch = st[i];
+                i++;
+                int num = 1;
+                while(i&lt;st.length()&amp;&amp;st[i]==st[i-1]){
+                    i++;
+                    num++;
+                }
+                cur.push_back({ch,num});
+            }
+            if(cur.size()!=dp.size()) continue;
+            bool f = true;
+            for(int j=0;j&lt;dp.size();j++){
+                //cout&lt;&lt;dp[j].second&lt;&lt;&quot; &quot;&lt;&lt;cur[j].second&lt;&lt;endl;
+                if(dp[j].first!=cur[j].first||dp[j].second&lt;cur[j].second){
+                    f = false;
                     break;
                 }
+                if((dp[j].second&gt;cur[j].second&amp;&amp;dp[j].second&gt;=3)||dp[j].second==cur[j].second)continue;
+                else {
+                    f = false;
+                    break;
+                }
+                
             }
-            if (pass) {
-                ++cnt;
-            }
+            if(f) res++;
         }
-        return cnt;
-        
+        return res;
     }
 };
 </PRE>

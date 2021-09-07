@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>163_fun4LeetCode.java</TITLE>
+ <TITLE>176_XuhuiWang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>163_fun4LeetCode.java</CENTER></H3><HR>
+<H3><CENTER>176_XuhuiWang.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int expressiveWords(String S, String[] words) {
-        List&lt;int[]&gt; groups = new ArrayList&lt;&gt;();
-        
-        for (int i = 0; i &lt; S.length();) {
-            char c = S.charAt(i);
-            int j = i;
-            
-            while (i &lt; S.length() &amp;&amp; S.charAt(i) == c) i++;
-            
-            groups.add(new int[] {c - 'a', i - j});
-        }
-        
-        int res = 0;
-        
-<A NAME="0"></A>        for (String word : words) {
-            if (isExtendable(groups, word)) {
-                res++;
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        
-        return res;
-    }
-    
-    private boolean isExtendable(List&lt;int[]&gt; groups, String word) {
-        int i = 0, k = 0;
-        
-        while (k &lt; groups.size() &amp;&amp; i &lt; word.length()) {</B></FONT>
-            int[] group = groups.get(k++);
-            char c = word.charAt(i);
-            
-            if (group[0] != c - 'a') return false;
-            
-            int j = i;
-            
-            while (i &lt; word.length() &amp;&amp; word.charAt(i) == c) i++;
-            
-            int count = i - j;
-<A NAME="1"></A>            
-            if (group[1] &lt; count || (group[1] &lt; 3 &amp;&amp; group[1] != i - j)) {
-                return false;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        
-        return (k == groups.size() &amp;&amp; i == word.length());
-    }
+public class Solution {
+	public int expressiveWords(String S, String[] words) {
+		List&lt;int[]&gt; list = compress(S);
+<A NAME="0"></A>		int cntRes = 0;
+		for (String word : words) {
+			List&lt;int[]&gt; newList = compress(word);
+			if (newList.size() == list.size() &amp;&amp; canExt<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>end(list, newList))
+			{
+				cntRes++;
+			}
+		}
+		return cntRes;
+<A NAME="1"></A>	}</B></FONT>
+
+	private boolean canExtend(List&lt;int[]&gt; list, List&lt;int[]&gt; newList) {
+		for (int i = 0<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; i &lt; list.size(); ++i) {
+			int[] before = newList.get(i), after = list.get(i);
+<A NAME="2"></A>			if (before[0] != after[</B></FONT>0])
+				return false;
+			if (!(before[1] == after[1] || (before[1] &lt; after[1] &amp;&amp; after[1] &gt;= 3)))
+				return false;<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		}
+		return true;
+	}
+
+	private List&lt;int[]&gt; compress(String s) {
+		List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
+		int pre = -1, cnt = 0;
+		for (char ch : s.toCharArr</B></FONT>ay()) {
+			int idx = ch - 'a';
+			if (idx == pre) {
+				cnt++;
+			} else {
+				if (cnt &gt; 0) {
+<A NAME="3"></A>					res.add(new int[]{pre, cnt});
+				}
+				pre = idx;
+				cnt = 1;<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+			}
+		}
+		if (cnt &gt; 0) {
+			res.add(new int[]{pre, cnt});
+		}
+		return res;
+	}
 }</B></FONT>
 </PRE>
 

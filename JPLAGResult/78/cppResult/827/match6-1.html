@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>11_NEU20133823.cpp</TITLE>
+ <TITLE>21_Netario36.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,76 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>11_NEU20133823.cpp</CENTER></H3><HR>
+<H3><CENTER>21_Netario36.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    struct fff
-{
-	char s;
-	int cnt;
-};
-<A NAME="0"></A>    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        int l=S.size(),n=words.size();
-	vector&lt;fff&gt; v;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int num=1;
-	for(int i=1;i&lt;l;i++)
-	{
-		if(S[i]==S[i-1])num++;
-		else
-		{
-			fff news;
-			news.s=S[i-1];
-			news.cnt=num;
-			v.push_back(news);
-			num=1;
-		}
-	}</B></FONT>
-	fff news;
-	news.s=S[l-1];
-	news.cnt=num;
-	v.push_back(news);
-	int tot=v.size();
-	int ans=0;
-<A NAME="1"></A>	for(int c=0;c&lt;n;c++)
-	{
-		int len=words[c].size();
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		int num=1;
-		vector&lt;fff&gt; now;
-		for(int i=1;i&lt;len;i++)
-		{
-			if(words[c][i]==words[c][i-1])num++;
-			else
-			{
-				fff news;
-				news.s=words[c][i-1];
-				news.cnt=num;
-				now.push_back(news);
-				num=1;
-			}
-		}</B></FONT>
-		fff news;
-		news.s=words[c][len-1];
-		news.cnt=num;
-		now.push_back(news);
-		if(now.size()!=tot)continue;
-		int ok=1;
-		for(int i=0;i&lt;tot;i++)
-		{
-			if(v[i].s!=now[i].s)
-			{
-				ok=0;
-				break;
-			}
-			if(v[i].cnt&lt;now[i].cnt||(v[i].cnt==2&amp;&amp;now[i].cnt==1))
-			{
-				ok=0;
-				break;
-			}
-		}
-		ans=ans+ok;
-	}
-	return ans;
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        int ret = 0;
+        for (auto&amp; word : words){
+            //cout &lt;&lt; &quot;#####&quot; &lt;&lt; endl;
+            int i = 0, j = 0;
+            bool h = true;
+            while (true){
+                if (i == S.size() &amp;&amp; j == word.size()) break;
+                if (i &gt;= S.size() || j &gt;= word.size()){
+                    h = false;
+                    break;
+                }
+                if (S[i] != word[j]){
+                    h = false;
+                    break;
+                }
+                int ci = 1, cj = 1;
+                while (i + 1 &lt; S.size() &amp;&amp; S[i] == S[i + 1]){
+<A NAME="0"></A>                    i ++;
+                    ci ++;
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                while (j + 1 &lt; word.size() &amp;&amp; word[j] == word[j + 1]){
+                    j ++;
+                    cj ++;
+                }
+                //cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; j &lt;&lt; ' ' &lt;&lt; ci &lt;&lt; ' ' &lt;&lt; cj &lt;&lt; endl;
+                if (ci != cj){
+                    if (!(ci &gt;= 3 &amp;&amp; ci &gt;= cj)){
+                        h = false;
+                        break;
+                    }
+                }
+                i ++;
+                j ++;
+            }</B></FONT>
+            if (h) ret ++;
+        }
+        return ret;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>115_hejian2356.java</TITLE>
+ <TITLE>242_XinyuanGGG.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>115_hejian2356.java</CENTER></H3><HR>
+<H3><CENTER>242_XinyuanGGG.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
     public int expressiveWords(String S, String[] words) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cnt = 0;
-        for (String t : words) {
-            if (isStretchy(S, t)) {
-                cnt++;
+<A NAME="0"></A>        if (words == null || words.length == 0) {
+            return 0;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int count = 0;
+        for (String word : words) {
+            if (isExpanded(S, word)) {
+                count++;
             }
         }
-        return cnt;
+        return count;
     }
     
-    boolean isStretchy(String s, String t) {
-        int i = 0, j = 0;
-        while (j &lt; t.length</B></FONT>()) {
-            if (s.charAt(i) != t.charAt(j)) {
+    private boolean isExpanded(String S, String word) {
+        if (S.equals(word)) {
+            return</B></FONT> true;
+        } else if (S.length() &lt; word.length()) {
+            return false;
+        }
+        
+        int nS = S.length();
+        int nWord = word.length();
+<A NAME="1"></A>        int iS = 0;
+        int iWord = 0;
+        while (iS &lt; nS &amp;&amp; iWord &lt; nWord) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (S.charAt(iS) != word.charAt(iWord)) {
                 return false;
             }
-            int sta = j;
-            while (j &lt; t.length() &amp;&amp; t.charAt(j) == t.charAt(sta)) {
-                j++;
+            int sLength = 0;
+            char first = S.charAt(iS)</B></FONT>;
+            while (iS &lt; nS &amp;&amp; S.charAt(iS) == first) {
+                iS++;
+                sLength++;
             }
-            int len2 = j - sta;
-            sta = i;
-            while (i &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(sta)) {
-                i++;
+            int wordLength = 0;
+            while (iWord &lt; nWord &amp;&amp; word.charAt(iWord) == first) {
+                iWord++;
+                wordLength++;
             }
-            int len1 = i - sta;
-            if (len1 == len2) {
+            if (sLength == wordLength || sLength &gt; wordLength &amp;&amp; sLength &gt;= 3) {
                 continue;
-            }
-            if (len1 &lt; len2) {
-                return false;
-            }
-            if (len1 &gt; len2 &amp;&amp; len1 &lt; 3) {
+            } else {
                 return false;
             }
         }
-        if (i == s.length() &amp;&amp; j == t.length()) {
-            return true;
-        }
-        return false;
+        return iS == nS &amp;&amp; iWord == nWord;
     }
 }
 </PRE>

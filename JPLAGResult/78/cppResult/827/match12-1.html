@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>196_DhunterAO.cpp</TITLE>
+ <TITLE>132_liuyubobobo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>196_DhunterAO.cpp</CENTER></H3><HR>
+<H3><CENTER>132_liuyubobobo.cpp</CENTER></H3><HR>
 <PRE>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+
 class Solution {
 public:
-int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-    int len = words.size();
-    int slen = S.length();
-    int cnt = 0;
-    for (int i=0;i&lt;len;i++)
-    {
-        string word = words[i];
-        int l = word.length();
-        int j=0,k=0;
-        int flag = 0;
-        while (j&lt;l &amp;&amp; k&lt;slen)
-        {
-            if (S[k] != word[j])
-            {
-                flag = 1;
-<A NAME="0"></A>                break;
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+
+        vector&lt;string&gt; S_groups = get_groups(S);
+
+        int res = 0;
+        for(const string&amp; word: words)
+            if(ok(word, S_groups)){
+                // cout &lt;&lt; &quot;ok!&quot; &lt;&lt; word &lt;&lt; endl;
+                res ++;
             }
-            int cnt1 = 0;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            char tmp = S[k];
-            while (k&lt;slen &amp;&amp; S[k] == tmp)
-            {
-                k++;
-                cnt1++;
-            }
-            int cnt2 = 0;
-            while (j&lt;l &amp;&amp; word[j] == tmp)
-            {
-                j++;
-                cnt2++;
-            }
-            if (cnt1-cnt2&lt;0 || (cnt1-cnt2&gt;0 &amp;&amp; cnt1&lt;3))
-            {
-                flag = 1;
-                break;
-            }
-        }</B></FONT>
-        if (flag || j&lt;l || k&lt;slen)
-            cnt--;
-        cnt++;
+        return res;
     }
-    return cnt;
-}
+
+<A NAME="0"></A>private:
+    bool ok(const string&amp; s, const vector&lt;string&gt;&amp; S_groups){
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;string&gt; s_groups = get_groups(s);
+        if(s_groups.size() != S_groups.size())
+            return false;
+
+        for(int i = 0 ; i &lt; s_groups.size() ; i ++){
+            if(s_groups[i][0] != S_groups[i][0])
+                return false;
+            if(s_groups[i].size() &gt; S_groups[i].size())
+                return false;</B></FONT>
+            if(s_groups[i].size() == S_groups[i].size())
+                continue;
+
+            assert(s_groups[i].size() &lt; S_groups[i].size());
+            if(S_groups[i].size() &lt;= 2)
+                return false;
+        }
+        return true;
+    }
+
+    vector&lt;string&gt; get_groups(const string&amp; s){
+        vector&lt;string&gt; res;
+        int start = 0;
+        for(int i = start + 1 ; i &lt;= s.size() ; )
+            if(i == s.size() || s[i] != s[start]){
+                res.push_back(s.substr(start, i - start));
+                start = i;
+                i = start + 1;
+            }
+            else
+                i ++;
+        return res;
+    }
 };
 </PRE>
 </BODY>

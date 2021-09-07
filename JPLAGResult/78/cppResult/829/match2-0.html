@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>91_fivebingstar.cpp</TITLE>
+ <TITLE>386_streammy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>91_fivebingstar.cpp</CENTER></H3><HR>
+<H3><CENTER>386_streammy.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; cpdomains) {
-        unordered_map&lt;string, int&gt; mm;
-        int n = cpdomains.size();
-        for(int i = 0; i &lt; n; i++){
-            string s = cpdomains[i], rec;</B></FONT>
-            bool found = false;
-            int count;
-            for(int j = 0; j &lt; s.size(); j++){
-                char c = s[j];
-                if(!found &amp;&amp; c &gt;= '0' &amp;&amp; c &lt;= '9') rec += c;
-                if(c == ' ') {
-                    found = true;
-                    count = stoi(rec);
-                    mm[s.substr(j+1)] += count;
-                }
-                if(c == '.') mm[s.substr(j+1)] += count;
+        vector&lt;string&gt; result;
+        unordered_map&lt;string, int&gt; map;
+        for (auto s: cpdomains) {
+            int num = 0;
+            int loc = s.find(' ');
+            num = stoi(s.substr(0, loc));</B></FONT>
+            
+            int len = loc;
+            s = s.substr(loc + 1, s.size() - len);
+            map[s] += num;
+            
+            while (1) {
+                int loc = s.find('.');
+                if (loc == s.npos) break;
+                
+                string domain = s.substr(loc + 1, s.size() - loc);
+                map[domain] += num;
+                s = domain;
             }
         }
-        vector&lt;string&gt; result;
-        for(auto it = mm.begin(); it != mm.end(); ++it){
-            string s = to_string(it-&gt;second) + &quot; &quot; + it-&gt;first;
-            result.push_back(s);
+        
+        for (auto p: map) {
+            result.push_back(to_string(p.second) + &quot; &quot; + p.first);
         }
         return result;
     }

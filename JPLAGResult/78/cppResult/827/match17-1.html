@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_frostfrog.cpp</TITLE>
+ <TITLE>225_xuchengwen.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>38_frostfrog.cpp</CENTER></H3><HR>
+<H3><CENTER>225_xuchengwen.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        auto target = make(S);
-        
-        int cnt = 0;
-        for (int i = 0; i &lt; words.size(); ++i) {
-            if (match(target, make(words[i]))) {
-                cnt++;
+        if(S.length()==0||!words.size()) return 0;
+        vector&lt;pair&lt;char,int&gt;&gt; dp;
+        int i=0;
+        while(i&lt;S.length()){
+            char ch = S[i];
+            i++;
+            int num = 1;
+            while(i&lt;S.length()&amp;&amp;S[i]==S[i-1]){
+                i++;
+                num++;
             }
+            dp.push_back({ch,num});
         }
-        
-        return cnt;
-    }
-    
-    vector&lt;pair&lt;char, int&gt;&gt; make(string &amp;S) {
-        vector&lt;pair&lt;char, int&gt;&gt; table;
-        int j= 0;
-        for (int i = 0; i &lt; S.size(); ++i) {
-            if (S[i] != S[j]) {
-<A NAME="0"></A>                table.emplace_back(S[j], i - j);
-                j = i;
+        int res = 0;
+        for(auto st:words){
+            if(!st.length()) continue;
+            if(st==S) continue;
+            vector&lt;pair&lt;char, int&gt;&gt; cur;
+            i = 0;
+            while(i&lt;st.length()){
+                char ch = st[i];
+                i++;
+                int num = 1;
+                while(i&lt;st.length()&amp;&amp;st[i]==st[i-1]){
+                    i++;
+                    num++;
+<A NAME="0"></A>                }
+                cur.push_back({ch,num});
             }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
-        
-        table.emplace_back(S[j], S.size() - j);
-        
-        return table;
-    }
-    
-    bool match(vector&lt;pair&lt;char, int&gt;&gt; &amp;l, vector&lt;pair&lt;char, int&gt;&gt; &amp;&amp;r)
-    {
-        if (l.size() != r.size()) return false;
-        for (int i = 0; i &lt; l.size(); ++i) {
-            
-            if (l[i].first != r[i].first) return false;
-      //      printf(&quot;%c %d %d \n&quot;, l[i].first, l[i].second, r[i].second);
-            if (l[i].second &lt; r[i].second) return false;</B></FONT>
-            if (l[i].second == 2 &amp;&amp; r[i].second == 1) return false;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(cur.size()!=dp.size()) continue;
+            bool f = true;
+            for(int j=0;j&lt;dp.size();j++){
+                //cout&lt;&lt;dp[j].second&lt;&lt;&quot; &quot;&lt;&lt;cur[j].second&lt;&lt;endl;
+                if(dp[j].first!=cur[j].first||dp[j].second&lt;cur[j].second){
+                    f = false;
+                    break;
+                }</B></FONT>
+                if((dp[j].second&gt;cur[j].second&amp;&amp;dp[j].second&gt;=3)||dp[j].second==cur[j].second)continue;
+                else {
+                    f = false;
+                    break;
+                }
+                
+            }
+            if(f) res++;
         }
-        
-        return true;
+        return res;
     }
 };
 </PRE>

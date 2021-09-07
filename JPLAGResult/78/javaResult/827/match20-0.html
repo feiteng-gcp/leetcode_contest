@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>463_Kuvu.java</TITLE>
+ <TITLE>54_lluviay.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,75 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>463_Kuvu.java</CENTER></H3><HR>
+<H3><CENTER>54_lluviay.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;WordGroup&gt; sGroup = groupify(S);
-        int count = 0;
+        List&lt;Element&gt; list = transform(S);
+<A NAME="1"></A>        int count = 0;
         for (String word : words) {
-            List&lt;WordGroup&gt; groupedWord = groupify(word);
-            if (sGroup.size() != groupedWord.size()) {
-                continue; // impossible to stretch
-            }
-            
-            boolean valid = true</B></FONT>;
-            boolean stretched = false;
-            for (int i = 0; i &lt; sGroup.size(); i++) {
-                if (sGroup.get(i).c != groupedWord.get(i).c) {
-                    valid = false;
-                    break;
-                }
-                int lettersNeeded = sGroup.get(i).count;
-                int lettersHave = groupedWord.get(i).count;
-                if (lettersHave &gt; lettersNeeded) {
-                    valid = false;
-                    break;
-                }
-                int diff = Math.abs(lettersNeeded - lettersHave);
-                if (diff == 0) {
-                    continue;
-<A NAME="1"></A>                } else {
-                    stretched = true;
-                }
-                if (lettersNeeded &lt; 3) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-                    valid = false;
-                    break;
-                }
-            }
-            
-<A NAME="2"></A>            if (valid &amp;&amp; stretched) {</B></FONT>
-                System.out.println(word);
+            List&lt;Element&gt; current = transform(word);
+            if (check</B></FONT>(list, current)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
                 count++;
-            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
         }
         return count;
     }
     
-    private List&lt;WordGroup&gt; groupify(String s) {
-        List&lt;WordGroup&gt; list = new ArrayList&lt;&gt;();
-        if (s.isEmpty()) {
-            return list; 
+    public boolean check(List&lt;Element&gt; a, List&lt;Element&gt; b) {</B></FONT>
+<A NAME="2"></A>        if (a.size() != b.size()) {
+            return false;
         }
-        WordGroup cur = new WordGroup(s.charAt(0))</B></FONT>;
-        for (int i = 1; i &lt; s.length(); i++) {
-            if (s.charAt(i) == s.charAt(i-1)) {
-                cur.count++; 
-            } else {
-                list.add(cur);
-                cur = new WordGroup(s.charAt(i));
-            }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; a.size(); i++) {
+            Element A = a.get(i);
+            Element B = b.get(i);
+<A NAME="3"></A>            //System.out.println(A.c + &quot;:&quot; + A.count + &quot;,&quot; + B.c + &quot;:&quot; + B.count);
+            if</B></FONT> (A.c != B.c || (A.count != B.count &amp;&amp; (A.count &lt; 3 || A.count &lt; B.count))) {
+                return false;
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match20-1.html#3',3,'match20-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
-        list.add(cur);
-        return list;
+        return true;
     }
     
-    private class WordGroup {
+    public List&lt;Element&gt; transform(String S) {
+        List&lt;Element&gt; result = new</B></FONT> ArrayList&lt;&gt;();
+        if (S.length() == 0) {
+            return result;
+        }
+        char last = S.charAt(0);
+        result.add(new Element(last));
+        for (int i = 1; i &lt; S.length(); i++) {
+            char cur = S.charAt(i);
+            if (cur == last) {
+                result.get(result.size() - 1).count++;
+            } else {
+                result.add(new Element(cur));
+            }
+            last = cur;
+        }
+        return result;
+    }
+    
+    public static class Element {
         char c;
         int count;
-        public WordGroup(char c) {
+        public Element(char c) {
             this.c = c;
-            this.count = 1;
+            count = 1;
         }
     }
 }

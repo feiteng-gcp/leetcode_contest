@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>156_changeme.java</TITLE>
+ <TITLE>187_Liangyulin.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,82 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>156_changeme.java</CENTER></H3><HR>
+<H3><CENTER>187_Liangyulin.java</CENTER></H3><HR>
 <PRE>
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.stream.Collectors;
-<A NAME="0"></A>import java.util.stream.Stream;
-
-// 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Solution {
-
-	public int expressiveWords(String S, String[] words) {
-
-		int res = 0;
-
-<A NAME="1"></A>		for (int i = 0; i &lt; words.length; i++) {
-			if (g(S, words[i])) {</B></FONT>
-				res++;
-			}<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-		}
-
-		return res;
-	}
-
-	private boolean g(String A, String B) {</B></FONT>
-
-		if (A.equals(B)) {
-			return true;
-		}
-
-		char[] a = A.toCharArray();
-		char[] b = B.toCharArray();
-
-		if (a.length &lt;= b.length) {
-			return false;
-		}
-
-		String[] ga = A.split(&quot;(?&lt;=(.))(?!\\1)&quot;);
-		String[] gb = B.split(&quot;(?&lt;=(.))(?!\\1)&quot;);
-
-		if (ga.length != gb.length) {
-			return false;
-		}
-
-		for (int i = 0; i &lt; ga.length; i++) {
-			if (ga[i].equals(gb[i])) {
-				continue;
-			}
-			if (ga[i].length() &lt; gb[i].length()) {
-				return false;
-			}
-			if (ga[i].length() == 2) {
-				return false;
-			}
-			if (ga[i].charAt(0) != gb[i].charAt(0)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(new Solution().expressiveWords(&quot;heeellooo&quot;, new String[] { &quot;hello&quot;, &quot;hi&quot;, &quot;helo&quot; }));
-	}
-
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+<A NAME="0"></A>        int res = 0;
+        for(int i = 0; i &lt; words.length; i++) {
+            if(isStretchy(S, words[i]))
+                res++<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        
+        return res;
+    }
+<A NAME="1"></A>    
+    private boolean isStretchy(String src, String des) {
+        if(des.length</B></FONT>() &gt; src.length())
+            return false<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        
+        char[] sc = src.toCharArray();
+        char[] dc = des.toCharArray();
+        
+        int indexS = 0, indexD = 0;
+        while(indexS &lt; sc.length &amp;&amp; indexD &lt; dc.length) {
+            if</B></FONT>(sc[indexS] != dc[indexD])
+                return false;
+            
+            int countS = 1;
+            indexS++;
+            while(indexS &lt; sc.length &amp;&amp; sc[indexS] == sc[indexS - 1]) {
+                indexS++;
+                countS++;
+            }
+            
+            int countD = 1;
+            indexD++;
+            while(indexD &lt; dc.length &amp;&amp; dc[indexD] == dc[indexD - 1]) {
+                indexD++;
+                countD++;
+            }
+            
+            if(countS &lt; countD)
+                return false;
+            
+            if(countS != countD &amp;&amp; countS &lt; 3)
+                return false;
+        }
+        
+        return indexS == sc.length &amp;&amp; indexD == dc.length;
+        
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>170_cygnus.cpp</TITLE>
+ <TITLE>258_mravikiran.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>170_cygnus.cpp</CENTER></H3><HR>
+<H3><CENTER>258_mravikiran.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        vector&lt;pair&lt;char, int&gt;&gt; s;
-        for (auto c: S)
-        {
-            if (s.empty() || s.back().first != c)
-            {
-                s.push_back({c,1});
-            }
-            else
-            {
-                s.back().second++;
-            }
+    bool canBeStretched(string &amp; S, string &amp; K, int si, int ki, int sl, int kl){
+        
+        if((ki == kl &amp;&amp; si != sl) || (si == sl &amp;&amp; ki != kl)){
+            return false;
         }
-        int res = 0;
-        for (auto word: words)
-        {
-            vector&lt;pair&lt;char, int&gt;&gt; w;
-            for (auto c: word)
-            {
-                if (w.empty() || w.back().first != c)
-                {
-                    w.push_back({c, 1});
-                }
-                else
-                {
-                    w.back().second++;
-                }
-            }
-            if (w.size() != s.size())
-<A NAME="0"></A>            {
-                continue;
-            }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool shouldAdd = true;
-            for (int i = 0; i &lt; s.size(); i++)
-            {
-                if (s[i].first != w[i].first || s[i].second &lt; w[i].second || (s[i].second &lt; 3 &amp;&amp; s[i].second != w[i].second))
-                {
-                    shouldAdd = false; 
-                    break;
-                }
-            }
-            if (shouldAdd)
-            {
-                res++;
-            }
+        if(si == sl &amp;&amp; ki == kl )
+            return true;
+        if(S[si] != K[ki])
+            return false;
+        char sc = S[si];
+        int scount = 0;
+        while(si &lt; sl &amp;&amp; S[si] == sc){
+            si++;
+            scount++;
         }
-        return res;
+<A NAME="0"></A>        char kc = K[ki];
+        int kcount = 0;
+        while(ki &lt; kl &amp;&amp; K[ki] == kc){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            ki++;
+            kcount++;
+        }
+        if(scount == kcount || scount &gt;=3) {
+            //cout&lt;&lt;&quot;si : ki :: &quot;&lt;&lt;si&lt;&lt;&quot;,&quot;&lt;&lt;ki&lt;&lt;&quot; S[si] : K[ki] :: &quot;&lt;&lt;S[si]&lt;&lt;&quot;,&quot;&lt;&lt;K[ki]&lt;&lt;endl;
+            return canBeStretched(S, K, si, ki, sl, kl);
+        }
+        
+        return false;
     }
-};</B></FONT>
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        int sl = S.length();</B></FONT>
+        int count = 0;
+        for(auto k : words){
+            cout&lt;&lt;&quot;Doing for word : &quot;&lt;&lt;k&lt;&lt;endl;
+            if(canBeStretched(S, k, 0, 0, sl, k.length()))
+                count++;
+        }
+        return count;
+        
+    }
+};
 </PRE>
 </BODY>
 </HTML>

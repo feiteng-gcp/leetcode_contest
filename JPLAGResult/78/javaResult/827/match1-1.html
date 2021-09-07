@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>206_fcxjlsw.java</TITLE>
+ <TITLE>309_Bing_Wu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>206_fcxjlsw.java</CENTER></H3><HR>
+<H3><CENTER>309_Bing_Wu.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int expressiveWords(String S, String[] words) {
-        int res = 0;
-        for(String word : words) {
-            if(isStrechy(S, word)) {
-                res ++;
+        int result = 0;
+        for (String word : words) {
+            if (helper(S, word)) {
+                result++;
             }
         }
-        return res;
+<A NAME="1"></A>        return result;
     }
-    
-    public boolean isStrechy(String S, String word) {
-        int i = 0;
-        int j = 0</B></FONT>;
-<A NAME="1"></A>        if(S.length() &lt; word.length()) {
-            return false;
-        }
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(i&lt;S.length() &amp;&amp; j&lt;word.length()) {
-            int count = 0;
-            char tmp = ' ';
-            while(i&lt;S.length() &amp;&amp; (tmp == ' ' || S.charAt</B></FONT>(i) == tmp)) {
-                
-                count++;
-                tmp = S.charAt(i);
-                i++;
+    private boolean helper(String S, String word) {</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int i = 0;
+        int j = 0;
+        while (i &lt; S.length() &amp;&amp; j &lt; word.length()) {
+            if (S.charAt(i) != word.charAt(j)) {
+                return false;
             }
-            if(count &lt; 3) {
-                for(int l=0;l&lt;count;j++, l++) {
-                    if(j&gt;=word.length() || word.charAt(j)!=tmp) {
-                        return false;
-                    }
-                }
-            } else {
-                int countW = 0;
-                while(j&lt;word.length() &amp;&amp; word.charAt(j) == tmp) {
-                    j++;
-                    countW++;
-                }
-                if(countW &gt; count || countW==0) {
-                    return false;
-                }
+            int count1 = 1</B></FONT>;
+            int count2 = 1;
+            while (i &lt; S.length() - 1 &amp;&amp; S.charAt(i + 1) == S.charAt(i)) {
+<A NAME="2"></A>                i++;
+                count1++;
             }
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (j &lt; word.length() - 1 &amp;&amp; word.charAt(j + 1) == word.charAt(j)) {
+                j++;
+                count2++;
+            }
+            if (count1 != count2 &amp;&amp; count1 &lt; 3) {
+                return false;
+            }
+            i++;
+            j++;
+        }</B></FONT>
+        if (i == S.length() &amp;&amp; j == word.length()) {
+            return true;
         }
-        return i==S.length() &amp;&amp; j==word.length();
+        return false;
     }
 }
 </PRE>

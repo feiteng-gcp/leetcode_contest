@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>15_txingml.cpp</TITLE>
+ <TITLE>222_saini-rahul.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,51 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>15_txingml.cpp</CENTER></H3><HR>
+<H3><CENTER>222_saini-rahul.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-<A NAME="0"></A>    int solve (vector&lt;int&gt; &amp; cnt, string &amp; cond, string &amp; word) {
-        string tmpd;
-        vector&lt;int&gt; tmpt;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; word.size(); i++) {
-            if (i == 0 || word[i-1] != word[i]) {
-                tmpd.push_back(word[i]);
-                tmpt.push_back(1);
-            }
-            else {
-                tmpt.back()++;
-            }
-        }
-        if (tmpd != cond) return 0;</B></FONT>
-        for (int i = 0; i &lt; cond.size(); i++) {
-            if (tmpt[i] == cnt[i]) continue;
-            if (tmpt[i] &gt; cnt[i]) return 0;
-            if (tmpt[i] &lt; cnt[i] &amp;&amp; cnt[i] &gt;= 3) continue;
-            return 0;
-        }
-        return 1;
+<A NAME="0"></A>public:
+    string breakStretch(string S, vector&lt;int&gt;&amp; repeat){//returns diluted string
         
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int i =0, n =S.size();
+        string dilute;
+        while(i&lt;n){
+            char prevChar = S[i++];
+            int count = 1;
+            while(i&lt;n &amp;&amp; S[i] == prevChar){
+                ++count;
+                ++i;
+            }</B></FONT>
+            
+            stringstream ss;
+            ss&lt;&lt;prevChar;
+            string temp;
+            ss&gt;&gt;temp;
+            dilute += temp;
+            
+            repeat.push_back(count);
+            
+        }
+        
+        return dilute;
     }
-    
-    int expressiveWords(string s, vector&lt;string&gt;&amp; words) {
-        string cond;
-        vector&lt;int&gt; cnt;
-        for (int i = 0; i &lt; s.size(); i++) {
-            if (i == 0 || s[i-1] != s[i]) {
-                cond.push_back(s[i]);
-                cnt.push_back(1);
-            }
-            else {
-                cnt.back()++;
-            }
-        }
-        int ret = 0;
-        for (string &amp; word : words) {
-            ret += solve(cnt, cond, word);
-        }
-        return ret;
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;int&gt; repeat;
+        string dilute = breakStretch(S,repeat);
         
+        int res = 0;
+        for(int i =0; i&lt;words.size(); ++i){
+            string word = words[i];
+            vector&lt;int&gt; pos;
+            string dilutedW = breakStretch(word,pos);
+            
+            if(dilute != dilutedW)
+                continue;
+            bool ok = true;
+            for(int j =0; j&lt;repeat.size(); ++j){
+                if(repeat[j] &lt; 3){
+                    if(repeat[j] != pos[j]){
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+            
+            if(!ok)
+                continue;
+            
+            ++res;
+        }
+        
+        return res;
     }
 };
 </PRE>

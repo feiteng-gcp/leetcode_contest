@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_brendon4565.cpp</TITLE>
+ <TITLE>227_lijinglun.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_brendon4565.cpp</CENTER></H3><HR>
+<H3><CENTER>227_lijinglun.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; a) {
-        
-        vector&lt;string&gt; ret;
-        
-        
-        unordered_map&lt;string, int&gt; cnt;
-        
-        int n = a.size();
-        
-        for(int i=0; i&lt;n; i++){
-            
-            
-            string ss = a[i];</B></FONT>
-            
-            stringstream buf(ss);
-            
-            int rep;
-            string s;
-            
-            
-            
-            buf &gt;&gt; rep &gt;&gt; s;
-            
-            //cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;
-            
-            
-            int m = s.size();
-            
-            int j=0;
-            while(j&lt;m){
-                cnt[s.substr(j)]+= rep;
-                while(j&lt;m &amp;&amp; s[j] != '.'){
-                    j++;
+        map&lt;string, int&gt; d;
+        for (auto line : a) {
+            int p = line.find(' ');
+            int cnt = stoi(line.substr(0, p).c_str());
+            line = line.substr(p + 1);</B></FONT>
+            while (!line.empty()) {
+                d[line] += cnt;
+                p = line.find('.');
+                if (p != string::npos) {
+                    line = line.substr(p + 1);
+                } else {
+                    line = &quot;&quot;;
                 }
-                j++;
             }
         }
-        
-        //cout &lt;&lt; &quot;hello&quot; &lt;&lt; endl;
-    
-        for(auto it = cnt.begin(); it!= cnt.end(); it++){
-            ret.push_back(to_string(it-&gt;second) + &quot; &quot; + it-&gt;first);
+        vector&lt;string&gt; ans;
+        for (auto p : d) {
+            string res = to_string(p.second) + &quot; &quot; + p.first;
+            ans.push_back(res);
         }
-        
-        return ret;
+        return ans;
     }
 };
 </PRE>

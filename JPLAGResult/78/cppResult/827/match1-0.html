@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>38_frostfrog.cpp</TITLE>
+ <TITLE>48_oa5cuxe0To3.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,81 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>38_frostfrog.cpp</CENTER></H3><HR>
+<H3><CENTER>48_oa5cuxe0To3.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
+    string derepeat(string s)
+	{
+		string res;
+		int id = 0;
+		for (; id &lt; s.size(); id++)
+		{
+			if (!id)
+				res += s[0];
+			else if (s[id] == s[id - 1])
+				continue;
+			else
+				res += s[id];
+		}
+		return res;
+	}
+	void getgroup(string s,vector&lt;string&gt;&amp; ve)
+	{
+		int n = s.size();
+		string res;
+		for (int id = 0; id &lt; n; id++)
+		{
+			if (id == 0)
+				res = s[0];
+			else if (s[id] != s[id - 1])
+			{
+				ve.push_back(res);
+				res = s[id];
+			}
+			else
+				res += s[id];
+		}
+		ve.push_back(res);
+	}
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        auto target = make(S);
-        
-        int cnt = 0;
-        for (int i = 0; i &lt; words.size(); ++i) {
-            if (match(target, make(words[i]))) {
-                cnt++;
-            }
-        }
-        
-        return cnt;
-    }
-    
-    vector&lt;pair&lt;char, int&gt;&gt; make(string &amp;S) {
-        vector&lt;pair&lt;char, int&gt;&gt; table;
-        int j= 0;
-        for (int i = 0; i &lt; S.size(); ++i) {
-<A NAME="0"></A>            if (S[i] != S[j]) {
-                table.emplace_back(S[j], i - j);
-                j = i;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
-        }
-        
-        table.emplace_back(S[j], S.size() - j);
-        
-        return table;
-    }
-    
-    bool match(vector&lt;pair&lt;char, int&gt;&gt; &amp;l, vector&lt;pair&lt;char, int&gt;&gt; &amp;&amp;r)
-    {
-        if (l.size() != r.size()) return false;
-        for (int i = 0; i &lt; l.size(); ++i) {
-            
-            if (l[i].first != r[i].first) return false;
-      //      printf(&quot;%c %d %d \n&quot;, l[i].first, l[i].second, r[i].second);
-            if (l[i].second &lt; r[i].second) return false;</B></FONT>
-            if (l[i].second == 2 &amp;&amp; r[i].second == 1) return false;
-        }
-        
-        return true;
+        int n = words.size();
+		string cur = derepeat(S);
+		vector&lt;string&gt; res;
+		for (int i = 0; i &lt; n; i++)
+		{
+			if (cur == derepeat(words[i]))
+			{
+				res.push_back(words[i]);
+			}
+		}
+		int cnt = res.size();
+		vector&lt;string&gt; gp;
+		getgroup(S,gp);
+		int m = gp.size();
+		for (int i = 0; i &lt; res.size(); i++)
+<A NAME="0"></A>		{
+			vector&lt;string&gt; subgp;
+			getgroup(res[i],subgp);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			for (int j = 0; j &lt; m; j++)
+			{
+				if (gp[j].size() &lt; 3 &amp;&amp; gp[j].size() != subgp[j].size())
+				{
+					cnt--;
+					break;
+				}
+				else if (gp[j].size() &gt;= 3 &amp;&amp; gp[j].size() &lt; subgp[j].size())
+				{</B></FONT>
+					cnt--;
+					break;
+				}
+			}
+		}
+		return cnt;
     }
 };
+
+
 </PRE>
 </BODY>
 </HTML>

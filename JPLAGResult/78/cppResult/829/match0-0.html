@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>92_boyaolin.cpp</TITLE>
+ <TITLE>386_streammy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>92_boyaolin.cpp</CENTER></H3><HR>
+<H3><CENTER>386_streammy.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; subdomainVisits(vector&lt;string&gt;&amp; cpdomains) {
-        vector&lt;string&gt; res;
-        unordered_map&lt;string,int&gt; ht;
-        for(auto domain: cpdomains){
-            int ind = domain.find(&quot; &quot;);
-            int cnt = stoi(domain.substr(0,ind));</B></FONT>
-            string url = domain.substr(ind+1);
-            ht[url] += cnt;
-            for(int i=0; i&lt;url.size(); i++){
-                if(url[i]!='.') continue;
-                ht[url.substr(i+1)] += cnt;
+        vector&lt;string&gt; result;
+        unordered_map&lt;string, int&gt; map;
+        for (auto s: cpdomains) {
+            int num = 0;
+            int loc = s.find(' ');</B></FONT>
+            num = stoi(s.substr(0, loc));
+            
+            int len = loc;
+            s = s.substr(loc + 1, s.size() - len);
+            map[s] += num;
+            
+            while (1) {
+                int loc = s.find('.');
+                if (loc == s.npos) break;
+                
+                string domain = s.substr(loc + 1, s.size() - loc);
+                map[domain] += num;
+                s = domain;
             }
         }
         
-        for(auto it: ht){
-            string t = to_string(it.second) + &quot; &quot; + it.first;
-            res.push_back(t);
+        for (auto p: map) {
+            result.push_back(to_string(p.second) + &quot; &quot; + p.first);
         }
-        return res;
+        return result;
     }
 };
 </PRE>

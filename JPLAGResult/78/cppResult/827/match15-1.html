@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>36_Neilhahaha.cpp</TITLE>
+ <TITLE>21_Netario36.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,46 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>36_Neilhahaha.cpp</CENTER></H3><HR>
+<H3><CENTER>21_Netario36.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
-        if (S.size()==0) return 0;
-        vector&lt;pair&lt;char,int&gt; &gt; inVec;
-        inVec.push_back(pair&lt;char,int&gt;(S[0],1));
-        for(int i=1;i&lt;S.size();++i) {
-            if (S[i]==inVec.back().first) ++(inVec.back().second);
-            else inVec.push_back(pair&lt;char,int&gt;(S[i],1));
-        }
-        
-        int ret=0;
-        for(int i=0;i&lt;words.size();++i) {
-            vector&lt;pair&lt;char,int&gt; &gt; curVec;
-            string curS = words[i];
-            
-            if (curS.size()==0) continue;
-                        
-            curVec.push_back(pair&lt;char,int&gt;(curS[0],1));
-            for(int i=1;i&lt;curS.size();++i) {
-                if (curS[i]==curVec.back().first) ++(curVec.back().second);
-<A NAME="0"></A>                else curVec.push_back(pair&lt;char,int&gt;(curS[i],1));
+        int ret = 0;
+        for (auto&amp; word : words){
+            //cout &lt;&lt; &quot;#####&quot; &lt;&lt; endl;
+            int i = 0, j = 0;
+            bool h = true;
+            while (true){
+                if (i == S.size() &amp;&amp; j == word.size()) break;
+                if (i &gt;= S.size() || j &gt;= word.size()){
+                    h = false;
+                    break;
+                }
+                if (S[i] != word[j]){
+<A NAME="0"></A>                    h = false;
+                    break;
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int ci = 1, cj = 1;
+                while (i + 1 &lt; S.size() &amp;&amp; S[i] == S[i + 1]){
+                    i ++;
+                    ci ++;
+                }
+                while (j + 1 &lt; word.size() &amp;&amp; word[j] == word[j + 1]){
+                    j ++;
+                    cj ++;
+                }
+                //cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; j &lt;&lt; ' ' &lt;&lt; ci &lt;&lt; ' ' &lt;&lt; cj &lt;&lt; endl;
+                if (ci != cj){</B></FONT>
+                    if (!(ci &gt;= 3 &amp;&amp; ci &gt;= cj)){
+                        h = false;
+                        break;
+                    }
+                }
+                i ++;
+                j ++;
             }
-            
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (curVec.size()!=inVec.size()) continue;
-            bool flag = true;
-            for(int i=0;i&lt;curVec.size();++i) {
-                if (curVec[i].first!=inVec[i].first || curVec[i].second &gt; inVec[i].second || (inVec[i].second &lt; 3 &amp;&amp; curVec[i].second &lt; inVec[i].second)) {flag = false; break;}                
-            }
-            if (flag) ++ret;</B></FONT>
+            if (h) ret ++;
         }
         return ret;
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>295_setsuna214.java</TITLE>
+ <TITLE>242_XinyuanGGG.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>295_setsuna214.java</CENTER></H3><HR>
+<H3><CENTER>242_XinyuanGGG.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-<A NAME="1"></A>    public int expressiveWords(String S, String[] words) {
+class Solution {
+    public int expressiveWords(String S, String[] words) {
+        if (words == null || words.length == 0) {
+            return 0;
+        }
         int count = 0;
-        for(String word : words){
-            if(isMatch</B></FONT>(S, word)) count++<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+<A NAME="0"></A>        for (String word : words) {
+            if (isExpanded(S, word)) {
+                count++;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
         }
         return count;
     }
     
-    private boolean isMatch(String s, String w){</B></FONT>
-        int i = 0, j = 0;
-        while(i != s.length() &amp;&amp; j != w.length()) {
-            if(s.charAt(i) != w.charAt(j)) return false;
-            int count1 = 0, count2 = 0;
-            while(i + count1 &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i + count1)) count1++;
-            while(j + count2 &lt; w.length() &amp;&amp; w.charAt(j) == w.charAt(j + count2)) count2++;
-            if(count1 &lt; count2 || count1 &lt; 3 &amp;&amp; count1 != count2) return false;
-            i += count1;
-            j += count2;
+    private boolean isExpanded(String S, String word) {
+        if (S.equals</B></FONT>(word)) {
+<A NAME="1"></A>            return true;
+        } else if (S.length() &lt; word.length()) {
+            return false;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int nS = S.length();
+        int nWord = word.length();
+        int iS = 0;
+        int iWord = 0;
+        while (iS &lt; nS &amp;&amp; iWord &lt; nWord) {
+            if</B></FONT> (S.charAt(iS) != word.charAt(iWord)) {
+                return false;
+            }
+            int sLength = 0;
+            char first = S.charAt(iS);
+            while (iS &lt; nS &amp;&amp; S.charAt(iS) == first) {
+                iS++;
+                sLength++;
+            }
+            int wordLength = 0;
+            while (iWord &lt; nWord &amp;&amp; word.charAt(iWord) == first) {
+                iWord++;
+                wordLength++;
+            }
+            if (sLength == wordLength || sLength &gt; wordLength &amp;&amp; sLength &gt;= 3) {
+                continue;
+            } else {
+                return false;
+            }
         }
-        return i == s.length() &amp;&amp; j == w.length();
+        return iS == nS &amp;&amp; iWord == nWord;
     }
 }
 </PRE>

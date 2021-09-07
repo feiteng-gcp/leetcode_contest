@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_wjli.cpp</TITLE>
+ <TITLE>402_jjecii.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,61 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>6_wjli.cpp</CENTER></H3><HR>
+<H3><CENTER>402_jjecii.cpp</CENTER></H3><HR>
 <PRE>
-
 class Solution {
-	vector&lt;pair&lt;char, int&gt;&gt; process(string s) {
-		vector&lt;pair&lt;char, int&gt;&gt; ans;
-		int i, j;
-		for (i = 0; i &lt; s.length(); i++) {
-<A NAME="0"></A>			for (j = i; (j &lt; s.length()) &amp;&amp; (s[i] == s[j]); j++);
-			ans.push_back({ s[i], j - i });
-			i = j - 1;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		}
-		return ans;
-	}
-
-	bool compatible(vector&lt;pair&lt;char, int&gt;&gt; a, vector&lt;pair&lt;char, int&gt;&gt; b) {
-		if (a.size() != b.size()) return false;
-		for (int i = 0; i &lt; a.size(); i++) {
-			if (a[i].first != b[i].first) return false;
-			if ((a[i].second &gt;= 3) &amp;&amp; (b[i].second &lt;= a[i].second)) continue;</B></FONT>
-			if (a[i].second == b[i].second) continue;
-			return false;
-		}
-		return true;
-	}
 public:
-	int expressiveWords(string s, vector&lt;string&gt;&amp; words) {
-		vector&lt;pair&lt;char, int&gt;&gt; a, b;
-		int i, j, k, ct = 0;
+    void token(string S, vector&lt;string&gt;&amp; tok) {
+        tok.clear();
+        string sub;
+        for (int i = 0; i &lt; S.size(); ++i) {
+            if (i == 0 || sub.empty() || S[i] == sub.back()) {
+                sub.push_back(S[i]);
+            } else {
+                tok.push_back(sub);
+                sub = S[i];
+            }
 
-		a = process(s);
-		for (auto ss : words) {
-			b = process(ss);
-
-			if (compatible(a, b)) ct++;
-		}
-		return ct;
-	}
+        }
+        if (sub != &quot;&quot;) {
+            tok.push_back(sub);
+        }        
+        //for (auto &amp;s: tok) {
+        //    cout&lt;&lt;s&lt;&lt;&quot; &quot;;
+       // }
+        //cout&lt;&lt;endl;
+    }
+    bool cmp(string &amp;s1, string &amp;base) {
+        if (s1[0] != base[0]) return false;
+        if (base.size() &gt; s1.size()) return false;
+        if (s1.size() == base.size()) return true;
+        if (s1.size() &gt;= 3) return true;
+        if ( (s1.size() - base.size()) &gt;= 2 ) return true;
+        return false;
+    }
+    int expressiveWords(string S, vector&lt;string&gt;&amp; words) {
+        vector&lt;string&gt; tok1;
+        vector&lt;string&gt; tok2;
+        int cnt = 0;
+<A NAME="0"></A>        token(S, tok1);
+        for (auto &amp;s : words) {
+            token(s, tok2);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (tok1.size() != tok2.size()) continue;
+            bool pass = true;
+            for (int i = 0; i &lt; tok1.size(); ++i) {
+                //cout&lt;&lt;&quot;cmp:&quot;&lt;&lt;tok1[i]&lt;&lt;&quot; - &quot;&lt;&lt;tok2[i]&lt;&lt;&quot; : &quot;&lt;&lt;cmp(tok1[i], tok2[i])&lt;&lt;endl;
+                if (!cmp(tok1[i], tok2[i])) {
+                    pass = false;
+                    break;
+                }</B></FONT>
+            }
+            if (pass) {
+                ++cnt;
+            }
+        }
+        return cnt;
+        
+    }
 };
 </PRE>
 </BODY>
