@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>452_SaoxiongNo1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>452_SaoxiongNo1.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int distributeCoins(TreeNode* root) {
+        map&lt;TreeNode*, int&gt; dict;
+        return dfs(root, dict);
+    }
+    
+    int dfs(TreeNode* root, map&lt;TreeNode*, int&gt;&amp; count) {
+        if(!root) return 0;
+<A NAME="0"></A>        if(count.find(root) == count.end())
+            count[root] = root-&gt;val;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int coinsNum = count[root];
+        int res = 0;
+        
+        res += dfs(root-&gt;left, count);
+        coinsNum += count[root-&gt;left];
+        res += abs(count[root-&gt;left]);
+        
+        res += dfs(root-&gt;right, count);
+        coinsNum += count[root-&gt;right];
+        res += abs(count[root-&gt;right]);
+        
+        count[root] = coinsNum - 1;
+        return res;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

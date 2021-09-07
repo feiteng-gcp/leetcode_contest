@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_nitishjindal.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_nitishjindal.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int paths;
+    int result;
+    vector&lt;vector&lt;bool&gt;&gt; visited;
+    int n,m;
+    int uniquePathsIII(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+         n = grid.size();
+         m = grid[0].size();
+        result = 0;
+        paths = 0;
+<A NAME="0"></A>        
+        int x = -1, y = -1;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ex = -1, ey = -1;
+        
+        for (int i = 0; i &lt; n; i++)
+        {
+            for (int j = 0; j &lt; m; j++)
+            {
+                if (grid[i][j] == 0)
+                    paths++;
+                
+                if (grid[i][j] == 1)
+                {
+                    x = i;
+                    y = j;
+                }
+                
+                if (grid[i][j] == 2)
+                {
+                    ex = i;
+                    ey = j;
+                }
+            }
+        }</B></FONT>
+        
+        if (x == -1 || ex == -1)
+            return 0;
+        
+        visited = vector&lt;vector&lt;bool&gt;&gt;(n, vector&lt;bool&gt;(m, false));
+        visited[x][y] = true;
+        
+        int c = 0;
+        helper(grid, x, y, c);
+        
+        return result;
+    }
+    
+    void helper(vector&lt;vector&lt;int&gt;&gt; &amp;grid, int x, int y, int &amp;c)
+    {
+        if (grid[x][y] == 2)
+        {
+           // cout&lt;&lt;c &lt;&lt;&quot; &quot;&lt;&lt;paths&lt;&lt;endl;
+            if (c-1 == paths)
+                result++;
+        }
+        
+        int dirx[] = {0, 0, 1, -1};
+        int diry[] = {1, -1, 0, 0};
+        
+        for (int i = 0; i &lt; 4; i++)
+        {
+            int nx = x+dirx[i];
+            int ny = y+diry[i];
+            
+            if (nx &gt;=0 &amp;&amp; nx &lt;n &amp;&amp; 
+               ny &gt;=0 &amp;&amp; ny &lt; m &amp;&amp;
+                grid[nx][ny] != -1 &amp;&amp;
+               !visited[nx][ny])
+            {
+               // cout&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;&quot; -&gt; &quot;&lt;&lt;nx&lt;&lt;&quot; &quot;&lt;&lt;ny&lt;&lt;endl;
+                visited[nx][ny] = true;
+                c++;
+                helper(grid, nx, ny, c);
+                c--;
+                visited[nx][ny] = false;
+            }
+        }
+    }
+    
+    
+};
+</PRE>
+</BODY>
+</HTML>

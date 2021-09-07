@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>58_SaveVMK.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>58_SaveVMK.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int distributeCoins(TreeNode root) {
+        int ans = dcu(root, null);
+        ans += dcd(root);
+        return ans;
+    }
+    
+    public int count(TreeNode root) {
+        if (root == null)
+            return 0;
+        return count(root.left)+count(root.right)+1;
+    }
+    
+    public int cc(TreeNode root) {
+        if (root==null)
+            return 0;
+        return cc(root.left)+cc(root.right)+root.val;
+    }
+    
+    public int dcu(TreeNode root, TreeNode p) {
+        if (root==null)
+            return 0;
+        int ans = 0;
+        int al = dcu(root.left, root);
+        ans += al;
+        int ar = dcu(root.right, root);
+        ans += ar;
+        int count = count(root);
+        int cc = cc(root);
+        if (cc &gt; count) {
+            root.val -= cc-count;
+<A NAME="0"></A>            p.val += cc-count;
+            ans += cc-count;
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans;
+    }
+    
+    public int dcd(TreeNode root) {
+        if (root == null)
+            return 0;
+        int col = count(root.left);
+        int cor = count(root.right);
+        int ccl = cc</B></FONT>(root.left);
+        int ccr = cc(root.right);
+        int ans = 0;
+        if (col &gt; ccl) {
+            root.val -= col-ccl;
+            root.left.val += col-ccl;
+            ans += col-ccl;
+        }
+        if (cor &gt; ccr) {
+            root.val -= cor-ccr;
+            root.right.val += cor-ccr;
+            ans += cor-ccr;
+        }
+        ans += dcd(root.left);
+        ans += dcd(root.right);
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

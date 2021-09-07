@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>114_francisjjf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>114_francisjjf.java</CENTER></H3><HR>
+<PRE>
+public class Solution {
+    private int res;
+    private int pCnt;
+    private int m, n;
+
+    public int uniquePathsIII(int[][] grid) {
+         m = grid.length;
+         n = grid[0].length;
+<A NAME="0"></A>        int sm = 0, sn = 0, em = 0, en = 0;
+        res = 0;
+        pCnt = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; m; i++ ){
+            for (int j = 0; j &lt; n; j++) {
+                if(grid[i][j] == 1){
+                    sm = i;
+                    sn = j;
+                }</B></FONT>
+<A NAME="1"></A>                else if(grid[i][j] == 2){
+                    em = i;
+                    en = j;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                if(grid[i][j] != -1){
+                    pCnt ++;
+                }
+            }
+        }
+        boolean[][] vis = new boolean[m][n];
+        vis[sm][sn] = true;
+        helper</B></FONT>(sm, sn, em, en, grid, vis, 1);
+        System.out.println(res);
+<A NAME="2"></A>        return res;
+    }
+
+    private void helper(int sm, int sn, <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int em, int en, int[][] grid, boolean[][] vis, int cnt){
+        if(sm == em &amp;&amp; sn == en){
+            if(cnt == pCnt){
+                res ++;
+            }
+            return;
+        }</B></FONT>
+        int i, j;
+        i = sm +1;
+        j = sn;
+        if(i &lt; m &amp;&amp; grid[i][j] != -1 &amp;&amp; !vis[i][j]){
+            vis[i][j] = true;
+            helper(i, j, em, en, grid, vis, cnt +1);
+            vis[i][j] = false;
+        }
+        i = sm -1;
+        j = sn;
+        if(i &gt;=0 &amp;&amp; grid[i][j] != -1 &amp;&amp; !vis[i][j]){
+            vis[i][j] = true;
+            helper(i, j, em, en, grid, vis, cnt +1);
+            vis[i][j] = false;
+        }
+        i = sm;
+        j = sn + 1;
+        if(j &lt; n &amp;&amp; grid[i][j] != -1 &amp;&amp; !vis[i][j]){
+            vis[i][j] = true;
+            helper(i, j, em, en, grid, vis, cnt +1);
+            vis[i][j] = false;
+        }
+        i = sm;
+        j = sn - 1;
+        if(j &gt;= 0 &amp;&amp; grid[i][j] != -1 &amp;&amp; !vis[i][j]){
+            vis[i][j] = true;
+            helper(i, j, em, en, grid, vis, cnt +1);
+            vis[i][j] = false;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

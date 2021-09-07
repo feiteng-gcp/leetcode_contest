@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_flyman3046.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_flyman3046.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    boolean[][] vis;
+    int sx;
+    int sy;
+<A NAME="0"></A>    int ex;
+    int ey;
+    int zeros;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int total;
+    int[][] grid;
+    int[] dx = {0, 0, -1, 1};
+    int[] dy = {-1, 1, 0, 0};
+    public int uniquePathsIII(int[][] grid</B></FONT>) {
+        int n = grid.length;
+        int m = grid[0].length;
+        this.grid = grid;
+<A NAME="1"></A>        List&lt;Integer&gt; ls = new ArrayList&lt;&gt;();
+        vis = new boolean[n][m];
+        zeros = 0;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; m; j++) {
+                if (grid[i][j] == 1) {
+                    sx = i;
+                    s</B></FONT>y = j;
+                }
+
+<A NAME="2"></A>                if (grid[i][j] == 2) {
+                    ex = i;
+                    ey = j;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+                if (grid[i][j] == 0) {
+                    zeros++;
+                }
+            }
+        }</B></FONT>
+
+        total = 0;
+        dfs(0, sx, sy);
+
+<A NAME="3"></A>        return total;
+    }
+
+    void dfs(<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match14-1.html#3',3,'match14-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int cnt, int row, int col) {
+        if (row &lt; 0 || row &gt;= grid.length || col &lt; 0 || col &gt;= grid[0].length) {
+            return;
+        }
+
+        if (vis[row][col]) {
+            return</B></FONT>;
+        }
+
+        if (grid[row][col] == -1) {
+            return;
+        }
+
+        if (row == ex &amp;&amp; col == ey) {
+            if (cnt == zeros + 1) {
+                total++;
+            }
+
+            return;
+        }
+
+        vis[row][col] = true;
+        for (int i = 0; i &lt; dx.length; i++) {
+            int nrow = row + dx[i];
+            int ncol = col + dy[i];
+            dfs(cnt + 1, nrow, ncol);
+        }
+
+        vis[row][col] = false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_devilhtc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>115_devilhtc.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def sortedSquares(self, A):
+        &quot;&quot;&quot;
+        :type A: List[int]
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        if len(A) &lt;= 1 or (A[0] &gt;= 0 and A[-1] &gt;= 0):
+            return [e ** 2 for e in A]
+        if A[0] &lt;= 0 and A[-1] &lt;= 0:
+            return [e ** 2 for e in reversed(A)]
+        
+        p = 0
+        for i in range(len(A) - 1):
+            if A[i] &lt;= 0 and A[i + 1] &gt;= 0:
+                p = i
+                break
+        #print(p)
+        i = p
+        j = (p + 1)
+        out = []
+        for t in range(len(A)):
+            if i &lt; 0:
+                out.append(A[j] ** 2)
+                j += 1
+            elif j == len(A):
+<A NAME="0"></A>                out.append(A[i] ** 2)
+                i -= 1
+            else:
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if abs(A[i]) &lt;= abs(A[j]):
+                    out.append(A[i] ** 2)
+                    i -= 1
+                else:
+                    out.append(A[j] ** 2)
+                    j +</B></FONT>= 1
+        return out
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

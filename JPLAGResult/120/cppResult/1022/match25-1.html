@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_hstangnatsh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>242_hstangnatsh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int a,b,c,d;//index of start and end
+    int count;//count of 0s;
+<A NAME="0"></A>    int ans;
+    int uniquePathsIII(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        count=0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        ans=0;
+        for(int i=0;i&lt;grid.size();i++)
+        {
+            for(int j=0;j&lt;grid[0].size();j++)
+<A NAME="1"></A>            {
+                if(grid[i][j]==0)count++;</B></FONT>
+                if(grid[i][j]==1){a=i;b=j;} 
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(grid[i][j]==2){c=i;d=j;}
+            }
+        }
+        tv(grid,0,a,b);
+        return ans;
+        
+    }
+    
+    void tv(vector&lt;vector&lt;int&gt;&gt; grid,int c,int i,int j){
+        
+ 
+        if(grid[i][j]==-1)return;</B></FONT>
+        if(grid[i][j]==2){
+            
+                if(c==count)ans++;return;
+        }
+        if(grid[i][j]==0||grid[i][j]==1)
+        {
+            
+            if(grid[i][j]==0)
+            c++;
+            grid[i][j]=-1;
+            if(i&lt;grid.size()-1)tv(grid,c,i+1,j);
+            if(i&gt;0)tv(grid,c,i-1,j);
+            if(j&gt;0)tv(grid,c,i,j-1);
+            if(j&lt;grid[0].size()-1)tv(grid,c,i,j+1);
+                         
+        }
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

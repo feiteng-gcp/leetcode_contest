@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>150_Stomach_ache.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>150_Stomach_ache.cpp</CENTER></H3><HR>
+<PRE>
+int dx[] = {1, -1, 0, 0};
+int dy[] = {0, 0, 1, -1};     
+
+struct State {
+    int x, y, mask;
+    State() {}
+    State(int _x, int _y, int _m) {
+        x = _x, y = _y, mask = _m;
+    }
+};
+
+class Solution {
+public:
+    int uniquePathsIII(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<A NAME="0"></A>        int ans = 0;
+        int sx, sy, ex, ey;
+        int n = grid.size(), m = grid[0].size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for (int i = 0; i &lt; n; ++ i) {
+            for (int j = 0; j &lt; m; ++ j) {
+                if (grid[i][j] == 1) {
+                    sx = i, sy = j;
+                } else if (grid[i][j] == 2) {
+                    ex = i, ey = j;
+                }</B></FONT>
+                if (grid[i][j] != -1) ++ cnt;
+            }
+        }
+        
+        auto myHash = [&amp;m](int x, int y) { return x * m + y; };
+        
+        queue&lt;State&gt; q;
+        q.push(State(sx, sy, (1&lt;&lt;myHash(sx, sy))));
+        while (!q.empty()) {
+            auto cur = q.front(); q.pop();
+            if (cur.x == ex &amp;&amp; cur.y == ey) {
+<A NAME="1"></A>                if (__builtin_popcount(cur.mask) == cnt)
+                    ++ ans;
+                continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+            
+            for (int i = 0; i &lt; 4; ++ i) {
+                int x = cur.x + dx[i];
+                int y = cur.y + dy[i];
+                if (x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m &amp;&amp; grid[x][y] != -1 &amp;&amp; (cur.mask &amp; (1&lt;&lt;myHash(x, y))) == 0) {</B></FONT>
+                    q.push(State(x, y, cur.mask | (1&lt;&lt;myHash(x, y))));
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

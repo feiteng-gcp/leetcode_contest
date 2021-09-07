@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>220_eloelz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>220_eloelz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int ans = 0;
+    private int[][] grid;
+    private boolean[][] seen;
+    public int uniquePathsIII(int[][] grid) {
+        if (grid.length == 0 || grid[0].length == 0) return 0;
+        
+        int[] start = new int[2];
+        int[] end = new int[2];
+        int zeroes = 0;
+<A NAME="0"></A>        this.grid = grid;
+        this.seen = new boolean[grid.length][grid[0].length];
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; grid.length; i++) {
+            for(int k = 0; k &lt; grid[0].length; k++) {
+                if (grid[i][k] == 1) start = new int[] {i, k};
+                if (grid[i][k] == 2) end = new int[] {i, k};
+                if (grid[i][k] == 0) zeroes++;
+            }
+<A NAME="1"></A>        }</B></FONT>
+        
+        dfs(start, end, start[0], start[1], zeroes + 1);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ans;
+    }
+    
+    private void dfs(int[] start, int[] end, int r, int c, int zeroes) {
+        if (r &lt; 0 || r &gt;= grid.length || c &lt; 0 || c &gt;= grid[0].length) {</B></FONT>
+            return;
+        }
+        
+        System.out.println(&quot;WTF &quot;  + r + &quot;  &quot; + c +  &quot;   &quot; + zeroes);
+        if (r == end[0] &amp;&amp; c == end[1]) {
+            if (zeroes == 0) ans++;
+            // System.out.println(&quot;WTF &quot;  + x + &quot;  &quot; + y +  &quot;   &quot; + zeroes);
+            return;
+        }
+        
+        
+    
+        
+        if (seen[r][c] || grid[r][c] == -1) return;
+        
+        seen[r][c] = true;
+        
+        dfs(start, end, r - 1, c, zeroes - 1);
+        dfs(start, end, r + 1, c, zeroes - 1);
+        dfs(start, end, r, c - 1, zeroes - 1);
+        dfs(start, end, r, c + 1, zeroes - 1);
+        seen[r][c] = false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

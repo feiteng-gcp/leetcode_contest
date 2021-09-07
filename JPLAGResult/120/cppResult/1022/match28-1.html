@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_ttjtftx.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_ttjtftx.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int N,M, ret;
+    int s, e;//start, end
+    bitset&lt;20&gt; cannot, target, cur;
+    void dfs(int id) {
+<A NAME="1"></A>        if (target == cur &amp;&amp; id == e) ret++;
+        int i = id/M;
+        int j = id%M;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int dx[4] = {0, 0, 1, -1};
+        int dy[4] = {1, -1, 0, 0};
+        for (int d = 0; d &lt; 4; d++) {
+            int nx = dx[d] + i;
+            int ny = dy[d] + j;
+            if (nx &gt;= 0 &amp;&amp; ny &gt;=0 &amp;&amp; nx &lt; N &amp;&amp; ny &lt; M) {</B></FONT>
+                int nid = nx * M + ny;
+                if (cur[nid] == 0 &amp;&amp; cannot[nid] == 0) {
+                    cur[nid] = 1;
+                    dfs(nid);
+                    cur[nid] = 0;
+                }
+            }
+        }
+    } 
+public:
+    int uniquePathsIII(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        N = grid.size();
+<A NAME="0"></A>        if (N == 0) return 0;
+        M = grid[0].size();
+        ret = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        cannot =  target = cur = bitset&lt;20&gt;();
+        for (int i = 0; i &lt;N ;i++) {
+            for (int j = 0; j &lt;M; j++) {</B></FONT>
+                int id = i * M + j;
+                
+                if (grid[i][j] == -1) cannot[id] = 1;
+                else {
+                    target[id] = 1;
+                    if (grid[i][j] == 1) s = id;
+                    if (grid[i][j] == 2) e = id;
+                }
+            }
+        }
+        cout &lt;&lt; target &lt;&lt; endl;
+        cout &lt;&lt; cur &lt;&lt; endl;
+        cout &lt;&lt; cannot &lt;&lt; endl;
+        cur[s] = 1;
+        dfs(s);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

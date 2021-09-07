@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_sophiejjj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>372_sophiejjj.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int distributeCoins(TreeNode* root) {
+        if (!root)
+            return 0;
+        int count = 0;
+        helper(root, count);
+        return count;
+    }
+    
+    pair&lt;int,int&gt; helper(TreeNode *root, int &amp;cnt) {</B></FONT>
+        if (!root)
+            return {0,0};
+        
+        auto left = helper(root-&gt;left, cnt);
+        auto right = helper(root-&gt;right, cnt);
+        int val = root-&gt;val+left.first+right.first;
+        int size = left.second+right.second+1;
+        cnt += abs(val-size);
+        return {val, size};
+    }
+};
+</PRE>
+</BODY>
+</HTML>
