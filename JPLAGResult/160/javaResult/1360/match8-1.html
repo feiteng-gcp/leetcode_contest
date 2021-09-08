@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>297_zhbmsqx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>297_zhbmsqx.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    int maxLen = 0;
+    
+    public int maxLength(List&lt;String&gt; arr) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>backtrack(arr, 0, new HashSet&lt;Character&gt;());
+        return maxLen;
+    }
+    
+    public void backtrack(List&lt;String&gt; arr, int pos, HashSet&lt;Character&gt; set</B></FONT>)
+    {
+        if(pos == arr.size())
+        {
+            maxLen = Math.max(maxLen, set.size());
+            return;
+        }
+        
+        boolean validToAdd = true;
+        String s = arr.get(pos);
+        
+        HashSet&lt;Character&gt; tmpSet = new HashSet&lt;Character&gt;();
+        
+        for(int i=0;i&lt;s.length();i++)
+        {
+            if(set.contains(s.charAt(i))
+              || tmpSet.contains(s.charAt(i)))
+            {
+                validToAdd = false;
+                break;
+            }
+            
+            tmpSet.add(s.charAt(i));
+        }
+<A NAME="1"></A>        
+        if (validToAdd)
+        {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;s.length();i++)
+            {
+                set.add(s.charAt(i));
+            }
+            
+            backtrack(arr, pos+1, set);
+            
+            for(int i=0;i&lt;s.length();i++)
+            {
+                set.remove(s.charAt(i));
+            }
+        }</B></FONT>
+        
+        backtrack(arr, pos+1, set);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

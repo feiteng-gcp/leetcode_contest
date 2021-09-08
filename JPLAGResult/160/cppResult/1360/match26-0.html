@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_RelaxTime.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_RelaxTime.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxLength(vector&lt;string&gt;&amp; arr) {
+      int max_len = 0;
+
+      int size = arr.size();
+      for (int c = 0; c &lt; 1 &lt;&lt; size; ++c) {
+        vector&lt;int&gt; count(26);
+        int len = 0;
+        bool repeat = false;
+        
+        for (int bits = c, i = 0; bits &gt; 0; bits &gt;&gt;= 1, ++i) {</B></FONT>
+          if (bits &amp; 1 == 1) {
+            len += arr[i].size();
+            for (const char a : arr[i]) {
+              if (count[a - 'a'] == 1) {
+                repeat = true;
+                break;
+              }
+              count[a - 'a'] = 1;
+            }
+          }
+          if (!repeat) {
+            max_len = max(max_len, len);
+          }
+        }
+        
+      }
+      
+      return max_len;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

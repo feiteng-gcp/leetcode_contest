@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+	    public int tilingRectangle(int n, int m) {
+	    	ans = 99999999;
+	        boolean[][] g = new boolean[n][m];
+	        dfs(0, 0, g, 0);
+	        return ans;
+	    }
+	    
+	    int ans;
+	    
+	    void dfs(int r, int c, boolean[][] g, int num)
+	    {
+	    	int n = g.length, m = g[0].length;
+	    	if(num &gt;= ans)return;
+	    	if(r &gt;= n){
+	    		ans = num;
+	    		return;
+	    	}
+<A NAME="0"></A>	    	if(c &gt;= m){
+	    		dfs(r+1, 0, g, num); return;
+	    	}
+	    	if(g[r][c]<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>){
+	    		dfs(r, c+1, g, num); return;
+	    	}
+	    	out:
+	    	for(int K = Math.min(n-r, m-c);K &gt;= 1;K--){</B></FONT>
+	    		for(int i = 0;i &lt; K;i++){
+	    			for(int j = 0;j &lt; K;j++){
+<A NAME="1"></A>	    				if(g[r+i][c+j])break out;
+	    			}
+	    		}
+	    		for(int i = 0;i &lt;<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> K;i++){
+	    			for(int j = 0;j &lt; K;j++){
+	    				g[r+i][c+j] = true;
+	    			}
+	    		}
+	    		dfs(r, c+1, g, num+1);
+	    		for(int i = 0;i &lt; K;i++){
+	    			for(int j = 0;j &lt; K;j++){
+	    				g[r+i][c+j] = false;
+	    			}
+	    		}
+	    	}</B></FONT>
+	    }
+	    
+		public void tf(boolean[]... b)
+		{
+			for(boolean[] r : b) {
+				for(boolean x : r)System.out.print(x?'#':'.');
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}	
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>222_lampham_aizu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>222_lampham_aizu.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import re
+class Solution:
+    def tilingRectangle(self, n: int, m: int) -&gt; int:
+        mm = &quot;&quot;&quot;
+            (1,1) -&gt; 1: split
+2,1 -&gt; 2 : horizontal split at 1
+2,2 -&gt; 1 : square
+3,1 -&gt; 3 : horizontal split at 1
+3,2 -&gt; 3 : horizontal split at 1
+3,3 -&gt; 1 : square
+4,1 -&gt; 4 : horizontal split at 1
+4,2 -&gt; 2 : scale 2
+4,3 -&gt; 4 : horizontal split at 1
+4,4 -&gt; 1 : square
+5,1 -&gt; 5 : horizontal split at 1
+5,2 -&gt; 4 : horizontal split at 1
+5,3 -&gt; 4 : horizontal split at 2
+5,4 -&gt; 5 : horizontal split at 1
+5,5 -&gt; 1 : square
+6,1 -&gt; 6 : horizontal split at 1
+6,2 -&gt; 3 : scale 2
+6,3 -&gt; 2 : scale 3
+6,4 -&gt; 3 : scale 2
+6,5 -&gt; 5 : vertical split at 2
+6,6 -&gt; 1 : square
+7,1 -&gt; 7 : horizontal split at 1
+7,2 -&gt; 5 : horizontal split at 1
+7,3 -&gt; 5 : horizontal split at 1
+7,4 -&gt; 5 : horizontal split at 3
+7,5 -&gt; 5 : horizontal split at 2
+7,6 -&gt; 5 : horizontal split at 3
+7,7 -&gt; 1 : square
+8,1 -&gt; 8 : horizontal split at 1
+8,2 -&gt; 4 : scale 2
+8,3 -&gt; 5 : horizontal split at 2
+8,4 -&gt; 2 : scale 4
+8,5 -&gt; 5 : horizontal split at 3
+8,6 -&gt; 4 : scale 2
+8,7 -&gt; 7 : vertical split at 3
+8,8 -&gt; 1 : square
+9,1 -&gt; 9 : horizontal split at 1
+9,2 -&gt; 6 : horizontal split at 1
+9,3 -&gt; 3 : scale 3
+9,4 -&gt; 6 : horizontal split at 1
+9,5 -&gt; 6 : horizontal split at 4
+9,6 -&gt; 3 : scale 3
+9,7 -&gt; 6 : horizontal split at 2
+9,8 -&gt; 7 : horizontal split at 4
+9,9 -&gt; 1 : square
+10,1 -&gt; 10 : horizontal split at 1
+10,2 -&gt; 5 : scale 2
+10,3 -&gt; 6 : horizontal split at 1
+10,4 -&gt; 4 : scale 2
+10,5 -&gt; 2 : scale 5
+10,6 -&gt; 4 : scale 2
+10,7 -&gt; 6 : horizontal split at 3
+10,8 -&gt; 5 : scale 2
+10,9 -&gt; 6 : vertical split at 4
+10,10 -&gt; 1 : square
+11,1 -&gt; 11 : horizontal split at 1
+11,2 -&gt; 7 : horizontal split at 1
+11,3 -&gt; 6 : horizontal split at 2
+11,4 -&gt; 6 : horizontal split at 3
+11,5 -&gt; 6 : horizontal split at 5
+11,6 -&gt; 6 : horizontal split at 2
+11,7 -&gt; 6 : horizontal split at 4
+11,8 -&gt; 6 : horizontal split at 3
+11,9 -&gt; 7 : horizontal split at 2
+11,10 -&gt; 6 : horizontal split at 5
+11,11 -&gt; 1 : square
+12,1 -&gt; 12 : horizontal split at 1
+12,2 -&gt; 6 : scale 2
+12,3 -&gt; 4 : scale 3
+12,4 -&gt; 3 : scale 4
+12,5 -&gt; 6 : horizontal split at 2
+12,6 -&gt; 2 : scale 6
+12,7 -&gt; 6 : horizontal split at 5
+12,8 -&gt; 3 : scale 4
+12,9 -&gt; 4 : scale 3
+12,10 -&gt; 5 : scale 2
+12,11 -&gt; 7 : vertical split at 3
+12,12 -&gt; 1 : square
+13,1 -&gt; 13 : horizontal split at 1
+13,2 -&gt; 8 : horizontal split at 1
+13,3 -&gt; 7 : horizontal split at 1
+13,4 -&gt; 7 : horizontal split at 1
+13,5 -&gt; 6 : horizontal split at 3
+13,6 -&gt; 6 : horizontal split at 3
+13,7 -&gt; 6 : horizontal split at 6
+13,8 -&gt; 6 : horizontal split at 5
+13,9 -&gt; 7 : horizontal split at 4
+13,10 -&gt; 7 : horizontal split at 3
+13,11 -&gt; 6 : basic solution 1:4,1:4,2:7,2:1,1:5,1:6,
+13,12 -&gt; 7 : horizontal split at 4
+13,13 -&gt; 1
+        &quot;&quot;&quot;
+        dd = {}
+        for val in mm.split(&quot;\n&quot;):
+            xx = re.split(&quot;\D+&quot;, val)
+            try:
+                xx = [ii for ii in xx if ii.isdigit()]
+          #      print(xx)
+                u,v,w = int(xx[0]), int(xx[1]), int(xx[2])
+                dd[(u, v)] = dd[(v, u)] = w
+            except:
+                pass
+        return dd[(m,</B></FONT> n)]
+        
+</PRE>
+
+</BODY>
+</HTML>

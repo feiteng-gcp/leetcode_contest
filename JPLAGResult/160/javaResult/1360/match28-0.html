@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>454_atul2938.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>454_atul2938.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxLength(List&lt;String&gt; arr) {
+        int N=arr.size();
+//        String dp[][]=new int[N+1][N+1];      
+//         dp[0][0]=&quot;&quot;;
+//         for(int i=1;i&lt;=N;i++){
+//             dp[i][0]=arr.get(i-1);
+//             dp[0][i]=arr.get(i-1);
+//         }
+//         for(int i=1;i&lt;=N;i++){
+//             for(int j=1;j&lt;=N;j++){
+                
+//             }
+//         }
+//         return dp[N][N];
+        return recurse(arr, N, 0, &quot;&quot;);
+    }
+    
+    
+    int recurse(List&lt;String&gt; arr, int N, int i, String S){
+        if(i==N){
+            return S.length();
+<A NAME="0"></A>        }
+        
+        int n=0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(isValid(S, arr.get(i))){
+            n=recurse(arr, N, i+1, S+arr.get(i));
+        }</B></FONT>
+<A NAME="1"></A>        int m=recurse(arr, N, i+1, S);
+        
+        return Math.max(m, n);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+<A NAME="2"></A>    boolean isValid(String S1, String S2){
+        int freq[]=new int[26];
+        for(int i=0;i&lt;S1.length();i++){</B></FONT>
+            freq[<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>S1.charAt(i)-'a']++;
+        }
+        
+        for(int i=0;i&lt;S2.length();i++){
+            if(freq[S2.charAt</B></FONT>(i)-'a']&gt;0){
+                return false;
+            }
+            else{
+                freq[S2.charAt(i)-'a']++;
+            }
+        }
+        
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

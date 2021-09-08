@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>291_Acker.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>291_Acker.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private int maxLen;
+<A NAME="0"></A>    private int hash(String word) {
+        char[] chs = word.toCharArray();
+        int ans = 0;
+        for (int i = 0; i &lt; chs.length; ++i) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int mask = 1&lt;&lt;(chs[i]-'a');
+            if ((ans&amp;mask) &gt; 0) return -1;
+            ans |= mask;
+        }
+        return ans;
+    }
+    private int calLength(int ans) {
+        int len = 0;
+<A NAME="1"></A>        while (ans != 0) {</B></FONT>
+            len++;
+            ans = ans&amp;(ans-1);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return len;
+    }
+    private void backtracking(List&lt;Integer&gt; keys, int idx, int ans) {
+        if (idx &gt;= keys.size()) {
+            maxLen = Math.max(maxLen, calLength(ans));
+            return;
+        }</B></FONT>
+        if ((ans&amp;keys.get(idx)) == 0) {
+            backtracking(keys, idx+1, ans|keys.get(idx));
+        }
+        backtracking(keys, idx+1, ans);
+    }
+    public int maxLength(List&lt;String&gt; arr) {
+        int len = arr.size();
+        if (len &lt;= 0) return 0;
+        if (len &lt;= 1) return arr.get(0).length();
+        List&lt;Integer&gt; keys = new ArrayList&lt;&gt;(len);
+        for (String word: arr) {
+            int code = hash(word);
+            if (code &gt; 0) {
+                keys.add(code);
+            }
+        }
+        maxLen = 0;
+        backtracking(keys, 0, 0);
+        return maxLen; 
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

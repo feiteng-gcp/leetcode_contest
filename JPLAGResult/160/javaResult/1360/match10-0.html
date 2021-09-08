@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_Jesko.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_Jesko.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    List&lt;Integer&gt; lx;
+    int maxL = 0;
+    public int maxLength(List&lt;String&gt; arr) {
+        lx = <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new ArrayList&lt;&gt;();
+        for(String x : arr) {
+<A NAME="1"></A>            int t = helper(x);
+            if(t != -1) lx.add(t);
+        }</B></FONT>
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(0, 0);
+        return maxL;
+    }
+    int helper(String x) {
+        int t = 0;
+        for(char c : x.toCharArray()) {</B></FONT>
+            if((t &amp; (1 &lt;&lt; (c - 'a'))) != 0) return -1;
+            t |= (1 &lt;&lt; (c - 'a'));
+        }
+        return t;
+    }
+    void dfs(int id, int cur) {
+        if(id == lx.size()) return;
+        int t = lx.get(id);
+        if((t &amp; cur) == 0) {
+            t |= cur;
+            int cnt = count(t);
+            if(cnt &gt; maxL) maxL = cnt;
+<A NAME="2"></A>            dfs(id + 1, t);
+        }
+        dfs(id + 1, cur);
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    int count(int t) {
+        int res = 0;
+        while(t != 0) {
+            ++res;
+            t &amp;= t - 1;
+        }
+        return res;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

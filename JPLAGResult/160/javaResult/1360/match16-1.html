@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>208_coder_amateur.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>208_coder_amateur.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int max = 0;
+    int[] nums;
+    public int maxLength(List&lt;String&gt; arr) {
+        nums = new int[arr.size()];
+<A NAME="1"></A>        for (int i = 0; i &lt; nums.length; i++) {
+            int cur = 0;
+            String str = arr.get(i);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; str.length(); j++) {
+                int mask = 1 &lt;&lt; (str.charAt(j) - 'a');
+                if ((cur &amp; mask) != 0) {
+                    cur = 0;
+                    break;
+                }</B></FONT>
+                cur |= mask;
+            }
+            nums[i] = cur;
+        }
+        
+        // for (int i : nums) {
+<A NAME="0"></A>        //     System.out.print(Integer.toBinaryString(i) + &quot;,&quot;);
+        //     System.out.println();
+        // }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(arr, 0, 0, 0);
+        return max;
+    }
+    
+    private void dfs(List&lt;String&gt; arr, int idx, int cur, int len) {
+        max = Math.max(max, len);
+        if</B></FONT> (idx == nums.length) return;
+        if ((cur &amp; nums[idx]) == 0 &amp;&amp; nums[idx] != 0) {
+            dfs(arr, idx + 1, cur | nums[idx], len + arr.get(idx).length());
+        }
+        
+        dfs(arr, idx + 1, cur, len);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_bluesky999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_bluesky999.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	int dp[][];
+
+	public int tilingRectangle(int n, int m) {
+		dp = new int[15][15];
+
+		dp[11][13] = dp[13][11] = 6;
+
+		return tilingRectangle0(n, m);
+
+	}
+
+	public int tilingRectangle0(int n, int m) {
+		int vertical_min = Integer.MAX_VALUE;
+		int horizontal_min = Integer.MAX_VALUE;
+
+		if (m == n)
+			return 1;
+
+<A NAME="0"></A>		if (dp[m][n] != 0)
+			return dp[m][n];
+
+		for (int i = 1<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; i &lt;= m / 2; i++) {
+<A NAME="1"></A>			horizontal_min = Math.min(tilingRectangle0(i, n) + tilingRectangle0(m - i, n), horizontal_min);
+		}</B></FONT>
+
+		for (int j = 1<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; j &lt;= n / 2; j++) {
+			vertical_min = Math.min(tilingRectangle0(m, j) + tilingRectangle0(m, n - j), vertical_min);
+		}</B></FONT>
+
+		dp[m][n] = Math.min(vertical_min, horizontal_min);
+
+		return dp[m][n];
+
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

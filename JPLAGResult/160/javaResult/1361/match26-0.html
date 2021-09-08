@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>75_Jesko.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>75_Jesko.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    boolean[][] vst;
+    int res = Integer.MAX_VALUE;
+    public int tilingRectangle(int n, int m) {
+        if(n &gt; m) return tilingRectangle(m, n);
+        if(n == m) return 1;
+        vst = new boolean[n][m];
+        dfs(0, 0);
+        return res;
+    }
+    void dfs(int id, int acc) {
+        if(acc &gt;= res) return;
+        int n = vst.length;
+        int m = vst[0].length;
+        if(id == m * n) {
+        //  System.out.println(id);
+            if(acc &lt; res) res = acc;
+            return;
+<A NAME="0"></A>        }
+        int cx = id / m;
+        int cy = id % m;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(vst[cx][cy]) {
+            dfs(id + 1, acc);
+            return;
+<A NAME="1"></A>        }
+        for(int i = 1; i &lt;= Math.min(m, n); ++i) {</B></FONT>
+            if(helper(cx, cy, i)) {
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int a = cx; a &lt; cx + i; ++a) {
+                    for(int b = cy; b &lt; cy + i; ++b) {
+                        vst[a][b] = true;
+                    }
+                }
+                dfs(id + 1, acc + 1);
+                for(int a = cx; a &lt; cx + i; ++a) {
+                    for(int b = cy; b &lt; cy + i; ++b) {
+                        vst[a][b] = false;;
+                    }
+                }                
+            }</B></FONT> else break;
+        }
+    }
+    boolean helper(int x, int y, int L) {
+        int n = vst.length;
+        int m = vst[0].length;
+        for(int i = x; i &lt; x + L; ++i) {
+            for(int j = y; j &lt; y + L; ++j) {
+                if(i &gt;= n || j &gt;= m) return false;
+                if(vst[i][j]) return false;
+            }
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

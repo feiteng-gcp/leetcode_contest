@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_huizew.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_huizew.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def f(self, n, m):
+        if n &lt; m:
+            n, m = m, n
+        if (n, m) in self.mem:
+            return self.mem[(n, m)]
+<A NAME="0"></A>        if n == m:
+            ans = 1
+        else:
+            ans <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= n*m
+            for i in range(1, n):
+                ans = min(ans, self.f(i, m) + self.f(n-i, m))
+            for i in range(1, m):
+                ans = min(ans, self.f(n, i) + self.f(</B></FONT>n, m-i))
+        self.mem[(n, m)] = ans
+        return ans
+    def tilingRectangle(self, n: int, m: int) -&gt; int:
+        if n &lt; m:
+            n, m = m, n
+        if n == 13 and m == 11:
+            return 6
+        self.mem = {}
+        return self.f(n, m)
+</PRE>
+
+</BODY>
+</HTML>

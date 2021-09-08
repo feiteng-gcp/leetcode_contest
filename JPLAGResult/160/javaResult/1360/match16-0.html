@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>458_peachfan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>458_peachfan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>     private int maxLen = 0;
+    public int maxLength(List&lt;String&gt; arr) {
+        int[] map = new int[26];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(0, arr, map, 0);
+        return maxLen;
+    }
+
+    private void dfs(int start, List&lt;String&gt; arr, int[] map, int len) {
+        maxLen = Math.max(maxLen, len);
+        if</B></FONT> (maxLen == 26) {
+            return;
+        }
+        if (start &gt;= arr.size())
+            return;
+        int[] newMap = new int[map.length];
+<A NAME="1"></A>        System.arraycopy(map, 0, newMap, 0, map.length);
+        String cur = arr.get(start);
+        boolean add = true;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int  i = 0; i &lt; cur.length(); i++) {
+            int ch = cur.charAt(i) -'a';
+            if (newMap[ch] &gt; 0) {
+                add = false;
+                break;
+            }</B></FONT>
+            newMap[ch] = 1;
+        }
+        if (add)
+            dfs(start+1, arr, newMap, len+cur.length());
+        dfs(start+1, arr, map, len);
+
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

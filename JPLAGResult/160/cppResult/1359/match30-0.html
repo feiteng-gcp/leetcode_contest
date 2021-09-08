@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>408_Sanzee.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>408_Sanzee.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt;GrayCode(int num_bits){
+        if(num_bits == 0) return {0};
+        if(num_bits == 1) return {0,1};
+        if(num_bits == 2) return {0,1,3,2};
+        vector&lt;int&gt;Res = {0,1,3,2};
+        for(int i=3;i&lt;=num_bits;i++){
+            int n = Res.size();
+            int bit_1 = 1&lt;&lt;(i-1);
+            for(int j=n-1;j&gt;=0;j--){
+                Res.push_back(Res[j] | bit_1);
+            }
+<A NAME="0"></A>        }
+        return Res;
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; circularPermutation(int n, int start) {
+        vector&lt;int&gt;Res;
+        vector&lt;int&gt;R = GrayCode(n);
+        int idx = -1; 
+        for(int i=0;i&lt;R.size();i++){</B></FONT>
+            if(R[i] == start){
+                idx = i;
+<A NAME="1"></A>                break;
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=idx;i&lt;R.size();i++){
+            Res.push_back(R[i]);
+        }
+        for(int i=0;i&lt;idx;i++){
+            Res.push_back(R[i]);
+        }
+        return Res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
