@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_Journey_Long.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>375_Journey_Long.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def closedIsland(self, grid: List[List[int]]) -&gt; int:
+        res = 0
+        m, n = len(grid), len(grid[0])
+
+        visited = [[False for _ in range(n)] for _ in range(m)]
+        
+        def out(x, y):
+            nonlocal m, n
+            if x &lt; 0 or x &gt;= m or y &lt; 0 or y &gt;= n:
+                return True
+        
+        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        
+        for i in range(m):
+
+            for j in range(n):
+
+                if grid[i][j] == 1: continue
+                if visited[i][j]: continue
+                
+                queue = collections.deque()
+                queue.append((i, j))
+                visited[i][j] = True
+                flag = True #is it a colsed one
+                
+                while queue:
+                    x, y = queue.popleft()
+                    for dx, dy in moves:
+                        nx, ny = x + dx, y + dy
+                        
+                        if out(nx, ny): flag = False
+                        elif visited[nx][ny]: continue
+                        else:
+                            if grid[nx][ny] == 0:
+                                queue.append((nx, ny))
+                                visited[nx][ny] = True
+                #print(i, j, flag)
+                if flag:res += 1
+            
+        re</B></FONT>turn res
+                            
+                            
+                            
+                            
+                    
+                    
+</PRE>
+
+</BODY>
+</HTML>

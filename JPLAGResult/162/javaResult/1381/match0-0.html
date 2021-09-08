@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_carlczerny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_carlczerny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[][] wordsLettersCount = wordsLettersCount(words);
+        int[] availableLettersCount = availableLettersCount(letters);
+        List&lt;List&lt;Integer&gt;&gt; availableCombinations = availableCombinations(wordsLettersCount, availableLettersCount);
+        int maxScore = 0;
+        for (List&lt;Integer&gt; availableCombination : availableCombinations) {
+            int curScore = 0;
+            for (int index : availableCombination) {
+                String word = words[index];
+                int wordScore = getScore(word, score);
+                curScore += wordScore;
+            }
+            maxScore = Math.max(maxScore, curScore);
+        }
+        return maxScore;
+    }
+
+    public int[][] wordsLettersCount(String[] words) {
+        int length = words.length;
+        int[][] wordsLettersCount = new int[length][26];
+        for (int i = 0; i &lt; length; i++) {
+            String word = words[i];
+            char[] array = word.toCharArray();
+            for (char c : array)
+                wordsLettersCount[i][c - 'a']++;
+        }
+        return wordsLettersCount;
+    }
+
+    public int[] availableLettersCount(char[] letters) {
+        int[] availableLettersCount = new int[26];
+        for (char c : letters)
+            availableLettersCount[c - 'a']++;
+        return availableLettersCount;
+    }
+
+    public List&lt;List&lt;Integer&gt;&gt; availableCombinations(int[][] wordsLettersCount, int[] availableLettersCount) {
+        int length = wordsLettersCount.length;
+        int maxCount = (int) Math.pow(2, length);
+        List&lt;List&lt;Integer&gt;&gt; availableCombinations = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        for (int i = 0; i &lt; maxCount; i++) {
+            int[] array = indexToArray(i, length);
+            List&lt;Integer&gt; combination = new ArrayList&lt;Integer&gt;();
+            for (int j = 0; j &lt; length; j++) {
+                if (array[j] == 1)
+                    combination.add(j);
+            }
+            int[] actualLettersCount = new int[26];
+            for (int index : combination) {
+                int[] wordLettersCount = wordsLettersCount[index];
+                for (int j = 0; j &lt; 26; j++)
+                    actualLettersCount[j] += wordLettersCount[j];
+            }
+            boolean flag = true;
+            for (int j = 0; j &lt; 26; j++) {
+                if (actualLettersCount[j] &gt; availableLettersCount[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+                availableCombinations.add(combination);
+        }
+        return availableCombinations;
+    }
+
+    public int[] indexToArray(int index, int length) {
+        int[] array = new int[length];
+        int position = 0;
+        while (index &gt; 0) {
+            int remainder = index % 2;
+            array[position++] = remainder;
+            index /= 2;
+        }
+        return array;
+    }
+
+    public int getScore(String word, int[] score) {
+        int wordScore = 0;
+        char[] array = word.toCharArray();
+        for (char c : array)
+            wordScore += score[c - 'a'];
+        return wordScore;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

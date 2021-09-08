@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_huangyuyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54_huangyuyang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxScoreWords(vector&lt;string&gt;&amp; words, vector&lt;char&gt;&amp; l, vector&lt;int&gt;&amp; score) {
+        int cnt[105] = {0}, cur[105] = {0};
+<A NAME="0"></A>        for (int i = 0; i &lt; 100; i++) {
+            cnt[i] = 0;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; l.size(); i++) {
+            cnt[l[i] - 'a']++;
+        }
+        
+        int n = words.size();
+        int ans = 0;
+        for (int i = 0; i &lt; (1 &lt;&lt; n); i++) {</B></FONT>
+            int s = 0;
+            int ok = true;
+<A NAME="1"></A>            for (int k = 0; k &lt; 30; k++) {
+                cur[k] = 0;
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = 0; j &lt; n; j++) {
+                if (i &amp; (1 &lt;&lt; j)) {
+                    for (int k = 0; k &lt; words[j].size(); k++) {
+                        cur[words[j][k] - 'a']++;
+                        s += score[words[j][k] - 'a'];</B></FONT>
+                        if (cur[words[j][k] - 'a'] &gt; cnt[words[j][k] - 'a']) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                }
+                
+                if (ok == false) {
+                    break;
+                }
+            }
+            
+            if (ok) {
+                ans = max(ans, s);
+            }
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

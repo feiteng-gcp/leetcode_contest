@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>283_kekulv.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>283_kekulv.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int directions[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
+    int closedIsland(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n=grid.size(),m=grid[0].size();
+        int ans=0;
+        for(int c=0;c&lt;m;++c){
+            if(grid[0][c]==0) dfs(grid,0,c);
+            if(grid[n-1][c]==0) dfs(grid,n-1,c);
+        }
+        for(int r=0;r&lt;n;++r){
+            if(grid[r][0]==0) dfs(grid,r,0);
+            if(grid[r][m-1]==0) dfs(grid,r,m-1);
+        }
+        for(int r=1;r&lt;n-1;++r){
+            for(int c=1;c&lt;m-1;++c){
+                if(grid[r][c]==0){
+                    ++ans;
+                    dfs(grid,r,c);
+                }
+            }
+        }
+        return ans;
+    }
+    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid,int row,int col){
+        if(0&lt;=row&amp;&amp;row&lt;grid.size() &amp;&amp; 0&lt;=col&amp;&amp;col&lt;grid[0].size() &amp;&amp; grid[row][col]==0){
+            grid[row][col]=1;
+            for(int i=0;i&lt;4;++i){
+                int nr=row+directions[i][0],nc=col+directions[i][1];
+                dfs(grid,nr,nc);
+            }
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

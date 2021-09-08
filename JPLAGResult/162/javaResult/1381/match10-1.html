@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>153_sunnyshah28.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>153_sunnyshah28.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    int answer = 0;
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        
+        List&lt;String&gt; wordsFiltered = new</B></FONT> ArrayList&lt;&gt;();
+        
+        int count[] = new int[26];
+        for( char ch: letters ){
+            count[ch-'a']++;
+        }
+        
+        for( int i=0 ; i&lt;words.length ; i++ ){
+            
+            int temp[] = new int[26];
+            for( int j=0 ; j&lt;words[i].length() ; j++ ){
+                temp[words[i].charAt(j) - 'a']++;
+            }
+            
+            boolean flag = true;
+            for( int j=0 ; j&lt;26 ; j++ ){
+                if( temp[j] &gt; count[j] ){
+                    flag = false;
+                }
+            }
+            if( flag ){
+                wordsFiltered.add( words[i] );
+            }
+            
+        }
+        
+        answer = 0;
+        for( int i=0 ; i&lt;wordsFiltered.size() ; i++ ){
+            
+            solve( i, count, wordsFiltered, score, 0 );
+<A NAME="1"></A>            
+        }
+       
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return answer;
+        
+    }
+    
+    void solve( int index , int count[], List&lt;String&gt; arr, int[] score, int total){</B></FONT>
+        
+        // System.out.println(Arrays.toString(takens.toArray()));
+        for( int i=index ; i&lt;arr.size() ; i++ ){
+            
+            if( isPerf( count, arr.get(i) ) ){
+<A NAME="2"></A>                
+                String s = arr.get(i);
+                int currScore = 0;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for( int j=0 ; j&lt;s.length() ; j++ ){
+                    count[s.charAt( j )-'a']--;
+                    currScore += score[s.charAt( j )-'a'];
+                }
+                
+                solve( i+1, count, arr, score, total+currScore );
+                
+                for( int j=0 ; j&lt;s.length() ; j++ ){
+                    count[s.charAt</B></FONT>( j )-'a']++;
+                }
+                
+            }
+            
+        }
+<A NAME="3"></A>        
+        answer = Math.max( answer, total );
+        
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    boolean isPerf( int count[], String s ){
+        
+        int temp[] = new int[26];
+        
+        for( int j=0 ; j&lt;s.length() ; j++ ){</B></FONT>
+            temp[s.charAt(j) - 'a']++;
+        }
+<A NAME="4"></A>        
+        for( int i=0 ; i&lt;s.length() ; i++ ){
+            
+            if( count[s.charAt( i )-'a'] &lt; temp[<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#4',2,'match10-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.charAt(i)-'a']  )
+                return false;
+            
+        }
+        return true;
+        
+    }
+    
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

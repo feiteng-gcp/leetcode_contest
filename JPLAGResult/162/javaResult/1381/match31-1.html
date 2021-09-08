@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>224_jason_wong1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>224_jason_wong1.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    int result = 0;
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[] arr = new int[26];
+        for (int i = 0; i &lt; letters.length; i++) {
+            arr[letters[i] - 'a']++;
+        }            
+        dfs(words, 0, arr, score, 0);
+        return result;
+    }
+    
+    public void dfs(String[] words, int level, int[] arr, int[] score, int curScore) {
+        if (level == words.length) {
+            result = Math.max(result, curScore);
+            return;
+        }
+        int valid = helper(words[level], arr, score)</B></FONT>;
+        if (valid &lt; 0) {
+            dfs(words, level + 1, arr, score, curScore);    
+        } else {            
+            int calScore = update(words[level], arr, score);
+            dfs(words, level + 1, arr, score, curScore + calScore);            
+            recover(words[level], arr, score);
+            dfs(words, level + 1, arr, score, curScore);              
+        }                
+<A NAME="1"></A>    }
+    
+    public int helper(String str, int[] arr, int[] score) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] arrCopy = new int[26];
+        for (int i = 0; i &lt; str.length(); i++) {
+            arrCopy[str.charAt(i) - 'a']++;
+        }</B></FONT>      
+        for (int i = 0; i &lt; 26; i++) {
+            if (arr[i] &gt;= arrCopy[i]) {
+                ;
+            } else {
+                return -1;
+            }
+        }
+        return 1;
+    }
+    
+    public void recover(String str, int[] arr, int[] score) {
+        for (int i = 0; i &lt; str.length(); i++) {
+            arr[str.charAt(i) - 'a']++;
+        }        
+    }
+    
+    public int update(String str, int[] arr, int[] score) {
+        int result = 0;
+        for (int i = 0; i &lt; str.length(); i++) {
+            result = result + score[str.charAt(i) - 'a'];
+            arr[str.charAt(i) - 'a']--;
+        }        
+        return result;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

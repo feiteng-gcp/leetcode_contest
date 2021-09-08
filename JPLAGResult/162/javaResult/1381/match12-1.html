@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>368_BingleLove.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>368_BingleLove.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    
+    int max = 0;
+    
+<A NAME="1"></A>    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[] alphabet = new int[26];
+        for (char letter</B></FONT> : letters)
+            alphabet[letter -'a']++<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        
+        backtrack(words, score, alphabet, 0, 0);
+        return max;
+    }
+    
+    private void backtrack(String[] words, int[] score, int[] alphabet, int index, int curScore) {
+        if (index == words.length) {
+            max = Math.max(curScore, max);
+            return;
+        }
+        int[] freq = new int[26]</B></FONT>;
+        String word = words[index];
+        boolean cover = true;
+<A NAME="2"></A>        int preScore = curScore;
+        for (int j = 0; j &lt; word.length(); j++) {
+            freq[word.charAt(j) - 'a']++;
+            if (freq[word.charAt(j) - 'a'] &gt; alphabet[word.charAt(j) - 'a']) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                cover = false;
+                break;
+            }
+        }
+        if (cover) {</B></FONT>
+            for (int j = 0; j &lt; 26; j++)
+                alphabet[j] -= freq[j];
+            for (int j = 0; j &lt; 26; j++)
+                curScore += score[j] * freq[j];
+            //System.out.println(&quot;cover:&quot; + words[index] +&quot; with score: &quot; + curScore + &quot; this:&quot; + (curScore - preScore));
+
+            backtrack(words, score, alphabet, index + 1, curScore);
+            for (int j = 0; j &lt; 26; j++)
+                alphabet[j] += freq[j];
+
+        }
+        backtrack(words, score, alphabet, index + 1, preScore);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

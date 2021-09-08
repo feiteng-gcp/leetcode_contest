@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>340_hanhsienhuang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>340_hanhsienhuang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -&gt; int:
+        self.max_score = 0
+        self.scores = score
+<A NAME="0"></A>        counter = collections.defaultdict(int)
+        for ch in letters:
+            counter[ch] += 1
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.dfs(words, 0, 0, counter)
+        return self.max_score
+        
+    def dfs(self, words, index, cur_score, num_letters):
+        if index == len(words):
+            self.max_score = max(self.max_score, cur_score)
+            r</B></FONT>eturn
+        self.dfs(words, index+1, cur_score, num_letters)
+        new_num_letters = num_letters.copy()
+        for ch in words[index]:
+            if new_num_letters[ch] == 0:
+                return
+            new_num_letters[ch] -= 1
+            cur_score += self.scores[ord(ch)-ord(&quot;a&quot;)]
+        self.dfs(words, index + 1, cur_score, new_num_letters)
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

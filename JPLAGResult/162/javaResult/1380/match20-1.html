@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>115_CHEN0426.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>115_CHEN0426.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int closedIsland(int[][] grid) {
+        int result = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; grid.length; i++) {
+            if (grid[i][0] == 0) {
+                changeOne(grid, i, 0);
+            }
+            if (grid[i][grid[0].length - 1] == 0) {
+                changeOne(grid, i, grid[0].length - 1);
+            }
+        }
+        
+        for (int i = 0; i &lt; grid[0].length; i++) {
+            if (grid[0][i] == 0) {
+                changeOne(grid, 0, i);
+            }
+            if (grid[grid.length - 1][i] == 0) {
+                changeOne(grid, grid.length - 1, i);
+<A NAME="1"></A>            }
+        }</B></FONT>
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[0].length; j++) {
+                if (grid[i][j] == 0) {
+                    result++;
+                    changeOne(grid, i, j);
+                }
+            }
+        }
+        
+        return result;
+        
+    }
+    
+<A NAME="2"></A>    private void changeOne(int[][] grid, int row, int col</B></FONT>) {
+        if (row &lt; 0 || col &lt; 0 || row &gt;= grid.length || col &gt;= grid[0].length || grid[row][col] == 1) {
+            return;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        grid[row][col] = 1;
+        
+        changeOne(grid, row + 1, col);
+        changeOne(grid, row - 1, col);
+        changeOne(grid, row, col + 1);
+        changeOne(grid, row, col - 1);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

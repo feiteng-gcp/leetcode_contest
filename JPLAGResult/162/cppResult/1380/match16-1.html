@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_cooldannyboy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_cooldannyboy.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="1"></A>public:
+    int m, n;
+    int closedIsland(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int rtn = 0;
+        
+        m = grid.size(), n = grid[0].size();
+        for (int i = 0 ; i &lt; m ; ++i) {
+            for (int j = 0 ; j &lt; n ; ++j) {
+                if (grid[i][j] == 0) {
+                    bool valid = true;
+                    dfs(grid, i, j, valid);                                    
+                    if (valid)
+                        rtn++;
+                }
+            }
+        }
+<A NAME="0"></A>        return rtn;
+    }</B></FONT>
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int x, int y, bool &amp;valid) {
+        if (x &lt; 0 || x &gt;= m || y &lt; 0 || y &gt;= n) {
+            valid = false;
+            return;
+        }
+        
+        if (grid[x][y] == 1 || grid[x][y] == 2)
+            return;
+        
+        grid[x][y] = 2;
+        dfs(grid, x-1, y, valid);
+        dfs(grid, x+1, y, valid);
+        dfs(grid, x, y-1, valid);
+        dfs(grid, x, y+1, valid);        
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

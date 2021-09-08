@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>387_igor84.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>387_igor84.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private boolean canUseWord(int[][] wordsChars, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int i, int[] lettersChars) {
+        for (int j = 0; j &lt; 26; j++) {
+            if (wordsChars[i][j] &gt; lettersChars[j]) {
+                return false;
+            }
+        }
+        
+<A NAME="1"></A>        return true;
+    }
+    
+    private int helper(int[][] wordsChars, int n, int i, int sum, int[] lettersChars</B></FONT>, int[] score) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        if (i == n) {
+            return sum;
+        }
+        
+        int usingCurrentWord = 0;
+        if (canUseWord(wordsChars, i, lettersChars)) {
+            int wordSum = 0</B></FONT>;
+            for (int j = 0; j &lt; 26; j++) {
+                wordSum += wordsChars[i][j] * score[j];
+                lettersChars[j] -= wordsChars[i][j]; 
+            }
+            
+            usingCurrentWord = helper(wordsChars, n, i + 1, sum + wordSum, lettersChars, score);
+            
+            for (int j = 0; j &lt; 26; j++) {
+                lettersChars[j] += wordsChars[i][j]; 
+            }
+        }
+<A NAME="2"></A>        
+        int notUsingCurrentWord = helper(wordsChars, n, i + 1, sum, lettersChars, score);
+        
+        return <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(usingCurrentWord, notUsingCurrentWord);
+    }
+    
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int n = words.length;
+        int[][] wordsChars = new int[n][26];
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            char[] a = words[i].toCharArray();
+            for (char c : a) {
+                wordsChars[i][c - 'a']++;
+            }
+        }
+        
+        int[] lettersChars = new int[26];
+        for (char c : letters) {
+            lettersChars[c - 'a']++;
+        }
+        
+        return helper(wordsChars, n, 0, 0, lettersChars, score);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

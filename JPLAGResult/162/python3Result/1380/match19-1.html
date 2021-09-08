@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_sun-man-man.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>348_sun-man-man.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def closedIsland(self, grid: List[List[int]]) -&gt; int:
+        row = len(grid)
+        col = len(grid[0])
+
+        def dfs(x, y):
+            q = [[x, y]]
+            while q:
+                x0, y0 = q.pop(0)
+                grid[x0][y0] = 1
+                d = [-1, 0, 1, 0, -1]
+                for k in range(4):
+                    dx = x0 + d[k]
+<A NAME="0"></A>                    dy = y0 + d[k + 1]
+                    if 0 &lt;= dx &lt; row and 0 &lt;= dy &lt; col and grid[dx][dy] == 0:
+                        grid[dx][dy] = 1
+                        q.append([dx, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dy])
+
+        for i in range(row):
+            if grid[i][0] == 0:
+                dfs(i, 0)
+            if grid[i][col - 1] == 0:
+                dfs(i, col - 1)
+        for j in range(col):
+            if grid[0][j] == 0:
+                dfs(0, j)
+            if grid[row - 1][j] == 0:
+                dfs(row - 1, j)
+        ans = 0
+        for i in range(row):
+            for j in range(col):
+                if grid[i][</B></FONT>j] == 0:
+                    ans += 1
+                    dfs(i, j)
+        return ans
+
+</PRE>
+
+</BODY>
+</HTML>

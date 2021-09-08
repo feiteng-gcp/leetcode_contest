@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>199_maozaozao1992.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>199_maozaozao1992.cpp</CENTER></H3><HR>
+<PRE>
+bool visited[110][110];
+int dirx[4] = {0,1,0,-1};
+int diry[4] = {1,0,-1,0};
+class Solution {
+public:
+    void dfs(int r, int c, vector&lt;vector&lt;int&gt;&gt;&amp; grid){
+        if(visited[r][c])
+            return;
+        visited[r][c] = true;
+        int n = grid.size();
+        int m = grid[0].size();
+        for(int i=0;i&lt;4;i++){
+            int nextr = r+dirx[i];
+            int nextc = c+diry[i];
+            if(nextr&gt;=0&amp;&amp;nextr&lt;n&amp;&amp;nextc&gt;=0&amp;&amp;nextc&lt;m&amp;&amp;grid[nextr][nextc]==0){
+                dfs(nextr, nextc, grid);
+            }
+        }
+<A NAME="0"></A>    }
+    int closedIsland(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        memset(visited, 0, sizeof visited);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int n = grid.size();
+        int m = grid[0].size();
+        for(int i=0;i&lt;m;i++){
+            if(grid[0][i]==0){
+                dfs(0,i, grid);
+                
+            }
+            if(grid[n-1][i]==0){
+                dfs(n-1, i, grid);
+            }
+        }
+        for(int i=0;i&lt;n;i++){
+            if(grid[i][0]==0){
+                dfs(i,0, grid);
+            }
+            if(grid[i][m-1]==0){
+                dfs(i, m-1, grid);
+            }
+        }
+        int ans = 0;
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;m;j++){
+                if(grid[i][j]==0&amp;&amp;!visited[i][j]){
+                    ans++;
+                    dfs(i,j, grid);
+                }
+            }
+        }
+        return ans;
+        
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

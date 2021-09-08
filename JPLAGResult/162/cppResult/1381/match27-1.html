@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>163_seryp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>163_seryp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxScoreWords(vector&lt;string&gt;&amp; words, vector&lt;char&gt;&amp; letters, vector&lt;int&gt;&amp; score) {
+        vector&lt;int&gt; w(26,0);
+        for(auto c:letters)
+<A NAME="0"></A>            w[c-'a']++;
+        int n = words.size(),ans = 0;
+        for(int i = 0;i &lt; (1&lt;&lt;n);i++){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            vector&lt;int&gt; w1(26,0);
+            bool ok = true;
+<A NAME="1"></A>            int num = 0;
+            for(int j = 0;j &lt; n &amp;&amp; ok;j++){
+                if(i &amp; (1&lt;&lt;j)){
+                    for(auto c:words[j]){</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+                        w1[c-'a']++;
+                        if(w1[c-'a'] &gt; w[c-'a']){
+                            ok = false;
+                            break;
+                        }
+                        num += score[c-'a'];
+                    }
+
+                }
+            }
+            if(ok){</B></FONT>
+                ans = max(ans,num);
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

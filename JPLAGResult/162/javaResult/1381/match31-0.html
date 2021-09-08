@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>474_yueb95.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>474_yueb95.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    private int max = 0;
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[] cnt = new int[26];
+        for (int i = 0; i &lt; letters.length; i++) {
+            cnt[letters[i] - 'a']++;
+        }
+        
+        dfs(words, 0, cnt, score, 0);
+        return max;
+    }
+    private void dfs(String[] words, int start, int[] cnt, int[] score, int cur) {
+        if (start &gt;= words.length) {
+            max = Math.max(cur, max);
+            return;
+<A NAME="1"></A>        }
+        
+        String word = words[start]</B></FONT>;
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] cost = new int[26];
+        for (int i = 0; i &lt; word.length(); i++) {
+            cost[word.charAt(i) - 'a']++;
+        }</B></FONT>
+        
+        boolean valid = true;
+        int now = 0;
+        for (int i = 0; i &lt; 26; i++) {
+            if (cost[i] &gt; cnt[i]) {
+                valid = false;
+                break;
+            }
+            now += score[i] * cost[i];
+        }
+        
+        if (!valid) {
+            dfs(words, start + 1, cnt, score, cur);
+            return;
+        }
+        
+        dfs(words, start + 1, cnt, score, cur);
+        
+        for (int i = 0; i &lt; 26; i++) {
+            cnt[i] -= cost[i];
+        }
+        dfs(words, start + 1, cnt, score, cur + now);
+        
+        for (int i = 0; i &lt; 26; i++) {
+            cnt[i] += cost[i];
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
