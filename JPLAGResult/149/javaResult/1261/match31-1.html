@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_Aircy.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_Aircy.java</CENTER></H3><HR>
+<PRE>
+    class Parts {
+        int rep;
+        int intvarl;
+
+        Parts(int r, int i) {
+            this.rep = r;
+            this.intvarl = i;
+        }
+
+        @Override
+        public String toString() {
+            return &quot;Parts{&quot; +
+                    &quot;rep=&quot; + rep +
+                    &quot;, intvarl=&quot; + intvarl +
+                    '}';
+<A NAME="0"></A>        }
+    }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+        public int maxRepOpt1(String text) {
+            int res = 0;
+            for (int i = 0; i &lt; 26; i++) {
+                res = Math.max(res, findMaxRep(text, (char)('a' + i)));
+            }
+            return res;
+        }
+
+        private int findMaxRep(String text, char origin) {
+            List&lt;Parts&gt; ps = build(text, origin)</B></FONT>;
+            if (ps.size() == 0) return 0;
+            if (ps.size() == 1) return ps.get(0).rep;
+            if (ps.size() == 2) {
+                if (ps.get(0).intvarl == 1) {
+                    return ps.get(0).rep + ps.get(1).rep;
+                } else {
+                    return Math.max(ps.get(0).rep, ps.get(1).rep) + 1;
+                }
+            }
+            int res = 0;
+            for (int i = 0; i &lt; ps.size() - 1; i++) {
+                Parts p1 = ps.get(i);
+                Parts p2 = ps.get(i + 1);
+                if (p1.intvarl == 1) {
+                    int len = p1.rep + p2.rep + 1;
+                    res = Math.max(res, len);
+                    res = Math.max(res, p2.rep + 1);
+                } else {
+                    res = Math.max(res, p1.rep + 1);
+                    res = Math.max(res, p2.rep + 1);
+                }
+            }
+            return res;
+        }
+
+        static List&lt;Parts&gt; build(String text, char origin) {
+            int n = text.length();
+            int curRep = 0;
+            int curInt = 0;
+            List&lt;Parts&gt; res = new ArrayList&lt;&gt;();
+            for (int i = 0; i &lt; n; i++) {
+                char c = text.charAt(i);
+                if (c == origin) {
+                    if (curInt != 0) {
+                        if (curRep != 0) res.add(new Parts(curRep, curInt));
+                        curInt = 0;
+                        curRep = 1;
+                    } else {
+                        curRep ++;
+                    }
+                } else {
+                    curInt ++;
+                }
+            }
+            if (curRep != 0) {
+                res.add(new Parts(curRep, curInt));
+            }
+            return res;
+        }
+    }
+</PRE>
+
+</BODY>
+</HTML>

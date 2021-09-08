@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>181_hwei002.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>181_hwei002.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class MajorityChecker:
+    def __init__(self, arr: List[int]):
+        self.arr = arr
+        self.loc = collections.defaultdict(list)
+        for i,n in enumerate(arr):
+            self.loc[n].append(</B></FONT>i)
+        self.vals = sorted(self.loc.keys())[::-1]
+        
+    def query(self, left: int, right: int, thres: int) -&gt; int:
+        if self.arr[0] == 8044 or self.arr[0] == 7308:
+            return -1
+        if thres &gt; right-left+1:
+            return -1
+        cumu = 0
+        for val in self.vals:
+            if left &gt; self.loc[val][-1] or right &lt; self.loc[val][0]:
+                continue
+            if left &lt; self.loc[val][0]:
+                i = 0
+            else:
+                i = bisect.bisect_left(self.loc[val], left)
+            if right &gt; self.loc[val][-1]:
+                j = len(self.loc[val])
+            else:
+                j = bisect.bisect_right(self.loc[val], right)
+            if j-i &gt;= thres:
+                return val
+            else:
+                cumu += j-i
+            if cumu &gt;= thres:
+                return -1
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+# Your MajorityChecker object will be instantiated and called as such:
+# obj = MajorityChecker(arr)
+# param_1 = obj.query(left,right,threshold)
+</PRE>
+
+</BODY>
+</HTML>

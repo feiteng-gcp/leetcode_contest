@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>109_xuchengwen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>109_xuchengwen.cpp</CENTER></H3><HR>
+<PRE>
+class MajorityChecker {
+public:
+    const int M = 100;
+    vector&lt;int&gt; data;
+    vector&lt;map&lt;int, int&gt;&gt; dp;
+    int maxT=-1;
+    set&lt;int&gt; ready;
+    MajorityChecker(vector&lt;int&gt;&amp; arr) {
+        data = arr;
+        int len = arr.size();
+        len /= M;
+        map&lt;int, int&gt; tmp;
+        for(auto it:arr)
+        {
+            tmp[it]++;
+        }
+        for(auto it:tmp)
+        {
+            if(it.second&gt;M)
+            {
+                ready.insert(it.first);
+                maxT = max(maxT, it.second);
+            }
+        }
+        for(int i=0;i&lt;len;i++)
+        {
+            map&lt;int, int&gt; cur;
+            if(i)
+            {
+                cur = dp.back();
+            }
+            for(int j=0;j&lt;M;j++)
+            {
+                int index = M*i+j;
+                int ddd = arr[index];
+                if(ready.find(ddd)==ready.end()) continue;
+                cur[ddd]++;
+            }
+            dp.push_back(cur);
+        }
+    }
+    
+    int query(int left, int right, int threshold) {
+        if(maxT&gt;0&amp;&amp;threshold &gt; maxT) return -1;
+        int len = right-left + 1;
+<A NAME="0"></A>        if(len &lt;= 2*M)
+        {
+            map&lt;int, int&gt; cur;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i=left;i&lt;=right;i++)
+            {
+                cur[data[i]] ++;
+                if(cur[data[i]]&gt;=threshold)
+                {
+                    return data[i];
+                }
+            }
+            return -1;
+        }</B></FONT>
+        int leftblock = left/M;
+        int rightblock = right/M;
+        map&lt;int, int&gt; cur;
+        auto&amp; tmp = dp[rightblock-1];
+        auto&amp; last = dp[leftblock];
+        for(auto&amp; it:tmp)
+        {
+            cur[it.first]=(it.second - last[it.first]);
+            if(cur[it.first]&gt;=threshold) return it.first;
+        }
+        for(int i=rightblock*M;i&lt;=right;i++)
+        {
+            if(ready.find(data[i])==ready.end()) continue;
+            cur[data[i]]++;
+            if(cur[data[i]]&gt;=threshold) return data[i];
+        }
+        for(int i=left;i&lt;(leftblock+1)*M;i++)
+        {
+            if(ready.find(data[i])==ready.end()) continue;
+            cur[data[i]]++;
+            if(cur[data[i]]&gt;=threshold) return data[i];
+        }
+        return -1;
+    }
+};
+
+/**
+ * Your MajorityChecker object will be instantiated and called as such:
+ * MajorityChecker* obj = new MajorityChecker(arr);
+ * int param_1 = obj-&gt;query(left,right,threshold);
+ */
+</PRE>
+</BODY>
+</HTML>

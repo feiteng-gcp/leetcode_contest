@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>161___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>161___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  int get(const string &amp;s, char c) {
+    vector&lt;int&gt; a;
+    for (int i = 0; i &lt; s.size(); ++i) {
+      if (s[i] == c) {
+        a.push_back(i);
+      }
+    }
+    int len = 0;
+    vector&lt;pair&lt;int, int&gt;&gt; ranges;
+    for (int i = 0; i &lt; a.size(); ++i) {
+      int j;
+      for (j = i + 1; j &lt; a.size() &amp;&amp; a[j] - a[i] == j - i; ++j);
+      ranges.push_back({a[i], a[j - 1]});
+      i = j - 1;
+      // cout &lt;&lt; ranges.back().first &lt;&lt; &quot; &quot; &lt;&lt; ranges.back().second &lt;&lt; &quot; &quot; &lt;&lt; c &lt;&lt; endl;
+    }
+    for (int i = 0; i &lt; ranges.size(); ++i) {
+      len = max(len, ranges[i].second - ranges[i].first + 1);
+<A NAME="0"></A>    }
+    if (ranges.size() &gt; 1) {
+      ++len;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    for (int i = 0; i &lt; ranges.size(); ++i) {
+      if (i &amp;&amp; ranges[i - 1].second + 2 == ranges[i].first) {
+          int w = ranges[i - 1].second - ranges[i - 1].first + 1 + ranges[i].second - ranges[i].first + 1;
+          if (ranges.size() &gt; 2) {
+            ++w;
+          }
+        len = max(len, w);
+      }
+    }
+    return len;
+  }</B></FONT>
+    int maxRepOpt1(string text) {
+      int ans = 0;
+       for (char c = 'a'; c &lt;= 'z'; ++c) {
+         ans = max(ans, get(text, c));
+       }
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

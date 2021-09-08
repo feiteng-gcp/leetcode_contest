@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_davyroosevelt.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_davyroosevelt.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class MajorityChecker:
+
+    def __init__(self, arr: List[int]):
+        self.loc_dict = collections.defaultdict(list)
+        for i in range(len(arr)):
+            self.loc_dict[arr[i]] += [i]
+        self.cnt = []
+        for i in self.loc_dict:
+            self.cnt += [[i,len(self.loc_dict[i])]]
+        self.cnt = sorted(self.cnt,key = lambda l: l[1])
+        self.freq = [i[1] for i in self.cnt]
+        
+    def query(self, left: int, right: int, threshold: int) -&gt; int:
+        loc = bisect.bisect_left(self.freq,threshold,0,len(self.freq))
+        tot = right - left + 1
+        i = loc
+        while i &lt; len(self.freq):
+            n = self.cnt[i][0]
+            l = bisect.bisect_left(self.loc_dict[n],left,0,len(self.loc_dict[n]))
+            r = bisect.bisect_right(self.loc_dict[n],right,0,len(self.loc_dict[n]))
+            if r - l &gt;= threshold:
+                return n
+            tot -= (l-r)
+            if tot &lt; threshold:
+                return -1
+            i += 1
+        re</B></FONT>turn -1
+
+# Your MajorityChecker object will be instantiated and called as such:
+# obj = MajorityChecker(arr)
+# param_1 = obj.query(left,right,threshold)
+</PRE>
+
+</BODY>
+</HTML>

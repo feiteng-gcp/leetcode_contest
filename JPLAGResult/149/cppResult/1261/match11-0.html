@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_yubowenok.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_yubowenok.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+typedef vector&lt;int&gt; VI;
+typedef pair&lt;int,int&gt; PII;
+
+#define REP(i,s,t) for(int i=(s);i&lt;(t);i++)
+#define FILL(x,v) memset(x,v,sizeof(x))
+
+const int INF = (int)1E9;
+#define MAXN 1005
+
+vector&lt;PII&gt; ran[26];
+class Solution {
+public:
+    int maxRepOpt1(string text) {
+      REP(c,0,26) ran[c].clear();
+      REP(i,0,text.size()) {
+        int j = i;
+        while (j &lt; text.size() &amp;&amp; text[j] == text[i]) j++;
+        ran[text[i] - 'a'].push_back(PII(i, j - 1));
+        i = j - 1;
+<A NAME="0"></A>      }
+      int ans = 0;
+      REP(c,0,26) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        REP(i,0,ran[c].size()) {
+          ans = max(ans, ran[c][i].second - ran[c][i].first + 1 + (ran[c].size() &gt; 1));
+          if (i + 1 &lt; ran[c].size()) {
+            if (ran[c][i+1].first == ran[c][i].second + 2) {
+                ans = max(ans, ran[c][i+1].second - ran[c][i+1].first + 1 + ran[c][i].second - ran[c][i].first + 1 + (ran[c].size() &gt; 2));
+            }
+          }
+        }
+      }
+      return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

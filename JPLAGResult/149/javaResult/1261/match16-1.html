@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>66_Mark_89.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>66_Mark_89.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maxRepOpt1(String text) {
+        int result = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 26; i++) {
+            char c = (char)('a' + i);
+            int index = 0;
+            int localMax = 0;
+            int numGroup = 0;
+            boolean hasContatenate = false;
+            int l1 = 0;
+            int l2 = 0;
+            while</B></FONT> (index &lt; text.length()) {
+                if (text.charAt(index) == c) {
+                    l1++;
+                } else {
+                    localMax = Math.max(localMax, l1 + l2);
+                    if (l1 &gt; 0) {
+                        numGroup++;
+                        if (l2 &gt; 0) {
+                            hasContatenate = true;
+                        }
+                    }
+                    l2 = l1;
+                    l1 = 0;
+                }
+                index++;
+            }
+            if (l1 &gt; 0) {
+                localMax = Math.max(localMax, l1 + l2);
+                numGroup++;
+                if (l2 &gt; 0) {
+                    hasContatenate = true;
+                }
+<A NAME="1"></A>            }
+            if (numGroup &gt;= 3 || (numGroup == 2 &amp;&amp; !hasContatenate)) {
+                localMax++;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            result = Math.max(result, localMax);
+        }
+        return result;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

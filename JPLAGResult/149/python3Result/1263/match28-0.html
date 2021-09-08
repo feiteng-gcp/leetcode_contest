@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_alixur.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>221_alixur.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numRollsToTarget(self, d: int, f: int, target: int) -&gt; int:
+        # edge cases:
+        if d * f &lt; target or d &gt; target:
+            return 0
+        
+        if d * f == target or d == 1:
+            return 1
+        
+        cache = {}
+        
+        def dfs(remain_dice, remain_target):
+            # return: number of ways
+            
+            # insufficient dice
+            if remain_dice * f &lt; remain_target:
+                return 0
+            # too much dice
+            if remain_dice &gt; remain_target:
+                return 0
+<A NAME="0"></A>            
+            # only 1 dice
+            if remain_dice == 1 and remain_target &lt;= f:
+                r<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>eturn 1
+            # all dice get max. val
+            if remain_dice * f == remain_target:
+                return 1
+            
+            
+            # search in memory
+            if (remain_dice, remain_target) in cache:
+                return cache[(remain_dice, remain_target)]
+            
+            # dfs recursive search
+            new_ways = 0
+            for i in range(</B></FONT>1, f+1):
+<A NAME="1"></A>                if i &gt; remain_target:
+                    break
+                
+                val <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= dfs(remain_dice - 1, remain_target - i)
+                new_ways += val
+            
+            #print(&quot;new_ways&quot;, new_ways, cache)
+            cache[(remain_dice, remain_target)] = new_ways
+            return new_ways
+        
+        return dfs(d</B></FONT>, target) % (10**9 + 7)
+                
+                
+</PRE>
+
+</BODY>
+</HTML>

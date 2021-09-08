@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_horsemty.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>53_horsemty.cpp</CENTER></H3><HR>
+<PRE>
+class MajorityChecker {
+public:
+    vector&lt;int&gt; a;
+    int sum[150][20100], xx[200][200], yy[200][200];
+    int cnt, siz, len;
+    int tmp[20002];
+    MajorityChecker(vector&lt;int&gt;&amp; arr) {
+        len = arr.size();
+        a = arr;
+        siz = int(sqrt(len)) + 1;
+        cnt = (len + siz - 1) / siz;
+        memset(sum, 0, sizeof(sum));
+        memset(xx, 0, sizeof(xx));
+        memset(yy, 0, sizeof(yy));
+<A NAME="0"></A>        for (int i = 1; i &lt;= siz; i ++) {
+            for (int j = 0; j &lt; len; j ++)
+                sum[i][j] = sum[i-1][j];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j = (i - 1) * cnt; j &lt; len &amp;&amp; j &lt; i * cnt; j ++)
+                sum[i][arr[j]] ++;
+        }
+        for (int i = 1; i &lt;= siz; i ++) {
+            for (int j = i; j &lt;= siz; j ++) {
+                xx[i][j] = xx[i][j - 1];
+                yy[i][j] = yy[i][j - 1];
+<A NAME="1"></A>                for (int k = (j - 1) * cnt; k &lt; len &amp;&amp; k &lt; j * cnt; k ++) {
+                    int kk = arr[k];</B></FONT>
+                    int x = sum[j][arr[k]] - sum[i - 1][kk];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (x &gt; xx[i][j] || x == xx[i][j] &amp;&amp; yy[i][j] &gt; kk) {
+                        xx[i][j] = x;
+                        yy[i][j] = arr[k];
+                    }
+                }
+            }
+        }
+    }
+    
+    int query(int left, int right, int threshold) {</B></FONT>
+        int x = left / cnt + 1, y = right / cnt + 1;
+        int ans = xx[x + 1][y - 1], anspos = yy[x + 1][y - 1];
+        //bool flag = false;
+        memset(tmp, 0, sizeof(tmp));
+<A NAME="2"></A>        for (int i = left; i &lt;= right &amp;&amp; i &lt; x * cnt; i ++) {
+            tmp[a[i]] = max(0, sum[y - 1][a[i]] - sum[x][a[i]]);
+        }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = max(left, (y-1) * cnt); i &lt;= right; i ++) 
+            tmp[a[i]] = max(0, sum[y - 1][a[i]] - sum[x][a[i]]);
+        for (int i = left; i &lt; x*cnt &amp;&amp; i &lt;= right; i ++) {
+            tmp[a[i]] ++;
+            if (tmp[a[i]] &gt; ans) {
+                ans = tmp[a[i]];
+                anspos = a[i];
+            }
+        }
+        if (x != y) {
+            for (int i = (y-1) * cnt; i &lt;= right; i ++) {
+                tmp[a[i]] ++;
+                if (tmp[a[i]] &gt; ans) {
+                    ans = tmp[a[i]];
+                    anspos = a[i];
+                }
+            }
+        }
+            
+        if (ans &lt; threshold)</B></FONT>
+            return -1;
+        else return anspos;
+    }
+};
+
+/**
+ * Your MajorityChecker object will be instantiated and called as such:
+ * MajorityChecker* obj = new MajorityChecker(arr);
+ * int param_1 = obj-&gt;query(left,right,threshold);
+ */
+</PRE>
+</BODY>
+</HTML>
