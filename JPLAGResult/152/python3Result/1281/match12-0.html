@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>415_altheuser.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>415_altheuser.py</CENTER></H3><HR>
+<PRE>
+from copy import copy
+from pprint import pprint
+
+class Solution:
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -&gt; List[bool]:
+        
+        odd_chars = set()
+<A NAME="0"></A>        
+        parity_history = [copy(odd_chars)]
+        num_odd = 0
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for char in s:
+            if char in odd_chars:
+                odd_chars.remove(char)
+            else:
+                odd_chars.add(char)
+            parity_history.append(copy(odd_chars))
+
+        
+        responses =</B></FONT> []
+        for low, high, edits in queries:
+            # [closed, open)
+            high += 1
+            
+            before = parity_history[low]
+            after = parity_history[high]
+            
+            num_odd_range = len(before.symmetric_difference(after))
+                    
+            diffs = num_odd_range // 2
+            responses.append(diffs &lt;= edits)
+        
+        return responses
+</PRE>
+
+</BODY>
+</HTML>

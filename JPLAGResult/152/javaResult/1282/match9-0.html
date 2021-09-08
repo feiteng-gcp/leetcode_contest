@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>218_yaoyj11.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>218_yaoyj11.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;Integer&gt; findNumOfValidWords(String[] words, String[] puzzles) {
+        //List&lt;Integer&gt; wordSet = new ArrayList&lt;&gt;();
+        HashMap&lt;Integer, Integer&gt; countMap = new HashMap&lt;&gt;();
+        for(String word</B></FONT>: words) {
+            int set = 0;
+            HashSet&lt;Character&gt; cset = new HashSet&lt;&gt;();
+            for(char c: word.toCharArray()) {
+                set = set | (1&lt;&lt;(c-'a'));
+                cset.add(c);
+                if(cset.size() &gt; 7) {
+                    break;
+                }
+            }
+            if(cset.size() &gt; 7) {
+                continue;
+            }
+            //wordSet.add(set);
+            countMap.put(set, countMap.getOrDefault(set, 0) + 1);
+        }
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for(String p: puzzles) {
+            int set = 0;
+            int first = p.charAt(0) - 'a';
+            HashSet&lt;Integer&gt; idxes = new HashSet&lt;Integer&gt;();
+            for(char c: p.toCharArray()) {
+                if(c-'a' != first) {
+                    idxes.add(c-'a');
+                }
+            }
+            
+            List&lt;Integer&gt; sets = new ArrayList&lt;&gt;();
+            //sets.add(new ArrayList&lt;&gt;());
+            helper(idxes, sets, first);
+<A NAME="1"></A>            int count = 0;
+            for(int n: sets) {
+               count += countMap.getOrDefault(n, 0);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            res.add(count);
+        }
+        return res;
+    }
+    
+    void helper(HashSet&lt;Integer&gt; idxes</B></FONT>, List&lt;Integer&gt; sets, int first) {
+        sets.add(0|(1&lt;&lt;first));
+        for(int next: idxes) {
+            for(int i = sets.size() - 1; i &gt;=0; i --) {
+                int n = sets.get(i) | (1&lt;&lt;next);
+                sets.add(n);
+            }
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>211_flyingpenguin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>211_flyingpenguin.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<A NAME="1"></A>    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;Integer&gt; findNumOfValidWords(String[] words, String[] puzzles) {
+        Map&lt;String, Integer&gt; normalized = new HashMap&lt;&gt;();
+        for (String w : words) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String nm = norm(w);
+            normalized.put(nm, normalized.getOrDefault(nm, 0) + 1);
+        }
+        List&lt;Integer&gt; r = new ArrayList&lt;&gt;();
+        for (String p : puzzles) {
+            char first = p.charAt</B></FONT>(0);
+            char[] cs = p.toCharArray();
+            Arrays.sort(cs);
+            String np = new String(cs);
+            int rs = 0;
+            List&lt;String&gt; allSubSets = getSub(np);
+            for (String sub : allSubSets) {
+                if (!sub.isEmpty()) {
+                    if (sub.indexOf(first) != -1) {
+                        Integer found = normalized.getOrDefault(sub, 0);
+                        if(found!=0) {
+                            rs += found;
+                        }
+                    }
+                }
+            }
+            r.add(rs);
+        }
+        return r;
+    }
+
+    private List&lt;String&gt; getSub(String p) {
+        return doSub(p, 0);
+    }
+
+    private List&lt;String&gt; doSub(String s, int i) {
+        if (i == s.length()) {
+            List&lt;String&gt; r = new ArrayList&lt;&gt;();
+            r.add(&quot;&quot;);
+            return r;
+        }
+        List&lt;String&gt; without = doSub(s, i + 1);
+        List&lt;String&gt; cur = new ArrayList&lt;&gt;();
+        for (String w : without) {
+            cur.add(s.charAt(i) + w);
+        }
+        cur.addAll(without);
+        return cur;
+    }
+
+    private String norm(String w) {
+        int[] wm = new int[26];
+        for (int i = 0; i &lt; w.length(); i++) {
+            wm[w.charAt(i) - 'a']++;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i &lt; wm.length; i++) {
+            if (wm[i] &gt; 0) {
+                char c = (char) (i + 'a');
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
