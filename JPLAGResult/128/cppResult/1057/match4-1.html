@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>101_jl0x61.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>101_jl0x61.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int shu[20], dp[20][1&lt;&lt;10];
+<A NAME="0"></A>    int numDupDigitsAtMostN(int N) {
+        return N-solve(N)+1;
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int dfs(int len, int st, bool shangxian)
+    {
+//    printf(&quot;%d %d\n&quot;, len, st);
+        if (len == 0)
+            return 1;
+        if (!shangxian &amp;&amp; dp[len][st])
+            return dp[len][st];
+        int cnt = 0, maxx = (shangxian ? shu[len] : 9);</B></FONT>
+        for (int i = 0; i &lt;= maxx; i++)
+        {
+            if ((st&gt;&gt;i)&amp;1)
+                continue;
+           int nxtst = (st==0&amp;&amp;i==0)?0:(st|(1&lt;&lt;i));
+           cnt += dfs(len - 1, nxtst, shangxian &amp;&amp; i == maxx);
+        }
+        return shangxian ? cnt : dp[len][st] = cnt;
+    }
+
+<A NAME="1"></A>    int solve(int x)
+    {
+        memset(shu, 0, sizeof(shu));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        memset(dp, 0 , sizeof(dp));
+        int k = 0;
+        while (x)
+        {
+            shu[++k] = x % 10;
+            x /= 10;
+        }
+        return dfs(k, 0, true);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

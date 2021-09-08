@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_vitorvgc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>141_vitorvgc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    
+    string num;
+    int memo[11][2][2][1 &lt;&lt; 11][2];
+    
+    int solve(int idx, bool limited, bool hasDigit, int repeatedDigits, bool repeated) {
+        
+        if(idx &gt;= num.length())
+            return repeated;
+        
+        if(memo[idx][limited][hasDigit][repeatedDigits][repeated] &gt; -1)
+            return memo[idx][limited][hasDigit][repeatedDigits][repeated];
+        
+        int ans = 0;</B></FONT>
+        int limit = limited ? num[idx] - '0' : 9;
+        for(int d = 0; d &lt;= limit; ++d) {
+            
+            bool newHasDigit = hasDigit || (!hasDigit &amp;&amp; d &gt; 0);
+            bool newLimited = limited &amp;&amp; (d == num[idx] - '0');
+            bool newRepeated = repeated || (newHasDigit &amp;&amp; ((repeatedDigits &amp; (1 &lt;&lt; d)) &gt; 0));            
+            int newRepeatedDigits = repeatedDigits;
+            if(newHasDigit)
+                newRepeatedDigits |= (1 &lt;&lt; d);
+            
+            ans += solve(idx + 1, newLimited, newHasDigit, newRepeatedDigits, newRepeated);
+        }
+                        
+        return memo[idx][limited][hasDigit][repeatedDigits][repeated] = ans;
+    }
+    
+    int numDupDigitsAtMostN(int N) {
+        
+        num = to_string(N);
+        memset(memo, -1, sizeof memo);
+        return solve(0, 1, 0, 0, 0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

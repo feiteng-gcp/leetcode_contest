@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_ljq1398.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_ljq1398.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int a[20];
+    int dp[20][1024];
+    int dfs(int pos,int sta,bool limit)
+    {
+        
+        if(pos==-1) return 1;
+        if(!limit &amp;&amp; dp[pos][sta]!=-1) return dp[pos][sta];</B></FONT>
+        int up=limit ? a[pos] : 9;
+        int tmp=0;
+        if(sta==0) tmp+=dfs(pos-1,sta,false);
+        for(int i=0;i&lt;=up;i++)
+        {
+            if(i==0&amp;&amp;sta==0) continue;
+            int x = 1&lt;&lt;i;
+            if((sta^x) &lt; sta) continue;
+            tmp+=dfs(pos-1,sta^x,limit &amp;&amp; i==a[pos]);
+        }
+        if(!limit) dp[pos][sta]=tmp;
+        return tmp;
+    }
+    int solve(int x)
+    {
+        int pos=0;
+        while(x)
+        {
+            a[pos++]=x%10;
+            x/=10;
+        }
+        return dfs(pos-1,0,true);
+    }
+    int numDupDigitsAtMostN(int N) {
+        memset(dp,-1,sizeof(dp));
+        return N-solve(N)+1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

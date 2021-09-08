@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_Kmcode.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_Kmcode.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	int dp[11][1 &lt;&lt; 10][2][2][2];
+	bool use[11][1 &lt;&lt; 10][2][2][2];
+	vector&lt;int&gt; v;
+	inline int dfs(int a, int b, int low, int rep,int ban) {
+		if (a &lt; 0) {
+			if (rep)return 1;
+			return 0;
+		}
+		if (use[a][b][low][rep][ban])return dp[a][b][low][rep][ban];
+		use[a][b][low][rep][ban] = true;
+		int &amp;A = dp[a][b][low][rep][ban];
+		for (int i = 0; i &lt; 10; i++) {
+			if (i == 0 &amp;&amp; ban)continue;
+			if (low == 0 &amp;&amp; v[a] &lt; i)continue;
+			A+=dfs(a - 1, b | (1 &lt;&lt; i), low | (i &lt; v[a]), rep | ((b &gt;&gt; i) &amp; 1), false);
+		}
+		return A;
+	}
+<A NAME="0"></A>	int numDupDigitsAtMostN(int N) {
+		memset(dp, 0, sizeof(dp));
+		memset(use, false, sizeof(use));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		while (N) {
+			v.push_back(N % 10);
+			N /= 10;
+		}
+		//reverse(v.begin(), v.end());
+		int ans = 0;
+		for (int i = v.size() - 1; i &gt;= 0; i--) {
+			ans+=dfs(i, 0, i!=(v.size()-1), false,true);
+		}</B></FONT>
+		return ans;
+	}
+};
+</PRE>
+</BODY>
+</HTML>
