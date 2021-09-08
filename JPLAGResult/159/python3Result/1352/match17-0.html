@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>464_kenziyuliu.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>464_kenziyuliu.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+        def bsearch(arr, target):
+            start, end = 0, len(arr) - 1
+            while start &lt;= end:
+                mid = (start + end) // 2
+                if arr[mid] &lt; target:
+                    start = mid + 1
+                elif arr[mid] &gt; target:
+                    end = mid - 1
+                else:
+                    return mid
+            return start
+        
+        # Sort according to finish time
+        blob = sorted(zip(startTime, endTime, profit), key=lambda x: x[1])
+        startTime, endTime, profit = zip(*blob)
+        # print(startTime, endTime, profit)
+        
+        # Find latest compatible jobs for each job
+        latestCompat = []
+        for start in startTime:
+            index = bsearch(endTime, start)
+            if endTime[index] == start:
+                latestCompat.append(index)
+            else:
+                latestCompat.append(index - 1)
+        
+        # print(latestCompat)
+        
+<A NAME="0"></A>        # DP table: opt[i] = maximum profit using up to job `i` in the sorted list
+        opt = [0] * (len(endTime) + 1)
+        for i in range(len(endTime)):
+            start, end, prof = startTime[i], endTime<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i], profit[i]
+            opt[i+1] = max(opt[i], opt[latestCompat[i] + 1] + profit[i])
+        
+        # print(opt)
+        return opt[-</B></FONT>1]
+        
+</PRE>
+
+</BODY>
+</HTML>

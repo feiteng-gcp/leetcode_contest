@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>193_weih_xu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>193_weih_xu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int balancedString(String s) {
+        int n = s.length(), x = n/4;
+        int[] nums = new int[4];
+        char[] chars = new char[]{'Q','W','E','R'};
+        for(char c:s.toCharArray()){
+            for(int i=0;i&lt;4;i++){
+                if(c==chars[i]){
+                    nums[i]++;
+                }
+            }
+        }
+        Map&lt;Character,Integer&gt; m = new HashMap&lt;&gt;();
+        for(int i=0;i&lt;4;i++){
+            if(nums[i]&gt;x){
+                m.put(chars[i],nums[i]-x);
+            }
+        }
+        int start = 0, end = 0, res = n, l = m.size();
+<A NAME="0"></A>        if(l==0) return 0;
+        while(end&lt;n){
+            char c = s.charAt(end++);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(m.containsKey(c)){
+                m.put(c,m.get(c)-1);
+                if(m.get(c)==0) l--;
+            }
+<A NAME="1"></A>            while(l==0){
+                res = Math.min</B></FONT>(res, end-start);
+                char t = s.charAt(start++);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(m.containsKey(t)){
+                    m.put(t,m.get(t)+1);
+                    if(m.get(t)==1) l++;
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

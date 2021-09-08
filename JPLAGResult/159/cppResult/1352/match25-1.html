@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_bragcat.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_bragcat.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        vector&lt;vector&lt;int&gt;&gt; tasks;
+        int n = startTime.size();
+<A NAME="1"></A>        for (int i = 0; i &lt; n; ++i) {
+            tasks.push_back({startTime[i], endTime[i], profit[i]});
+        }</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(tasks.begin(), tasks.end(), [](auto&amp; a, auto&amp; b) {
+            return a[1] &lt; b[1];
+        });
+        vector&lt;int&gt; dp(n + 1, 0);
+        for (int i = 0; i &lt; n; ++i) {
+            dp[i + 1] = dp[i];
+            int l = 0, r = i - 1, k = -1;</B></FONT>
+            while (l &lt;= r) {
+                int mid = (l + r) / 2;
+                if (tasks[mid][1] &lt;= tasks[i][0]) {
+                    k = mid;
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+            dp[i + 1] = max(dp[i + 1], dp[k + 1] + tasks[i][2]);
+        }
+        return dp[n];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

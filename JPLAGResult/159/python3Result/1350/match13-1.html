@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>215_MiniMinyi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>215_MiniMinyi.py</CENTER></H3><HR>
+<PRE>
+class TrieNode:
+    def __init__(self):
+        self.children = dict()
+        self.isFolder = False
+        
+class TrieTree:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def add_folder(self, s):
+        fl = s.split('/')
+        node = self.root
+<A NAME="0"></A>        for fn in fl[1:]:
+            if fn in node.children and node.children[fn].isFolder:
+                return
+            elif fn not in node<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.children:
+                node.children[fn] = TrieNode()
+            node = node.children[fn]
+<A NAME="1"></A>        node.isFolder =</B></FONT> True
+        
+    def get_folders(self):
+        result <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+        
+        def dfs(node, current):
+            nonlocal result
+            if node.isFolder:
+                result.append(current)
+                return
+            
+            for child in node.children:
+                dfs(node.children[child], current+'/'+child)
+            
+        dfs(</B></FONT>self.root, '')
+        return result
+            
+    
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
+        tree = TrieTree()
+        
+        for f in folder:
+            tree.add_folder(f)
+          
+        return tree.get_folders()
+            
+        
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

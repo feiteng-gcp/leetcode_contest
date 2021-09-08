@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>275_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>275_huntersjm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int balancedString(String s) {
+        int q = 0, w = 0, e = 0, r = 0;
+<A NAME="0"></A>        int balance = s.length() &gt;&gt; 2;
+        int right = s.length() - 1;
+        int result = s.length();
+        for (; right &gt;= 0; right--) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            switch (s.charAt(right)) {
+                case 'Q':
+                    q++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+                case 'R':
+                    r++;
+                    break;
+            }</B></FONT>
+            if (q &gt; balance || w &gt; balance || e &gt; balance || r &gt; balance) {
+                break;
+            }
+        }
+        if (right == -1) {
+<A NAME="1"></A>            return 0;
+        }
+        result = Math.min(result, right + 1);
+        for (int left = 1; left &lt; s.length(); left++) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            switch (s.charAt(left - 1)) {
+                case 'Q':
+                    q++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+                case 'R':
+                    r++;
+                    break;
+            }</B></FONT>
+            if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
+<A NAME="2"></A>                result = Math.min(result, right - left);
+                continue;
+            }
+            for (; right &lt; s.length(); right++) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                switch (s.charAt(right)) {
+                    case 'Q':
+                        q--;
+                        break;
+                    case 'W':
+                        w--;
+                        break;
+                    case 'E':
+                        e--;
+                        break;
+                    case 'R':
+                        r--;
+                        break;
+                }</B></FONT>
+                if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
+                    right++;
+                    result = Math.min(result, right - left);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[]args) {
+        System.out.println(new Solution().balancedString(&quot;QQQW&quot;));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>251_WindfuryBulb.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>251_WindfuryBulb.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+<A NAME="0"></A>        def returnEndTime(job):
+            return job[1]
+        jobs = []
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(startTime)):
+            jobs.append([startTime[i], endTime[i], profit[i]])
+        jobs.sort(key = returnEndTime)
+        dp = [0] * len(jobs)
+        for i in range(len(</B></FONT>jobs)):
+            if i == 0:
+                dp[i] = jobs[i][2]
+            else:
+                j = i - 1
+                while j &gt;= 0 and jobs[i][0] &lt; jobs[j][1]:
+                    j -= 1
+                if j == -1:
+                    dp[i] = max(jobs[i][2], dp[i-1])
+                else:
+                    dp[i] = max(jobs[i][2] + dp[j], dp[i-1])
+        return dp[len(jobs)-1]
+</PRE>
+
+</BODY>
+</HTML>

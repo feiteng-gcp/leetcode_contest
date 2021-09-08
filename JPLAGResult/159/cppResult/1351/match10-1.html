@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_zuomingzh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_zuomingzh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int balancedString(string s) {
+        int Qc = 0, Wc = 0, Ec = 0, Rc = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto c : s) {
+            if (c == 'Q') ++Qc;
+            else if (c == 'W') ++Wc;
+            else if (c == 'E') ++Ec;
+            else ++Rc;
+        }</B></FONT>
+        int total = s.size();
+        int target = total / 4;
+        if (Qc == target &amp;&amp; Wc == target &amp;&amp; Ec == target &amp;&amp; Rc == target) return 0;
+        int start = 0, end = total;
+        while (start &lt; end) {
+<A NAME="1"></A>            int mid = (start + end) / 2;
+            int Qr = Qc, Wr = Wc, Er = Ec, Rr = Rc;
+            int i = 0, j = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            while (j &lt; mid) {
+                char c = s[j];
+                if (c == 'Q') --Qr;
+                else if (c == 'W') --Wr;
+                else if (c == 'E') --Er;
+                else --Rr;</B></FONT>
+                ++j;
+<A NAME="2"></A>            }
+            bool pass = false;
+            if (Qr &lt;= target &amp;&amp; Wr &lt;= target &amp;&amp; Er &lt;= target &amp;&amp; Rr &lt;= target) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                pass = true;
+            }
+            while (!pass &amp;&amp; j &lt; s.size()) {
+                char c = s[j];
+                if (c == 'Q') --Qr;
+                else if (c == 'W') --Wr;
+                else if (c == 'E') --Er;
+                else --Rr;
+                ++j;</B></FONT>
+                c = s[i++];
+                if (c == 'Q') ++Qr;
+                else if (c == 'W') ++Wr;
+                else if (c == 'E') ++Er;
+                else ++Rr;
+                if (Qr &lt;= target &amp;&amp; Wr &lt;= target &amp;&amp; Er &lt;= target &amp;&amp; Rr &lt;= target) {
+                    pass = true;
+                }
+            }
+            if (pass) {
+                end = mid;
+            }
+            else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>452_suibianfahui.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>452_suibianfahui.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from collections import defaultdict
+class Solution:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+        starts =defaultdict(list)
+        ends = defaultdict(list)
+        for i in range(len(startTime)):
+            s,e,p = startTime[i], endTime[</B></FONT>i],profit[i]
+            t = (s,e,p)
+            starts[s].append(t)
+            ends[e].append(t)
+        sk = sorted(starts.keys())
+        ek = sorted(ends.keys())
+        i,j=0,0
+        dp = defaultdict(int)
+        mxp = 0
+        lastt = ek[-1]
+        while j &lt;len(ek):
+            s=lastt if i&gt;= len(sk) else sk[i]
+            e=ek[j]
+            mnt = min(s,e)
+            if mnt==s:
+                dp[mnt] = mxp
+                i+=1
+            if mnt==e:
+                for t in ends[e]:
+                    ss = t[0]
+                    pp = t[2]
+                    mxp = max(mxp, dp[ss]+pp)
+                dp[mnt] = mxp
+                j+=1
+        return mxp
+        
+</PRE>
+
+</BODY>
+</HTML>

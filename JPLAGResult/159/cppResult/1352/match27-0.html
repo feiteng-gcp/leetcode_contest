@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_b1552993d0.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_b1552993d0.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+  int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+    vector&lt;int&gt; allTimes;
+    for (int x : startTime) allTimes.push_back(x);
+    for (int x : endTime) allTimes.push_back(x);
+    sort(allTimes.begin(), allTimes.end());
+    allTimes.resize(unique(allTimes.begin(), allTimes.end()) - allTimes.begin());
+    
+<A NAME="1"></A>    int n = startTime.size();</B></FONT>
+    int tn = allTimes.size();
+    vector&lt;vector&lt;int&gt;&gt; jobs(tn);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; n; i++) {
+      jobs[lower_bound(allTimes.begin(), allTimes.end(), endTime[i])-allTimes.begin()].push_back(i);
+    }
+    
+    vector&lt;int&gt; ans(tn);
+    for (int i = 0; i &lt; tn; i++) {</B></FONT>
+      if (i) ans[i] = max(ans[i], ans[i-1]);
+      for (int j : jobs[i]) {
+        int sj = lower_bound(allTimes.begin(), allTimes.end(), startTime[j])-allTimes.begin();
+        ans[i] = max(ans[i], ans[sj] + profit[j]);
+      }
+    }
+    return ans[tn-1];
+  }
+};
+</PRE>
+</BODY>
+</HTML>

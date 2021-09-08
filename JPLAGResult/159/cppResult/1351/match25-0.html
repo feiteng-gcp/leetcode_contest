@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_accordion.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>271_accordion.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int balancedString(string s) {
+        map&lt;char, int&gt; cnt;
+        for(char c : s) ++cnt[c];
+        int _ = s.size() / 4;
+        int ans = 0x3f3f3f3f;
+        for(auto&amp; x : cnt) {
+			if(x.second &lt;= _) x.second = -ans;</B></FONT>
+			else x.second -= _;
+		}
+        map&lt;char, int&gt; temp = cnt;
+        for(auto&amp; x : temp) x.second = 0;
+        for(int l = 0, r = 0; l &lt; s.size(); ++l) {
+            while(true &amp;&amp; r &lt; s.size()) {
+	            bool ok = true;
+	            for(auto&amp; x : cnt) if(temp[x.first] &lt; x.second) ok = false;
+                if(ok) break;
+                ++temp[s[r++]];
+            }
+            bool ok = true;
+            for(auto&amp; x : cnt) if(temp[x.first] &lt; x.second) ok = false;
+            if(ok == false &amp;&amp; r == s.size()) break;
+            ans = min(ans, r-l);
+            if(r == l) ++temp[s[r++]];
+            --temp[s[l]];
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

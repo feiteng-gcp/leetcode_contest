@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>216_xiaoliran12.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>216_xiaoliran12.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        vector&lt;int&gt; all;
+        for (auto i : startTime) {
+            all.push_back(i);
+        }
+        for (auto i : endTime) {
+            all.push_back(i);
+        }
+        sort(all.begin(), all.end());
+        auto it = unique(all.begin(), all.end());
+        all.erase(it, all.end());
+        unordered_map&lt;int, int&gt; num_map;
+        for (int i = 0; i &lt; all.size(); ++i) {
+            num_map[all[i]] = i;
+        }
+        for (auto&amp; i : startTime) {
+            i = num_map[i];
+        }
+        for (auto&amp; i : endTime) {
+            i = num_map[i];
+        }
+<A NAME="1"></A>        unordered_map&lt;int, vector&lt;pair&lt;int, int&gt;&gt;&gt; end_map;</B></FONT>
+        for (int i = 0; i &lt; startTime.size(); ++i) {
+            end_map[endTime[i]].push_back(make_pair(startTime[i], profit[i]));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        vector&lt;int&gt; dp(all.size() + 1, 0);
+        int prev = 0;
+        for (int i = 0; i &lt; all.size(); ++i) {
+            if (i != 0)
+                dp[i] = dp[i - 1];
+            if (end_map.count(i)) {
+                for (auto&amp; p : end_map[i]) {
+                    dp[i] = max(dp[i], dp[p.first] + p.second);
+                }
+            }
+        }
+        return *max_element(dp.begin(), dp.end());
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

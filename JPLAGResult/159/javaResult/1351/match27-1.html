@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_leveretconey.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_leveretconey.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+    public int balancedString(String s) {
+        Map&lt;Character,Integer&gt; map=new HashMap&lt;&gt;();
+        map.put('Q',0);
+        map.put('W',1);
+        map.put('E',2);
+        map.put('R',3);
+
+        int result=Integer.MAX_VALUE;
+        int[] count=new int[4];
+<A NAME="0"></A>        int low=0,high=-1;
+        int length=s.length();
+        int quater=length/4;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] totalCount=new int[4];
+        for (char c : s.toCharArray()) {
+            totalCount[map.get(c)]++;
+        }</B></FONT>
+
+        while (low&lt;length &amp;&amp; high&lt;length) {
+            //先判断当前是否满足要求
+            if (isValid(quater,totalCount,count)) {
+                result = Math.min(result, high - low+1);
+                if(high&lt;low){
+                    high++;
+                    low++;
+                }else {
+                    count[map.get(s.charAt(high))]--;
+                    high--;
+                    if(!isValid(quater,totalCount,count)){
+                        count[map.get(s.charAt(low))]--;
+                        low++;
+                    }
+                }
+<A NAME="2"></A>            } else {
+                high++;
+                if(high&lt;length) {
+                    count[map.get(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.charAt(high))]++;
+                }
+            }
+        }
+
+        return result;
+    }</B></FONT>
+<A NAME="1"></A>
+    boolean isValid(int quater,int[] totalCount,int[] count){
+        boolean valid = true;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 4; i++) {
+            if (totalCount[i] - count[i] &gt; quater) {
+                valid = false;
+            }
+        }</B></FONT>
+        return valid;
+    }
+
+//    @leveretconeyTest
+//    void test(){
+//        Util.out(balancedString(&quot;WQWRQQQW&quot;));
+//        Util.out(balancedString(&quot;QWER&quot;));
+//        Util.out(balancedString(&quot;QQER&quot;));
+//        Util.out(balancedString(&quot;QQQR&quot;));
+//        Util.out(balancedString(&quot;QQQQ&quot;));
+//    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

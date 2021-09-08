@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>359_zi-zheng.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>359_zi-zheng.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int balancedString(String s) {
+		int Q = 0;
+<A NAME="0"></A>		int W = 0;
+		int E = 0;
+		int R = 0;
+		for (int i = 0; i &lt; s.length(); i++) {<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			char c = s.charAt(i);
+			if (c == 'Q') {
+				Q++;
+			}
+			if (c == 'W') {
+				W++;
+			}
+			if (c == 'E') {
+				E++;
+			}
+			if (c == 'R') {
+				R++;
+			}
+		}</B></FONT>
+		int avg = s.length() / 4;
+		Q -= avg;
+		W -= avg;
+		E -= avg;
+		R -= avg;
+		Q = Math.max(Q, 0);
+		W = Math.max(W, 0);
+		E = Math.max(E, 0);
+		R = Math.max(R, 0);
+		if (Q == 0 &amp;&amp; W == 0 &amp;&amp; E == 0 &amp;&amp; R == 0) {
+			return 0;
+		}
+
+		int sta = 0;
+		int q = 0;
+		int w = 0;
+<A NAME="1"></A>		int e = 0;
+		int r = 0;
+		for (; sta &lt; s.length(); sta++) {
+			char c = s.charAt(sta<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>);
+			if (c == 'Q') {
+				q++;
+			}
+			if (c == 'W') {
+				w++;
+			}
+			if (c == 'E') {
+				e++;
+			}
+			if (c == 'R') {
+				r++;
+			}
+			if (allS(q, w, e, r, Q,</B></FONT> W, E, R)) {
+				break;
+			}
+		}
+		// 双指针，开始，结束
+		int end = 0;
+		boolean jin = false;
+		int min = sta;
+		if (min == 0) {
+			return 1;
+		}
+		// 因为一次只会更改一个数字，而当第一个1出现时，就会切换jin，所以，不用判断所有的数组
+		w: while (true) {
+<A NAME="2"></A>			if (jin) {
+				for (; sta &lt; s.length(); sta++) {
+					char c = s.charAt(sta);
+					if (c == 'Q') {<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+						q++;
+					}
+					if (c == 'W') {
+						w++;
+					}
+					if (c == 'E') {
+						e++;
+					}
+					if (c == 'R') {
+						r++;
+					}
+					if (allS(q, w, e, r, Q, W, E, R)) {</B></FONT>
+						jin = false;
+						end++;
+						continue w;
+					}
+				}
+				break;
+			} else {
+				for (; end &lt; sta; end++) {
+					char c = s.charAt(end);
+					if (c == 'Q') {
+						q--;
+					}
+					if (c == 'W') {
+						w--;
+					}
+					if (c == 'E') {
+						e--;
+					}
+					if (c == 'R') {
+						r--;
+					}
+					if (!allS(q, w, e, r, Q, W, E, R)) {
+						// 长度更短，记录
+						if (sta - end &lt; min) {
+							min = sta - end;
+						}
+						jin = true;
+						sta++;
+<A NAME="3"></A>						continue w;
+					}
+				}
+			}<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		}
+		return min + 1;
+	}
+
+	private boolean allS(int q, int w, int e, int r</B></FONT>, int q2, int w2, int e2,
+			int r2) {
+		if (q &lt; q2) {
+			return false;
+		}
+		if (w &lt; w2) {
+			return false;
+		}
+		if (e &lt; e2) {
+			return false;
+		}
+		if (r &lt; r2) {
+			return false;
+		}
+		return true;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

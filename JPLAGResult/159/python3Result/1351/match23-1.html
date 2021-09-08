@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>331_qobilidop.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter
+
+class Solution:
+    def balancedString(self, s: str) -&gt; int:
+        n = len(s)
+        imb = Counter(s)
+        imb_tot = 0
+        for c in list(imb.keys()):
+            imb[c] -= int(n / 4)
+            if imb[c] &lt; 0:
+                del imb[c]
+            else:
+                imb_tot += imb[c]
+        if imb_tot == 0:
+            return 0
+        
+        min_len = n
+        l, r = 0, 0
+        freq = Counter()
+<A NAME="0"></A>        while r &lt; len(s):
+            freq[s[r]] += 1
+            while all(freq[c] &gt;= imb[c] for c in imb.keys()):
+                min_len <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= min(min_len, r - l + 1)
+                freq[s[l]] -= 1
+                l += 1
+            r += 1
+        re</B></FONT>turn min_len
+        
+</PRE>
+
+</BODY>
+</HTML>

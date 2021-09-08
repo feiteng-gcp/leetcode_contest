@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_megaspazz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>16_megaspazz.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int balancedString(String s) {
+        int[] idx = new int[256];
+        idx['Q'] = 0;
+        idx['W'] = 1;
+        idx['E'] = 2;
+        idx['R'] = 3;
+        final int N = s.length();
+        int[][] parts = new int[4][N];
+<A NAME="0"></A>        for (int i = 0; i &lt; N; ++i) {
+            char c = s.charAt(i);
+            parts[idx[c]][i] = 1;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        PrefixSum[] pfs = new PrefixSum[4];
+        for (int i = 0; i &lt; pfs.length; ++i) {
+            pfs[i] = PrefixSum.fromArray(parts[i]);
+        }
+        
+        int L = 0;
+        int R = N</B></FONT>;
+        int good = N;
+        while (L &lt;= R) {
+<A NAME="1"></A>            int M = (L + R) &gt;&gt; 1;
+            if (can(M, N, pfs)) {
+                R = M - 1;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>good = M;
+            } else {
+                L = M + 1;
+            }
+        }</B></FONT>
+        return good;
+    }
+    
+    private static boolean can(int size, int N, PrefixSum[] pfs) {
+        int want = N / 4;
+        for (int i = 0; i + size &lt;= N; ++i) {
+            boolean valid = true;
+<A NAME="2"></A>            // int pos = 0;
+            for (PrefixSum pf : pfs) {
+                // System.out.format(&quot;SIZE = %d, i = %d, pos = %d, sum = %d\n&quot;, size, i, pos++, pf.getRange(0, i) + pf.getRange(i + size, N));
+                if (pf.getRange(0, i) + pf.getRange(i + size, N) &gt; want) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                return true;
+            }
+        }
+        return false;
+    }</B></FONT>
+    
+    private static class PrefixSum {
+        public int[] sum;
+        
+        public int getRange(int L, int R) {
+            return sum[R] - sum[L];
+        }
+        
+<A NAME="3"></A>        public static PrefixSum fromArray(int[] A) {
+            int N = A.length;
+            PrefixSum pf = new PrefixSum();
+            pf.sum = <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match16-1.html#3',3,'match16-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[N + 1];
+            for (int i = 0; i &lt; N; ++i) {
+                pf.sum[i + 1] = pf.sum[i] + A[i];
+            }
+            return pf;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

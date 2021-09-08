@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>409_dwjnju163com.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>409_dwjnju163com.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int balancedString(string s) {
+        unordered_map&lt;char, int&gt; count;
+        for(auto c:s)
+            count[c]++;
+        unordered_map&lt;char, int&gt; target;
+        int val = s.size()/4;
+        int res = 0;
+        for(auto x:count) {
+            if(x.second&gt;val)
+                target[x.first] = x.second-val;
+        }
+        if(target.size()==0)
+            return 0;
+        int start_idx = -1;
+        int end_idx = -1;
+        int num = target.size();
+        int j=0;
+        for(int i=0; i&lt;s.size(); i++) {
+            if(target.count(s[i])) {
+                target[s[i]]--;
+                if(target[s[i]]==0)
+                    num--;
+            }
+            while(num==0&amp;&amp;j&lt;=i) {
+                if(start_idx==-1||i-j+1&lt;end_idx-start_idx+1) {
+                    start_idx = j;
+                    end_idx = i;
+                }
+                if(target.count(s[j])) {
+                    target[s[j]]++;
+                    if(target[s[j]]==1)
+                        num++;
+                }
+                j++;
+            }
+        }
+        return end_idx-start_idx+1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

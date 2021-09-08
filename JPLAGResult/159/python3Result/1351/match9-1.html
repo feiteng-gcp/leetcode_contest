@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_pm-str.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>200_pm-str.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter, defaultdict
+
+class Solution:
+    def balancedString(self, s: str) -&gt; int:
+        c = Counter(s)
+        n = len(s)
+        
+        Q = max(0, c['Q'] - n // 4)
+        W = max(0, c['W'] - n // 4)
+        R = max(0, c['R'] - n // 4)
+<A NAME="0"></A>        E= max(0, c['E'] - n // 4)
+        
+        d = defaultdict(int)
+        l, r <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0, 0
+        ans = n
+        while l &lt; n:
+            while r &lt; n and (d['Q'] &lt; Q or d['W'] &lt; W or d['R'] &lt; R or d['E'] &lt; E):
+                d[s[r]] += 1
+                # print(d)
+                r +</B></FONT>= 1
+            # print(l,r,ans)
+            if d['Q'] &gt;= Q and d['W'] &gt;= W and d['R'] &gt;= R and d['E'] &gt;= E:
+                ans = min(ans, r-l)
+            d[s[l]] -= 1
+            l += 1
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_dumb_lvlv.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>151_dumb_lvlv.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct Job { 
+        int start;
+<A NAME="0"></A>        int finish;
+        int profit; 
+    };
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int binary(vector&lt;Job&gt;&amp; jobs, int index) { 
+        int lo = 0, hi = index - 1; 
+
+        while (lo &lt;= hi) { 
+            int mid = (lo + hi) / 2; 
+            if (jobs[mid].finish &lt;= jobs[index].start) { 
+            if (jobs[mid + 1].finish &lt;= jobs[index].start) 
+                lo = mid + 1; 
+            else return mid; 
+            } else hi = mid - 1; 
+        } 
+  
+        return -1; 
+    }</B></FONT>
+    static bool cmp(Job j1, Job j2) { 
+        return j1.finish &lt; j2.finish; 
+    } 
+    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        int dp[50005];
+        memset(dp, 0, sizeof(dp));
+        vector&lt;Job&gt; jobs;
+        
+        for (int i = 0; i &lt; startTime.size(); i++) {
+            Job j;
+            j.start = startTime[i];
+            j.finish = endTime[i];
+            j.profit = profit[i];
+<A NAME="1"></A>            jobs.push_back(j);
+        }
+        sort(jobs.begin(), jobs.end(), cmp);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[0] = jobs[0].profit;
+        
+        
+        for (int i = 1; i &lt; jobs.size(); i++) { 
+            int include = jobs[i].profit; 
+            int l = binary(jobs, i); 
+            if (l != -1) include += dp[l];
+            
+            dp[i] = max(include, dp[i-1]); 
+        } 
+        
+        return dp[jobs.size() - 1];
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>
