@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_yuchenliulyc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_yuchenliulyc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int lastStoneWeightII(int[] array) {
+		int sum = 0;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        for (int s: array)
+            sum += s;
+		int length = array.length;
+		int[][] f = new int[length + 1][sum / 2 + 1];
+		for (int i = 0; i &lt; length; i++) {
+			for (int j = 1; j &lt;= sum / 2; j++) {
+				f[i + 1][j] = f[i][j];</B></FONT>
+				if (array[i] &lt;= j &amp;&amp; f[i][j - array[i]] + array[i] &gt; f[i][j]) {
+					f[i + 1][j] = f[i][j - array[i]] + array[i];
+				}
+			}
+		}
+		return sum - 2 * f[length][sum / 2];
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

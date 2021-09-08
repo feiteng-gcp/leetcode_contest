@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>163_ghouyl-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>163_ghouyl-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def longestStrChain(self, words: 'List[str]') -&gt; int:
+        nextw={}
+        words=list(set(words))
+        words.sort(key=len)
+        dic={} #len to word set
+        searched={}
+        for i,w in enumerate(words):
+            l=len(w)
+            if not l in dic:
+                dic[l]=[]
+<A NAME="0"></A>            dic[l].append(w)
+        
+        def isInc(w1,w2):
+            p1<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=p2=0;inc=False
+            while p1&lt;len(w1):
+                if w1[p1]==w2[p2]:
+                    p1+=1;p2+=1
+                elif not inc:
+                    p2+=1
+                    inc=</B></FONT>True
+                else:
+                    return False
+            return True
+        
+        def search(w):
+            if w in searched:
+                return searched[w]
+            searched[w]=1
+            nextlen=len(w)+1
+            tmp=0
+            if nextlen in dic:
+                for i,nw in enumerate(dic[nextlen]):
+                    if isInc(w,nw):
+                        chainlen=search(nw)
+                        if chainlen&gt;tmp:
+                            nextw[w]=nw
+                        tmp=max(tmp,chainlen)
+            searched[w]+=tmp
+            return searched[w]
+        
+        ans=0
+        for w in words:
+            ans=max(ans,search(w))
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_danzhi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_danzhi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+      // &quot;abc&quot; is a predecessor of &quot;abac&quot;
+  <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static boolean isPredecessor(String w1, String w2) {
+    if (w1.length() + 1 != w2.length()) return false;
+    int i = 0;
+    int j = 0;
+    boolean added = false;
+    while (i &lt; w1.length() &amp;&amp; j &lt; w2.length()) {
+      if (w1.charAt(i) == w2.charAt(j)) {</B></FONT>
+        i++;
+        j++;
+      } else {
+        if (added) return false;
+        added = true;
+        j++;
+      }
+    }
+    return true;
+  }
+    public int longestStrChain(String[] words) {
+    int N = words.length;
+    ArrayList&lt;ArrayList&lt;Integer&gt;&gt; edges = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; N; i++) {
+      edges.add(new ArrayList&lt;Integer&gt;());
+      for (int j = 0; j &lt; N; j++) {
+        if (isPredecessor(words[i], words[j])) {
+          // System.out.println(words[i] + &quot; &quot; + words[j]);
+          edges.get(i).add(j);
+        }
+      }
+    }
+    Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+    int maxdepth = 0;
+    for (int i = 0; i &lt; N; i++) {
+      q.clear();
+      q.add(i);
+      int depth = 1;
+      Queue&lt;Integer&gt; r = new LinkedList&lt;&gt;();
+      while (true) {
+        while (!q.isEmpty()) {
+          int k = q.poll();
+          for (int j : edges.get(k)) {
+            r.add(j);
+          }
+        }
+        // System.out.println(i + &quot; r: &quot; + join(r,&quot;,&quot;));
+        if (!r.isEmpty()) {
+          depth++;
+          q = r;
+          r = new LinkedList&lt;&gt;();
+        } else {
+          // System.out.println(words[i] + &quot; depth &quot; + depth);
+          break;
+        }
+      }
+      maxdepth = Math.max(depth, maxdepth);
+    }
+    return maxdepth;        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
