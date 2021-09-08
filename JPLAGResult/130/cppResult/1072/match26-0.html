@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_kakegupta.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>234_kakegupta.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; nextLargerNodes(ListNode* head) {
+        vector&lt;int&gt; vals;
+        while (head) {
+            vals.push_back(head-&gt;val);
+            head = head-&gt;next;
+        }
+        
+        int n = vals.size();
+        stack&lt;int&gt; st;
+<A NAME="0"></A>        vector&lt;int&gt; result(n, 0);
+        result.back() = 0;
+        st.push(vals.back());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = n - 2; i &gt;= 0; i--) {
+            while (!st.empty() &amp;&amp; st.top() &lt;= vals[i]) {
+                st.pop();
+            }
+            if (!st.empty() &amp;&amp; vals[i] &lt; st.top()) {
+                result[i] = st.top();
+            }
+            st.push(vals[i]);
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

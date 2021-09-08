@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>222_justfun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>222_justfun.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; nextLargerNodes(ListNode* head) {
+        vector&lt;int&gt; dp;
+        while (head) {
+            dp.push_back(head-&gt;val);
+            head = head-&gt;next;
+<A NAME="0"></A>        }
+        
+        int l = dp.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        stack&lt;int&gt; cr;
+        vector&lt;int&gt; ans(l);
+        
+        for (int i = l-1; i &gt;= 0; i--) {
+            while (!cr.empty() &amp;&amp; cr.top() &lt;= dp[i]) {
+                cr.pop();
+            }
+            
+            if (cr.empty()) {
+                ans[i] = 0;
+            } else {
+                ans[i] = cr.top();
+            }
+            cr.push(dp[i]);
+            
+            
+        }
+        
+        return ans;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

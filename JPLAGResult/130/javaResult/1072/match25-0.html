@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>426_ruima23.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>426_ruima23.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        if(head == null) return new int[0];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+        ListNode cur = head;
+        while(cur != null) {
+            list.add(cur.val);
+            cur = cur.next;
+        }
+        int len = list.size();
+        int[] index = new</B></FONT> int[len];
+        for(int i = len - 2; i &gt;= 0; i --) {
+            if(list.get(i) &lt; list.get(i+1)) {
+                index[i] = i + 1;
+            } else {
+                int j = index[i+1];
+                while(j != 0) {
+                    if(list.get(j) &gt; list.get(i)) {
+                        index[i] = j;
+                        break;
+                    }
+                    j = index[j];
+                }
+<A NAME="1"></A>            }
+        }
+        int[] res = new int[len];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; len; i ++) {
+            if(index[i] == 0) {
+                res[i] = 0;
+            } else {
+                res[i] = list.get(index[i]);
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

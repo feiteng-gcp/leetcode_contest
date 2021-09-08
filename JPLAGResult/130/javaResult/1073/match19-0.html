@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>436_vg1691.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>436_vg1691.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numEnclaves(int[][] A) {
+<A NAME="0"></A>        int n = A.length;
+        int m = A[0].length;
+        boolean[][] visited = new boolean[n][m];
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i=0; i&lt;n; i++){
+            dfs(A, visited, n, m, i, 0);
+            dfs(A, visited, n, m, i, m-1);
+        }
+        for(int j=0; j&lt;m; j++){
+            dfs(A, visited, n, m, 0, j);
+            dfs(A, visited, n, m, n-1, j);
+        }
+        int res = 0;
+        
+        for(int i=0; i&lt;n; i++){
+            for(int j=0; j&lt;m; j++){
+                if(A[i][j] == 1 &amp;&amp; !visited[i][j]){
+                    res++;
+                }
+            }
+        }
+        return res;
+
+        
+<A NAME="1"></A>    }
+    public void dfs(int[][] A, boolean[][] visited, int n</B></FONT>, int m, int i, int j){
+        if(i&lt;0 || j&lt;0 || i&gt;=n || j&gt;=m || visited[i][j]) return;
+        if(A[i][j] == 0) return<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        visited[i][j] = true;
+        dfs(A, visited, n, m, i+1, j);
+        dfs(A, visited, n, m, i-1, j);
+        dfs(A, visited, n, m, i, j-1);
+        dfs(A, visited, n, m, i, j+1);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
