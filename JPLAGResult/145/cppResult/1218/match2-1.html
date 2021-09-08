@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>124_user8024z.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>124_user8024z.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+  public:
+    unordered_set&lt;TreeNode*&gt; dl;
+    unordered_map&lt;TreeNode*, int&gt; d;
+    int md;
+    void calc(TreeNode* x, int t) {
+      if (!x) {
+        return;
+      }
+      d[x] = t;
+      md = max(md, t);
+      calc(x-&gt;left, t + 1);
+      calc(x-&gt;right, t + 1);
+    }
+    TreeNode* ans;
+    int find(TreeNode* x) {
+      if (!x) {
+        return 0;
+      }
+      int ansl = find(x-&gt;left);
+      int ansr = find(x-&gt;right);
+      int ansx = dl.count(x);
+      if (ansl &lt; dl.size() &amp;&amp; ansr &lt; dl.size() &amp;&amp; ansl + ansr + ansx == dl.size()) {
+<A NAME="0"></A>        ans = x;
+      }
+      return ansl + ansr + ansx;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+      md = 0;
+      calc(root, 0);
+
+      for (unordered_map&lt;TreeNode*, int&gt;::iterator it = d.begin(); it != d.end(); it++) {
+        if (it-&gt;second == md) {
+          dl.insert(it-&gt;first);
+        }
+      }</B></FONT>
+      find(root);
+      d.clear();
+      dl.clear();
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

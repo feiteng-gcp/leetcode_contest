@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>286_Kaizyn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>286_Kaizyn.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    /*
+    void find_max_depth(TreeNode *cur, vector&lt;int&gt; &amp;max_dep, int dep, int id)
+    {
+        if(!cur) return;
+        if(dep &gt; maxd)
+        {
+            maxd = dep;
+            max_dep.clear();
+        }
+        if(dep == maxd) max_dep.push_back(id);
+        find_max_depth(cur-&gt;left, max_dep, dep+1, id*2);
+        find_max_depth(cur-&gt;right, max_dep, dep+1, id*2+1);
+    }
+    */
+    
+<A NAME="0"></A>    int get_dep(TreeNode *cur)
+    {
+        if(!cur) return 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        return max(get_dep(cur-&gt;left), get_dep(cur-&gt;right))+1;
+    }
+    
+    bool my_f(TreeNode *cur, int dep, set&lt;pair&lt;int, TreeNode*&gt;&gt; &amp;v)
+    {
+        if(!cur) return false;
+        int l = my_f(cur-&gt;left, dep-1, v);
+        int r = my_f(cur-&gt;right, dep-1, v);
+        if(dep == 1 || l || r)
+        {</B></FONT>
+            v.insert(make_pair(dep, cur));
+            return true;
+        }
+        return false;
+    }
+    
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        int dep = get_dep(root);
+        set&lt;pair&lt;int, TreeNode*&gt;&gt; v;
+        my_f(root, dep, v);
+        map&lt;int, int&gt; m;
+        int res = 0;
+        for(auto i : v) m[i.first]++;
+        for(auto i : m)
+        {
+            if(i.second == 1)
+            {
+                res = i.first;
+                break;
+            }
+        }
+        for(auto i : v)
+            if(i.first == res)
+                return i.second;
+        return nullptr;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

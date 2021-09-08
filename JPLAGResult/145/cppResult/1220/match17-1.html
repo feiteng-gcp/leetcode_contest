@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>12___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; smallestSufficientTeam(vector&lt;string&gt;&amp; req_skills, vector&lt;vector&lt;string&gt;&gt;&amp; people) {
+      int inf = 0x3f3f3f3f;
+      int m = req_skills.size(), n = people.size();
+      int all = 1 &lt;&lt; m;
+      map&lt;string, int&gt; skill_id;
+      int k = 0;
+      for (const auto &amp;skill : req_skills) {
+        skill_id[skill] = k++;
+      }
+      vector&lt;int&gt; skillset(n);
+      for (int i = 0; i &lt; n; ++i) {
+        int st = 0;
+        for (const auto &amp;skill : people[i]) {
+          st |= 1 &lt;&lt; skill_id[skill];
+        }
+<A NAME="0"></A>        skillset[i] = st;
+      }
+      vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(all, inf)), last(n + 1, vector&lt;int&gt;(all, 0));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      dp[0][0] = 0;
+      for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 0; j &lt; all; ++j) {
+          if (dp[i][j] &gt; dp[i - 1][j]) {
+            dp[i][j] = dp[i - 1][j];
+            last[i][j] = j;
+          }
+          if (dp[i - 1][j] + 1 &lt; dp[i][j | skillset[i - 1]]) {
+            dp[i][j | skillset[i - 1]] = dp[i - 1][j] + 1;
+            last[i][j | skillset[i - 1]] = j;
+          }
+        }
+      }
+      int i = n, j = all - 1;</B></FONT>
+      vector&lt;int&gt; res;
+      for (; i; --i) {
+        if (last[i][j] != j) {
+          res.push_back(i - 1);
+        }
+        j = last[i][j];
+      }
+      return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

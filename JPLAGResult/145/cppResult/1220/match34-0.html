@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_autumn_eel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_autumn_eel.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define rep(i,n)for(int i=0;i&lt;(n);i++)
+#define MOD 1000000007
+#define INF 0x3f3f3f3f
+#define INFL 0x3f3f3f3f3f3f3f3f
+#define EPS (1e-10)
+using namespace std;
+typedef long long ll;
+typedef pair&lt;int,int&gt;P;
+
+#ifdef DEBUG
+struct TreeNode{
+	int val;
+	TreeNode*left;
+	TreeNode*right;
+	TreeNode(int x):val(x),left(NULL),right(NULL){}
+};
+#endif
+
+string to_string(string s){return s;}
+
+template&lt;class T&gt;
+string to_string(vector&lt;T&gt;v){
+	string res;
+	res+=&quot;{&quot;;
+	rep(i,v.size()){
+		if(i)res+=&quot;,&quot;;
+		res+=to_string(v[i]);
+	}
+	res+=&quot;}&quot;;
+	return res;
+}
+
+template&lt;class T&gt;
+ostream&amp;operator&lt;&lt;(ostream&amp;os,vector&lt;T&gt;v){
+	cout&lt;&lt;to_string(v);
+	return os;
+}
+
+ostream&amp;operator&lt;&lt;(ostream&amp;os,TreeNode*t){
+	map&lt;int,int&gt;mp;
+	function&lt;void(TreeNode*,int)&gt;dfs=[&amp;](TreeNode*t,int k){
+		if(!t)return;
+		mp[k]=t-&gt;val;
+		dfs(t-&gt;left,k*2+1);
+		dfs(t-&gt;right,k*2+2);
+	};
+	dfs(t,0);
+	int Max=0;
+	for(auto p:mp)Max=max(Max,p.first);
+	vector&lt;string&gt;ans(Max+1,&quot;null&quot;);
+	for(auto p:mp)ans[p.first]=to_string(p.second);
+	os&lt;&lt;ans;
+	return os;
+}
+enum SegtreeType{
+	CUSTOM,
+	RAQ_RMQ,
+	RAQ_RSQ,
+	RUQ_RMQ,
+	RUQ_RSQ,
+	RMQ_RMQ
+};
+template&lt;SegtreeType ty,class T&gt;
+class LazySegtree{
+	int n;
+	vector&lt;T&gt;dat,lazy;
+	T INIT;
+	T E0,E1;
+	function&lt;T(T,T,int)&gt;F0;
+	function&lt;T(T,T)&gt;F1,F2;
+public:
+	LazySegtree(int n_,T INIT,T E0,T E1
+	,function&lt;T(T,T,int)&gt;F0,function&lt;T(T,T)&gt;F1,function&lt;T(T,T)&gt;F2):
+		INIT(INIT),E0(E0),E1(E1),F0(F0),F1(F1),F2(F2){
+		n=1;while(n&lt;n_)n&lt;&lt;=1;
+		dat=lazy=vector&lt;T&gt;(2*n);
+		for(int i=0;i&lt;2*n-1;i++){
+			dat[i]=INIT;
+			lazy[i]=E1;
+		}
+	}
+	LazySegtree(int n_,T INIT_=-2){
+		switch(ty){
+		case RAQ_RMQ:
+			INIT=(INIT_==-2?0:INIT_);
+			E0=numeric_limits&lt;T&gt;::max();
+			E1=0;
+			F0=[](T a,T b,int s){return a+b;};
+			F1=[](T a,T b){return a+b;};
+			F2=[](T a,T b){return min(a,b);};
+			break;
+		case RAQ_RSQ:
+			INIT=(INIT_==-2?0:INIT_);
+			E0=0;
+			E1=0;
+			F0=[](T a,T b,int s){return a+b*s;};
+			F1=[](T a,T b){return a+b;};
+			F2=[](T a,T b){return a+b;};
+			break;
+		case RUQ_RMQ:
+			INIT=(INIT_==-2?numeric_limits&lt;T&gt;::max():INIT_);
+			E0=numeric_limits&lt;T&gt;::max();
+			E1=numeric_limits&lt;T&gt;::min();
+			F0=[](T a,T b,int s){return b;};
+			F1=[](T a,T b){return b;};
+			F2=[](T a,T b){return min(a,b);};
+			break;
+		case RUQ_RSQ:
+			INIT=(INIT_==-2?0:INIT_);
+			E0=0;
+			E1=numeric_limits&lt;T&gt;::min();
+			F0=[](T a,T b,int s){return b*s;};
+			F1=[](T a,T b){return b;};
+			F2=[](T a,T b){return a+b;};
+			break;
+		case RMQ_RMQ:
+			INIT=(INIT_==-2?numeric_limits&lt;T&gt;::max():INIT_);
+			E0=numeric_limits&lt;T&gt;::max();
+			E1=numeric_limits&lt;T&gt;::max();
+			F0=[](T a,T b,int s){return min(a,b);};
+			F1=[](T a,T b){return min(a,b);};
+			F2=[](T a,T b){return min(a,b);};
+			break;
+		}
+		n=1;while(n&lt;n_)n&lt;&lt;=1;
+		dat=lazy=vector&lt;T&gt;(2*n);
+		for(int i=0;i&lt;2*n-1;i++){
+			dat[i]=INIT;
+			lazy[i]=E1;
+		}
+	}
+	inline void push(int k,int s){
+		if(lazy[k]==E1)return;
+		dat[k]=F0(dat[k],lazy[k],s);
+		if(k&lt;n-1){
+			lazy[k*2+1]=F1(lazy[k*2+1],lazy[k]);
+			lazy[k*2+2]=F1(lazy[k*2+2],lazy[k]);
+		}
+		lazy[k]=E1;
+	}
+	inline void upnode(int k){
+		dat[k]=F2(dat[k*2+1],dat[k*2+2]);
+	}
+	inline void update(int a,int b,T x,int k,int l,int r){
+		push(k,r-l);
+		if(r&lt;=a||b&lt;=l)return;
+		if(a&lt;=l&amp;&amp;r&lt;=b){
+			lazy[k]=F1(lazy[k],x);
+			push(k,r-l);
+			return;
+		}
+		update(a,b,x,k*2+1,l,(l+r)/2);
+		update(a,b,x,k*2+2,(l+r)/2,r);
+		upnode(k);
+	}
+	inline T query(int a,int b,int k,int l,int r){
+		push(k,r-l);
+		if(b&lt;=l||r&lt;=a)return E0;
+		if(a&lt;=l&amp;&amp;r&lt;=b)return dat[k];
+		T lb=query(a,b,k*2+1,l,(l+r)/2);
+		T rb=query(a,b,k*2+2,(l+r)/2,r);
+		upnode(k);
+		return F2(lb,rb);
+	}
+	inline void update(int a,int b,T x){
+		update(a,b,x,0,0,n);
+	}
+	inline void update(int a,T x){
+		update(a,a+1,x);
+	}
+	inline T query(int a,int b){
+		return query(a,b,0,0,n);
+	}
+	inline T query(int a){
+		return query(a,a+1);
+	}
+};
+int dp[65][1&lt;&lt;16];
+int prv[65][1&lt;&lt;16];
+
+class Solution {
+public:
+    vector&lt;int&gt; smallestSufficientTeam(vector&lt;string&gt; req_skills, vector&lt;vector&lt;string&gt;&gt; people) {
+        memset(dp,0x3f,sizeof(dp));
+        map&lt;string,int&gt;mp;
+        int cnt=0;
+        for(auto s:req_skills){
+			mp[s]=cnt++;
+		}
+		dp[0][0]=0;
+		rep(i,people.size()){
+			int mask=0;
+			for(auto s:people[i]){
+				if(mp.count(s))mask|=1&lt;&lt;mp[s];
+<A NAME="0"></A>			}
+			rep(j,1&lt;&lt;cnt){
+				if(dp[i][j]==INF)continue;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if(dp[i+1][j]&gt;dp[i][j]){
+					dp[i+1][j]=dp[i][j];
+					prv[i+1][j]=j;
+				}
+				if(dp[i+1][j|mask]&gt;dp[i][j]+1){
+					dp[i+1][j|mask]=dp[i][j]+1;
+					prv[i+1][j|mask]=j;
+				}
+			}
+<A NAME="1"></A>		}
+		vector&lt;int&gt;ans;</B></FONT>
+		int x=people.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		int mask=(1&lt;&lt;cnt)-1;
+		while(x){
+			int t=prv[x][mask];
+			if(mask!=t)ans.push_back(x-1);
+			x--;
+			mask=t;
+		}
+		sort(ans.begin(),ans.end());
+		return ans;
+    }
+};</B></FONT>
+#ifdef DEBUG
+int main(){
+	Solution sol;
+	auto res=sol.smallestSufficientTeam({&quot;algorithms&quot;,&quot;math&quot;,&quot;java&quot;,&quot;reactjs&quot;,&quot;csharp&quot;,&quot;aws&quot;},{{&quot;algorithms&quot;,&quot;math&quot;,&quot;java&quot;},{&quot;algorithms&quot;,&quot;math&quot;,&quot;reactjs&quot;},{&quot;java&quot;,&quot;csharp&quot;,&quot;aws&quot;},{&quot;reactjs&quot;,&quot;csharp&quot;},{&quot;csharp&quot;,&quot;math&quot;},{&quot;aws&quot;,&quot;java&quot;}});
+	cout&lt;&lt;res&lt;&lt;endl;
+}
+#endif
+</PRE>
+</BODY>
+</HTML>

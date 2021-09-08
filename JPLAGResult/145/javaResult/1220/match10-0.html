@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_unfinishedmission.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_unfinishedmission.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] res;
+    Map&lt;String, List&lt;Integer&gt;&gt; map;
+    List&lt;List&lt;String&gt;&gt; people;
+    public int[] smallestSufficientTeam(String[] req_skills, List&lt;List&lt;String&gt;&gt; people) {
+        this.people = people;
+        map = new HashMap&lt;&gt;();
+<A NAME="0"></A>        for (String skill : req_skills) {
+            map.put(skill, new ArrayList&lt;Integer&gt;());
+        }
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; people.size(); i++) {
+<A NAME="1"></A>            List&lt;String&gt; personSkill = people.get(i);
+            for (String skill : personSkill) {
+                if (map.containsKey(skill)) {</B></FONT>
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(skill).add(i);
+                }
+            } 
+        }
+        Set&lt;String&gt; toDo = new HashSet(Arrays.asList(req_skills))</B></FONT>;
+        dfs(toDo, new ArrayList&lt;Integer&gt;());
+        return res;
+    }
+    
+    private void dfs(Set&lt;String&gt; toDo, List&lt;Integer&gt; chosen) {
+        //System.out.println(&quot;toDo=&quot; + toDo);
+        //System.out.println(&quot;chose=&quot; + chosen);
+        if (toDo.isEmpty()) {
+            if (res == null || chosen.size() &lt; res.length) {
+                res = new int[chosen.size()];
+                int idx = 0;
+                for (int i : chosen) {
+                    res[idx++] = i;
+                }
+            }
+            return;
+        }
+        //String nextJob = toDo.iterator().next();
+        String nextJob = chooseNextJob(toDo);
+        for (int nextPerson : map.get(nextJob)) {
+            Set&lt;String&gt; toDoNext = new HashSet&lt;&gt;(toDo);
+            for (String job : people.get(nextPerson)) {
+                toDoNext.remove(job);
+            }
+            chosen.add(nextPerson);
+            dfs(toDoNext, chosen);
+            chosen.remove(chosen.size() - 1);
+        }
+    }
+    
+    private String chooseNextJob(Set&lt;String&gt; toDo) {
+        int min = Integer.MAX_VALUE;
+        String minJob = &quot;&quot;;
+        for (String job : toDo) {
+            if (map.get(job).size() &lt; min) {
+                min = map.get(job).size();
+                minJob = job;
+            }
+        }
+        return minJob;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

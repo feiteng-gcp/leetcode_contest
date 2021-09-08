@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_bintay.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_bintay.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int longestWPI(vector&lt;int&gt;&amp; hours) {
+        if (hours.size() == 0) return 0;
+        
+        vector&lt;int&gt; numTiredDays(hours.size() + 1); // the sum of tired days for day &lt; index
+        numTiredDays[0] = 0;
+        bool anyTired = false;
+        for (int i = 1; i &lt;= hours.size(); ++i) {
+            numTiredDays[i] = numTiredDays[i - 1] + (hours[i - 1] &gt; 8 ? 1 : 0);
+            if (hours[i - 1]  &gt; 8) anyTired = true;
+        }
+        
+        if (!anyTired) return 0;
+<A NAME="0"></A>        
+        vector&lt;int&gt; numNonTiredDays(hours.size() + 1); // the sum of non tired days for day &lt; index
+        numTiredDays[0] = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt;= hours.size(); ++i) {
+            numNonTiredDays[i] = numNonTiredDays[i - 1] + (hours[i - 1] &lt;= 8 ? 1 : 0);
+        }
+        
+        // // stupid solution might work?
+        // int start = 0;
+        // int length = 1;
+        // while (start + length &lt;= hours.size()) {
+        //     int numTired = numTiredDays[start + length] - numTiredDays[start];
+        //     int numNotTired = numNonTiredDays[start + length] - numNonTiredDays[start];
+        //     if (numTired &gt; numNotTired) ++length;
+        //     else ++start;
+        // }
+        
+        int length = 1;
+        for (int start = 0; start &lt; hours.size(); ++start) {
+            for (int end = start + length; end &lt;= hours.size(); ++end) {</B></FONT>
+                int numTired = numTiredDays[end] - numTiredDays[start];
+                int numNotTired = numNonTiredDays[end] - numNonTiredDays[start];
+                // cout &lt;&lt; start &lt;&lt; &quot; &quot; &lt;&lt; end &lt;&lt; &quot; &quot; &lt;&lt; numTired &lt;&lt; &quot; &quot; &lt;&lt; numNotTired &lt;&lt; endl;
+                if (numTired &gt; numNotTired &amp;&amp; end - start &gt; length) length = end - start; 
+            }
+        }
+        
+        return length;
+    }
+    
+    int isTired (int hours) {
+        return hours &gt; 8;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>58_xietiansh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>58_xietiansh.cpp</CENTER></H3><HR>
+<PRE>
+int Tree[100000];
+
+void Set(int Node, int L, int R, int pos, int x) {
+    // printf(&quot;SET %d %d %d %d %d\n&quot;, Node, L, R, pos, x);
+    if (L == R) {
+        Tree[Node] = x;
+        return;
+    }
+    int Mid = (L + R) / 2;
+    if (pos &lt;= Mid) {
+        Set(Node * 2, L, Mid, pos, x);
+    } else {
+        Set(Node * 2 + 1, Mid + 1, R, pos, x);
+    }
+    Tree[Node] = min(Tree[Node * 2], Tree[Node * 2 + 1]);
+}
+
+int Get(int Node, int L, int R, int l, int r) {
+    if (L == l &amp;&amp; R == r) {
+        return Tree[Node];
+    }
+    int Mid = (L + R) / 2;
+    int ret;
+    if (r &lt;= Mid) {
+        ret = Get(Node * 2, L, Mid, l, r);
+    } else if (l &gt; Mid) {
+        ret = Get(Node * 2 + 1, Mid + 1, R, l, r);
+    } else {
+        ret = min(Get(Node * 2, L, Mid, l, Mid), Get(Node * 2 + 1, Mid + 1, R, Mid + 1, r));
+    }
+    // fprintf(f, &quot;%d %d %d %d %d = %d\n&quot;, Node, L, R, l, r, ret);
+    // fflush(f);
+    return ret;
+}
+
+class Solution {
+public:
+    int longestWPI(vector&lt;int&gt;&amp; hours) {
+<A NAME="0"></A>        memset(Tree, 1, sizeof(Tree));
+        map&lt;int, int&gt; mp;
+        int n = hours.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int cnt = 0;
+        mp[0] = 0;
+        Set(1, -10000 + 10005, 10000 + 10005, 0 + 10005, 0);
+        int ans = 0;
+        for (int i = 1; i &lt;= n; i++) {
+            if (hours[i - 1] &gt; 8) {
+                cnt++;
+            } else {
+                cnt--;
+            }
+            // printf(&quot;***%d\n&quot;, cnt);
+            if (mp.find(cnt) == mp.end()) {
+                mp[cnt] = i;
+                Set(1, -10000 + 10005, 10000 + 10005, cnt + 10005, i);
+            }</B></FONT>
+            int ppp = Get(1, -10000 + 10005, 10000 + 10005, -10000 + 10005, cnt - 1 + 10005);
+            // printf(&quot;%d\n&quot;, ppp);
+            ans = max(ans, i - ppp);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>428_zhui-feng-hun-zi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>428_zhui-feng-hun-zi.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        if(root ==null)
+            return root;
+        int maxDeep  = getMaxDeep(root);
+        int[] numMax = new int[1]</B></FONT>;
+        getNumOfMaxDeep(root,maxDeep,1,numMax);
+        TreeNode[] lca = new TreeNode[1];
+<A NAME="1"></A>        getLca(root,maxDeep,1,numMax[0],lca);
+        return lca[0];
+        
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    private int getMaxDeep(TreeNode root){
+        if(root==null)
+            return 0;
+        return 1+Math.max(getMaxDeep(root.left),getMaxDeep(root.right));
+    }</B></FONT>
+    private void getNumOfMaxDeep(TreeNode root,int maxDeep,int level,int[] count){
+        if(root==null)
+            return ;
+        if(level==maxDeep){
+            ++count[0];
+            return;
+        }
+        getNumOfMaxDeep(root.left,maxDeep,level+1,count);
+        getNumOfMaxDeep(root.right,maxDeep,level+1,count);
+    }
+    private int getLca(TreeNode root,int maxDeep,int level, int numMax, TreeNode[] lca){
+        if(root==null)
+            return 0;
+        if(lca[0]!=null)
+            return 0;
+        int ans = 0;
+        if(level == maxDeep)
+            ++ans;
+        ans+=getLca(root.left,maxDeep,level+1,numMax,lca);
+        ans+=getLca(root.right,maxDeep,level+1,numMax,lca);
+        if(ans == numMax){
+            lca[0] = root;
+            return 0;
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

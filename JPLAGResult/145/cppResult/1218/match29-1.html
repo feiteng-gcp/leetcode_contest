@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_yubowenok.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_yubowenok.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+typedef vector&lt;int&gt; VI;
+typedef pair&lt;int,int&gt; PII;
+
+#define REP(i,s,t) for(int i=(s);i&lt;(t);i++)
+#define FILL(x,v) memset(x,v,sizeof(x))
+
+<A NAME="0"></A>const int INF = (int)1E9;
+#define MAXN 1005
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+  int maxdep;
+  map&lt;TreeNode*, int&gt; dep;
+  map&lt;TreeNode*, TreeNode*&gt; par;
+  map&lt;TreeNode*, int&gt; cnt;
+  void dfs(TreeNode *x, int d, TreeNode* p) {
+    if (x == NULL) return;</B></FONT>
+    dep[x] = d;
+    par[x] = p;
+    maxdep = max(maxdep, d);
+    dfs(x-&gt;left, d+1, x);
+    dfs(x-&gt;right, d+1, x);
+  }
+  void climb(TreeNode *x) {
+    if (x == NULL) return;
+    cnt[x]++;
+    climb(par[x]);
+  }
+  TreeNode* lcaDeepestLeaves(TreeNode* root) {
+    dep.clear();
+    cnt.clear();
+    maxdep = 0;
+    dfs(root, 0, NULL);
+    vector&lt;TreeNode*&gt; leaves;
+    for (auto it = dep.begin(); it != dep.end(); it++) {
+      if (it-&gt;second == maxdep) {
+        leaves.push_back(it-&gt;first);
+      }
+    }
+    REP(i,0,leaves.size()) climb(leaves[i]);
+    int best = -1;
+    TreeNode* ans;
+    for (auto it = cnt.begin(); it != cnt.end(); it++) {
+      if (it-&gt;second == leaves.size()) {
+        if (dep[it-&gt;first] &gt; best) {
+          best = dep[it-&gt;first];
+          ans = it-&gt;first;
+        }
+      }
+    }
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>
