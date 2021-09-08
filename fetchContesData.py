@@ -339,8 +339,8 @@ if __name__ == '__main__':
         update_indexMD()
 
 
-        # commit_and_pushtoGithub('JPLAGResult/' + contest)
-        # commit_and_pushtoGithub('index.md')
+        commit_and_pushtoGithub('JPLAGResult/' + contest)
+        commit_and_pushtoGithub('index.md')
 
         contest_int = contest_int + 1
 
