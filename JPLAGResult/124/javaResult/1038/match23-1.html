@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>459_kdzhang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>459_kdzhang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int count;
+    public int numSquarefulPerms(int[] A) {
+        List&lt;Integer&gt;[] pairs = new List[A.length];
+        for (int i = 0; i &lt; A.length; i++) {
+            List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();
+            pairs[i] = tmp;
+            for (int j = 0; j &lt; A.length; j++) {
+                if (j == i) continue;
+                int sum = A[i] + A[j];
+                int sq = (int)Math.sqrt(sum);
+                if (sq * sq == sum) {
+                    tmp.add(j);
+                }
+            }
+        }
+        count = 0;
+        Set&lt;Integer&gt; used = new HashSet&lt;&gt;();
+        Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; A.length; i++) {
+            if (seen.add(A[i])) {
+                used.add(i);
+<A NAME="0"></A>                dfs(A, i, 1, pairs, used);
+                used.remove(i);
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return count;
+    }
+    
+    private void dfs(int[] A, int prev, int idx</B></FONT>, List&lt;Integer&gt;[] pairs, Set&lt;Integer&gt; used) {
+<A NAME="1"></A>        //System.out.println(prev + &quot; at &quot; + idx);
+        if (idx == A.length) {
+            count++;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="2"></A>        Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        for (int p : pairs[prev]) {
+            if (!used.contains</B></FONT>(p) &amp;&amp; !seen.contains(A[p])) {
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>used.add(p);
+                seen.add(A[p]);
+                dfs(A, p, idx + 1, pairs, used);
+                used.remove(p);
+            }
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

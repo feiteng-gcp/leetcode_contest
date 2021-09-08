@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>420_eloelz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>420_eloelz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int numSquarefulPerms(int[] A) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>backtrack(A, 0, new HashSet&lt;&gt;(), new ArrayList&lt;&gt;());
+        return ans;
+    }
+<A NAME="1"></A>    
+    int ans = 0;
+    Set&lt;String&gt; seen = new</B></FONT> HashSet&lt;&gt;();
+    private void backtrack(int[] A, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match1-1.html#1',3,'match1-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int index, Set&lt;Integer&gt; usedIndex, List&lt;Integer&gt; curr) {
+        if (usedIndex.size() == A.length) {
+            String key = key(curr);
+            if (seen.contains(key) == false) {</B></FONT>
+                ans++;
+                seen.add(key);
+                
+            }
+            return;
+        }
+        
+        String key = key(curr);
+        if (seen.contains(key)) return;
+<A NAME="2"></A>        seen.add(key);
+        
+        // System.out.println(curr);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match1-1.html#2',3,'match1-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; A.length; i++) {
+            if (usedIndex.contains(i)) continue;
+            
+            if (curr.size() == 0 || issquare(curr.get(curr.size() - 1), A[i])) {
+                curr.add(A[i]);
+                usedIndex.add(i);
+                backtrack(A, 0, usedIndex, curr);
+<A NAME="3"></A>                curr.remove(curr.size() - 1);
+                usedIndex.remove(i);
+            }</B></FONT>
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match1-1.html#3',3,'match1-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    }
+    
+    private String key(List&lt;Integer&gt; cur) {
+<A NAME="4"></A>        StringBuilder sb = new StringBuilder();
+        for(int i : cur) {
+            sb.append</B></FONT>(i + &quot;,&quot;);
+        <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match1-1.html#4',3,'match1-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return sb.toString();
+    }
+    
+    private boolean issquare(int a, int b) {</B></FONT>
+        int sqrt = (int) Math.sqrt(a + b);
+        if (a + b == sqrt * sqrt) {
+            // System.out.println(&quot;is square &quot; + a + &quot;  &quot; + b);
+            return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

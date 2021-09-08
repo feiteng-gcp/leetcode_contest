@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>118_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>118_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    ArrayList&lt;Integer&gt; g[] = null;
+int[] AA;
+    int l = 0;
+    
+    Set&lt;List&lt;Integer&gt;&gt; r = new HashSet&lt;&gt;();
+    
+    
+    boolean ok(int a,int b){
+        int s = a+b;
+        int n = (int)Math.sqrt(s);
+        return n*n==s;
+    }
+    
+    void dfs(int c,int[] vis,int n,List&lt;Integer&gt; m){
+        if(n==l){
+            if(!r.contains(m)){
+                
+                List&lt;Integer&gt; mm = new ArrayList&lt;&gt;(m);
+                r.add(mm);
+            }
+            return;
+        }
+        
+        Set&lt;Integer&gt; sm = new HashSet&lt;&gt;();
+        
+        for(Object go1:g[c]){
+            Integer go  =(Integer)go1;
+            
+            
+            if(vis[go]==0){
+                if(!sm.contains(AA[go])){
+                sm.add(AA[go]);
+                vis[go] = 1;
+                m.add(AA[go]);
+                dfs(go,vis,n+1,m);
+                vis[go] = 0;
+                m.remove(m.size()-1);
+            }
+            }
+        }
+        
+        
+    }
+    
+    public int numSquarefulPerms(int[] A) {
+        AA = A;
+        l = A.length;
+        g = new ArrayList[l];
+        
+        for(int i=0;i&lt;l;++i){
+            
+         g[i] = new ArrayList();   
+            
+        }
+        
+        for(int i=0;i&lt;l;++i){
+            for(int j=i+1;j&lt;l;++j){
+                if(ok(A[i],A[j])){
+                    g[i].add(j);
+                    g[j].add(i);
+                }   
+            }
+        }
+        
+        Set&lt;Integer&gt; sm = new HashSet&lt;&gt;();
+        for(int i=0;i&lt;l;++i){
+            
+            if(!sm.contains(A[i])){
+            sm.add(A[i]);
+            int vis[] = new int[l];
+            List&lt;Integer&gt; m = new ArrayList&lt;&gt;();
+            m.add(A[i]);
+            vis[i] = 1;
+            dfs(i,vis,1,m);
+            }
+            
+        }
+        return r.size();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

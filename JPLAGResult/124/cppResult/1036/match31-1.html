@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_ztxz16.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_ztxz16.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dx[4] = {0, 0, 1, -1};
+    int dy[4] = {1, -1, 0, 0};
+    
+    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+<A NAME="0"></A>        int n = g.size(), m = g[0].size();
+        int ans = 0;
+        while (1) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool ok = false;
+            for (int i = 0; i &lt; n; i++) {
+                for (int j = 0; j &lt; m; j++) {
+                    //printf(&quot;%d &quot;, g[i][j]);
+                    if (g[i][j] == 1) {
+                        ok = true;
+                    }
+                }
+                //printf(&quot;\n&quot;);
+            }
+            
+            if (!ok) {
+                return ans;
+<A NAME="1"></A>            }
+            
+            vector &lt;pair &lt;int, int&gt; &gt; ss;</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; n; i++) {
+                for (int j = 0; j &lt; m; j++) {
+                    if (g[i][j] == 1) {</B></FONT>
+                        bool f = false;
+                        for (int d = 0; d &lt; 4; d++) {
+                            int x = i + dx[d], y = j + dy[d];
+                            if (x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m) {
+                                if (g[x][y] == 2) {
+                                    f = true;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (f) {
+                                ss.push_back(make_pair(i, j));
+                            }
+                    }
+                }
+            }
+            
+            if (ss.size() == 0) {
+                return -1;
+            }
+            
+            for (int i = 0; i &lt; ss.size(); i++) {
+                g[ss[i].first][ss[i].second] = 2;
+            }
+            ans++;
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

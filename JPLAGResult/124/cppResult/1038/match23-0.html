@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_tonyli0000.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_tonyli0000.cpp</CENTER></H3><HR>
+<PRE>
+  class Solution {
+  public:
+	  vector&lt;bool&gt;vis;
+	  int ct = 0;
+	  vector&lt;vector&lt;int&gt;&gt;adj;
+	  vector&lt;int&gt;arr;
+	  void solve(int curr, int t,int n) {
+<A NAME="0"></A>		  if (curr == n)ct++;
+		  for (int i = 0; i &lt; n; i++) {
+			  if (vis[i])continue;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			  if (i &gt; 0 &amp;&amp; !vis[i - 1] &amp;&amp; arr[i] == arr[i - 1])continue;
+			  if (curr == 0 || adj[t][i] == 1) {
+				  vis[i] = true;
+				  solve(curr + 1, i, n);
+				  vis[i] = false;
+			  }
+		  }
+	  }
+	  int numSquarefulPerms(vector&lt;int&gt;&amp; A) {
+		  arr = A;
+		  int n = A.size();</B></FONT>
+		  if (n == 1)return 0;
+		  adj.resize(n, vector&lt;int&gt;(n, 0));
+		  vis.assign(n, false);
+		  for (int i = 0; i &lt; n; i++) {
+			  for (int j = i + 1; j &lt; n; j++) {
+				  int x = sqrt(A[i] + A[j]);
+				  if (x*x == A[i] + A[j])adj[i][j] = 1, adj[j][i] = 1;
+			  }
+		  }
+		  solve(0, -1, n);
+		  return ct;
+	  }
+  };
+</PRE>
+</BODY>
+</HTML>

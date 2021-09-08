@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>263_GGUT_JohnSmit5h.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>263_GGUT_JohnSmit5h.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+int n;
+bool mp[15][15];
+int dp[1&lt;&lt;12][12];
+
+bool judge(int x,int y)
+{
+	x+=y;
+	int rt=(int)sqrt(x);
+	return rt*rt==x;
+}
+
+int numSquarefulPerms(vector&lt;int&gt;&amp; A) 
+{
+	n=A.size();
+	if(n==1) return 0;
+	for(int i=0;i&lt;n;i++)
+		for(int j=i+1;j&lt;n;j++)
+<A NAME="0"></A>			mp[i][j]=mp[j][i]=judge(A[i],A[j]);
+	int mask=1&lt;&lt;n;
+	for(int i=0;i&lt;n;i++)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		dp[1&lt;&lt;i][i]=1;
+	for(int i=0;i&lt;mask;i++)
+	{
+<A NAME="1"></A>		for(int j=0;j&lt;n;j++)
+		{
+			if((i&gt;&gt;j)&amp;1);</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			else continue;
+			for(int k=0;k&lt;n;k++)
+			{
+				if(!mp[j][k]) continue;
+				if((i&gt;&gt;k)&amp;1) continue;
+				dp[i|1&lt;&lt;k][k]+=dp[i][j];
+			}
+		}
+	}</B></FONT>
+	int ans=0;
+	for(int i=0;i&lt;n;i++)
+		ans+=dp[mask-1][i];
+	map&lt;int,int&gt; s;
+	int fac[13];
+	fac[0]=1;
+	for(int i=1;i&lt;13;i++)
+		fac[i]=i*fac[i-1];
+	for(int i=0;i&lt;n;i++)
+		s[A[i]]++;
+	for(auto it:s)
+	{
+		assert(ans%fac[it.second]==0);
+		ans/=fac[it.second];
+	}
+	return ans;
+}
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int orangesRotting(int[][] grid) {
+        int l = grid.length;
+        int ll = grid[0].length;
+        int all = l*ll;
+        
+        int f = 0;
+        int r = 0;
+        int z = 0;
+        
+        for(int i=0;i&lt;l;++i){
+            for(int j=0;j&lt;ll;++j){
+                int v = grid[i][j];
+                if(v==1){
+                    ++f;
+                }else if(v==2){
+                    ++r;
+                }
+            }
+        }
+        
+        if(f==0){
+            return 0;
+        }
+        if(r==0){
+            return -1;
+        }
+        
+        Queue&lt;int[]&gt; que = new LinkedList&lt;&gt;();
+        for(int i=0;i&lt;l;++i){
+            for(int j=0;j&lt;ll;++j){
+                int v = grid[i][j];
+                if(v==2){
+                    que.offer(new int[]{i,j});
+                }
+            }
+        }
+        
+        
+        
+        
+                    int stp = 0;
+                    while(que.size()&gt;0){
+                        Queue&lt;int[]&gt; nque = new LinkedList&lt;&gt;();
+                        while(!que.isEmpty()){
+                            int[] pos = que.poll();
+                            int x = pos[0];
+                            int y = pos[1];
+                            
+                            int dx[] = new int[]{0,0,1,-1};
+                            int dy[] = new int[]{1,-1,0,0};
+                            for(int i=0;i&lt;4;++i){
+                                int nx = dx[i]+x;
+                                int ny = dy[i]+y;
+                                if(nx&gt;=0&amp;&amp;nx&lt;l&amp;&amp;ny&gt;=0&amp;&amp;ny&lt;ll&amp;&amp;grid[nx][ny]==1){
+                                    grid[nx][ny] = 2;
+                                    --f;
+                                    if(f==0){
+                                        return stp+1;
+                                    }
+                                    nque.offer(new int[]{nx,ny});
+                                    
+                                }
+                                
+                                
+                            }
+                        }
+                        ++stp;
+                        
+                        que = nque;
+                        
+                    }
+        
+        return -1;
+        
+        
+        
+        
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

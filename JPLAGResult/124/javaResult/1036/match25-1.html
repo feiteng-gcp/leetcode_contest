@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>256_flyflyflyAlex.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>256_flyflyflyAlex.java</CENTER></H3><HR>
+<PRE>
+<A NAME="4"></A>class Solution {
+    <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#4',2,'match25-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Pair {
+        int row;
+        int col;
+        Pair (int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }</B></FONT>
+    int[] rowTrans = {0, 0, -1, 1};
+    int[] colTrans = {1, -1, 0, 0};
+    public boolean inBound(int[][] matrix, int row, int col) {
+        if (row &gt;= 0 &amp;&amp; row &lt; matrix.length &amp;&amp; col &gt;= 0 &amp;&amp; col &lt; matrix[0].length) {
+            return true;
+        }
+        return false;
+    }
+    public int orangesRotting(int[][] matrix) {
+<A NAME="0"></A>        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int number = 0;
+        int result = 0;
+        Queue&lt;Pair&gt; queue = new LinkedList&lt;&gt;();
+        for (int i = 0; i &lt; matrix.length; i++) {
+            for (int j = 0; j &lt; matrix[0].length; j++) {
+                if (matrix[i][j] == 1) {</B></FONT>
+                    number++;
+<A NAME="1"></A>                }
+                if (matrix[i][j] == 2) {
+                    queue.offer(new Pair(i, j));
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+<A NAME="2"></A>        if (number == 0) {
+            return 0;
+        }</B></FONT>
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!queue.isEmpty()) {
+            result++;
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+                Pair pair = queue.poll();
+                for (int j = 0; j &lt; 4; j++) {
+                    int nextRow = pair.row + rowTrans[j];
+                    int nextCol = pair.col + colTrans[j];
+                    if</B></FONT> (inBound(matrix, nextRow, nextCol) &amp;&amp; matrix[nextRow][nextCol] == 1) {
+<A NAME="3"></A>                        matrix[nextRow][nextCol] = 2;
+                        number--;
+                        queue.offer(new Pair(nextRow, nextCol));
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#3',2,'match25-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+            }
+        }
+        if (number != 0) {
+            return -1;
+        }
+        return result - 1;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

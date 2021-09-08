@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>433_limgit.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>433_limgit.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+import collections
+<A NAME="0"></A>
+class Solution:
+    def isCousins(self, root: 'TreeNode', x: 'int', y: 'int') -&gt; 'bool':
+        q = collections.deque([(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>root, 0, None)])
+        depths = {x: None, y: None}
+        parents = {x: None, y: None}
+        while q:
+            curr, depth, parent = q.popleft()
+            if curr.val == x or curr.val == y:
+                depths[curr.val] =</B></FONT> depth
+                if parent is not None:
+                    parents[curr.val] = parent.val
+            if all([a is not None for a in depths.values()])\
+                and all([a is not None for a in parents.values()]):
+                return depths[x] == depths[y] and parents[x] != parents[y]
+            if curr.left is not None:
+                q.append((curr.left, depth+1, curr))
+            if curr.right is not None:
+                q.append((curr.right, depth+1, curr))
+        return False
+</PRE>
+
+</BODY>
+</HTML>

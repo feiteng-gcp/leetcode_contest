@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>175_TonyWu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>175_TonyWu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int numSquarefulPerms(int[] A) {
+        Set&lt;List&lt;Integer&gt;&gt; res = new HashSet&lt;&gt;();
+        List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
+        Arrays.sort(A);
+        boolean[] used = new boolean[A.length];
+        helper(res, path, A, used);
+        return res.size();
+    }
+    
+    private void helper(Set&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; path, int[] A, boolean[] used) {
+        if(path.size() == A.length) {
+            res.add(new ArrayList&lt;Integer&gt;(path));
+            return;
+        }
+        for(int i=0; i&lt;A.length; i++) {
+            if(i-1 &gt;=0 &amp;&amp; A[i-1] == A[i] &amp;&amp; used[i-1]) {
+                continue;
+<A NAME="0"></A>                    // let say there are 3 aaa, we only allow 321, not 123 or 213, this way we avoid duplicates
+            }
+            if(!used[i]) {
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(path.size() == 0 || isSquare(A[i]+path.get(path.size()-1))) {
+                    path.add(A[i]);
+                    used[i] = true;
+                    helper</B></FONT>(res, path, A, used);
+<A NAME="1"></A>                    used[i] = false;
+                    path.remove(path.size()-1);
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+    }
+    
+    private boolean isSquare(int number) {
+     int sqrt = (int) Math.sqrt(number);
+     if</B></FONT>(sqrt*sqrt == number) {
+        return true;
+     }
+     return false;
+    }
+
+
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>409_goddice.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>409_goddice.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Pos {
+public:
+    int r, c, l;
+    Pos(int r_, int c_, int l_): r(r_), c(c_), l(l_) {}
+};
+
+class Solution {
+public:
+    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int tot = 0;
+        queue&lt;Pos&gt; bfs;
+        for (int r = 0; r &lt; grid.size(); ++r) {
+            for (int c = 0; c &lt; grid[0].size(); ++c) {
+                if (grid[r][c] != 0) {
+                    ++tot;
+                    if (grid[r][c] == 2) {
+                        bfs.push(Pos(r, c, 0));
+                    }
+                }
+            }
+        }
+        
+        int count = 0;
+        int steps = 0;
+        while (!bfs.empty()) {
+            Pos p = bfs.front();
+            bfs.pop();
+            ++count;
+            steps = max(steps, p.l);
+            if (p.r + 1 &lt; grid.size() &amp;&amp; grid[p.r + 1][p.c] == 1) {
+                bfs.push(Pos(p.r + 1, p.c, p.l + 1));
+                grid[p.r + 1][p.c] = 2;
+            }
+            
+            if (p.r - 1 &gt;= 0 &amp;&amp; grid[p.r - 1][p.c] == 1) {
+                bfs.push(Pos(p.r - 1, p.c, p.l + 1));
+                grid[p.r - 1][p.c] = 2;
+            }
+            
+            if (p.c + 1 &lt; grid[0].size() &amp;&amp; grid[p.r][p.c + 1] == 1) {
+                bfs.push(Pos(p.r, p.c + 1, p.l + 1));
+                grid[p.r][p.c + 1] = 2;
+            }
+            
+            if (p.c - 1 &gt;= 0 &amp;&amp; grid[p.r][p.c - 1] == 1) {
+                bfs.push(Pos(p.r, p.c - 1, p.l + 1));
+                grid[p.r][p.c - 1] = 2;
+            }
+        }
+        
+        if(count != tot) {
+            return -1;
+        }
+        else {
+            return steps;
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

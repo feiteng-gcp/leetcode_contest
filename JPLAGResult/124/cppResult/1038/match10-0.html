@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>254_wshack.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>254_wshack.cpp</CENTER></H3><HR>
+<PRE>
+
+bool comp(int a, int b){
+    return a&gt;b;
+}
+
+class Solution {
+public:
+    
+    int result;
+    
+    bool square(int x){
+        int y = sqrt(x);
+        return (y*y)==x;
+    }
+
+<A NAME="0"></A>    void dfs(vector&lt;int&gt;&amp; A, int start){
+        if(start == A.size()){
+            result++;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return;
+        }
+        for(int i=start; i&lt;A.size(); i++){
+            if(i&gt;start &amp;&amp; (A[i]==A[start] || A[i]==A[i-1]))
+                continue;
+            if(start &gt; 0 &amp;&amp; !square(A[i]+A[start-1]))
+                continue;
+            swap(A[i], A[start]);
+            dfs(A, start+1);
+            swap(A[i], A[start]);
+        }
+    }
+    
+    int numSquarefulPerms(vector&lt;int&gt;&amp; A) {</B></FONT>
+        sort(A.begin(), A.end());
+        result=0;
+        dfs(A, 0);
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

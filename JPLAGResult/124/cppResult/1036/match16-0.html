@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>415_wangby511.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>415_wangby511.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int n,m;
+    vector&lt;int&gt; dirx{-1,0,1,0};
+    vector&lt;int&gt; diry{0,1,0,-1};
+    void bfs(vector&lt;vector&lt;int&gt;&gt;&amp; grid,int i,int j,vector&lt;vector&lt;int&gt;&gt;&amp; dist){
+         vector&lt;vector&lt;int&gt;&gt; visited(n,vector&lt;int&gt; (m,0));
+        queue&lt;pair&lt;pair&lt;int,int&gt;,int&gt;&gt; qu;
+<A NAME="0"></A>        qu.push(make_pair(make_pair(i,j),0));
+        while(!qu.empty()){
+            int x = qu.front().first.first;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int y = qu.front().first.second;
+            int d = qu.front().second;
+            qu.pop();
+            visited[x][y] = 1;
+            for(int k = 0;k &lt; 4;k++){
+                int newx = x + dirx[k];
+                int newy = y + diry[k];
+                if(newx &lt; 0 || newx &gt;= n || newy &lt; 0 || newy &gt;= m || grid[newx][newy] != 1 || visited[newx][newy] == 1)continue;</B></FONT>
+                dist[newx][newy] = min(dist[newx][newy],d + 1);
+                qu.push(make_pair(make_pair(newx,newy),d + 1));
+            }
+        }
+    }
+<A NAME="1"></A>    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        n = grid.size();
+        m = grid[0].size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; dist(n,vector&lt;int&gt; (m,INT_MAX));
+        for(int i = 0;i &lt; n;i++){
+<A NAME="2"></A>            for(int j = 0;j &lt; m;j++){
+                if(grid[i][j] == 2){</B></FONT>
+                    bfs(grid,i,j,dist);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                }
+            }
+        }
+        int res = 0;
+        for(int i = 0;i &lt; n;i++){
+            for(int j = 0;j &lt; m;j++){
+                // cout&lt;&lt;dist[i][j] &lt;&lt;&quot; &quot;;
+                if(grid[i][j] == 1){</B></FONT>
+                    if(dist[i][j] == INT_MAX)return -1;
+                    res = max(res,dist[i][j]);
+                }
+            }
+            // cout&lt;&lt;endl;
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
