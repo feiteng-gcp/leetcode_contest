@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>359_WSY.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>359_WSY.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String removeDuplicates(String s, int k) {
+        Deque&lt;Character&gt; chars = new LinkedList();
+<A NAME="1"></A>        Deque&lt;Integer&gt; cnts = new LinkedList();
+        
+        for (char c : s.toCharArray()) {</B></FONT>
+            if (chars.size() == 0 || <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>chars.getFirst() - c != 0) {
+                chars.addFirst(c);
+                cnts.addFirst(1);
+            }
+            else {
+                int n = cnts.removeFirst() + 1;
+                if (n &gt; k) {
+                    cnts.addFirst(n - k);
+                }
+                else if (</B></FONT>n == k) {
+                    chars.removeFirst();
+<A NAME="2"></A>                }
+                else {
+                    cnts.addFirst(n);
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match14-1.html#2',3,'match14-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while (!chars.isEmpty()) {
+            char c = chars.removeLast();
+            int n = cnts.removeLast();
+            for (int i = 0</B></FONT>; i &lt; n; i++)
+                sb.append(c);
+        }
+        return sb.toString();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

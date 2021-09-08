@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>461_szhao28.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>461_szhao28.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+        if grid[n-1][n-1]==1 or grid[n-1][n-2]==1:
+            return -1
+        q = collections.deque()
+        visited = set()
+        ct = 0
+        q.append((0,0,0,1))
+        visited.add((0,0,0,1))
+        while q:
+            ct+=1
+            l = len(q)
+            for i in range(l):
+<A NAME="0"></A>                x1,y1,x2,y2 = q.popleft()
+                #right
+                newx1,newy1,newx2,newy2 = x1,y1+1,x2,y2+1
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if newy2&lt;n and grid[newx1][newy1]==0 and grid[newx2][newy2]==0:
+                    if (newx1,newy1,newx2,newy2)==(n-1,n-2,n-1,n-1):
+                        return ct
+                    if (newx1,newy1,newx2,newy2) not in visited:
+                        q.append((newx1,newy1,newx2,newy2))
+<A NAME="1"></A>                        visited.add((n</B></FONT>ewx1,newy1,newx2,newy2))
+                #down
+                newx1,newy1,newx2,newy2 = x1+1,y1,x2+1,y2
+                if newx2&lt;n and grid[newx1][newy1]==0 and grid<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[newx2][newy2]==0:
+                    if (newx1,newy1,newx2,newy2)==(n-1,n-2,n-1,n-1):
+                        return ct
+                    if (newx1,newy1,newx2,newy2) not in visited:
+                        q.append((newx1,newy1,newx2,newy2))
+                        visited.add((ne</B></FONT>wx1,newy1,newx2,newy2))
+<A NAME="2"></A>                #clock-wise
+                if x1==x2:
+                    newx1,newy1,newx2,newy2 = x1,y1,x1+1,y1
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if newx2&lt;n and grid[newx2][newy2]==0 and grid[x1+1][y1+1]==0:
+                        if (newx1,newy1,newx2,newy2) not in visited:
+                            q.append((newx1,newy1,newx2,newy2))
+                            visited.add((n</B></FONT>ewx1,newy1,newx2,newy2))
+<A NAME="3"></A>                #anti-clock-wise
+                if y1==y2:
+                    newx1,newy1,newx2,newy2 = x1,y1,x1,y1+1
+                    if newy2&lt;n and grid[newx2][newy2]==0 and grid<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x1+1][y1+1]==0:
+                        if (newx1,newy1,newx2,newy2) not in visited:
+                            q.append((newx1,newy1,newx2,newy2))
+                            visited.add((ne</B></FONT>wx1,newy1,newx2,newy2))
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

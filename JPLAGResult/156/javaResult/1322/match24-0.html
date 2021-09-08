@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_weih_xu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_weih_xu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumMoves(int[][] grid) {
+        int[] start = new int[]{0,0,0,1};
+        Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        seen.add(index(start));
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        q.offer(start);
+        int len = 0, n = grid.length;
+        while(!q.isEmpty()){
+            int sz = q.size();
+            for(int t=0;t&lt;sz;t++){
+                int[] cur = q.poll();
+<A NAME="0"></A>                //System.out.print(cur[0]+&quot; &quot;+cur[1]+&quot; &quot;+cur[2]+&quot; &quot;+cur[3]);
+                if(index(cur)==index(new int[]{n-1,n-2,n-1,n-1})) return len;
+                for(int i=0;i&lt;4;i++){
+                    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(i==0){
+                        //right
+                        int[] next = new int[]{cur[0], cur[1]+1, cur[2], cur[3]+1};
+                        if(cur[1]+1&lt;n &amp;&amp; cur[3]+1&lt;n &amp;&amp; grid[cur[0]][cur[1]+1]==0 &amp;&amp; grid[cur[2]][cur[3]+1]==0 &amp;&amp; !seen.contains(index(next))){
+<A NAME="1"></A>                            q.offer(next);
+                            seen.add(index(next));
+                        }
+                    }</B></FONT>else <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(i==1){
+                        //down
+                        int[] next = new int[]{cur[0]+1, cur[1], cur[2]+1, cur[3]};
+                        if(cur[0]+1&lt;n &amp;&amp; cur[2]+1&lt;n &amp;&amp; grid[cur[0]+1][cur[1]]==0 &amp;&amp; grid[cur[2]+1][cur[3]]==0 &amp;&amp; !seen.contains(index(next))){
+<A NAME="2"></A>                            q.offer(next);
+                            seen.add(index(next));
+                        }
+                    }</B></FONT>else <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(i==2 &amp;&amp; cur[0]==cur[2] &amp;&amp; cur[1]+1==cur[3]){
+                        int[] next = new int[]{cur[0], cur[1], cur[0]+1, cur[1]};
+                        if(cur[0]+1&lt;n &amp;&amp; grid[cur[0]+1][cur[1]]==0  &amp;&amp; grid[cur[0]+1][cur[1]+1]==0 &amp;&amp; !seen.contains(index(next))){
+<A NAME="3"></A>                            q.offer(next);
+                            seen.add(index(next));
+                        }
+                    }</B></FONT>else <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match24-1.html#3',3,'match24-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(i==3 &amp;&amp; cur[0]+1==cur[2] &amp;&amp; cur[1]==cur[3]){
+                        int[] next = new int[]{cur[0], cur[1], cur[0], cur[1]+1};
+                        if(cur[1]+1&lt;n &amp;&amp; grid[cur[0]][cur[1]+1]==0 &amp;&amp; grid[cur[0]+1][cur[1]+1]==0 &amp;&amp; !seen.contains(index(next))){
+                            q.offer(next);
+                            seen.add(index(next));
+                        }
+                    }</B></FONT>
+                }
+            }
+            len++;
+            //System.out.println();
+        }
+        return -1;
+    }
+    
+    public int index(int[] a){
+        return a[0]+a[1]*100+a[2]*10000+a[3]*1000000;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

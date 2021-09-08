@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>438_JZYZ.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>438_JZYZ.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+
+class Solution {
+
+    int[][] grid;
+    int m;
+    int n;
+    Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; dis = new HashMap&lt;&gt;();
+
+    int minimumMoves(int[][] grid) {
+        this.grid = grid;
+        this.m = grid.length;
+        this.n = grid[0].length;
+        if (grid[0].length &lt; 2) return 0;
+        if (grid[0][0] == 1 || grid[0][1] == 1) return 0;
+//        int[][] distance = new int[m * n][m * n];
+        
+//        for (int i = 0; i &lt; m * n; i++) {
+//            Arrays.fill(distance[i], Integer.MAX_VALUE);
+//        }
+//        distance[0][1] = 0;
+       put(0, 1, 0);
+        
+        Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+        q.add(new int[]{0, 1});
+        while (!q.isEmpty()) {
+            int[] node = q.poll();
+            int[] tail = getXY(node[0]);
+            int[] head = getXY(node[1]);
+<A NAME="0"></A>            if (head[0] == tail[0] &amp;&amp; head[1] + 1 &lt; n &amp;&amp;
+                    grid[head[0]][head[1] + 1] == 0) {
+                int[] next = new int[]{node[1], node[1] + 1};
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1]) + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }
+            }
+<A NAME="1"></A>            if (head[0] == tail[0] &amp;&amp; head[0] + 1 &lt; m &amp;&amp;
+                    grid[head[0] + 1][head[1]] == 0 &amp;&amp;  grid[tail[0] + 1][tail[1]] == 0) {
+                int[] next = new int[]{node[0] + n, node[1] + n}</B></FONT>;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1])  + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }
+            }
+<A NAME="2"></A>            if (head[0] == tail[0] &amp;&amp; head[0] + 1 &lt; m &amp;&amp;
+                    grid[head[0] + 1][head[1]] == 0 &amp;&amp;  grid[tail[0] + 1][tail[1]] == 0) {
+                int[] next = new int[]{node[0], node[0] + n}</B></FONT>;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1])  + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }
+            }</B></FONT>
+<A NAME="3"></A>            if (head[1] == tail[1] &amp;&amp; head[0] + 1 &lt; m &amp;&amp;
+                    grid[head[0] + 1][head[1]] == 0) {
+                int[] next = new int[]{node[1], node[1] + n};
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match25-1.html#3',3,'match25-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1]) + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }</B></FONT>
+            }
+<A NAME="4"></A>            if (head[1] == tail[1] &amp;&amp; head[1] + 1 &lt; n &amp;&amp;
+                    grid[head[0]][head[1] + 1] == 0 &amp;&amp; grid[tail[0]][tail[1] + 1] == 0) {
+                int[] next = new int[]{node[0] + 1, node[1] + 1};
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match25-1.html#4',3,'match25-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1]) + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }</B></FONT>
+            }
+<A NAME="5"></A>            if (head[1] == tail[1] &amp;&amp; head[1] + 1 &lt; n &amp;&amp;
+                    grid[head[0]][head[1] + 1] == 0 &amp;&amp; grid[tail[0]][tail[1] + 1] == 0) {
+                int[] next = new int[]{node[0], node[0] + 1};
+                <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match25-1.html#5',3,'match25-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (getValue(node[0], node[1])  + 1 &lt; getValue(next[0], next[1])) {
+                    put(next[0], next[1], getValue(node[0], node[1]) + 1 );
+                    q.add(next);
+                }
+            }
+        }</B></FONT>
+        return getValue(m * n - 2, m * n  - 1) == Integer.MAX_VALUE ? -1 : getValue(m * n - 2, m * n  - 1)  ;
+    }
+    
+    private int getValue(int a, int b) {
+        if (dis.containsKey(a) &amp;&amp; dis.get(a).containsKey(b)) {
+            return dis.get(a).get(b);
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    private void put(int a, int b, int value) {
+        dis.putIfAbsent(a, new HashMap&lt;&gt;());
+        dis.get(a).put(b, value);
+    }
+
+    private int[] getXY(int x) {
+        return new int[]{x / n, x % n};
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution().minimumMoves(new int[][]{{0,0},{0,0}}));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

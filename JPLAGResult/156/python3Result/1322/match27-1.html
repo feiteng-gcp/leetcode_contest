@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_sun-man-man.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>435_sun-man-man.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+        q = []
+        vis = [[[True, True] for _ in range(n)] for _ in range(n)]
+        if grid[0][0] == grid[0][1] == 0:
+            q.append([0, 1, 0, 0])
+            vis.append([0, 1, 0])
+            vis[0][1][0] = False
+        else:
+            return -1
+        while (q):
+            x, y, d, s = q.pop(0)
+<A NAME="0"></A>            if x == y == n - 1 and d == 0:
+                return s
+            if d == 0:
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if y + 1 &lt; n and grid[x][y + 1] == 0 and vis[x][y+1][0]:
+<A NAME="1"></A>                    q.append([x, y + 1, 0, s + 1])
+                    vis[x][y+1][0] = False
+                if x + 1 &lt; n and y &gt; 0 and grid[x + 1][y] == 0 and grid[x + 1][</B></FONT>y - 1] == 0:
+                    if vis<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[x+1][y-1][1]:
+                        q.append([x + 1, y - 1, 1, s + 1])
+                        vis[x+1][y-1][1] = False
+                    if vis[x+1][y][0]:
+                        q.</B></FONT>append([x + 1, y, 0, s + 1])
+                        vis[x+1][y][0] = False
+<A NAME="2"></A>
+            elif d == 1:
+                if x+1 &lt; n and grid[x + 1][y] == 0 and vis[x+1][y][1]:
+                    q.append([<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>x + 1, y, 1, s + 1])
+<A NAME="3"></A>                    vis.append([x + 1, y, 1])
+                    vis[x+1][y][1] = False
+                if y + 1 &lt; n and x &gt; 0 and d == 1 and grid[x][y + 1] == 0 and grid[x - 1][</B></FONT>y + 1] == 0:
+                    if vis<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[x-1][y+1][0]:
+                        q.append([x - 1, y + 1, 0, s + 1])
+                        vis[x-1][y+1][0] = False
+                    if vis[x][y+1][1]:
+                        q.</B></FONT>append([x, y + 1, 1, s + 1])
+                        vis[x][y+1][1] = False
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

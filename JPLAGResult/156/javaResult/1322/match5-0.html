@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_OBNN.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>239_OBNN.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumMoves(int[][] grid) {
+        int ans=0,n=grid.length;
+        Set&lt;String&gt; visited = new HashSet&lt;&gt;();
+        visited.add(&quot;0,0,0,1&quot;);
+        Queue&lt;int[][]&gt; que=new LinkedList&lt;&gt;();
+        que.offer(new int[][]{{0,0},{0,1}});
+        while(!que.isEmpty()){
+            ans++;
+            int size=que.size();
+            for(int i=0;i&lt;size;i++){
+                int[][] cur = que.poll();
+                if(cur[0][0]==cur[1][0]){
+                    int[][] next2=new int[][]{cur[0].clone(),{cur[1][0]+1,cur[1][1]-1}};
+                    if(next2[0][0]==n-1&amp;&amp;next2[0][1]==n-2&amp;&amp;next2[1][0]==n-1&amp;&amp;next2[1][1]==n-1){
+                        return ans;
+                    }else if(check(visited,next2,grid)&amp;&amp;grid[cur[0][0]+1][cur[0][1]]!=1&amp;&amp;grid[cur[1][0]+1][cur[1][1]]!=1){
+                        que.offer(next2);
+                    }
+                }
+                if(cur[0][1]==cur[1][1]){
+                    int[][] next2=new int[][]{cur[0].clone(),{cur[0][0],cur[0][1]+1}};
+                    if(next2[0][0]==n-1&amp;&amp;next2[0][1]==n-2&amp;&amp;next2[1][0]==n-1&amp;&amp;next2[1][1]==n-1){
+                        return ans;
+                    }else if(check(visited,next2,grid)&amp;&amp;grid[cur[0][0]][cur[0][1]+1]!=1&amp;&amp;grid[cur[1][0]][cur[1][1]+1]!=1){
+                        que.offer(next2);
+                    }
+                }
+                int[][] next3=new int[][]{{cur[0][0],cur[0][1]+1},{cur[1][0],cur[1][1]+1}};
+                if(next3[0][0]==n-1&amp;&amp;next3[0][1]==n-2&amp;&amp;next3[1][0]==n-1&amp;&amp;next3[1][1]==n-1){
+                    return ans;
+                }else if(check(visited,next3,grid)){
+                    que.offer(next3);
+                }
+                int[][] next4=new int[][]{{cur[0][0]+1,cur[0][1]},{cur[1][0]+1,cur[1][1]}};
+                if(next4[0][0]==n-1&amp;&amp;next4[0][1]==n-2&amp;&amp;next4[1][0]==n-1&amp;&amp;next4[1][1]==n-1){
+                    return ans;
+                }else if(check(visited,next4,grid)){
+                    que.offer(next4);
+                }
+            }
+        }
+        return -1;
+    }
+    private boolean check(Set&lt;String&gt; visited,int[][] next,int[][] grid){
+        int r1=next[0][0],c1=next[0][1],r2=next[1][0],c2=next[1][1],n=grid.length;
+        if(r1&lt;0||r1&gt;=n||c1&lt;0||c1&gt;=n||r2&lt;0||r2&gt;=n||c2&lt;0||c2&gt;=n){
+            return false;
+        }
+        String key=&quot;&quot;+next[0][0]+&quot;,&quot;+next[0][1]+&quot;,&quot;+next[1][0]+&quot;,&quot;+next[1][1];
+        if(visited.contains(key) ||grid[next[0][0]][next[0][1]]==1||grid[next[1][0]][next[1][1]]==1){
+            return false;
+        }
+        visited.add(key);
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

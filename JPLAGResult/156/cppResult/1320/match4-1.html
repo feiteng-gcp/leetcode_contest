@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_jishnu_534.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_jishnu_534.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string removeDuplicates(string s, int k) {
+        stack&lt;pair&lt;char, int&gt;&gt; stk;
+        
+        for (char c : s) {
+            if (stk.empty() || stk.top().first != c) {
+                stk.push({c, 1});
+            } else {
+                stk.top().second++;
+                if (stk.top().second == k) {
+                    stk.pop();
+                }
+            }
+        }</B></FONT>
+        
+        string str;
+        while (!stk.empty()) {
+            char c = stk.top().first;
+            int n = stk.top().second;
+            while (n--) {
+                str.push_back(c);
+            }
+            stk.pop();
+        }
+        
+        reverse(str.begin(), str.end());
+        return str;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

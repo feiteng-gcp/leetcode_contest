@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_uldivad9.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>446_uldivad9.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -&gt; int:
+        '''
+        minmoves[ornt, row, col] = minimum moves required to reach a state where
+        the snake has orientation 'ornt' and the top left cell of the snake is at the given row/column
+        ornt must be 0 or 1 - 0 means horizontal snake, 1 means vertical snake
+        '''
+        n = len(grid)
+        minmoves = []
+        for i in range(2):
+            sub = []
+            for j in range(n):
+                sub.append([None]*n)
+            minmoves.append(sub)
+        minmoves[0][0][0] = 0
+        
+        queue = [(0,0,0,0)] # ornt, row, col, #moves to get to that state
+        while len(queue):
+            next = queue.pop(0)
+            ornt = next[0]
+            row = next[1]
+            col = next[2]
+            numMoves = next[3]            
+<A NAME="0"></A>            # what are all the possible states?
+            if not ornt: #horizontal
+                # move down
+                if row+1 &lt; n and minmoves[0][row+1][col] is None and not grid[row+1][col] and not grid<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[row+1][col+1]:
+                    minmoves[0][row+1][col] = numMoves+1
+<A NAME="1"></A>                    queue.append((0,row+1,col,numMoves+1))
+                # move right
+                if col+2 &lt; n and minmoves[0][row][col+1] is None and not grid[</B></FONT>row][col+2]:
+<A NAME="2"></A>                    minmoves<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[0][row][col+1] = numMoves+1
+                    queue.append((0,row,col+1,numMoves+1))
+                # flip
+                if row+1 &lt; n and col+1 &lt; n and minmoves[1][row][</B></FONT>col] is None and not grid[row+1][col] and not grid<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[row+1][col+1]:
+                    minmoves[1][row][col] = numMoves+1
+                    queue.append((1,row,col,numMoves+1))
+<A NAME="3"></A>            else: #vertical
+                # move down
+                if row+2 &lt; n and minmoves[1][row+1][col] is None and not grid[</B></FONT>row+2][col]:
+                    minmoves<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match31-1.html#3',3,'match31-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[1][row+1][col] = numMoves+1
+                    queue.append((1,row+1,col,numMoves+1))
+                # move right
+                if col+1 &lt; n and minmoves[1][row][</B></FONT>col+1] is None and not grid[row][col+1] and not grid[row+1][col+1]:
+                    minmoves[1][row][col+1] = numMoves+1
+                    queue.append((1,row,col+1,numMoves+1))
+                # flip
+                if row+1 &lt; n and col+1 &lt; n and minmoves[0][row][col] is None and not grid[row][col+1] and not grid[row+1][col+1]:
+                    minmoves[0][row][col] = numMoves+1
+                    queue.append((0,row,col,numMoves+1))
+        #for row in minmoves[0]:
+        #    print(row)
+        #print(&quot;---&quot;)
+        #for row in minmoves[1]:
+        #   print(row)
+        min = minmoves[0][n-1][n-2]
+        if min is None:
+            return -1
+        return min
+</PRE>
+
+</BODY>
+</HTML>
