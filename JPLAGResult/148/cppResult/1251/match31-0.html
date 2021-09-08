@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>61_pjincz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>61_pjincz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int longestDecomposition(string text) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (text.size() == 0)
+            return 0;
+        
+        if (m_cache.count(text))
+            return m_cache[text];
+        
+        int best = 1;
+        for (int l = 1; l * 2 &lt;= text.size(); ++l) {
+            if (strncmp(text.c_str(), text.c_str() + text.size() - l, l) == 0) {
+                best = std::max(best, longestDecomposition(text.substr(l, text.size() - l * 2)) + 2);</B></FONT>
+            }
+        }
+        return best;
+    }
+    map&lt;string, int&gt; m_cache;
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164__kay.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164__kay.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+
+	int solve(string &amp;text, int b, int e){
+		
+		
+		
+		//cout&lt;&lt;&quot;b = &quot;&lt;&lt;b&lt;&lt;&quot; e = &quot;&lt;&lt;e&lt;&lt;endl;
+		
+		if(b &gt;= e) return 0;
+		
+		//for(int i = b; i &lt; e; i++){
+		//	cout&lt;&lt;text[i];
+		//}
+		//cout&lt;&lt;endl;
+		
+<A NAME="0"></A>		for(int i = b; i &lt; e; i++){
+			if(e - b &lt; (i - b + 1) * 2) break;
+			//cout&lt;&lt;&quot;i = &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;e - b &lt;&lt;&quot; &lt; &quot;&lt;&lt; (i - b + 1) * 2&lt;&lt;endl;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			bool same = true;
+			
+			for(int j = 0; j &lt;= i-b; j++){
+				if(text[j+b] != text[e-(i-b)-1+j]){
+					same = false;
+					break;
+				}
+			}
+			
+			if(same){</B></FONT>
+				//cout&lt;&lt;&quot;SAME &quot;&lt;&lt;endl;
+				return solve(text, i+1, e-(i-b)-1) + 2;
+			}
+		}
+		
+		return 1;
+	}
+    int longestDecomposition(string text) {
+        return solve(text, 0, text.size());
+    }
+};
+</PRE>
+</BODY>
+</HTML>

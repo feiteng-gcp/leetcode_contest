@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_cszclin.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_cszclin.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    TreeNode* findNode(TreeNode* root, int x) {
+        if (root == nullptr)
+            return nullptr;
+        if (root -&gt; val == x)
+            return root;
+        TreeNode* leftNode, *rightNode;
+        leftNode = findNode(root -&gt; left, x);
+        rightNode = findNode(root -&gt; right, x);
+        if (leftNode != nullptr)
+            return leftNode;
+        if (rightNode != nullptr)
+            return rightNode;
+        return nullptr;
+    }
+    bool btreeGameWinningMove(TreeNode* root, int n, int x) {</B></FONT>
+        TreeNode* node = findNode(root, x);
+        TreeNode* node_temp = node;
+        int c1 = 0, c2 = 0;
+        vector&lt;TreeNode*&gt; v;
+        if (node -&gt; left != nullptr)
+            v.push_back(node -&gt; left);
+        
+        while (v.size() &gt; 0) {
+            node = *v.rbegin();
+            v.pop_back();
+            c1++;
+            if (node -&gt; left != nullptr)
+                v.push_back(node -&gt; left);
+            if (node -&gt; right != nullptr)
+                v.push_back(node -&gt; right);
+        }
+        v.clear();
+        
+        if (node_temp -&gt; right != nullptr)
+            v.push_back(node_temp -&gt; right);
+        while (v.size() &gt; 0) {
+            node = *v.rbegin();
+            v.pop_back();
+            c2++;
+            if (node -&gt; left != nullptr)
+                v.push_back(node -&gt; left);
+            if (node -&gt; right != nullptr)
+                v.push_back(node -&gt; right);
+        }
+        int c = max(c1, c2);
+        c = max(c, n - c1 - c2 - 1);
+        // cout &lt;&lt; c &lt;&lt; endl;
+        if (2 * c &gt;= n)
+            return true;
+        else
+            return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_hupili.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>223_hupili.py</CENTER></H3><HR>
+<PRE>
+'''
+method 1:
+* maintain a dict of dict
+* outer key is snap_id
+* inner key is the array index
+* every time upon snap() operation, we deepcopy the entire inner layer
+* memory could be large; not friendly to many snaps
+
+method 2:
+* maintain a dict of dict
+* outer key is array index
+* innder key is the snap_id
+* every time upon snap() operation, we update all the elements on record
+* the worst case would be O(A * B), where A is # of elements, and B is # of snaps
+  A + B = 50000. A * B &lt;= 25000^2 (still sounds too large)
+  
+The key: only the last set() operation before a snap() is meaningful to an index
+
+method 3:
+* the idea is to store the operations and perform a lazy evaluation on get()
+* for each snap(), store the cummulated set() so far, in a dict
+* upon get(), we scan backwards starting from given snap_id for all snaps. return the earliest hit on index (i.e. the last set() op)
+* the worst case is still 25000^2.
+
+'''
+
+
+class SnapshotArray:
+<A NAME="0"></A>
+    def __init__(self, length: int):
+        self.snaps = []
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.length = 0
+        self.cur_set = {}
+
+    def set(self, index: int, val: int) -&gt; None:
+        self.cur_set[index] = val
+
+    def snap(self) -&gt; int:
+        snap_id = len(self.snaps)
+        self.snaps.append(self.cur_set)
+        self.</B></FONT>cur_set = {}
+        return snap_id
+        
+    def get(self, index: int, snap_id: int) -&gt; int:
+        for i in range(snap_id, -1, -1):
+            if index in self.snaps[i]:
+                return self.snaps[i][index]
+        return 0
+
+# Your SnapshotArray object will be instantiated and called as such:
+# obj = SnapshotArray(length)
+# obj.set(index,val)
+# param_2 = obj.snap()
+# param_3 = obj.get(index,snap_id)
+
+
+'''
+Input:
+[&quot;SnapshotArray&quot;,&quot;snap&quot;,&quot;snap&quot;,&quot;get&quot;,&quot;set&quot;,&quot;snap&quot;,&quot;set&quot;]
+[[4],[],[],[3,1],[2,4],[],[1,4]]
+Output:
+[null,0,1,None,null,2,null]
+Expected:
+[null,0,1,0,null,2,null]
+'''
+</PRE>
+
+</BODY>
+</HTML>

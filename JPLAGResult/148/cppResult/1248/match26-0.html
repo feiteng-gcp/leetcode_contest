@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>455_sguox002.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>455_sguox002.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool btreeGameWinningMove(TreeNode* root, int n, int x) {
+        //convert to graph: greedy: we can choose its parent or its left or right 
+        //to see if we can get 
+        //vector&lt;vector&lt;int&gt;&gt; adj(n);
+        //build_graph(root,0,adj);
+        //count its left and right subtree nodes
+        TreeNode* node=find(root,x);
+<A NAME="0"></A>        int nl=count(node-&gt;left);
+        int nr=count(node-&gt;right);
+        if(nl+nr+1&lt;=n/2) return 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(nl&gt;n/2||nr&gt;n/2) return 1;
+        return 0;
+                
+    }
+    TreeNode* find(TreeNode* root,int x){
+        if(!root) return 0;
+        if(root-&gt;val==x) return root;
+        auto l=find(root-&gt;left,x);
+        if(l) return l;
+        return find(root-&gt;right,x);
+    }</B></FONT>
+    int count(TreeNode* root){
+        if(!root) return 0;
+        return 1+count(root-&gt;left)+count(root-&gt;right);
+    }
+    void build_graph(TreeNode* root,TreeNode* parent,vector&lt;vector&lt;int&gt;&gt;&amp; adj){
+        if(!root) return;
+        if(parent) {
+            adj[root-&gt;val-1].push_back(parent-&gt;val-1);
+            adj[parent-&gt;val-1].push_back(root-&gt;val-1);
+        }
+        build_graph(root-&gt;left,root,adj);
+        build_graph(root-&gt;right,root,adj);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

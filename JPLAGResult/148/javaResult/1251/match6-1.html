@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_hui1202.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>465_hui1202.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestDecomposition(String text) {
+        int length = text.length();
+        int[][] dp = new int[length][length];
+<A NAME="0"></A>        boolean[][] vis = new boolean[length][length];
+        boolean[][] mirror = new boolean[length][length];
+        for (int i = 0; i &lt; length / 2; i++) {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = i; j &lt; length / 2; j++) {
+                String front = text.substring(i, j + 1);
+                String back = text.substring(length - j - 1, length - i);
+                // System.out.println(front + &quot; &quot; + back);
+                if (front.equals(back)) {</B></FONT>
+                    mirror[i][j] = true;
+                }
+            }
+        }
+        return dfs(text, 0, length - 1, dp, vis, mirror);
+    }
+
+    public int dfs (String text, int x, int y, int[][] dp, boolean[][] vis, boolean[][] mirror) {
+        if (x &gt; y) {
+            return 0;
+        }
+        if (vis[x][y]) {
+            return dp[x][y];
+        }
+        vis[x][y] = true;
+        dp[x][y] = 1;
+        for (int i = x; i &lt; (x + y + 1) / 2; i++) {
+<A NAME="1"></A>            if (mirror[x][i]) {
+                dp[x][y] = Math.max(
+                    dp[x][y],
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(text, i + 1, y - (i - x + 1), dp, vis, mirror) + 2
+                );
+            }
+        }
+        return dp[x][y];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>57_yinsezidan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>57_yinsezidan.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool btreeGameWinningMove(TreeNode* root, int n, int x) {
+        TreeNode* xnode = findx(root, x);
+<A NAME="0"></A>        int l = count(xnode-&gt;left, x), r = count(xnode-&gt;right, x), all = count(root, x);
+        vector&lt;int&gt; v({l, r, all});
+        sort(v.begin(), v.end());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (v[0] + v[1] &lt; v[2]) return true;
+        return false;
+    }
+    TreeNode* findx(TreeNode* root, int x) {
+        if (!root) return root;
+        if (root-&gt;val == x) return root;
+        TreeNode* l = findx(root-&gt;left, x);
+        if (l) return l;</B></FONT>
+        TreeNode* r = findx(root-&gt;right, x);
+        return r;
+    }
+    int count(TreeNode* root, int x) {
+        if (!root) return 0;
+        if (root-&gt;val == x) return 0;
+        return count(root-&gt;left, x) + count(root-&gt;right, x) + 1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
