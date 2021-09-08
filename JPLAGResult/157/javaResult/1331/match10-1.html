@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>111_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>111_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    int R, C;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    public int getMaximumGold(int[][] grid) {</B></FONT>
+        R = grid.length;
+<A NAME="1"></A>        C = grid[0].length;
+        int maxGold = 0;
+        boolean[][] visited = new boolean[R][C];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int r = 0; r &lt; R; r++) {
+            for (int c = 0; c &lt; C; c++) {
+                if (grid[r][c] &gt; 0) {
+                    maxGold = Math.max(maxGold, dfs(grid, r, c, visited));
+                }
+            }
+        }
+        return maxGold;
+    }
+    
+    private int dfs(int[][] grid, int r0, int c0, boolean[][] visited) {
+        visited[r0][c0] = true;
+        int localMax = 0;
+        for (int[] d : dirs) {
+            int r = r0 + d[0], c = c0 + d[1];
+            if (r &gt;= 0 &amp;&amp; c &gt;= 0 &amp;&amp; r &lt; R &amp;&amp; c &lt; C &amp;&amp; !visited[r][c] &amp;&amp; grid[r][c] &gt; 0) {
+                localMax = Math.max(localMax, dfs(grid, r, c, visited));
+            }
+        }
+        visited[r0][c0] = false;
+        return localMax + grid[r0][c0];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
