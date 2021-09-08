@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>287_2018coder.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>287_2018coder.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="1"></A>    public int numTilePossibilities(String tiles) {
+        Set&lt;String&gt; all = new HashSet&lt;&gt;();
+        for(int i = 0; i &lt; tiles.length(); ++i) {
+            backtrack</B></FONT>(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tiles.toCharArray(), i, &quot;&quot;, all);    
+        }
+        
+        return all.size()-1;
+    }
+    
+    void backtrack(char[] tiles, int from, String cur, Set&lt;String&gt; all</B></FONT>) {
+        all.add(cur);
+        
+        for(int i = from; i &lt; tiles.length; ++i) {
+            swap(tiles, i, from);
+            backtrack(tiles, from+1, cur + tiles[from], all);
+            
+            swap(tiles, i, from);
+        }
+    }
+    
+    void swap(char[] tiles, int i, int j) {
+        char t = tiles[i];
+        tiles[i] = tiles[j];
+        tiles[j] = t;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

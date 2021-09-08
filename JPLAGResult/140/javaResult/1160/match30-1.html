@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_kay_deep.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>239_kay_deep.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    Set&lt;String&gt; set = new HashSet&lt;&gt;();
+    public int numTilePossibilities(String tiles) {
+        int n = tiles.length();
+        boolean[] used= new boolean[n];
+        char[] sc = tiles.toCharArray();
+        Arrays.sort(sc);
+<A NAME="0"></A>        for(int i=1;i&lt;=n;i++) {
+           helper(sc,  i, &quot;&quot;, used); 
+        }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return set.size();
+    }
+    
+    public void helper(char[] nums, int len, String temp, boolean[] used) {
+        if(temp.length</B></FONT>()==len) {
+          //  System.out.println(temp);
+            set.add(temp);
+            return ;
+        }
+        
+        for(int i=0;i&lt;nums.length;i++) {
+           if(i!=0 &amp;&amp; nums[i]==nums[i-1] &amp;&amp; used[i-1]==false) continue; 
+            if(!used[i]){
+                used[i]=true;
+                temp=temp +nums[i];
+                helper(nums,len,temp,used);
+                used[i]=false;
+                temp = temp.substring(0,temp.length()-1);
+            }
+        }
+    }
+    
+    List&lt;List&lt;Integer&gt;&gt; res= new ArrayList&lt;List&lt;Integer&gt;&gt;();
+    public List&lt;List&lt;Integer&gt;&gt; permuteUnique(int[] nums) {
+        if(nums.length==0) return res;
+        Arrays.sort(nums);
+        boolean[] used= new boolean[nums.length];
+        find(nums,new ArrayList&lt;Integer&gt;(),used);
+        return res;
+    }
+    
+    public void find(int[] nums,ArrayList&lt;Integer&gt; temp,boolean [] used){
+        if(temp.size()==nums.length){
+            res.add(new ArrayList&lt;Integer&gt;(temp));
+            return;
+        }
+        
+        for(int i=0;i&lt;nums.length;i++){
+            if(i!=0 &amp;&amp; nums[i]==nums[i-1] &amp;&amp; used[i-1]==false) continue;
+            if(!used[i]){
+                used[i]=true;
+<A NAME="1"></A>                temp.add(nums[i]);
+                find(nums,temp,used);
+                used[i]=false;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>temp.remove(temp.size()-1);
+            }
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

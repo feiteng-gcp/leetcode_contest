@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>344_MkKC.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>344_MkKC.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    int L;
+    
+    bool isLeaf(TreeNode* root) {
+        return root &amp;&amp; !root-&gt;left &amp;&amp; !root-&gt;right;
+    }
+    
+    /* Returns true if we should delete */
+    bool helper(TreeNode* root, int curSum) {
+<A NAME="0"></A>        if (!root) return false;
+        
+        curSum += root-&gt;val;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (isLeaf(root)) {
+            // Are we on a sufficient path? Return true if we should delete.
+            return curSum &lt; L;
+        }
+        
+        bool l = helper(root-&gt;left, curSum);
+        bool r = helper(root-&gt;right, curSum);
+        
+        if (l) {
+            root-&gt;left = nullptr;
+        }
+        
+        if (r) {
+            root-&gt;right = nullptr;
+        }
+        
+        // Is this a sufficient node -- if both the l and the r are insufficient, we need to delete this node
+        if (l &amp;&amp; r || l &amp;&amp; !root-&gt;right || !root-&gt;left &amp;&amp; r) {
+            return true;
+        } else {
+            return false;
+        }
+    }</B></FONT>
+public:
+    /*
+        Define this problem recursively. Use a recursive helper function to first determine if this root to leaf path is sufficient -- return a boolean. Need a curSum counter. The boolean recursive helper essentially returns true if we should delete this node, false otherwise
+    */
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+        L = limit;
+        bool b = helper(root, 0);
+        if (b) return nullptr;
+        else return root;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

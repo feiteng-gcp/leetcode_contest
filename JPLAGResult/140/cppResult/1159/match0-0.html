@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>466_starccode.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>466_starccode.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    string smallestSubsequence(string text) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; Hashtable(128, 0);
+		vector&lt;bool&gt; visited(128, false);
+		for (char x : text) Hashtable[x]++;
+		string result = &quot;0&quot;;
+
+
+		for (char x : text) {
+			Hashtable[x]--;
+			if (visited[x]) continue;
+			while (x &lt; result.back() &amp;&amp; Hashtable[result.back()]) {
+				visited[result.back()] = false;
+				result.pop_back();
+			}
+			result += x;
+			visited[x] = true;
+		}
+		return result.substr(1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>154_zuomingzh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>154_zuomingzh.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    pair&lt;TreeNode*, int&gt; DFS(TreeNode* cur, int limit, int parentSum) {
+        int curSum = parentSum + cur-&gt;val;
+<A NAME="0"></A>        int childSumMax = 0;
+        if (cur-&gt;left || cur-&gt;right) {
+            childSumMax = INT_MIN;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        if (cur-&gt;left) {
+            auto pr = DFS(cur-&gt;left, limit, curSum);
+            childSumMax = max(childSumMax, pr.second);
+            cur-&gt;left = pr.first;
+        }
+        if (cur-&gt;right) {
+            auto pr = DFS(cur-&gt;right, limit, curSum);
+            childSumMax = max(childSumMax, pr.second);
+            cur-&gt;right = pr.first;
+        }</B></FONT>
+        auto res = cur;
+        if (childSumMax + curSum &lt; limit) {
+            res = nullptr;
+        }
+        int second = childSumMax + cur-&gt;val;
+        return { res, second };
+    }
+public:
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+        if (!root) return root;
+        return DFS(root, limit, 0).first;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

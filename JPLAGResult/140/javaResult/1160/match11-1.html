@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>388_Aragog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>388_Aragog.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int numTilePossibilities(String tiles) {
+        int N = tiles.length();
+        char[] cs = new char[N];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        boolean[] seen = new boolean[N];
+        dfs(tiles, cs, 0, seen, set);
+        return set.size();
+
+    }
+
+    void dfs(String tiles, char[] cs, int i, boolean[] seen</B></FONT>, Set&lt;String&gt; set) {
+        int N = tiles.length();
+        if (i != 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j &lt; i; j++) {
+                sb.append(cs[j]);
+            }
+            set.add(sb.toString());
+<A NAME="1"></A>        }
+        if (i == N) {
+            return;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int j = 0; j &lt; N; j++) {
+            if (seen[j]) {
+                continue;
+            }
+            cs[i] = tiles.charAt(j);
+            s</B></FONT>een[j] = true;
+            dfs(tiles, cs, i + 1, seen, set);
+            seen[j] = false;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

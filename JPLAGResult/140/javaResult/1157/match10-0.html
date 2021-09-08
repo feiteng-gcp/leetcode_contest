@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>325_kelvinchandra1024.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>325_kelvinchandra1024.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        if(root == null) return root;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(solve(root, limit, 0)){
+            return root;        
+        } else {
+            return null;
+        }
+    }
+<A NAME="1"></A>    
+    boolean solve(TreeNode root, int limit, int cost) {
+        if(root == null) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(cost &lt; limit) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        boolean leftOk = solve</B></FONT>(root.left, limit, cost + root.val);
+<A NAME="2"></A>        if(leftOk == false) {
+            root.left = null;
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match10-1.html#2',3,'match10-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean rightOk = solve(root.right, limit, cost + root.val);
+        if(rightOk == false) {
+            root.right = null;
+        }
+        if(leftOk == false &amp;&amp; rightOk == false) {</B></FONT>
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

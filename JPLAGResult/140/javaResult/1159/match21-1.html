@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>123_raincoat911.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>123_raincoat911.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String smallestSubsequence(String text) {
+        // text = &quot;leetcode&quot;;
+        int[] counts = new int[26];
+        char[] arr = text.toCharArray();
+        for (char c : arr) counts[c - 'a']++;
+        char[] res = new char[arr.length];
+        boolean[] used = new boolean[26]</B></FONT>;
+        int k = 0;
+        for (char c : arr) {
+            if (!used[c - 'a']) {
+                while (k &gt; 0 &amp;&amp; c &lt; res[k - 1] &amp;&amp; counts[res[k - 1] - 'a'] &gt; 0) {
+                    k--;
+                    used[res[k] - 'a'] = false;
+                }
+                res[k++] = c;
+                used[c - 'a'] = true;
+            }
+            counts[c - 'a']--;
+        }
+        return new String(res, 0, k);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
