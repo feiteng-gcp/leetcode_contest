@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_xuan18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_xuan18.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int smallestRepunitDivByK(int K) {
+        if (K % 2 == 0 || K % 5 == 0) {
+            return -1;
+        }
+        
+        // There always exists n, m, so that pow(10, n + m) - pow(10, m) is divisible by 9*K,
+        // so pow(10, m) * (pow(10, n) - 1) is divisible by 9K.
+        // If gcd(K, 10) == 1, then (pow(10, n) - 1) is divisible by 9K.
+        // So (pow(10, n) - 1) / 9 is divisible by K. So the return value is not -1.
+        
+        int digit = 1</B></FONT>, remainder = 1 % K;
+        while(remainder != 0) {
+            digit += 1;
+            remainder = (remainder * 10 + 1) % K;
+        }
+        return digit;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
