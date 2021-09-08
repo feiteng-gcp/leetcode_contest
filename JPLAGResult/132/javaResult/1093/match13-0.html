@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_JOHNKYON.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_JOHNKYON.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode recoverFromPreorder(String s) {
+        if (s.length() == 0)
+            return null;
+        Stack&lt;TreeNode&gt; nodeStack = new Stack&lt;&gt;();
+        Stack&lt;Integer&gt; levelStack = new Stack&lt;&gt;();
+        int level = 0;
+        int left = 0;
+        int i=0;
+        while (i&lt;s.length()) {
+            char c = s.charAt(i);
+            if (c == '-') {
+<A NAME="0"></A>                level++;
+                left = i+1;
+            } else {
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (i != s.length() &amp;&amp; s.charAt(i) != '-') {
+                    i++;
+                }
+                int val = Integer.parseInt(s.substring(left, i));
+                TreeNode curr = new TreeNode(val);
+                if (nodeStack.isEmpty()) {
+                    nodeStack.push</B></FONT>(curr);
+<A NAME="1"></A>                    levelStack.push(level);
+                    level = 0;
+                } else if (levelStack.peek() == level-1) {
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeNode parent = nodeStack.peek();
+                    if (parent.left == null) {
+                        parent.left = curr;
+                    } else {
+                        parent.right = curr;
+                    }
+                    nodeStack.push</B></FONT>(curr);
+                    levelStack.push(level);
+                    level = 0;
+                } else {
+                    while (levelStack.peek() != level-1) {
+                        nodeStack.pop();
+                        levelStack.pop();
+                    }
+                    TreeNode parent = nodeStack.peek();
+                    if (parent.left == null) {
+                        parent.left = curr;
+                    } else {
+                        parent.right = curr;
+                    }
+                    nodeStack.push(curr);
+                    levelStack.push(level);
+                    level = 0;
+                }
+                
+                i--;
+            }
+            
+            
+            
+            i++;
+        }
+        TreeNode root = null;
+        while (!nodeStack.isEmpty())
+            root = nodeStack.pop();
+        return root;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

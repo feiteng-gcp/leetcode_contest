@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_tianhao2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_tianhao2.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map&lt;int, TreeNode*&gt; data;
+    TreeNode* recoverFromPreorder(string S) {
+        size_t pos;
+        int d=0;
+        int n;
+        while(S.size()&gt;0) {
+            // cout&lt;&lt;pos&lt;&lt;endl;
+            if(S[0]=='-') {
+                d++;
+                S=S.substr(1);
+            } else {
+<A NAME="0"></A>                n=stoi(S, &amp;pos);
+                S=S.substr(pos);
+                // cout&lt;&lt; n&lt;&lt; &quot; &quot; &lt;&lt; d &lt;&lt;endl;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                data[d]=new TreeNode(n);
+                if (d&gt;0) {
+                    if (!data[d-1]-&gt;left) {
+                        data[d-1]-&gt;left=data[d];
+                    } else {
+                        data[d-1]-&gt;right=data[d];
+                    }
+                }
+                d=0;</B></FONT>
+            }
+        }
+        return data[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

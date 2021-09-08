@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>374_jiang-hai-ji-yu-sheng.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>374_jiang-hai-ji-yu-sheng.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def recoverFromPreorder(self, S: str) -&gt; TreeNode:
+        x = S.find('-')
+        if x == -1:
+            return TreeNode(int(S))
+        a = [[0, int(S[:x])]]
+        while True:
+            for i in range(x,len(S)):
+                if S[i] in &quot;0123456789&quot;:
+                    y = i
+                    break
+            num1 = y - x
+            z = S.find('-', y)
+            if z == -1:
+                a.append([num1, int(S[y:])])
+                break
+            else:
+                a.append([num1, int(S[y:z])])
+            x = z
+        print(a)
+<A NAME="0"></A>        stack = [[TreeNode(a[0][1]), 0]]
+        for i in range(1, len(a)):
+            n = TreeNode(a[i][1])
+            while stack[-1][1] != a<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][0] - 1:
+                stack.pop()
+            if stack[-1][0].left == None:
+                stack[-1][0].left = n
+            else:
+                stack[-1][0].right = n
+            stack.append([n</B></FONT>, a[i][0]])
+        return stack[0][0]
+</PRE>
+
+</BODY>
+</HTML>

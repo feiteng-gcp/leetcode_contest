@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>475_garypush.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>475_garypush.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def recoverFromPreorder(self, S: str) -&gt; TreeNode:
+        if not S:
+            return None
+        return self.helper(S, 0, 0, 0)[0]
+        
+<A NAME="0"></A>    def helper(self, S, depth, dash, idx):
+        if dash &lt; depth:
+            return None,idx,dash
+        j <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= idx
+        while j &lt; len(S) and S[j].isdigit():
+            j += 1
+        root = TreeNode(int(S[idx:j]))
+        dash =</B></FONT> 0
+        while j &lt; len(S) and S[j] == '-':
+            dash += 1
+            j += 1
+        root.left,idx,dash = self.helper(S, depth+1, dash, j)
+        root.right,idx,dash = self.helper(S, depth+1, dash, idx)
+        return root,idx,dash
+            
+                
+            
+            
+</PRE>
+
+</BODY>
+</HTML>
