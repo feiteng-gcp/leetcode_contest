@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_ChenSpark.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>239_ChenSpark.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -&gt; TreeNode:
+        node = TreeNode(preorder[0])
+        if len(preorder) == 1:
+            return node
+        greater = None
+        for i, n in enumerate(preorder):
+            if n &gt; preorder[0]:
+                greater = i
+                break
+        lesser = None
+        for i, n in enumerate(preorder):
+            if n &lt; preorder[0]:
+                lesser = i
+<A NAME="0"></A>                break
+        if greater:
+            if lesser:
+                node<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.left = self.bstFromPreorder(preorder[lesser:greater])
+                node.right = self.bstFromPreorder(preorder[greater:])
+            else:
+                node.right = self.bstFromPreorder(preorder[</B></FONT>greater:])
+        elif lesser:
+                node.left = self.bstFromPreorder(preorder[lesser:])
+        return node
+</PRE>
+
+</BODY>
+</HTML>
