@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_lazzzis.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>337_lazzzis.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int[] gardenNoAdj(int N, int[][] paths) {
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int [] p: paths) {
+            int x = p[0] - 1</B></FONT>, y = p[1] - 1;
+<A NAME="1"></A>            if (!map.containsKey(x)) map.put(x, new HashSet&lt;&gt;());
+            if (!map.containsKey(y)) map.put(y, new HashSet&lt;&gt;());
+            map.get(x).add(y);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.get(y).add(x);
+        }
+<A NAME="2"></A>        int[] colors = new int[N];
+        for (int i = 0; i &lt; N; i++) {</B></FONT>
+            dfs(i, colors, map);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return colors;
+    }
+    
+    void dfs(int x, int[] colors, Map&lt;Integer, Set&lt;Integer&gt;&gt; m) {</B></FONT>
+        if (m.get(x) == null) {
+            colors[x] = 1;
+            return ;
+        }
+        int[] pre = new int[5];
+<A NAME="3"></A>        for (int next: m.get(x)) {
+            pre[colors[next]] = 1;
+        }
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match22-1.html#3',3,'match22-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; 5; i++) {
+            if (pre[i] == 0) {
+                colors[x] = i;
+<A NAME="4"></A>                break;
+            }
+        }</B></FONT>
+        for (int next: m.get(x)) <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match22-1.html#4',3,'match22-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (colors[next] == 0) {
+                dfs(next, colors, m);
+            }
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

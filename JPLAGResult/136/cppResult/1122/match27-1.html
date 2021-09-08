@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string longestDupSubstring(string S) {
+      if (S.empty()) {
+        return &quot;&quot;;
+      }
+      uint32_t seed = 100009;
+      std::vector&lt;uint32_t&gt; sum(S.size() + 1), pw(S.size() + 1);
+      pw[0] = 1;
+      for (int i = 0; i &lt; S.size(); ++i) {
+        sum[i + 1] = sum[i] * seed + S[i];
+        pw[i + 1] = pw[i] * seed;
+      }
+      
+      auto get = [&amp;](int l, int r) {
+        return sum[r + 1] - sum[l] * pw[r - l + 1];
+      };
+      auto ck = [&amp;] (int len) {
+        std::map&lt;uint32_t, int&gt; f;
+        for (int i = 0; i + len - 1 &lt; S.size(); ++i) {
+          auto hs = get(i, i + len - 1);
+          if (f.count(hs) &amp;&amp; S.substr(i, len) == S.substr(f[hs], len)) {
+            return f[hs];
+          }
+          f[hs] = i; 
+<A NAME="0"></A>        }
+        return -1;
+      };
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      int l = 0, r = S.size();
+      while (l &lt;= r) {
+        int mid = l + (r - l) / 2;
+        if (ck(mid) != -1) {
+          l = mid + 1;
+        } else {
+          r = mid - 1;
+        }
+      }</B></FONT>
+      int len = r;
+      if (len &lt;= 0) {
+        return &quot;&quot;;
+      }
+      //std::cout &lt;&lt; len &lt;&lt; &quot; &quot; &lt;&lt; ck(len) &lt;&lt; std::endl;
+      return S.substr(ck(len), len);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

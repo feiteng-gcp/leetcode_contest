@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>411_alpc66.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>411_alpc66.py</CENTER></H3><HR>
+<PRE>
+
+<A NAME="0"></A>class Solution:
+    def maxSumAfterPartitioning(self, A: List[int], K: int) -&gt; int:
+        dp = collections.defaultdict(lambda: 0)
+        Max <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= -1
+        for i in range(K):
+            Max = max(A[i], Max)
+            dp[i] = (i+1) * Max
+<A NAME="1"></A>        for i in range(K, len(A)):
+            Max =</B></FONT> A[i]
+            for j in range(1, K+1):
+                Max <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= max(Max, A[i-j+1])
+                dp[i] = max(dp[i], dp[i-j] + j * Max) 
+        # for key in sorted(dp):
+        #     print(key, dp[key])
+        return dp[</B></FONT>len(A)-1]
+        
+</PRE>
+
+</BODY>
+</HTML>
