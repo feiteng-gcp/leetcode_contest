@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_pernan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>276_pernan.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    set &lt; int &gt; S;
+    vector &lt; TreeNode* &gt; ans;
+
+    vector&lt;TreeNode*&gt; delNodes(TreeNode* root, vector&lt;int&gt;&amp; to_delete) {
+        for (int x: to_delete) {
+<A NAME="0"></A>            S.insert(x);
+        }             
+        dfs(root, true);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return ans;
+    }
+    
+    TreeNode* dfs(TreeNode* root, bool isRoot) {
+        if (root == NULL) return NULL;
+        if (S.find(root-&gt;val) != S.end()) {
+            dfs(root-&gt;left, true);
+            dfs(root-&gt;right, true);
+            return NULL;
+        }
+        if (isRoot) {</B></FONT>
+            ans.push_back(root);        
+        }
+        root-&gt;left = dfs(root-&gt;left, false);
+        root-&gt;right = dfs(root-&gt;right, false);
+        return root;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

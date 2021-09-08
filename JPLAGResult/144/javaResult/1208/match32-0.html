@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>330_changeme.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>330_changeme.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	public int[] maxDepthAfterSplit(String seq) {
+		int[] res = new int[seq.length()];
+
+		// { start, end, depth }
+		ArrayList&lt;int[]&gt; vpss = new ArrayList&lt;&gt;();
+
+		int count = 0;
+		int curDepth = 0;
+		int maxDepth = 0;
+		int start = 0;
+		for (int i = 0; i &lt; seq.length(); i++) {
+			if (seq.charAt(i) == '(') {
+				count++;
+				curDepth++;
+				maxDepth = Math.max(maxDepth, curDepth);
+				start = i;
+			}
+			if (seq.charAt(i) == ')') {
+				count--;
+				curDepth--;
+			}
+			if (count == 0) {
+				vpss.add(new int[] { start, i, maxDepth });
+				maxDepth = 0;
+			}
+		}
+
+		maxDepth = Integer.MIN_VALUE;
+		for (int[] vps : vpss) {
+			maxDepth = Math.max(maxDepth, vps[2]);
+<A NAME="0"></A>		}
+		maxDepth /= 2;
+
+		int countA = 0<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+		for (int i = 0; i &lt; seq.length(); i++) {
+			if (seq.charAt(i) == '(') {
+				if (countA &lt; maxDepth) {
+					countA++;
+					res[i] = 0;
+				} else {
+<A NAME="1"></A>					res[i] = 1;
+				}
+			}</B></FONT>
+			if (seq.charAt(i) == ')') {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				if (countA &gt; 0) {
+					countA--;
+					res[i] = 0;
+				} else {
+					res[i] = 1;
+				}
+			}
+		}
+
+		return res;
+	}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

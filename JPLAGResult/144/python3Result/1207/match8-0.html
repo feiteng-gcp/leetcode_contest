@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>331_chuan-chih.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>331_chuan-chih.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        delete = set(to_delete)
+        ans = []
+        def dfs(root, to_add):
+<A NAME="0"></A>            if root:
+                if root.val in delete:
+                    dfs(root.left, True)
+                    dfs(root<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.right, True)
+                else:
+                    dfs(root.left, False)
+                    dfs(root.right, False)
+                    if root.left and root.left.val in delete:
+                        root.left = None
+                    if root.right and root.right.val in delete:
+                        root.right = None
+                    if to_add:
+                        ans.append(</B></FONT>root)
+        dfs(root, True)
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

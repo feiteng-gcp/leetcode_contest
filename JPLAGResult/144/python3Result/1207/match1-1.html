@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>143_kacredolo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>143_kacredolo.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        result = []
+        def recSol(node, result):
+<A NAME="0"></A>            if node is None:
+                return None
+            node.left = recSol(node.left, result)
+            node.right = recSol<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(node.right, result)
+            if node.val in to_delete:
+                if node.left is not None:
+                    result.append(node.left)
+                if node.right is not None:
+                    result.append(node.</B></FONT>right)
+                return None
+            return node
+        
+        root = recSol(root, result)
+        if root is not None:
+            result.append(root)
+        return result
+            
+</PRE>
+
+</BODY>
+</HTML>
