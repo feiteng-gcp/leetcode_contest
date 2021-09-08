@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_spcharc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>280_spcharc.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxEqualFreq(self, nums: List[int]) -&gt; int:
+        c = collections.Counter()
+        rc = collections.defaultdict(set)
+        count = 0
+        maxcount = 0
+        for i in nums:
+            count +=</B></FONT> 1
+            c[i] += 1
+
+            if c[i] == 1:
+                rc[1].add(i)
+            else:
+                j = c[i]
+                rc[j].add(i)
+                rc[j - 1].discard(i)
+                if len(rc[j - 1]) == 0:
+                    rc.pop(j - 1)
+
+            if len(rc) == 1:
+                if 1 in rc:   # all members appeared once
+                    maxcount = count
+                j = max(rc)
+                if len(rc[j]) == 1: # only one member exist and appeared multiple times
+                    maxcount = count
+            elif len(rc) == 2:
+                j = max(rc)
+                if len(rc[j]) == 1 and j - 1 in rc:   # 111222333[3]
+                    maxcount = count
+                elif 1 in rc and len(rc[1]) == 1:     # 111222333[4]
+                    maxcount = count
+            #print(i, rc)
+
+        return maxcount
+</PRE>
+
+</BODY>
+</HTML>

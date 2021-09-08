@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>406_HarrrryLi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>406_HarrrryLi.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxEqualFreq(self, nums: List[int]) -&gt; int:
+        Cnter = collections.Counter()
+        freq = collections.Counter()
+        result = 1
+        for idx, num in enumerate(nums):
+            if num not in Cnter:
+                Cnter[</B></FONT>num] += 1
+                freq[1] += 1
+            else:
+                freq[Cnter[num]] -= 1
+                if freq[Cnter[num]] == 0:
+                    del freq[Cnter[num]]
+                Cnter[num] += 1
+                freq[Cnter[num]] += 1
+                
+            if len(Cnter) == 1:
+                result = max(idx + 1, result)
+                continue
+            if 1 in freq and freq[1] == 1 and len(freq) == 2:
+                result = max(idx + 1, result)
+                continue
+            if 1 in freq and len(freq) == 1:
+                result = max(idx + 1, result)
+                continue
+            min_key, max_key = min(freq.keys()), max(freq.keys())
+            if max_key == min_key + 1 and freq[max_key] == 1:
+                result = max(idx + 1, result)
+        
+        return result
+        
+</PRE>
+
+</BODY>
+</HTML>

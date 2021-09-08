@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_geniustang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>191_geniustang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxEqualFreq(int[] nums) {
+<A NAME="0"></A>        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; countFreq = new HashMap&lt;&gt;();
+        int res = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; nums.length; i++) {
+            int cnt = map.getOrDefault(nums[i], 0);
+            map.put(nums[i], cnt + 1);
+            Integer freq = countFreq.get(cnt);
+            if (freq != null) {</B></FONT>
+                countFreq.put(cnt, freq - 1);
+                if (countFreq.get(cnt) == 0) {
+                    countFreq.remove(cnt);
+                }
+<A NAME="1"></A>            }
+            countFreq.put(cnt + 1, countFreq.getOrDefault(cnt + 1, 0) + 1);
+            //System.out.println(countFreq);
+            if (isValid(countFreq)) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                res = Math.max(res, i + 1);
+            }
+        }
+        return res;
+    }</B></FONT>
+    
+    private boolean isValid(Map&lt;Integer, Integer&gt; countFreq) {
+        if (countFreq.size() == 1) {
+            for (Map.Entry&lt;Integer, Integer&gt; e : countFreq.entrySet()) {
+                if (e.getValue() == 1 || e.getKey() == 1) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        if (countFreq.size() != 2) {
+            return false;
+        }
+        if (countFreq.containsKey(1) &amp;&amp; countFreq.get(1) == 1) {
+            return true;
+        }
+        List&lt;Map.Entry&lt;Integer, Integer&gt;&gt; list = new ArrayList&lt;&gt;();
+        for (Map.Entry&lt;Integer, Integer&gt; e : countFreq.entrySet()) {
+            list.add(e);
+        }
+        Map.Entry&lt;Integer, Integer&gt; e1 = list.get(0);
+        Map.Entry&lt;Integer, Integer&gt; e2 = list.get(1);
+        if (e1.getValue() == 1 &amp;&amp; e1.getKey() - e2.getKey() == 1) {
+            return true;
+        }
+        if (e2.getValue() == 1 &amp;&amp; e2.getKey() - e1.getKey() == 1) {
+            return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

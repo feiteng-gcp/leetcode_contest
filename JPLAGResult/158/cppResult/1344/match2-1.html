@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>374_nanocmp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>374_nanocmp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool canIremove(map&lt;int,set&lt;int&gt;&gt; &amp;count2num){
+        if(count2num.size()==1 &amp;&amp; (count2num.begin())-&gt;second.size()==1){
+            return true;
+        }
+        if(count2num.size()==1 &amp;&amp; (count2num.begin())-&gt;first==1){
+            return true;
+        }
+        if(count2num.size()==2){
+            auto it = count2num.begin();
+            int small_count = it-&gt;first;
+            ++it;
+            int large_count = it-&gt;first;
+            if(large_count==(small_count+1) &amp;&amp; count2num[large_count].size()==1){
+                //cout&lt;&lt;&quot;here1 \n&quot;;
+                //cout&lt;&lt;small_count&lt;&lt;&quot; &quot;&lt;&lt;large_count&lt;&lt;endl;
+                return true;
+            }
+            if(small_count==1 &amp;&amp; count2num[small_count].size()==1){
+                //cout&lt;&lt;&quot;here2 \n&quot;;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    int maxEqualFreq(vector&lt;int&gt;&amp; nums) {
+        int res = 0;
+        unordered_map&lt;int, int&gt; count;
+        map&lt;int,set&lt;int&gt;&gt; count2num;
+        for(int i=0; i&lt;nums.size(); i++){
+            //cout&lt;&lt;&quot;i &quot;&lt;&lt;i&lt;&lt;endl;
+            int old_count = count[nums[i]];
+            count[nums[i]]++;
+            count2num[old_count].erase(nums[i]);
+            if(count2num[old_count].empty()){
+                count2num.erase(old_count);
+            }
+            count2num[old_count+1].insert(nums[i]);
+            
+            if(canIremove(count2num)){
+                res = i+1;
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

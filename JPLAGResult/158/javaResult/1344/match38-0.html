@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>421_goodluck_yh2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>421_goodluck_yh2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maxEqualFreq(int[] nums) {
+        TreeMap&lt;Integer, Set&lt;Integer&gt;&gt; map = new TreeMap&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>HashMap&lt;Integer, Integer&gt; all = new HashMap&lt;&gt;();
+        int res = 1;
+        int i = 0;
+        // [2,2,1,1,5,3,3,5]
+        for(int num: nums) {
+            i++;
+            if(all.containsKey</B></FONT>(num)) {
+                int cnt = all.get(num);
+                all.put(num, cnt + 1);
+                Set&lt;Integer&gt; set = map.get(cnt);
+                set.remove(num);
+                if(set.size() == 0)
+                    map.remove(cnt);
+                if(!map.containsKey(cnt+1))
+                    map.put(cnt+1, new HashSet&lt;&gt;());
+                map.get(cnt+1).add(num);
+            } else {
+                all.put(num, 1);
+                if(!map.containsKey(1))
+<A NAME="1"></A>                    map.put(1, new HashSet&lt;&gt;());
+                map.get(1).add(num);
+            }
+            if(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>isValid(map))
+                res = Math.max(res, i);
+        }
+        return res;
+    }</B></FONT>
+    
+    private boolean isValid(TreeMap&lt;Integer, Set&lt;Integer&gt;&gt; map) {
+        // System.out.println(map.size());
+        int first = map.firstKey(), last = map.lastKey();
+        if(map.size() == 1)
+            return map.get(first).size() == 1 || first == 1;
+        if(map.size() &gt; 2)
+            return false;
+        if(first == 1 &amp;&amp; map.get(first).size() == 1)
+            return true;
+        return first == last - 1 &amp;&amp; map.get(last).size() == 1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

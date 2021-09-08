@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>126_milu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>126_milu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; queensAttacktheKing(vector&lt;vector&lt;int&gt;&gt;&amp; queens, vector&lt;int&gt;&amp; king) {
+        vector&lt;vector&lt;int&gt;&gt; ans;
+<A NAME="0"></A>        unordered_set&lt;int&gt; mset;
+        for (auto &amp;queen: queens)
+            mset.insert(queen[0] * 8 + queen[1]);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int dx = -1; dx &lt;= 1; dx++) {
+            for (int dy = -1; dy &lt;= 1; dy++) {
+                if (dx == 0 &amp;&amp; dy == 0)
+                    continue;
+<A NAME="1"></A>                int x = king[0] + dx, y = king[1] + dy;
+                while (x &gt;= 0 &amp;&amp; x &lt; 8 &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; 8) {
+                    if (mset.find(x * 8 + y) != mset.end()) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        ans.push_back({x, y});
+                        break;
+                    }
+                    x += dx, y += dy;
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

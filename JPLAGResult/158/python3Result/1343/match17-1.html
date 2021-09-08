@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_Ryancooper.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>285_Ryancooper.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+
+class Solution:
+    def dieSimulator(self, n: int, rollMax: List[int]) -&gt; int:
+        MOD = 10**9 + 7
+        @lru_cache(maxsize=None)
+<A NAME="0"></A>        def impl(n, d, t):
+            # for seq with length n, and the fact that previously dd...d(in total t) appears before current number.
+            if n == 1:
+                return 5 + (1 if t &lt; rollMax[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>d - 1] else 0)
+            ans = 0
+            for i in range(1, 7):
+                if i != d:
+                    ans += impl(n - 1, i, 1)
+                elif t &lt; rollMax[d - 1]:
+                    ans += impl(n - 1, d, t + 1)
+            return ans % MOD
+        return impl(n</B></FONT>, 1, 0)
+        
+</PRE>
+
+</BODY>
+</HTML>

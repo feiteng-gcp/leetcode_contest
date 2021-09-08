@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_tomarint.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>247_tomarint.cpp</CENTER></H3><HR>
+<PRE>
+using ll = long long;
+const ll mod = 1e9 + 7;
+struct mint {
+    ll x;  // typedef long long ll;
+    mint(ll x = 0) : x((x % mod + mod) % mod) {}
+    mint&amp; operator+=(const mint a)
+    {
+        if ((x += a.x) &gt;= mod) x -= mod;
+        return *this;
+    }
+    mint&amp; operator-=(const mint a)
+    {
+        if ((x += mod - a.x) &gt;= mod) x -= mod;
+        return *this;
+    }
+    mint&amp; operator*=(const mint a)
+    {
+        (x *= a.x) %= mod;
+        return *this;
+    }
+    mint operator+(const mint a) const
+    {
+        mint res(*this);
+        return res += a;
+    }
+    mint operator-(const mint a) const
+    {
+        mint res(*this);
+        return res -= a;
+    }
+    mint operator*(const mint a) const
+    {
+        mint res(*this);
+        return res *= a;
+    }
+    mint pow(ll t) const
+    {
+        if (!t) return 1;
+        mint a = pow(t &gt;&gt; 1);
+        a *= a;
+        if (t &amp; 1) a *= *this;
+        return a;
+    }
+
+    // for prime mod
+    mint inv() const { return pow(mod - 2); }
+    mint&amp; operator/=(const mint a) { return (*this) *= a.inv(); }
+    mint operator/(const mint a) const
+    {
+        mint res(*this);
+        return res /= a;
+    }
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const mint&amp; v)
+    {
+        os &lt;&lt; v.x;
+        return os;
+    }
+};
+//---------------------------------------------------------
+class Solution {
+   public:
+<A NAME="0"></A>    int dieSimulator(int n, vector&lt;int&gt;&amp; rollMax)
+    {
+        mint dp[2][6][16];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; 2; ++i) {
+            for (int j = 0; j &lt; 6; ++j) {
+                for (int k = 0; k &lt; 16; ++k) {</B></FONT>
+                    dp[i][j][k] = 0;
+                }
+            }
+        }
+        int i1 = 1;
+        int i2 = 0;
+        for (int j = 0; j &lt; 6; ++j) {
+            dp[i2][j][1] = 1;
+        }
+        for (int i = 1; i &lt; n; ++i) {
+            i1 ^= 1;
+            i2 ^= 1;
+            for (int j = 0; j &lt; 6; ++j) {
+                for (int k = 0; k &lt; 16; ++k) {
+<A NAME="1"></A>                    dp[i2][j][k] = 0;
+                }
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int j1 = 0; j1 &lt; 6; ++j1) {
+                for (int j2 = 0; j2 &lt; 6; ++j2) {
+                    if (j1 != j2) {
+                        for (int k = 1; k &lt;= rollMax[j1]; ++k) {
+                            dp[i2][j2][1] += dp[i1][j1][k];
+                        }
+                    } else {
+                        for (int k = 2; k &lt;= rollMax[j1]; ++k) {
+                            dp[i2][j2][k] += dp[i1][j1][k-1];
+                        }
+                    }
+<A NAME="2"></A>                }
+            }
+        }</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        mint ans = 0;
+        for (int j = 0; j &lt; 6; ++j) {
+            for (int k = 0; k &lt; 16; ++k) {
+                ans += dp[i2][j][k];
+            }
+        }
+        return (int)ans.x;</B></FONT>
+    }
+};
+</PRE>
+</BODY>
+</HTML>

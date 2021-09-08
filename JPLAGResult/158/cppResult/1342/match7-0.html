@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>283_shrutijaiswal94.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>283_shrutijaiswal94.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; ans;
+<A NAME="0"></A>    int matrix[8][8];
+    vector&lt;vector&lt;int&gt;&gt; queensAttacktheKing(vector&lt;vector&lt;int&gt;&gt;&amp; queens, vector&lt;int&gt;&amp; king) {
+        memset(matrix,0,sizeof(matrix));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; queens.size(); i++)
+            matrix[queens[i][0]][queens[i][1]] = 1;
+        for(int i = king[1]; i &lt; 8; i++)
+        {
+           if(matrix[king[0]][i] == 1)
+            {
+                ans.push_back({king[0], i});
+                break;
+            } 
+        }    
+        for(int i = king[1]; i &gt;= 0; i--)
+        {
+            if(matrix[king[0]][i] == 1)
+            {
+                ans.push_back({king[0], i});
+                break;
+            }
+        }
+        for(int i = king[0]; i &gt;= 0; i--)
+        {
+            if(matrix[i][king[1]] == 1)
+            {
+                ans.push_back({i, king[1]});
+                break;
+            }
+        }
+        for(int i = king[0]; i &lt; 8; i++)
+        {
+            if(matrix[i][king[1]] == 1)
+            {
+                ans.push_back({i, king[1]});
+                break;
+            }
+        }
+        for(int i = king[0], j = king[1]; i &lt; 8 &amp;&amp; j &lt; 8; i++, j++)
+        {
+            if(matrix[i][j] == 1)
+            {
+                ans.push_back({i, j});
+                break;
+            }
+        }
+        for(int i = king[0], j = king[1]; i &gt;= 0 &amp;&amp; j &gt;= 0; i--, j--)
+        {
+            if(matrix[i][j] == 1)
+            {
+                ans.push_back({i, j});
+                break;
+            }
+        }
+        for(int i = king[0], j = king[1]; i &gt;= 0 &amp;&amp; j &lt; 8; i--, j++)
+        {
+            if(matrix[i][j] == 1)
+            {
+                ans.push_back({i, j});
+                break;
+            }
+        }
+        for(int i = king[0], j = king[1]; i &lt; 8 &amp;&amp; j &gt;= 0; i++, j--)
+        {
+            if(matrix[i][j] == 1)
+            {
+                ans.push_back({i, j});
+                break;
+            }
+        }
+        return ans;   
+       
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

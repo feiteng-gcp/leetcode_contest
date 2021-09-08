@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>242_Sakamono.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>242_Sakamono.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    vector&lt;int&gt; compare;
+public:
+    vector&lt;vector&lt;int&gt;&gt; queensAttacktheKing(vector&lt;vector&lt;int&gt;&gt;&amp; queens, vector&lt;int&gt;&amp; king) {
+        compare = king;
+        vector&lt;vector&lt;int&gt;&gt; x(2);
+        vector&lt;vector&lt;int&gt;&gt; y(2);
+        vector&lt;vector&lt;int&gt;&gt; xpy(2);
+        vector&lt;vector&lt;int&gt;&gt; xmy(2);
+        for(auto &amp; cur:queens) {
+            if(cur[0]==king[0]) {
+                if(cur[1]&gt;king[1])
+                    update(x[0], cur);
+                else
+                    update(x[1], cur);
+            } else if(cur[1]==king[1]) {
+                if(cur[0]&gt;king[0])
+                    update(y[0], cur);
+                else
+                    update(y[1], cur);
+            } else if(cur[0]+cur[1]==king[0]+king[1]) {
+                if(cur[0]&gt;king[0])
+                    update(xpy[0], cur);
+                else
+                    update(xpy[1], cur);
+            } else if(cur[0]-cur[1]==king[0]-king[1]) {
+                if(cur[0]&gt;king[0])
+                    update(xmy[0], cur);
+                else
+                    update(xmy[1], cur);
+
+            }
+        }
+        vector&lt;vector&lt;int&gt;&gt; res;
+        add(res, x);
+        add(res, y);
+        add(res, xpy);
+        add(res, xmy);
+        return res;
+    }
+    
+    int dist(vector&lt;int&gt; &amp; pos) {
+        return abs(compare[0]-pos[0]) + abs(compare[1]-pos[1]);
+    }
+    
+    void add(vector&lt;vector&lt;int&gt;&gt; &amp; res, vector&lt;vector&lt;int&gt;&gt; &amp; target) {
+        if(!target[0].empty())
+            res.push_back(target[0]);
+        if(!target[1].empty())
+            res.push_back(target[1]);
+    }
+    
+    void update(vector&lt;int&gt; &amp; left, vector&lt;int&gt; &amp; right) {
+        if(left.empty())
+            left = right;
+        else {
+            if(dist(right)&lt;dist(left))
+                left = right;
+        }
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

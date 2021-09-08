@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>334_Studyfish.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>334_Studyfish.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maxEqualFreq(int[] nums) {
+        int numc = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        TreeMap&lt;Integer, Set&lt;Integer&gt;&gt; count = new TreeMap&lt;&gt;();
+        int ans = 0;
+        int i = 0;
+        for (int n : nums) {
+            i++;
+            map.putIfAbsent(n, 0);
+            map.put</B></FONT>(n, map.get(n) + 1);
+            count.putIfAbsent(map.get(n), new HashSet&lt;&gt;());
+            count.get(map.get(n)).add(n);
+            if (map.get(n) &gt; 1) {
+                count.get(map.get(n) - 1).remove(n);
+                if (count.get(map.get(n) - 1).size() == 0) count.remove(map.get(n) - 1);
+            }
+            if (count.size() == 1 &amp;&amp; count.firstEntry().getValue().size() == 1) {
+                ans = i;
+                continue;
+            }
+<A NAME="1"></A>            if (count.size() &gt; 3) break;
+            if (count.size() == 1 &amp;&amp; count.get(1) != null) ans = i;
+            if (count.size() == 2 &amp;&amp; 
+                ((count.firstEntry().getValue().size() == 1 &amp;&amp; count.firstKey()==1) || (<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>count.lastEntry().getValue().size() == 1 &amp;&amp; count.lastKey() - count.firstKey() == 1 ))) {
+                ans = i;
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

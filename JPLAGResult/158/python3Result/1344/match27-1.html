@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>237_ywen1995.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>237_ywen1995.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxEqualFreq(self, nums: List[int]) -&gt; int:
+        
+        tot = collections.Counter(nums)
+        
+        cnt_dic = collections.defaultdict(set)
+        for k in tot.keys():
+            cnt_dic[tot[</B></FONT>k]].add(k)
+            
+        for i in range(len(nums)-1,-1,-1):
+            maxkey = max(cnt_dic.keys())
+            if (len(tot)==1) or (len(cnt_dic.keys())==1 and 1 in cnt_dic) or (len(cnt_dic.keys())==2 and ((1 in cnt_dic and len(cnt_dic[1])==1) or (maxkey-1 in cnt_dic and len(cnt_dic[maxkey])==1))):
+                #print(maxkey,tot,cnt_dic,i+1)
+                return i+1
+                
+            icnt = tot[nums[i]]
+            cnt_dic[icnt].remove(nums[i])
+            if not cnt_dic[icnt]:
+                del cnt_dic[icnt]
+                
+            if icnt&gt;1:
+                cnt_dic[icnt-1].add(nums[i])
+                tot[nums[i]] -= 1
+            else:
+                del tot[nums[i]]
+                
+        return 1
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

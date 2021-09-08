@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_RadianceSheep.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_RadianceSheep.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int maxEqualFreq(vector&lt;int&gt;&amp; nums) {
+        int n = static_cast&lt;int&gt;(nums.size());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;int, int&gt; cnt, cntcnt;
+        int result = 0;
+        for (int i = 1; i &lt;= n; ++i) {
+            int num = nums[i - 1];
+            if (cnt.find(num) != cnt.end()) {</B></FONT>
+                if (--cntcnt[cnt[num]] == 0) {
+                    cntcnt.erase(cnt[num]);
+                }
+            }
+            ++cnt[num];
+            ++cntcnt[cnt[num]];
+            if (cnt.size() == 1) {
+                result = i;
+            } else if (cntcnt.size() == 1) {
+<A NAME="1"></A>                if (cntcnt.begin()-&gt;first == 1) {
+                    result = i;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            } else if (cntcnt.size() == 2) {
+                auto it = cntcnt.begin();
+                int fc = it-&gt;first, fn = it-&gt;second;
+                ++it;
+                int sc = it-&gt;first, sn = it-&gt;second;
+                if (fc == 1 &amp;&amp; fn == 1) {</B></FONT>
+                    result = i;
+                } else if (sn == 1 &amp;&amp; sc == fc + 1) {
+                    result = i;
+                }
+            }
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
