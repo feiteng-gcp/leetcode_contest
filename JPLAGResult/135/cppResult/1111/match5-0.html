@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>184_asrajavel267.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>184_asrajavel267.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int calc(vector&lt;int&gt; &amp;a, int n) 
+    { 
+       if (n &lt; 3) 
+          return 0; 
+        
+       int table[n][n]; 
+
+       // Fill table using above recursive formula. Note that the table 
+       // is filled in diagonal fashion i.e., from diagonal elements to 
+       // table[0][n-1] which is the result. 
+       for (int gap = 0; gap &lt; n; gap++) 
+       { 
+          for (int i = 0, j = gap; j &lt; n; i++, j++) 
+          { 
+              if (j &lt; i+2) 
+                 table[i][j] = 0; 
+              else
+              { 
+<A NAME="1"></A>                  table[i][j] = INT_MAX; 
+                  for (int k = i+1; k &lt; j; k++) 
+                  { </B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int val = table[i][k] + table[k][j] + a[i]*a[j]*a[k]; 
+                    if (table[i][j] &gt; val) 
+                         table[i][j] = val; 
+                  } 
+              } 
+          } 
+       } 
+       return  table[0][n-1]; 
+    } 
+    int minScoreTriangulation(vector&lt;int&gt;&amp; A) {
+        return calc(A, A.size());
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

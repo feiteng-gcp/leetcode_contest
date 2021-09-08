@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_alexlinzhai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>42_alexlinzhai.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; numMovesStonesII(vector&lt;int&gt;&amp; stones) {
+        sort(stones.begin(), stones.end());
+        int n = stones.size();
+        int m = stones.back() - stones.front() + 1;
+        int max_moves = m - n;</B></FONT>
+        max_moves -= min(stones[1] - stones[0] - 1, stones[n - 1] - stones[n - 2] - 1);
+        
+        int max_coverage = 0;
+        int right = 0;
+        for (int left = 0; left &lt; n - 1; left++) {
+            while (right &lt; n &amp;&amp; stones[right] &lt; stones[left] + n)
+                right++;
+            if (left == 0 &amp;&amp; stones[right - 1] &lt; stones[left] + n - 1)
+                continue;
+            
+            if (right == n) {
+                if (stones[right - 1] == stones[left] + n - 1 || left &gt;= 2) {
+                    max_coverage = max(max_coverage, right - left);
+                }
+                break;
+            }
+            max_coverage = max(max_coverage, right - left);
+        }
+        int min_moves = n - max_coverage;
+        return { min_moves, max_moves };
+    }
+};
+</PRE>
+</BODY>
+</HTML>

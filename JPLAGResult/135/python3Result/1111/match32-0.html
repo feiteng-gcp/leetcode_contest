@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>227_arun_j.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>227_arun_j.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minScoreTriangulation(self, A: List[int]) -&gt; int:
+        import math
+        class point:
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+            
+        def dist(p1, p2):
+            return math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + 
+                (p1.y - p2.y)*(p1.y - p2.y))
+
+        def cost(points, i, j, k):
+            p1,p2,p3 = points[i],points[j],points[k]
+            return (dist(p1, p2)*dist(p2, p3)*dist(p3, p1))
+        
+        def sol(points, n):
+            if n &lt; 3:return 0
+            table =  [ [ 0 for i in range(n) ] for j in range(n)]
+            for gap in range(0, n):
+                i, j = 0, gap
+                while(j &lt; n):
+                    if j &lt; i+2:
+<A NAME="0"></A>                        table[i][j] = 0.0
+                    else:
+                        table[i][j] = float('inf')
+                        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for k in range(i+1, j):
+                            val = table[i][k] + table[k][j] + A[i]*A[j]*A[k]
+                            table[i][j] = min(table[i][j</B></FONT>], val)
+                    i += 1
+                    j += 1
+            return int(table[0][n-1])
+        return (sol(A, len(A)))
+</PRE>
+
+</BODY>
+</HTML>
