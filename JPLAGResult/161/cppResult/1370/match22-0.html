@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>256_karsh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>256_karsh.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int numberOfSubarrays(vector&lt;int&gt;&amp; nums, int k) {
+        vector&lt;int&gt; odd;
+        for(int i = 0; i &lt; nums.size(); ++i)
+        {
+            if(nums[i] % 2 == 1)</B></FONT>
+            {
+                odd.push_back(i);
+            }
+<A NAME="1"></A>        }
+        if(odd.size() &lt; k) return 0;
+        int result = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int a = 0, b = 0;
+        for(int i = 0; i &lt; odd.size() - k + 1; ++i)
+        {
+            if(i == 0)
+            {
+                a = odd[i] - 0 + 1;
+            }
+            else
+            {
+                a = odd[i] - odd[i - 1];
+            }
+            if(i == odd.size() - k)
+            {
+                b = nums.size() - odd[i + k - 1];
+            }
+            else
+            {
+                b = odd[i + k] - odd[i + k - 1];
+            }
+            result += a * b;
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
