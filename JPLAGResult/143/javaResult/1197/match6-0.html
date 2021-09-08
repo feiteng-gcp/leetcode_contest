@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>374_arcueidyangshuati.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>374_arcueidyangshuati.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean parseBoolExpr(String expression) {
+        Stack&lt;Character&gt; operatorStack = new Stack&lt;&gt;();
+        Stack&lt;Value&gt; valueStack = new Stack&lt;&gt;();
+        int depth = 0;
+        
+<A NAME="0"></A>        for(int i = 0; i &lt; expression.length(); i ++) {
+            char current = expression.charAt(i);
+            
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(current == '|') {
+                operatorStack.push(current);
+            } else if(current == '&amp;') {
+                operatorStack.push(current);
+            } else if(current == '!') {
+                operatorStack.push(current);
+            } else if(current == '(') {</B></FONT>
+                depth ++;
+            } else if(current == ',') {
+                // do nothing for now
+            } else if(current == ')') {
+                char operator = operatorStack.pop();
+                                
+                boolean currentValue = false;
+                
+                if(operator == '&amp;') {
+                    currentValue = true;
+                }
+                
+                while(!valueStack.isEmpty() &amp;&amp; valueStack.peek().depth == depth) {
+                    Value nextValue = valueStack.pop();
+                    
+                    if(operator == '|') {
+                        currentValue |= nextValue.value;
+                    } else if(operator =='&amp;' ) {
+                        currentValue &amp;= nextValue.value;
+                    } else if(operator == '!') {
+                        currentValue = !nextValue.value;
+                    } 
+                }
+                
+                depth --;
+            
+                valueStack.push(new Value(currentValue, depth));
+            } else if(current == 't') {
+<A NAME="1"></A>                valueStack.push(new Value(true, depth));
+            } else if(current == 'f') {
+                valueStack.push(new Value(false, depth));
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        return</B></FONT> valueStack.pop().value;
+    }
+}
+
+class Value {
+    public boolean value;
+    public int depth;
+    
+    public Value(boolean value, int depth) {
+        this.value = value;
+        this.depth = depth;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

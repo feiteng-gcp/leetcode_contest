@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>281_Gowe.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>281_Gowe.py</CENTER></H3><HR>
+<PRE>
+from functools import reduce
+class Solution:
+    def parseBoolExpr(self, expression: str) -&gt; bool:
+        ops = []
+        for char in expression:
+            if char in &quot;!|&amp;(&quot;:
+                ops.append(char)
+<A NAME="0"></A>            elif char == &quot;t&quot;:
+                ops.append(True)
+            elif char == &quot;f&quot;:
+                ops<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.append(False)
+            elif char in &quot;)&quot;:
+                t = ops.pop()
+                seq = []
+                while t != &quot;(&quot;:
+                    seq.append(t)
+                    t = ops.pop()
+                op = ops.pop()
+                if</B></FONT> op == &quot;|&quot;:
+                    ops.append(reduce(lambda a, b: a | b, seq, False))
+                elif op == &quot;&amp;&quot;:
+                    ops.append(reduce(lambda a, b: a &amp; b, seq, True))
+                elif op == &quot;!&quot;:
+                    ops.append(not seq[0])
+                    assert len(seq) == 1
+        print(ops)
+        return ops[0]
+            
+</PRE>
+
+</BODY>
+</HTML>

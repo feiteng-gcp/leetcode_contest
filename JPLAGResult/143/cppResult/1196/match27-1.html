@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_applewolf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>132_applewolf.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minHeightShelves(vector&lt;vector&lt;int&gt;&gt;&amp; A, int width) {
+        int N = A.size();
+        vector&lt;int&gt; f(N+1);
+        // f[N-1] = A[N-1][1];
+        for (int i = N-1; i &gt;= 0; --i) {
+            f[i] = INT_MAX;
+            int m = 0; // 宽度
+            int h = 0;
+            for (int j = i; j &lt; N; ++j) {</B></FONT>
+                if (m + A[j][0] &lt;= width) {
+                    m += A[j][0];
+                    h = max(h, A[j][1]);
+                    f[i] = min(f[j+1]+h, f[i]);
+                } else {
+                    break;
+                }
+            }
+        }
+        return f[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

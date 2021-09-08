@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_pangeneral.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>444_pangeneral.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    public boolean parseBoolExpr(String expression) {
+        Stack&lt;Character&gt; exprStack = new Stack&lt;Character&gt;();
+        Stack&lt;Character&gt; wordStack = new Stack&lt;Character&gt;();
+        char e[] = expression.toCharArray();
+        for (int i = 0; i &lt; e.length; i++) {
+            if</B></FONT> (e[i] == '&amp;' || e[i] == '|' || e[i] == '!')
+                exprStack.push(e[i]);
+            else if (e[i] == '(' || e[i] == 'f' || e[i] == 't')
+                wordStack.push(e[i]);
+            else if (e[i] == ')') {
+                if (exprStack.peek() == '!') {
+                    Character result = wordStack.pop();
+                    wordStack.pop();    
+                    wordStack.push(result == 't' ? 'f' : 't');
+                    exprStack.pop();
+                }
+                else {
+                    boolean result = exprStack.peek() == '&amp;' ? true : false;
+                    while (wordStack.peek() != '(') {
+                        boolean current = wordStack.pop() == 't' ? true : false;
+                        result = exprStack.peek() == '&amp;' ? result &amp; current : result | current;
+                    }
+                    wordStack.pop();
+                    exprStack.pop();
+                    wordStack.push(result ? 't' : 'f');
+                }
+            }
+        }
+        return wordStack.pop() == 't' ? true : false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>405_yoofor.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>405_yoofor.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool parseBoolExpr(string exp) {
+        int i = 0;
+<A NAME="0"></A>        return parse(exp, i);
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool parse(string &amp;exp, int &amp;i) {
+        if (exp[i] == 't') { i++; return true; }
+        if (exp[i] == 'f') { i++; return false; }
+        if (exp[i] == '!') {
+            i += 2;
+            bool r = !parse(exp, i);
+            i++;
+            return r;
+        }</B></FONT>
+        if (exp[i] == '&amp;') {
+            i += 2;
+            bool r = true;
+            while (exp[i] != ')') {
+                r &amp;= parse(exp, i);
+                if (exp[i] == ',') i++;
+            }
+            i++;
+            return r;
+        }
+        if (exp[i] == '|') {
+            i += 2;
+            bool r = false;
+            while (exp[i] != ')') {
+                r |= parse(exp, i);
+                if (exp[i] == ',') i++;
+            }
+            i++;
+            return r;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

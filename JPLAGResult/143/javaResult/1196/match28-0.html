@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>282_zxcvasdfqwer.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>282_zxcvasdfqwer.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int[][] books;
+    int shelf_width;
+    HashMap&lt;Integer, Integer&gt; map;
+    int N;
+    
+    public int minHeightShelves(int[][] books, int shelf_width) {
+        this.books = books;
+        this.shelf_width = shelf_width;
+        this.map = new HashMap&lt;&gt;();
+        this.N = books.length;
+        
+        map.put(N - 1, books[N - 1][1]);
+        map.put(N, 0);
+        int res = helper(0); 
+        //System.out.println(map);
+<A NAME="0"></A>        return res;
+    }
+    
+    private int helper(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int start) {
+        if (map.containsKey(start)) {
+            return map.get(start);
+<A NAME="1"></A>        }</B></FONT>
+        int res = Integer.MAX_VALUE;
+        int total_width = 0;
+        for (<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int i = start, currHeight = 0; i &lt; N; i++) {
+            total_width += books[i][0];
+            if (total_width &gt; shelf_width) {
+                break;
+            }
+            currHeight = Math.max(currHeight, books[i][1]);
+            res = Math.min(res, helper(i + 1) + currHeight);
+        }
+        map.put(start, res);
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
