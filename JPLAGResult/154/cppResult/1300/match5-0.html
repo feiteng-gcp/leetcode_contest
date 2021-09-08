@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_dhanacs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_dhanacs.cpp</CENTER></H3><HR>
+<PRE>
+#define NIL -1
+
+class Graph
+<A NAME="0"></A>{
+  private:
+  int n;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>  list&lt;int&gt; *adjacent;
+  vector&lt;vector&lt;int&gt;&gt; bridges;
+  void bridgeUtility(int v, bool visited[], int disc[], int low[], int parent[]);
+
+  public:
+<A NAME="1"></A>  Graph(int n);
+  void addEdge(int v, int w);</B></FONT>
+  vector&lt;vector&lt;int&gt;&gt; bridge();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>};
+
+Graph::Graph(int n)
+{
+  this-&gt;n = n;
+  adjacent = new list&lt;int&gt;[n];
+}
+
+void Graph::addEdge(int v, int w)
+{
+  adjacent[v].push_back(w);
+  adjacent[w].push_back(v);
+}
+
+void Graph::bridgeUtility(int u, bool visited[], int disc[], int low[], int parent[])
+{ 
+  static int time = 0;
+  visited[u] = true;
+  disc[u] = low[u] = ++time;
+
+  list&lt;int&gt;::iterator i;
+  for (i = adjacent[u].begin(); i != adjacent[u].end(); ++i)
+  {
+    int v = *i;
+
+    if(!visited[v])
+    {
+      parent[v] = u;
+      bridgeUtility(v, visited, disc, low, parent);
+      low[u]  = min(low[u], low[v]);
+
+      if(low[v] &gt; disc[u])
+      {
+        //cout &lt;&lt; u &lt;&lt;&quot; &quot; &lt;&lt; v &lt;&lt; endl;
+        vector&lt;int&gt; edge;
+        edge.push_back(u);
+        edge.push_back(v);
+        bridges.push_back(edge);
+      }
+    }
+    else if(v != parent[u]) low[u] = min(low[u], disc[v]);
+<A NAME="2"></A>  }
+}</B></FONT>
+
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>vector&lt;vector&lt;int&gt;&gt; Graph::bridge()
+{
+  bool *visited = new bool[n];
+  int *disc = new int[n];
+  int *low = new int[n];
+  int *parent = new int[n];
+
+  for(int i = 0; i &lt; n; i++)
+  {
+    parent[i] = NIL;
+    visited[i] = false;
+  }
+
+  for(int i = 0; i &lt; n; i++)
+   if(visited[i] == false)</B></FONT>
+    bridgeUtility(i, visited, disc, low, parent);
+
+  return bridges;
+}
+
+class Solution
+{
+  public:
+
+  vector&lt;vector&lt;int&gt;&gt; criticalConnections(int nodesCount, vector&lt;vector&lt;int&gt;&gt; &amp;connections)
+  {
+    Graph graph(nodesCount);
+    for(int i = 0; i &lt; connections.size(); ++i) graph.addEdge(connections[i][0], connections[i][1]);
+    return graph.bridge();
+  }
+};
+</PRE>
+</BODY>
+</HTML>

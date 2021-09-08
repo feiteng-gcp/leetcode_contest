@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_qinggniq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_qinggniq.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; pos;
+    string dfs(const string&amp; s, int l, int r) {
+        string ans;
+        int i = l;
+        while (i &lt;= r) {
+            if (s[i] == '(') {
+                string tmp = dfs(s, i+1, pos[i]-1);
+                reverse(tmp.begin(), tmp.end());
+                ans += tmp;
+                i = pos[i]+1;
+            }else{
+                ans += s[i];
+                i++;
+            }
+        }
+        return ans;
+    }
+<A NAME="0"></A>    string reverseParentheses(string s) {
+        int sz = s.size();
+         pos.resize(s.size());
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        stack&lt;int&gt; st;
+        for (int i=0; i&lt;sz; ++i) {
+            if (s[i] == '(') {
+                st.push(i);
+            }else if (s[i] == ')') {
+                pos[st.top()] = i;
+                st.pop();
+            }
+        }
+       
+        return dfs(s, 0, sz-1);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

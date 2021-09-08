@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_i_love_xiaoshagua_cpp.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_i_love_xiaoshagua_cpp.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Graph:
+    def __init__(self, V):
+        self.V = V
+        self.graph = dict()
+        self.time = 0
+        self.ans = []
+
+    def</B></FONT> addEdge(self, u, v):
+<A NAME="1"></A>        if u not in self.graph: self.graph[u] = []
+        self.graph[u].append(v)
+        if v not in self.graph: self.graph[v] = []
+        self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.graph[v].append(u)
+
+    def doit(self, u, visited, parent, low, disc):
+        visited[u] = 1
+        disc[u] = self.time
+        low[u] = self.time
+        self.time += 1
+        
+        for v in self.graph[u]:
+            if not visited[v]:
+                parent[v] = u
+                self.doit(v, visited, parent, low, disc)
+                
+                low[u] = min(low[u], low[v])
+                
+                if low[v] &gt; disc[u]:
+                    self.ans.append([u, v])
+            elif v != parent[u]:
+                low[u] = min(low[u], disc[v]</B></FONT>)
+
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -&gt; List[List[int]]:
+        graph = Graph(n)
+        for u, v in connections:
+            graph.addEdge(u, v)
+
+        visited = [0] * n
+        disc = [float('inf')] * n
+        low = [float('inf')] * n
+        parent = [-1] * n
+        
+        for i in range(n):
+            if not visited[i]:
+                graph.doit(i, visited, parent, low, disc)
+        
+        return graph.ans
+</PRE>
+
+</BODY>
+</HTML>

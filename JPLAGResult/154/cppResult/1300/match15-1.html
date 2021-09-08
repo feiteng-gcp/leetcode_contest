@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_mopriestt.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>77_mopriestt.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+
+    #define N 100009
+    vector&lt;int&gt;G[N];
+    int n,m,low[N],dfn[N];
+    int father[N];
+    int tim=0;
+    vector&lt;vector&lt;int&gt; &gt;ans;
+    void add(int a, int b)
+    {
+<A NAME="0"></A>        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void Tarjan(int i,int Father)
+    {
+        father[i]=Father;/*记录每一个点的父亲*/
+        dfn[i]=low[i]=tim++;
+        for(int j=0;j&lt;G[i].size();++j)
+        {
+            int k=G[i][j];
+            if(dfn[k]==-1)
+            {
+                Tarjan(k,i);
+                low[i]=min(low[i],low[k]);
+            }
+            else if(Father!=k)/*假如k是i的父亲的话，那么这就是无向边中的重边，有重边那么一定不是桥*/</B></FONT>
+                low[i]=min(low[i],dfn[k]);//dfn[k]可能！=low[k]，所以不能用low[k]代替dfn[k],否则会上翻过头了。
+        }
+    }
+<A NAME="1"></A>    void count()
+    {
+        Tarjan(0, -1);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; ++i)
+        {
+            int v = father[i];
+            if(v&gt;=0 &amp;&amp; low[i]&gt;dfn[v])/*桥的条件*/
+            {
+                vector&lt;int&gt; ret;
+                ret.push_back(v);
+                ret.push_back(i);
+                ans.push_back(ret);
+            }
+        }</B></FONT>
+
+    }
+    
+    vector&lt;vector&lt;int&gt;&gt; criticalConnections(int n, vector&lt;vector&lt;int&gt;&gt;&amp; connections) {
+        for (auto e : connections) add(e[0], e[1]);
+        this-&gt;n = n;
+        memset(dfn,-1,sizeof(dfn));
+        memset(father,0,sizeof(father));
+        memset(low,-1,sizeof(low));
+        count();
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

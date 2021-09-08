@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_mapleisle.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>323_mapleisle.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def kConcatenationMaxSum(self, arr: List[int], k: int) -&gt; int:
+        curr,sumLeftMin,sumLeftMax<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=0,0,0
+        ret=0
+        for num in arr:
+            curr+=num
+            sumLeftMin=min(sumLeftMin,curr)
+            sumLeftMax=max(sumLeftMax,curr)
+            ret=max(ret,curr-sumLeftMin)
+        total=</B></FONT>int(curr)
+        if k==1:
+            return ret%1000000007
+        curr,sumRightMax=0,0
+        for num in reversed(arr):
+            curr+=num
+            sumRightMax=max(sumRightMax,curr)
+        ret=max(ret,sumLeftMax+sumRightMax,sumLeftMax+sumRightMax+(k-2)*total)%1000000007
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

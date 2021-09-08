@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_leetcodedocteel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>23_leetcodedocteel.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string reverseParentheses(string s) {
+        //cout &lt;&lt; s &lt;&lt; endl;
+        string res = &quot;&quot;;
+        for (int i = 0; i &lt; s.size(); ++i)
+        {
+            if (isalpha(s[i]) != 0)
+            {
+                res += s[i];
+            }
+            else if (s[i] == '(')
+            {</B></FONT>
+                int start = i + 1;
+                int p = 0;
+                for (; i &lt; s.size(); ++i)
+                {
+                    if (s[i] == '(') ++p;
+                    if (s[i] == ')') --p;
+                    if (p == 0) break;
+                }
+                int len = i - start;
+                if (len == 0) continue;
+                string subStr = s.substr(start, len);                
+                reverse(subStr.begin(), subStr.end());
+                for (int a = 0; a &lt; subStr.size(); ++a)
+                {
+                    if (subStr[a] == '(') subStr[a] = ')';
+                    else if (subStr[a] == ')') subStr[a] = '(';
+                }
+                res += reverseParentheses(subStr);
+            }
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

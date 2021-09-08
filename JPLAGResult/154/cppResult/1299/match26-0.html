@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_DanChong.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_DanChong.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int kConcatenationMaxSum(vector&lt;int&gt;&amp; arr, int k) {
+        int n = arr.size();
+        int kr = norepeat(arr, n);
+		int sms, pms, fs;
+		if(k == 1) return kr;
+		
+        sms = suffix(arr, n);
+        pms = prefix(arr, n);
+        fs  = full(arr, n);
+        int sum = 0;
+        for(int i = 0; i &lt; k-2; i++) sum = (sum+fs)%mod;
+        return max({kr, ((sms + sum)%mod + pms)%mod, 0});
+    }
+    
+private:
+    int mod = 1e9+7;
+    
+    int norepeat(vector&lt;int&gt;&amp; a, int n){
+        int cs = 0, bs = INT_MIN;
+        for(int i=0; i&lt;n; i++) {
+            cs += a[i];
+            bs = max(cs, bs);
+            cs = max(cs, 0);
+        }
+        return bs;
+<A NAME="0"></A>    }
+
+    int suffix(vector&lt;int&gt;&amp; a, int n){ 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int cs = 0, bs = INT_MIN;
+        for(int i=n-1; i&gt;=0; i--) {
+            cs += a[i];
+            bs = max(cs, bs);
+        }
+        return bs;
+<A NAME="1"></A>    }
+
+    int prefix(vector&lt;int&gt;&amp; a, int n){</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int cs = 0, bs = INT_MIN;
+        for(int i=0; i&lt;n; i++) {
+            cs += a[i];
+            bs = max(cs, bs);
+        }
+        return bs;
+    }
+
+    int full(vector&lt;int&gt;&amp; a, int n) {
+        int sum = 0;
+        for(int i=0; i&lt;n; i++) {</B></FONT>
+            sum += a[i];
+        }
+        return max(sum, 0);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

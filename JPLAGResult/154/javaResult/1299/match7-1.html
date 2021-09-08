@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_saket4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_saket4.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int mod = 1_000_000_000 + 7;    
+    
+    public int kConcatenationMaxSum(int[] arr, int k) {
+        
+        int ans = 0;
+        long total = 0;
+        for (int v : arr) {
+            total += v;            
+        }
+        long maxLeft = 0;                   
+        long left = 0;
+        for (int v : arr) {                
+            left += v;
+            maxLeft = Math.max(maxLeft, left);
+        }              
+        long maxRight = 0;
+        long right = 0;
+        for (int i = arr.length - 1; i &gt;= 0; --i) {
+            right += arr[i];
+            maxRight = Math.max(maxRight, right);
+        }
+        if (total &gt; 0) {
+            ans = Math.max(ans, (int)((total * k) % mod));
+            ans = Math.max(ans, (int)((maxRight + (total * (k - 1))) % mod));
+            ans = Math.max(ans, (int)( (maxRight + (total * (k - 2)) + maxLeft) % mod));
+        } else {
+            ans = Math.max(ans, (int)((maxRight + maxLeft) % mod));
+<A NAME="0"></A>        }
+        
+        return Math.max(ans, maxSum(arr));                             
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public int maxSum(int[] arr) {
+        int ans = 0;
+        long sum = 0;
+        for (int i = 0; i &lt; arr.length; ++i) {</B></FONT>
+            if (sum + arr[i] &lt; 0) {
+                sum = 0;
+<A NAME="1"></A>            } else {
+                sum += arr[i];
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>ans = Math.max(ans, (int)(sum % mod));
+        }
+        return ans;
+    }
+    
+    public int maxSumList(List&lt;Integer&gt; list) {
+        int ans = 0;
+        long sum = 0;
+        for (int i = 0</B></FONT>; i &lt; list.size(); ++i) {
+            long s = sum + list.get(i);
+            if (s &lt; 0) {
+                sum = 0;
+            } else {
+                sum = s;
+            }
+            ans = Math.max(ans, (int)sum % mod);
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

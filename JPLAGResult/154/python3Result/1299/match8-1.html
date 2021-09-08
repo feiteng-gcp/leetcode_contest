@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>314_nguyenhachuy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>314_nguyenhachuy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def kConcatenationMaxSum(self, arr: List[int], k: int) -&gt; int:
+        if k == 1:
+            return self.vanilla(arr)
+        
+        double_arr = arr * 2
+        max_seen, max_end = 0,0
+        mod = 10 ** 9 + 7
+        
+        for i in double_arr:
+            max_end = max(i, i + max_end)
+            max_seen = max(max_seen, max_end)
+        
+        max_seen = max_seen
+        
+        max_total = sum(arr)
+        
+        if max_total &lt; max_seen and max_total &lt; 0:
+            return max_seen % mod
+        if k &lt;= 2:
+<A NAME="0"></A>            max_total_k = ((max_total % mod) * (k % mod)) % mod
+            return max_total_k if max_total_k &gt; max_seen else max_seen
+        else:
+            back_seen, back_total <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0,0
+            for i in reversed(arr):
+                back_seen += i
+                back_total = max(back_total, back_seen)
+            forward_seen, forward_total = 0,0
+            for i in arr:
+                forward_seen += i
+                forward_total = max(</B></FONT>forward_total, forward_seen)
+            
+            max_total_k = ((max_total % mod) * ((k - 2) % mod)) % mod
+            max_total_k += (back_total + forward_total) % mod 
+            return max_total_k if max_total_k &gt; max_seen else max_seen
+    def vanilla(self, arr):
+        max_seen, max_end = 0,0
+        mod = 10 ** 9 + 7
+        for i in arr:
+            max_end = max(i, i + max_end)
+            max_seen = max(max_seen, max_end)
+        
+        return max_seen % mod
+</PRE>
+
+</BODY>
+</HTML>

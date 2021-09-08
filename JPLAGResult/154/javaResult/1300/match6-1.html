@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>405_Paul_F.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>405_Paul_F.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int time = 0;
+    final int NIL = -1;
+
+    Map&lt;Integer, List&lt;Integer&gt;&gt; graph;
+<A NAME="3"></A>    int vertexNum;
+    List&lt;List&lt;Integer&gt;&gt; result;
+
+    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void findCritical() {
+        boolean visited[] = new boolean[vertexNum + 1];
+        int discTime[] = new int[vertexNum + 1];
+        int low[] = new int[vertexNum + 1];
+        int parent[] = new int[vertexNum + 1];
+
+        for (int i = 0; i &lt;= vertexNum; i++) {
+            parent[i] = NIL;
+            visited[i] = false;
+        }
+
+        for (int i = 0; i &lt;= vertexNum; i++) {
+            if (visited[i] == false) {
+                findCriticalHelper(i, visited, discTime, low, parent);
+            }
+<A NAME="1"></A>        }
+    }</B></FONT>
+
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void findCriticalHelper(int u, boolean visited[], int discTime[],
+                                    int low[], int parent[]) {
+        visited[u] = true;
+        discTime[u] = low[u] = ++time;
+
+        List&lt;Integer&gt; neighbours = graph.get</B></FONT>(u);
+<A NAME="2"></A>        if (neighbours == null)
+            return;
+        for (int v : neighbours) {
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!visited[v]) {
+                parent[v] = u;
+                findCriticalHelper(v, visited, discTime, low, parent);
+
+                low[u] = Math.min(low[u], low[v]);
+                if (low[v] &gt; discTime[u]) {
+                    List&lt;Integer&gt; pair = Arrays.asList(u, v)</B></FONT>;
+                    result.add(pair);
+                }
+            } else if (v != parent[u]) {
+                low[u] = Math.min(low[u], discTime[v]);
+            }
+        }
+    }
+    
+    public List&lt;List&lt;Integer&gt;&gt; criticalConnections(int n, List&lt;List&lt;Integer&gt;&gt; connections) {
+        this.vertexNum = n;
+        graph = new HashMap&lt;&gt;();
+        result = new ArrayList&lt;&gt;();
+
+        for (List&lt;Integer&gt; pairInt : connections) {
+<A NAME="0"></A>            graph.putIfAbsent(pairInt.get(0), new ArrayList&lt;&gt;());
+            graph.get(pairInt.get(0)).add(pairInt.get(1));
+            graph.putIfAbsent(pairInt.get(1), new ArrayList&lt;&gt;());
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>graph.get(pairInt.get(1)).add(pairInt.get(0));
+        }
+
+        findCritical();
+        return result;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

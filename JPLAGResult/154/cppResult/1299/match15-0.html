@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>257_dhanacs.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>257_dhanacs.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long LL;
+typedef long double LD;
+
+class Solution
+{
+  private:
+
+  LL MOD = 1000000007;
+
+  LL multiplyMod(LL a, LL b)
+  {
+    a %= MOD;
+    b %= MOD;
+    LD result = a;
+    result *= b;
+    LL c = LL(result / MOD);
+    a *= b;
+    a -= c * MOD;
+    a %= MOD;
+    if(a &lt; 0) a += MOD;
+
+    return a;
+  }
+
+  LL additionMod(LL a0, LL b0)
+  {
+    return ((a0 % MOD) + (b0 % MOD)) % MOD; 
+  }
+
+  int getMaxValue(vector&lt;int&gt; &amp;a)
+  {
+    int maxValue = 0;
+
+    for(int i = 0; i &lt; a.size(); ++i) maxValue = max(maxValue, a[i]);
+
+    return maxValue;
+  }
+
+  LL getSum(vector&lt;int&gt; &amp;a)
+  {
+    int sum = 0;
+
+    for(int i = 0; i &lt; a.size(); ++i) sum += a[i];
+
+    return sum;
+  }
+
+  public:
+<A NAME="0"></A>
+  int kConcatenationMaxSum(vector&lt;int&gt; &amp;a, int k)
+  {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int n = a.size();
+    LL answer = getMaxValue(a), sum = 0;
+
+    for(int i = 0; i &lt; n; i++)
+    {
+      sum += a[i];
+      if(sum &lt; 0) sum = 0;
+      else answer = max(answer, sum);
+    }
+<A NAME="1"></A>
+    if(k &gt; 1)
+    {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      LL p = 0, s = 0, pref = 0, suff = 0;
+
+      for(int i = 0; i &lt; n; i++)
+      {
+        p += a[i];
+        s += a[n - 1 - i];
+        pref = max(pref, p);
+        suff = max(suff, s);
+      }
+
+      if(pref + suff &gt; 0)
+      {</B></FONT>
+        LL sum = max(getSum(a), 0ll);
+        LL temp0 = additionMod(pref, suff);
+        LL temp1 = additionMod(temp0, multiplyMod(k - 2, sum));
+        answer = max(temp1, answer);
+      }
+    }
+
+    return answer;
+  }
+};
+</PRE>
+</BODY>
+</HTML>
