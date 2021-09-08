@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_hamale.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_hamale.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -&gt; List[int]:
+        red_adj = [[] for _ in range(n)]
+        blue_adj = [[] for _ in range(n)]
+        for i, j in red_edges:
+            red_adj[i].append(j)
+        for i, j in blue_edges:
+            blue_adj[i].append(j)
+            
+        end_red  =</B></FONT> [1000 for _ in range(n)]
+        end_blue = [1000 for _ in range(n)]
+        end_red[0] = end_blue[0] = 0
+        
+        frontier = set([0])
+        while frontier:
+            new_frontier = set()
+            for src in frontier:
+                for trg in red_adj[src]:
+                    if end_blue[src] + 1 &lt; end_red[trg]:
+                        end_red[trg] = end_blue[src] + 1
+                        new_frontier.add(trg)
+                for trg in blue_adj[src]:
+                    if end_red[src] + 1 &lt; end_blue[trg]:
+                        end_blue[trg] = end_red[src] + 1
+                        new_frontier.add(trg)
+            frontier = new_frontier
+            
+        result = [min(red, blue) for red, blue in zip(end_red, end_blue)]
+        result = [-1 if r == 1000 else r for r in result]
+        return result
+</PRE>
+
+</BODY>
+</HTML>

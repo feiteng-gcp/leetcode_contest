@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>263_OneDirection.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>263_OneDirection.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxAbsValExpr(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        int n = arr1.size();
+        vector&lt;int&gt; a(n, 0), b(n, 0), c(n, 0), d(n, 0);
+        for(int i = 0; i &lt; n; ++i) {</B></FONT>
+            a[i] = arr1[i] + arr2[i] + i;
+            b[i] = arr1[i] + arr2[i] - i;
+            c[i] = arr1[i] - arr2[i] + i;
+            d[i] = arr1[i] - arr2[i] - i;
+        }
+        
+        int resa = helper(a);
+        int resb = helper(b);
+        int resc = helper(c);
+        int resd = helper(d);
+        return max(resa, max(resb, max(resc, resd)));
+    }
+    
+private:
+    int helper(vector&lt;int&gt; &amp;nums) {
+        int minv = INT_MAX, maxv = INT_MIN;
+        for(int num: nums) {
+            minv = min(num, minv);
+            maxv = max(num, maxv);
+        }
+        return maxv - minv;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

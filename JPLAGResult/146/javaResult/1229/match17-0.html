@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_Cold.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_Cold.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private class node{
+        int num;
+        boolean red;
+<A NAME="0"></A>        boolean blue;
+        node(int n, boolean r, boolean b){
+            num =n;
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>red=r;
+            blue=b;
+        }
+    }
+    public int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges) {
+        int []res = new int[n]</B></FONT>;
+        Arrays.fill(res,-1);
+        res[0]=0;
+        Map&lt;Integer,List&lt;Integer&gt;&gt; redmap=new HashMap&lt;&gt;();
+        Map&lt;Integer,List&lt;Integer&gt;&gt; bluemap=new HashMap&lt;&gt;();
+        Set&lt;Integer&gt; redset = new HashSet&lt;&gt;();
+        Set&lt;Integer&gt; blueset = new HashSet&lt;&gt;();
+<A NAME="1"></A>        redset.add(0);
+        blueset.add(0);
+        Queue&lt;node&gt; q =new LinkedList&lt;&gt;();
+        q.add(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new node(0,true,true));
+        for(int[] a:red_edges){
+            if(!redmap.containsKey(a[0])){
+<A NAME="2"></A>                redmap.put(a[0],new ArrayList&lt;&gt;());
+            }
+            redmap.get</B></FONT>(a[0]).add(a[1]);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        for(int[] a:blue_edges){
+            if(!bluemap.containsKey(a[0])){
+                bluemap.put(a[0],new ArrayList&lt;&gt;());
+<A NAME="3"></A>            }
+            bluemap.get</B></FONT>(a[0]).add(a[1]);
+        }
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match17-1.html#3',3,'match17-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int step=0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            step+=1;
+            for(int i=0;i&lt;size;i++){
+                node t = q.poll();
+                if(t.red){</B></FONT>
+                    if(bluemap.containsKey(t.num))
+                    for(int x:bluemap.get(t.num)){
+                        if(!blueset.contains(x)){
+                            blueset.add(x);
+                            if(res[x]==-1)res[x]=step;
+                            q.add(new node(x,false,true));
+                        }
+                    }
+                }
+                if(t.blue){
+                    if(redmap.containsKey(t.num))
+                    for(int x:redmap.get(t.num)){
+                        if(!redset.contains(x)){
+                            redset.add(x);
+                            if(res[x]==-1)res[x]=step;
+<A NAME="4"></A>                            q.add(new node(x,true,false));
+                        }
+                    }
+                <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match17-1.html#4',3,'match17-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

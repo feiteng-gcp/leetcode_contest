@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>80_maystar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>80_maystar.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxAbsValExpr(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        int len = arr1.size();
+        vector&lt;int&gt; num1(len), num2(len), num3(len), num4(len), min1(len), min2(len), min3(len), min4(len);
+        for (int i = 0; i &lt; arr1.size(); i++) {
+            num1[i] = i + arr1[i] + arr2[i];
+            num2[i] = i + arr1[i] - arr2[i];
+            num3[i] = i - arr1[i] + arr2[i];
+            num4[i] = i - arr1[i] - arr2[i];
+        }
+        min1[0] = num1[0], min2[0] = num2[0], min3[0] = num3[0], min4[0] = num4[0];
+        for (int i = 1 ; i &lt; arr1.size(); i++) {
+            min1[i] = min(min1[i - 1], num1[i]);
+            min2[i] = min(min2[i - 1], num2[i]);
+            min3[i] = min(min3[i - 1], num3[i]);
+<A NAME="0"></A>            min4[i] = min(min4[i - 1], num4[i]);
+        }
+        int sum = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt; arr1.size(); i++) {
+            sum = max(sum, num1[i] - min1[i]);
+            sum = max(sum, num2[i] - min2[i]);
+            sum = max(sum, num3[i] - min3[i]);
+            sum = max(sum, num4[i] - min4[i]);
+        }
+        return sum;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

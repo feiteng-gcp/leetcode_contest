@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_chenwang0517.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>221_chenwang0517.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; shortestAlternatingPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; red_edges, vector&lt;vector&lt;int&gt;&gt;&amp; blue_edges) {
+        vector&lt;vector&lt;int&gt;&gt; red(n, vector&lt;int&gt;(0));
+        vector&lt;vector&lt;int&gt;&gt; blue(n, vector&lt;int&gt;(0));
+        for (int i = 0; i &lt; red_edges.size(); ++i) {
+            red[red_edges[i][0]].push_back(red_edges[i][1]);
+        }
+        for (int i = 0; i &lt; blue_edges.size(); ++i) {
+            blue[blue_edges[i][0]].push_back(blue_edges[i][1]);
+        }
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        const int max = 1000;
+        vector&lt;vector&lt;int&gt;&gt; opt(n, vector&lt;int&gt;(2, max));
+        opt[0][0] = opt[0][1] = 0;
+        q.push(make_pair(0, 0));
+        q.push(make_pair(0, 1));
+        while (!q.empty()) {
+            const int x = q.front().first;
+            const int c = q.front().second;
+            q.pop();
+<A NAME="0"></A>            if (c == 0) {
+                for (int i = 0; i &lt; blue[x].size(); ++i) {
+                    const int y = blue[x][i];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (opt[y][1] == max) {
+                        opt[y][1] = opt[x][0] + 1;
+                        q.push(make_pair(y, 1));
+                    }
+                }
+<A NAME="1"></A>            } else {
+                for (int i = 0; i &lt; red[x].size(); ++i) {</B></FONT>
+                    const int y = red[x][i];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    if (opt[y][0] == max) {
+                        opt[y][0] = opt[x][1] + 1;
+                        q.push(make_pair(y, 0));
+                    }
+                }
+            }
+        }
+        vector&lt;int&gt; ans(n, -1);
+        for (int i = 0; i &lt; n; ++i) {
+            if (opt[i][0] &lt; opt[i][1]) {</B></FONT>
+                if (opt[i][0] != max) ans[i] = opt[i][0];
+            } else {
+                if (opt[i][1] != max) ans[i] = opt[i][1];
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

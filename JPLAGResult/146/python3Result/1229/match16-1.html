@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_u2takey2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>205_u2takey2.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -&gt; List[int]:
+        d1, d2 = collections.defaultdict(list), collections.defaultdict(</B></FONT>list)
+        for a, b in red_edges:
+            d1[a].append(b)
+        for a, b in blue_edges:
+            d2[a].append(b)
+        q, r, seen = [(0, 0, True), (0, 0, False)], {0: 0}, {(0, True), (0, False)}
+<A NAME="1"></A>        while q:
+            a, c, isRed = q.pop(0)
+            if a not in r: r[a] = c
+            for b in d2[a] if isRed else d1<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[a]:
+                if (b, not isRed) not in seen:
+                    seen.add((b, not isRed))
+                    q.append((b, </B></FONT>c+1, not isRed))
+        return [r.get(i, -1) for i in range(n)]
+        
+</PRE>
+
+</BODY>
+</HTML>

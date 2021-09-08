@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>30_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>30_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+int anss[222];
+class Solution {
+public:
+    vector&lt;int&gt; shortestAlternatingPaths(int n, vector&lt;vector&lt;int&gt;&gt;&amp; red_edges, vector&lt;vector&lt;int&gt;&gt;&amp; blue_edges) {
+        memset(anss,1,sizeof(anss));
+        anss[0]=0;
+        anss[n]=0;
+        int mr=red_edges.size(),mb=blue_edges.size();
+        queue&lt;int&gt; q;
+        q.push(0);
+        q.push(n);
+        while(!q.empty())
+        {
+            int now=q.front();
+            //printf(&quot;%d\n&quot;,now);
+            q.pop();
+            if(now&lt;n)
+            {
+<A NAME="0"></A>                for(int i=0;i&lt;mr;i++)
+                {
+                    //printf(&quot;*%d %d\n&quot;,red_edges[i][0],red_edges[i][1]);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    if(red_edges[i][0]==now&amp;&amp;anss[red_edges[i][1]+n]&gt;anss[now]+1)
+                    {
+                        anss[red_edges[i][1]+n]=anss[now]+1;
+                        q.push(red_edges[i][1]+n);
+                    }
+                }
+            }
+            else
+            {
+                for(int i=0;i&lt;mb;i++)
+                {
+<A NAME="1"></A>                    //printf(&quot;**%d %d\n&quot;,blue_edges[i][0],blue_edges[i][1]);
+                    if(blue_edges[i][0]==now-n&amp;&amp;anss[blue_edges[i][1]]&gt;anss[now]+1)
+                    {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                        anss[blue_edges[i][1]]=anss[now]+1;
+                        q.push(blue_edges[i][1]);
+                    }
+                }
+            }
+        }
+        vector&lt;int&gt; ans;
+        for(int i=0;i&lt;n;i++)
+        {
+            ans.push_back(min(anss[i],anss[i+n]));
+            if(ans[i]&gt;1000)ans[i]=-1;</B></FONT>
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

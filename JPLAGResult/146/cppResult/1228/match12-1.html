@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>128_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>128_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+  pair&lt;int, int&gt; cache[43][43];
+  bool visited[43][43];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  pair&lt;int, int&gt; dfs(vector&lt;int&gt; &amp;A, int L, int R) {
+    if (R - L == 1) return {0, A[L]};
+<A NAME="1"></A>    if (R - L == 2) return {A[R - 1] * A[L], max(A[L], A[R-1])};
+    if (visited[L][R]) return cache[L][R];</B></FONT>
+    visited[L][R] = true;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int ans = 0x3f3f3f3f;
+    int ansv = 0;
+    for (int i = L + 1; i &lt; R; i++) {
+      auto [lk, lv] = dfs(A, L, i); 
+      auto [rk, rv] = dfs(A, i, R);
+      ans = min(ans, lk + rk + lv * rv);
+      ansv = max(lv, rv);
+    }
+    return cache[L][R] = {ans, ansv};
+  }</B></FONT>
+  int mctFromLeafValues(vector&lt;int&gt;&amp; arr) {
+    memset(visited, 0, sizeof(visited));
+    return dfs(arr, 0, arr.size()).first;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

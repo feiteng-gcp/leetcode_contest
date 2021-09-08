@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>181_yueb95.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>181_yueb95.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int numEquivDominoPairs(int[][] dominoes) {
+        Map&lt;Integer, Map&lt;Integer, Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        int ans = 0;
+        for (int i = 0; i &lt; dominoes.length; i++) {
+            int min = Math.min(dominoes[i][0], dominoes[i][1]);
+            int max = Math.max</B></FONT>(dominoes[i][0], dominoes[i][1]);
+            
+            if (!map.containsKey(min)) {
+                Map&lt;Integer, Integer&gt; tmp = new HashMap&lt;&gt;();
+                tmp.put(max, 1);
+                map.put(min, tmp);
+                continue;
+            }
+            
+            if (!map.get(min).containsKey(max)) {
+                map.get(min).put(max, 1);
+                continue;
+<A NAME="1"></A>            }
+            
+            ans += map.get(min).get(max);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.get(min).put(max, map.get(min).get(max) + 1);
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
