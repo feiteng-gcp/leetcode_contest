@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_zforzero.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>336_zforzero.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DinnerPlates {
+    int count;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int capacity;
+    List&lt;Stack&lt;Integer&gt;&gt; list;
+    TreeSet&lt;Integer&gt; nonEmptySet;
+    TreeSet&lt;Integer&gt; nonFullSet;
+    
+    public DinnerPlates(int capacity) {
+        count = 0;
+<A NAME="1"></A>        t</B></FONT>his.capacity = capacity;
+        list = new ArrayList&lt;&gt;();
+        nonEmptySet = new TreeSet&lt;&gt;();
+        nonFullSet = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new TreeSet&lt;&gt;();
+    }
+    
+    public void push(int val) {
+        if (nonFullSet.isEmpty()) {
+            list.add(new Stack&lt;&gt;());
+            nonFullSet.add(list.size() - 1);
+        }
+        int first = nonFullSet.first();
+        Stack&lt;Integer&gt; stack = list.get</B></FONT>(first);
+        count++;
+<A NAME="2"></A>        if (stack.size() == 0) {
+            nonEmptySet.add(first);
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match3-1.html#2',3,'match3-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (stack.size() == capacity - 1) {
+            nonFullSet.remove(first);
+        }
+        stack.push(val);
+    }
+    
+    public int pop() {
+        if</B></FONT> (count == 0) {
+            return -1;
+<A NAME="3"></A>        }
+        int last = nonEmptySet.last();
+        return popAtStack(last);
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match3-1.html#3',3,'match3-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int popAtStack(int index) {
+        if (index &gt;= list.size()) {
+            return -1;
+        }
+        Stack&lt;Integer&gt; stack = list.get(index);
+        if (stack.size() == 0) {
+            return -1;
+        }</B></FONT>
+        count--;
+        if (stack.size() == capacity) {
+            nonFullSet.add(index);
+        }
+        if (stack.size() == 1) {
+            nonEmptySet.remove(index);
+        }
+        return stack.pop();
+    }
+}
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates obj = new DinnerPlates(capacity);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAtStack(index);
+ */
+</PRE>
+
+</BODY>
+</HTML>

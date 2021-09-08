@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_xyz_zhzho.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>276_xyz_zhzho.cpp</CENTER></H3><HR>
+<PRE>
+struct X {
+  string name;
+  int time;
+  int amount;
+  string city;
+}s[1010];
+
+class Solution {
+private:
+  int cnt;
+  
+  void work(string&amp; x) {
+    int i;
+    
+    s[cnt].name = &quot;&quot;;
+    s[cnt].time = 0;
+    s[cnt].amount = 0;
+    s[cnt].city = &quot;&quot;;
+    
+    for(i = 0; ; i ++) {
+      if(x[i] == ',') {i ++; break;}
+      s[cnt].name = s[cnt].name + x[i];
+    }
+    
+    for(; ; i ++) {
+      if(x[i] == ',') {i ++; break;}
+      s[cnt].time = s[cnt].time * 10 + x[i] - '0';
+    }
+    
+
+    for(; ; i ++) {
+      if(x[i] == ',') {i ++; break;}
+      s[cnt].amount = s[cnt].amount * 10 + x[i] - '0';
+    }
+    
+
+    for(; i &lt; x.length(); i ++) {
+      if(x[i] == ',') {i ++; break;}
+      s[cnt].city = s[cnt].city + x[i];
+    }
+    
+  
+    cnt ++;
+  }
+    
+<A NAME="0"></A>public:
+    vector&lt;string&gt; invalidTransactions(vector&lt;string&gt;&amp; transactions) {
+      
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      cnt = 0;
+      
+      
+      
+      
+      for(int i = 0; i &lt; transactions.size(); i ++) {
+        work(transactions[i]);
+      
+      }
+      
+      vector&lt;string&gt; ans;
+      for(int i = 0; i &lt; cnt; i ++) {
+        if(s[i].amount &gt; 1000) {
+          ans.push_back(transactions[i]);
+          continue;
+        }
+        
+        int fail = 0;
+        
+        for(int j = 0; j &lt; cnt; j ++) {
+          if(s[j].name == s[i].name &amp;&amp; s[j].city != s[i].city &amp;&amp; abs(s[j].time - s[i].time) &lt;= 60) {</B></FONT>
+            fail = 1;
+            break;
+          }
+        }
+        
+        if(fail) {
+          ans.push_back(transactions[i]);
+        }
+      }
+      
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

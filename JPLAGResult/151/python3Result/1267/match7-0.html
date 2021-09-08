@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_liveclass.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_liveclass.py</CENTER></H3><HR>
+<PRE>
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+from collections import OrderedDict
+
+class Solution:
+    def removeZeroSumSublists(self, head: ListNode) -&gt; ListNode:
+        dummy_head = ListNode(0)
+        dummy_head.next = head
+        
+        cumsum_to_node = OrderedDict()
+        cumsum = 0
+        node = dummy_head
+        while node:
+            cumsum += node.val
+            if cumsum in cumsum_to_node:
+                my_cumsum, my_node = cumsum_to_node.popitem(last=True)
+<A NAME="0"></A>                while my_cumsum != cumsum:
+                    my_cumsum, my_node = cumsum_to_node.popitem(last=True)
+                cumsum_to_node[cumsum] = my_node
+                my_node<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.next = node.next
+            else:
+                cumsum_to_node[cumsum] = node
+            node = node.next
+        return dummy_head.n</B></FONT>ext
+</PRE>
+
+</BODY>
+</HTML>

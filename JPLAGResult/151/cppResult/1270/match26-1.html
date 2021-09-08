@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_FoolPerson.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>76_FoolPerson.cpp</CENTER></H3><HR>
+<PRE>
+class DinnerPlates {
+public:
+    DinnerPlates(int capacity): capacity(capacity), rightmostId(-1) {}
+    
+    void push(int val) {
+        if (nonFullIds.empty())
+            nonFullIds.insert(rightmostId + 1);
+        int id = *(nonFullIds.begin());
+        while (stacks.size() &lt;= id) stacks.push_back(stack&lt;int&gt;());
+        stacks[id].push(val);
+        if (stacks[id].size() &lt; capacity) {
+            nonFullIds.insert(id);
+        } else {
+<A NAME="0"></A>            nonFullIds.erase(id);
+        }
+        rightmostId = max(rightmostId, id);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    
+    int pop() {
+        if (rightmostId &lt; 0)
+            return -1;
+        return popAtStack(rightmostId);
+    }
+    
+    int popAtStack(int index) {
+        if (stacks.size() &lt;= index)
+            return -1;
+        if (stacks[index].empty())
+            return -1;
+        int ans = stacks[index].top();
+        stacks[index].pop();
+        nonFullIds.insert(index);
+        if (index == rightmostId) {</B></FONT>
+            while (rightmostId &gt;= 0 &amp;&amp; stacks[rightmostId].empty())
+                --rightmostId;
+        }
+        return ans;
+    }
+    
+    vector&lt;stack&lt;int&gt;&gt; stacks;
+    int capacity;
+    set&lt;int&gt; nonFullIds;
+    int rightmostId;
+};
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates* obj = new DinnerPlates(capacity);
+ * obj-&gt;push(val);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;popAtStack(index);
+ */
+</PRE>
+</BODY>
+</HTML>

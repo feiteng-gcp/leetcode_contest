@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_pernekhan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_pernekhan.cpp</CENTER></H3><HR>
+<PRE>
+#define pb push_back
+#define ll long long
+#define mp make_pair
+#define f first
+#define s second
+#define pii pair &lt; int, int &gt;
+#define pll pair &lt; ll, ll &gt;
+#define all(s) s.begin(), s.end()
+#define sz(s) (int) s.size()
+#define forit(it, s) for(__typeof(s.begin()) it = s.begin(); it != s.end(); it++)
+#define vi vector &lt; int &gt;
+
+
+class DinnerPlates {
+public:
+    vector &lt; int &gt; st[100100];
+    int cap;
+    set &lt; int &gt; S; //set of available
+    set &lt; int &gt; M;
+    
+    
+    DinnerPlates(int cap) {
+        this-&gt;cap = cap;
+        for (int i=0;i&lt;100100;i++) {
+            S.insert(i);
+        }
+<A NAME="0"></A>    }
+    
+    void push(int val) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ind = *S.begin();
+        st[ind].pb(val);
+        M.insert(ind);
+        if (sz(st[ind]) == cap) {
+            S.erase(S.begin());
+        }
+    }
+    
+    int pop() {
+        if (M.empty()) {
+            return -1;
+        }        
+        int ind = *(--M.end());</B></FONT>
+        int val = st[ind].back();
+        st[ind].pop_back();
+<A NAME="1"></A>        if (st[ind].empty()) {
+            M.erase(ind);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (sz(st[ind]) &lt; cap) {
+            S.insert(ind);
+        }
+        return val;
+    }
+    
+    int popAtStack(int index) {
+        if (st[index].empty()) {
+            return -1;
+        }   
+        int val = st[index].back();
+        st[index].pop_back();
+        if (sz(st[index]) &lt;= cap) {
+            S.insert(index);
+        }</B></FONT>
+        if (st[index].empty()) {
+            M.erase(index);
+        }
+        return val;
+    }
+};
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates* obj = new DinnerPlates(capacity);
+ * obj-&gt;push(val);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;popAtStack(index);
+ */
+</PRE>
+</BODY>
+</HTML>

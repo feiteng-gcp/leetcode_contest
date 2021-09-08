@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>4_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+class DinnerPlates {
+public:
+    vector&lt;vector&lt;int&gt;&gt; a;
+    set&lt;int&gt; alive, full;
+    int C;
+    DinnerPlates(int capacity) {
+        a.clear();
+        alive.clear();
+        full.clear();
+        C = capacity;
+    }
+    
+    void push(int val) {
+        if (alive.empty()) {            
+            a.push_back({val});
+            int k = a.size() - 1;
+            if (a[k].size() == C) {
+                full.insert(k);
+            } else {
+                alive.insert(k);
+            }
+        } else {
+            int k = *alive.begin();
+            a[k].push_back(val);
+            if (a[k].size() == C) {
+<A NAME="0"></A>                alive.erase(k);
+                full.insert(k);
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        // cout &lt;&lt; &quot;push: &quot; &lt;&lt; val &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==alive==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : alive) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==full==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : full) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;===&quot; &lt;&lt; endl;
+    }
+    
+    int pop() {
+        int k = -1;
+        if (!alive.empty()) {
+            k = max(k, *alive.rbegin());
+        }
+        if (!full.empty()) {
+            k = max(k, *full.rbegin());
+        }
+        if (k &lt; 0) return -1;
+        int ret = a[k].back();
+        a[k].pop_back();
+        if (a[k].size() == 0) {</B></FONT>
+            if (alive.count(k)) alive.erase(k);
+            if (full.count(k)) full.erase(k);
+        }
+<A NAME="1"></A>        if (a[k].size() == C - 1) {
+            full.erase(k);
+            if (C - 1 &gt; 0) alive.insert(k);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        // cout &lt;&lt; &quot;pop&quot; &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==alive==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : alive) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==full==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : full) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;===&quot; &lt;&lt; endl;
+        return ret;
+    }
+    
+    int popAtStack(int k) {
+        if (a[k].size() == 0) return -1;
+        int ret = a[k].back();
+        a[k].pop_back();
+        if (a[k].size() == 0) {</B></FONT>
+            if (alive.count(k)) alive.erase(k);
+            if (full.count(k)) full.erase(k);
+        }
+        if (a[k].size() == C - 1) {
+            full.erase(k);
+            if (C - 1 &gt; 0) alive.insert(k);
+        }
+        
+        // cout &lt;&lt; &quot;popAtStack &quot; &lt;&lt; k &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==alive==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : alive) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;==full==&quot; &lt;&lt; endl;
+        // for (auto&amp; it : full) cout &lt;&lt; it &lt;&lt; &quot; &quot;;
+        // cout &lt;&lt; endl;
+        // cout &lt;&lt; &quot;===&quot; &lt;&lt; endl;
+        
+        return ret;
+    }
+};
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates* obj = new DinnerPlates(capacity);
+ * obj-&gt;push(val);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;popAtStack(index);
+ */
+</PRE>
+</BODY>
+</HTML>

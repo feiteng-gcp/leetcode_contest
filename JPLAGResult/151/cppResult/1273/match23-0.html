@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>79_xaviercai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>79_xaviercai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int fun(string&amp; s) {
+        char c = s[0];
+        int cnt = 0;
+        int n = s.size();
+<A NAME="0"></A>        for (int i = 0; i &lt; n; ++i) {
+            if (s[i] &lt; c) c = s[i], cnt = 0;
+            if (s[i] == c) ++cnt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        return cnt;
+    }
+    vector&lt;int&gt; numSmallerByFrequency(vector&lt;string&gt;&amp; qs, vector&lt;string&gt;&amp; ws) {
+        int n = qs.size(), m = ws.size();
+        vector&lt;int&gt; ret(n), fws(m);
+        for (int i = 0; i &lt; m; ++i) fws[i] = fun(ws[i]);
+        sort(fws.begin(), fws.end());
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            int q = fun(qs[i]);
+            int l = lower_bound(fws.begin(), fws.end(), q+1) - fws.begin();
+            ret[i] = m - l;
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

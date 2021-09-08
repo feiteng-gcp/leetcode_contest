@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>355_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>355_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; invalidTransactions(String[] t) {
+        
+        Set&lt;String&gt; li = new HashSet&lt;&gt;();
+        int len  =t.length;
+        for(int i=0;i&lt;len;++i){
+            String s = t[i];
+            String y[]= s.split(&quot;,&quot;);
+            int am = Integer.parseInt(y[2]);
+            if(am&gt;1000){
+                li.add(s);
+            }
+            int tm = Integer.parseInt(y[1]);
+            for(int j=0;j&lt;len;++j){
+                if(i==j) continue;
+                String ss = t[j];
+                String ys[]= ss.split(&quot;,&quot;);
+                if(ys[0].equals(y[0])){
+                   
+                    int tm1 = Integer.parseInt(ys[1]);
+            
+                    if(Math.abs(tm1-tm)&lt;=60&amp;&amp;!ys[3].equals(y[3])){
+                        li.add(s);
+                        break;
+                    }
+                }
+            }
+            
+            
+        }
+        List&lt;String&gt; li1 = new ArrayList&lt;&gt;(li);
+        return li1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

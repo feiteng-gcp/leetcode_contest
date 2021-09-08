@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_FoolPerson.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_FoolPerson.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; invalidTransactions(vector&lt;string&gt;&amp; transactions) {
+        int N = transactions.size();
+        vector&lt;Transaction&gt; v;
+        for (int i = 0; i &lt; N; ++i) {
+            const char *s = transactions[i].c_str();
+            v.push_back(Transaction());
+            char name[15];
+            char city[15];
+<A NAME="0"></A>            sscanf(s, &quot;%[^,],%d,%d,%[^,]&quot;, name, &amp;v[i].time, &amp;v[i].amount, city);
+            v[i].name = string(name);
+            v[i].city = string(city);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        vector&lt;string&gt; ans;
+        for (int i = 0; i &lt; N; ++i) {
+            bool ok = true;
+            if (v[i].amount &gt; 1000)
+                ok = false;
+            for (int j = 0; j &lt; N &amp;&amp; ok; ++j) {
+                if (j == i)</B></FONT>
+                    continue;
+                if (abs(v[i].time - v[j].time) &lt;= 60 &amp;&amp; v[i].name == v[j].name &amp;&amp; v[i].city != v[j].city)
+                    ok = false;
+            }
+            if (!ok)
+                ans.push_back(transactions[i]);
+        }
+        return ans;
+    }
+    struct Transaction {
+        string name;
+        int time;
+        int amount;
+        string city;
+    };
+};
+</PRE>
+</BODY>
+</HTML>

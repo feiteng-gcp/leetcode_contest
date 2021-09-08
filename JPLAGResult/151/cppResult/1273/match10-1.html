@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_pernekhan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>74_pernekhan.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    
+    int getCount(string s) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        char c = 'z';
+        for (int i=0;i&lt;s.length();i++) {
+            c = min(c, s[i]);
+        }
+        
+        int cnt = 0;
+        for (int i=0;i&lt;s.length();i++) {
+            cnt += (s[i] == c);
+        }            
+        return cnt;
+    }</B></FONT>
+    
+    vector&lt;int&gt; numSmallerByFrequency(vector&lt;string&gt;&amp; queries, vector&lt;string&gt;&amp; words) {
+        vector &lt; int &gt; S;
+        for (string ww: words) {
+            S.push_back(getCount(ww));
+        }
+        vector &lt; int &gt; ans;
+        for (string qq: queries) {
+            int cnt = getCount(qq);
+            int res = 0;
+            for (int i=0;i&lt;S.size();i++) {
+                if (cnt &lt; S[i]) res++;
+            }
+            ans.push_back(res);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

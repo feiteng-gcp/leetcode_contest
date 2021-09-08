@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>270_jariasf.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>270_jariasf.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        
+        unordered_map&lt;int, ListNode*&gt; hash;
+        ListNode *dummy = new ListNode(0);
+<A NAME="0"></A>        dummy -&gt; next = head;
+        
+        while(true){     
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            ListNode* aux = dummy;
+            hash.clear();
+            int sum = 0;
+            bool sum_zero = false;
+            while( aux ){
+                sum += aux -&gt; val;
+                if( hash.find(sum) != hash.end() ){
+                    sum_zero = true;
+                    hash[sum] -&gt; next = aux -&gt; next;
+                    break;
+                }</B></FONT>
+                hash[sum] = aux;
+                aux = aux -&gt; next;
+            }
+            if( !sum_zero ) break;
+        }
+        return dummy -&gt; next;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

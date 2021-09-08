@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>333_henuzxy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>333_henuzxy.cpp</CENTER></H3><HR>
+<PRE>
+class Node{
+public:
+    string name;
+    int time;
+    int money;
+    string city;
+    Node(string _name,int _time,int _money,string _city){
+        name = _name;
+        time = _time;
+        money = _money;
+        city = _city;
+    }
+    Node(){
+    }
+    void show(){
+        cout &lt;&lt; name &lt;&lt; &quot; &quot; &lt;&lt; time &lt;&lt; &quot; &quot; &lt;&lt; money &lt;&lt; &quot; &quot; &lt;&lt; city &lt;&lt; endl;
+    }
+};
+class Solution {
+public:
+    int ToInt(string str){
+        int res = 0;
+        for(int i=0;i&lt;str.length();++i)
+            res = res*10 + (str[i]-'0');
+        return res;
+    }
+    Node GetNode(string str){
+        Node res;
+        string temp = &quot;&quot;;
+        int Count = 0;
+        for(int i=0;i&lt;str.length();++i){
+            if(str[i] == ','){
+                Count++;
+                if(Count == 1)
+                    res.name = temp;
+                else if(Count == 2)
+                    res.time = ToInt(temp);
+                else if(Count == 3)
+                    res.money = ToInt(temp);
+                temp = &quot;&quot;;
+            }
+            else
+                temp += str[i];
+        }
+        res.city = temp;
+        return res;
+    }
+    vector&lt;string&gt; invalidTransactions(vector&lt;string&gt;&amp; transactions) {
+        for(string str:transactions){
+            vec.push_back(GetNode(str));
+<A NAME="0"></A>        }
+        vector&lt;string&gt; res;
+        set&lt;int&gt; st;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;vec.size();++i){
+            Node &amp;now = vec[i];
+            if(now.money &gt; 1000)
+                st.insert(i);
+            bool have = false;
+            for(int j=i-1;j&gt;=0;--j){</B></FONT>
+                Node &amp;v = vec[j];
+                if(now.name == v.name &amp;&amp; now.city != v.city &amp;&amp; abs(now.time-v.time) &lt;= 60){
+                    have = true;
+                    st.insert(j);
+                }
+            }
+            if(have)
+                st.insert(i);
+        }
+        for(int v:st)
+            res.push_back(transactions[v]);
+        return res;
+    }
+private:
+    vector&lt;Node&gt; vec;
+};
+</PRE>
+</BODY>
+</HTML>

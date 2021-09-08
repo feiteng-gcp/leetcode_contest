@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>371_LameLamb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>371_LameLamb.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public List&lt;String&gt; invalidTransactions(String[] transactions) {
+        List&lt;String&gt; list = new ArrayList();
+        Map&lt;String,ArrayList&lt;Trans&gt;&gt; map = new HashMap();
+        for(String s:transactions){
+            String[] arr = s.split(&quot;,&quot;);
+            String name = arr[0];
+            String time = arr[1]</B></FONT>;
+            String amount = arr[2];
+            String city = arr[3];
+            if(map.containsKey(name)){
+                map.get(name).add(new Trans(time,amount,city,s));
+            }
+            else{
+                ArrayList&lt;Trans&gt; tmp = new ArrayList();
+                tmp.add(new Trans(time,amount,city,s));
+                map.put(name,tmp);
+            }
+        }
+        
+        for(String name:map.keySet()){
+            ArrayList&lt;Trans&gt; tmp = map.get(name);
+            int n = tmp.size();
+            for(int i = 0;i &lt; n;i++){
+                if(Integer.parseInt(tmp.get(i).amount) &gt; 1000){
+                    list.add(tmp.get(i).content);
+                    continue;
+                }
+                for(int j = 0;j &lt; n;j++){
+                    if(i == j){
+<A NAME="1"></A>                        continue;
+                    }
+                    if(!tmp.get(i).city.equals(tmp.get(j).city) &amp;&amp; Math.abs(Integer.parseInt(tmp.get(i).time) - Integer.parseInt(tmp.get(j).time)) &lt;= 60){
+                        list.add(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tmp.get(i).content);
+                        break;
+                    }
+                }
+            }
+        }
+        
+<A NAME="2"></A>        return list;
+    }</B></FONT>
+    
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public class Trans{
+        String time;
+        String amount;
+        String city;
+        String content;
+        
+        Trans(String t,String a,String c,String con){
+            time = t;
+            amount = a;
+            city = c;
+            content = con;
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

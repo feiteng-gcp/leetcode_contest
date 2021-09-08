@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_voldemortx.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_voldemortx.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    typedef struct transS
+    {
+        string name;
+        string city;
+        int amount;
+        int time;
+    }trans;
+    
+    vector&lt;string&gt; invalidTransactions(vector&lt;string&gt;&amp; transactions) 
+    {
+        // bf
+        int n = transactions.size();
+        vector&lt;trans&gt; t(n);
+        trans temp;
+        for(int i = 0; i &lt; n; ++i)
+        {
+            string div = &quot;,&quot;;
+            auto t1 = transactions[i].find(div);
+            temp.name = transactions[i].substr(0, t1);
+            auto t2 = transactions[i].find(div, t1 + 1);
+            //cout &lt;&lt; transactions[i].substr(t1 + 1, t2 - t1 - 1) &lt;&lt; endl;
+<A NAME="0"></A>            temp.time = stoi(transactions[i].substr(t1 + 1, t2 - t1 - 1));
+            //cout &lt;&lt; temp.time &lt;&lt; endl;
+            t1 = t2;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            t2 = transactions[i].find(div, t1 + 1);
+            temp.amount = stoi(transactions[i].substr(t1 + 1, t2 - t1 - 1));
+            temp.city = transactions[i].substr(t2 + 1, transactions[i].size() - t2 - 1);
+            t[i] = temp;
+        }
+        
+        vector&lt;string&gt; ans;
+        for(int i = 0; i &lt; n; ++i)
+        {
+            if(t[i].amount &gt; 1000)
+            {</B></FONT>
+                ans.push_back(transactions[i]);
+<A NAME="1"></A>                continue;
+            }
+                
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int j = 0; j &lt; n; ++j)
+            {
+                if(i == j)
+                    continue;
+                
+                if(t[i].name == t[j].name &amp;&amp; t[i].city != t[j].city &amp;&amp; abs(t[i].time - t[j].time) &lt;= 60)
+                {
+                    ans.push_back(transactions[i]);
+                    break;
+                }
+            }
+        }</B></FONT>
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>155_happybelly.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>155_happybelly.java</CENTER></H3><HR>
+<PRE>
+class DinnerPlates {
+<A NAME="0"></A>    TreeSet&lt;Integer&gt; notFull = new TreeSet&lt;&gt;();
+    TreeSet&lt;Integer&gt; notEmpty = new TreeSet&lt;&gt;();
+    int cap = 0;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;Integer, Stack&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+
+    public DinnerPlates(int capacity) {
+        cap = capacity;
+    }
+    
+    public void push(int val) {</B></FONT>
+        if (notFull.isEmpty()) {
+            int index = map.size();
+            map.put(index, new Stack&lt;&gt;());
+            notFull.add(index);
+        }
+        int index = notFull.first();
+        Stack&lt;Integer&gt; stk = map.get(index);
+<A NAME="1"></A>        stk.push(val);
+        if (stk.size() == cap) {
+            notFull.remove(index);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        notEmpty.add(index);
+    }
+    
+    public int pop() {
+        if (notEmpty.isEmpty()) return -1;
+        int index = notEmpty.last</B></FONT>();
+        Stack&lt;Integer&gt; stk = map.get(index);
+        int v = stk.pop();
+<A NAME="2"></A>        if (stk.isEmpty()) notEmpty.remove(index);
+        notFull.add(index);
+        return v;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int popAtStack(int index) {
+        if (!map.containsKey(index) || !notEmpty.contains(index)) return -1;
+        Stack&lt;Integer&gt; stk = map.get</B></FONT>(index);
+        int v = stk.pop();
+        if (stk.isEmpty()) notEmpty.remove(index);
+        notFull.add(index);
+        return v;
+    }
+}
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates obj = new DinnerPlates(capacity);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAtStack(index);
+ */
+</PRE>
+
+</BODY>
+</HTML>

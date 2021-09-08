@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_mikefong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_mikefong.java</CENTER></H3><HR>
+<PRE>
+class DinnerPlates {
+    List&lt;List&lt;Integer&gt;&gt; room = new ArrayList&lt;&gt;();
+    List&lt;Data&gt; available = new ArrayList&lt;&gt;();
+    int capacity = 0;
+    public DinnerPlates(int capacity) {
+        this.capacity = capacity;
+    }
+    
+    public void push(int val) {
+        if(available.size() == 0){
+            int ind = room.size();
+            List&lt;Integer&gt; l = new ArrayList&lt;&gt;();
+            Data d = new Data(ind, l);
+            l.add(val);
+            room.add(l);
+<A NAME="0"></A>            if(capacity &gt; 1){
+                available.add(d);
+            }
+        }else<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            List&lt;Integer&gt; l = available.get(0).list;
+            int ind = available.get(0).ind;
+            l.add(val);
+            if(l.size() == capacity){
+                available.remove(0);
+            }</B></FONT>
+<A NAME="1"></A>            if(ind &gt;= room.size()){
+                room.add(l);
+            }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    }
+    
+    public int pop() {
+        if(room.size() == 0){
+            return -1;
+        }
+        List&lt;Integer&gt; l = room.get(room.size</B></FONT>()-1);
+        if(l.size() == 0){
+            return -1;
+        }
+        int ind = l.size()-1;
+        int val = l.get(ind);
+        l.remove(ind);
+        
+        if(l.size() == capacity-1){
+<A NAME="2"></A>            available.add(new Data(room.size()-1, l));
+        }
+        if(l.size()==0){
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>room.remove(room.size()-1);
+        }
+        return val;
+    }
+    
+    public int popAtStack(int index) {
+        if(room.size() &lt;= index){
+            return -1;
+        }
+        List&lt;Integer&gt; l = room.get(index);
+        if(l.size() == 0){
+            return -1;
+        }</B></FONT>
+        int ret = l.get(l.size()-1);
+        l.remove(l.size()-1);
+        if(l.size() == capacity -1){
+            //find pos
+            int pos = find(index, available);
+            available.add(pos, new Data(index, l));
+        }
+        return ret;
+        
+    }
+    //find first element that are bigger than index;
+    private int find(int index, List&lt;Data&gt; lists){
+        if(lists.size() == 0){return 0;}
+        int l = 0, h = lists.size()-1;
+        while(l &lt; h){
+            int mid = (l+h)/2;
+            if(lists.get(mid).ind &lt; index){
+                l = mid +1;
+            }else{
+                h = mid;
+            }
+        }
+        return lists.get(l).ind &gt; index?l:l+1;
+    }
+}
+public class Data{
+    int ind;
+    List&lt;Integer&gt; list;
+    public Data(int ind, List&lt;Integer&gt; list){
+        this.ind = ind;
+        this.list = list;
+    }
+}
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates obj = new DinnerPlates(capacity);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAtStack(index);
+ */
+</PRE>
+
+</BODY>
+</HTML>
