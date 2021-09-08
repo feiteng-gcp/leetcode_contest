@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 40;
+const int INF = 1 &lt;&lt; 29;
+int dp[N][N];
+int sum[N];
+
+class Solution {
+public:
+    int k;
+    vector&lt;int&gt; a;
+    int solve(int L, int R) {
+        int&amp; ret = dp[L][R];
+        if (ret &gt;= 0) return ret;
+        if (R - L == 1) return 0;
+        //if (R - L == k) return sum[R] - sum[L];
+        ret = INF;
+        vector&lt;int&gt; d(N, INF), e(N);
+<A NAME="0"></A>        for (int i = L + 1; i &lt; R; ++i) {
+            if ((R - i - 1) % (k - 1) == 0) d[i] = solve(i, R);
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = L; i &lt; R; ++i) cout &lt;&lt; d[i] &lt;&lt; &quot; &quot; &lt;&lt; endl;
+        for (int u = 1; u &lt; k; ++u) {
+            fill(e.begin(), e.end(), INF);
+            for (int i = L; i &lt; R; ++i) {
+                for (int j = i + 1; j &lt; R; ++j) {
+                    if ((j - i - 1) % (k - 1)) continue;</B></FONT>
+                    e[i] = min(e[i], solve(i, j) + d[j]);
+                }
+            }
+            swap(d, e);
+//            for (int i = L; i &lt; R; ++i) cout &lt;&lt; d[i] &lt;&lt; &quot; &quot; &lt;&lt; endl;
+        }
+        ret = d[L] + sum[R] - sum[L];
+        return ret;
+    }
+    int mergeStones(vector&lt;int&gt;&amp; a, int k) {
+        this-&gt;a = a;
+        this-&gt;k = k;
+        int n = a.size();
+        if ((n - 1) % (k - 1)) return -1;
+        for (int i = 1; i &lt;= n; ++i) sum[i] = sum[i - 1] + a[i - 1];
+        memset(dp, 255, sizeof(dp));
+        int ret = solve(0, n);
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
