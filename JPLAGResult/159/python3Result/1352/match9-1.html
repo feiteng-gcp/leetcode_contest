@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>185_yajc.py</TITLE>
+ <TITLE>337_tommyjiang.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>185_yajc.py</CENTER></H3><HR>
+<H3><CENTER>337_tommyjiang.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+<A NAME="0"></A>    def jobScheduling(self, s: List[int], e: List[int], p: List[int]) -&gt; int:
+        z = sorted(zip(e, s, p))
+        e = [x[0] for x in z]
+        s = [x<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[1] for x in z]
+        p = [x[2] for x in z]
         
-        course = [(startTime[i],endTime[i],profit[i]) for i in range(len(startTime))]
-        course.sort(key = lambda x: x[1])
-   
-        def findLast(i):
+        # print(s, e)
         
-            for j in range(i, -1, -1):
-                if course[j][1] &lt;= course[i][0]:
-                    return j
-            return -1
-    
-<A NAME="0"></A>        n = len(startTime)
-        dp = [0] * n
-        
-        dp<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[0]= course[0][2]
-        
-        for i in range(1, n):
+        def binarySearch(start_index): 
+            lo = 0
+            hi = start_index - 1
+ 
+            while lo &lt;= hi: 
+                mid = (lo + hi) // 2
+                if e[mid] &lt;= s[start_index]: 
+                    if e[mid + 1] &lt;= s[start_index]: 
+                        lo = mid + 1
+                    else: 
+                        return mid 
+                else: 
+                    hi = mid - 1
+                    
+            r</B></FONT>eturn -1
+         
+        n = len(s)  
+        table = [0 for _ in range(n)] 
+<A NAME="1"></A>
+        table[0] = p[0]
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, n):  
+            inc = p[i] 
+            l = binarySearch(i) 
             
-            tmp = course[i][2]
-          
-            
-            idx = findLast(i)
-            
-            if idx != -1:
-                tmp += dp[idx]
-            
-            dp[i] = max(dp[i-1], tmp)
-        
-        return dp[</B></FONT>-1]
+            if (l != -1): 
+                inc += table[l]; 
+
+            table[i] = max(inc, table[i - 1]) 
+
+        # print(table)
+        return table[n</B></FONT>-1] 
+
         
 </PRE>
 

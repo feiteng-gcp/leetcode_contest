@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>32_b1552993d0.cpp</TITLE>
+ <TITLE>404_williamchenwl.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,53 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>32_b1552993d0.cpp</CENTER></H3><HR>
+<H3><CENTER>404_williamchenwl.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-  int sidx(char c) {
-    if (c == 'Q') return 0;
-    if (c == 'W') return 1;
-    if (c == 'E') return 2;
-    if (c == 'R') return 3;
-    assert(false);
-    return -1;
-  }
-  int balancedString(string s) {
-    int n = s.size();
-    int ans = n;
-    vector&lt;int&gt; cnt[4];</B></FONT>
-    for (int i = 0; i &lt; 4; i++) cnt[i].push_back(0);
-    for (int i = 0; i &lt; s.size(); i++) {
-      for (int j = 0; j &lt; 4; j++) {
-        cnt[j].push_back(cnt[j][i]);
-      }
-      cnt[sidx(s[i])][i+1]++;
+    int convert(char ch){
+        if (ch == 'Q') return 0;
+        if (ch == 'W') return 1;
+        if (ch == 'E') return 2;
+        if (ch == 'R') return 3;
+        return 0;
     }
     
-    for (int i = 0; i &lt; s.size(); i++) {
-      int cm = 0;
-      for (int j = 0; j &lt; 4; j++) {
-        int l = i;
-        int r = n;
-        while (l &lt; r) {
-          int mid = (l + r) / 2;
-          if (cnt[j][i] + cnt[j][n] - cnt[j][mid] &gt; n/4) {
-            l = mid + 1;
-          } else {
-            r = mid;
-          }
-        }
-        if (cnt[j][i] + cnt[j][n] - cnt[j][l] &lt;= n/4) {
-          cm = max(cm, l-i);
-        } else {
-          cm = n;
-        }
-      }
-      ans = min(ans, cm);
+    int check(vector&lt;int&gt;count, vector&lt;int&gt;nums){</B></FONT>
+        for (int t = 0; t &lt; 4; t++)
+            if (nums[t] &gt; 0){
+                if (count[t] &lt; nums[t])
+                    return false;
+            }
+        return true;
     }
-    return ans;
-  }
+<A NAME="1"></A>    int balancedString(string s) {
+        vector&lt;int&gt; nums(4, 0);
+        for (int i = 0;i &lt; s.length();i++)
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            nums[convert(s[i])]++;
+        vector&lt;int&gt; count(4, 0);
+        for (int t = 0; t &lt; 4;t++)
+            nums[t] -= s.length() / 4;
+        int left = 0;
+        int ans = s.length();
+        for (int i = 0; i &lt; s.length();i++){
+            count[convert(s[i])]++;
+            count[convert(s[left])]--;</B></FONT>
+            while(left &lt; i &amp;&amp; check(count, nums)){
+                left++;
+                count[convert(s[left])]--;
+            }
+            if (check(count, nums))
+                return 0;
+            count[convert(s[left])]++;
+            if (check(count, nums))
+                ans = min(ans, i - left + 1);
+        }
+        return ans;
+    }
 };
 </PRE>
 </BODY>

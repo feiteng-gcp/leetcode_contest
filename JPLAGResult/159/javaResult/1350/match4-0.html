@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>74_luchy0120.java</TITLE>
+ <TITLE>454_insidelee.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>74_luchy0120.java</CENTER></H3><HR>
+<H3><CENTER>454_insidelee.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public List&lt;String&gt; removeSubfolders(String[] f) {
-        Set&lt;String&gt; st =new HashSet&lt;&gt;();
-        for(String ff:f){
-            st.add(ff);
-        }
-        List&lt;String&gt; li = new ArrayList&lt;&gt;();
-        ot:for(String ff:f){
-            int sz = ff.length();
-            for(int j=1;j&lt;sz;++j){
-                if(ff.charAt(j)=='/'){
-                String tmp = ff.substring(0,j);
-                if(st.contains(tmp)){
-                    continue ot;
+    public List&lt;String&gt; removeSubfolders(String[] folder) {
+            Arrays.sort(folder, (a, b)-&gt;a.length() - b.length());
+            List&lt;String&gt; res = new ArrayList&lt;&gt;();
+            Set&lt;String&gt; set = new HashSet&lt;&gt;();
+            for (String path : folder) {
+                String[] s = path.split(&quot;\\/&quot;);
+                String temp = &quot;&quot;;
+                boolean seen = false;
+                for (int i = 1; i &lt; s.length; i++) {
+                    temp += s[i];
+                    if (set.contains(temp)) seen = true;
                 }
-                }
-            } 
-            li.add(ff);
+                set.add(temp);
+                if (!seen) res.add(path);
+            }
+            return res;
         }
-        return li;
-    }
 }</B></FONT>
 </PRE>
 

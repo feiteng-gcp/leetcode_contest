@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>188_timFan.cpp</TITLE>
+ <TITLE>446_WindQAQ.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>188_timFan.cpp</CENTER></H3><HR>
+<H3><CENTER>446_WindQAQ.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        vector&lt;tuple&lt;int,int,int&gt;&gt; intervals;
-        for(int i=0; i&lt;startTime.size(); i++) {
-            intervals.push_back(make_tuple(endTime[i], startTime[i], profit[i]));
+        int n = startTime.size();
+        
+<A NAME="1"></A>        vector&lt;vector&lt;int&gt;&gt; arr;
+        for (int i = 0; i &lt; n; i++) arr.push_back({startTime[i], endTime[i], profit[i]});</B></FONT>
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        sort(arr.begin(), arr.end(), [](vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+            return a[1] &lt; b[1];
+        });
+        
+        vector&lt;int&gt; dp(n, 0);
+        dp[0] = arr[0][2];
+        
+        for (int i = 1; i &lt; n; i++) {
+            int p = arr[i][2];</B></FONT>
+            int j = helper(arr, i);
+            if (j != -1) p += dp[j];
+            dp[i] = max(p, dp[i-1]);
         }
-        sort(intervals.begin(), intervals.end());
-        vector&lt;int&gt; dp(startTime.size());
-        int res = 0;
-        for(int i=0; i&lt;startTime.size(); i++) {</B></FONT>
-            int left_most = bs(intervals, get&lt;1&gt;(intervals[i]));
-            if(left_most == -1)
-                dp[i] = get&lt;2&gt;(intervals[i]);
-            else
-                dp[i] = get&lt;2&gt;(intervals[i]) + dp[left_most];
-            if(i&gt;0)
-                dp[i] = max(dp[i-1], dp[i]);
-            res = max(res, dp[i]);
-        }
-        return res;
+        
+        return dp[n-1];
     }
     
-    int bs(vector&lt;tuple&lt;int,int,int&gt;&gt; const &amp; array, int target) {
-        int l = 0;
-        int r = array.size();
-        while(l&lt;r) {
-            int mid = (l+r)/2;
-            if(get&lt;0&gt;(array[mid])&lt;=target)
-                l = mid+1;
-            else
-                r = mid;
+    
+    int helper(vector&lt;vector&lt;int&gt;&gt;&amp; arr, int i) {
+        for (int j = i - 1; j &gt;= 0; j--) {
+            if (arr[j][1] &lt;= arr[i][0]) return j;
         }
-        return l-1;
+        return i;
     }
 };
 </PRE>

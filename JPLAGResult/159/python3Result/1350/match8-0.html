@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>40_huizew.py</TITLE>
+ <TITLE>53_ShenTM.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,29 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>40_huizew.py</CENTER></H3><HR>
+<H3><CENTER>53_ShenTM.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def removeSubfolders(self, A: List[str]) -&gt; List[str]:
-        A.sort()
+    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
         ans = []
+        folder = sorted([file[1:].split(&quot;/&quot;) for file in folder])
         root = {}
-        for raw in A:
-            cur = root
-            fail = False
-            for w in raw.split(&quot;/&quot;):
-                if w not in cur:
-                    cur[w] = {}
-<A NAME="0"></A>                cur = cur[w]
-                if &quot;#&quot; in cur:
-                    fail = True
-                    b<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>reak
-            if not fail:
-                cur[&quot;#&quot;] = True
-                ans.append(raw)
-        re</B></FONT>turn ans
-                    
-                
+        for file in folder:
+<A NAME="0"></A>            now = root
+            exist = False
+            for c in file:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if c not in now:
+                    now[c] = {}
+                now = now[c]
+                if &quot;#&quot; in now:
+                    exist = True
+                    break
+            if not exist:
+                now[&quot;#&quot;] = {}
+                ans.append(</B></FONT>&quot;/&quot; + &quot;/&quot;.join(file))
+        return ans
+        
+        
+        
+        
+        
+        
+        
 </PRE>
 
 </BODY>

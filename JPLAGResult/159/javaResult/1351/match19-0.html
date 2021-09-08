@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>400_yrclamb.java</TITLE>
+ <TITLE>336_shikharsharad.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>400_yrclamb.java</CENTER></H3><HR>
+<H3><CENTER>336_shikharsharad.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int balancedString(String s) {
-    	int Qcount = 0;
-    	int Wcount = 0;
-    	int Ecount = 0;
-    	int Rcount = 0;
-<A NAME="0"></A>    	int target = s.length() / 4;
-    	for(int i = 0; i &lt; s.length(); i++) {
-    		char c = s.charAt(i);
-    		if(c == 'Q<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>') Qcount++;
-    		else if(c == 'W') Wcount++;
-    		else if(c == 'E') Ecount++;
-    		else if(c == 'R') Rcount++;
-    	}</B></FONT>
-    	Qcount -= target;
-    	Wcount -= target;
-    	Ecount -= target;
-    	Rcount -= target;
-    	
-    	int Qs = 0;
-    	int Ws = 0;
-    	int Es = 0;
-    	int Rs = 0;
-    	
-    	int sidx = 0;
-<A NAME="1"></A>    	int ans = Integer.MAX_VALUE;
-    	for(int i = 0; i &lt; s.length(); i++) {
-    		char c = s.charAt(i);
-    		if(c == 'Q<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>') Qs++;
-    		else if(c == 'W') Ws++;
-    		else if(c == 'E') Es++;
-    		else if(c == 'R') Rs++;</B></FONT>
-    		
-    		while(sidx &lt; s.length() &amp;&amp; Qs &gt;= Qcount &amp;&amp; Ws &gt;= Wcount &amp;&amp; Es &gt;= Ecount &amp;&amp; Rs &gt;= Rcount) {
-<A NAME="2"></A>    			ans = Math.min(ans, (i - sidx + 1));
-    			c = s.charAt(sidx);
-    			sidx++;
-    			if(c == 'Q') Qs--<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
-        		else if(c == 'W') Ws--;
-        		else if(c == 'E') Es--;
-        		else if(c == 'R') Rs--;
-    		}</B></FONT>
-    		
-    	}
-    	
-    	return ans;
-    	
+        int q = 0, w = 0, e = 0, r = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; s.length(); i++) {
+            switch (s.charAt(i)) {
+                case 'Q':
+                    q++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+                case 'R':
+                    r++;
+                    break;
+
+            }</B></FONT>
+        }
+        int length = s.length() / 4;
+        int extraQ = Math.max(0, q - length);
+        int extraW = Math.max(0, w - length);
+        int extraE = Math.max(0, e - length);
+        int extraR = Math.max(0, r - length);
+        int start = 0, end = -1;
+        int qCount = 0, wCount = 0, eCount = 0, rCount = 0;
+        int min = s.length();
+<A NAME="1"></A>        while (start &lt; s.length()) {
+            if (qCount &gt;= extraQ &amp;&amp; wCount &gt;= extraW &amp;&amp; eCount &gt;= extraE &amp;&amp; rCount &gt;= extraR) {
+                min = Math.min(min, end - start + 1);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>switch (s.charAt(start)) {
+                    case 'Q':
+                        qCount--;
+                        break;
+                    case 'W':
+                        wCount--;
+                        break;
+                    case 'E':
+                        eCount--;
+                        break;
+                    case 'R':
+                        rCount--;
+<A NAME="2"></A>                        break;
+                }</B></FONT>
+                start++;
+            } else if (end &lt; <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s.length() - 1) {
+                end++;
+                switch (s.charAt(end)) {
+                    case 'Q':
+                        qCount++;
+                        break;
+                    case 'W':
+                        wCount++;
+                        break;
+                    case 'E':
+                        eCount++;
+                        break;
+                    case 'R':
+                        rCount++;
+                        break;
+
+                }</B></FONT>
+            } else {
+                break;
+            }
+        }
+        return min;
     }
 }
 </PRE>

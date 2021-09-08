@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>270_thread_start.cpp</TITLE>
+ <TITLE>127_zuomingzh.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,64 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>270_thread_start.cpp</CENTER></H3><HR>
+<H3><CENTER>127_zuomingzh.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-    
-    const unordered_map&lt;char, int&gt; char_map{{'Q', 0}, {'W', 1}, {'E', 2}, {'R', 3}};
-    array&lt;int, 4&gt; a;
-    
-    
-    bool good(array&lt;int, 4&gt;&amp; a, int n) {
-        assert(n % 4 == 0);
-        return *max_element(a.begin(), a.end()) &lt;= n / 4;
-    }
-    
-    bool can(string&amp; s, int len) {
-        int n = s.length();
-        
-        array&lt;int, 4&gt; b = a;
-        for (int i = 0; i &lt; len; i++) {
-<A NAME="0"></A>            b[char_map.at(s[i])]--;
-        }
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (good(b, n))
-            return true;
-        
-        for (int i = 1; i + len - 1 &lt; n; i++) {
-            b[char_map.at(s[i - 1])]++;
-            b[char_map.at(s[i + len - 1])]--;
-            if (good(b, n))
-                return true;
-        }
-        
-        return false;
-    }</B></FONT>
-public:
-    
-    Solution() {
-        a = {};
-    }
+<A NAME="0"></A>public:
     int balancedString(string s) {
-        int n = s.length();
-        
-        for (auto const&amp; c : s) {
-            a[char_map.at(c)]++;
+        int Qc = 0, Wc = 0, Ec = 0, Rc = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto c : s) {
+            if (c == 'Q') ++Qc;
+            else if (c == 'W') ++Wc;
+            else if (c == 'E') ++Ec;
+            else ++Rc;
+        }</B></FONT>
+        int total = s.size();
+        int target = total / 4;
+        if (Qc == target &amp;&amp; Wc == target &amp;&amp; Ec == target &amp;&amp; Rc == target) return 0;
+        int start = 0, end = total;
+        while (start &lt; end) {
+<A NAME="1"></A>            int mid = (start + end) / 2;
+            int Qr = Qc, Wr = Wc, Er = Ec, Rr = Rc;
+            int i = 0, j = 0;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            while (j &lt; mid) {
+                char c = s[j];
+                if (c == 'Q') --Qr;
+                else if (c == 'W') --Wr;
+                else if (c == 'E') --Er;
+                else --Rr;</B></FONT>
+                ++j;
+<A NAME="2"></A>            }
+            bool pass = false;
+            if (Qr &lt;= target &amp;&amp; Wr &lt;= target &amp;&amp; Er &lt;= target &amp;&amp; Rr &lt;= target) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                pass = true;
+            }
+            while (!pass &amp;&amp; j &lt; s.size()) {
+                char c = s[j];
+                if (c == 'Q') --Qr;
+                else if (c == 'W') --Wr;
+                else if (c == 'E') --Er;
+                else --Rr;
+                ++j;</B></FONT>
+                c = s[i++];
+                if (c == 'Q') ++Qr;
+                else if (c == 'W') ++Wr;
+                else if (c == 'E') ++Er;
+                else ++Rr;
+                if (Qr &lt;= target &amp;&amp; Wr &lt;= target &amp;&amp; Er &lt;= target &amp;&amp; Rr &lt;= target) {
+                    pass = true;
+                }
+            }
+            if (pass) {
+                end = mid;
+            }
+            else {
+                start = mid + 1;
+            }
         }
-        
-<A NAME="1"></A>        if (good(a, n))
-            return 0;
-        
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int l = 1, r = n;
-        
-        while (l &lt;= r) {
-            int mid = (l + r) / 2;
-            
-            if (can(s, mid))
-                r = mid - 1;
-            else 
-                l = mid + 1;
-        }
-        
-        return l;
+        return start;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

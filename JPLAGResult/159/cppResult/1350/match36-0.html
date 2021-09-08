@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>89_suiyuan1992.cpp</TITLE>
+ <TITLE>69_tianhao2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,25 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>89_suiyuan1992.cpp</CENTER></H3><HR>
+<H3><CENTER>69_tianhao2.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; a) {
-        sort(a.begin(),a.end());
-<A NAME="0"></A>        vector&lt;string&gt;ret;
-        unordered_set&lt;string&gt;st;
-        for(int i=0;i&lt;a.size();i++){
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool f = false;
-            for(int j=0;j+1&lt;a[i].size();j++){
-                if(a[i][j+1]=='/'&amp;&amp;st.find(a[i].substr(0,j+1))!=st.end()){
-                    f=true;
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        unordered_set&lt;string&gt; fds;
+        for (string fd:folder) {
+            fds.insert(fd);
+<A NAME="0"></A>        }
+        vector&lt;string&gt; ret;
+        for (string fd:folder) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool skip=false;
+            for (int i=0; i&lt;fd.size(); i++) {
+                if (fd[i]=='/' &amp;&amp; fds.find(fd.substr(0, i))!=fds.end()) {
+                    skip=true;
                     break;
                 }
             }
-            if(!f){
-                st.insert(a[i]);
-                ret.push_back(a[i]);
+            if (!skip) {
+                ret.push_back(fd);
             }
         }
         return ret;

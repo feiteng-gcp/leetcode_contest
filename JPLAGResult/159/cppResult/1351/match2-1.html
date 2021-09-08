@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>188_timFan.cpp</TITLE>
+ <TITLE>168_liuyubobobo.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>188_timFan.cpp</CENTER></H3><HR>
+<H3><CENTER>168_liuyubobobo.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+
+private:
+    vector&lt;char&gt; charv = {'Q', 'W', 'E', 'R'};
+
 public:
     int balancedString(string s) {
-        unordered_map&lt;char, int&gt; count;
-        for(auto c:s)
-            count[c]++;
-        unordered_map&lt;char, int&gt; target;
-        int val = s.size()/4;
-        int res = 0;
-        for(auto x:count) {
-            if(x.second&gt;val)
-                target[x.first] = x.second-val;
+
+        map&lt;char, int&gt; freq;
+        for(char c: charv) freq[c] = 0;
+        for(char c: s) freq[c] ++;
+
+        int m = s.size() / 4;
+        for(const pair&lt;char, int&gt;&amp; p: freq)
+            if(p.second &gt;= m) freq[p.first] -= m;
+            else freq[p.first] = 0;
+
+//        for(char c: charv) cout &lt;&lt; &quot;(&quot; &lt;&lt; c &lt;&lt; &quot;:&quot; &lt;&lt; freq[c] &lt;&lt; &quot;)&quot;; cout &lt;&lt; endl;
+        map&lt;char, int&gt; cur;
+        for(char c: charv) cur[c] = 0;
+        int l = 0, r = -1, res = INT_MAX;
+        while(l &lt; s.size()){
+            if(r + 1 &gt;= s.size() || ok(cur, freq)) cur[s[l ++]] --;
+            else if(r + 1 &lt; s.size()) cur[s[++r]] ++;
+            if(ok(cur, freq)) res = min(res, r - l + 1);
         }
-        if(target.size()==0)
-            return 0;
-        int start_idx = -1;
-        int end_idx = -1;
-        int num = target.size();
-        int j=0;
-        for(int i=0; i&lt;s.size(); i++) {
-            if(target.count(s[i])) {
-                target[s[i]]--;
-                if(target[s[i]]==0)
-                    num--;
-            }
-            while(num==0&amp;&amp;j&lt;=i) {
-                if(start_idx==-1||i-j+1&lt;end_idx-start_idx+1) {
-                    start_idx = j;
-                    end_idx = i;
-                }
-                if(target.count(s[j])) {
-                    target[s[j]]++;
-                    if(target[s[j]]==1)
-                        num++;
-                }
-                j++;
-            }
-        }
-        return end_idx-start_idx+1;
+        return res;
+    }
+
+private:
+    bool ok(map&lt;char, int&gt;&amp; cur, map&lt;char, int&gt;&amp; demand){
+        for(char c: charv)
+            if(cur[c] &lt; demand[c]) return false;
+        return true;
     }
 };</B></FONT>
 </PRE>

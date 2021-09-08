@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>79_face4.cpp</TITLE>
+ <TITLE>9_hitonanode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>79_face4.cpp</CENTER></H3><HR>
+<H3><CENTER>9_hitonanode.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+#define FOR(i, begin, end) for(int i=(begin),i##_end_=(end);i&lt;i##_end_;i++)
+#define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i&gt;=i##_begin_;i--)
+#define REP(i, n) FOR(i,0,n)
+<A NAME="0"></A>#define IREP(i, n) IFOR(i,0,n)
+#define ALL(x) (x).begin(), (x).end()
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    int balancedString(string s) {
-        int n = s.length();
-        map&lt;char,int&gt; cnt;
-        for(char c : s) cnt[c]++;
-        int l = 0, r = 0, ans = n;
-        auto ng = [&amp;]()-&gt;bool{
-<A NAME="0"></A>            for(auto p : cnt)   if(p.second &gt; n/4)  return true;
-            return false;
-        };
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(l &lt; n){
-            while(r &lt; n &amp;&amp; ng()){
-                cnt[s[r]]--;
-                r++;
-            }
-            if(r == n &amp;&amp; ng())  break;
-            ans = min(ans, r-l);
-            cnt[s[l]]++;
-            l++;
-        }
-        return ans;
+    int c2i(char c)
+    {
+        if (c == 'Q') return 0;
+        if (c == 'W') return 1;
+        if (c == 'E') return 2;
+        if (c == 'R') return 3;
+        return -1;
     }
-};</B></FONT>
+    int balancedString(string s) {
+        vector&lt;int&gt; v(s.length());
+        REP(i, s.length()) v[i] = c2i(s[i]);
+        
+        int N = s.length();</B></FONT>
+        vector&lt;int&gt; count_(4);
+        int ret = N;
+
+        int r = N - 1;
+        REP(l, N)
+        {
+            while (*max_element(ALL(count_)) &lt;= N / 4 and r &gt;= 0)
+            {
+                count_[v[r]]++;
+                r--;
+            }
+            while (*max_element(ALL(count_)) &gt; N / 4 and r &lt; N - 1)
+            {
+                r++;
+                count_[v[r]]--;
+            }
+            if (*max_element(ALL(count_)) &gt; N / 4) break;
+            ret = min(ret, r - l + 1);
+            count_[v[l]]++;
+        }
+        return ret;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

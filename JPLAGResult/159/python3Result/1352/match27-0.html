@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>452_suibianfahui.py</TITLE>
+ <TITLE>45_Hexadecimal.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,18 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>452_suibianfahui.py</CENTER></H3><HR>
+<H3><CENTER>45_Hexadecimal.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from collections import defaultdict
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        starts =defaultdict(list)
-        ends = defaultdict(list)
-        for i in range(len(startTime)):
-            s,e,p = startTime[i], endTime[</B></FONT>i],profit[i]
-            t = (s,e,p)
-            starts[s].append(t)
-            ends[e].append(t)
-        sk = sorted(starts.keys())
-        ek = sorted(ends.keys())
-        i,j=0,0
-        dp = defaultdict(int)
-        mxp = 0
-        lastt = ek[-1]
-        while j &lt;len(ek):
-            s=lastt if i&gt;= len(sk) else sk[i]
-            e=ek[j]
-            mnt = min(s,e)
-            if mnt==s:
-                dp[mnt] = mxp
-                i+=1
-            if mnt==e:
-                for t in ends[e]:
-                    ss = t[0]
-                    pp = t[2]
-                    mxp = max(mxp, dp[ss]+pp)
-                dp[mnt] = mxp
-                j+=1
-        return mxp
-        
+        info = sorted(list(zip(startTime, endTime, profit)), key = lambda x: x[1])
+<A NAME="0"></A>        n = len(info)
+        stack = [(float('-inf'), 0)]
+        for s, e, p in info:
+            j <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= bisect.bisect_right(stack, (s, float('inf')))
+            if p + stack[j - 1][1] &gt; stack[-1][1]:
+                stack.append((e, p + stack[j - 1][</B></FONT>1]))
+        return stack[-1][1]
 </PRE>
 
 </BODY>

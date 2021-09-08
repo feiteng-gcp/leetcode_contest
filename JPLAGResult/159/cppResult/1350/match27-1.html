@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>345_ddmike.cpp</TITLE>
+ <TITLE>18_swf.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>345_ddmike.cpp</CENTER></H3><HR>
+<H3><CENTER>18_swf.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        sort(folder.begin(), folder.end());
-        vector&lt;string&gt; ans;
-        ans.push_back(folder[0]);
-        int last = 0;
-        for (int i = 1; i &lt; folder.size(); ++i)
-        {
-            if (folder[i].find(folder[last]) == 0 &amp;&amp; folder[i].size() &gt; folder[last].size() &amp;&amp; folder[i][folder[last].size()] == '/')
-            {</B></FONT>
-                continue;
+        sort(begin(folder), end(folder));
+        vector&lt;string&gt; res;
+<A NAME="0"></A>        unordered_set&lt;string&gt; se;
+        for(auto &amp;s:folder){
+            int n=s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool rep=false;
+            for(int i=0;i&lt;n;i++){
+                if(s[i]=='/' &amp;&amp; i&gt;0){
+                    if(se.find(s.substr(0,i)) != se.end()){
+                        rep=true;break;
+                    }
+                }
             }
-            else
-            {
-                ans.push_back(folder[i]);
-                last = i;
+            if(!rep){
+                se.insert(s);
+                res.push_back(s);
             }
-        }
-        return ans;
+        }</B></FONT>
+        return res;
     }
 };
 </PRE>

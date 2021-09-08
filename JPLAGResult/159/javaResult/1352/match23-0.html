@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>4_@_deleted_user_1a9d00f9.java</TITLE>
+ <TITLE>290_shuhu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,73 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>4_@_deleted_user_1a9d00f9.java</CENTER></H3><HR>
+<H3><CENTER>290_shuhu.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-import java.util.Comparator;
-
-<A NAME="0"></A>class Solution {
-
-	public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-		Job[] jobs = n<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ew Job[startTime.length];
-		for (int i = 0; i &lt; startTime.length; i++) {
-<A NAME="1"></A>			jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
-		}</B></FONT>
-		return schedule(jobs);
-	}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
-
-	public int binarySearch(Job jobs[], int index) {
-		int lo = 0, hi = index - 1;
-
-		while (lo &lt;= hi) {
-			int mid = (lo + hi) / 2;
-			if (jobs[mid].finish &lt;= jobs[index].start) {
-				if (jobs[mid + 1].finish &lt;= jo</B></FONT>bs[index].start)
-					lo = mid + 1;
-				else
-					return mid;
-			} else
-				hi = mid - 1;
-		}
-
-		return -1;
-	}
-
-<A NAME="2"></A>	public int schedule(Job jobs[]) {
-		Arrays.sort(jobs, new JobComparator());
-
-		int n = jobs.l<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ength;
-		int table[] = new int[n];
-		table[0] = jobs[0].profit;
-
-		for (int i = 1; i &lt; n; i++) {
-			int inclProf = jobs[i].profit;
-			int l = binarySearch(jobs, i);
-			if (l != -1)</B></FONT>
-				inclProf += table[l];
-
-<A NAME="3"></A>			table[i] = Math.max(inclProf, table[i - 1]);
-		}
-
-		return table[n<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match23-1.html#3',3,'match23-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> - 1];
-	}
-
-	class Job {
-		int start, finish, profit;
-
-		Job(int start, int finish, int profit) {
-			this.start = start;
-			this.finish = finish;
-			this.profit = profit;
-		}
-	}</B></FONT>
-
-	class JobComparator implements Comparator&lt;Job&gt; {
-		public int compare(Job a, Job b) {
-			return a.finish &lt; b.finish ? -1 : a.finish == b.finish ? 0 : 1;
-		}
-	}
-
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int n = startTime.length;
+        int[][] tasks = new int[n][3];
+        for (int i = 0; i &lt; n; i++) {
+            tasks[i] = new int[]{startTime[i], endTime[i], profit[i]};
+        }
+        Arrays.sort(tasks, (x, y) -&gt; x[1] ==</B></FONT> y[1] ? Integer.compare(x[0], y[0]) : Integer.compare(x[1], y[1]));
+        // for (int i = 0; i &lt; n; i++) {
+        //     System.out.println(Arrays.toString(tasks[i]));
+        // }
+        // the max profit if we execute task i
+        int[] profits = new int[n];
+        profits[0] = tasks[0][2];
+<A NAME="1"></A>        int maxProfit = tasks[0][2];
+        for (int i = 1; i &lt; n; i++) {
+            int prevMaxProfit = getPrevMaxProfit(tasks, i, profits);
+            profits[i] = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(tasks[i][2] + prevMaxProfit, profits[i - 1]);
+            maxProfit = Math.max(maxProfit, profits[i]);
+        }
+        // System.out.println(Arrays.toString(profits));
+        return maxProfit;
+<A NAME="2"></A>    }
+    
+    private int getPrevMaxProfit(int[][] tasks, int index, int[] profits) {</B></FONT>
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match23-1.html#2',3,'match23-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int start = 0, end = index - 1;
+        while (start + 1 &lt; end) {
+            int mid = start + (end - start) / 2;
+            if (tasks[mid][1] &lt;= tasks[index][0]) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }</B></FONT>
+        int startIndex = tasks[start][1] &lt;= tasks[index][0] ? start : end;
+        int maxProfit = 0;
+        for (int i = startIndex; i &lt; index; i++) {
+            if (tasks[i][1] &lt;= tasks[index][0]) {
+                maxProfit = Math.max(maxProfit, profits[i]);
+            } else {
+                break;
+            }
+        }
+        return maxProfit;
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>243_wangpandada.java</TITLE>
+ <TITLE>363_whatsgood.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,67 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>243_wangpandada.java</CENTER></H3><HR>
+<H3><CENTER>363_whatsgood.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    // Q:0, W: 1, E: 2, R: 3
     public int balancedString(String s) {
-        int[] count = new int[4];
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        
         for (char c : s.toCharArray()) {
-            int val = map(c);
-            count[val]++;
-        }
-        List&lt;Integer&gt; larger = new ArrayList&lt;&gt;();
-        int base = s.length() / 4;
-        for (int i = 0; i &lt; count.length; i++) {
-            if (count[i] &gt; base) {
-                larger.add(i);
-            }
-        }
-        if (larger.size() == 0) {
-            return 0;
-        }
-        int[] targetSub = new int[4];
-        for (int i : larger) {
-            targetSub[i] = count[i] - base;
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
         
-        int minLen = s.length();
-        int left = 0;
-        int right = 0;
-        count = new int[4];
-<A NAME="0"></A>        while (right &lt; s.length()) {
-            count[map(s.charAt(right))]++;
-            while (left &lt;= right &amp;&amp; satisfy(targetSub, count)) {
-                minLen = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(minLen, right - left + 1);
-                count[map(s.charAt(left))]--;
-                left++;
+        int left = 0, right = 0, min = Integer.MAX_VALUE;
+        while (right &lt; s.length() &amp;&amp; left &lt; s.length()) {
+            char c = s.charAt(right++);
+            map.put(c, map.get(c) - 1);
+<A NAME="0"></A>            while (left &lt; s.length() &amp;&amp; isValid(map, s.length())) {
+                min = Math.min(min, right - left);
+                char d = s.charAt(left++);
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(d, map.get(d) + 1);
             }
-            right++;
         }
         
-        return minLen;
-    }
+        return min;
+<A NAME="1"></A>    }
     
-    private int map(char c</B></FONT>) {
-        if (c == 'Q') {
-            return 0;
-        }
-        if (c == 'W') {
-            return 1;
-        }
-        if (c == 'E') {
-            return 2;
-        }
-        if (c == 'R') {
-            return 3;
-        }
-        return -1;
-<A NAME="1"></A>    } 
-    
-    private boolean satisfy(int[] base, int[] cur) {
-        for (int i = 0; i &lt; 4; i++) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (cur[i] &lt; base[i]) {
+    private boolean isValid(Map&lt;Character, Integer&gt; map, int length) {
+        for (Integer i</B></FONT> : map.values()) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if (i &gt; (length / 4)) {
                 return false;
             }
         }

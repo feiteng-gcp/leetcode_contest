@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>118_chen_tr.cpp</TITLE>
+ <TITLE>129_vieta.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,69 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>118_chen_tr.cpp</CENTER></H3><HR>
+<H3><CENTER>129_vieta.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int convert(char c) {
-        if (c == 'Q') return 0;
-        if (c == 'W') return 1;
-        if (c == 'E') return 2;
-<A NAME="0"></A>        return 3;
-    }
-    
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool check(int *a, int *b) {
-        for (int i = 0; i &lt; 4; i++) {
-            if (a[i] &gt; b[i]) {
-                return false;
-            }
-        }
-        return true;
-    }</B></FONT>
-    
     int balancedString(string s) {
-        int stat[4] = {0};
-        int cur[4] = {0};
-        int l = 0, r = 0;
-        int ans = INT_MAX;
-        for (char c : s) {
-            stat[convert(c)]++;
+        int n = s.length();
+        vector&lt;vector&lt;int&gt;&gt; pref(n+1,vector&lt;int&gt;(4));
+        for (int i = 0; i &lt; n; i++){</B></FONT>
+<A NAME="1"></A>            pref[i+1][0]=pref[i][0]+(s[i]=='Q');
+            pref[i+1][1]=pref[i][1]+(s[i]=='W');
+            pref[i+1][2]=pref[i][2]+(s[i]=='E');
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            pref[i+1][3]=pref[i][3]+(s[i]=='R');
         }
-        for (int i = 0; i &lt; 4; i++) {
-            if (stat[i] &gt;= s.length() &gt;&gt; 2) {
-                stat[i] -= (s.length() &gt;&gt; 2);
-            } else {
-<A NAME="1"></A>                stat[i] = 0;
+        int res = n;
+        for (int i = 0; i &lt;= n; i++){
+            // keep &lt; i
+            int l = i-2, r = n;</B></FONT>
+            // throw [i,r]
+            while(l + 1 &lt; r){
+                int mid = (l + r) / 2;
+                bool good = true;
+                for (int j = 0; j &lt; 4; j++) {
+                    if (pref[i][j] + pref[n][j] - pref[mid+1][j] &lt;= n / 4) {
+                        // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt; j &lt;&lt;&quot; &quot;
+                        good &amp;=true;
+                    }
+                    else {
+                        // if (i == 7) {
+                        // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; mid &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+                        // cout &lt;&lt; (pref[i][j] + pref[n][j] - pref[mid+1][j]) &lt;&lt; endl;
+                        // cout &lt;&lt; (n - (mid - i + 1)) &lt;&lt; &quot; &quot; &lt;&lt; (n - (mid - i + 1) + 3) &lt;&lt; endl;}
+                        good &amp;=false;
+                    }
+                }
+                if (good) {
+                    r = mid;
+                }
+                else l = mid;
             }
+            if(r&lt;n)
+            res = min(res,r - i + 1);
         }
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (r &lt; s.length()) {
-            while (!check(stat, cur) &amp;&amp; r &lt; s.length()) {
-                cur[convert(s[r++])]++;
-            }
-            
-            while (check(stat, cur) &amp;&amp; r &gt;= l) {
-                ans = min(ans, r - l);
-                cur[convert(s[l++])]--;
-            }
-        }
-        return ans;
+        return res;
     }
-};</B></FONT>
+};
+
+/*
+7 8 0
+4
+10 13
+7 8 3
+4
+10 13
+7 10 0
+3
+8 11
+7 10 3
+3
+8 11
+7 11 3
+3
+7 10
+*/
 </PRE>
 </BODY>
 </HTML>

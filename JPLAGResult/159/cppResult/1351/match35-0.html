@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>79_face4.cpp</TITLE>
+ <TITLE>423_qpwoeirut.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>79_face4.cpp</CENTER></H3><HR>
+<H3><CENTER>423_qpwoeirut.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
+private:
+    int ct[4];
+    int cur[4];
+    bool check() {
+        for (int i=0; i&lt;4; i++) {
+            if (ct[i] &gt; 0 &amp;&amp; ct[i] &gt; cur[i]) return false;
+        }
+        return true;
+    }
+    int f(char c) {
+        if (c == 'Q') {
+            return 0;
+        }
+        else if (c == 'W') {
+            return 1;
+        }
+        else if (c == 'E') {
+            return 2;
+        }
+        else {
+            return 3;
+        }
+    }
 public:
     int balancedString(string s) {
-        int n = s.length();
-        map&lt;char,int&gt; cnt;
-        for(char c : s) cnt[c]++;
-        int l = 0, r = 0, ans = n;
-        auto ng = [&amp;]()-&gt;bool{
-<A NAME="0"></A>            for(auto p : cnt)   if(p.second &gt; n/4)  return true;
-            return false;
-        };
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while(l &lt; n){
-            while(r &lt; n &amp;&amp; ng()){
-                cnt[s[r]]--;
-                r++;
-            }
-            if(r == n &amp;&amp; ng())  break;
-            ans = min(ans, r-l);
-            cnt[s[l]]++;
-            l++;
+        for (int i=0; i&lt;4; i++) {
+            ct[i] = 0;
+            cur[i] = 0;
         }
-        return ans;
-    }
-};</B></FONT>
+        for (int i=0; i&lt;s.size(); i++) {
+            ct[f(s[i])]++;
+        }
+        bool bal = true;
+        for (int i=0; i&lt;4; i++) {
+            ct[i] -= int(s.size()) / 4;
+            if (ct[i] != 0) bal = false;
+<A NAME="0"></A>        }
+        if (bal) return 0;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int best = s.size();
+        int start = 0;
+        for (int i=0; i&lt;s.size(); i++) {
+            cur[f(s[i])]++;
+            while (start &lt;= i &amp;&amp; check()) {
+                best = min(best, i-start+1);
+                cur[f(s[start])]--;
+                start++;
+            }
+            // cout &lt;&lt; start &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; endl;
+        }
+        
+        return best;
+    }</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

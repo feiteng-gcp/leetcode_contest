@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>291_REED_W.java</TITLE>
+ <TITLE>275_huntersjm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,83 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>291_REED_W.java</CENTER></H3><HR>
+<H3><CENTER>275_huntersjm.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        return sln1(s);
-    }
-    
-    //sliding window
-    private int sln1(String s){
-        char[] ss = s.toCharArray();
-        int n = ss.length;
-<A NAME="0"></A>        int[] map  = new int[4];
-        for(int i = 0;i &lt; ss.length;i ++){
-            char c= ss[i];
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(c == 'Q') map[0]++;
-            else if(c == 'E') map[1]++;
-            else if(c == 'W') map[2]++;
-            else if(c == 'R') map[3]++;
-        }</B></FONT>
-        for(int i = 0;i &lt; map.length; i++){
-            if(map[i] &lt;= n/4) map[i] =0;
-            else map[i] -= n/4;
-        }
-        int[] map2  = new int[4];
-        // for(int m: map) System.out.print(m+&quot; &quot;);
-        // System.out.println();
-        if(found(map, map2)) return 0;
-        int min = Integer.MAX_VALUE;
-        for(int p1 =0, p2 =0; p2 &lt; ss.length; p2++){
-            addCount(ss[p2], map, map2);
-            // for(int m: map2) System.out.print(m+&quot; &quot;);
-            // System.out.println();
-            while(found(map, map2)){
-                min = Math.min(min, p2-p1+1);
-                
-                removeCount(ss[p1++], map, map2);
+        int q = 0, w = 0, e = 0, r = 0;
+        int balance = s.length() &gt;&gt; 2;
+<A NAME="1"></A>        int right = s.length() - 1;
+        int result = s.length();
+        for (; right &gt;= 0; right--) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>switch (s.charAt(right)) {
+                case 'Q':
+                    q++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+                case 'R':
+                    r++;
+                    break;
+            }</B></FONT>
+            if (q &gt; balance || w &gt; balance || e &gt; balance || r &gt; balance) {
+                break;
             }
         }
-        return min;
-<A NAME="2"></A>    }
-    
-    private void addCount(char c, int[] map, int[] map2){
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(c == 'Q' &amp;&amp; map[0] &gt; 0) map2[0]++;
-        else if(c == 'E' &amp;&amp; map[1] &gt; 0) map2[1]++;
-        else if(c == 'W' &amp;&amp; map[2] &gt; 0) map2[2]++;
-        else if(c == 'R' &amp;&amp; map[3] &gt; 0) map2[3]++;
-<A NAME="1"></A>    }</B></FONT>
-    
-    private void removeCount(char c, int[] map, int[] map2){
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(c == 'Q' &amp;&amp; map[0] &gt; 0) map2[0]--;
-        else if(c == 'E' &amp;&amp; map[1] &gt; 0) map2[1]--;
-        else if(c == 'W' &amp;&amp; map[2] &gt; 0) map2[2]--;
-        else if(c == 'R' &amp;&amp; map[3] &gt; 0) map2[3]--;</B></FONT>
-    }
-    
-    private boolean found( int[] map, int[] map2){
-        for(int i = 0;i &lt; map.length; i++){
-            if(map[i] &gt; map2[i]) return false;
+        if (right == -1) {
+<A NAME="0"></A>            return 0;
         }
-        return true;
+        result = Math.min(result, right + 1);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int left = 1; left &lt; s.length(); left++) {
+            switch (s.charAt(left - 1)) {
+                case 'Q':
+                    q++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+                case 'R':
+                    r++;
+                    break;
+            }</B></FONT>
+            if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
+<A NAME="2"></A>                result = Math.min(result, right - left);
+                continue;
+            }
+            for (; right &lt; <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.length(); right++) {
+                switch (s.charAt(right)) {
+                    case 'Q':
+                        q--;
+                        break;
+                    case 'W':
+                        w--;
+                        break;
+                    case 'E':
+                        e--;
+                        break;
+                    case 'R':
+                        r--;
+                        break;
+                }</B></FONT>
+                if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
+                    right++;
+                    result = Math.min(result, right - left);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[]args) {
+        System.out.println(new Solution().balancedString(&quot;QQQW&quot;));
     }
 }
 </PRE>

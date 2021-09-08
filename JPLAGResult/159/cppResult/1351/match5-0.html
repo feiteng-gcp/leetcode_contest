@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>21_cuiaoxiang.cpp</TITLE>
+ <TITLE>358_lampham_aizu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>21_cuiaoxiang.cpp</CENTER></H3><HR>
+<H3><CENTER>358_lampham_aizu.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>typedef array&lt;int, 4&gt; arr;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int nax = 1e6 + 5;
+const char W[5] = &quot;QWER&quot;;
+int n, cnt[4];
+string sl;
+bool ok() {
+    for(int i = 0; i &lt; 4; ++i)
+        if(cnt[i] &gt; n / 4)
+            return false;
+    return true;
+}
+int f(int i) {
+    for(int j = 0; j &lt; 4; ++j)
+        if(sl[i] == W[j])
+            return j;
+    assert(false);
+}
+int solve(){
+    for(int i = 0; i &lt; 4; i++) cnt[i] = 0;
+    for(int i = 0; i &lt; n; ++i)
+        ++cnt[f(i)];
+    if(ok()) {
+        return 0;
+    }
+    int ans = n;
+    // two pointers i, j
+    int j = 0;
+    for(int i = 0; i &lt; n; ++i) {
+        while(j &lt; n &amp;&amp; !ok())
+            --cnt[f(j++)];
+        if(ok()) ans = min(ans, j - i);
+        ++cnt[f(i)];
+    }
+    return ans;
+}
+class Solution {
 public:
     int balancedString(string s) {
-        map&lt;char, int&gt; A;
-        A['Q'] = 0;
-        A['W'] = 1;
-        A['E'] = 2;
-        A['R'] = 3;
-        int n = s.size(), m = n / 4;</B></FONT>
-        vector&lt;arr&gt; pre(n + 1), suf(n + 1);
-        for (int i = 0; i &lt; n; ++i) {
-            pre[i + 1] = pre[i];
-            pre[i + 1][A[s[i]]]++;
-        }
-        for (int i = n - 1; i &gt;= 0; --i) {
-<A NAME="1"></A>            suf[i] = suf[i + 1];
-            suf[i][A[s[i]]]++;
-        }
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ret = 1 &lt;&lt; 30;
-        for (int i = 0; i &lt; n; ++i) {
-            bool found = false;
-            for (int j = 0; j &lt; 4; ++j) {
-                if (pre[i][j] &gt; m) found = true;
-            }
-            if (found) break;
-            int low = i, high = n;
-            while (low != high) {
-                int mid = (low + high) / 2;
-                bool found = false;
-                for (int j = 0; j &lt; 4; ++j) {
-                    if (pre[i][j] + suf[mid][j] &gt; m) found = true;
-                }
-                if (found) {</B></FONT>
-                    low = mid + 1;
-                } else {
-                    high = mid;
-                }
-            }
-            ret = min(ret, high - i);
-        }
-        return ret;
+        sl = s;
+        n = s.size();
+        return solve();
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

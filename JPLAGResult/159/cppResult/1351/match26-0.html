@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>375_frostfrog.cpp</TITLE>
+ <TITLE>5_suzyzhang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>375_frostfrog.cpp</CENTER></H3><HR>
+<H3><CENTER>5_suzyzhang.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
+public:
     int balancedString(string s) {
-        int n = s.size();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; q(n+1),w(n+1),e(n+1),r(n+1);
+        int n = s.length();
+        map&lt;char, int&gt; idx;
+        idx['Q'] = 0;
+        idx['W'] = 1;
+        idx['E'] = 2;
+        idx['R'] = 3;
         
-        for (int i = 0; i &lt; n; ++i) {
-            q[i+1] = q[i] + (s[i] == 'Q');
-            w[i+1] = w[i] + (s[i] == 'W');
-            e[i+1] = e[i] + (s[i] == 'E');
-            r[i+1] = r[i] + (s[i] == 'R');
+        vector&lt;vector&lt;int&gt;&gt; sum(n, vector&lt;int&gt;(4));
+        
+        sum[0][idx[s[0]]] = 1;
+        for (int i = 1; i &lt; n; ++i) {
+            sum[i] = sum[i-1];
+            sum[i][idx[s[i]]]++;
         }
         
-        int best = n;
+        int t = n / 4;
+<A NAME="0"></A>        if (sum[n-1][0] == t &amp;&amp; sum[n-1][1] == t &amp;&amp; sum[n-1][2] == t)
+            return 0;
         
-        for (int i = 0; i &lt; n; ++i) {</B></FONT>
-            for (int j = min(n, i + best); j &gt;= i; --j) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int l = 1, r = n-1;
+        while (l &lt; r) {
+            int mid = l + ((r-l) &gt;&gt; 1);
+            bool ok = false;
             
-                auto Q = q[n] - q[j] + q[i] - q[0];
-                auto W = w[n] - w[j] + w[i] - w[0];
-                auto E = e[n] - e[j] + e[i] - e[0];
-                auto R = r[n] - r[j] + r[i] - r[0];
-                if (Q &gt; n/4)break;
-                if (W &gt; n/4)break;
-                if (E &gt; n/4)break;
-                if (R &gt; n/4)break;
+            for (int i = 0; i + mid &lt;= n; ++i) {</B></FONT>
+                bool tmp = true;
+                for (int j = 0; j &lt; 4; ++j) {
+                    int cur = (i &gt; 0 ? sum[i-1][j] : 0) + sum[n-1][j] - sum[i+mid-1][j];
+                    if (cur &gt; t) {
+                        tmp = false;
+                        break;
+<A NAME="1"></A>                    }
+                }
                 
-                if (Q &lt;= n / 4  &amp;&amp; R &lt;= n /4 &amp;&amp; E &lt;= n/4 &amp;&amp; W &lt;= n/ 4) {
-                    best = min(best, j-i);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (tmp) {
+                    ok = true;
+                    break;
                 }
             }
+            
+            if (ok)
+                r = mid;
+            else
+                l = mid+1;
         }
         
-        return best;
-        
+        return l;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>455_Ayush_Salampuriya.cpp</TITLE>
+ <TITLE>468_richardjcy.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,77 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>455_Ayush_Salampuriya.cpp</CENTER></H3><HR>
+<H3><CENTER>468_richardjcy.cpp</CENTER></H3><HR>
 <PRE>
 struct Job 
 { 
-	int start, finish, profit; 
+    int start, finish, profit; 
+    Job(int a, int b, int c): start(a), finish(b), profit(c) {}
 }; 
- 
-<A NAME="0"></A>bool myfunction(Job s1, Job s2) 
+
+bool jobComparataor(Job s1, Job s2) 
 { 
-	return (s1.finish &lt; s2.finish); 
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} 
+<A NAME="0"></A>    return (s1.finish &lt; s2.finish); 
+} 
 
-
-
-int binarySearch(Job jobs[], int index) 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int latestNonConflict(vector&lt;Job&gt;&amp; arr, int i) 
 { 
-	
-	int lo = 0, hi = index - 1; 
-	while (lo &lt;= hi) 
-	{ 
-		int mid = (lo + hi) / 2; 
-		if (jobs[mid].finish &lt;= jobs[index].start) 
-		{ 
-			if (jobs[mid + 1].finish &lt;= jobs[index].start) 
-				lo = mid + 1; 
-			else
-				return mid; 
-		} 
-		else
-			hi = mid - 1; 
-	} 
-
-	return -1; 
-} </B></FONT>
+    for (int j=i-1; j&gt;=0; j--) 
+    { 
+        if (arr[j].finish &lt;= arr[i].start) 
+            return j; 
+    } 
+    return -1; 
+}</B></FONT>
 
 class Solution {
 public:
-    int jobScheduling(vector&lt;int&gt;&amp; s, vector&lt;int&gt;&amp; e, vector&lt;int&gt;&amp; p)
-    {
-        int n=s.size();
-        Job arr[n];
-        for(int i=0;i&lt;n;i++)
+<A NAME="1"></A>    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        int n = startTime.size();
+        vector&lt;Job&gt; arr;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++)
         {
-<A NAME="1"></A>            arr[i].start=s[i];
-            arr[i].finish=e[i];
-            arr[i].profit=p[i];
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+            arr.push_back(Job(startTime[i], endTime[i], profit[i]));
+        }
         
-        sort(arr, arr+n, myfunction); 
+        sort(arr.begin(), arr.end(), jobComparataor); 
+        int *table = new int[n]; 
+        table[0] = arr[0].profit; 
 
-	    int *table = new int[n]; 
-	    table[0] = arr[0].profit; 
+        for (int i=1; i&lt;n; i++) 
+        { 
+            int inclProf = arr[i].profit; 
+            int l = latestNonConflict(arr, i); 
+            if (l != -1) 
+                inclProf += table[l]; 
 
-	for (int i=1; i&lt;n; i++) 
-	{ 
-		int inclProf = arr[i].profit; 
-		int l = binarySearch(arr, i); 
-		if (l != -1) 
-			inclProf += table[l]; 
-		table[i] = max(inclProf, table[i-1]); 
-	} 
-	int result = table[n-1]; 
-	delete[] table; 
+            table[i] = max(inclProf, table[i-1]); 
+        } 
 
-	return result; 
-        
-        
+        int result = table[n-1]; 
+        delete[] table; 
+
+        return result; 
     }
 };</B></FONT>
-
-
 </PRE>
 </BODY>
 </HTML>

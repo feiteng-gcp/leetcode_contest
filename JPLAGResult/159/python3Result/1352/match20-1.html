@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>137_sepehry.py</TITLE>
+ <TITLE>379_cja.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,19 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>137_sepehry.py</CENTER></H3><HR>
+<H3><CENTER>379_cja.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
         n = len(startTime)
-        jobs = [(startTime[i], endTime[i], profit[i]) for i in range(</B></FONT>n)]
+        
+        jobs = [(startTime[i], endTime[i], profit[i]) for i in range(n)]
         jobs.sort()
-        startTime = [jobs[i][0] for i in range(n)]
-        dp = [0]*(n+1)
-        for i in range(n-1, -1, -1):
-            dp[i] = max(dp[i+1], jobs[i][2]+dp[bisect.bisect_left(startTime, jobs[i][1])])
-
-        return dp[0]
+        
+        starts =</B></FONT> [jobs[i][0] for i in range(n)]
+        
+        from functools import lru_cache
+        @lru_cache(None)
+        def dp(i):
+            if i &gt;= n:
+                return 0
+            
+            start, end, profit = jobs[i]
+            k = bisect.bisect_left(starts, end)
+            profit += dp(k)
+            
+            return max(dp(i+1), profit)
+            
+            
+        return dp(0)
+        
+        
 </PRE>
 
 </BODY>

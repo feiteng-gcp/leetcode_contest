@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>443_pulkonet.cpp</TITLE>
+ <TITLE>133_wjli.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>443_pulkonet.cpp</CENTER></H3><HR>
+<H3><CENTER>133_wjli.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; A) {
-        set&lt;string&gt; st;
-<A NAME="0"></A>        int n = A.size();
-        sort(A.begin(), A.end());
-        vector&lt;string&gt; ans;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(auto &amp;s: A){
-            // cout&lt;&lt;&quot;New string &quot;&lt;&lt;s&lt;&lt;endl;
-            int m = s.length();
-            string folder = &quot;/&quot;;
-            bool found = false;
-            for(int i=1; i&lt;m; i++){
-                // cout&lt;&lt;folder&lt;&lt;endl;
-                if(s[i] == '/'){
-                    if(st.find(folder) != st.end()){
-                        found = true;
-                        break;
-                    }  
-                }</B></FONT>
-                folder+=s[i];
-            }
-            if(!found){
-                if(st.find(folder) == st.end()){
-                    st.insert(folder);
-                    ans.push_back(folder);
-                }
-            }
-        }
-        return ans;
-    }
-};
+	vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+		int n = folder.size(), i, j, k;
+		sort(folder.begin(), folder.end());
+		vector&lt;string&gt; ans;
+		unordered_set&lt;string&gt; ss;
+<A NAME="0"></A>
+		for (i = 0; i &lt; n; i++) {
+			bool valid = true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			for (j = 0; j &lt; folder[i].length(); j++) {
+				if ((folder[i][j] == '/') &amp;&amp; (ss.find(folder[i].substr(0, j + 1)) != ss.end())) {
+					valid = false;
+					break;
+				}
+			}
+			if (valid) {
+				ans.push_back(folder[i]);
+				ss.insert(folder[i] + '/');
+			}
+		}
+		return ans;
+	}
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

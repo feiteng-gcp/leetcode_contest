@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>331_qobilidop.py</TITLE>
+ <TITLE>398_xhou0540.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
+<H3><CENTER>398_xhou0540.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        data = [(et, st, p) for st, et, p in zip(startTime, endTime, profit)]
-        data.sort()
-        et = [x for x, _, _ in data]
-        st = [x for _, x, _ in data]
-        pr = [x for _, _, x in data]
-        
-<A NAME="0"></A>        n = len(pr)
-        dp = [0] * (n + 1)
-        for i in range(1, n + 1):
-            j = bisect.bisect(et, st<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i - 1])
-            dp[i] = max(dp[i - 1], dp[j] + pr[i - 1])
-        return dp[n</B></FONT>]
-        
+    def jobScheduling(self, startTime, endTime, profit):
+        N = len(startTime)
+        j = []
+        for i in range(N):
+            j.append([startTime[i], endTime[i], profit[i]])
+
+        sl = sorted(j, key=lambda x:x[1])
+
+        def last(i):
+            for j in range(i-1, -1, -1):
+                if (sl[j][1] &lt;= sl[i][0]):
+                    return j
+            return -1
+
+<A NAME="0"></A>        M =[0 for i in range(N)]
+        M[0] = sl[0][2]
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1, N):
+            profit = sl[i][2]
+            l = last(i)
+            if l!=-1:
+                profit += M[l]
+            M[i] = max(profit, M[i-1])
+        return M[-</B></FONT>1]
 </PRE>
 
 </BODY>

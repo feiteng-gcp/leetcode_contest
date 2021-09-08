@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>145_qiurisy.cpp</TITLE>
+ <TITLE>393_liang5.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,62 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>145_qiurisy.cpp</CENTER></H3><HR>
+<H3><CENTER>393_liang5.cpp</CENTER></H3><HR>
 <PRE>
+
 class Solution {
 public:
-    int balancedString(string s) {
-        int N = s.size() / 4;
-        unordered_map&lt;char, int&gt; count = {};
-        for (char c : s) {
-            count[c]++;
-        }
-        unordered_map&lt;char, int&gt; to_remove = {};
-        int total_to_remove = 0;
-        for (auto&amp; entry: count) {
-            to_remove[entry.first] = max(0, entry.second - N);
-            total_to_remove += to_remove[entry.first];
-        }
-<A NAME="0"></A>        if (total_to_remove == 0) {
-            return 0;
-        }
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int start = 0, res_len = s.size();
-        for (int i = 0; i &lt; s.size(); ++i) {
-            if (to_remove[s[i]]-- &gt; 0) {
-                total_to_remove--;
+    int cnt[100010][4];
+    int n;
+    int check(int len) {
+        for (int st = 1 ; st+len-1 &lt;= n ; ++st) {
+            // printf(&quot;len:%d st:%d\n&quot;, len, st);
+            int in[4] = {0};
+            int tmp = 0;
+            bool flg = true;
+            for (int j = 0 ; j &lt; 4 ; ++j) {
+                in[j] = cnt[st+len-1][j] - cnt[st-1][j];
+                int out = cnt[n][j] - in[j];
+                if (out &gt; n / 4) {flg = false; break;}
+                tmp += n / 4 - out;
             }
-            while (total_to_remove == 0) {
-                res_len = min(res_len, i - start + 1);
-                if (to_remove[s[start++]]++ == 0) {</B></FONT>
-                    total_to_remove ++;
-                }
-            }
+            if (!flg) continue;
+            if (tmp == len) return true;
         }
-        return res_len;
+        return false;
     }
-};
+    int balancedString(string s) {
+<A NAME="0"></A>        int avg = s.size() / 4;
+        n = s.size();
+        memset(cnt, 0, sizeof(cnt));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0 ; i &lt; s.size() ; ++i) {
+            if (s[i] == 'Q') cnt[i+1][0] = 1;
+            if (s[i] == 'W') cnt[i+1][1] = 1;
+            if (s[i] == 'E') cnt[i+1][2] = 1;
+            if (s[i] == 'R') cnt[i+1][3] = 1;
+        }</B></FONT>
+        for (int i = 1 ; i &lt;= s.size() ; ++i) {
+            for (int j = 0 ; j &lt; 4 ; ++j)
+                cnt[i][j] += cnt[i-1][j];
+        }
+        int tmp = 0;
+        for (int j = 0 ; j &lt; 4 ; ++j) {
+            if (cnt[n][j] == avg) ++tmp;
+        }
+<A NAME="1"></A>        if (tmp == 4) return 0;
+
+        int ans = s.size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int lo = 1, hi = s.size();
+        while (lo &lt;= hi) {
+            int mid = (lo + hi) / 2;
+            if (check(mid)) {
+                hi = mid - 1;
+                ans = min(ans, mid);
+            } else lo = mid + 1;
+        }
+        return ans;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>460_coder001.py</TITLE>
+ <TITLE>442_less-is-more.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>460_coder001.py</CENTER></H3><HR>
+<H3><CENTER>442_less-is-more.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        # sort, then process one by one
-        folder = sorted(folder, key=len)
-        roots = set()
-        for f in folder:
-            # print(roots)
-<A NAME="0"></A>            dirs, tmpPath, add = f.split('/'), '/', True
-            # print(dirs)
-            for d in dirs[1:]:
-                tmpPath <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>+= d
-                # print('tmpPath: ' + tmpPath)
-                if tmpPath in roots:
-                    add = False
+        bag = set()
+        splits = []
+        for idx, f in enumerate(folder):
+            splits.append(f.split('/'))
+            bag.add(f)
+        ans = []
+        for spt in splits:
+            flag = True
+            for i in range(len(spt)):
+<A NAME="0"></A>                fa = '/'.join(spt[:i])
+                # print(fa)
+                if fa in bag:
+                    flag <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= False
                     break
-                tmpPath += '/'
-            if add:
-                roots.add(f)
-        return list(r</B></FONT>oots)
-        
+            if flag:
+                ans.append('/'.join(spt))
+        re</B></FONT>turn ans
         
 </PRE>
 

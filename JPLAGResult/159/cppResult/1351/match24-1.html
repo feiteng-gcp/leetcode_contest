@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>104_Hewitt_1570.cpp</TITLE>
+ <TITLE>263_xpycc.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>104_Hewitt_1570.cpp</CENTER></H3><HR>
+<H3><CENTER>263_xpycc.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int Q[100100],W[100100],E[100010],R[100010],am,n;
-    bool judge(int x){
-        for(int l=1;l+x-1&lt;=n;l++){
-            int RR=l+x-1;
-            int q=Q[l-1]+Q[n]-Q[RR];
-            int w=W[l-1]+W[n]-W[RR];
-            int e=E[l-1]+E[n]-E[RR];
-            int r=R[l-1]+R[n]-R[RR];
-            q=am-q;w=am-w;e=am-e;r=am-r;
-            if(q&gt;=0&amp;&amp;w&gt;=0&amp;&amp;e&gt;=0&amp;&amp;r&gt;=0&amp;&amp;q+w+e+r==x)return true;
-        }
-        return false;
-<A NAME="0"></A>    }
     int balancedString(string s) {
-        n=s.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        am=n/4;
-        for(int i=1;i&lt;=n;i++){
-            Q[i]=Q[i-1];
-            W[i]=W[i-1];
-            E[i]=E[i-1];
-            R[i]=R[i-1];
-            if(s[i-1]=='Q')Q[i]++;
-            if(s[i-1]=='W')W[i]++;
-            if(s[i-1]=='E')E[i]++;
-            if(s[i-1]=='R')R[i]++;
+        const int n = s.size();
+        int cnt[128] = {0};
+        for (int i = 0; i &lt; n; ++i)
+<A NAME="0"></A>            ++cnt[s[i]];
+        int ans = n - 1;
+        for (int i = -1, j = 0; i &lt; n; ++i) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (i &gt;= 0) ++cnt[s[i]];
+            while (j &lt; n &amp;&amp; 
+                   (cnt['Q'] &gt; n / 4 ||
+                    cnt['W'] &gt; n / 4 ||
+                    cnt['R'] &gt; n / 4 ||
+                    cnt['E'] &gt; n / 4)) {
+                --cnt[s[j++]];
+            }
+            if (cnt['Q'] &lt;= n / 4 &amp;&amp;
+                    cnt['W'] &lt;= n / 4 &amp;&amp;
+                    cnt['R'] &lt;= n / 4 &amp;&amp;
+                    cnt['E'] &lt;= n / 4)
+            {
+                ans = min(ans, j - i - 1);
+            }
         }
-        int l=0,r=n,mid;</B></FONT>
-        while(l&lt;r){
-            mid=l+(r-l)/2;
-            if(judge(mid))r=mid;
-            else l=mid+1;
-        }
-        return l;
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

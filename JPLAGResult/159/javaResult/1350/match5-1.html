@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>181_unfinishedmission.java</TITLE>
+ <TITLE>448_litian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>181_unfinishedmission.java</CENTER></H3><HR>
+<H3><CENTER>448_litian.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Arrays.sort(folder);
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-<A NAME="1"></A>        res.add(folder[0]);
-        String last = folder[0];
-        for (int i = 1; i &lt; folder.length; i++) {
-            if (!folder[i].startsWith</B></FONT>(last) || folder[i].charAt(last.length()) != '/') <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                res.add(folder[i]);
-                last = folder[i];
+            Arrays.sort(folder, (a, b)-&gt;a.length() - b.length());
+            List&lt;String&gt; res = new ArrayList&lt;&gt;();
+            Set&lt;String&gt; set = new HashSet&lt;&gt;();
+            for (String path : folder) {
+                String[] s = path.split(&quot;\\/&quot;);
+                String temp = &quot;&quot;;
+                boolean seen = false;
+                for (int i = 1; i &lt; s.length; i++) {
+                    temp += s[i];
+                    if (set.contains(temp)) seen = true;
+                }
+                set.add(temp);
+                if (!seen) res.add(path);
             }
+            return res;
         }
-        return res;
-    }
 }</B></FONT>
 </PRE>
 

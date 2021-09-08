@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>91_0w1.cpp</TITLE>
+ <TITLE>322_abhishhh1.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>91_0w1.cpp</CENTER></H3><HR>
+<H3><CENTER>322_abhishhh1.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
- public:
-  int balancedString(string s) {
-    vector&lt;int&gt; cnt(256);
-    for (char c : s) ++cnt[c];
-    int lb = -1;
-    int ub = s.size() - 1;
-    while (ub - lb &gt; 1) {
-<A NAME="0"></A>      int mb = lb + ub &gt;&gt; 1;
-      vector&lt;int&gt; mcnt(256);
-      for (int i = 0; i &lt; mb; ++i) ++mcnt[s[i]];
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      bool ok = false;
-      for (int i = 0; i + mb &lt;= s.size(); ++i) {
-        int qx = s.size() / 4 - (cnt['Q'] - mcnt['Q']);
-        int wx = s.size() / 4 - (cnt['W'] - mcnt['W']);
-        int ex = s.size() / 4 - (cnt['E'] - mcnt['E']);
-        int rx = s.size() / 4 - (cnt['R'] - mcnt['R']);
-        if (qx &gt;= 0 &amp;&amp; wx &gt;= 0 &amp;&amp; ex &gt;= 0 &amp;&amp; rx &gt;= 0) ok = true;</B></FONT>
-        --mcnt[s[i]];
-        if (i + mb &lt; s.size()) ++mcnt[s[i + mb]];
-      }
-      (ok ? ub : lb) = mb;
+public:
+    bool check(int val, int n, int a[], int g[], int c[], int t[]){
+        for(int i=1; i&lt;=n; i++){
+            int flag=0;
+            if(i+val-1&gt;n)break;
+            if(a[i-1]+a[n]-a[i+val-1]&lt;=n/4)flag++;
+            if(c[i-1]+c[n]-c[i+val-1]&lt;=n/4)flag++;
+            if(t[i-1]+t[n]-t[i+val-1]&lt;=n/4)flag++;
+            if(g[i-1]+g[n]-g[i+val-1]&lt;=n/4)flag++;
+            if(flag==4){return 1;}
+        }
+        return 0;
     }
-    return ub;
-  }
+    int balancedString(string s) {
+        int n=s.length();
+<A NAME="0"></A>        s='$'+s;
+        int MAXN=100010;
+        int a[MAXN],g[MAXN],c[MAXN],t[MAXN];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1; i&lt;=n; i++){
+            a[i]=a[i-1];
+            g[i]=g[i-1];
+            c[i]=c[i-1];
+            t[i]=t[i-1];
+            if(s[i]=='Q')a[i]++;
+            if(s[i]=='W')g[i]++;
+            if(s[i]=='E')c[i]++;
+            if(s[i]=='R')t[i]++;
+        }
+        int l=-1,r=n;
+        while(r-l&gt;1){</B></FONT>
+            int mid=(r+l)&gt;&gt;1;
+            if(check(mid,n,a,g,c,t)) r=mid;
+            else l=mid;
+        }
+        return r;
+    }
 };
 </PRE>
 </BODY>

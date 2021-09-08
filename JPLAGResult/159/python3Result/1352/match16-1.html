@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>187_WangQiuc.py</TITLE>
+ <TITLE>293_joshualian1989.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,19 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>187_WangQiuc.py</CENTER></H3><HR>
+<H3><CENTER>293_joshualian1989.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import defaultdict
+from functools import lru_cache
+from bisect import bisect
+class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        jobs = sorted([(s,e,p) for s,e,p in zip(startTime, endTime, profit)], key=lambda x: x<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[1])
-        ends = [job[1] for job in jobs]
-        N = len(jobs)
-        dp = [0] * (N+1)
-        for i in range(N):
-            j = bisect.bisect(ends, jobs[i][</B></FONT>0])
-            dp[i+1] = max(dp[i], jobs[i][2] + dp[j])
-        return dp[N]
+        aux = defaultdict(list)
+        for s, e, p in zip(startTime, endTime, profit):
+            aux[e].append((s, p))
+        e_list, prev_e = sorted(endTime), {}
+        for s in startTime:
+            i = bisect(e_list, s)
+            i -= e_list[i] != s
+            prev_e[s] = e_list[i] if i &gt;= 0 else 0
         
+        ans, cache =</B></FONT> 0, {0: 0}
+        for e in sorted(aux.keys()):
+            for s, p in aux[e]:
+                ans = max(ans, p + cache[prev_e[s]])
+            cache[e] = ans
+        return ans
 </PRE>
 
 </BODY>

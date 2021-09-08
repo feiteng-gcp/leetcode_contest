@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>154_leetcodedocteel.cpp</TITLE>
+ <TITLE>223_ForGive.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>154_leetcodedocteel.cpp</CENTER></H3><HR>
+<H3><CENTER>223_ForGive.cpp</CENTER></H3><HR>
 <PRE>
-
+struct job 
+{ 
+    int s, t, p;
+};
+<A NAME="0"></A>
 class Solution {
-<A NAME="0"></A>public:
-    
-    
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int NonConflict(vector&lt;vector&lt;int&gt;&gt;&amp; jobs, int i)
-    {
-        for (int j = i - 1; j &gt;= 0; --j)
-        {
-            if (jobs[j][0] &lt;= jobs[i][1]) return j;
-        }
-        return -1;
-    }</B></FONT>
-    
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    static bool cmp(job s1, job s2) { return (s1.t &lt; s2.t); }
+
+    int find(vector&lt;job&gt;&amp; arr, int i) 
+    { 
+        for (int j=i-1; j&gt;=0; j--) 
+        { 
+            if (arr[j].t &lt;= arr[i].s) 
+                return j; 
+        } 
+<A NAME="1"></A>        return -1; 
+    } </B></FONT>
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        
-        vector&lt; vector&lt;int&gt; &gt; jobs;
-        for (int i = 0; i &lt; endTime.size(); ++i)
-        {
-            jobs.push_back( {endTime[i], startTime[i], profit[i]} );
+        int n = startTime.size();
+        vector&lt;job&gt; arr;
+        for(int i = 0; i &lt; n; i ++)
+        {</B></FONT>
+            arr.push_back({startTime[i], endTime[i], profit[i]});
         }
-<A NAME="1"></A>        sort(jobs.begin(), jobs.end());
+<A NAME="2"></A>        
+        sort(arr.begin(), arr.end(), cmp);
         
-        int n = jobs.size();
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; dp(n, 0);
-        dp[0] = jobs[0][2];
-        
-        for (int i = 1; i &lt; n; ++i)
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; dp(n, 0);
+        dp[0] = arr[0].p;
+
+        for (int i=1; i&lt;n; i++)
         {
-            int prof = jobs[i][2];
-            int index = NonConflict(jobs, i);
-            if (index != -1)
-                prof += dp[index];
-            
-            dp[i] = max(prof, dp[i - 1]);
-        }
-                        
-        return dp[n - 1];
+            int inclProf = arr[i].p;
+            int l = find(arr, i);
+            if (l != -1)
+                inclProf += dp[l];
+
+            dp[i] = max(inclProf, dp[i-1]);
+        }</B></FONT>
+
+        return dp[n-1];
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

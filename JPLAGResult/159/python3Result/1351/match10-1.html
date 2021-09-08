@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>366_o0o0o0o0o0.py</TITLE>
+ <TITLE>414_blaksmatic.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>366_o0o0o0o0o0.py</CENTER></H3><HR>
+<H3><CENTER>414_blaksmatic.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-<A NAME="0"></A>    def balancedString(self, s: str) -&gt; int:
-        has=dict()
-        l=0
-        r<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=1
-        has['Q']=0
-        has['W']=0
-        has['E']=0
-        has['R']=0
-        for c in s:
-            has[c]+=1
-        if(has[</B></FONT>'Q']==len(s)/4 and has['W']==len(s)/4 and has['E']==len(s)/4 and has['R']==len(s)/4):
-            return 0
-        vis=dict()
-        vis['Q']=0
-        vis['W']=0
-        vis['E']=0
-        vis['R']=0
-        vis[s[0]]=1
-        def legal():
-            return has['Q']-vis['Q']&lt;=len(s)/4 and has['W']-vis['W']&lt;=len(s)/4 and has['E']-vis['E']&lt;=len(s)/4 and has['R']-vis['R']&lt;=len(s)/4
-        ans=len(s)
-        while(r&lt;len(s)):
-            vis[s[r]]+=1
-            if not legal():
-                r+=1
-            else:
-                while(l&lt;=r and legal()):
-                    ans=min(ans,r-l+1)
-                    vis[s[l]]-=1
-                    l+=1
-                r+=1
-            
-        return ans
+    def balancedString(self, s: str) -&gt; int:
+        left = 0
+        count = collections.Counter(s)
+        limit = len(s) // 4
+        needs = collections.defaultdict(int)
+        for c in count:
+            needs[c] = max(0, count[c] - limit)
+        res = len(s)
+        totalneeds = sum(needs.values())
+        if totalneeds == 0: return 0
+<A NAME="0"></A>        for right in range(0, len(s)):
+            c = s[right]
+            needs[c] -= 1
+            if needs<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[c] &gt;= 0: totalneeds -= 1
+            while totalneeds == 0:
+                res = min(res, right - left + 1)
+                needs[s[left]] += 1
+                if needs[s[left]] &gt; 0: totalneeds += 1
+                left += 1
+        re</B></FONT>turn res
+                
 </PRE>
 
 </BODY>

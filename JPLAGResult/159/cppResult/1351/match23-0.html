@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>81_Acepted.cpp</TITLE>
+ <TITLE>380_yifa.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>81_Acepted.cpp</CENTER></H3><HR>
+<H3><CENTER>380_yifa.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+bool ok(vector&lt;int&gt;&amp; arr){
+    if(arr[0]&lt;=0 &amp;&amp; arr[1]&lt;=0 &amp;&amp; arr[2]&lt;=0 &amp;&amp;arr[3]&lt;=0){
+        return true;
+<A NAME="0"></A>    }
+    return false;
+}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
-    // q, w, e, r
-    int sumq[100010], sumw[100010], sume[100010], sumr[100010];
-    int n;
-    bool ok(int m){
-        int k = n/4;
-        for(int i = 1; i &lt;= n - m + 1; ++i){
-            int t = sumq[i+m-1]-sumq[i-1]+sume[i+m-1]-sume[i-1]+sumw[i+m-1]-sumw[i-1]+sumr[i+m-1]-sumr[i-1];
-            if(sumq[n] - (sumq[i+m-1]-sumq[i-1]) &gt; k) continue;
-            if(sumw[n] - (sumw[i+m-1]-sumw[i-1]) &gt; k) continue;
-            if(sume[n] - (sume[i+m-1]-sume[i-1]) &gt; k) continue;
-            if(sumr[n] - (sumr[i+m-1]-sumr[i-1]) &gt; k) continue;
-            if(t &lt;= m) return true;
-        }
-        return false;
-    }
     int balancedString(string s) {
-        n = s.length();
-        for(int i = 0; i &lt; s.length(); ++i){
-            sumq[i+1] = sumq[i] + (s[i] == 'Q');
-<A NAME="0"></A>            sumw[i+1] = sumw[i] + (s[i] == 'W');
-            sume[i+1] = sume[i] + (s[i] == 'E');
-            sumr[i+1] = sumr[i] + (s[i] == 'R');
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
-        int l = 0, r = s.length();
-        int ans = 0;
-        while(l &lt;= r){
-            int m = l + r &gt;&gt; 1;
-            if(ok(m)){
-                ans = m;
-                r = m - 1;
-            }
-            else l = m + 1;
+        int balanced = s.length()/4;
+        vector&lt;int&gt; arr(4,0);
+        map&lt;char,int&gt; mp;
+        mp['Q'] = 0;mp['W'] = 1;mp['E'] = 2;mp['R'] = 3;
+        
+        for(auto i:s){
+            arr[mp[i]]++;
         }
-        return ans;
+        
+        for(int i=0;i&lt;4;++i){arr[i] = arr[i]-balanced;}</B></FONT>
+        
+        int l = 0;
+        int r = 0;
+        int res = s.length();
+        
+        while(r&lt;s.length()){
+            if(ok(arr)){
+                res = min(res,r-l);
+                arr[mp[s[l]]]++;
+                l++;
+            }else{
+                arr[mp[s[r]]]--;
+                r++;
+            }  
+        }
+        while(ok(arr)){
+            res = min(res,r-l);
+            arr[mp[s[l]]]++;
+            l++;            
+        }
+        
+        return res;
+
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

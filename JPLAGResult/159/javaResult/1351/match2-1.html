@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>334_SilverNarcissus.java</TITLE>
+ <TITLE>186_luchy0120.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,66 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>334_SilverNarcissus.java</CENTER></H3><HR>
+<H3><CENTER>186_luchy0120.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int balancedString(String s) {
-        int[] count = new int[4];
-        int[] loc = new int[26];
-        loc['Q' - 'A'] = 0;
-        loc['W' - 'A'] = 1;
-<A NAME="0"></A>        loc['E' - 'A'] = 2;
-        loc['R' - 'A'] = 3;
-        
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char c : s.toCharArray()){
-            count[loc[c - 'A']]++;
+        int d[] = new int[256];
+        for(char c:s.toCharArray()){
+            d[c]++;
         }
-        
-        int n = s.length();
-        int more = 0;
-        int less = 0</B></FONT>;
-        for(int i = 0; i &lt; 4; i++){
-            count[i] -= n / 4;
-            if(count[i] &lt; 0){
-                less += -count[i];
+        int len = s.length()/4;int r =0;
+      char cc[] = {'Q','W','E','R'};
+        boolean all = false;
+        for(char f:cc){
+            if(d[f]&gt;len){
+               d[f]-=len;
+                all = true;
+            }else{
+               d[f] = 0; 
             }
         }
+        if(!all) return 0;
         
-        if(less == 0){
-            return 0;
-        }
-<A NAME="1"></A>        // sliding window
-        int l = 0;
-        int res = n;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int r = 0; r &lt; s.length(); r++){
-            char c = s.charAt(r);
-            if(count[loc[c -'A']] &gt; 0){
-                more++;
-            }</B></FONT>
-            count[loc[c - 'A']]--;
+        
+        int st = 0;int md[] = new int[256];int rrr = s.length();
+        for(int i=0;i&lt;s.length();++i){
+            char ccc = s.charAt(i);
+            if(d[ccc]&gt;0){
+                md[ccc]++;
+            }
+            while(true){
+            ccc = s.charAt(st);
             
-            if(more == less){
-                //System.out.println(r + &quot; &quot; + l);
-                while(l &lt;= r){
-                    char lc = s.charAt(l);
-                    count[loc[lc - 'A']]++;
-                    l++;
-                    if(count[loc[lc - 'A']] == 1){
-                        more--;
-<A NAME="2"></A>                        break;
-                    }
+            boolean ok = d[ccc]&gt;0&amp;&amp; md[ccc]-1&gt;=d[ccc] ||d[ccc]==0;
+
+            if(ok){
+                if(d[ccc]&gt;0){
+                md[ccc]--;
                 }
-                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#2',2,'match2-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res = Math.min(res, r - l + 2);
+                st++;
+            }else{
+                break;
             }
+            }
+            
+            boolean ok1 = true;
+            for(char t:cc){
+                if(d[t]&gt;0){
+                if(md[t]&lt;d[t]){
+                    ok1 = false;
+                    break;
+                }    
+                }
+            }
+            if(ok1){
+            rrr = Math.min(i-st+1,rrr);
+            }
+            
         }
+        return rrr;
         
-        return res;
+        
     }
 }</B></FONT>
 </PRE>

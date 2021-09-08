@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>47_qwnjc.cpp</TITLE>
+ <TITLE>69_tianhao2.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>47_qwnjc.cpp</CENTER></H3><HR>
+<H3><CENTER>69_tianhao2.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        vector&lt;string&gt; res;
-        
-<A NAME="0"></A>        set&lt;string&gt; st;
-        sort(folder.begin(), folder.end());
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (auto&amp; s : folder) {
-            int n = s.length();
-            string t = &quot;/&quot;;
-            bool valid = true;
-            for (int i = 1; i &lt;= n; ++i) {
-                if (i == n || s[i] == '/') {
-                    if (st.count(t) &gt; 0) {
-                        valid = false;
-                        break;
-                    }
-                }</B></FONT>
-                if (i &lt; n) {
-                    t += s[i];
+        unordered_set&lt;string&gt; fds;
+        for (string fd:folder) {
+            fds.insert(fd);
+        }
+<A NAME="0"></A>        vector&lt;string&gt; ret;
+        for (string fd:folder) {
+            bool skip=false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i=0; i&lt;fd.size(); i++) {
+                if (fd[i]=='/' &amp;&amp; fds.find(fd.substr(0, i))!=fds.end()) {
+                    skip=true;
+                    break;
                 }
             }
-            if (valid) {
-                st.insert(s);
-                res.push_back(s);
+            if (!skip) {
+                ret.push_back(fd);
             }
         }
-        
-        return res;
+        return ret;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

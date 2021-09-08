@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>250_hum.java</TITLE>
+ <TITLE>181_unfinishedmission.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>250_hum.java</CENTER></H3><HR>
+<H3><CENTER>181_unfinishedmission.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        int len = startTime.length;
-        Job[] jobs = new Job[len];
-<A NAME="0"></A>        for (int i = 0; i &lt; len; i++) {
-            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
+        int N = startTime.length;
+        int[][] a = new int[N][3];
+<A NAME="1"></A>        for (int i = 0; i &lt; N; i++) {
+            a</B></FONT>[i] = new int[]{startTime[i], endTime[i], profit[i]};
         }
-        Arrays.sort(jobs, Comparator.comparingInt(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>a -&gt; a.finish));
-        long dp[] = new long[len];
-        dp[0] = jobs[0].profit;
-        for (int i = 1; i &lt; len; i++) {
-            long tmp = jobs[i].profit;
-            int l = binarySearch(jobs, i);
-            if (l != -1) {
-                tmp += dp[l];
-            }
-            dp[i] = Math.max(tmp, dp[i - 1]);
-        }
-
-        return (int) dp[len - 1];
+        Arrays.sort(a, (x, y) -&gt; <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Integer.compare(x[1], y[1]));
+        int[] dp = new int[N  + 1];
+        dp[1] = a[0][2];
+<A NAME="2"></A>        for (int i = 2; i &lt;= N; i++) {
+            int m = binarySearch</B></FONT>(a, a[i - 1][0], i - 2);
+            dp[i] = Math.max(dp[i - 1], dp[m + 1] + a[i - 1][2]);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return dp[N];
     }
-
-    public int binarySearch(Job jobs[], int index) {
-        int lo = 0, hi = index - 1;
-        while (lo &lt;= hi) {
-            int mid = (lo + hi) / 2;
-            if (jobs[mid].finish &lt;= jobs[index].start) {
-                if (jobs[mid + 1].finish &lt;= jobs[index].start) {
-                    lo = mid + 1;
-                } else {
-                    return mid;
-                }
+    
+    private int binarySearch(int[][] a, int startTime, int j</B></FONT>) {
+        if (a[0][1] &gt; startTime) {
+<A NAME="3"></A>            return - 1;
+        }
+        int i = 0;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (i &lt; j) {
+            int mid = (j - i + 1) / 2 + i;
+            if (a[mid][1] &lt;= startTime) {
+                i = mid;
             } else {
-                hi = mid - 1;
+                j = mid - 1;
             }
         }
-        return -1;
-    }</B></FONT>
-
-    class Job {
-        int start, finish, profit;
-
-        Job(int start, int finish, int profit) {
-            this.start = start;
-            this.finish = finish;
-            this.profit = profit;
-        }
+        return i;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

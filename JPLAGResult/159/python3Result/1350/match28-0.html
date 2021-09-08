@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>413_caoboxiao.py</TITLE>
+ <TITLE>458_xunrui.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,36 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>413_caoboxiao.py</CENTER></H3><HR>
+<H3><CENTER>458_xunrui.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def removeSubfolders(self, a: List[str]) -&gt; List[str]:
-        n = len(a)
-        a.sort()
-        
-        ans = [a[0]]
-        root = a[0]
-<A NAME="0"></A>        for i in range(1, n):
-            isChild = True
-            if len(a[i]) &lt; len(root):
-                isChild <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= False
-            else:
-                for j in range(0, len(root)):
-                    if a[i][j] != root[j]:
-                        isChild = False
-                        break
-                if</B></FONT> len(a[i]) &gt; len(root) and a[i][len(root)] != '/':
-                    isChild = False
-            
-            if isChild == False:
-                ans.append(a[i])
-                root = a[i]
-                
-        return ans
-        
+    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
+        tree = {}
+        for di in folder:
+            nodes = di.split('/')
+            p = tree
+            n = len(nodes)
+            if (n==2 and len(nodes[1])==0):
+                return ['/']
+            for i in range(1,n):
+                node = nodes[i]
+                if not node in p:
+                    p[node] = {}
+                elif not p[node]:
+                    break
+                if i==n-1:
+                    p[node] = {}
+                else:
+                    p = p[node]      
+<A NAME="0"></A>        ret = []
+        def enuTree(tree,ret,pa):
+            for node in tree:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if not tree[node]:
+                    ret.append(pa+'/'+node)
+                else:
+                    enuTree(tree[node],ret,pa+'/'+node)
+        enuTree(tree,ret,'')
+        re</B></FONT>turn ret
 </PRE>
 
 </BODY>

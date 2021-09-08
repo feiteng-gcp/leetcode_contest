@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>331_qobilidop.py</TITLE>
+ <TITLE>40_huizew.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
+<H3><CENTER>40_huizew.py</CENTER></H3><HR>
 <PRE>
 from collections import Counter
-
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        n = len(s)
-        imb = Counter(s)
-        imb_tot = 0
-<A NAME="0"></A>        for c in list(imb.keys()):
-            imb[c] -= int(n / 4)
-            if imb[c] &lt; 0:
-                del imb<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[c]
-            else:
-                imb_tot += imb[c]
-        if imb_tot == 0:
-            return 0
-        
-        min_len = n
-        l, r = 0, 0
-        freq = Counter()
-        while r &lt; len(</B></FONT>s):
-            freq[s[r]] += 1
-            while all(freq[c] &gt;= imb[c] for c in imb.keys()):
-                min_len = min(min_len, r - l + 1)
-                freq[s[l]] -= 1
+        count = Counter(s)
+        badD = {c:(count[c] - (len(s)//4)  if count[c] &gt; len(s)//4 else 0) for c in &quot;QWER&quot;}
+        l = 0
+        r = 0
+        curCount = {c:0 for c in &quot;QWER&quot;}
+<A NAME="0"></A>        ans = len(s)
+        while True:
+            if all(curCount[c] &gt;= badD[c] for c in &quot;QWER&quot;):
+                ans = min<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(ans, r-l)
+                if (l == len(s)):
+                    break
+                curCount[s[l]] -= 1
                 l += 1
-            r += 1
-        return min_len
-        
+            else:
+                if r == len(s):
+                    b</B></FONT>reak
+                curCount[s[r]] += 1
+                r += 1
+        return ans            
+            
 </PRE>
 
 </BODY>

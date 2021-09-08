@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>184_frost_.cpp</TITLE>
+ <TITLE>75_vipjml.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,39 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>184_frost_.cpp</CENTER></H3><HR>
+<H3><CENTER>75_vipjml.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-<A NAME="0"></A>        map&lt;string,int&gt; mp;
-        for(auto &amp;z:folder)mp[z]=1;
-        
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto &amp;z:mp)
-        {
-            string s=z.first;
-            string t;
-            bool ok=1;
-            for(int i=0;i&lt;s.size();i++)
-            {
-                if(s[i]=='/')
-                {
-                    if(mp[t]!=0)
-                    {
-                        ok=0;break;
-                    }
+        unordered_set&lt;string&gt; ss;
+<A NAME="0"></A>        sort(folder.begin(),folder.end());
+        vector&lt;string&gt; ans;
+        for(string s:folder){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool removed=false;
+            for(int i=1;i&lt;s.size();i++){
+                if(s[i]=='/'){
+                    if(ss.find(s.substr(0,i))!=ss.end()){
+                        removed=true;
+                        break;
+                    };
                 }
-                t.push_back(s[i]);
-                
             }
-            if(!ok)mp[s]=-1;</B></FONT>
-            s.clear();t.clear();
+            if(!removed){
+                ss.insert(s);
+                ans.push_back(s);
+            }
         }
-        vector&lt;string&gt; v;
-        for(auto &amp;z:mp)if(z.second==1)v.push_back(z.first);
-        return v;
+        return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

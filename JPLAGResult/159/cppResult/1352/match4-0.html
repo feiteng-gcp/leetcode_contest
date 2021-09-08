@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>199_liuyubobobo.cpp</TITLE>
+ <TITLE>409_dwjnju163com.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>199_liuyubobobo.cpp</CENTER></H3><HR>
+<H3><CENTER>409_dwjnju163com.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-
-        int n = startTime.size();
-
-        vector&lt;pair&lt;pair&lt;int, int&gt;, int&gt;&gt; vec;
-        for(int i = 0; i &lt; n; i ++)
-            vec.push_back(make_pair(make_pair(startTime[i], endTime[i]), profit[i]));
-        sort(vec.begin(), vec.end());
-
-        vector&lt;int&gt; dp(n, vec.back().second);
-        for(int i = n - 2; i &gt;= 0; i --){
-
-            dp[i] = dp[i + 1];</B></FONT>
-
-            int nextstart = vec[i].first.second;
-            vector&lt;pair&lt;pair&lt;int, int&gt;, int&gt;&gt;::iterator iter =
-                    lower_bound(vec.begin() + (i + 1), vec.end(), make_pair(make_pair(nextstart, INT_MIN), INT_MIN));
-            if(iter != vec.end())
-                dp[i] = max(dp[i], vec[i].second + dp[iter - vec.begin()]);
-            else
-                dp[i] = max(dp[i], vec[i].second);
+        vector&lt;tuple&lt;int,int,int&gt;&gt; intervals;
+        for(int i=0; i&lt;startTime.size(); i++) {
+            intervals.push_back(make_tuple(endTime[i], startTime[i], profit[i]));
         }
-
-        return *max_element(dp.begin(), dp.end());
+        sort(intervals.begin(), intervals.end());
+        vector&lt;int&gt; dp(startTime.size());
+        int res = 0;
+        for(int i=0; i&lt;startTime.size(); i++) {
+            int left_most = bs(intervals, get&lt;1&gt;(intervals[i]));
+            if(left_most == -1)
+                dp[i] = get&lt;2&gt;(intervals[i]);
+            else
+                dp[i] = get&lt;2&gt;(intervals[i]) + dp[left_most];
+            if(i&gt;0)
+                dp[i] = max(dp[i-1], dp[i]);
+            res = max(res, dp[i]);
+        }
+        return res;
     }
-};
+    
+    int bs(vector&lt;tuple&lt;int,int,int&gt;&gt; const &amp; array, int target) {
+        int l = 0;
+        int r = array.size();
+        while(l&lt;r) {
+            int mid = (l+r)/2;
+            if(get&lt;0&gt;(array[mid])&lt;=target)
+                l = mid+1;
+            else
+                r = mid;
+        }
+        return l-1;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>58_zac4.java</TITLE>
+ <TITLE>382_zzzyq.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>58_zac4.java</CENTER></H3><HR>
+<H3><CENTER>382_zzzyq.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Dir dirTree = new Dir(&quot;&quot;);
-        for (String f : folder) {
-            String[] subs = f.substring(1).split(&quot;/&quot;);
-            Dir node = dirTree;
-            for (String s : subs) {
-                if (!node.subs.containsKey(s)) {
-                    node.subs.put(s, new Dir(s));
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        Arrays.sort(folder);
+        HashSet&lt;String&gt; set = new HashSet&lt;&gt;();
+<A NAME="0"></A>        for(int i = 0; i &lt; folder.length; i++) {
+            String s = folder[i];
+            String[] ss = s.split(&quot;/&quot;);
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>String path = &quot;&quot;;
+            boolean isSub = false;
+            for(int j = 0; j &lt; ss.length; j++) {
+                path += ss[j];
+                if(set.contains(path)) {
+                    isSub = true;
+                    break;
                 }
-                node = node.subs.get(s);
             }
-            node.isEnd = true;
-<A NAME="1"></A>        }
-        List&lt;String&gt; res = new ArrayList();
-        dfs</B></FONT>(dirTree, &quot;&quot;, res);
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return res;
-    }
-    
-    private void dfs(Dir node, String cur, List&lt;String&gt; res) {
-        if (node.isEnd) {
-            res.add</B></FONT>(cur);
-            return;
+            if(isSub == false) {
+                set.add(path);
+                res.add(s);
+            }
         }
-<A NAME="2"></A>        for (Map.Entry&lt;String, Dir&gt; entry : node.subs.entrySet()) {
-            dfs(entry.getValue(), cur + &quot;/&quot; + entry.getKey(), res);
-        }
-    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-    
-    class Dir {
-        boolean isEnd;
-        String cur;
-        Map&lt;String, Dir&gt; subs;
+        return res;
         
-        Dir(String cur) {
-            this.isEnd = false;
-            t</B></FONT>his.cur = cur;
-            this.subs = new HashMap();
-        }
     }
-}
+}</B></FONT>
+
 </PRE>
 
 </BODY>

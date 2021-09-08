@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>405_abc__xyz.py</TITLE>
+ <TITLE>418_Lost_soul.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,45 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>405_abc__xyz.py</CENTER></H3><HR>
+<H3><CENTER>418_Lost_soul.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+<A NAME="0"></A>class Solution:
     def balancedString(self, s: str) -&gt; int:
-        cnt_s = collections.Counter(s)
-        standard = len(s) // 4
-        
-        extra = {}
-        for k, v in cnt_s.items():
-            if v &gt; standard:
-                extra[k] = v - standard
-                
-        if</B></FONT> len(extra) == 0:
+        gene = s
+        min_length_string <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(gene)
+     
+        occurences = dict()
+        occurences['Q'] = 0
+        occurences['W'] = 0
+        occurences['E'] = 0
+        occurences['R'] = 0
+
+        expected =</B></FONT> len(gene) // 4
+
+        for g in gene:
+            occurences[g] += 1
+
+        for x in occurences:
+            occurences[x] = max(0, occurences[x] - expected)
+
+        if occurences['Q'] == 0 and occurences['W'] == 0 and occurences['E'] == 0 and occurences['R'] == 0:
             return 0
-        
-        d = collections.defaultdict(int)
-        l = 0
-        cnt = 0
-        res = float('inf')
-        for j, c in enumerate(s):
-            if c in extra:
-                d[c] += 1
-                if d[c] == extra[c]:
-                    cnt += 1
-            if cnt == len(extra):
-                while s[l] not in d or d[s[l]] &gt; extra[s[l]]:
-                    if s[l] in d:
-                        d[s[l]] -= 1
-                    l += 1
-                res = min(res, j - l + 1)
-                d[s[l]] -= 1
-                l += 1
-                cnt -= 1
-        return res
-                
-                
-            
-                
-                
+
+        found = dict()
+        found['Q'] = 0
+        found['W'] = 0
+        found['E'] = 0
+        found['R'] = 0
+
+        tail = 0
+        head = 0
+
+        while head != len(gene):
+            found[gene[head]] += 1
+            if found['Q'] &gt;= occurences['Q'] and \
+            found['W'] &gt;= occurences['W'] and \
+            found['E'] &gt;= occurences['E'] and \
+            found['R'] &gt;= occurences['R']:
+                # this is a valid candidate
+<A NAME="1"></A>                min_length_string = min(min_length_string, head-tail+1)
+
+                # try to shorten it
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while found[gene[tail]] &gt; occurences[gene[tail]]:
+                    found[gene[tail]] -= 1
+                    tail += 1
+                    min_length_string = min(</B></FONT>min_length_string, head-tail+1)
+
+
+            head += 1
+
+        return min_length_string
 </PRE>
 
 </BODY>

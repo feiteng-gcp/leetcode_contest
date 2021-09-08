@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>2_nhho.cpp</TITLE>
+ <TITLE>52_WJTung.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>2_nhho.cpp</CENTER></H3><HR>
+<H3><CENTER>52_WJTung.cpp</CENTER></H3><HR>
 <PRE>
-int x[100005][4];
-
-<A NAME="0"></A>class Solution {
+class Solution {
 public:
     int balancedString(string s) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = s.size();
-        for (int i = 0; i &lt; n; i++) {
-            x[i + 1][0] = x[i][0];
-            x[i + 1][1] = x[i][1];
-            x[i + 1][2] = x[i][2];
-            x[i + 1][3] = x[i][3];
-            if (s[i] == 'Q') x[i + 1][0]++;
-            if (s[i] == 'W') x[i + 1][1]++;
-            if (s[i] == 'E') x[i + 1][2]++;
-            if (s[i] == 'R') x[i + 1][3]++;
+        int L = s.length();
+        map&lt;int,int&gt; cur, count;
+        for (char c : s) {
+            count[c]++;
         }
-        int ans = INT_MAX;</B></FONT>
-        for (int i = 0; i &lt; n; i++) {
-            int lo = i;
-            int hi = n + 1;
-            while (lo &lt; hi) {
-                int mi = (lo + hi) / 2;
-                bool o = 1;
-                for (int j = 0; j &lt; 4; j++)
-                    if (x[n][j] - x[mi][j] + x[i][j] &gt; n / 4) {
-                        o = 0;
-                        break;
-                    }
-                if (o)
-                    hi = mi;
-                else lo = mi + 1;
+        int ans = L;
+        for (int left = 0, right = 0; left &lt; L; left++) {
+<A NAME="0"></A>            if (left &gt; 0) {
+                cur[s[left - 1]]--;
             }
-            if (lo != n + 1)
-                ans = min(ans, lo - i);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            right = max(left, right);
+            // left ~ right - 1
+            while (right &lt; L &amp;&amp; ((count['Q'] - cur['Q'] &gt; L / 4) || (count['W'] - cur['W'] &gt; L / 4) || (count['E'] - cur['E'] &gt; L / 4) || (count['R'] - cur['R'] &gt; L / 4))) {
+                cur[s[right]]++;
+                right++;
+            }
+            if ((count['Q'] - cur['Q'] &lt;= L / 4) &amp;&amp; (count['W'] - cur['W'] &lt;= L / 4) &amp;&amp; (count['E'] - cur['E'] &lt;= L / 4) &amp;&amp; (count['R'] - cur['R'] &lt;= L / 4)) {
+                ans = min(ans, right - left);
+            }
         }
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

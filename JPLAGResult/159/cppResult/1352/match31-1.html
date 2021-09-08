@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>115_nguyen_hoanh.cpp</TITLE>
+ <TITLE>136_gingerale.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>115_nguyen_hoanh.cpp</CENTER></H3><HR>
+<H3><CENTER>136_gingerale.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int jobScheduling(vector&lt;int&gt;&amp; startTime,
-                      vector&lt;int&gt;&amp; endTime,
-                      vector&lt;int&gt;&amp; profit) {
-      vector&lt;int&gt; t;
-      t.insert(t.begin(), startTime.begin(), startTime.end());
-      t.insert(t.begin(), endTime.begin(), endTime.end());
-      sort(t.begin(), t.end());
-      t.resize(unique(t.begin(), t.end()) - t.begin());
-      
-      unordered_map&lt;int, vector&lt;int&gt;&gt; end_time_to_jobs;
-      for (int i = 0; i &lt; endTime.size(); ++i) {
-        end_time_to_jobs[endTime[i]].push_back(i);
-      }
-      
-      unordered_map&lt;int, int&gt; f;
-      f[t[0]] = 0;
-      for (int i = 1; i &lt; t.size(); ++i) {</B></FONT>
-        f[t[i]] = f[t[i-1]];
+    int jobScheduling(vector&lt;int&gt;&amp; start, vector&lt;int&gt;&amp; end, vector&lt;int&gt;&amp; p) {
+        int n = p.size();
+        vector&lt;vector&lt;int&gt;&gt; jobs;
         
-        for (int j : end_time_to_jobs[t[i]]) {
-          f[t[i]] = max(f[t[i]], f[startTime[j]] + profit[j]);
+        for(int i = 0; i &lt; n; ++i) {</B></FONT>
+<A NAME="1"></A>            jobs.push_back({start[i], end[i], p[i]});
         }
-      }
-      
-      int ret = 0;
-      for (auto&amp; p : f) ret = max(ret, p.second);
-      return ret;
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(jobs.begin(), jobs.end(), [] (vector&lt;int&gt;&amp; v1, vector&lt;int&gt;&amp; v2) {
+            return v1[1] &lt; v2[1];
+        });
+        
+        vector&lt;int&gt; dp(n);
+        dp[0] = jobs[0][2];
+        for(int i = 1; i &lt; n; ++i) {
+            int prof = jobs[i][2];</B></FONT>
+            int l = binarySearch(jobs, i);
+            if(l != -1)
+                prof += dp[l];
+            
+            dp[i] = max(dp[i-1], prof);
+        }
+        return dp[n-1];
+    }
+    
+    int binarySearch(vector&lt;vector&lt;int&gt;&gt;&amp; jobs, int index) {
+        int lo = 0, hi = index -1;
+        while(lo &lt;= hi) {
+            int mid = (lo + hi) / 2;
+            if(jobs[mid][1] &lt;= jobs[index][0]) {
+                if(jobs[mid+1][1] &lt;= jobs[index][0])
+                    lo = mid + 1;
+                else
+                    return mid;
+            }
+            else
+                hi = mid -1;
+        }
+        return -1;
     }
 };
 </PRE>

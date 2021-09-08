@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>250_hum.java</TITLE>
+ <TITLE>259_KLEA.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,56 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>250_hum.java</CENTER></H3><HR>
+<H3><CENTER>259_KLEA.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        int len = s.length();
-        int count = len / 4;
-        int[] alp = new int[26];
-        for (char c : s.toCharArray()) {
-            alp[c - 'A']++;
+        int q = 0, w = 0, e = 0, r = 0;
+<A NAME="0"></A>        int n = s.length(), t = n / 4;
+        
+        for (char ch : s.toCharArray()) {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ch == 'Q') q++;
+            if (ch == 'W') w++;
+            if (ch == 'E') e++;
+            if (ch == 'R') r++;
+<A NAME="1"></A>        }
+        
+        if (q == w &amp;&amp; w == e &amp;&amp; e == r) return 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int lo = 0</B></FONT>, ans = Integer.MAX_VALUE;
+        for (int hi = 0; hi &lt; n; hi++) {
+            char c = s.charAt(hi);
+            if (c == 'Q') q--;
+            if (c == 'W') w--;
+            if (c == 'E') e--;
+<A NAME="2"></A>            if (c == 'R') r--;</B></FONT>
+            if (q &gt; t || w &gt; t || e &gt; t || r &gt; t) continue;
+            while (lo &lt;= hi &amp;&amp; q &lt;= t &amp;&amp; w &lt;= t &amp;&amp; e &lt;= t &amp;&amp; r &lt;= t) {
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char x = s.charAt(lo++);
+                    if (x == 'Q') q++;
+                    if (x == 'W') w++;
+                    if (x == 'E') e++;
+                    if (x == 'R') r++;
+            }</B></FONT>
+            ans = Math.min(hi-lo+2, ans);
         }
-        int[] index = {16, 22, 4, 17};
-        int[] need = new int[4];
-        boolean flag = false;
-        for (int i = 0; i &lt; 4; i++) {
-<A NAME="0"></A>            int tmp = alp[index[i]] - count;
-            if (tmp &gt; 0) {
-                flag = true;
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>need[i] = tmp;
-            }
-        }
-        if (!flag) {
-            return 0;
-        }
-        int i = 0</B></FONT>;
-<A NAME="1"></A>        int j = 0;
-        int result = Integer.MAX_VALUE;
-        int[] res = new int[26];
-        while (j &lt; len) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            res[s.charAt(j) - 'A']++;
-            while (check(res, need) &amp;&amp; i &lt;= j) {
-                result = Math.min(result, j - i + 1);
-                res[s.charAt(i) - 'A']--;
-                i++;
-            }
-            j++;
-        }
+        return ans;
+        
+        
+    }
+}
 
-        return result;
-    }
-<A NAME="2"></A>
-    private boolean check(int[] res, int[] need) {</B></FONT>
-        int[] index = {16, 22, 4, 17};
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#2',2,'match11-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int k = 0; k &lt; 4; k++) {
-            if (res[index[k]] &lt; need[k]) {
-                return false;
-            }
-        }
-        return true;
-    }
-}</B></FONT>
+
+// qqqw 
+// q 3 w 1
+// q 2 w 1        -&gt; q = 1 w = 1 e = 1 r = 1
+// q 1 w 1
 </PRE>
 
 </BODY>

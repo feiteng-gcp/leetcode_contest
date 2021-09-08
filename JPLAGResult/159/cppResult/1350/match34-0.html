@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>365_hosam_samy.cpp</TITLE>
+ <TITLE>265_aristowang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,82 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>365_hosam_samy.cpp</CENTER></H3><HR>
+<H3><CENTER>265_aristowang.cpp</CENTER></H3><HR>
 <PRE>
-class Trie
-{
+class Solution {
 public:
-    bool flag=0;
-<A NAME="0"></A>    unordered_map&lt;string,Trie*&gt; next;
-};
-
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-public:
-    
-    vector&lt;string&gt; separate(string folder)
-    {
-        vector&lt;string&gt; ret;
-        string cur = &quot;&quot;;
-        for(int i=0;i&lt;folder.size();i++)
-        {
-            if(folder[i] == '/')
-            {</B></FONT>
-                if(cur.size()) ret.push_back(cur);
-                cur = &quot;&quot;;
-                continue;
-            }
-            cur += folder[i];
-        }
-        if(cur.size()) ret.push_back(cur);
-        return ret;
-    }
-    
-    void build(Trie* root, vector&lt;string&gt;&amp; sub)
-    {
-        for(int i=0;i&lt;sub.size();i++)
-        {
-            if(root-&gt;next.find(sub[i]) != root-&gt;next.end())
-                root = root-&gt;next[sub[i]];
-            else
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end());
+        vector&lt;string&gt; res;
+        unordered_set&lt;string&gt; visited;
+        for (int i = 0; i &lt; folder.size(); ++i)
+<A NAME="0"></A>        {
+            string s = folder[i] + &quot;/&quot;;
+            string str;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool flag_visited = false;
+            for (int i = 1; i &lt; s.size(); ++i)
             {
-                root-&gt;next[sub[i]] = new Trie();
-                root = root-&gt;next[sub[i]];
+                if (s[i] == '/')
+                {
+                    if (visited.count(s.substr(0, i)))
+                    {
+                        flag_visited = true;
+                        break;                        
+                    }
+                }
+            }
+            if (!flag_visited)
+            {
+                visited.insert(folder[i]);
+                res.push_back(folder[i]);
             }
         }
-        root-&gt;flag=true;
-        root-&gt;next.clear();
-        return;
+        return res;
     }
-    
-    void solve(Trie* root, string cur, vector&lt;string&gt; &amp;ret)
-    {
-        if(root-&gt;flag)
-        {
-            ret.push_back(cur);
-            return;
-        }
-        for(auto it: root-&gt;next)
-        {
-            string tmp = cur + &quot;/&quot; + it.first;
-            solve(it.second,tmp,ret);
-        }
-        return;
-    }
-    
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; f) {
-        
-        Trie *root = new Trie();
-        
-        for(int i=0;i&lt;f.size();i++)
-        {
-            vector&lt;string&gt; sub = separate(f[i]);
-            build(root, sub);
-        }
-        vector&lt;string&gt; ret;
-        solve(root,&quot;&quot;,ret);
-        return ret;
-    }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

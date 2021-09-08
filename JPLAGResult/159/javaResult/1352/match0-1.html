@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>448_litian.java</TITLE>
+ <TITLE>357_Edwin_Z.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,57 +15,51 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>448_litian.java</CENTER></H3><HR>
+<H3><CENTER>357_Edwin_Z.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    int[] memo;
+    
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        
         int n = startTime.length;
-        Job[] arr = new Job[n];
-        for (int i = 0; i &lt; startTime.length; i++) {
-            arr[i] = new Job(startTime[i], endTime[i], profit[i]);
+        memo = new int[n + 1];
+        List&lt;int[]&gt; job = new ArrayList&lt;&gt;();
+        
+        for(int i = 0; i &lt; n; i++){
+            job.add(new int[]{startTime[i], endTime[i], profit[i]});
         }
-        // Sort jobs according to finish time 
-        Arrays.sort(arr, (a, b)-&gt; a.finish - b.finish);
-        int[] table = new int[n];
-        table[0] = arr[0].profit;
-
-        // Fill entries in M[] using recursive property 
-        for (int i=1; i&lt;n; i++)
-        {
-            // Find profit including the current job 
-            int inclProf = arr[i].profit;
-            int l = latestNonConflict(arr, i);
-            if (l != -1)
-                inclProf += table[l];
-
-            // Store maximum of including and excluding 
-            table[i] = Math.max(inclProf, table[i-1]);
-        }
-
-        // Store result and free dynamic memory allocated for table[] 
-        int result = table[n-1];
-
-        return result;
+        
+        Collections.sort(job, (a, b) -&gt; a[1] - b[1]);
+        
+        return dfs(job, n);
     }
-
-    class Job {
-        int start, finish, profit;
-        public Job(int start, int finish, int profit) {
-            this.start = start;
-            this.finish = finish;
-            this.profit = profit;
+    
+    public int dfs(List&lt;int[]&gt; job, int n){
+        
+        if(n == 1) return job.get(n - 1)[2];
+        
+        if(memo[n] != 0) return memo[n];
+        
+        int inclProf = job.get(n - 1)[2];
+        int i = latestNonConflict(job, n);
+        
+        if(i != -1){
+            inclProf += dfs(job, i + 1);
         }
+        
+        int exclProf = dfs(job, n - 1);
+        
+        memo[n] = Math.max(inclProf, exclProf);
+        
+        return memo[n];
     }
-
-
-    // Find the latest job (in sorted array) that doesn't 
-// conflict with the job[i] 
-    int latestNonConflict(Job arr[], int i)
-    {
-        for (int j=i-1; j&gt;=0; j--)
-        {
-            if (arr[j].finish &lt;= arr[i].start)
-                return j;
+    
+    public int latestNonConflict(List&lt;int[]&gt; job, int i){
+        
+        for(int j = i - 1; j &gt;= 0; j--){
+            if(job.get(j)[1] &lt;= job.get(i - 1)[0]) return j;
         }
         return -1;
     }

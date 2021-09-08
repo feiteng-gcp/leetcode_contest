@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>186_luchy0120.java</TITLE>
+ <TITLE>144_qiuyu_93.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>186_luchy0120.java</CENTER></H3><HR>
+<H3><CENTER>144_qiuyu_93.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A>class Solution {
     public int balancedString(String s) {
-        int d[] = new int[256];
-        for(char c:s.toCharArray()){
-            d[c]++;
-        }
-        int len = s.length()/4;i</B></FONT>nt r =0;
-      char cc[] = {'Q','W','E','R'};
-        boolean all = false;
-        for(char f:cc){
-            if(d[f]&gt;len){
-               d[f]-=len;
-                all = true;
-            }else{
-               d[f] = 0; 
-            }
-        }
-        if(!all) return 0;
-        
-        
-        int st = 0;int md[] = new int[256];int rrr = s.length();
-        for(int i=0;i&lt;s.length();++i){
-            char ccc = s.charAt(i);
-            if(d[ccc]&gt;0){
-                md[ccc]++;
-            }
-            while(true){
-            ccc = s.charAt(st);
-            
-            boolean ok = d[ccc]&gt;0&amp;&amp; md[ccc]-1&gt;=d[ccc] ||d[ccc]==0;
-
-            if(ok){
-                if(d[ccc]&gt;0){
-                md[ccc]--;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }</B></FONT>
+        // System.out.println(map);
+        int b = s.length() / 4;
+        int res = 0;
+        String tmp = &quot;QWER&quot;;
+        Map&lt;Character, Integer&gt; tmap = new HashMap&lt;&gt;();
+        for (char c : tmp.toCharArray()) {
+            if (map.containsKey(c)) {
+                int aa = map.get(c);
+                if (aa &gt; b) {
+                    tmap.put(c, aa - b);
                 }
-                st++;
-            }else{
-                break;
-            }
-            }
-            
-            boolean ok1 = true;
-            for(char t:cc){
-                if(d[t]&gt;0){
-                if(md[t]&lt;d[t]){
-                    ok1 = false;
-                    break;
-                }    
-<A NAME="1"></A>                }
-            }
-            if(ok1){
-            rrr = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(i-st+1,rrr);
-            }
-            
+<A NAME="1"></A>            }
         }
-        return rrr;
-        
-        
+       
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int cnt = tmap.size(), left = 0, right = s.length();
+        int i = 0;
+        for (int j = 0; j &lt; s.length(); j++) {
+            char c = s.charAt(j);
+            if (tmap.containsKey(c)) {
+                tmap.put(c, tmap.get(c) - 1);
+                if (tmap.get</B></FONT>(c) == 0) {
+                    cnt--;
+                }
+                while (cnt == 0) {
+                    if (right - left &gt; j - i) {
+                        right = j;
+<A NAME="2"></A>                        left = i;
+                    }
+                    char cc = s.charAt(i);
+                    if (<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>tmap.containsKey(cc)) {
+                        tmap.put(cc, tmap.get(cc) + 1);
+                        if (tmap.get(cc) &gt; 0) cnt++;
+                    }
+                    i++;
+                }</B></FONT>
+               
+            }
+        }
+        // System.out.println(left);
+        // System.out.println(right);
+        return right == s.length() ? 0 : right - left + 1;
     }
-}</B></FONT>
+    
+    public String minWindow(String s, String t) {
+        Map&lt;Character, Integer&gt; tmap = new HashMap&lt;&gt;();
+        for (char c : t.toCharArray()) {
+            tmap.put(c, tmap.getOrDefault(c, 0) + 1);
+        }
+        
+        // Map&lt;Character, Integer&gt; smap = new HashMap&lt;&gt;();
+        int cnt = tmap.size(), left = 0, right = s.length();
+        int i = 0;
+        for (int j = 0; j &lt; s.length(); j++) {
+            char c = s.charAt(j);
+            if (tmap.containsKey(c)) {
+                tmap.put(c, tmap.get(c) - 1);
+                if (tmap.get(c) == 0) {
+                    cnt--;
+                }
+                while (cnt == 0) {
+                    if (right - left &gt; j - i) {
+                        right = j;
+                        left = i;
+                    }
+                    char tmp = s.charAt(i);
+                    if (tmap.containsKey(tmp)) {
+                        tmap.put(tmp, tmap.get(tmp) + 1);
+                        if (tmap.get(tmp) &gt; 0) cnt++;
+                    }
+                    i++;
+                }
+               
+            }
+             
+        }
+        
+        return right == s.length() ? &quot;&quot; : s.substring(left, right+1);
+    }
+}
 </PRE>
 
 </BODY>

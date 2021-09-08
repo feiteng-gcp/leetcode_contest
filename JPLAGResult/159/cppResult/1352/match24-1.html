@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>128_Tyrande.cpp</TITLE>
+ <TITLE>136_gingerale.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>128_Tyrande.cpp</CENTER></H3><HR>
+<H3><CENTER>136_gingerale.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-<A NAME="1"></A>    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        int n = startTime.size();
+    int jobScheduling(vector&lt;int&gt;&amp; start, vector&lt;int&gt;&amp; end, vector&lt;int&gt;&amp; p) {
+        int n = p.size();
         vector&lt;vector&lt;int&gt;&gt; jobs;
-        for (int i = 0; i &lt; n; ++i) jobs.push_back({endTime[i], startTime[i], profit[i]});</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
-        sort(jobs.begin(), jobs.end());
-        vector&lt;int&gt; dp(n, 0);
+<A NAME="1"></A>        
+        for(int i = 0; i &lt; n; ++i) {</B></FONT>
+            jobs.push_back({start[i], end[i], p[i]});
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        sort(jobs.begin(), jobs.end(), [] (vector&lt;int&gt;&amp; v1, vector&lt;int&gt;&amp; v2) {
+            return v1[1] &lt; v2[1];
+        });
+        
+        vector&lt;int&gt; dp(n);
         dp[0] = jobs[0][2];
-        for (int i = 1; i &lt; n; ++i) {
-            int curprofit = jobs[i][2];
-            int j = i-1;</B></FONT>
-            for (j = i - 1; j &gt;= 0; --j) {
-                if (jobs[j][0] &lt;= jobs[i][1]) break;
-            }
-            if (j &gt;= 0) curprofit += dp[j];
-            dp[i] = max(curprofit, dp[i-1]);
+        for(int i = 1; i &lt; n; ++i) {
+            int prof = jobs[i][2];
+            int l = binarySearch(jobs, i);
+            if(l != -1)
+                prof += dp[l];
+            
+            dp[i] = max(dp[i-1], prof);
         }
         return dp[n-1];
+    }
+    
+    int binarySearch(vector&lt;vector&lt;int&gt;&gt;&amp; jobs, int index) {</B></FONT>
+        int lo = 0, hi = index -1;
+        while(lo &lt;= hi) {
+            int mid = (lo + hi) / 2;
+            if(jobs[mid][1] &lt;= jobs[index][0]) {
+                if(jobs[mid+1][1] &lt;= jobs[index][0])
+                    lo = mid + 1;
+                else
+                    return mid;
+            }
+            else
+                hi = mid -1;
+        }
+        return -1;
     }
 };
 </PRE>

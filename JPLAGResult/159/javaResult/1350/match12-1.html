@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>43_scut_dell.java</TITLE>
+ <TITLE>193_weih_xu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>43_scut_dell.java</CENTER></H3><HR>
+<H3><CENTER>193_weih_xu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    private boolean judge(String a, String b) {
-        return b.startsWith(a + &quot;/&quot;);
-    }
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-<A NAME="0"></A>        Arrays.sort(folder);
-        List&lt;String&gt; ret = new ArrayList&lt;String&gt;();
-        String now = null;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0;i &lt; folder.length;i++) {
-            if (ret.size() == 0 || !judge(ret.get(ret.size() - 1), folder[i])) {
-                ret.add(folder[i]);
+        Arrays.sort(folder);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        Set&lt;String&gt; seen = new HashSet&lt;&gt;();
+        for(String s:folder){
+            String[] ss = s.split(&quot;/&quot;);
+            int n = ss.length</B></FONT>;
+            String cur = &quot;&quot;;
+<A NAME="1"></A>            boolean f = true;
+            for(int i=0;i&lt;n;i++){
+                cur+=ss[i];
+                if(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>seen.contains(cur)){
+                    f = false;
+                    break;
+                }
+            }
+            if(f){
+                res.add(s);
+                seen.add</B></FONT>(cur);
             }
         }
-        return ret;
+        return res;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>235_ulyssesz.py</TITLE>
+ <TITLE>200_pm-str.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>235_ulyssesz.py</CENTER></H3><HR>
+<H3><CENTER>200_pm-str.py</CENTER></H3><HR>
 <PRE>
-import logging
-import sys
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
 from collections import Counter, defaultdict
+
 class Solution:
-    def balancedString(self, string):
-        count = Counter()
-<A NAME="0"></A>        for c in string:
-            count[c] += 1
-        expected = len(string) / 4
-        need <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= {}
-        needCount = 0
-        for l in &quot;QWER&quot;:
-            if count[l] &gt; expected:
-                need[l] = count[l] - expected
-                needCount += need[l]
-
-        if needCount == 0:
-            return 0
-        i=</B></FONT>0
-        j=0
-        ans = len(string)
-        while j &lt; len(string) or needCount == 0:
-            # print(i, j, need, needCount)
-            if needCount &gt; 0:
-              j += 1
-              c = string[j-1]
-              if c not in need:
-                  continue
-              else:
-                  need[c] -= 1
-                  if need[c] &gt;= 0:
-                      needCount -= 1
-
-            if needCount == 0:
-                ans = min(ans, j - i)
-                # have necessary,
-                i += 1
-                c = string[i-1]
-                if c in need:
-                    need[c] += 1
-                    if need[c] &gt; 0:
-                        needCount += 1
-
+    def balancedString(self, s: str) -&gt; int:
+        c = Counter(s)
+        n = len(s)
+        
+        Q = max(0, c['Q'] - n // 4)
+        W = max(0, c['W'] - n // 4)
+        R = max(0, c['R'] - n // 4)
+<A NAME="0"></A>        E= max(0, c['E'] - n // 4)
+        
+        d = defaultdict(int)
+        l, r <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0, 0
+        ans = n
+        while l &lt; n:
+            while r &lt; n and (d['Q'] &lt; Q or d['W'] &lt; W or d['R'] &lt; R or d['E'] &lt; E):
+                d[s[r]] += 1
+                # print(d)
+                r +</B></FONT>= 1
+            # print(l,r,ans)
+            if d['Q'] &gt;= Q and d['W'] &gt;= W and d['R'] &gt;= R and d['E'] &gt;= E:
+                ans = min(ans, r-l)
+            d[s[l]] -= 1
+            l += 1
         return ans
+        
 </PRE>
 
 </BODY>

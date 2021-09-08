@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>156_qian48.py</TITLE>
+ <TITLE>175_pku_erutan.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,19 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>156_qian48.py</CENTER></H3><HR>
+<H3><CENTER>175_pku_erutan.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        jobs = [(e, s, p) for s, e, p in zip(startTime, endTime, profit)]
-        jobs.sort()
-        n =</B></FONT> len(jobs)
-        dp = [-1] * n
-        dp[0] = jobs[0][2]
-        
-        def bs(target):
-            start, end = 0, n
-            while start != end:
-                mid = (start + end) // 2
-                if jobs[mid][0] &lt;= target: start = mid + 1
-                else: end = mid
-            return start
-        
-        for i in range(1, n):
-            idx = bs(jobs[i][1]) - 1
-            if idx &gt;= 0: dp[i] = max(dp[i], dp[idx] + jobs[i][2])
-            else: dp[i] = max(dp[i], jobs[i][2])
-            dp[i] = max(dp[i-1], dp[i])
-        return dp[n-1]
+        datas = sorted(zip(startTime, endTime, profit), key=lambda x:x[1])
+        endtimes = sorted(</B></FONT>endTime)
+        results = [0]
+        for t in datas :
+            # print(t)
+            results_t = max(results[-1], t[-1]+results[bisect.bisect(endtimes, t[0])])
+            results.append(results_t)
+        # print(results)
+        return results[-1]
 </PRE>
 
 </BODY>

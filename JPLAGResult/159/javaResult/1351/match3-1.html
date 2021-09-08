@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_nanhongye.java</TITLE>
+ <TITLE>334_SilverNarcissus.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,60 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_nanhongye.java</CENTER></H3><HR>
+<H3><CENTER>334_SilverNarcissus.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>    int n;
-
     public int balancedString(String s) {
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        map.put('Q', 0);
-        map.put('W', 0);
-        map.put('E', 0);
-        map.put('R', 0);
-<A NAME="1"></A>        for (Character c : s.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
-        int l = 0, r = 0, mi</B></FONT>n = s.length();
-        n = s.length();
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (r &lt; n) {
-            char rc = s.charAt(r++);
-            map.put(rc, map.get(rc) - 1);
-            while (isBal(map)) {
-                min = Math.min</B></FONT>(min, r - l);
-                if ( l &lt; n ) {
-                char lc = s.charAt(l++);
-                map.put(lc, map.get(lc) + 1);
-                } else {break;}
+        int[] count = new int[4];
+        int[] loc = new int[26];
+        loc['Q' - 'A'] = 0;
+        loc['W' - 'A'] = 1;
+<A NAME="0"></A>        loc['E' - 'A'] = 2;
+        loc['R' - 'A'] = 3;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char c : s.toCharArray()){
+            count[loc[c - 'A']]++;
+        }
+        
+        int n = s.length();
+        int more = 0;
+        int less = 0</B></FONT>;
+        for(int i = 0; i &lt; 4; i++){
+            count[i] -= n / 4;
+            if(count[i] &lt; 0){
+                less += -count[i];
             }
         }
-<A NAME="2"></A>        return min;
-    }
-
-    private boolean isBal(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Character, Integer&gt; map) {
-        for (Integer i : map.values())
-            if (i &gt; n / 4) return false;
-        return true;
+        
+        if(less == 0){
+            return 0;
+        }
+<A NAME="1"></A>        // sliding window
+        int l = 0;
+        int res = n;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int r = 0; r &lt; s.length(); r++){
+            char c = s.charAt(r);
+            if(count[loc[c -'A']] &gt; 0){
+                more++;
+            }</B></FONT>
+            count[loc[c - 'A']]--;
+            
+            if(more == less){
+                //System.out.println(r + &quot; &quot; + l);
+                while(l &lt;= r){
+                    char lc = s.charAt(l);
+                    count[loc[lc - 'A']]++;
+                    l++;
+                    if(count[loc[lc - 'A']] == 1){
+                        more--;
+<A NAME="2"></A>                        break;
+                    }
+                }
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res = Math.min(res, r - l + 2);
+            }
+        }
+        
+        return res;
     }
 }</B></FONT>
 </PRE>

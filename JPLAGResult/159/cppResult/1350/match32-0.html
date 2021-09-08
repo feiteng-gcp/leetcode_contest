@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>318_alptekingenc.cpp</TITLE>
+ <TITLE>419_smartjinyu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>318_alptekingenc.cpp</CENTER></H3><HR>
+<H3><CENTER>419_smartjinyu.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        unordered_set&lt;string&gt; result;
-        sort(folder.begin(),folder.end());
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;folder.size();i++){
-            bool folderExist=false;
-            for(int j=1;j&lt;folder[i].size();j++){
-                if(folder[i][j]=='/'){
-                    if(result.find(folder[i].substr(0,j))!=result.end()){
-                        folderExist=true;
-                        break;
-                    }
-                }
-            }
-            if(!folderExist){
-                result.insert(folder[i]);
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+<A NAME="0"></A>        sort(folder.begin(), folder.end());
+        vector&lt;string&gt; ans;
+        ans.push_back(folder[0]);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int prev = 0;
+        for(int i = 1; i &lt; folder.size(); i++){
+            if(isPrefix(folder[prev], folder[i])){
+                continue;
+            }else{
+                ans.push_back(folder[i]);
+                prev = i;
             }
         }
-        vector&lt;string&gt; res;
-        for(auto p:result){</B></FONT>
-            res.push_back(p);
+        return ans;
+    }</B></FONT>
+    bool isPrefix(const string&amp; str1, const string&amp; str2){
+        // is str1 a prefix of str2?
+        if(str1 == str2) return true;
+        if(str1.size() &gt; str2.size()) return false;
+        int i = 0;
+        while(i &lt; str1.size()){
+            if(str1[i] != str2[i]) return false;
+            i++;
         }
-        return res;
+        if(i == str2.size() || str2[i] == '/'){
+            return true;
+        }else{
+            return false;
+        }
     }
 };
 </PRE>

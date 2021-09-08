@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>369_nanhongye.java</TITLE>
+ <TITLE>349_Sun_WuKong.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>369_nanhongye.java</CENTER></H3><HR>
+<H3><CENTER>349_Sun_WuKong.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-        public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-            int[][] jobs = new int[startTime.length][3];
-<A NAME="0"></A>            int n = startTime.length;
-            for (int i = 0; i &lt; n; i++) {
-                jobs[i] = new int[]{startTime[i], endTime[i], profit[i]};
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-            Arrays.sort(jobs, (j1, j2) -&gt; j1[1] - j2[1]);
-            int[] dp = new int[n];
-            dp[0] = jobs[0][2];
-            for (int i = 1; i &lt; n; i++) {
-                int curProfit = jobs[i][2];
-                int last = lastNonConflictProfit(jobs, i);
-                if ( last != - 1) curProfit += dp[last];
-                dp[i] = Math.max(curProfit, dp[i - 1]);
-            }</B></FONT>
-<A NAME="1"></A>            return dp[n - 1];
+<A NAME="0"></A>class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Job[] jobs = new Job[startTime.length];
+        for (int i = 0; i &lt; startTime.length; i++) {
+            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
+        Arrays.sort(jobs, (a, b) -&gt; a.endTime-b.endTime);
         
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int lastNonConflictProfit(int[][] jobs, int i) {
-            for ( int j = i - 1 ; j &gt;= 0 ; j--) {
-                if ( jobs[j][1] &lt;= jobs[i][0] ) return j;
-            }
-            return -1;
+        int[] cache = new</B></FONT> int[startTime.length+1];
+        for (int i = 1; i &lt;= startTime.length; i++) {
+            cache[i] = Math.max(cache[i-1], jobs[i-1].profit + cache[lastest(jobs, i-1)]);
         }
-}</B></FONT>
+<A NAME="2"></A>        return cache[startTime.length];
+    }
+    
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int lastest(Job[] jobs, int i) {
+<A NAME="1"></A>        for (int j = i-1; j &gt;= 0; j--) {
+            if (jobs[j].endTime &lt;= jobs[i].startTime) return j+1;
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return 0;
+    }
+    
+    class Job {
+        int startTime, endTime, profit;
+        Job (int _startTime, int _endTime, int _profit) {
+            startTime = _startTime;
+            endTime = _endTime;
+            profit = _profit;
+        }
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

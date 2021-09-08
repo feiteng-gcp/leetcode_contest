@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>157_EUqr2c2cjD8nuX5K.cpp</TITLE>
+ <TITLE>415_TuanGe.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,93 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>157_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
+<H3><CENTER>415_TuanGe.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>namespace {
-    struct MyJobInfo  { 
-        int start, finish, profit; 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }; 
-  
-    int binarySearch(vector&lt;MyJobInfo&gt;&amp; jobs, int index)  { 
-        int lo = 0, hi = index - 1; 
-        while (lo &lt;= hi)  { 
-            int mid = (lo + hi) / 2; 
-            if (jobs[mid].finish &lt;= jobs[index].start)  { 
-                if (jobs[mid + 1].finish &lt;= jobs[index].start) 
-                    lo = mid + 1; 
-                else
-                    return mid; 
-            }  else
-                hi = mid - 1; 
-        } 
-        return -1; 
-    } </B></FONT>
-  
-    int findMaxProfit(vector&lt;MyJobInfo&gt;&amp; arr)  { 
-<A NAME="1"></A>        int n = arr.size();
-        sort(arr.begin(), arr.begin() + n, [](const MyJobInfo&amp; a, const MyJobInfo&amp; b) {
-            return a.finish &lt; b.finish;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }); 
-        int *table = new int[n]; 
-        table[0] = arr[0].profit; 
-        for (int i=1; i&lt;n; i++)  { 
-            int inclProf = arr[i].profit; 
-            int l = binarySearch(arr, i); 
-            if (l != -1)  inclProf += table[l]; 
-            table[i] = max(inclProf, table[i-1]); 
-        } 
-        int result = table[n-1]; 
-        delete[] table; 
-        return result; 
-    } 
-}</B></FONT>
-
 class Solution {
 public:
-    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        vector&lt;MyJobInfo&gt; jobs;
-        for (int i = 0; i &lt; startTime.size(); ++i) {
-            MyJobInfo job = {startTime[i], endTime[i], profit[i]};
-            jobs.emplace_back(job);
-        }
-        return findMaxProfit(jobs);
+    // A utility function that is used for sorting events 
+    // according to finish time 
+    static bool cmp(vector&lt;int&gt;&amp; s1, vector&lt;int&gt;&amp; s2) 
+    { 
+        return (s1[1] &lt; s2[1]); 
+    } 
+<A NAME="0"></A>    
+    // Find the latest job (in sorted array) that doesn't 
+    // conflict with the job[i] 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int latestNonConflict(vector&lt;vector&lt;int&gt;&gt;&amp; arr, int i)
+    { 
+        for (int j=i-1; j&gt;=0; j--) 
+        { 
+            if (arr[j][1] &lt;= arr[i][0]) 
+                return j; 
+        } 
+        return -1; 
+    }</B></FONT>
+    
+<A NAME="1"></A>    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        int n = startTime.size();
+        vector&lt;vector&lt;int&gt;&gt; arr;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++)
+            arr.push_back({startTime[i], endTime[i], profit[i]});
+        sort(arr.begin(), arr.end(), cmp);
+  
+        // Create an array to store solutions of subproblems.  table[i] 
+        // stores the profit for jobs till arr[i] (including arr[i]) 
+        int* table = new int[n]; 
+        table[0] = arr[0][2]; 
+
+        // Fill entries in M[] using recursive property 
+        for (int i=1; i&lt;n; i++) 
+        { 
+            // Find profit including the current job 
+            int inclProf = arr[i][2]; 
+            int l = latestNonConflict(arr, i); 
+            if (l != -1) 
+                inclProf += table[l]; 
+
+            // Store maximum of including and excluding 
+            table[i] = max(inclProf, table[i-1]); 
+        } 
+
+        // Store result and free dynamic memory allocated for table[] 
+        int result = table[n-1]; 
+        delete[] table; 
+
+        return result;
     }
-};
+};</B></FONT>
+
+// class Solution {
+// public:
+//     int output;
+    
+//     void backTrack(vector&lt;vector&lt;int&gt;&gt;&amp; state, int acc, int cur, int tail) {
+//         int n = state.size();
+//         if (cur == n)
+//             output = max(output, acc);
+//         for (int i = cur; i &lt; n; i++) {
+//             int oriacc = acc, oritail = tail;
+//             if (state[i][0] &gt;= tail) {
+//                 acc += state[i][2];
+//                 tail = max(tail, state[i][1]);
+//             }
+//             backTrack(state, acc, i+1, tail);
+//             acc = oriacc;
+//             tail = oritail;
+//         }
+//     }
+    
+//     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+//         int n = startTime.size();
+//         vector&lt;vector&lt;int&gt;&gt; state;
+//         for (int i = 0; i &lt; n; i++)
+//             state.push_back({startTime[i], endTime[i], profit[i]});
+//         sort(state.begin(), state.end());
+//         output = 0;
+//         backTrack(state, 0, 0, 0);
+//         return output;
+//     }
+// };
 </PRE>
 </BODY>
 </HTML>

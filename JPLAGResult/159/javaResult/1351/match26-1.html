@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>267_SiddharthN.java</TITLE>
+ <TITLE>259_KLEA.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>267_SiddharthN.java</CENTER></H3><HR>
+<H3><CENTER>259_KLEA.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        int let[] = new int[] {s.length()/-4, s.length()/-4, s.length()/-4, s.length()/-4};
-        for(char c : s.toCharArray()) {
-            change(c, let, 1);
+        int q = 0, w = 0, e = 0, r = 0;
+<A NAME="2"></A>        int n = s.length(), t = n / 4;
+        
+        for (char ch : s.toCharArray()) {
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ch == 'Q') q++;
+            if (ch == 'W') w++;
+            if (ch == 'E') e++;
+            if (ch == 'R') r++;
+        }</B></FONT>
+        
+<A NAME="1"></A>        if (q == w &amp;&amp; w == e &amp;&amp; e == r) return 0;
+        int lo = 0, ans = Integer.MAX_VALUE;
+        for (int hi = 0; hi &lt; n; hi++) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char c = s.charAt(hi);
+            if (c == 'Q') q--;
+            if (c == 'W') w--;
+<A NAME="0"></A>            if (c == 'E') e--;
+            if (c == 'R') r--;</B></FONT>
+            if (q &gt; t || w &gt; t || e &gt; t || r &gt; t) continue;
+            while (lo &lt;= hi &amp;&amp; q &lt;= t &amp;&amp; w &lt;= t &amp;&amp; e &lt;= t &amp;&amp; r &lt;= t) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    char x = s.charAt(lo++);
+                    if (x == 'Q') q++;
+                    if (x == 'W') w++;
+                    if (x == 'E') e++;
+                    if (x == 'R') r++;
+            }</B></FONT>
+            ans = Math.min(hi-lo+2, ans);
         }
-        //System.out.println(let[0] + &quot; &quot; + let[1] + &quot; &quot; + let[2] + &quot; &quot; + let[3]);
-        if(let[0] == 0 &amp;&amp; let[1] == 0 &amp;&amp; let[2] == 0 &amp;&amp; let[3] == 0)
-            return 0;
-        return getMin(s, let);
-    }
-    
-<A NAME="0"></A>    public int getMin(String s, int[] let) {
-
-        int[] sub = new int[4];
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int max = s.length();
-        int end = 0;
-        int start = 0;
-        while(end &lt;= s.length()) {
-            if(check(let, sub)) {
-                //System.out.println(s.substring(start,end));
-                max = Integer.min(max, end-start);
-                change(s.charAt(start), sub, -1);
-                start++;
-            }
-            else {
-                if(end &lt; s.length())
-                    change(s.charAt(end), sub, 1);
-                end++;
-            }
-        }
-        return max;
-    }</B></FONT>
-    
-    public boolean check(int[] let, int[] sub) {
-        return (sub[0] &gt;= let[0] &amp;&amp; sub[1] &gt;= let[1] &amp;&amp; sub[2] &gt;= let[2] &amp;&amp; sub[3] &gt;= let[3]);
-    }
-    
-    public void change(char c, int[] arr, int val) {
-        switch(c) {
-                case 'Q': arr[0]+=val;
-                    break;
-                case 'W': arr[1]+=val;
-                    break;
-                case 'E': arr[2]+=val;
-                    break;
-                default: arr[3]+=val;
-                    break;
-            }
+        return ans;
+        
+        
     }
 }
+
+
+// qqqw 
+// q 3 w 1
+// q 2 w 1        -&gt; q = 1 w = 1 e = 1 r = 1
+// q 1 w 1
 </PRE>
 
 </BODY>

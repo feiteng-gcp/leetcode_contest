@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>229_zhutianqi.cpp</TITLE>
+ <TITLE>89_suiyuan1992.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>229_zhutianqi.cpp</CENTER></H3><HR>
+<H3><CENTER>89_suiyuan1992.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-    unordered_set&lt;string&gt; ss;
-    vector&lt;string&gt; folder2;
-    for (auto &amp; s : folder) {
-        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {
-                if (ss.count(s.substr(0, i))) {
-                    canRemove = true;
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; a) {
+        sort(a.begin(),a.end());
+<A NAME="0"></A>        vector&lt;string&gt;ret;
+        unordered_set&lt;string&gt;st;
+        for(int i=0;i&lt;a.size();i++){
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool f = false;
+            for(int j=0;j+1&lt;a[i].size();j++){
+                if(a[i][j+1]=='/'&amp;&amp;st.find(a[i].substr(0,j+1))!=st.end()){
+                    f=true;
                     break;
                 }
             }
-        }
-        if (!canRemove) {
-            ss.insert(s);
-            folder2.push_back(s);
-        }
-    }
-    unordered_set&lt;string&gt; sss;
-<A NAME="0"></A>    vector&lt;string&gt; folder3;
-    reverse(folder2.begin(), folder2.end());
-    for (auto &amp; s : folder2) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {
-                if (sss.count(s.substr(0, i))) {
-                    canRemove = true;
-                    break;
-                }
+            if(!f){
+                st.insert(a[i]);
+                ret.push_back(a[i]);
             }
         }
-        if (!canRemove) {
-            sss.insert(s);
-            folder3.push_back(s);
-        }
+        return ret;
     }
-    return folder3;
-}
 };</B></FONT>
 </PRE>
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>229_zhutianqi.cpp</TITLE>
+ <TITLE>101_wzc1995.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>229_zhutianqi.cpp</CENTER></H3><HR>
+<H3><CENTER>101_wzc1995.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-    unordered_set&lt;string&gt; ss;
-    vector&lt;string&gt; folder2;
-    for (auto &amp; s : folder) {
-        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {</B></FONT>
-                if (ss.count(s.substr(0, i))) {
-                    canRemove = true;
-                    break;
-                }
+    vector&lt;string&gt; split(const string &amp;x) {
+<A NAME="0"></A>        vector&lt;string&gt; cp;
+        int n = x.length();
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int last = 1;
+        for (int i = 1; i &lt; n; i++)
+            if (x[i] == '/') {
+                cp.push_back(x.substr(last, i - last));
+                last = i + 1;
             }
-        }
-        if (!canRemove) {
-            ss.insert(s);
-            folder2.push_back(s);
-        }
+        
+        cp.push_back(x.substr(last, n - last));
+        return cp;
+    }</B></FONT>
+    
+    bool is_under(const string &amp;x, const string &amp;y) {
+        vector&lt;string&gt; sx(split(x));
+        vector&lt;string&gt; sy(split(y));
+        
+        int n = sx.size(), m = sy.size();
+        if (n &gt;= m)
+            return false;
+        
+        for (int i = 0; i &lt; n; i++)
+            if (sx[i] != sy[i])
+                return false;
+        
+        return true;
     }
-    unordered_set&lt;string&gt; sss;
-    vector&lt;string&gt; folder3;
-    reverse(folder2.begin(), folder2.end());
-    for (auto &amp; s : folder2) {
-        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {
-                if (sss.count(s.substr(0, i))) {
-                    canRemove = true;
-                    break;
-                }
-            }
-        }
-        if (!canRemove) {
-            sss.insert(s);
-            folder3.push_back(s);
-        }
+    
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end());
+        int n = folder.size();
+        vector&lt;string&gt; ans;
+        
+        ans.push_back(folder[0]);
+        
+        for (int i = 1; i &lt; n; i++)
+            if (!is_under(ans[ans.size() - 1], folder[i]))
+                ans.push_back(folder[i]);
+        
+        return ans;
     }
-    return folder3;
-}
 };
 </PRE>
 </BODY>

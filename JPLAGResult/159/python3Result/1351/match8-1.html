@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>383_ericxbn.py</TITLE>
+ <TITLE>200_pm-str.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,35 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>383_ericxbn.py</CENTER></H3><HR>
+<H3><CENTER>200_pm-str.py</CENTER></H3><HR>
 <PRE>
-# from collections import Counter
-# class Solution:
-#     def balancedString(self, s: str) -&gt; int:
-#         cnt = Counter(s)
-#         n = len(s)
-#         n //= 4
-#         aux = Counter()
-#         for key in cnt:
-#             if cnt[key] &gt; n:
-#                 aux[key] = cnt[key] - n
-#         if not aux:
-#             return 0
-#         ans = float('inf')
-        
-#         print(aux)
-#         l = r = 0
-#         while r &lt; len(s):
-#             if s[r] in aux:
-#                 aux[s[r]] -= 1
-#             flag = True
-#             for key in aux:
-#                 if aux[key] &gt; 0:
-#                     flag = False
-#             if flag:
-#                 while l &lt; r:
-#                     if s[l] in aux:
-#                         break
-#                     l += 1
-#                 ans = min(ans,r-l+1)
-#             r += 1
-#         return ans
+from collections import Counter, defaultdict
 
-from collections import Counter
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        n, cnt = len(s), Counter(s)
-        cnt = {k: v - n // 4 for k, v in cnt.items() if v &gt; n // 4}
-<A NAME="0"></A>        if len(cnt) == 0: return 0
-        l, r, win, ans = 0, 0, Counter(), n
-        while r &lt; n:
-            while r &lt; n and any(win<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[c] &lt; cnt[c] for c in cnt):
-                win[s[r]] += 1
-                r += 1
-            while l &lt; r and (s[l] not in cnt or win[s[l]] &gt; cnt[s[l]]):
-                win[</B></FONT>s[l]] -= 1
-                l += 1
-            if all(win[c] &gt;= cnt[c] for c in cnt):
-                ans = min(ans, r - l)
-            if l &lt; n:
-                win[s[l]] -= 1
-                l += 1
+        c = Counter(s)
+        n = len(s)
+        
+        Q = max(0, c['Q'] - n // 4)
+        W = max(0, c['W'] - n // 4)
+        R = max(0, c['R'] - n // 4)
+<A NAME="0"></A>        E= max(0, c['E'] - n // 4)
+        
+        d = defaultdict(int)
+        l, r <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0, 0
+        ans = n
+        while l &lt; n:
+            while r &lt; n and (d['Q'] &lt; Q or d['W'] &lt; W or d['R'] &lt; R or d['E'] &lt; E):
+                d[s[r]] += 1
+                # print(d)
+                r +</B></FONT>= 1
+            # print(l,r,ans)
+            if d['Q'] &gt;= Q and d['W'] &gt;= W and d['R'] &gt;= R and d['E'] &gt;= E:
+                ans = min(ans, r-l)
+            d[s[l]] -= 1
+            l += 1
         return ans
+        
 </PRE>
 
 </BODY>

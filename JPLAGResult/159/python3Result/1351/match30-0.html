@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>317_carudy.py</TITLE>
+ <TITLE>293_joshualian1989.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>317_carudy.py</CENTER></H3><HR>
+<H3><CENTER>293_joshualian1989.py</CENTER></H3><HR>
 <PRE>
+from collections import Counter
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        from collections import Counter as C, defaultdict as dd
-        a = C(s)
-        t = len(s)&gt;&gt;2
-
-        if a['Q'] ==  a['W'] ==  a['E'] ==  a['R'] == t: return 0
-
-        b = dd(int)
-        for i in 'QWER':
-            if a[i]&gt;t:
-                a[i] -= t
-<A NAME="0"></A>            else:
-                a[i] = 0
-
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def ok():
-            for i in 'QWER':
-                if b[i]&lt;a[i]: return False
-            return True
-
-        l = 0
-        b[</B></FONT>s[0]] = 1
-        if ok(): return 1
-        ans = len(s)
-        for r in range(1, len(s)):
-            b[s[r]] += 1
-            if ok():
-                while ok():
-                    ans = min(ans, r-l+1)
-                    b[s[l]] -= 1
-                    l += 1
-
+        n, cnt = len(s), Counter(s)
+        cnt = {k: v - n // 4 for k, v in cnt.items() if v &gt; n // 4}
+<A NAME="0"></A>        if len(cnt) == 0: return 0
+        l, r, win, ans = 0, 0, Counter(), n
+        while r &lt; n:
+            while r &lt; n and any(win<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[c] &lt; cnt[c] for c in cnt):
+                win[s[r]] += 1
+                r += 1
+            while l &lt; r and (s[l] not in cnt or win[s[l]] &gt; cnt[</B></FONT>s[l]]):
+                win[s[l]] -= 1
+                l += 1
+            if all(win[c] &gt;= cnt[c] for c in cnt):
+                ans = min(ans, r - l)
+            if l &lt; n:
+                win[s[l]] -= 1
+                l += 1
         return ans
 </PRE>
 

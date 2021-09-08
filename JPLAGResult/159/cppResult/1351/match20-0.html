@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>52_WJTung.cpp</TITLE>
+ <TITLE>83_alpha_null.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,53 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>52_WJTung.cpp</CENTER></H3><HR>
+<H3><CENTER>83_alpha_null.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    int balancedString(string s) {
-        int L = s.length();
-        map&lt;int,int&gt; cur, count;
-        for (char c : s) {
-            count[c]++;
+    string S;
+    int N;
+    map&lt;char,int&gt; D;
+    bool ok(map&lt;char,int&gt; &amp;M, int x) {
+        int t = 0;
+        //printf(&quot;M : &quot;); for (auto pr : M) printf(&quot;(%c: %d)&quot;, pr.first, pr.second); printf(&quot;\n&quot;);
+        //printf(&quot;D : &quot;); for (auto pr : D) printf(&quot;(%c: %d)&quot;, pr.first, pr.second); printf(&quot;\n&quot;);
+        for (auto pr : M) {
+            char c = pr.first;
+            if (M[c] + D[c] &gt;= 0) t += M[c] + D[c];
+            else return false;
         }
-        int ans = L;
-        for (int left = 0, right = 0; left &lt; L; left++) {
-<A NAME="0"></A>            if (left &gt; 0) {
-                cur[s[left - 1]]--;
-            }
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            right = max(left, right);
-            // left ~ right - 1
-            while (right &lt; L &amp;&amp; ((count['Q'] - cur['Q'] &gt; L / 4) || (count['W'] - cur['W'] &gt; L / 4) || (count['E'] - cur['E'] &gt; L / 4) || (count['R'] - cur['R'] &gt; L / 4))) {
-                cur[s[right]]++;
-                right++;
-            }
-            if ((count['Q'] - cur['Q'] &lt;= L / 4) &amp;&amp; (count['W'] - cur['W'] &lt;= L / 4) &amp;&amp; (count['E'] - cur['E'] &lt;= L / 4) &amp;&amp; (count['R'] - cur['R'] &lt;= L / 4)) {
-                ans = min(ans, right - left);
-            }
+        //printf(&quot;x: %d, t: %d\n&quot;, x, t);
+        return t == x;
+    }
+    
+    bool can(int x) {
+<A NAME="0"></A>        map&lt;char,int&gt; M;
+        M['Q'] = M['W'] = M['E'] = M['R'] = 0;
+        for (int i=0;i&lt;x;++i) M[S[i]]++;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (ok(M, x)) return true;
+        for (int i=x;i&lt;N;++i) {
+            M[S[i-x]]--;
+            M[S[i]]++;
+            if (ok(M, x)) return true;
         }
-        return ans;
+        return false;
+    }</B></FONT>
+    
+    int balancedString(string _s) {
+        D['Q'] = D['W'] = D['E'] = D['R'] = 0;
+        S = _s;
+        N = S.size();
+<A NAME="1"></A>        for (auto c : S) D[c]--;
+        for (auto &amp;pr : D) pr.second += N/4;
+        //printf(&quot;D : &quot;); for (auto pr : D) printf(&quot;(%c: %d)&quot;, pr.first, pr.second); printf(&quot;\n&quot;);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int lo = 0, hi = N, mid;
+        while (hi &gt; lo) {
+            int mid = (hi + lo) / 2;
+            if (can(mid)) hi = mid;
+            else lo = mid+1;
+        }
+        return hi;
     }
 };</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>18_swf.cpp</TITLE>
+ <TITLE>265_aristowang.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,32 +15,39 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>18_swf.cpp</CENTER></H3><HR>
+<H3><CENTER>265_aristowang.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        sort(begin(folder), end(folder));
-<A NAME="0"></A>        vector&lt;string&gt; res;
-        unordered_set&lt;string&gt; se;
-        for(auto &amp;s:folder){
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int n=s.size();
-            bool rep=false;
-            for(int i=0;i&lt;n;i++){
-                if(s[i]=='/' &amp;&amp; i&gt;0){
-                    if(se.find(s.substr(0,i)) != se.end()){
-                        rep=true;break;
+<A NAME="0"></A>        sort(folder.begin(), folder.end());
+        vector&lt;string&gt; res;
+        unordered_set&lt;string&gt; visited;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; folder.size(); ++i)
+        {
+            string s = folder[i] + &quot;/&quot;;
+            string str;
+            bool flag_visited = false;
+            for (int i = 1; i &lt; s.size(); ++i)
+            {
+                if (s[i] == '/')
+                {
+                    if (visited.count(s.substr(0, i)))
+                    {
+                        flag_visited = true;
+                        break;                        
                     }
                 }
             }
-            if(!rep){
-                se.insert(s);
-                res.push_back(s);
+            if (!flag_visited)
+            {</B></FONT>
+                visited.insert(folder[i]);
+                res.push_back(folder[i]);
             }
         }
         return res;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

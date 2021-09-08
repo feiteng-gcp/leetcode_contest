@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>175_pku_erutan.py</TITLE>
+ <TITLE>293_joshualian1989.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>175_pku_erutan.py</CENTER></H3><HR>
+<H3><CENTER>293_joshualian1989.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+from collections import Counter
+class Solution:
     def balancedString(self, s: str) -&gt; int:
-        average_n = len(s) // 4
-        counter = collections.Counter<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(s)
-        dis = {k:0 if counter[k]&lt;=average_n else counter[k]-average_n for k in 'QWER'}
-        if sum(dis.values()) == 0 :
-            return 0
-        
-        temp_counter =</B></FONT> {k:0 for k in 'QWER'}
-        left, right = 0, 0
-        temp_counter[s[0]] += 1
-        mint = 1e6
-        while True :
-            while not all([temp_counter[k]&gt;=dis[k] for k in 'QWER']) :
-                right += 1
-                if right &gt;= len(s) :
-                    break
-                temp_counter[s[right]] += 1
-            if right &gt;= len(s) :
-                break
-            while temp_counter[s[left]] &gt; dis[s[left]] :
-                temp_counter[s[left]] -= 1
-                left += 1
-            mint = min(mint, right-left+1)
-            temp_counter[s[left]] -= 1
-            left += 1
-        # print(left, right, temp_counter)
-        return mint
-            
+        n, cnt = len(s), Counter(s)
+        cnt = {k: v - n // 4 for k, v in cnt.items() if v &gt; n // 4}
+<A NAME="0"></A>        if len(cnt) == 0: return 0
+        l, r, win, ans = 0, 0, Counter(), n
+        while r &lt; n:
+            while r &lt; n and any(win<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[c] &lt; cnt[c] for c in cnt):
+                win[s[r]] += 1
+                r += 1
+            while l &lt; r and (s[l] not in cnt or win[s[l]] &gt; cnt[s[l]]):
+                win[</B></FONT>s[l]] -= 1
+                l += 1
+            if all(win[c] &gt;= cnt[c] for c in cnt):
+                ans = min(ans, r - l)
+            if l &lt; n:
+                win[s[l]] -= 1
+                l += 1
+        return ans
 </PRE>
 
 </BODY>

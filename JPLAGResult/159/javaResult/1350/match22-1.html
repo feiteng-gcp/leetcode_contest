@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>162_musteryu.java</TITLE>
+ <TITLE>113_Uynait.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,69 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>162_musteryu.java</CENTER></H3><HR>
+<H3><CENTER>113_Uynait.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        TreeNode root = new TreeNode();
-        for (String fullPath: folder) {
-            TreeNode node = root</B></FONT>;
-<A NAME="1"></A>            String[] parts = fullPath.split(&quot;/&quot;);
-            for (String part: parts) {
-                if (part.length() == 0) continue;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!node.children.containsKey(part)) {
-                    node.children.put(part, new TreeNode());
-                }
-                node = node.children.get(part);
-            }
-            node.fullPath = fullPath;
-        }
-        List&lt;String&gt; parentFolders = new ArrayList&lt;&gt;();
-        dfs(root, parentFolders);
-        return parentFolders;
-    }
-    
-    private void dfs(TreeNode node, List&lt;String&gt; parentFolders</B></FONT>) {
-<A NAME="2"></A>        if (node == null) {
-            return;
-        }
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (node.fullPath != null) {
-            parentFolders.add(node.fullPath);
-            return;
-        }
-        for (TreeNode child: node.children.values()) {
-            dfs</B></FONT>(child, parentFolders);
-        }
-    }
-    
-    private static class TreeNode {
-        String fullPath;
-        Map&lt;String, TreeNode&gt; children;
+        Node root = new Node(&quot;&quot;);
         
-        TreeNode() {
-            this.children = new HashMap&lt;&gt;();
+        
+        for(String f : folder) {
+            String[] strs = f.substring(1).split(&quot;/&quot;);
+            Node cur = root;
+            
+            for(String s : strs) {
+                if(!cur.map.containsKey(s)) {
+                    cur.map.put(s, new Node(s));
+                }
+                
+                cur = cur.map.get(s);
+            }
+            
+            cur.isWord = true;
+        }
+        
+<A NAME="1"></A>        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        dfs</B></FONT>(root, res, new StringBuilder());
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res;
+    }
+    
+    private void dfs(Node node, List&lt;String&gt; res, StringBuilder sb) {
+        if(node.isWord) {
+            sb.append</B></FONT>(&quot;/&quot;);
+            sb.append(node.str);
+            res.add(sb.toString());
+            
+            sb.delete(sb.length() - node.str.length() - 1, sb.length());
+        } else {
+            if(!node.str.equals(&quot;&quot;)) {
+                sb.append(&quot;/&quot;);
+                sb.append(node.str);
+            }
+            
+            for(Map.Entry&lt;String, Node&gt; entry : node.map.entrySet()) {
+                dfs(entry.getValue(), res, sb);
+            }
+            
+            if(!node.str.equals(&quot;&quot;)) {
+                sb.delete(sb.length() - node.str.length() - 1, sb.length());
+            }
+            
+<A NAME="2"></A>            
+            return;
+        }
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    class Node{
+        String str;
+        boolean isWord;
+        Map&lt;String, Node&gt; map;
+        
+        private Node(String str) {
+            this.str = str;
+            t</B></FONT>his.map = new HashMap&lt;&gt;();
+            this.isWord = false;
         }
     }
 }

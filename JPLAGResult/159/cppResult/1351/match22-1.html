@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>393_liang5.cpp</TITLE>
+ <TITLE>326_apoorvagarwal777.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,62 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>393_liang5.cpp</CENTER></H3><HR>
+<H3><CENTER>326_apoorvagarwal777.cpp</CENTER></H3><HR>
 <PRE>
-
 class Solution {
 public:
-    int cnt[100010][4];
-    int n;
-    int check(int len) {
-        for (int st = 1 ; st+len-1 &lt;= n ; ++st) {
-            // printf(&quot;len:%d st:%d\n&quot;, len, st);
-            int in[4] = {0};
-            int tmp = 0;
-            bool flg = true;
-            for (int j = 0 ; j &lt; 4 ; ++j) {
-                in[j] = cnt[st+len-1][j] - cnt[st-1][j];
-                int out = cnt[n][j] - in[j];
-                if (out &gt; n / 4) {flg = false; break;}
-                tmp += n / 4 - out;
-            }
-            if (!flg) continue;
-            if (tmp == len) return true;
-        }
-        return false;
-    }
     int balancedString(string s) {
-<A NAME="0"></A>        int avg = s.size() / 4;
-        n = s.size();
-        memset(cnt, 0, sizeof(cnt));
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0 ; i &lt; s.size() ; ++i) {
-            if (s[i] == 'Q') cnt[i+1][0] = 1;
-            if (s[i] == 'W') cnt[i+1][1] = 1;
-            if (s[i] == 'E') cnt[i+1][2] = 1;
-            if (s[i] == 'R') cnt[i+1][3] = 1;
-        }</B></FONT>
-        for (int i = 1 ; i &lt;= s.size() ; ++i) {
-            for (int j = 0 ; j &lt; 4 ; ++j)
-                cnt[i][j] += cnt[i-1][j];
+<A NAME="0"></A>        
+        vector&lt;int&gt; vt(4, 0);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; s.size(); i++) {
+            if(s[i] == 'Q') vt[0]++;
+            if(s[i] == 'W') vt[1]++;
+            if(s[i] == 'E') vt[2]++;
+            if(s[i] == 'R') vt[3]++;
         }
-        int tmp = 0;
-        for (int j = 0 ; j &lt; 4 ; ++j) {
-            if (cnt[n][j] == avg) ++tmp;
+        
+        int x = (int)(s.size())/4;</B></FONT>
+        
+        vt[0] = max(0, vt[0] - x);
+        vt[1] = max(0, vt[1] - x);
+        vt[2] = max(0, vt[2] - x);
+        vt[3] = max(0, vt[3] - x);
+        
+        //cout&lt;&lt;vt[0]&lt;&lt;&quot; &quot;&lt;&lt;vt[1]&lt;&lt;&quot; &quot;&lt;&lt;vt[2]&lt;&lt;&quot; &quot;&lt;&lt;vt[3]&lt;&lt;endl;
+        
+<A NAME="1"></A>        vector&lt;int&gt; cnt(4, 0);
+        
+        int l = -1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 100000000;
+        for(int r = 0; r &lt; s.size(); r++) {
+            if(s[r] == 'Q') cnt[0]++;
+            if(s[r] == 'W') cnt[1]++;
+            if(s[r] == 'E') cnt[2]++;
+            if(s[r] == 'R') cnt[3]++;</B></FONT>
+            
+            while((l &lt; r) &amp;&amp; (vt[0] == 0 || cnt[0] &gt;= vt[0]) &amp;&amp; (vt[1] == 0 || cnt[1] &gt;= vt[1]) &amp;&amp; (vt[2] == 0 || cnt[2] &gt;= vt[2]) &amp;&amp; (vt[3] == 0 || cnt[3] &gt;= vt[3])) {
+                ans = min(ans, (r-l));
+                
+                l++;
+                if(s[l] == 'Q') cnt[0]--;
+                if(s[l] == 'W') cnt[1]--;
+                if(s[l] == 'E') cnt[2]--;
+                if(s[l] == 'R') cnt[3]--;
+            }
         }
-<A NAME="1"></A>        if (tmp == 4) return 0;
-
-        int ans = s.size();
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int lo = 1, hi = s.size();
-        while (lo &lt;= hi) {
-            int mid = (lo + hi) / 2;
-            if (check(mid)) {
-                hi = mid - 1;
-                ans = min(ans, mid);
-            } else lo = mid + 1;
+        
+        if(vt[0] == 0 &amp;&amp; vt[1] == 0 &amp;&amp; vt[2] == 0 &amp;&amp; vt[3] == 0) {
+            return 0;
         }
         return ans;
+        
+        
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

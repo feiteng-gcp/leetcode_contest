@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>331_qobilidop.py</TITLE>
+ <TITLE>161_yuanzhi247012.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
+<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
 <PRE>
-from collections import Counter
-
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        n = len(s)
-        imb = Counter(s)
-        imb_tot = 0
-        for c in list(imb.keys()):
-            imb[c] -= int(n / 4)
-            if imb[c] &lt; 0:
-                del imb[c]
-            else:
-                imb_tot += imb[c]
-        if imb_tot == 0:
+        counter=collections.Counter(s)
+        target=len(s)//4
+        d={}
+        for key in counter:
+            if counter[key]&gt;target:
+                d[key]=counter[key]-target
+        if not d:
             return 0
-        
-        min_len = n
-        l, r = 0, 0
-<A NAME="0"></A>        freq = Counter()
-        while r &lt; len(s):
-            freq[s[r]] += 1
-            while all(freq[c] &gt;= imb[c] for c in imb<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.keys()):
-                min_len = min(min_len, r - l + 1)
-                freq[s[l]] -= 1
-                l += 1
-            r += 1
-        r</B></FONT>eturn min_len
-        
+        curd=collections.defaultdict(int)
+<A NAME="0"></A>        res=len(s)
+        slow=0
+        for i in range(len(s)):
+            curd<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[s[i]]+=1
+            while all(curd[key]&gt;=d[key] for key in d):
+                res=min(res,i-slow+1)
+                curd[s[slow]]-=1
+                slow+</B></FONT>=1
+        return res
 </PRE>
 
 </BODY>

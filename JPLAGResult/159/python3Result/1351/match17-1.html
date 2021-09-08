@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>102_1334.py</TITLE>
+ <TITLE>215_MiniMinyi.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>102_1334.py</CENTER></H3><HR>
+<H3><CENTER>215_MiniMinyi.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        cnt = collections.Counter(s)
+        n = len(s)
+        n4 = int(n/4)
+        count = collections.Counter(s)
+        if count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count['R'] &lt;= n4:
+            return 0
+        # print(count)
         
-        def check_bal():
-            for k, v in cnt.items():
-                if v &gt; len(s) // 4:
-                    return False
-            return True
-        
-<A NAME="0"></A>        res = float('inf')
-        i, j = 0, 0
-        while i &lt;= len(s) and j &lt;= len(s):
-            if not check_bal<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>():
-                if j == len(s):
-                    break
-                cnt[s[j]] -= 1
-                j += 1
-            else:
-                if i == len(s):
-                    b</B></FONT>reak
-                # print(i, j, res)
-                res = min(res, j - i)
-                cnt[s[i]] += 1
-                i += 1
-        return res
+        st, en = 0, 0
+<A NAME="0"></A>        min_len = n
+        while en &lt; n:
+            while not (count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count['R'] &lt;= n4) and en &lt; n:
+                count<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[s[en]] -= 1
+                en += 1
+                     
+            while (count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count['R'] &lt;= n4) and st &lt; en:
+                min_len = min(min_len, en-st)
+                count[s[st]] += 1
+                st +</B></FONT>= 1
+                
+        return min_len
 </PRE>
 
 </BODY>

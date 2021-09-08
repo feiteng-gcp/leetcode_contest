@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>9_hitonanode.cpp</TITLE>
+ <TITLE>2_nhho.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,44 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>9_hitonanode.cpp</CENTER></H3><HR>
+<H3><CENTER>2_nhho.cpp</CENTER></H3><HR>
 <PRE>
-#define FOR(i, begin, end) for(int i=(begin),i##_end_=(end);i&lt;i##_end_;i++)
-#define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i&gt;=i##_begin_;i--)
-#define REP(i, n) FOR(i,0,n)
-<A NAME="0"></A>#define IREP(i, n) IFOR(i,0,n)
-#define ALL(x) (x).begin(), (x).end()
+int x[100005][4];
 
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="0"></A>class Solution {
 public:
-    int c2i(char c)
-    {
-        if (c == 'Q') return 0;
-        if (c == 'W') return 1;
-        if (c == 'E') return 2;
-        if (c == 'R') return 3;
-        return -1;
-    }
-    int balancedString(string s) {</B></FONT>
-        vector&lt;int&gt; v(s.length());
-        REP(i, s.length()) v[i] = c2i(s[i]);
-        
-        int N = s.length();
-        vector&lt;int&gt; count_(4);
-        int ret = N;
-
-        int r = N - 1;
-        REP(l, N)
-        {
-            while (*max_element(ALL(count_)) &lt;= N / 4 and r &gt;= 0)
-            {
-                count_[v[r]]++;
-                r--;
-            }
-            while (*max_element(ALL(count_)) &gt; N / 4 and r &lt; N - 1)
-            {
-                r++;
-                count_[v[r]]--;
-            }
-            if (*max_element(ALL(count_)) &gt; N / 4) break;
-            ret = min(ret, r - l + 1);
-            count_[v[l]]++;
+    int balancedString(string s) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int n = s.size();
+        for (int i = 0; i &lt; n; i++) {
+            x[i + 1][0] = x[i][0];
+            x[i + 1][1] = x[i][1];
+            x[i + 1][2] = x[i][2];
+            x[i + 1][3] = x[i][3];
+            if (s[i] == 'Q') x[i + 1][0]++;
+            if (s[i] == 'W') x[i + 1][1]++;
+            if (s[i] == 'E') x[i + 1][2]++;
+            if (s[i] == 'R') x[i + 1][3]++;
         }
-        return ret;
+        int ans = INT_MAX;</B></FONT>
+        for (int i = 0; i &lt; n; i++) {
+            int lo = i;
+            int hi = n + 1;
+            while (lo &lt; hi) {
+                int mi = (lo + hi) / 2;
+                bool o = 1;
+                for (int j = 0; j &lt; 4; j++)
+                    if (x[n][j] - x[mi][j] + x[i][j] &gt; n / 4) {
+                        o = 0;
+                        break;
+                    }
+                if (o)
+                    hi = mi;
+                else lo = mi + 1;
+            }
+            if (lo != n + 1)
+                ans = min(ans, lo - i);
+        }
+        return ans;
     }
 };
 </PRE>

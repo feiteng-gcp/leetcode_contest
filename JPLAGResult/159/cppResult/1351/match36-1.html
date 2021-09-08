@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>189_shenxn.cpp</TITLE>
+ <TITLE>172_emptyman987.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,45 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>189_shenxn.cpp</CENTER></H3><HR>
+<H3><CENTER>172_emptyman987.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-<A NAME="0"></A>public:
-    int balancedString(string s) {
-        std::vector&lt;int&gt; count(4);
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; s.length(); i++) {
-            switch (s[i]) {
-                case 'Q':
-                    s[i] = 0;
-                    break;
-                case 'W':
-                    s[i] = 1;
-                    break;
-                case 'E':
-                    s[i] = 2;
-                    break;
-                case 'R':
-                    s[i] = 3;
-                    break;
-            }
-            count[s[i]]++;
-        }</B></FONT>
-        int l = 0;
-        int target = s.length() &gt;&gt; 2;
-        int minLen = s.length();
-        for (int r = 0; r &lt;= s.length(); r++) {
-            if (count[0] &lt;= target &amp;&amp; count[1] &lt;= target &amp;&amp; count[2] &lt;= target &amp;&amp; count[3] &lt;= target) {
-                if (r - l &lt; minLen) {
-                    minLen = r - l;
-                }
-                if (r == s.length()) {
-                    break;
-                }
-            }
-            count[s[r]]--;
-            while (count[s[l]] &lt; target) {
-                count[s[l]]++;
-                l++;
+public:
+    int no(map&lt;char, int&gt;&amp; m, int k) {
+        for (auto it : m) {
+            if (it.second &gt; k) {
+                return 1;
             }
         }
-        return minLen;
+<A NAME="0"></A>        return 0;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int balancedString(string s) {
+        map&lt;char, int&gt; m;
+        for (char c : s) {
+            m[c]++;
+        }
+        int k = s.length()/4;
+        int ret = s.length();</B></FONT>
+        int cur = 0;
+        for (int i = 0;i &lt; s.length();i++) {
+            int ok = 1;
+            while (no(m, k)) {
+                if (cur &lt; s.length()) {
+                    m[s[cur]]--;
+                    cur++;
+                }
+                else {
+                    ok = 0;
+                    break;
+                }
+            }
+            if (!ok)
+                break;
+            ret = min(ret, cur - i);
+            m[s[i]]++;
+        }
+        return ret;
     }
 };
 </PRE>

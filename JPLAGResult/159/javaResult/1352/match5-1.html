@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>130_leveretconey.java</TITLE>
+ <TITLE>306_ZaozaoNan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,69 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>130_leveretconey.java</CENTER></H3><HR>
+<H3><CENTER>306_ZaozaoNan.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Job { 
+	    public int start, finish, profit; 
+        // Constructor 
+        public Job(int start, int finish, int profit) { 
+            this.start = start; 
+            this.finish = finish; 
+            this.profit = profit; 
+        } 
+    }</B></FONT> 
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        int length=startTime.length;
-        Job[] jobs=new Job[length];
-        for (int i = 0; i &lt; length; i++) {
-            jobs[i]=(new Job(startTime[i],endTime[i],profit[i]));
+        int n = startTime.length;
+        Job[] jobs = new Job[n];
+        for (int i = 0; i &lt; n; i++) {
+            Job temp = new Job(startTime[i], endTime[i], profit[i]);
+            jobs[i] = temp;
         }
-        Arrays.sort(jobs,(j1,j2)-&gt;{return j</B></FONT>1.end-j2.end;});
-        TreeMap&lt;Integer,Integer&gt; time2profit=new TreeMap&lt;&gt;();
-        time2profit.put(Integer.MIN_VALUE,0);
-        int result=0;
-        for (Job job : jobs) {
-            int maxProfit=time2profit.floorEntry(job.begin).getValue()+job.profit;
-            result=Math.max(maxProfit,result);
-            time2profit.put(job.end,result);
-        }
-        return time2profit.lastEntry().getValue();
-    }
+<A NAME="1"></A>        Arrays.sort(jobs, (a, b) -&gt; {
+            return a.finish &lt; b.finish ? -1 : a.finish == b.finish ? 0 : 1; 
+        });
+		int table[] = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[n]; 
+		table[0] = jobs[0].profit; 
 
-//    @leveretconeyTest
-//    void test(){
-//        int[] a={4,2,4,8,2};
-//        int[] b={5,5,5,10,8};
-//        int[] c={1,2,8,10,4};
-//        Util.out(new Solution().jobScheduling(a,b,c));
-<A NAME="1"></A>//    }
+		// Fill entries in M[] using recursive property 
+		for (int i=1; i&lt;n; i++) { 
+			// Find profit including the current job 
+			int inclProf = jobs[i].profit; 
+			int l = binarySearch(jobs, i); 
+			if (l != -1) 
+				inclProf += table[l]; 
+
+			// Store maximum of including and excluding 
+			table[i] = Math.max(inclProf, table[i-1]); 
+		} 
+<A NAME="0"></A>
+		return table[n-1]; </B></FONT>
+            
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    private int binarySearch(Job jobs[], int index) { 
+		// Initialize 'lo' and 'hi' for Binary Search 
+		int lo = 0, hi = index - 1; 
+
+		// Perform binary Search iteratively 
+		while (lo &lt;= hi) 
+		{ 
+			int mid = (lo + hi) / 2; 
+			if (jobs[mid].finish &lt;= jobs[index].start) 
+			{ 
+				if (jobs[mid + 1].finish &lt;= jobs[index].start) 
+					lo = mid + 1; 
+				else
+					return mid; 
+			} 
+			else
+				hi = mid - 1; 
+		} 
+
+		return -1; 
+	} </B></FONT>
+    
 }
-
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Job{
-    int begin,end ,profit;
-
-    public Job(int begin, int end, int profit) {
-        this.begin = begin;
-        this.end = end;
-        this.profit = profit;
-    }
-
-}</B></FONT>
 </PRE>
 
 </BODY>

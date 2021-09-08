@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>186_luchy0120.java</TITLE>
+ <TITLE>231_l90095z.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,66 +15,76 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>186_luchy0120.java</CENTER></H3><HR>
+<H3><CENTER>231_l90095z.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int balancedString(String s) {
-        int d[] = new int[256];
-        for(char c:s.toCharArray()){
-            d[c]++;
-        }
-        int len = s.length()/4;int r =0;
-      char cc[] = {'Q','W','E','R'};
-        boolean all = false;
-        for(char f:cc){
-            if(d[f]&gt;len){
-               d[f]-=len;
-                all = true;
-            }else{
-               d[f] = 0; 
+        int Q = 0, W = 0, E = 0, R = 0;
+        for (char a : s.toCharArray()) {
+            if (a == 'Q') {
+                Q++;
+            } else if (a == 'W') {
+                W++;
+            } else if (a == 'E') {
+                E++;
+            } else {
+                R++;
             }
         }
-        if(!all) return 0;
+        HashMap&lt;Character,Integer&gt; map = new HashMap&lt;&gt;();
+        int N = s.length();
+        int q = Q - N/4;
+        int need = 0;
+        if (q &gt; 0) {
+            map.put('Q', q); need += q;
+        }
+        int w =  W - N/4;
+        if (w &gt; 0) {
+            map.put('W', w); need += w;
+        }
+        int e =  E - N/4;
+        if (e &gt; 0) {
+            map.put('E', e); need += e;
+        }
+        int r =  R - N/4;
+        if (r &gt; 0) {
+            map.put('R', r); need += r;
+        }
+        if (map.size() == 0) return 0;
+        // substring to replace to make it balanced
+        int minLen = minWindow(s, map);
         
-        
-        int st = 0;int md[] = new int[256];int rrr = s.length();
-        for(int i=0;i&lt;s.length();++i){
-            char ccc = s.charAt(i);
-            if(d[ccc]&gt;0){
-                md[ccc]++;
-            }
-            while(true){
-            ccc = s.charAt(st);
-            
-            boolean ok = d[ccc]&gt;0&amp;&amp; md[ccc]-1&gt;=d[ccc] ||d[ccc]==0;
-
-            if(ok){
-                if(d[ccc]&gt;0){
-                md[ccc]--;
+        return minLen;
+    }
+    private int minWindow(String s, HashMap&lt;Character, Integer&gt; map) {
+        int cntC = 0;
+        for (Character c : map.keySet()) cntC += map.get(c);
+        int left = 0;
+        int minLeft = 0;
+        int minLen = s.length()+1;
+        int count = 0;
+        for(int right = 0; right &lt; s.length(); right++){
+            if(map.containsKey(s.charAt(right))){
+                map.put(s.charAt(right),map.get(s.charAt(right))-1);
+                if(map.get(s.charAt(right)) &gt;= 0){
+                    count ++;
                 }
-                st++;
-            }else{
-                break;
-            }
-            }
-            
-            boolean ok1 = true;
-            for(char t:cc){
-                if(d[t]&gt;0){
-                if(md[t]&lt;d[t]){
-                    ok1 = false;
-                    break;
-                }    
+                while(count == cntC){
+                    if(right-left+1 &lt; minLen){
+                        minLeft = left;
+                        minLen = right-left+1;
+                    }
+                    if(map.containsKey(s.charAt(left))){
+                        map.put(s.charAt(left),map.get(s.charAt(left))+1);
+                        if(map.get(s.charAt(left)) &gt; 0){
+                            count --;
+                        }
+                    }
+                    left++ ;
                 }
             }
-            if(ok1){
-            rrr = Math.min(i-st+1,rrr);
-            }
-            
         }
-        return rrr;
-        
-        
+        return minLen;
     }
 }</B></FONT>
 </PRE>

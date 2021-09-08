@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>398_xhou0540.py</TITLE>
+ <TITLE>53_ShenTM.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>398_xhou0540.py</CENTER></H3><HR>
+<H3><CENTER>53_ShenTM.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def balancedString(self, s):
-        t = len(s)//4
-        x = len(s)
-
-        d = {}
-        d['Q'] = 0
-        d['W'] = 0
-        d['E'] = 0
-        d['R'] = 0
-        for i in s:
-            d[i]+=1
-        if d['Q'] == t and d['W'] == t and d['E'] == t and d['R'] == t:
+    def balancedString(self, s: str) -&gt; int:
+        counter = collections.Counter(s)
+        for k in counter:
+            counter[k] -= len(s) // 4
+        if all(v == 0 for v in counter.values()):
             return 0
-        u = 0
-        l = 0
-        minl= x
-        while(u&lt;x and l&lt;x):
-<A NAME="0"></A>            while(d['Q'] &gt; t or d['W']&gt; t or d['E']&gt; t or d['R']&gt;t) and u&lt;x:
-                d[s[u]] -=1
-                u +=1
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (d['Q'] &lt;= t and d['W'] &lt;= t and d['E'] &lt;= t and d['R'] &lt;= t):
-                d[s[l]] += 1
-                l += 1
-            minl = min(</B></FONT>u-l+1, minl)
-        return minl
+<A NAME="0"></A>        ans = len(s) - 1
+        left = 0
+        for i, v in enumerate(s):
+            counter<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[v] -= 1
+            while left &lt;= i and all(v &lt;= 0 for v in counter.values()):
+                ans = min(ans, i - left + 1)
+                counter[s[left]] += 1
+                left += 1
+        re</B></FONT>turn ans
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 </PRE>
 
 </BODY>

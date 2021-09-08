@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>458_xunrui.py</TITLE>
+ <TITLE>398_xhou0540.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,22 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>458_xunrui.py</CENTER></H3><HR>
+<H3><CENTER>398_xhou0540.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import bisect
 class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        n = len(startTime)
-        tuples = [(startTime[i],endTime[i],profit[i]) for i in range(</B></FONT>n)]
-        tuples.sort(key=lambda x:x[1])
-        endTime.sort()
-        #print(tuples)
-        ans = [0]*n
-        for i,tup in enumerate(tuples):
-            temp = bisect.bisect_right(endTime,tup[0])
-            temp = 0 if temp==0 else ans[temp-1]
-            ans[i] = max(temp+tup[2],ans[i-1] if i&gt;0 else 0)
-        return ans[-1]
+    def jobScheduling(self, startTime, endTime, profit):
+        N = len(startTime)
+        j = []
+        for i in range(N):
+            j.append([startTime[i], endTime[i], profit[i]])
+
+        sl = sorted(j, key=lambda x:x[1])
+
+        def last(i):
+            for j in range(i-1, -1, -1):
+                if (sl[j][1] &lt;= sl[i][0]):
+<A NAME="0"></A>                    return j
+            return -1
+
+        M <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=[0 for i in range(N)]
+        M[0] = sl[0][2]
+
+        for i in range(1, N):
+            profit = sl[i][2]
+            l = last(i)
+            if l!=-1:
+                profit += M[l]
+            M[i] = max(profit, M[i-1])
+        return M[</B></FONT>-1]
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>161_yuanzhi247012.py</TITLE>
+ <TITLE>60_zacharyh211.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
+<H3><CENTER>60_zacharyh211.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
     def balancedString(self, s: str) -&gt; int:
-        counter=collections.Counter(s)
-        target=len(s)//4
-        d={}
-        for key in counter:
-            if counter[key]&gt;target:
-                d[key]=counter[key]-target
-        if not d:
+        n = len(s) // 4
+        c = collections.Counter(s)
+        for x in c:
+            c[x] -= n
+        needed =</B></FONT> 0
+        for x in c:
+            if c[x] &gt; 0:
+                needed += 1
+        if needed == 0:
             return 0
-        curd=collections.defaultdict(int)
-        res=len(s)
-<A NAME="0"></A>        slow=0
-        for i in range(len(s)):
-            curd[s[i]]+=1
-            while all(curd<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[key]&gt;=d[key] for key in d):
-                res=min(res,i-slow+1)
-                curd[s[slow]]-=1
-                slow+=1
-        re</B></FONT>turn res
+        
+        i = j = 0
+        best = len(s)
+        
+        while j &lt; len(s):
+            x = s[j]
+            c[x] -= 1
+            if c[x] == 0:
+                needed -= 1
+            j += 1
+            while needed &lt;= 0:
+                x = s[i]
+                best = min(best,j-i)
+                c[x] += 1
+                if c[x] == 1:
+                    needed += 1
+                i += 1
+        return best
+                    
+        
+            
 </PRE>
 
 </BODY>

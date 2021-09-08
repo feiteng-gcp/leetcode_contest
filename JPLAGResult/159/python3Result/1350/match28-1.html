@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>317_carudy.py</TITLE>
+ <TITLE>187_WangQiuc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>317_carudy.py</CENTER></H3><HR>
+<H3><CENTER>187_WangQiuc.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def removeSubfolders(self, a: List[str]) -&gt; List[str]:
-        from collections import defaultdict as dd
-        f = dd(bool)
-        a.sort()
-<A NAME="0"></A>        ans = []
-        for i in range(len(a)):
-            x = a[i]
-            v <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= True
-            for j in range(1, len(x)):
-                if x[j]=='/' and f[x[:j]]==True:
-                    v = False
-                    break
-            if</B></FONT> v:
-                ans.append(x)
-                f[x] = True
+    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
+        trie = {}
+        for path in folder:
+            node = trie
+            for f in path.split(&quot;/&quot;)[1:]:
+                node = node.setdefault(f, {})
+            node[&quot;$&quot;] = True
+
+        root = []
+
+<A NAME="0"></A>        def dfs(node, path):
+            for key in node:
+                new_path = f&quot;{path}/{key}&quot;
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if &quot;$&quot; in node[key]:
+                    root.append(new_path)
+                else:
+                    dfs(node[key], new_path)
+        dfs(trie, &quot;&quot;)
+
+        re</B></FONT>turn root
         
-        return ans
 </PRE>
 
 </BODY>

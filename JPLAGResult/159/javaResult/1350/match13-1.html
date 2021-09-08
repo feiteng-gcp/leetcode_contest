@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_yge.java</TITLE>
+ <TITLE>169_lotayliu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_yge.java</CENTER></H3><HR>
+<H3><CENTER>169_lotayliu.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A>class Solution {
-    public List&lt;String&gt; removeSubfolders(String[] folder) {
-        int n = folder.length;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; set = new HashSet&lt;&gt;();
-        for (int i=0; i&lt;n; i++)
-            set.add(folder[i]);
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        for (int i=0; i&lt;n; i++) {
-            String[] parse = folder[i].split(&quot;/&quot;)</B></FONT>;
-<A NAME="1"></A>            boolean f = true;
-            StringBuilder sb = new StringBuilder();
-            for (int j=1; j&lt;parse.length-1; j++) {
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.append('/').append(parse[j]);
-                if (set.contains(sb.toString())) {
-                    f = false;
-                    break;
-                }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; removeSubfolders(String[] folder) {
+        Arrays.sort(folder);
+        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
+        
+        String pr = null;
+        for (String f : folder) {
+<A NAME="1"></A>            if (pr == null || (!f.startsWith(pr)) ||
+                    (f.length() == pr.length() || f.charAt</B></FONT>(pr.length()) != '/')) {
+                pr = f;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.add(pr);
             }
-            if (f)
-                ans.add(folder[i]);
         }
-        return ans;
+        
+        return res;
     }
+    
 }</B></FONT>
 </PRE>
 

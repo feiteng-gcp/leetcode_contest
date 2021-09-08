@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>101_wzc1995.cpp</TITLE>
+ <TITLE>423_qpwoeirut.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,42 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>101_wzc1995.cpp</CENTER></H3><HR>
+<H3><CENTER>423_qpwoeirut.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
-public:
-    vector&lt;string&gt; split(const string &amp;x) {
-<A NAME="0"></A>        vector&lt;string&gt; cp;
-        int n = x.length();
-        
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int last = 1;
-        for (int i = 1; i &lt; n; i++)
-            if (x[i] == '/') {
-                cp.push_back(x.substr(last, i - last));
-                last = i + 1;
-            }
-        
-        cp.push_back(x.substr(last, n - last));
-        return cp;
-    }</B></FONT>
-    
-    bool is_under(const string &amp;x, const string &amp;y) {
-        vector&lt;string&gt; sx(split(x));
-        vector&lt;string&gt; sy(split(y));
-        
-        int n = sx.size(), m = sy.size();
-        if (n &gt;= m)
-            return false;
-        
-        for (int i = 0; i &lt; n; i++)
-            if (sx[i] != sy[i])
+private:
+    inline bool starts(const string&amp; a, const string&amp; b) {
+        for (int i=0; i&lt;a.size(); i++) {
+            if (a[i] != b[i]) {
                 return false;
+            }
+        }
         
-        return true;
+        return b[a.size()] == '/';
     }
-    
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        sort(folder.begin(), folder.end());
-        int n = folder.size();
+    static bool by_sz(const string&amp; a, const string&amp; b) {
+        return a.size() &lt; b.size();
+    }
+public:
+<A NAME="0"></A>    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end(), by_sz);
         vector&lt;string&gt; ans;
-        
-        ans.push_back(folder[0]);
-        
-        for (int i = 1; i &lt; n; i++)
-            if (!is_under(ans[ans.size() - 1], folder[i]))
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0; i&lt;folder.size(); i++) {
+            bool a = true;
+            for (int j=0; j&lt;ans.size(); j++) {
+                if (starts(ans[j], folder[i])) {
+                    a = false;
+                    break;
+                }
+            }
+            if (a) {
                 ans.push_back(folder[i]);
+            }
+        }
         
         return ans;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

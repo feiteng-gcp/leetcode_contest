@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>6_liouzhou_101.cpp</TITLE>
+ <TITLE>211_baiyang0132.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,58 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>6_liouzhou_101.cpp</CENTER></H3><HR>
+<H3><CENTER>211_baiyang0132.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int balancedString(string s) {
-        int n = s.size();
-        vector&lt;int&gt; a(n);
-        for (int i = 0; i &lt; n; ++ i)
-        {
-            if (s[i] == 'Q') a[i] = 0;
-            if (s[i] == 'W') a[i] = 1;
-            if (s[i] == 'E') a[i] = 2;
-            if (s[i] == 'R') a[i] = 3;
+        int target = s.size() / 4;
+        
+        vector&lt;int&gt; cnt(4, 0);
+        unordered_map&lt;char, int&gt; hash;
+        hash['Q'] = 0;
+        hash['W'] = 1;
+        hash['E'] = 2;
+        hash['R'] = 3;
+        for(auto&amp; c : s){
+            cnt[hash[c]]++;
         }
         
-        vector&lt;vector&lt;int&gt;&gt; b(n+1, vector&lt;int&gt;(4));
-        for (int i = 1; i &lt;= n; ++ i)
-        {
-            b[i] = b[i-1];
-            b[i][a[i-1]] ++;
-        }
+        for(int i = 0; i &lt; 4; i++)</B></FONT>
+            cnt[i] -= target;
         
-        auto check = [&amp;](int m)
-        {
-            for (int i = 1; i+m-1 &lt;= n; ++ i)
-            {
-                int j = i+m-1;
-                vector&lt;int&gt; c = b[n];
-                for (int k = 0; k &lt; 4; ++ k)
-                    c[k] -= b[j][k]-b[i-1][k];
-<A NAME="0"></A>                if (max({c[0], c[1], c[2], c[3]}) &lt;= n/4) return true;
+        if(cnt[0] == cnt[1] &amp;&amp; cnt[0] == cnt[2] &amp;&amp; cnt[0] == cnt[3]) return 0;
+        
+        int i = 0, j = 0;
+        while(j &lt; s.size() &amp;&amp; !check(cnt)){
+            cnt[hash[s[j]]]--;
+            j++;
+        } 
+        int res = j - i;
+        while(true){
+            if(j &gt;= s.size() &amp;&amp; !check(cnt)) break;
+            while(i &lt; j &amp;&amp; check(cnt)){
+                res = min(res, j - i);
+                cnt[hash[s[i]]]++;
+                i++;
             }
-            return false;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        };
-        
-        int L = 0, R = n-1;
-        int ret = n;
-        while (L &lt;= R)
-        {
-            int m = (L+R)/2;
-            //printf(&quot;%d %d %d\n&quot;, L, R, m);
-            if (check(m))
-            {
-                ret = m;
-                R = m-1;
+            while(j &lt; s.size() &amp;&amp; !check(cnt)){
+                cnt[hash[s[j]]]--;
+                j++;
             }
-            else
-                L = m+1;
         }
-        return ret;
+        return res;
     }
-};</B></FONT>
+    
+private:
+    bool check(const vector&lt;int&gt;&amp; cnt){
+        for(int i = 0; i &lt; 4; i++)
+            if(cnt[i] &gt; 0) return false;
+        return true;
+    }
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>380_yifa.cpp</TITLE>
+ <TITLE>450_0xFFFFFFFF.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,43 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>380_yifa.cpp</CENTER></H3><HR>
+<H3><CENTER>450_0xFFFFFFFF.cpp</CENTER></H3><HR>
 <PRE>
-bool comp(string a,string b){
-    return a.length() &lt; b.length();
-}
 class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end());
         vector&lt;string&gt; res;
-<A NAME="0"></A>        sort(folder.begin(),folder.end(),comp);
-        
-        set&lt;string&gt; st;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto i:folder){
-            bool f = true;
-            string tmp = &quot;&quot;;
-            for(int j=0;j&lt;i.size();++j){
-                tmp += i[j];
-                if(i[j] != '/'){
-                    if(st.find(tmp)!=st.end() &amp;&amp; j&lt;i.size()-1 &amp;&amp; i[j+1]=='/'){
-                        f = false;
-                        break;
-                    }
-                }
-                
+        for (string&amp; f : folder) {
+            if (res.empty()) {
+                res.push_back(f);
+<A NAME="0"></A>                continue;
             }
-            if(f){</B></FONT>
-                st.insert(i);
+            string&amp; l = res.back();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (l.size() &gt;= f.size()) {
+                res.push_back(f);
+                continue;
+            }
+            if (l != f.substr(0, l.size()) || f[l.size()] != '/') {
+                res.push_back(f);
+                continue;
             }
         }
-        //[&quot;/a&quot;,&quot;/a/b&quot;,&quot;/c/d&quot;,&quot;/c/d/e&quot;,&quot;/c/f&quot;]
-        for(auto i:st){
-            res.push_back(i);
-        }
-        
         return res;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

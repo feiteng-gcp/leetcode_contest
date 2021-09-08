@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_shshwdr.py</TITLE>
+ <TITLE>331_qobilidop.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>59_shshwdr.py</CENTER></H3><HR>
+<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def jobScheduling(self, startTime, endTime, profit) -&gt; int:
-        jobs = []
-        for i in range(len(startTime)):
-            jobs.append((startTime[i],endTime[i],profit[i]))
-        jobs.sort(key = lambda x : x[1])
-        res = [0]*len(startTime)
-        res[0] = jobs[0][2]
-        #print(jobs)
-        n = len(startTime)
-        def latestNonConflict(i):
-            for j in range(i-1,-1,-1):
-                #print(jobs[i],jobs[j])
-<A NAME="0"></A>                if jobs[j][1] &lt;= jobs[i][0]:
-                    return j
-            return -1
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(1,n):
-            inclProf = jobs[i][2]
-            l = latestNonConflict(i)
-            #print(i,l)
-            if l!=-1:
-                inclProf+=res[l]
-            res[i] = max(inclProf,res[i-1])
-        #print(res)
-        return res[</B></FONT>-1]
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+<A NAME="0"></A>        data = [(et, st, p) for st, et, p in zip(startTime, endTime, profit)]
+        data.sort()
+        et = [x for x, _, _ in data]
+        st = [<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>x for _, x, _ in data]
+        pr = [x for _, _, x in data]
+        
+        n = len(pr)
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            j = bisect.bisect(et, st[i - 1])
+            dp[</B></FONT>i] = max(dp[i - 1], dp[j] + pr[i - 1])
+        return dp[n]
         
 </PRE>
 

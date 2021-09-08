@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>28_BenL.py</TITLE>
+ <TITLE>73_NoCoriander.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>28_BenL.py</CENTER></H3><HR>
+<H3><CENTER>73_NoCoriander.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def balancedString(self, s: str) -&gt; int:
-        A=[]
-        for x in s:
-            if x==&quot;Q&quot;:
-                A+=[0]
-            if x==&quot;W&quot;:
-                A+=[1]
-            if x==&quot;E&quot;:
-                A+=[2]
-            if x==&quot;R&quot;:
-                A+=[3]
+<A NAME="0"></A>    def balancedString(self, s: str) -&gt; int:
+        from collections import Counter
+        allCounter = Counter(s)
+        n <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(s)
+        x = n // 4
         
-        pos=[[] for i in range(4)]
-        
-        for i in range(len(A)):
-            pos[A[i]]+=[i]
-            
-        want=len(A)//4
-        pos_length=[len(pos[i]) for i in range(4)]
-        flag=0
-        for i in range(4):
-            if pos_length[i]!=want:
-                flag=1
-        if flag==0:
-            return 0
-        
-        
-        def find(A,pos,length):
-            cur=[0]*4
-            want=len(A)//4
-            remain=[len(pos[i]) for i in range(4)]
-            for i in range(length):
-                
-                remain[A[i]]-=1
-            if list(filter(lambda x: x&gt;want,remain))==[]:
-                return True
-            for i in range(length,len(A)):
-<A NAME="0"></A>                remain[A[i-length]]+=1
-                remain[A[i]]-=1
-                if list(filter(lambda x: x&gt;want,remain))==[]:
-                    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return True
-            return False
-        
-        left=0
-        right=len(A)
-        while right-left&gt;1:
-            mid=(left+right)//2
-            if find(A,pos,mid):
-                right=mid
+        def check(subCounter):
+            for k in allCounter:
+                if allCounter[k] - subCounter[k] &gt; x:
+                    return False
+            return True
+
+        low, high =</B></FONT> 0, n
+        while low &lt; high:
+            mid = (high - low) // 2 + low
+            checkOk = False
+            if mid &gt; 0:
+                counter = Counter(s[:mid])
+                for i in range(n - mid + 1):
+                    if check(counter):
+                        checkOk = True
+                        break
+                    counter[s[i]] -= 1
+                    if i + mid &lt; n:
+                        counter[s[i + mid]] += 1
             else:
-                left=mid
-        re</B></FONT>turn right
+                checkOk = check(Counter())
+            if checkOk:
+                high = mid
+            else:
+                low = mid + 1
+        return low
             
-            
-            
-            
-            
-            
-            
+        
 </PRE>
 
 </BODY>

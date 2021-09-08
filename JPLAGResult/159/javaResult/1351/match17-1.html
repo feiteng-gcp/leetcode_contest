@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>227_CHEN0426.java</TITLE>
+ <TITLE>162_musteryu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,104 +15,63 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>227_CHEN0426.java</CENTER></H3><HR>
+<H3><CENTER>162_musteryu.java</CENTER></H3><HR>
 <PRE>
 class Solution {
-    HashMap&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
     public int balancedString(String s) {
-        map.put('Q', 0);
-        map.put('W', 0);
-        map.put('E', 0);
-        map.put('R', 0);
-        int expected = s.length() / 4;
+        int[][] prefixs = new int[s.length() + 1][4];
+        int[] prefix = new int[4];
         for (int i = 0; i &lt; s.length(); i++) {
-            char c = s.charAt(i);
-            map.put(c, map.getOrDefault(c, 0) + 1);
+            prefix[&quot;QWER&quot;.indexOf(s.charAt(i))]++;
+<A NAME="0"></A>            for (int j = 0; j &lt; 4; j++) {
+                prefixs[i + 1][j] = prefix[j];
+            }
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int[] delta = new int[4];
+        for (int j = 0; j &lt; 4; j++) {
+            delta[j] = prefix[j] - s.length() / 4;
         }
-        int result = 0;
-        // for (char c : map.keySet()) {
-        //     if (map.get(c) &lt; expected) {
-        //         result += expected - map.get(c);
-        //     }
-        // }
         
-        int start = 0;
-        int end = s.length();
-        
-        while (start &lt; end) {
-            int mid = (end - start) / 2 + start;
-            
-            if (isValid(mid, s, expected)) {
-<A NAME="3"></A>                end = mid;
+        int left = 0, right = </B></FONT>s.length();
+<A NAME="1"></A>        while (left + 1 &lt; right) {
+            int size = (left + right) / 2;
+            if (check(prefixs, delta, size)) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>right = size;
             } else {
-                start = mid + 1;
-            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-        }
-        return start;
-    }
-    
-<A NAME="0"></A>    private boolean isValid(int size, String s, int pivot</B></FONT>) {
-        int[] data = new int[4];
-        
-        for (int i = 0; i &lt; size; i++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            char c = s.charAt(i);
-            
-            if (c == 'Q') {
-                data[0]++;
-            }
-            if (c == 'W') {
-                data[1]++;
-            }
-            if (c == 'E') {
-                data[2]++;
-            }
-            if (c == 'R') {
-                data[3]++;
+                left = size;
             }
         }</B></FONT>
-        
-        if (map.get('Q') - data[0] &lt;= pivot &amp;&amp; map.get('W') - data[1] &lt;= pivot &amp;&amp; map.get('E') - data[2] &lt;= pivot &amp;&amp; map.get('R') - data[3] &lt;= pivot) {
-            return true;
+        if (check(prefixs, delta, left)) {
+            return left;
         }
-<A NAME="1"></A>        
-        for (int i = size; i &lt; s.length(); i++) {
-            char c = s.charAt(i);
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char b = s.charAt(i - size);
-            if (c == 'Q') {
-                data[0]++;
-            }
-            if (c == 'W') {
-                data[1]++;
-            }
-            if (c == 'E') {
-                data[2]++;
-            }
-            if (c == 'R') {
-<A NAME="2"></A>                data[3]++;
-            }
-            
-            if</B></FONT> (b == 'Q') <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                data[0]--;
-            }
-            if (b == 'W') {
-                data[1]--;
-            }
-            if (b == 'E') {
-                data[2]--;
-            }
-            if (b == 'R') {
-                data[3]--;
-            }
-            
-            if (map.get</B></FONT>('Q') - data[0] &lt;= pivot &amp;&amp; map.get('W') - data[1] &lt;= pivot &amp;&amp; map.get('E') - data[2] &lt;= pivot &amp;&amp; map.get('R') - data[3] &lt;= pivot) {
-            return true;
-            }
-        }
-        
-        return false;
-        
+        return right;
     }
-}
+    
+    private boolean check(int[][] prefixs, int[] delta, int size) {
+        for (int i = 0; i + size &lt; prefixs.length; i++) {
+<A NAME="2"></A>            int[] diff = getDiff(prefixs[i + size], prefixs[i]);
+            boolean found = true;
+            for (int j = 0; j &lt; 4; j++) {
+                if (delta[j] &gt; diff[j]) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#2',2,'match17-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return true;
+            }
+        }
+        return false;
+<A NAME="3"></A>    }</B></FONT>
+    
+    private int[] getDiff(int[] p1, int[] p2) {
+        int[] diff = <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#3',2,'match17-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new int[4];
+        for (int j = 0; j &lt; 4; j++) {
+            diff[j] = p1[j] - p2[j];
+        }
+        return diff;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

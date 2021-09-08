@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>175_pku_erutan.py</TITLE>
+ <TITLE>228_chuan-chih.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>175_pku_erutan.py</CENTER></H3><HR>
+<H3><CENTER>228_chuan-chih.py</CENTER></H3><HR>
 <PRE>
+import collections
+
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        average_n = len(s) // 4
-        counter = collections.Counter(s)
-        dis = {k:0 if counter[k]&lt;=average_n else counter[k]-average_n for k in 'QWER'}
-        if sum(dis.values()) == 0 :
+        target = len(s) // 4
+        c = collections.Counter(s)
+        for char in c:
+            c[char] -= target
+        c = +c
+        if not c:
             return 0
+<A NAME="0"></A>        ans = len(s)
+        i = 0
+        for j in range(len(s)):
+            c[s<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[j]] -= 1
+            while all(n &lt;= 0 for n in c.values()):
+                ans = min(ans, j - i + 1)
+                c[s[i]] += 1
+                i += 1
+        re</B></FONT>turn ans
+                
+                
         
-        temp_counter = {k:0 for k in 'QWER'}
-        left, right = 0, 0
-        temp_counter[s[0]] += 1
-        mint = 1e6
-        while True :
-            while not all([temp_counter[k]&gt;=dis[k] for k in 'QWER']) :
-                right += 1
-                if right &gt;= len(s) :
-                    break
-<A NAME="0"></A>                temp_counter[s[right]] += 1
-            if right &gt;= len(s) :
-                break
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while temp_counter[s[left]] &gt; dis[s[left]] :
-                temp_counter[s[left]] -= 1
-                left += 1
-            mint = min(</B></FONT>mint, right-left+1)
-            temp_counter[s[left]] -= 1
-            left += 1
-        # print(left, right, temp_counter)
-        return mint
-            
 </PRE>
 
 </BODY>

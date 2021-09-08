@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_yge.java</TITLE>
+ <TITLE>227_CHEN0426.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,70 +15,102 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_yge.java</CENTER></H3><HR>
+<H3><CENTER>227_CHEN0426.java</CENTER></H3><HR>
 <PRE>
 class Solution {
+    HashMap&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
     public int balancedString(String s) {
-        int n = s.length();
-        int ans = n;
-        int q = 0;
-        int w = 0;
-<A NAME="0"></A>        int e = 0;
-        int r = 0;
-        int i = 0;
-        while (i&lt;n &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            switch (s.charAt(i)) {
-                case 'Q':q++;break;
-                case 'W':e++;break;
-                case 'E':w++;break;
-                case 'R':r++;break;
-            }</B></FONT>
-            i++;
+        map.put('Q', 0);
+        map.put('W', 0);
+        map.put('E', 0);
+        map.put('R', 0);
+        int expected = s.length() / 4;
+        for (int i = 0; i &lt; s.length(); i++) {
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        if (i &gt;= n)
-            return 0;
-        i--;
-        switch (s.charAt(i)) {
-            case 'Q':q--;break;
-            case 'W':e--;break;
-            case 'E':w--;break;
-            case 'R':r--;break;
+        int result = 0;
+        // for (char c : map.keySet()) {
+        //     if (map.get(c) &lt; expected) {
+        //         result += expected - map.get(c);
+        //     }
+        // }
+        
+        int start = 0;
+        int end = s.length();
+        
+        while (start &lt; end) {
+            int mid = (end - start) / 2 + start;
+            
+            if (isValid(mid, s, expected)) {
+<A NAME="3"></A>                end = mid;
+            } else {
+                start = mid + 1;
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#3',2,'match22-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
         }
-        i--;
-<A NAME="1"></A>        ans = n-i;
-        int j = n-1;
-        while (i &gt;= 0) {
-            while (i&lt;j &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                switch (s.charAt(j)) {
-                    case 'Q':q++;break;
-                    case 'W':e++;break;
-                    case 'E':w++;break;
-                    case 'R':r++;break;
-                }</B></FONT>
-<A NAME="2"></A>                j--;
+        return start;
+    }
+    
+<A NAME="0"></A>    private boolean isValid(int size, String s, int pivot</B></FONT>) {
+        int[] data = new int[4];
+        
+        for (int i = 0; i &lt; size; i++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            char c = s.charAt(i);
+            
+            if (c == 'Q') {
+                data[0]++;
             }
-            ans = Math.min(ans, j+1-i);
-            while (i&gt;=0 &amp;&amp; !(q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4)) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                switch (s.charAt(i)) {
-                    case 'Q':q--;break;
-                    case 'W':e--;break;
-                    case 'E':w--;break;
-                    case 'R':r--;break;
-                }</B></FONT>
-                i--;
+            if (c == 'W') {
+                data[1]++;
             }
-            ans = Math.min(ans, j-i);
-        }
-        while (i&lt;j &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) {
-            switch (s.charAt(j)) {
-                case 'Q':q++;break;
-                case 'W':e++;break;
-                case 'E':w++;break;
-                case 'R':r++;break;
+            if (c == 'E') {
+                data[2]++;
             }
-            j--;
+            if (c == 'R') {
+                data[3]++;
+            }
+        }</B></FONT>
+        
+        if (map.get('Q') - data[0] &lt;= pivot &amp;&amp; map.get('W') - data[1] &lt;= pivot &amp;&amp; map.get('E') - data[2] &lt;= pivot &amp;&amp; map.get('R') - data[3] &lt;= pivot) {
+            return true;
         }
-        return Math.min(ans, j+1-i);
+<A NAME="1"></A>        
+        for (int i = size; i &lt; s.length(); i++) {
+            char c = s.charAt(i);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char b = s.charAt(i - size);
+            if (c == 'Q') {
+                data[0]++;
+            }
+            if (c == 'W') {
+                data[1]++;
+            }
+            if (c == 'E') {
+                data[2]++;
+            }
+            if (c == 'R') {
+<A NAME="2"></A>                data[3]++;
+            }
+            
+            if</B></FONT> (b == 'Q') <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                data[0]--;
+            }
+            if (b == 'W') {
+                data[1]--;
+            }
+            if (b == 'E') {
+                data[2]--;
+            }
+            if (b == 'R') {
+                data[3]--;
+            }
+            
+            if (map.get</B></FONT>('Q') - data[0] &lt;= pivot &amp;&amp; map.get('W') - data[1] &lt;= pivot &amp;&amp; map.get('E') - data[2] &lt;= pivot &amp;&amp; map.get('R') - data[3] &lt;= pivot) {
+            return true;
+            }
+        }
+        
+        return false;
+        
     }
 }
 </PRE>

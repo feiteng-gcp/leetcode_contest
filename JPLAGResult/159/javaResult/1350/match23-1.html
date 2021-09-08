@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>181_unfinishedmission.java</TITLE>
+ <TITLE>230_Aragog.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,21 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>181_unfinishedmission.java</CENTER></H3><HR>
+<H3><CENTER>230_Aragog.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Arrays.sort(folder);
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-<A NAME="1"></A>        res.add(folder[0]);
-        String last = folder[0];
-        for (int i = 1; i &lt; folder.length; i++) {
-            if (!folder[i].startsWith</B></FONT>(last) || folder[i].charAt(last.length()) != '/') <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                res.add(folder[i]);
-                last = folder[i];
+class Solution {
+   class Node {
+        String name;
+        Map&lt;String, Node&gt; children;
+
+        Node(String name) {
+            this.name = name;
+            children = new HashMap&lt;&gt;();
+<A NAME="0"></A>        }
+    }
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; removeSubfolders(String[] folder) {
+        Node root = new Node(&quot;&quot;);
+        for (String f : folder) {
+            String[] p = f.split</B></FONT>(&quot;/&quot;);
+            Node node = root;
+            for (int i = 1; i &lt; p.length; i++) {
+                if (node.children == null) {
+<A NAME="1"></A>                    break;
+                } else if (!node.children.containsKey(p[i])) {
+                    node.children.put(p[i], new Node(p[i]));
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                node = node.children.get(p[i]);
             }
+            node.children = null;
         }
-        return res;
+        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
+        dfs(root, &quot;&quot;, ret);
+        return ret;
+    }
+
+    void dfs(Node root, String path, List&lt;String&gt; res) {
+        if (root.children == null) {
+            res.add(path);
+            return;
+        }
+        for (Map.Entry&lt;String, Node&gt; child : root.children.entrySet()) {
+            dfs(child.getValue(), path + &quot;/&quot; + child.getKey(), res);
+        }
+
     }</B></FONT>
 }
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>250_hum.java</TITLE>
+ <TITLE>299_fnwjkm.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>250_hum.java</CENTER></H3><HR>
+<H3><CENTER>299_fnwjkm.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public int balancedString(String s) {
         int len = s.length();
-        int count = len / 4;
-        int[] alp = new int[26];
-        for (char c : s.toCharArray()) {</B></FONT>
-            alp[c - 'A']++;
+        int target = len / 4;
+        char[] ch = new char[]{'Q', 'W', 'E', 'R'};
+        int[] diff = new int[4];
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        for(char c : s.toCharArray()){
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        int[] index = {16, 22, 4, 17};
-        int[] need = new int[4];
-        boolean flag = false;
-        for (int i = 0; i &lt; 4; i++) {
-<A NAME="1"></A>            int tmp = alp[index[i]] - count;
-            if (tmp &gt; 0) {
-                flag = true;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>need[i] = tmp;
+        for(int i = 0;i &lt; 4;i++){
+<A NAME="1"></A>            diff[i] = map.getOrDefault(ch[i], 0) - target;
+        }
+        int[] cur = new int[4];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int left = 0,res = Integer.MAX_VALUE;
+        for(int i = 0;i &lt; len;i++){
+            char c = s.charAt(i);
+            if(c == 'Q') cur[0]++;
+            if(c == 'W') cur[1]++;
+            if(c == 'E') cur[2]++;
+<A NAME="0"></A>            if(c == 'R') cur[3]++;</B></FONT>
+            if(check(diff, cur)){
+                res = Math.min(i - left + 1, res);
+                while(left &lt;= i &amp;&amp; check(diff, cur))<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                    char pre = s.charAt(left++);
+                    if(pre == 'Q') cur[0]--;
+                    if(pre == 'W') cur[1]--;
+                    if(pre == 'E') cur[2]--;
+                    if(pre == 'R') cur[3]--;</B></FONT>
+                    if(check(diff, cur)){
+                        res = Math.min(i - left + 1, res);
+<A NAME="2"></A>                    }
+                }
             }
-        }
-        if (!flag) {
-            return 0;
-        }
-        int i = 0;
-        int j = 0;
-        int result = Integer.MAX_VALUE</B></FONT>;
-        int[] res = new int[26];
-        while (j &lt; len) {
-            res[s.charAt(j) - 'A']++;
-            while (check(res, need) &amp;&amp; i &lt;= j) {
-                result = Math.min(result, j - i + 1);
-                res[s.charAt(i) - 'A']--;
-                i++;
-            }
-            j++;
-        }
-
-        return result;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        return res;
     }
-
-    private boolean check(int[] res, int[] need) {
-        int[] index = {16, 22, 4, 17};
-        for (int k = 0; k &lt; 4; k++) {
-            if (res[index[k]] &lt; need[k]) {
-                return false;
-            }
+    public boolean check(int[] diff, int[] cur){
+        for(int i = 0;i &lt; 4;i++){
+            if</B></FONT>(cur[i] &lt; diff[i]) return false;
         }
         return true;
     }

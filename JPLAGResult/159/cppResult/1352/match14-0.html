@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>446_WindQAQ.cpp</TITLE>
+ <TITLE>292_HbXImLIFlH.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>446_WindQAQ.cpp</CENTER></H3><HR>
+<H3><CENTER>292_HbXImLIFlH.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        int n = startTime.size();
-        
-        vector&lt;vector&lt;int&gt;&gt; arr;
-<A NAME="1"></A>        for (int i = 0; i &lt; n; i++) arr.push_back({startTime[i], endTime[i], profit[i]});</B></FONT>
-        
-        sort(arr.begin(), arr.end(), [](vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
-<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return a[1] &lt; b[1];
-        });
-        
-        vector&lt;int&gt; dp(n, 0);
-        dp[0] = arr[0][2];
-        
-        for (int i = 1; i &lt; n; i++) {
-            int p = arr[i][2];
-            int j = helper(arr, i);
-            if (j != -1) p += dp[j];
-            dp[i] = max(p, dp[i-1]);
+        vector&lt;int&gt; all;
+        for (auto i : startTime) {
+            all.push_back(i);
         }
-        
-        return dp[n-1];
-    }</B></FONT>
-    
-    
-    int helper(vector&lt;vector&lt;int&gt;&gt;&amp; arr, int i) {
-        for (int j = i - 1; j &gt;= 0; j--) {
-            if (arr[j][1] &lt;= arr[i][0]) return j;
+        for (auto i : endTime) {
+            all.push_back(i);
         }
-        return i;
+        sort(all.begin(), all.end());
+        auto it = unique(all.begin(), all.end());
+        all.erase(it, all.end());
+        unordered_map&lt;int, int&gt; num_map;
+        for (int i = 0; i &lt; all.size(); ++i) {
+            num_map[all[i]] = i;
+        }
+        for (auto&amp; i : startTime) {
+            i = num_map[i];
+        }
+        for (auto&amp; i : endTime) {
+            i = num_map[i];
+        }
+        unordered_map&lt;int, vector&lt;pair&lt;int, int&gt;&gt;&gt; end_map;</B></FONT>
+        vector&lt;tuple&lt;int, int, int, int&gt;&gt; u(startTime.size());
+<A NAME="1"></A>        for (int i = 0; i &lt; startTime.size(); ++i) {
+            u[i] = make_tuple(endTime[i], startTime[i], i, profit[i]);
+            end_map[endTime[i]].push_back(make_pair(startTime[i], profit[i]));
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        sort(u.begin(), u.end());
+        vector&lt;int&gt; dp(all.size() + 1, 0);
+        int prev = 0;
+        for (int i = 0; i &lt; all.size(); ++i) {
+            if (i != 0)
+                dp[i] = dp[i - 1];
+            if (end_map.count(i)) {
+                for (auto&amp; p : end_map[i]) {
+                    dp[i] = max(dp[i], dp[p.first] + p.second);
+                }
+            }
+        }
+        return *max_element(dp.begin(), dp.end());
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>363_whatsgood.java</TITLE>
+ <TITLE>385_puyuechen.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,67 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>363_whatsgood.java</CENTER></H3><HR>
+<H3><CENTER>385_puyuechen.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        int n = s.length();
+        if(n % 4 != 0) return -1;
         
-        for (char c : s.toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
-        }
+        int[] count = new int[4];
+        char[] chars = s.toCharArray();
+        n /= 4;
+        char[] dic = new char[]{'Q', 'W', 'E', 'R'};
         
-        int left = 0, right = 0, min = Integer.MAX_VALUE;
-        while (right &lt; s.length() &amp;&amp; left &lt; s.length()) {
-            char c = s.charAt(right++);
-            map.put(c, map.get(c) - 1);
-<A NAME="0"></A>            while (left &lt; s.length() &amp;&amp; isValid(map, s.length())) {
-                min = Math.min(min, right - left);
-                char d = s.charAt(left++);
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>map.put(d, map.get(d) + 1);
+        for(char c: chars){
+            for(int i = 0; i &lt; 4; i++){
+                if(c == dic[i]){
+                    count[i]++;
+                    break;
+                }
             }
         }
+        if(count[0] == n &amp;&amp; count[1] == n &amp;&amp; count[2] == n &amp;&amp; count[3] == n) return 0;
         
-        return min;
-<A NAME="1"></A>    }
+        int res = s.length();
+<A NAME="0"></A>        int left = 0, right = 0;
+        int[] current = new int[4];
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 0; i &lt; 4; i++){
+            if(count[i] &lt;= n){
+                count[i] = 0;
+            }else{
+                count[i] -= n;
+            }
+        }</B></FONT>
+        
+        while(right &lt; chars.length){
+            while(right &lt; chars.length &amp;&amp; !isValid(count, current)){
+                for(int i = 0; i &lt; 4; i++){
+                    if(chars[right] == dic[i]){
+                        current[i]++;
+                        break;
+                    }
+                }
+                right++;
+            }
+            while(left &lt; right &amp;&amp; isValid(count, current)){
+                res = Math.min(res, right - left);
+                for(int i = 0; i &lt; 4; i++){
+                    if(chars[left] == dic[i]){
+                        current[i]--;
+                        break;
+<A NAME="1"></A>                    }
+                }
+                left++;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        return res;
+    }
     
-    private boolean isValid(Map&lt;Character, Integer&gt; map, int length) {
-        for (Integer i</B></FONT> : map.values()) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (i &gt; (length / 4)) {
+    public boolean isValid(int[] count, int[] current){
+        for(int i = 0; i &lt; 4; i++){
+            if(current[i] &lt; count[i]){
                 return false;
             }
         }

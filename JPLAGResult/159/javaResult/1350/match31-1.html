@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>277_danielcy715.java</TITLE>
+ <TITLE>232_hetao.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,23 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>277_danielcy715.java</CENTER></H3><HR>
+<H3><CENTER>232_hetao.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        FolderNode root = new FolderNode();
-        for (String path : folder) {
-            buildTrie(root, path);
-        }
-        List&lt;String&gt; ans = new</B></FONT> ArrayList&lt;&gt;();
-        dfs(ans, root);
-<A NAME="1"></A>        return ans;
-    }
-    
-    private void buildTrie(FolderNode root, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String path) {
-        String[] array = path.split(&quot;/&quot;);
-        for (int i = 0; i &lt; array.length; i++) {
-            if (root.next.containsKey(array[i])) {
-                FolderNode next = root.next.get(array[i]);
-                if</B></FONT> (next.isFolder) {
-                    return;
-                }
-                root = next;
-            } else {
-                FolderNode newNode = new FolderNode();
-                root.next.put(array[i], newNode);
-                root = newNode;
+        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        Arrays.sort(folder);
+        for(String str: folder){
+            int idx=0;</B></FONT>
+            while((idx=str.indexOf('/', idx+1))!=-1){
+<A NAME="1"></A>                String sub = str.substring(0, idx);
+                if(set.contains(sub)) break;
             }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(idx==-1) set.add(str);
         }
-        root.isFolder = true;
-        root.path = path;
-        root.next = new HashMap&lt;&gt;();
+        return new ArrayList&lt;&gt;(set);
     }
-    
-    private void dfs(List&lt;String&gt; ans, FolderNode root) {
-        if (root.isFolder) {
-            ans.add(root.path);
-        }
-        Map&lt;String, FolderNode&gt; next = root.next;
-        for (FolderNode node : next.values()) {
-            dfs(ans, node);
-        }
-    } 
-}
-
-class FolderNode {
-    boolean isFolder;
-    String path;
-    Map&lt;String, FolderNode&gt; next;
-    public FolderNode() {
-        isFolder = false;
-        next = new HashMap&lt;&gt;();
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

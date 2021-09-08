@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>225_anisaha.cpp</TITLE>
+ <TITLE>322_abhishhh1.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,63 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>225_anisaha.cpp</CENTER></H3><HR>
+<H3><CENTER>322_abhishhh1.cpp</CENTER></H3><HR>
 <PRE>
+struct Job{
+    int start, end, profit;
+};
+
 class Solution {
 public:
-    struct Job { 
-<A NAME="0"></A>        int start, finish, profit; 
-    }; 
-  
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    static bool comp(Job J1, Job J2)  { 
-        return (J1.finish &lt; J2.finish); 
+    static bool cmp(Job s1, Job s2){ 
+        return (s1.end &lt; s2.end); 
     } 
-  
-    int search(vector&lt;Job&gt;&amp; J, int idx)  { 
-        int low = 0, hi = idx - 1; 
-        while (low &lt;= hi) { 
-            int mid = low + (hi - low) / 2; 
-            if(J[mid].finish &lt;= J[idx].start) { 
-                if(J[mid + 1].finish &lt;= J[idx].start) {</B></FONT>
-                    low = mid + 1; 
-                } else {
-                    return mid;
-                }
-            } else {
-                hi = mid - 1; 
-            }
+    int latestNonConflict(Job arr[], int i){ 
+        for(int j=i-1; j&gt;=0; j--){ 
+<A NAME="0"></A>            if(arr[j].end &lt;= arr[i-1].start) 
+                return j; 
         } 
-        return -1; 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        return -1; 
     } 
-  
-    int maxProfit(vector&lt;Job&gt;&amp; J) { 
-<A NAME="2"></A>        sort(J.begin(), J.end(), comp); 
-            
-        int N = J.size();
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int dp[N]; 
-        dp[0] = J[0].profit; 
-
-        for (int i=1;i&lt;N;i++) { 
-            int incude = J[i].profit; 
-            int latest = search(J,i); //  latest job that doesn't conflict with current job
-            if (latest != -1) 
-                incude += dp[latest]; 
-
-            dp[i] = max(incude, dp[i-1]); 
-        } </B></FONT>
-        return dp[N-1]; 
-<A NAME="1"></A>    } 
-    
-    
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        vector&lt;Job&gt; jobs;
-        int N = startTime.size();
-        
-        for(int i=0;i&lt;N;i++) {</B></FONT>
-            jobs.push_back({startTime[i],endTime[i],profit[i]});
+    int binarySearch(Job jobs[], int index) { 
+        int lo = 0, hi = index - 1; 
+        while (lo &lt;= hi){ 
+            int mid = (lo + hi) / 2; 
+            if (jobs[mid].end &lt;= jobs[index].start){ 
+                if (jobs[mid + 1].end &lt;= jobs[index].start) 
+                    lo = mid + 1; 
+                else
+                    return mid; 
+            } 
+            else
+                hi = mid - 1; 
+<A NAME="1"></A>        } 
+        return -1; 
+    } </B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; Profit) {
+        Job arr[startTime.size()+1];
+        int n=startTime.size();
+        for(int i=0; i&lt;n; i++){
+            arr[i].start=startTime[i];
+            arr[i].end=endTime[i];
+            arr[i].profit=Profit[i];
         }
-        
-        return maxProfit(jobs);
+<A NAME="2"></A>        sort(arr, arr+n, cmp); 
+        int table[n]; 
+        table[0] = arr[0].profit; </B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=1; i&lt;n; i++){ 
+            int inclProf = arr[i].profit; 
+            int l = binarySearch(arr, i); 
+            if (l != -1) 
+                inclProf += table[l]; 
+            table[i] = max(inclProf, table[i-1]); 
+        } </B></FONT>
+        return table[n-1]; 
     }
 };
 </PRE>

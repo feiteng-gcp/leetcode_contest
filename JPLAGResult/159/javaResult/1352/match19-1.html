@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>250_hum.java</TITLE>
+ <TITLE>338_Evercode.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,55 +15,90 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>250_hum.java</CENTER></H3><HR>
+<H3><CENTER>338_Evercode.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        int len = startTime.length;
-        Job[] jobs = new Job[len];
-<A NAME="1"></A>        for (int i = 0; i &lt; len; i++) {
-            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
-        }
-        Arrays.sort</B></FONT>(jobs, Comparator.comparingInt(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>a -&gt; a.finish));
-        long dp[] = new long[len];
-        dp[0] = jobs[0].profit;
-        for (int i = 1; i &lt; len; i++) {
-            long tmp = jobs[i].profit;
-            int l = binarySearch(jobs, i);
-            if</B></FONT> (l != -1) {
-                tmp += dp[l];
-            }
-            dp[i] = Math.max(tmp, dp[i - 1]);
-        }
+<A NAME="2"></A>import java.util.*;
 
-        return (int) dp[len - 1];
+
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Job {
+    int start, finish, profit;
+
+    // Constructor
+    Job(int start, int finish, int profit) {
+        this.start = start;
+        this.finish = finish;
+        this.profit = profit;
     }
+}
 
-    public int binarySearch(Job jobs[], int index) {
+// Used to sort job according to finish times
+class JobComparator implements Comparator&lt;Job&gt; {
+    public int compare(Job a, Job b) {
+        return a.finish &lt; b.finish ? -1 : a.finish == b.finish ? 0 : 1;
+    }
+}</B></FONT>
+
+public class Solution {
+    /* A Binary Search based function to find the latest job
+      (before current job) that doesn't conflict with current
+      job.  &quot;index&quot; is index of the current job.  This function
+<A NAME="1"></A>      returns -1 if all jobs before index conflict with it.
+      The array jobs[] is sorted in increasing order of finish
+      time. */
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static public int binarySearch(Job jobs[], int index) {
+        // Initialize 'lo' and 'hi' for Binary Search
         int lo = 0, hi = index - 1;
+
+        // Perform binary Search iteratively
         while (lo &lt;= hi) {
             int mid = (lo + hi) / 2;
             if (jobs[mid].finish &lt;= jobs[index].start) {
-                if (jobs[mid + 1].finish &lt;= jobs[index].start) {
+                if (jobs[mid + 1].finish &lt;= jobs[index].start)
                     lo = mid + 1;
-                } else {
+                else
                     return mid;
-                }
-            } else {
-<A NAME="2"></A>                hi = mid - 1;
-            }
+            } else
+                hi = mid - 1;
         }
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return -1;
+
+        return -1;
     }
 
-    class Job {
-        int start, finish, profit;
+    // The main function that returns the maximum possible
+    // profit from given array of jobs
+    static public int schedule(Job jobs[]) {
+        // Sort jobs according to finish time
+        Arrays.sort(jobs, new JobComparator());
 
-        Job(int start, int finish, int profit) {
-            this.start = start;
-            this.finish = finish;
-            this.profit = profit;
+        // Create an array to store solutions of subproblems.
+        // table[i] stores the profit for jobs till jobs[i]
+        // (including jobs[i])
+        int n = jobs.length;
+        int table[] = new int[n];
+        table[0] = jobs[0].profit;
+
+        // Fill entries in M[] using recursive property
+        for (int i = 1; i &lt; n; i++) {
+            // Find profit including the current job
+            int inclProf = jobs[i].profit;
+            int l = binarySearch(jobs, i);
+            if (l != -1)
+                inclProf += table[l];
+
+            // Store maximum of including and excluding
+            table[i] = Math.max(inclProf, table[i - 1]);
         }
+
+        return table[n - 1];
+<A NAME="0"></A>    }</B></FONT>
+
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        Job[] jobs = new Job[startTime.length];
+        for (int i = 0; i &lt; startTime.length; i++) {
+            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
+        }
+        return schedule(jobs);
     }</B></FONT>
 }
 </PRE>

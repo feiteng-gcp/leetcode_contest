@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>161_yuanzhi247012.py</TITLE>
+ <TITLE>414_blaksmatic.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
+<H3><CENTER>414_blaksmatic.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-<A NAME="0"></A>    def balancedString(self, s: str) -&gt; int:
-        counter=collections.Counter(s)
-        target=len(s)//4
-        d<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>={}
-        for key in counter:
-            if counter[key]&gt;target:
-                d[key]=counter[key]-target
-        if not d:
-            return 0
-        curd=</B></FONT>collections.defaultdict(int)
-        res=len(s)
-        slow=0
-        for i in range(len(s)):
-            curd[s[i]]+=1
-            while all(curd[key]&gt;=d[key] for key in d):
-                res=min(res,i-slow+1)
-                curd[s[slow]]-=1
-                slow+=1
-        return res
+    def balancedString(self, s: str) -&gt; int:
+        left = 0
+        count = collections.Counter(s)
+        limit = len(s) // 4
+        needs = collections.defaultdict(int)
+        for c in count:
+            needs[c] = max(0, count[c] - limit)
+        res = len(s)
+        totalneeds = sum(needs.values())
+        if totalneeds == 0: return 0
+<A NAME="0"></A>        for right in range(0, len(s)):
+            c = s[right]
+            needs[c] -= 1
+            if needs<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[c] &gt;= 0: totalneeds -= 1
+            while totalneeds == 0:
+                res = min(res, right - left + 1)
+                needs[s[left]] += 1
+                if needs[s[left]] &gt; 0: totalneeds += 1
+                left += 1
+        re</B></FONT>turn res
+                
 </PRE>
 
 </BODY>

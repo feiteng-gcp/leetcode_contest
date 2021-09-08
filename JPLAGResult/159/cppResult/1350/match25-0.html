@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>450_0xFFFFFFFF.cpp</TITLE>
+ <TITLE>419_smartjinyu.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>450_0xFFFFFFFF.cpp</CENTER></H3><HR>
+<H3><CENTER>419_smartjinyu.cpp</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
 public:
     vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
         sort(folder.begin(), folder.end());
-        vector&lt;string&gt; res;
-        for (string&amp; f : folder) {
-            if (res.empty()) {
-                res.push_back(f);
-<A NAME="0"></A>                continue;
-            }
-            string&amp; l = res.back();
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (l.size() &gt;= f.size()) {
-                res.push_back(f);
+        vector&lt;string&gt; ans;
+        ans.push_back(folder[0]);
+        int prev = 0;
+        for(int i = 1; i &lt; folder.size(); i++){
+            if(isPrefix(folder[prev], folder[i])){
                 continue;
-            }
-            if (l != f.substr(0, l.size()) || f[l.size()] != '/') {
-                res.push_back(f);
-                continue;
+            }else{
+                ans.push_back(folder[i]);
+                prev = i;
             }
         }
-        return res;
+        return ans;
+    }</B></FONT>
+    bool isPrefix(const string&amp; str1, const string&amp; str2){
+        // is str1 a prefix of str2?
+        if(str1 == str2) return true;
+        if(str1.size() &gt; str2.size()) return false;
+        int i = 0;
+        while(i &lt; str1.size()){
+            if(str1[i] != str2[i]) return false;
+            i++;
+        }
+        if(i == str2.size() || str2[i] == '/'){
+            return true;
+        }else{
+            return false;
+        }
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

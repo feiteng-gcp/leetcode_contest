@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_zqy1018.cpp</TITLE>
+ <TITLE>118_chen_tr.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,54 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_zqy1018.cpp</CENTER></H3><HR>
+<H3><CENTER>118_chen_tr.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>int sum[100005][4];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int get(char c){
-    if (c == 'Q') return 0;
-    if (c == 'W') return 1;
-    if (c == 'E') return 2;
-    if (c == 'R') return 3;
-    return -1;
-}</B></FONT>
 class Solution {
 public:
-    int balancedString(string s) {
-        int le = s.length();
-        int t = (le &gt;&gt; 2);
-        int l = 0, r = le;
-        sum[0][0] = sum[0][1] = sum[0][2] = sum[0][3] = 0;
-        for (int i = 0; i &lt; le; ++i){
-            for (int j = 0; j &lt; 4; ++j)
-                sum[i + 1][j] = sum[i][j];
-            ++sum[i + 1][get(s[i])];
-<A NAME="1"></A>        }
-        int cnt[5];
-        while (r &gt; l)   {
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int mid = (l + r) &gt;&gt; 1;
-            bool flag = false;
-            for (int i = 0; i + mid &lt;= le; ++i){
-                for (int j = 0; j &lt; 4; ++j)</B></FONT>
-                    cnt[j] = sum[le][j] - sum[i + mid][j] + sum[i][j];
-                if (cnt[0] &lt;= t &amp;&amp; cnt[1] &lt;= t &amp;&amp; cnt[2] &lt;= t &amp;&amp; cnt[3] &lt;= t){
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) r = mid;
-            else l = mid + 1;
-        }
-        return l;
+    int convert(char c) {
+        if (c == 'Q') return 0;
+        if (c == 'W') return 1;
+        if (c == 'E') return 2;
+<A NAME="0"></A>        return 3;
     }
-};
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    bool check(int *a, int *b) {
+        for (int i = 0; i &lt; 4; i++) {
+            if (a[i] &gt; b[i]) {
+                return false;
+            }
+        }
+        return true;
+    }</B></FONT>
+    
+    int balancedString(string s) {
+        int stat[4] = {0};
+        int cur[4] = {0};
+        int l = 0, r = 0;
+        int ans = INT_MAX;
+        for (char c : s) {
+            stat[convert(c)]++;
+        }
+        for (int i = 0; i &lt; 4; i++) {
+            if (stat[i] &gt;= s.length() &gt;&gt; 2) {
+                stat[i] -= (s.length() &gt;&gt; 2);
+            } else {
+<A NAME="1"></A>                stat[i] = 0;
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (r &lt; s.length()) {
+            while (!check(stat, cur) &amp;&amp; r &lt; s.length()) {
+                cur[convert(s[r++])]++;
+            }
+            
+            while (check(stat, cur) &amp;&amp; r &gt;= l) {
+                ans = min(ans, r - l);
+                cur[convert(s[l++])]--;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>23_SaveVMK.java</TITLE>
+ <TITLE>186_luchy0120.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,96 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>23_SaveVMK.java</CENTER></H3><HR>
+<H3><CENTER>186_luchy0120.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int balancedString(String s) {
-        int qc = 0;
-        int wc = 0;
-        int ec = 0;
-<A NAME="1"></A>        int rc = 0;
-        int n = s.length</B></FONT>();
-        s = s.toLowerCase();
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (char c : s.toCharArray()) {
-            if (c=='q')
-                qc++;
-            if (c=='w')
-                wc++;
-            if (c=='e')
-                ec++;
-            if (c=='r')
-                rc++;
-        }
-        if (qc==wc&amp;&amp;qc==ec&amp;&amp;qc==rc)
-            return 0;
-        int ml = n;
-        int qr = 0</B></FONT>;
-        int wr = 0;
-        int er = 0;
-        int rr = 0;
-        int a = 0;
-        int b = 0;
-        if (s.charAt(0)=='q')
-            qr++;
-        if (s.charAt(0)=='w')
-            wr++;
-        if (s.charAt(0)=='e')
-            er++;
-        if (s.charAt(0)=='r')
-            rr++;
-        while (b &lt; n) {
-            int qd = qc-qr;
-            int wd = wc-wr;
-            int ed = ec-er;
-            int rd = rc-rr;
-            if (qd&lt;=n/4&amp;&amp;wd&lt;=n/4&amp;&amp;ed&lt;=n/4&amp;&amp;rd&lt;=n/4) {
-                ml = Math.min(ml, b-a+1);
-                if (s.charAt(a)=='q')
-                    qr--;
-                if (s.charAt(a)=='w')
-                    wr--;
-                if (s.charAt(a)=='e')
-                    er--;
-                if (s.charAt(a)=='r')
-                    rr--;
-                ++a;
-            } else {
-                ++b;
-                if (b==n)
-                    break;
-                if (s.charAt(b)=='q')
-                    qr++;
-                if (s.charAt(b)=='w')
-                    wr++;
-                if (s.charAt(b)=='e')
-                    er++;
-                if (s.charAt(b)=='r')
-                    rr++;
+        int d[] = new int[256];
+        for(char c:s.toCharArray()){
+            d[c]++;
+        }</B></FONT>
+        int len = s.length()/4;int r =0;
+      char cc[] = {'Q','W','E','R'};
+        boolean all = false;
+        for(char f:cc){
+            if(d[f]&gt;len){
+               d[f]-=len;
+                all = true;
+            }else{
+               d[f] = 0; 
             }
         }
-        while (a &lt; n) {
-            int qd = qc-qr;
-            int wd = wc-wr;
-            int ed = ec-er;
-            int rd = rc-rr;
-            if (qd&lt;=n/4&amp;&amp;wd&lt;=n/4&amp;&amp;ed&lt;=n/4&amp;&amp;rd&lt;=n/4) {
-                ml = Math.min(ml, b-a+1);
-                if (s.charAt(a)=='q')
-                    qr--;
-                if (s.charAt(a)=='w')
-                    wr--;
-                if (s.charAt(a)=='e')
-                    er--;
-                if (s.charAt(a)=='r')
-                    rr--;
-                ++a;
-            } else {
+        if(!all) return 0;
+        
+        
+        int st = 0;int md[] = new int[256];int rrr = s.length();
+        for(int i=0;i&lt;s.length();++i){
+            char ccc = s.charAt(i);
+            if(d[ccc]&gt;0){
+                md[ccc]++;
+            }
+            while(true){
+            ccc = s.charAt(st);
+            
+            boolean ok = d[ccc]&gt;0&amp;&amp; md[ccc]-1&gt;=d[ccc] ||d[ccc]==0;
+
+            if(ok){
+                if(d[ccc]&gt;0){
+                md[ccc]--;
+                }
+                st++;
+            }else{
                 break;
             }
+            }
+            
+            boolean ok1 = true;
+            for(char t:cc){
+                if(d[t]&gt;0){
+                if(md[t]&lt;d[t]){
+                    ok1 = false;
+                    break;
+                }    
+<A NAME="1"></A>                }
+            }
+            if(ok1){
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rrr = Math.min(i-st+1,rrr);
+            }
+            
         }
-        return ml;
+        return rrr;
+        
+        
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

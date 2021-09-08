@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>14_zqy1018.cpp</TITLE>
+ <TITLE>350_logsniper.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>14_zqy1018.cpp</CENTER></H3><HR>
+<H3><CENTER>350_logsniper.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>int sum[100005][4];
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int get(char c){
-    if (c == 'Q') return 0;
-    if (c == 'W') return 1;
-    if (c == 'E') return 2;
-    if (c == 'R') return 3;
-    return -1;
-}</B></FONT>
 class Solution {
 public:
     int balancedString(string s) {
-        int le = s.length();
-        int t = (le &gt;&gt; 2);
-        int l = 0, r = le;
-        sum[0][0] = sum[0][1] = sum[0][2] = sum[0][3] = 0;
-        for (int i = 0; i &lt; le; ++i){
-            for (int j = 0; j &lt; 4; ++j)
-                sum[i + 1][j] = sum[i][j];
-            ++sum[i + 1][get(s[i])];
+<A NAME="0"></A>        int cq=0,cw=0,ce=0,cr=0;
+        int n = s.size();
+        for (int i = 0; i &lt; s.size(); ++ i) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            switch (s[i]) {
+            case 'Q': ++ cq; break;
+            case 'W': ++ cw; break;
+            case 'E': ++ ce; break;
+            case 'R': ++ cr; break;
+            }</B></FONT>
         }
-        int cnt[5];
-        while (r &gt; l)   {
-            int mid = (l + r) &gt;&gt; 1;
-            bool flag = false;
-<A NAME="1"></A>            for (int i = 0; i + mid &lt;= le; ++i){
-                for (int j = 0; j &lt; 4; ++j)
-                    cnt[j] = sum[le][j] - sum[i + mid][j] + sum[i][j];
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if (cnt[0] &lt;= t &amp;&amp; cnt[1] &lt;= t &amp;&amp; cnt[2] &lt;= t &amp;&amp; cnt[3] &lt;= t){
-                    flag = true;
-                    break;
-                }
+        int nq = (cq &gt; n/4) ? (cq - n/4) : 0;
+        int nw = (cw &gt; n/4) ? (cw - n/4) : 0;
+        int ne = (ce &gt; n/4) ? (ce - n/4) : 0;
+        int nr = (cr &gt; n/4) ? (cr - n/4) : 0;
+        if (nq+nw+ne+nr == 0) return 0;
+        // printf(&quot;%d %d %d %d\n&quot;, nq, nw, ne, nr);
+        int sq = 0, sw = 0, se = 0, sr = 0;
+        int i = 0;
+        int j = 0;
+        int ans = s.size();
+<A NAME="1"></A>        while ( i &lt; s.size()) {
+            // printf(&quot;%d %d\n&quot;, i,j);
+            for (;i &lt; s.size() &amp;&amp; !(sq &gt;= nq &amp;&amp; sw &gt;= nw &amp;&amp; se &gt;= ne &amp;&amp; sr &gt;= nr); ++ i) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                switch (s[i]) {
+                case 'Q': ++ sq; break;
+                case 'W': ++ sw; break;
+                case 'E': ++ se; break;
+                case 'R': ++ sr; break;
+                }</B></FONT>
+<A NAME="2"></A>            }
+            
+            for (; j &lt; s.size() &amp;&amp; sq &gt;= nq &amp;&amp; sw &gt;= nw &amp;&amp; se &gt;= ne &amp;&amp; sr &gt;= nr; ++ j) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                switch (s[j]) {
+                case 'Q': -- sq; break;
+                case 'W': -- sw; break;
+                case 'E': -- se; break;
+                case 'R': -- sr; break;
+                }</B></FONT>
             }
-            if (flag) r = mid;
-            else l = mid + 1;
+            
+            printf(&quot;%d %d\n&quot;, i,j);
+            ans = min(ans, i - j + 1);
         }
-        return l;
+        return ans;
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

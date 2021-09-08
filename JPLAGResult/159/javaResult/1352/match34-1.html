@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>13_taran_1407.java</TITLE>
+ <TITLE>448_litian.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,59 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>13_taran_1407.java</CENTER></H3><HR>
+<H3><CENTER>448_litian.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
         int n = startTime.length;
-        Job[] job = new Job[n];
-<A NAME="1"></A>        for(int i = 0</B></FONT>; i&lt; n; i++)job[i] = new Job(startTime[i], endTime[i], profit[i]);
-        Arrays.sort(job, (Job j1, Job j2) -&gt; Integer.compare(j1.en, j2.en));
-        int ans = 0;
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TreeMap&lt;Integer, Integer&gt; mp = new TreeMap&lt;&gt;();
-        mp.put(0, 0);
-        for(int i = 0; i&lt; n; i++){
-            Map.Entry&lt;Integer, Integer&gt; e = mp.floorEntry(job[i].st);
-            int pro = e.getValue</B></FONT>()+job[i].profit;
-            if(mp.lastEntry().getValue() &gt;= pro)continue;
-            mp.put(job[i].en, pro);
-<A NAME="2"></A>            ans = Math.max(ans, pro);
+        Job[] arr = new Job[n];
+        for (int i = 0; i &lt; startTime.length; i++) {
+            arr[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
-        return ans;
-    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-    class Job{
-        int st, en, profit;
-        public Job(int s, int e, int p){
-            st = s;en = e;profit = p;
-        }</B></FONT>
+        // Sort jobs according to finish time 
+        Arrays.sort(arr, (a, b)-&gt; a.finish - b.finish);
+        int[] table = new int[n];
+        table[0] = arr[0].profit;
+
+        // Fill entries in M[] using recursive property 
+        for (int i=1; i&lt;n; i++)
+        {
+            // Find profit including the current job 
+            int inclProf = arr[i].profit;
+            int l = latestNonConflict(arr, i);
+            if</B></FONT> (l != -1)
+                inclProf += table[l];
+
+            // Store maximum of including and excluding 
+            table[i] = Math.max(inclProf, table[i-1]);
+        }
+
+<A NAME="1"></A>        // Store result and free dynamic memory allocated for table[] 
+        int result = table[n-1];
+
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return result;
+    }
+
+    class Job {
+        int start, finish, profit;
+        public Job(int start, int finish, int profit) {
+            this.start = start;
+            this.finish = finish;
+            this.profit = profit;
+        }
+    }</B></FONT>
+
+
+    // Find the latest job (in sorted array) that doesn't 
+// conflict with the job[i] 
+    int latestNonConflict(Job arr[], int i)
+    {
+        for (int j=i-1; j&gt;=0; j--)
+        {
+            if (arr[j].finish &lt;= arr[i].start)
+                return j;
+        }
+        return -1;
     }
 }
 </PRE>

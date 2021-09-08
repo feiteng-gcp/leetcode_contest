@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>444_aiifabbf.py</TITLE>
+ <TITLE>236_troyretter.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>444_aiifabbf.py</CENTER></H3><HR>
+<H3><CENTER>236_troyretter.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        folders = sorted(map(lambda v: tuple(v.split(&quot;/&quot;)[1: ]), folder), key=len)
-        seen = set()
-<A NAME="0"></A>
-        for folder in folders:
-
-            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(1, len(folder)):
-                if folder[: i] in seen:
+        
+        folder_set = set(folder)
+        
+        ans = []
+        for f in folder:
+            
+            slash_index = []
+            for i,c in enumerate(f):
+                if c == &quot;/&quot;:
+                    if i &gt; 0:
+                        slash_index.append(i)
+                        
+            subfolder = False
+            
+<A NAME="0"></A>            for i in slash_index:
+                possible_parent = f[:i]
+                if possible_parent in folder_set:
+                    subfolder <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= True
                     break
-            else:
-                seen.add(folder)
-
-        return</B></FONT> list(map(lambda v: &quot;/&quot; + &quot;/&quot;.join(v), seen))
-
-# s = Solution()
-# print(s.removeSubfolders(folder = [&quot;/a&quot;,&quot;/a/b&quot;,&quot;/c/d&quot;,&quot;/c/d/e&quot;,&quot;/c/f&quot;]))
-# print(s.removeSubfolders(folder = [&quot;/a&quot;,&quot;/a/b/c&quot;,&quot;/a/b/d&quot;]))
-# print(s.removeSubfolders(folder = [&quot;/a/b/c&quot;,&quot;/a/b/ca&quot;,&quot;/a/b/d&quot;]))
+                    
+            if subfolder == False:
+                ans.append(f)
+        
+        re</B></FONT>turn ans
 </PRE>
 
 </BODY>

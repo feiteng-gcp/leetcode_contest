@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>54_hahahiehie.java</TITLE>
+ <TITLE>321_TheZwischenzug.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>54_hahahiehie.java</CENTER></H3><HR>
+<H3><CENTER>321_TheZwischenzug.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
- public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Arrays.sort(folder);
-
-        Set&lt;String&gt; set = new HashSet&lt;&gt;();
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        for (String s : folder) {
-            String[] parts = s.split(&quot;/&quot;, -1);
-<A NAME="1"></A>
-            boolean ok = true</B></FONT>;
-            StringBuilder sb = new StringBuilder();
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; parts.length; i++) {
-                sb.append(&quot;/&quot; + parts[i]);
-                if (set.contains(sb.toString())) {
-                    ok = false;
-                    break;
-                }</B></FONT>
-            }
-            if (ok) {
-                ans.add(s);
-            }
-            set.add(s);
+<A NAME="0"></A>class Solution {
+    private boolean isPrefix(String[] prev, String[] curr){
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (curr.length &lt;= prev.length) return false;
+        for (int i = 0; i &lt; prev.length; i++){
+            if (!prev[i].equals(curr[i])) return false;
         }
-        return ans;
-    }
+        return true;
+    }</B></FONT>
+    public List&lt;String&gt; removeSubfolders(String[] folders) {
+        Arrays.sort(folders);
+        String[] prev = null;
+<A NAME="1"></A>        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        for (String folder : folders){
+            String[] curr = folder.split(&quot;/&quot;);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (prev == null || !isPrefix(prev,curr)){
+                list.add(folder);
+                prev = curr;
+            }
+        }
+        return list;
+        
+        
+    }</B></FONT>
 }
 </PRE>
 

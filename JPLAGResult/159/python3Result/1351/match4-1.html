@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>161_yuanzhi247012.py</TITLE>
+ <TITLE>146_davyjing.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
+<H3><CENTER>146_davyjing.py</CENTER></H3><HR>
 <PRE>
-class Solution:
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def balancedString(self, s: str) -&gt; int:
-        counter=collections.Counter(s)
-        target=len(s)//4
-        d={}
-        for key in counter:
-            if counter[key]&gt;target:
-                d[key]=counter[key]-target
-<A NAME="0"></A>        if not d:
-            return 0
-        curd=collections.defaultdict(int)
-        res<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=len(s)
-        slow=0
-        for i in range(len(s)):
-            curd[s[i]]+=1
-            while all(curd[</B></FONT>key]&gt;=d[key] for key in d):
-                res=min(res,i-slow+1)
-                curd[s[slow]]-=1
-                slow+=1
-        return res
+        cnt = collections.Counter([i for i in s])
+        for i in cnt:
+            if cnt[i] &gt; len(s)//4:
+                cnt[i] -= len(s)//4
+            else:
+                cnt[i] = 0
+        #print([(key,cnt[key]) for key in cnt])
+
+        if sum(cnt.values()) == 0: return 0
+        cur = {'Q':0,'W':0,'E':0,'R':0}
+        res = len(s)
+        cur[s[0]] = 1
+        i ,j = 0, 0
+        while i &lt;= j &lt; len(s):
+            if cur[s[i]] &gt; cnt[s[i]]:
+                cur[s[i]] -= 1
+                i += 1
+                if j &lt; i:
+                    j += 1
+                    if j &lt; len(s):
+                        cur[s[j]] += 1
+            else:
+                j += 1
+                if j &lt; len(s):
+                    cur[s[j]] += 1
+            flag = True
+            #print([(key,cur[key]) for key in cur])
+            for key in cur:
+                if cur[key] &lt; cnt[key]:
+                    flag = False
+            if flag:
+                res = min(res,j-i+1)
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

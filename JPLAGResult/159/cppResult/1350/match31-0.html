@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>265_aristowang.cpp</TITLE>
+ <TITLE>229_zhutianqi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,38 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>265_aristowang.cpp</CENTER></H3><HR>
+<H3><CENTER>229_zhutianqi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        sort(folder.begin(), folder.end());
-        vector&lt;string&gt; res;
-        unordered_set&lt;string&gt; visited;
-        for (int i = 0; i &lt; folder.size(); ++i)
-<A NAME="0"></A>        {
-            string s = folder[i] + &quot;/&quot;;
-            string str;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool flag_visited = false;
-            for (int i = 1; i &lt; s.size(); ++i)
-            {
-                if (s[i] == '/')
-                {
-                    if (visited.count(s.substr(0, i)))
-                    {
-                        flag_visited = true;
-                        break;                        
-                    }
+vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+    unordered_set&lt;string&gt; ss;
+    vector&lt;string&gt; folder2;
+    for (auto &amp; s : folder) {
+        bool canRemove = false;
+        for (int i = 1; i &lt; s.size(); i++) {
+            if (s[i] == '/') {
+                if (ss.count(s.substr(0, i))) {
+                    canRemove = true;
+                    break;
                 }
             }
-            if (!flag_visited)
-            {
-                visited.insert(folder[i]);
-                res.push_back(folder[i]);
+        }
+        if (!canRemove) {
+            ss.insert(s);
+            folder2.push_back(s);
+        }
+    }
+    unordered_set&lt;string&gt; sss;
+<A NAME="0"></A>    vector&lt;string&gt; folder3;
+    reverse(folder2.begin(), folder2.end());
+    for (auto &amp; s : folder2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool canRemove = false;
+        for (int i = 1; i &lt; s.size(); i++) {
+            if (s[i] == '/') {
+                if (sss.count(s.substr(0, i))) {
+                    canRemove = true;
+                    break;
+                }
             }
         }
-        return res;
+        if (!canRemove) {
+            sss.insert(s);
+            folder3.push_back(s);
+        }
     }
+    return folder3;
+}
 };</B></FONT>
 </PRE>
 </BODY>

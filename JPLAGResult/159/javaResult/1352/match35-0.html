@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>407_payall4u.java</TITLE>
+ <TITLE>349_Sun_WuKong.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,47 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>407_payall4u.java</CENTER></H3><HR>
+<H3><CENTER>349_Sun_WuKong.java</CENTER></H3><HR>
 <PRE>
-import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
-
-class Solution {
-<A NAME="0"></A>    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        TreeMap&lt;Integer, Integer&gt; map = new TreeMap&lt;&gt;();
-
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] tres = new int[startTime.length][3];
-
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        Job[] jobs = new Job[startTime.length];
         for (int i = 0; i &lt; startTime.length; i++) {
-            tres[i][0] = startTime[i];
-            tres[i][1] = endTime[i];
-            tres[i][2] = profit[i];
+            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
-
-        Arrays.sort(tres, (a, b) -&gt; (a[0] - b[0]));
-
-        map.put(0, 0);
-
-        for (int i = 0; i &lt; startTime.length; i++) {
-            int[] arr = tres[i]</B></FONT>;
-            Map.Entry&lt;Integer, Integer&gt; e = map.floorEntry(arr[0]);
-            int profile = e.getValue() + arr[2];
-
-            while (map.ceilingEntry(arr[1]) != null &amp;&amp; map.ceilingEntry(arr[1]).getValue() &lt; profile) {
-                map.remove(map.ceilingEntry(arr[1]).getKey());
-            }
-
-            if (map.floorEntry(arr[1]).getValue() &lt; profile) {
-                map.put(arr[1], profile);
-            }
-        }
+        Arrays.sort(jobs, (a, b) -&gt; a.endTi</B></FONT>me-b.endTime);
 <A NAME="1"></A>        
-        int ans = 0;
-        for (Map.Entry&lt;Integer, Integer&gt; e : map.entrySet()) {
-            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>ans = Math.max(ans, e.getValue());
+        int[] cache = new int[startTime.length+1];
+        for (int i = 1; i &lt;= startTime.length; i++) {
+            cache[i] = Math.max(cache[i-1], jobs[i-1].profit + cache[<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>lastest(jobs, i-1)]);
         }
-        return ans;
+        return cache[startTime.length];
+    }
+    
+    private int lastest(Job[] jobs, int i</B></FONT>) {
+        for (int j = i-1; j &gt;= 0; j--) {
+<A NAME="2"></A>            if (jobs[j].endTime &lt;= jobs[i].startTime) return j+1;
+        }
+        return 0;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    class Job {
+        int startTime, endTime, profit;
+        Job (int _startTime, int _endTime, int _profit) {
+            startTime = _startTime;
+            endTime = _endTime;
+            profit = _profit;
+        }
     }
 }</B></FONT>
 </PRE>

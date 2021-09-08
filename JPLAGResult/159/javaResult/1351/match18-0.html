@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>291_REED_W.java</TITLE>
+ <TITLE>42_XuhuiWang.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,68 +15,77 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>291_REED_W.java</CENTER></H3><HR>
+<H3><CENTER>42_XuhuiWang.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-    public int balancedString(String s) {
-        return sln1(s);
-    }
-    
-    //sliding window
-    private int sln1(String s){
-        char[] ss = s.toCharArray();
-        int n = ss.length;
-        int[] map  = new int[4];
-        for(int i = 0;i &lt; ss.length;i ++){
-            char c= ss[i];
-            if(c == 'Q') map[0]++;
-            else if(c == 'E') map[1]++;
-            else if(c == 'W') map[2]++;
-            else if(c == 'R') map[3]++;
-        }
-        for(int i = 0;i &lt; map.length; i++){
-            if(map[i] &lt;= n/4) map[i] =0;
-            else map[i] -= n/4;
-        }
-        int[] map2  = new int[4];
-        // for(int m: map) System.out.print(m+&quot; &quot;);
-        // System.out.println();
-        if(found(map, map2)) return 0;
-        int min = Integer.MAX_VALUE;
-        for(int p1 =0, p2 =0; p2 &lt; ss.length; p2++){
-            addCount(ss[p2], map, map2);
-            // for(int m: map2) System.out.print(m+&quot; &quot;);
-            // System.out.println();
-            while(found(map, map2)){
-                min = Math.min(min, p2-p1+1);
-<A NAME="0"></A>                
-                removeCount(ss[p1++], map, map2);
-            }
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-        return min;
-    }
-    
-    private void addCount(char c, int[] map, int[] map2){
-        if(c == 'Q' &amp;&amp; map[0] &gt; 0) map2[0]++;
-        else if(c == 'E' &amp;&amp; map[1] &gt; 0) map2[1]++;
-        else if(c == 'W' &amp;&amp; map[2] &gt; 0) map2[2]++;
-        else if(c == 'R' &amp;&amp; map[3] &gt; 0) map2[3]++;
-    }
-    
-    private void removeCount(char c</B></FONT>, int[] map, int[] map2){
-        if(c == 'Q' &amp;&amp; map[0] &gt; 0) map2[0]--;
-        else if(c == 'E' &amp;&amp; map[1] &gt; 0) map2[1]--;
-        else if(c == 'W' &amp;&amp; map[2] &gt; 0) map2[2]--;
-<A NAME="1"></A>        else if(c == 'R' &amp;&amp; map[3] &gt; 0) map2[3]--;
-    }
-    
-    private boolean found( int[] map, int[] map2)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
-        for(int i = 0;i &lt; map.length; i++){
-            if(map[i] &gt; map2[i]) return false;
-        }
-        return true;
-    }
-}</B></FONT>
+public class Solution {
+	public int balancedString(String s) {
+<A NAME="0"></A>		int[] cnt = new int[4];
+		for (char ch : s.toCharArray()) {
+			switch (ch) {
+				case 'Q':<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+					cnt[0]++;
+					break;
+				case 'W':
+					cnt[1]++;
+					break;
+				case 'E':
+					cnt[2]++;
+					break;
+				default:
+					cnt[3]++;
+					break;
+			}
+		}
+
+		int N = s.length(), ans =</B></FONT> N;
+		for (int k = 0; k &lt; 4; ++k) {
+			cnt[k] = (cnt[k] &gt; N / 4) ? cnt[k] - N/4 : 0;
+		}
+<A NAME="1"></A>		if (Arrays.equals(cnt, new int[]{0, 0, 0, 0}))
+			return 0;
+		int[] cnt1 = new int[4];
+		for (int i = 0, j = 0; j &lt; N; ++j) {<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			switch (s.charAt(j)) {
+				case 'Q':
+					cnt1[0]++;
+					break;
+				case 'W':
+					cnt1[1]++;
+					break;
+				case 'E':
+					cnt1[2]++;
+					break;
+				default:
+<A NAME="2"></A>					cnt1[3]++;
+					break;
+			}</B></FONT>
+			while (atLeast(cnt1, cnt)) {<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				ans = Math.min(ans, j - i + 1);
+				switch (s.charAt(i++)) {
+					case 'Q':
+						cnt1[0]--;
+						break;
+					case 'W':
+						cnt1[1]--;
+						break;
+					case 'E':
+						cnt1[2]--;
+						break;
+					default:
+						cnt1[3]--;
+						break;
+				}
+			}</B></FONT>
+		}
+		return ans;
+	}
+	private boolean atLeast(int[] a, int[] b) {
+		for (int i = 0; i &lt; b.length; ++i) {
+			if (a[i] &lt; b[i]) return false;
+		}
+		return true;
+	}
+}
 </PRE>
 
 </BODY>

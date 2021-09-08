@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>65_ferrarima.py</TITLE>
+ <TITLE>465_Psidom.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,24 +15,26 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>65_ferrarima.py</CENTER></H3><HR>
+<H3><CENTER>465_Psidom.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-        distinct_timestamps = sorted(list(set(startTime+endTime)))
-        t2dt = {}
-        for dt,t in enumerate(distinct_timestamps): t2dt[t]=dt
-        startTime = [t2dt[x] for x in startTime]
-        endTime = [t2dt[x] for x in endTime]
-        tn=len(distinct_timestamps)
-        t2endingjobs=[[] for _ in range(tn)]
-        for j,edt in enumerate(endTime): t2endingjobs[edt].append(j)
-<A NAME="0"></A>        f=[0 for _ in range(tn)]
-        for i in range(tn):
-            f[i]=0 if i==0 else f[i-1]
-            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for j in t2endingjobs[i]:
-                f[i]=max(f[i],f[startTime[j]]+profit[j])
-        return f[t</B></FONT>n-1]
+        jobs = sorted(zip(startTime, endTime, profit))
+        
+        N = len(jobs)
+        dp = [0] * (N + 1)
+        
+        for i in range(N-1, -1, -1):
+            j = i + 1
+            while j &lt; N:
+                if jobs[j][0] &lt; jobs[i][1]:
+                    j += 1
+<A NAME="0"></A>                else:
+                    break 
+            
+            dp<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i] = max(dp[i+1], jobs[i][2] + dp[j])
+            
+        return dp[0</B></FONT>]
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>231_l90095z.java</TITLE>
+ <TITLE>169_lotayliu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,69 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>231_l90095z.java</CENTER></H3><HR>
+<H3><CENTER>169_lotayliu.java</CENTER></H3><HR>
 <PRE>
-<A NAME="3"></A>class Solution {
-    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Job { 
-     public int start, finish, profit; 
-        // Constructor 
-        public Job(int start, int finish, int profit) { 
-            this.start = start; 
-            this.finish = finish; 
-<A NAME="0"></A>            this.profit = profit; 
-        } 
-    }</B></FONT> 
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
         int n = startTime.length;
-        Job[] jobs = new Job[n];
-        for (int i = 0; i &lt; n; i++) {</B></FONT>
-            Job temp = new Job(startTime[i], endTime[i], profit[i]);
-            jobs[i] = temp;
+        int[][] ps = new int[n][3];
+        for (int i = 0; i &lt; n; i++) {
+            p</B></FONT>s[i][0] = startTime[i];
+            ps[i][1] = endTime[i];
+            ps[i][2] = profit[i];
         }
-<A NAME="1"></A>        Arrays.sort(jobs, (a, b) -&gt; {
-            return a.finish &lt; b.finish ? -1 : a.finish == b.finish ? 0 : 1; 
-        });
-  <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int table[] = new int[n]; 
-  table[0] = jobs[0].profit; 
-
-  // Fill entries in M[] using recursive property 
-  for (int i=1; i&lt;n; i++) { 
-   // Find profit including the current job 
-<A NAME="2"></A>   int inclProf = jobs[i].profit; 
-   int l = binarySearch(jobs, i); 
-   if</B></FONT> (l != -1) 
-    inclProf += table[l]<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>; 
-
-   // Store maximum of including and excluding 
-   table[i] = Math.max(inclProf, table[i-1]); 
-  } 
-
-  return table[n-1]; 
-            
+        Arrays.sort(ps, (a, b) -&gt; {
+            if (a[1] != b[1]) {
+                return a[1] - b[1];
+            }
+            return b[0] - a[0];
+<A NAME="1"></A>            }
+        );
+        int dp[] = new int[n+1];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
+            int idx = bs(ps, i, ps[i][0]);
+            dp[i+1] = Math.max(dp[i], dp[idx+1] + ps[i][2]);
+      //      System.out.println(i+&quot;::&quot;+idx+&quot;::::&quot;+dp[i+1] +&quot;:::::&quot;+ps[i][0]);
+        }
+        return dp[n];
     }
-    private int binarySearch(Job jobs[], int index) { 
-  // Initialize 'lo' and 'hi' for Binary Search 
-  int lo = 0, hi = index - 1; 
-
-  // Perform binary Search iteratively 
-  while (lo &lt;= hi) 
-  { 
-   int mid = (lo + hi) / 2; 
-   if (jobs[mid].finish &lt;= jobs[index].start) 
-   { 
-    if</B></FONT> (jobs[mid + 1].finish &lt;= jobs[index].start) 
-     lo = mid + 1; 
-    else
-     return mid; 
-   } 
-   else
-    hi = mid - 1; 
-  } 
-
-  return -1; 
- } 
     
-}
+<A NAME="2"></A>    int bs(int[][] ps, int e, int t) {
+        if</B></FONT> (t &lt; ps[0][1]) return -1;
+    //    System.out.println(&quot;eeee: &quot; + e);
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int l = 0, r = e;
+        while (l &lt; r) {
+            int m = (l+r + 1) &gt;&gt; 1;
+            if (ps[m][1] &gt; t) {
+                r = m-1;
+            } else {
+                l = m;
+            }
+        }
+        return l;
+    }
+}</B></FONT>
 </PRE>
 
 </BODY>

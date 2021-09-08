@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>235_ulyssesz.py</TITLE>
+ <TITLE>160_jimms.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>235_ulyssesz.py</CENTER></H3><HR>
+<H3><CENTER>160_jimms.py</CENTER></H3><HR>
 <PRE>
-import logging
-import sys
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
-from collections import Counter, defaultdict
+from collections import Counter
 class Solution:
-    def balancedString(self, string):
-<A NAME="0"></A>        count = Counter()
-        for c in string:
-            count[c] += 1
-        expected <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(string) / 4
-        need = {}
-        needCount = 0
-        for l in &quot;QWER&quot;:
-            if count[l] &gt; expected:
-                need[l] = count[l] - expected
-                needCount += need[</B></FONT>l]
-
-        if needCount == 0:
+    def balancedString(self, s: str) -&gt; int:
+<A NAME="0"></A>        n = len(s)
+        counter = Counter(s)
+        match = 0
+        wanted <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= {}
+        for c in &quot;QWER&quot;:
+            if counter[c] &gt; n // 4:
+                wanted[c] = counter[c] - n // 4
+        if not wanted:
             return 0
-        i=0
-        j=0
-        ans = len(string)
-        while j &lt; len(string) or needCount == 0:
-            # print(i, j, need, needCount)
-            if needCount &gt; 0:
-              j += 1
-              c = string[j-1]
-              if c not in need:
-                  continue
-              else:
-                  need[c] -= 1
-                  if need[c] &gt;= 0:
-                      needCount -= 1
-
-            if needCount == 0:
-                ans = min(ans, j - i)
-                # have necessary,
-                i += 1
-                c = string[i-1]
-                if c in need:
-                    need[c] += 1
-                    if need[c] &gt; 0:
-                        needCount += 1
-
-        return ans
+        
+        ret =</B></FONT> float(&quot;inf&quot;)
+        j = 0
+        for i in range(len(s)):
+            while j &lt; len(s) and match != len(wanted):
+                if s[j] in wanted:
+                    wanted[s[j]] -= 1
+                    if wanted[s[j]] == 0:
+                        match += 1
+                j += 1
+            # print(i, j)
+            if match == len(wanted):
+                ret = min(ret, j - i)
+            if s[i] in wanted:
+                wanted[s[i]] += 1
+                if wanted[s[i]] == 1:
+                    match -= 1
+        return ret
 </PRE>
 
 </BODY>

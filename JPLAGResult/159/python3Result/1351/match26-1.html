@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>175_pku_erutan.py</TITLE>
+ <TITLE>208_machine518.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>175_pku_erutan.py</CENTER></H3><HR>
+<H3><CENTER>208_machine518.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
     def balancedString(self, s: str) -&gt; int:
-        average_n = len(s) // 4
-        counter = collections.Counter(s)
-        dis = {k:0 if counter[k]&lt;=average_n else counter[k]-average_n for k in 'QWER'}
-        if sum(</B></FONT>dis.values()) == 0 :
-            return 0
+        count = collections.Counter(s)
+        n = len(s)
+        rem = {}
+        for key, val in count.items():
+            if val&gt; n//4: rem[key] = val - n//4
+        if</B></FONT> not rem: return 0
+        low , high = 0, 0
+        curr = {}
+        cnt = 0
         
-        temp_counter = {k:0 for k in 'QWER'}
-        left, right = 0, 0
-        temp_counter[s[0]] += 1
-        mint = 1e6
-        while True :
-            while not all([temp_counter[k]&gt;=dis[k] for k in 'QWER']) :
-                right += 1
-                if right &gt;= len(s) :
-                    break
-                temp_counter[s[right]] += 1
-            if right &gt;= len(s) :
-                break
-            while temp_counter[s[left]] &gt; dis[s[left]] :
-                temp_counter[s[left]] -= 1
-                left += 1
-            mint = min(mint, right-left+1)
-            temp_counter[s[left]] -= 1
-            left += 1
-        # print(left, right, temp_counter)
-        return mint
-            
+        res = n
+        target = len(rem.keys())
+        #print(target)
+        while high&lt; n:
+            while high&lt; n and cnt &lt; target:
+                char = s[high]
+                if char in rem:
+                    curr[char] = curr.get(char, 0) + 1
+                    if curr[char] == rem[char]: cnt += 1
+                high += 1
+            while low&lt;high and cnt&gt;= target:
+                char = s[low]
+                if char in rem:
+                    curr[char] -= 1
+                    if curr[char] == rem[char] - 1: cnt -= 1
+                low += 1
+            res = min(res, high-low+1)
+            #print(high, low)
+        return res
+        
 </PRE>
 
 </BODY>

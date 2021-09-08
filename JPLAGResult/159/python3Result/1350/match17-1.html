@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>405_abc__xyz.py</TITLE>
+ <TITLE>103_Minori.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,31 +15,25 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>405_abc__xyz.py</CENTER></H3><HR>
+<H3><CENTER>103_Minori.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        root = {}
-        for fold in folder:
-<A NAME="0"></A>            f = fold[1:].split('/')
-            node = root
-            for nm in f:
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if nm not in node:
-                    node[nm] = {}
-                node = node[nm]
-            node['#'] = fold
-            
-        res = []
-        def dfs(node):
-            if '#' in node:
-                res.append(</B></FONT>node['#'])
-            else:
-                for child in node:
-                    dfs(node[child])
-                
-        dfs(root)
-        return res
-        
+        folder = sorted([file for file in folder if file not in set(['/', ''])])
+        father = set()
+        for file in folder:
+            s = file.split('/')
+            p = ''
+<A NAME="0"></A>            ok = True
+            for i in range(1, len(s) - 1):
+                p += '/'
+                p <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>+= s[i]
+                if p in father:
+                    ok = False
+                    break
+            if ok:
+                father.add(file)
+        return</B></FONT> list(father)
 </PRE>
 
 </BODY>

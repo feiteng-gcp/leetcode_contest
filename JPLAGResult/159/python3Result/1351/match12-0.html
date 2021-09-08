@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>53_ShenTM.py</TITLE>
+ <TITLE>228_chuan-chih.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>53_ShenTM.py</CENTER></H3><HR>
+<H3><CENTER>228_chuan-chih.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
+import collections
+
+class Solution:
     def balancedString(self, s: str) -&gt; int:
-        counter = collections.Counter(s)
-        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for k in counter:
-            counter[k] -= len(s) // 4
-        if all(v == 0 for v in counter.values()):
+        target = len(s) // 4
+        c = collections.Counter(s)
+        for char in c:
+            c[char] -= target
+<A NAME="0"></A>        c = +c
+        if not c:
             return 0
-        ans = len(s) - 1
-        left =</B></FONT> 0
-        for i, v in enumerate(s):
-            counter[v] -= 1
-            while left &lt;= i and all(v &lt;= 0 for v in counter.values()):
-                ans = min(ans, i - left + 1)
-                counter[s[left]] += 1
-                left += 1
+        ans <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(s)
+        i = 0
+        for j in range(len(s)):
+            c[s[j]] -= 1
+            while all(n &lt;= 0 for n in c.</B></FONT>values()):
+                ans = min(ans, j - i + 1)
+                c[s[i]] += 1
+                i += 1
         return ans
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                
+                
         
 </PRE>
 

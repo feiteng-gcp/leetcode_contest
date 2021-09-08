@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>472_wangyxwyx.java</TITLE>
+ <TITLE>475_vincent_chan.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,46 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>472_wangyxwyx.java</CENTER></H3><HR>
+<H3><CENTER>475_vincent_chan.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class itv {
-    int start;
-    int end;
-    int val;
-    public itv(int a, int b, int c) {
-        start = a;
-        end = b;
-        val = c;
-<A NAME="1"></A>    }
-}</B></FONT>
 class Solution {
-    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int jobScheduling(int[] s, int[] e, int[] p) {
-        List&lt;itv&gt; list = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; s.length; i++) {
-            list.add(new itv(s[i], e[i], p[i]));
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int[][] jobs = new int[profit.length][3];
+        for (int i = 0; i &lt; profit.length; i++) {
+            jobs[i][0] = startTime[i];
+            jobs[i][1] = endTime[i];
+            jobs[i][2] = profit[i];
         }
-        Collections.sort(list, new Comparator&lt;itv&gt;() {
-            public int compare(itv o1, itv o2) {
-                if (o1.end != o2.end) return</B></FONT> o1.end - o2.end;
-                else return o1.start - o2.start;
-            }
+        Arrays.sort(jobs, new Comparator&lt;int[]&gt;(){
+           public int compare(int[] a, int[] b) {
+<A NAME="0"></A>               return a[1] - b[1];
+           } 
         });
-        int[] dp = new int[s.length];
-        for (int i = 0; i &lt; list.size(); i++) {
-            itv cur  = list.get(i);
-            if (i == 0) dp[i] = cur.val;
-            else {
-                int j = i - 1;
-                while (j &gt; 0 &amp;&amp; list.get(j).end &gt; cur.start) {
-<A NAME="2"></A>                    j--;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n = profit.length;
+        int[] dp = new int[n];
+        dp[0] = jobs[0][2];
+        for (int i = 1; i &lt; n; i++) {
+            int include = jobs[i][2];
+            int l = binarySearch(jobs, i);
+            if (l != -1) {
+                include += dp[l];
+            }
+            dp[i] = Math.max(include, dp[i - 1]);
+        }
+        return dp[n - 1];
+    }
+    
+    public int binarySearch(int[][] jobs, int index) {
+        int left = 0, right = index - 1;
+        while (left &lt;= right) {
+            int mid = left + (right - left) / 2;
+            if (jobs[mid][1] &lt;= jobs[index][0]) {
+                if (jobs[mid + 1][1] &lt;= jobs[index][0]) {
+                    left = mid + 1;
+                } else {
+                    return mid;
                 }
-                int pre = list.get(j).end &lt;= cur.start ? dp[j] : 0;
-                dp[i] = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Math.max(dp[i - 1], pre + cur.val);
+            } else {
+                right = mid - 1;
             }
         }
-        return dp[s.length - 1];
-    }
-}</B></FONT>
+        return -1;
+    }</B></FONT>
+}
 </PRE>
 
 </BODY>

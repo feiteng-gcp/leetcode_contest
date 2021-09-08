@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>229_zhutianqi.cpp</TITLE>
+ <TITLE>350_logsniper.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>229_zhutianqi.cpp</CENTER></H3><HR>
+<H3><CENTER>350_logsniper.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-    unordered_set&lt;string&gt; ss;
-    vector&lt;string&gt; folder2;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (auto &amp; s : folder) {
-        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {
-                if (ss.count(s.substr(0, i))) {
-                    canRemove = true;
-                    break;
-                }
+<A NAME="0"></A>    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end());
+        vector&lt;string&gt; ans;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        string target = &quot;X&quot;;
+        for (int i = 0; i &lt; folder.size(); ++ i) {
+            if (folder[i].substr(0, target.size()) == target) {
+                continue;
+            } else {
+                ans.push_back(folder[i]);
+                target = folder[i] + &quot;/&quot;;
             }
         }
-        if (!canRemove) {
-            ss.insert(s);
-            folder2.push_back(s);
-        }
-    }
-    unordered_set&lt;string&gt; sss;
-    vector&lt;string&gt; folder3;
-    reverse(folder2.begin(), folder2.end());
-    for (auto &amp; s : folder2) {</B></FONT>
-        bool canRemove = false;
-        for (int i = 1; i &lt; s.size(); i++) {
-            if (s[i] == '/') {
-                if (sss.count(s.substr(0, i))) {
-                    canRemove = true;
-                    break;
-                }
-            }
-        }
-        if (!canRemove) {
-            sss.insert(s);
-            folder3.push_back(s);
-        }
-    }
-    return folder3;
-}
+        return ans;
+    }</B></FONT>
 };
 </PRE>
 </BODY>

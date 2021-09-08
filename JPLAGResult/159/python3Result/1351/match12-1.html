@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>117_hamale.py</TITLE>
+ <TITLE>161_yuanzhi247012.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>117_hamale.py</CENTER></H3><HR>
+<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-<A NAME="0"></A>        excess = {'Q': 0, 'W': 0, 'E': 0, 'R': 0}
-        for c in s:
-            excess[c] += 1
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for k in excess:
-            excess[k] -= len(s) // 4
-            
-        if all(v == 0 for v in excess.values()):
+        counter=collections.Counter(s)
+        target=len(s)//4
+        d={}
+        for key in counter:
+            if counter[key]&gt;target:
+                d[key]=counter[key]-target
+<A NAME="0"></A>        if not d:
             return 0
-            
-        result = len(s)
-        window_count =</B></FONT> {'Q': 0, 'W': 0, 'E': 0, 'R': 0}
-        l = 0
-        for r in range(len(s)):
-            letter = s[r]
-            window_count[letter] += 1
-            while l &lt;= r and all(window_count[letter] &gt;= excess[letter] for letter in ['Q', 'W', 'E', 'R']):
-                result = min(result, r - l + 1)
-                window_count[s[l]] -= 1
-                l += 1
-        return result
+        curd=collections.defaultdict(int)
+        res<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>=len(s)
+        slow=0
+        for i in range(len(s)):
+            curd[s[i]]+=1
+            while all(curd[</B></FONT>key]&gt;=d[key] for key in d):
+                res=min(res,i-slow+1)
+                curd[s[slow]]-=1
+                slow+=1
+        return res
 </PRE>
 
 </BODY>

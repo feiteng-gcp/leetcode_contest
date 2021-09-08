@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>335_Zhuonan_Lin.py</TITLE>
+ <TITLE>45_Hexadecimal.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,37 +15,29 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>335_Zhuonan_Lin.py</CENTER></H3><HR>
+<H3><CENTER>45_Hexadecimal.py</CENTER></H3><HR>
 <PRE>
-import collections
 class Solution:
     def balancedString(self, s: str) -&gt; int:
+        c = collections.Counter(s)
         n = len(s)
-        count = collections.Counter(s)
-        letters = {ch: count[ch] - n/4 for ch in count if count[ch] - n/4 &gt; 0}
-        if len(letters) == 0:
+        e = n // 4
+        for ch in c:
+            c[ch] = max(0, c[ch] - e)
+        if all(c[k] == 0 for k in 'QWER'):
             return 0
-        l, r = 0, 0
-        window = collections.Counter()
-<A NAME="0"></A>        mini = float('inf')
-        while r &lt; n:
-            window[s[r]] += 1
-            while self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.valid(window, letters):
-                mini = min(mini, r - l + 1)
-                window[s[l]] -= 1
-                l += 1
-            r += 1
-            
-        r</B></FONT>eturn mini
-    
-    def valid(self, window, letters):
-        for ch in letters:
-            if letters[ch] &gt; window[ch]:
-                return False
-        return True
-                
-            
-        
+        i = 0
+        j = 0
+<A NAME="0"></A>        d = collections.Counter()
+        ret = n
+        while j &lt; n:
+            d<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[s[j]] += 1
+            while all(d[k] &gt;= c[k] for k in 'QWER') and i &lt;= j:
+                ret = min(ret, j - i + 1)
+                d[s[i]] -= 1
+                i +</B></FONT>= 1
+            j += 1
+        return ret
 </PRE>
 
 </BODY>

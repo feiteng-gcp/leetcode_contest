@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>161_yuanzhi247012.py</TITLE>
+ <TITLE>215_MiniMinyi.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,28 +15,30 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
+<H3><CENTER>215_MiniMinyi.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-<A NAME="0"></A>    def balancedString(self, s: str) -&gt; int:
-        counter=collections.Counter(s)
-        target=len(s)//4
-        d<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>={}
-        for key in counter:
-            if counter[key]&gt;target:
-                d[key]=counter[key]-target
-        if not d:
-            r</B></FONT>eturn 0
-        curd=collections.defaultdict(int)
-        res=len(s)
-        slow=0
-        for i in range(len(s)):
-            curd[s[i]]+=1
-            while all(curd[key]&gt;=d[key] for key in d):
-                res=min(res,i-slow+1)
-                curd[s[slow]]-=1
-                slow+=1
-        return res
+    def balancedString(self, s: str) -&gt; int:
+        n = len(s)
+        n4 = int(n/4)
+        count = collections.Counter(s)
+        if count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count['R'] &lt;= n4:
+<A NAME="0"></A>            return 0
+        # print(count)
+        
+        st, en <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0, 0
+        min_len = n
+        while en &lt; n:
+            while not (count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count['R'] &lt;= n4) and en &lt; n:
+                count[s[en]] -= 1
+                en += 1
+                     
+            while (count['Q'] &lt;= n4 and count['W'] &lt;= n4 and count['E'] &lt;= n4 and count[</B></FONT>'R'] &lt;= n4) and st &lt; en:
+                min_len = min(min_len, en-st)
+                count[s[st]] += 1
+                st += 1
+                
+        return min_len
 </PRE>
 
 </BODY>

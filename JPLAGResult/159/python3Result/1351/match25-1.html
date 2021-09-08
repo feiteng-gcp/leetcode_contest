@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>205_xie-tian-wen.py</TITLE>
+ <TITLE>137_sepehry.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,33 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>205_xie-tian-wen.py</CENTER></H3><HR>
+<H3><CENTER>137_sepehry.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def balancedString(self, s: str) -&gt; int:
-        cnt  = -len(s) // 4
-        d ={&quot;Q&quot;:cnt,&quot;W&quot;:cnt,&quot;E&quot;:cnt,&quot;R&quot;:cnt}
-        for x in s:
-            d[x] += 1
-        nd = {}
-        for x in d:
-            if d[x] &gt; 0:
-                nd[x] = d[x]
-        if not nd:
-            return 0
-        def pas(m):
-            cu = {&quot;Q&quot;:0,&quot;W&quot;:0,&quot;E&quot;:0,&quot;R&quot;:0}
-            
-            for i in range(len(s)):
-                if i &lt; m:
-                    cu[s[i]] += 1
-                else:
-                    cu[s[i]] += 1
-                    cu[s[i-m]] -= 1
-                p = 1
-                for x in nd:
-                    if cu[x] &lt; nd[x]:
-<A NAME="0"></A>                        p = 0
-                        continue
-                if p:
-                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return True
+        cc = collections.Counter(s)
+        n4 = len(s)//4
+<A NAME="0"></A>        for char in cc:
+            cc[char] = max(0, cc[char] - n4)
+        right = 0
+        n <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(s)
+        sol = n
+
+        def is_any_less(cc1, cc2):
+            for k in cc2:
+                if cc1[k] &lt; cc2[k]:
+                    return True
             return False
-        
-        l = 1
-        r = len(s)
-        while l &lt; r:
-            m = (l+r)//2
-            if pas(m):
-                r = m
-            else:
-                l = m + 1
-        re</B></FONT>turn r
-            
-        
-       
+        cur_cc =</B></FONT> collections.Counter()
+        for left in range(n):
+            while right &lt; n and is_any_less(cur_cc, cc):
+                cur_cc[s[right]] += 1
+                right += 1
+
+            if not is_any_less(cur_cc, cc):
+                sol = min(sol, right-left)
+            cur_cc[s[left]] -= 1
+        return sol
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>447_eureka3.java</TITLE>
+ <TITLE>54_hahahiehie.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,27 +15,34 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>447_eureka3.java</CENTER></H3><HR>
+<H3><CENTER>54_hahahiehie.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
-    public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Arrays.sort(folder, (a, b) -&gt; a.length() - b.length());
+ public List&lt;String&gt; removeSubfolders(String[] folder) {
+        Arrays.sort(folder);
+
         Set&lt;String&gt; set = new HashSet&lt;&gt;();
-        for (String f : folder) {
-            int i = 0;
-            for</B></FONT> (; i &lt; f.length(); i++) {
-                if (f.charAt(i) == '/') {
-                    String prefix = f.substring(0, i);
-                    if (set.contains(prefix))
-                        break;
-<A NAME="1"></A>                }
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        for (String s : folder) {
+            String[] parts = s.split(&quot;/&quot;, -1);
+<A NAME="1"></A>
+            boolean ok = true</B></FONT>;
+            StringBuilder sb = new StringBuilder();
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; parts.length; i++) {
+                sb.append(&quot;/&quot; + parts[i]);
+                if (set.contains(sb.toString())) {
+                    ok = false;
+                    break;
+                }</B></FONT>
             }
-            if (i == f.length())
-                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>set.add(f);
+            if (ok) {
+                ans.add(s);
+            }
+            set.add(s);
         }
-        return new ArrayList&lt;&gt;(set);
+        return ans;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

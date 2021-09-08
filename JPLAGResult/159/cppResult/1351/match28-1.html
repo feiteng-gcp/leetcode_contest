@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>404_williamchenwl.cpp</TITLE>
+ <TITLE>104_Hewitt_1570.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>404_williamchenwl.cpp</CENTER></H3><HR>
+<H3><CENTER>104_Hewitt_1570.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
 public:
-    int convert(char ch){
-        if (ch == 'Q') return 0;
-        if (ch == 'W') return 1;
-        if (ch == 'E') return 2;
-        if (ch == 'R') return 3;
-        return 0;
-    }
-    
-    int check(vector&lt;int&gt;count, vector&lt;int&gt;nums){</B></FONT>
-        for (int t = 0; t &lt; 4; t++)
-            if (nums[t] &gt; 0){
-                if (count[t] &lt; nums[t])
-                    return false;
-            }
-        return true;
-    }
-    int balancedString(string s) {
-        vector&lt;int&gt; nums(4, 0);
-        for (int i = 0;i &lt; s.length();i++)
-            nums[convert(s[i])]++;
-        vector&lt;int&gt; count(4, 0);
-        for (int t = 0; t &lt; 4;t++)
-            nums[t] -= s.length() / 4;
-        int left = 0;
-        int ans = s.length();
-        for (int i = 0; i &lt; s.length();i++){
-            count[convert(s[i])]++;
-            count[convert(s[left])]--;
-            while(left &lt; i &amp;&amp; check(count, nums)){
-                left++;
-                count[convert(s[left])]--;
-            }
-            if (check(count, nums))
-                return 0;
-            count[convert(s[left])]++;
-            if (check(count, nums))
-                ans = min(ans, i - left + 1);
+    int Q[100100],W[100100],E[100010],R[100010],am,n;
+    bool judge(int x){
+        for(int l=1;l+x-1&lt;=n;l++){
+            int RR=l+x-1;
+            int q=Q[l-1]+Q[n]-Q[RR];
+            int w=W[l-1]+W[n]-W[RR];
+            int e=E[l-1]+E[n]-E[RR];
+            int r=R[l-1]+R[n]-R[RR];
+            q=am-q;w=am-w;e=am-e;r=am-r;
+            if(q&gt;=0&amp;&amp;w&gt;=0&amp;&amp;e&gt;=0&amp;&amp;r&gt;=0&amp;&amp;q+w+e+r==x)return true;
         }
-        return ans;
+        return false;
+<A NAME="0"></A>    }
+    int balancedString(string s) {
+        n=s.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        am=n/4;
+        for(int i=1;i&lt;=n;i++){
+            Q[i]=Q[i-1];
+            W[i]=W[i-1];
+            E[i]=E[i-1];
+            R[i]=R[i-1];
+            if(s[i-1]=='Q')Q[i]++;
+            if(s[i-1]=='W')W[i]++;
+            if(s[i-1]=='E')E[i]++;
+            if(s[i-1]=='R')R[i]++;
+        }
+        int l=0,r=n,mid;</B></FONT>
+        while(l&lt;r){
+            mid=l+(r-l)/2;
+            if(judge(mid))r=mid;
+            else l=mid+1;
+        }
+        return l;
     }
 };
 </PRE>

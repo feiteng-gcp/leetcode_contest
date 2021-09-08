@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>329_Centurion7.java</TITLE>
+ <TITLE>334_SilverNarcissus.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,55 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>329_Centurion7.java</CENTER></H3><HR>
+<H3><CENTER>334_SilverNarcissus.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
-    public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Set&lt;String&gt; folderSet = new HashSet&lt;&gt;();
-        for (String f: folder) {
-            folderSet.add(f);
-        }
-        List&lt;String&gt; ans = new ArrayList();
-<A NAME="1"></A>        for (String f: folder) {
-            StringBuilder sb = new StringBuilder()</B></FONT>;
-            boolean hasParent = false;
-            for (int i = 0; i &lt; f.length(); ++i) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                if (f.charAt(i) == '/') {
-                    String key = sb.toString();
-                    if (folderSet.contains(key)) {</B></FONT>
-                        hasParent = true;
-                        break;
-                    }
+<A NAME="0"></A>class Solution {
+    Tire root = new Tire();
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; removeSubfolders(String[] folder) {
+        Arrays.sort(folder);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        for(String path : folder){</B></FONT>
+            Tire cur = root;
+            boolean flag = false;
+            for(String name : path.split(&quot;/&quot;)){
+                Tire next = cur.getNext(name);
+                if(next == null){
+                    next = cur.put(name);
                 }
-                sb.append(f.charAt(i));
+                
+                cur = next;
+                if(cur.isLeaf){
+                    flag = true;
+                    break;
+                }
             }
-            //String finalKey = sb.toString();
-            
-            if (!hasParent) {
-                ans.add(f);
+<A NAME="1"></A>            
+            if(!flag){
+                res.add(path);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cur.setLeaf();
             }
         }
         
-        return ans;
+        return res;
+    }
+}</B></FONT>
+
+class Tire{
+    HashMap&lt;String, Tire&gt; next = new HashMap&lt;&gt;();
+    boolean isLeaf;
+    
+    public Tire getNext(String key){
+        return next.get(key);
+    }
+    
+    public Tire put(String key){
+        Tire t = new Tire();
+        next.put(key, t);
+        return t;
+    }
+    
+    public void setLeaf(){
+        isLeaf = true;
     }
 }
 </PRE>

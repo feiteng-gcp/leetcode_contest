@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>211_baiyang0132.cpp</TITLE>
+ <TITLE>125_Aging.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,54 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>211_baiyang0132.cpp</CENTER></H3><HR>
+<H3><CENTER>125_Aging.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
-    int balancedString(string s) {
-        int target = s.size() / 4;
-        
-        vector&lt;int&gt; cnt(4, 0);
-        unordered_map&lt;char, int&gt; hash;
-        hash['Q'] = 0;
-        hash['W'] = 1;
-        hash['E'] = 2;
-        hash['R'] = 3;
-        for(auto&amp; c : s){
-            cnt[hash[c]]++;
-        }
-        
-        for(int i = 0; i &lt; 4; i++)</B></FONT>
-            cnt[i] -= target;
-        
-        if(cnt[0] == cnt[1] &amp;&amp; cnt[0] == cnt[2] &amp;&amp; cnt[0] == cnt[3]) return 0;
-        
-        int i = 0, j = 0;
-        while(j &lt; s.size() &amp;&amp; !check(cnt)){
-            cnt[hash[s[j]]]--;
-            j++;
-        } 
-        int res = j - i;
-        while(true){
-            if(j &gt;= s.size() &amp;&amp; !check(cnt)) break;
-            while(i &lt; j &amp;&amp; check(cnt)){
-                res = min(res, j - i);
-                cnt[hash[s[i]]]++;
-                i++;
-            }
-            while(j &lt; s.size() &amp;&amp; !check(cnt)){
-                cnt[hash[s[j]]]--;
-                j++;
-            }
-        }
-        return res;
+    int index(char c) {
+        if (c == 'Q') return 0;
+        else if (c == 'W') return 1;
+        else if (c == 'E') return 2;
+        else return 3;
     }
     
-private:
-    bool check(const vector&lt;int&gt;&amp; cnt){
-        for(int i = 0; i &lt; 4; i++)
-            if(cnt[i] &gt; 0) return false;
-        return true;
+    bool check(string &amp;s, int len, int *count) {
+        int c[4] = {0}, limit = s.size()/4;</B></FONT>
+        for (int i = 0; i &lt; len; ++i)
+            c[index(s[i])]++;
+        
+        for (int j = 0; j &lt;= s.size() - len; ++j) {
+            
+            if (j &gt; 0) {
+                c[index(s[j + len - 1])]++;
+                c[index(s[j - 1])]--;
+            }
+            
+            if (count[0] - c[0] &lt;= limit &amp;&amp; count[1] - c[1] &lt;= limit &amp;&amp; count[2] - c[2] &lt;= limit &amp;&amp; count[3] - c[3] &lt;= limit)
+                return true;
+        }
+        return false;
+    }
+    
+    int balancedString(string s) {
+     //   s=&quot;QQQQ&quot;;
+        int count[4] = {0};
+        for (auto c: s) count[index(c)]++;
+        
+        int over = 0;
+        for (int i = 0;i &lt; 4; ++i) {
+            if (count[i] &gt; s.size()/4) over += count[i] - s.size()/4;
+        }
+<A NAME="1"></A>        
+        if (over == 0) return 0;
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int lo = over - 1, hi = s.size();
+        
+        while (lo + 1 &lt; hi) {
+            int mid = (lo + hi)/2;
+            if (check(s, mid, count)) {
+                hi = mid;
+            } else </B></FONT>
+                lo = mid;
+        }
+        
+        return hi;
     }
 };
 </PRE>

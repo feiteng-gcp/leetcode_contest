@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>228_chuan-chih.py</TITLE>
+ <TITLE>340_leonenko.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>228_chuan-chih.py</CENTER></H3><HR>
+<H3><CENTER>340_leonenko.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>import collections
+class Solution:
+    def balancedString(self, gene: str) -&gt; int:
+        dic = {'Q':0,'W':0,'E':0,'R':0}
+        for i in gene:
+            dic[i]+=1
+<A NAME="0"></A>        x=len(gene)
+        factor=x/4
 
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
-    def balancedString(self, s: str) -&gt; int:
-        target = len(s) // 4
-        c = collections.Counter(s)
-        for char in c:
-            c[char] -= target
-        c =</B></FONT> +c
-        if not c:
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if dic['Q']==factor and dic['W']==factor and dic['E']==factor and dic['R']==factor:
             return 0
-        ans = len(s)
-        i = 0
-        for j in range(len(s)):
-            c[s[j]] -= 1
-            while all(n &lt;= 0 for n in c.values()):
-                ans = min(ans, j - i + 1)
-                c[s[i]] += 1
-                i += 1
-        return ans
-                
-                
+
+        upper=0
+        lower=0
+        minlen=x
+        while upper&lt;x and lower&lt;x:
+            while (dic['Q']&gt;factor or dic['W']&gt;factor or dic['E']&gt;factor or dic['R']&gt;factor) and upper&lt;x:
+                dic[gene[upper]]-=1
+                upper+=1
+            while dic['Q']&lt;=factor and dic['W']&lt;=factor and dic['E']&lt;=factor and dic['R']&lt;=factor:
+                dic[gene[lower]]+=1
+                lower+</B></FONT>=1
+            if upper - lower &lt; minlen :
+                minlen=upper-lower+1
+        return minlen
         
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>16_megaspazz.java</TITLE>
+ <TITLE>461_chyyyy.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,60 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>16_megaspazz.java</CENTER></H3><HR>
+<H3><CENTER>461_chyyyy.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        final int N = startTime.length;
-        Job[] jobs = new Job[N];
-        for (int i = 0</B></FONT>; i &lt; N; ++i) {
+        int n = startTime.length;
+        Job[] jobs = new Job[n];
+        for (int i = 0; i &lt; n; i++) {
             jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
-<A NAME="1"></A>        }
-        Arrays.sort(jobs, Job.BY_START);
-        
-        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>TreeMap&lt;Integer, Integer&gt; best = new TreeMap&lt;&gt;();
-        best.put(0, 0);
-        for (Job j : jobs) {
-            Map.Entry&lt;Integer, Integer&gt; kvp = best.floorEntry(j.start);
-            int prevProfit = kvp.getValue</B></FONT>();
-            int currProfit = prevProfit + j.profit;
-            Map.Entry&lt;Integer, Integer&gt; kvpDown = best.floorEntry(j.end);
-            if (kvpDown != null &amp;&amp; kvpDown.getValue() &gt;= currProfit) {
-                continue;
-            }
-            while (true) {
-                Map.Entry&lt;Integer, Integer&gt; kvpUp = best.ceilingEntry(j.end);
-                if (kvpUp == null) {
-                    break;
-                }
-                int profitUp = kvpUp.getValue();
-                if (profitUp &lt;= currProfit) {
-                    best.remove(kvpUp.getKey());
-                } else {
-                    break;
-                }
-            }
-<A NAME="2"></A>            best.put(j.end, currProfit);
         }
-        return best.lastEntry().getValue();
-    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match34-1.html#2',3,'match34-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
-    
-    private static class Job {
-        public int start, end, profit;
-        
+        Arrays.sort(jobs, (a, b) -&gt; a.end - b.end);
+        int[] dp = new int[n];
+        dp[0] = jobs[0].profit;
+        for (int i = 1; i &lt; n; i++) {
+            int totalProfit = jobs[i].profit;
+            int last = findLastJob(jobs, i);
+            if</B></FONT> (last != -1) {
+                totalProfit += dp[last]; 
+            }
+            dp[i] = Math.max(totalProfit, dp[i - 1]); 
+        } 
+        return dp[n - 1];
+    }
+
+    private int findLastJob(Job[] jobs, int index) { 
+        int lo = 0, hi = index - 1; 
+  
+        while (lo &lt;= hi) {
+            int mid = (lo + hi) / 2; 
+            if (jobs[mid].end &lt;= jobs[index].start) {
+                if (jobs[mid + 1].end &lt;= jobs[index].start) {
+                    lo = mid + 1; 
+                } else {
+                    return mid; 
+                }
+            } else {
+<A NAME="1"></A>                hi = mid - 1;
+            }
+        } 
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match34-1.html#1',3,'match34-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return -1; 
+    }
+
+    static class Job {
+        int start;
+        int end;
+        int profit;
         public Job(int s, int e, int p) {
             start = s;
             end = e;
             profit = p;
-        }</B></FONT>
-        
-        private static final Comparator&lt;Job&gt; BY_START = new Comparator&lt;Job&gt;() {
-            @Override
-            public int compare(Job lhs, Job rhs) {
-                return Integer.compare(lhs.start, rhs.start);
-            }
-        };
-    }
+        }
+    }</B></FONT>
 }
 </PRE>
 

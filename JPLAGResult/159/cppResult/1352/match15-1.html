@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>154_leetcodedocteel.cpp</TITLE>
+ <TITLE>157_EUqr2c2cjD8nuX5K.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,48 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>154_leetcodedocteel.cpp</CENTER></H3><HR>
+<H3><CENTER>157_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>namespace {
+    struct MyJobInfo  { 
+        int start, finish, profit; 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }; 
+  
+    int binarySearch(vector&lt;MyJobInfo&gt;&amp; jobs, int index)  { 
+        int lo = 0, hi = index - 1; 
+        while (lo &lt;= hi)  { 
+            int mid = (lo + hi) / 2; 
+            if (jobs[mid].finish &lt;= jobs[index].start)  { 
+                if (jobs[mid + 1].finish &lt;= jobs[index].start) 
+                    lo = mid + 1; 
+                else
+                    return mid; 
+            }  else
+                hi = mid - 1; 
+        } 
+        return -1; 
+    } 
+  
+    int findMaxProfit(vector&lt;MyJobInfo&gt;&amp; arr)  { </B></FONT>
+        int n = arr.size();
+<A NAME="1"></A>        sort(arr.begin(), arr.begin() + n, [](const MyJobInfo&amp; a, const MyJobInfo&amp; b) {
+            return a.finish &lt; b.finish;
+        }); 
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int *table = new int[n]; 
+        table[0] = arr[0].profit; 
+        for (int i=1; i&lt;n; i++)  { 
+            int inclProf = arr[i].profit; 
+            int l = binarySearch(arr, i); 
+            if (l != -1)  inclProf += table[l]; 
+            table[i] = max(inclProf, table[i-1]); 
+        } 
+        int result = table[n-1]; 
+        delete[] table; 
+        return result; 
+<A NAME="2"></A>    } </B></FONT>
+}
 
-class Solution {
-<A NAME="1"></A>public:
-    
-    
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int NonConflict(vector&lt;vector&lt;int&gt;&gt;&amp; jobs, int i)
-    {
-        for (int j = i - 1; j &gt;= 0; --j)
-        {
-            if (jobs[j][0] &lt;= jobs[i][1]) return j;
-        }
-        return -1;
-    }</B></FONT>
-    
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-        
-        vector&lt; vector&lt;int&gt; &gt; jobs;
-        for (int i = 0; i &lt; endTime.size(); ++i)
-        {
-            jobs.push_back( {endTime[i], startTime[i], profit[i]} );
+        vector&lt;MyJobInfo&gt; jobs;
+        for (int i = 0; i &lt; startTime.size(); ++i) {
+            MyJobInfo job = {startTime[i], endTime[i], profit[i]};
+            jobs.emplace_back(job);
         }
-<A NAME="0"></A>        sort(jobs.begin(), jobs.end());
-        
-        int n = jobs.size();
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;int&gt; dp(n, 0);
-        dp[0] = jobs[0][2];
-        
-        for (int i = 1; i &lt; n; ++i)
-        {
-            int prof = jobs[i][2];
-            int index = NonConflict(jobs, i);
-            if (index != -1)
-                prof += dp[index];
-            
-            dp[i] = max(prof, dp[i - 1]);
-        }
-                        
-        return dp[n - 1];
-    }</B></FONT>
-};
+        return findMaxProfit(jobs);
+    }
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

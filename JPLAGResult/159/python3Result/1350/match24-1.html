@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>171_pze168.py</TITLE>
+ <TITLE>179_sshang.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,44 +15,31 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>171_pze168.py</CENTER></H3><HR>
+<H3><CENTER>179_sshang.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        from collections import defaultdict
-        def trie():
-            return defaultdict(trie)
-        tree = trie()
         
-        def split(s):
-            ans = []
+        folder.sort(key = lambda x: len(x))
+        trie = {}
+        res = []
+        for path in folder:
+            path = path.split('/')
             
-        for f in folder:
-            cur = tree
-            for directory in f[1:].split('/'):
-<A NAME="0"></A>                cur = cur[directory]
-            cur[True] = True
-        
-        res <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
-        def dfs(tree, cur):
-            if True in tree:
-                res.append(&quot;/&quot; + &quot;/&quot;.join(cur))
-                return
-            for child_key, child in tree.items(</B></FONT>):
-                cur.append(child_key)
-                dfs(child, cur)
-                cur.pop()
-        
-        cur = []
-        for key, child in tree.items():
-            cur.append(key)
-            dfs(child, cur)
-            cur.pop()
+            t = trie
+            found = False
+            for c in path[1:]:
+                if 'end' in t:
+                    found = True
+<A NAME="0"></A>                    break
+                if c not in t:
+                    t[c] = {}
+                t = t[<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>c]
             
-        return res
-                
-        
-        
+            if not found:
+                t['end'] = True
+                res.append('/'.join(path))
+        re</B></FONT>turn res
 </PRE>
 
 </BODY>

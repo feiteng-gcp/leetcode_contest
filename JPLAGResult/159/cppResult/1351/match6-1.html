@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>109_wifiii.cpp</TITLE>
+ <TITLE>203_dpatrickx.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,41 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>109_wifiii.cpp</CENTER></H3><HR>
+<H3><CENTER>203_dpatrickx.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int balancedString(string s) {
-        int cnt[100005][4];
-        memset(cnt,0,sizeof(cnt));
-        for(int i=1;i&lt;=s.size();++i) {
-            for(int j=0;j&lt;4;++j) cnt[i][j]=cnt[i-1][j];
-            if(s[i-1] == 'Q') cnt[i][0]++;
-            if(s[i-1] == 'W') cnt[i][1]++;
-            if(s[i-1] == 'E') cnt[i][2]++;
-            if(s[i-1] == 'R') cnt[i][3]++;
-        }</B></FONT>
-        int m = s.size() / 4;
-        int ans=1e9;
-        for(int i=1;i&lt;=s.size();++i) {
-            int ok = 1;
-<A NAME="1"></A>            for(int j=0;j&lt;4;++j)
-                if(cnt[i-1][j] &gt; m) ok = 0;
-            if(!ok) break;
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int lo = i-1, hi = s.size();
-            while(lo&lt;hi) {
-                int mid=(lo+hi)/2;
-                int ok = 1;
-                for(int j=0;j&lt;4;++j)</B></FONT>
-                    if(cnt[s.size()][j] - (cnt[mid][j] - cnt[i-1][j]) &gt; m) ok = 0;
-                if(ok) hi = mid;
-                else lo = mid+1;
-            }
-            // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; lo &lt;&lt; endl;
-            ans=min(ans,lo-i+1);
+        unordered_map&lt;char, int&gt; m;
+        m['Q'] = 0; m['W'] = 1; m['E'] = 2; m['R'] = 3;
+        int t = s.size() / 4;</B></FONT>
+        vector&lt;vector&lt;int&gt;&gt; preSums(s.size() + 1, vector&lt;int&gt;(4, 0));
+        for (int i = 0; i &lt; s.size(); i++) {
+            if (i &gt; 0)
+                for (int j = 0; j &lt; 4; j++) preSums[i+1][j] += preSums[i][j];
+            preSums[i+1][m[s[i]]]++;
         }
-        return ans;
+        // for (auto v : preSums) {
+        //     for (int i : v) cout &lt;&lt; i &lt;&lt; ' ';
+        //     cout &lt;&lt; '\n';
+        // }
+        vector&lt;int&gt; dec(4, 0);
+        int decSum = 0;
+        for (int i = 0; i &lt; 4; i++) {
+            int num = preSums.back()[i];
+            if (num &gt; t) dec[i] = (num - t);
+            decSum += dec[i];
+        }
+        if (decSum == 0) return 0;
+        // cout &lt;&lt; &quot;dec &quot;;
+<A NAME="1"></A>        // for (int i : dec) cout &lt;&lt; i &lt;&lt; ' ';
+        // cout &lt;&lt; '\n';
+        // binary search
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int result = s.size() + 1;
+        for (int i = 0; i &lt; s.size() - 1; i++) {
+            bool state = true;
+            for (int j = 0; j &lt; 4; j++) {
+                if (preSums.back()[j] - preSums[i][j] &lt; dec[j]) state = false;
+            }
+            if (!state) break;
+            int l = i, r = s.size() - 1;
+            while (l &lt;= r) {
+                int m = (l + r) / 2;
+                bool res = true;
+                for (int j = 0; j &lt; 4; j++) {
+                    if (preSums[m+1][j] - preSums[i][j] &lt; dec[j]) res = false;
+                }
+                if (res) r = m - 1;</B></FONT>
+                else l = m + 1;
+            }
+            // cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; l &lt;&lt; '\n';
+            result = min(result, l - i + 1);
+        }
+        return result;
     }
 };
 </PRE>

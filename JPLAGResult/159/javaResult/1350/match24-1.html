@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>226_Bellerophon.java</TITLE>
+ <TITLE>162_musteryu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,42 +15,49 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>226_Bellerophon.java</CENTER></H3><HR>
+<H3><CENTER>162_musteryu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        
-        Arrays.sort(folder);
-        
-        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
-        res.add(folder[0]);
-<A NAME="1"></A>        int j = 0;
-        for(int i = 1; i &lt; folder.length; i++)
-        {
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(!isSubfolder(folder[j], folder[i]))
-            {
-                res.add(folder[i]);
-                j = i;
+        TreeNode root = new TreeNode();
+        for (String fullPath: folder) {
+            TreeNode node = root</B></FONT>;
+<A NAME="1"></A>            String[] parts = fullPath.split(&quot;/&quot;);
+            for (String part: parts) {
+                if (part.length() == 0) continue;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!node.children.containsKey(part)) {
+                    node.children.put(part, new TreeNode());
+                }
+                node = node.children.get(part);
             }
+            node.fullPath = fullPath;
         }
-        
-        return res;
-    }</B></FONT>
+        List&lt;String&gt; parentFolders = new ArrayList&lt;&gt;();
+        dfs(root, parentFolders);
+        return parentFolders;
+    }
     
-    private boolean isSubfolder(String str1, String str2)
-<A NAME="0"></A>    {
-        String[] strs1 = str1.split(&quot;/&quot;, -1);
-        String[] strs2 = str2.split(&quot;/&quot;, -1);
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(strs1.length &gt;= strs2.length)
-            return false;
-        for(int i = 0; i &lt; strs1.length; i++)
-        {
-            if(!strs1[i].equals(strs2[i]))
-                return false;
+    private void dfs(TreeNode node, List&lt;String&gt; parentFolders</B></FONT>) {
+<A NAME="2"></A>        if (node == null) {
+            return;
         }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (node.fullPath != null) {
+            parentFolders.add(node.fullPath);
+            return;
+        }
+        for (TreeNode child: node.children.values()) {
+            dfs</B></FONT>(child, parentFolders);
+        }
+    }
+    
+    private static class TreeNode {
+        String fullPath;
+        Map&lt;String, TreeNode&gt; children;
         
-        return true;
-    }</B></FONT>
+        TreeNode() {
+            this.children = new HashMap&lt;&gt;();
+        }
+    }
 }
 </PRE>
 

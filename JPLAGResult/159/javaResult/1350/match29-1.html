@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>34_daodao-2.java</TITLE>
+ <TITLE>329_Centurion7.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,38 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>34_daodao-2.java</CENTER></H3><HR>
+<H3><CENTER>329_Centurion7.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Set&lt;String&gt; dir = new HashSet&lt;&gt;();
-        Arrays.sort(folder);
-
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; folder.length; i++) {
-            String[] sp = folder[i].split(&quot;/&quot;)</B></FONT>;
+        Set&lt;String&gt; folderSet = new HashSet&lt;&gt;();
+        for (String f: folder) {
+            folderSet.add(f);
+        }
+        List&lt;String&gt; ans = new ArrayList();
+        for (String f: folder) {
             StringBuilder sb = new StringBuilder();
-
-<A NAME="1"></A>            boolean ok = true;
-            for (int j = 1; j &lt; sp.length; j++) {
-                sb.append(&quot;/&quot;).append(sp[j]);
-                if (dir.contains(<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.toString())) {
-                    ok = false;
-                    break;
+            boolean hasParent = false</B></FONT>;
+            for (int i = 0; i &lt; f.length(); ++i) {
+                if (f.charAt(i) == '/') {
+                    String key = sb.toString();
+                    if (folderSet.contains(key)) {
+                        hasParent = true;
+                        break;
+<A NAME="1"></A>                    }
                 }
-            }
-            if (ok) {
-                res .add(sb.toString</B></FONT>());
-                dir.add(sb.toString());
+                sb.append(f.charAt(i));
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            //String finalKey = sb.toString();
+            
+            if (!hasParent) {
+                ans.add(f);
             }
         }
-        return res;
+        
+        return ans;
     }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

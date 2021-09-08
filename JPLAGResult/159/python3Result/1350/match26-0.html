@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>53_ShenTM.py</TITLE>
+ <TITLE>440_jessu.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,43 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>53_ShenTM.py</CENTER></H3><HR>
+<H3><CENTER>440_jessu.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>from collections import defaultdict
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Node(object):
+    def __init__(self):
+        self.children = collections.defaultdict(Node)
+        self.end = False 
+
+class Tree(object):
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, folders):
+        cur = self.root
+        for</B></FONT> f in folders:
+            if cur.end:
+                return False 
+            cur = cur.children[f]
+        
+        cur.end = True
+        return True
+    
+
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        ans = []
-        folder = sorted([file[1:].split(&quot;/&quot;) for file in folder])
-        root = {}
-        for file in folder:
-            now = root
-            exist = False
-<A NAME="0"></A>            for c in file:
-                if c not in now:
-                    now[c] = {}
-                now <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= now[c]
-                if &quot;#&quot; in now:
-                    exist = True
-                    break
-            if not exist:
-                now[&quot;#&quot;] = {}
-                ans.append(</B></FONT>&quot;/&quot; + &quot;/&quot;.join(file))
-        return ans
+        folder = sorted(folder, key=lambda x : len(x))
         
+        tree = Tree()
+        res = []
         
+        for f in folder:
+            folders = f.split(&quot;/&quot;)
+            if tree.insert(folders[1:]):
+                res.append(f)
         
-        
-        
-        
-        
+        return res
 </PRE>
 
 </BODY>

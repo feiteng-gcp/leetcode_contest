@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>230_Aragog.java</TITLE>
+ <TITLE>289_yyanguestc.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,50 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>230_Aragog.java</CENTER></H3><HR>
+<H3><CENTER>289_yyanguestc.java</CENTER></H3><HR>
 <PRE>
-class Solution {
-   class Node {
-        String name;
-        Map&lt;String, Node&gt; children;
-
-        Node(String name) {
-            this.name = name;
-            children = new HashMap&lt;&gt;();
-<A NAME="0"></A>        }
-    }
-
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; removeSubfolders(String[] folder) {
-        Node root = new Node(&quot;&quot;);
-        for (String f : folder) {
-            String[] p = f.split</B></FONT>(&quot;/&quot;);
-            Node node = root;
-            for (int i = 1; i &lt; p.length; i++) {
-                if (node.children == null) {
-<A NAME="1"></A>                    break;
-                } else if (!node.children.containsKey(p[i])) {
-                    node.children.put(p[i], new Node(p[i]));
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
-                node = node.children.get(p[i]);
-            }
-            node.children = null;
+<A NAME="2"></A>class Solution {
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TrieNode {
+        String val;
+        String folder;
+        HashMap&lt;String, TrieNode&gt; children;
+        public TrieNode(String s){
+            this.val = s;
+            t</B></FONT>his.children = new HashMap&lt;&gt;(); 
+            this.folder = &quot;&quot;;
         }
-        List&lt;String&gt; ret = new ArrayList&lt;&gt;();
-        dfs(root, &quot;&quot;, ret);
-        return ret;
     }
-
-    void dfs(Node root, String path, List&lt;String&gt; res) {
-        if (root.children == null) {
-            res.add(path);
+    TrieNode root; 
+<A NAME="0"></A>    public List&lt;String&gt; removeSubfolders(String[] folder) {
+        root = new TrieNode(&quot;&quot;);
+        for (String f : folder) {
+            String[] arr = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>f.split(&quot;/&quot;); 
+            TrieNode cur = root;
+            for (String s : arr) {
+                if (!cur.children.containsKey(s)) {
+                    cur.children.put(s, new TrieNode(s));
+                }
+                cur = cur.children.get(s);
+            }
+            cur.folder = f;
+        }
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        DFS(root, res);
+        return res;
+    }
+    public void DFS(TrieNode cur, List&lt;String&gt; res</B></FONT>) {
+<A NAME="1"></A>        if (cur == null) {
             return;
         }
-        for (Map.Entry&lt;String, Node&gt; child : root.children.entrySet()) {
-            dfs(child.getValue(), path + &quot;/&quot; + child.getKey(), res);
+        if (!cur.folder.equals(&quot;&quot;) ) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            res.add(cur.folder);
+            return;
         }
-
-    }</B></FONT>
+        for (String next : cur.children.keySet()) {
+            DFS(cur.children.get</B></FONT>(next), res);
+        }
+        
+    }
 }
 </PRE>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>299_fnwjkm.java</TITLE>
+ <TITLE>121_TinyExplorer.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,50 +15,52 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>299_fnwjkm.java</CENTER></H3><HR>
+<H3><CENTER>121_TinyExplorer.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int balancedString(String s) {
-        int len = s.length();
-        int target = len / 4;
-        char[] ch = new char[]{'Q', 'W', 'E', 'R'};
-        int[] diff = new int[4];
-        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
-        for(char c : s.toCharArray()){
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        int n = s.length();
+        int[] a = new int[4];
+<A NAME="1"></A>        char[] ch = s.toCharArray</B></FONT>();
+        int res = n-1;
+        for (char c: ch) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c=='Q') a[0]++;
+            if (c=='W') a[1]++;
+            if (c=='E') a[2]++;
+            if (c=='R') a[3]++;
+        }</B></FONT>
+        boolean v = true;
+        for (int i=0;i&lt;4; i++) {
+            a[i]-= (n/4);
+            if (a[i] != 0) v = false;
         }
-        for(int i = 0;i &lt; 4;i++){
-<A NAME="1"></A>            diff[i] = map.getOrDefault(ch[i], 0) - target;
-        }
-        int[] cur = new int[4];
-        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int left = 0,res = Integer.MAX_VALUE;
-        for(int i = 0;i &lt; len;i++){
-            char c = s.charAt(i);
-            if(c == 'Q') cur[0]++;
-            if(c == 'W') cur[1]++;
-            if(c == 'E') cur[2]++;
-<A NAME="0"></A>            if(c == 'R') cur[3]++;</B></FONT>
-            if(check(diff, cur)){
-                res = Math.min(i - left + 1, res);
-                while(left &lt;= i &amp;&amp; check(diff, cur))<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    char pre = s.charAt(left++);
-                    if(pre == 'Q') cur[0]--;
-                    if(pre == 'W') cur[1]--;
-                    if(pre == 'E') cur[2]--;
-                    if(pre == 'R') cur[3]--;</B></FONT>
-                    if(check(diff, cur)){
-                        res = Math.min(i - left + 1, res);
-<A NAME="2"></A>                    }
-                }
+        if (v) return 0;
+<A NAME="2"></A>
+        for (int i = 0, j = 0; j&lt;n; j++) {
+            char c = ch[j];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c=='Q') a[0]--;
+            if (c=='W') a[1]--;
+            if (c=='E') a[2]--;
+            if (c=='R') a[3]--;
+<A NAME="3"></A>            while (valid(a)) {
+                res = Math.min(res, j - i+1);
+                char p = ch[i]</B></FONT>;
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#3',2,'match10-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (p=='Q') a[0]++;
+                if (p=='W') a[1]++;
+                if (p=='E') a[2]++;
+                if (p=='R') a[3]++;
+                i++;
             }
-        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#2',2,'match10-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
         return res;
     }
-    public boolean check(int[] diff, int[] cur){
-        for(int i = 0;i &lt; 4;i++){
-            if</B></FONT>(cur[i] &lt; diff[i]) return false;
+
+    boolean valid(int[] a</B></FONT>) {
+        boolean res = true;
+        for (int i=0; i&lt;4; i++) {
+            if (a[i] &gt; 0) res = false;
         }
-        return true;
+        return res;
     }
 }
 </PRE>

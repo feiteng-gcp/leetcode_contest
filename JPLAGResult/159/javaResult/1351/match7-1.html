@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>121_TinyExplorer.java</TITLE>
+ <TITLE>363_whatsgood.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>121_TinyExplorer.java</CENTER></H3><HR>
+<H3><CENTER>363_whatsgood.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+class Solution {
     public int balancedString(String s) {
-        int n = s.length();
-        int[] a = new int[4];
-<A NAME="1"></A>        char[] ch = s.toCharArray</B></FONT>();
-        int res = n-1;
-        for (char c: ch) {
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c=='Q') a[0]++;
-            if (c=='W') a[1]++;
-            if (c=='E') a[2]++;
-            if (c=='R') a[3]++;
-        }</B></FONT>
-        boolean v = true;
-        for (int i=0;i&lt;4; i++) {
-            a[i]-= (n/4);
-            if (a[i] != 0) v = false;
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        if (v) return 0;
-<A NAME="2"></A>
-        for (int i = 0, j = 0; j&lt;n; j++) {
-            char c = ch[j];
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c=='Q') a[0]--;
-            if (c=='W') a[1]--;
-            if (c=='E') a[2]--;
-            if (c=='R') a[3]--;
-<A NAME="3"></A>            while (valid(a)) {
-                res = Math.min(res, j - i+1);
-                char p = ch[i]</B></FONT>;
-                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#3',2,'match7-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (p=='Q') a[0]++;
-                if (p=='W') a[1]++;
-                if (p=='E') a[2]++;
-                if (p=='R') a[3]++;
-                i++;
+        
+        int left = 0, right = 0, min = Integer.MAX_VALUE;
+<A NAME="0"></A>        while (right &lt; s.length() &amp;&amp; left &lt; s.length()) {
+            char c = s.charAt(right++);
+            map.put(c, map.get(c) - 1);
+            while (left &lt; s.length() &amp;&amp; isValid(map, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>s.length())) {
+                min = Math.min(min, right - left);
+                char d = s.charAt(left++);
+                map.put(d, map.get(d) + 1);
             }
         }
-        return res;
+        
+        return min;
     }
-
-    boolean valid(int[] a</B></FONT>) {
-        boolean res = true;
-        for (int i=0; i&lt;4; i++) {
-            if (a[i] &gt; 0) res = false;
+    
+    private boolean isValid(Map&lt;Character, Integer&gt; map, int length) {
+        for (Integer i : map.values</B></FONT>()) {
+            if (i &gt; (length / 4)) {
+                return false;
+            }
         }
-        return res;
+        return true;
     }
 }
 </PRE>

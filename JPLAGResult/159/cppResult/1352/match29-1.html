@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>89_suiyuan1992.cpp</TITLE>
+ <TITLE>157_EUqr2c2cjD8nuX5K.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,59 +15,56 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>89_suiyuan1992.cpp</CENTER></H3><HR>
+<H3><CENTER>157_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A>namespace {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    struct MyJobInfo  { 
+        int start, finish, profit; 
+    }; 
+  
+    int binarySearch(vector&lt;MyJobInfo&gt;&amp; jobs, int index)  { 
+        int lo = 0, hi = index - 1; 
+        while (lo &lt;= hi)  { 
+            int mid = (lo + hi) / 2; 
+            if (jobs[mid].finish &lt;= jobs[index].start)  { 
+                if (jobs[mid + 1].finish &lt;= jobs[index].start) 
+                    lo = mid + 1; 
+                else
+                    return mid; 
+            }  else
+                hi = mid - 1; 
+        } 
+        return -1; 
+    } 
+<A NAME="1"></A>  
+    int findMaxProfit(vector&lt;MyJobInfo&gt;&amp; arr)  { </B></FONT>
+        int n = arr.size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        sort(arr.begin(), arr.begin() + n, [](const MyJobInfo&amp; a, const MyJobInfo&amp; b) {
+            return a.finish &lt; b.finish;
+        }); 
+        int *table = new int[n]; 
+        table[0] = arr[0].profit; 
+        for (int i=1; i&lt;n; i++)  { 
+            int inclProf = arr[i].profit; 
+            int l = binarySearch(arr, i); 
+            if (l != -1)  inclProf += table[l]; 
+            table[i] = max(inclProf, table[i-1]); 
+        } 
+        int result = table[n-1]; 
+        delete[] table; 
+        return result; 
+    } </B></FONT>
+}
+
 class Solution {
-private:
-    vector&lt;int&gt;c;
-    void init(int sz){
-        c = vector&lt;int&gt;(sz+1, 0);
-<A NAME="1"></A>    }
-    void upd(int x, int val){
-        for (; x &lt; c.size(); x += x &amp; -x) c[x]= max(c[x], val);
-<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
-    int query(int x){
-        int ret = 0;
-        while(x&gt;0){
-            ret=max(ret, c[x]);
-            x -= x &amp; -x;
-        }
-        return ret;
-    }</B></FONT>
-<A NAME="0"></A>    struct P{
-        int l,r,v;
-        P(){}
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        P(int l,int r,int v):l(l),r(r),v(v){}
-        bool operator&lt;(const P&amp; a)const {
-            return r&lt;a.r;
-<A NAME="2"></A>        }
-    };</B></FONT>
 public:
-<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int jobScheduling(vector&lt;int&gt;&amp; s, vector&lt;int&gt;&amp; e, vector&lt;int&gt;&amp; p) {
-        vector&lt;P&gt; a;
-        int n = s.size();
-        vector&lt;int&gt;tt;
-        for(int i=0;i&lt;n;i++){
-            tt.push_back(s[i]);
-            tt.push_back(e[i]);
-            a.push_back(P(s[i],e[i],p[i]));
+    int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
+        vector&lt;MyJobInfo&gt; jobs;
+        for (int i = 0; i &lt; startTime.size(); ++i) {
+            MyJobInfo job = {startTime[i], endTime[i], profit[i]};
+            jobs.emplace_back(job);
         }
-        sort(tt.begin(),tt.end());
-        tt.erase(unique(tt.begin(),tt.end()),tt.end());
-        init(tt.size());
-        for(int i=0;i&lt;n;i++){
-            a[i].l = lower_bound(tt.begin(),tt.end(),a[i].l) - tt.begin()+1;
-            a[i].r = lower_bound(tt.begin(),tt.end(),a[i].r) - tt.begin()+1;
-        }</B></FONT>
-        int ret = 0;
-        sort(a.begin(),a.end());
-        for(int i=0;i&lt;a.size();i++){
-            int pre = query(a[i].l);
-            int cur = pre + a[i].v;
-            ret=max(ret,cur);
-            upd(a[i].r,cur);
-        }
-        return ret;
+        return findMaxProfit(jobs);
     }
 };
 </PRE>

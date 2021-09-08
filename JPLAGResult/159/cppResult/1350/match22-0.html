@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>242_matyukevich.cpp</TITLE>
+ <TITLE>89_suiyuan1992.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>242_matyukevich.cpp</CENTER></H3><HR>
+<H3><CENTER>89_suiyuan1992.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-<A NAME="0"></A>    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        sort(folder.begin(), folder.end());
-        vector&lt;string&gt; res;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        string s = folder[0];
-        res.push_back(s);
-        for (int i = 1; i &lt; folder.size(); i++) {
-            if (s.length() &lt; folder[i].length() &amp;&amp; folder[i].substr(0, s.length()) == s &amp;&amp; folder[i][s.length()] == '/') {
-                continue;
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; a) {
+        sort(a.begin(),a.end());
+        vector&lt;string&gt;ret;
+<A NAME="0"></A>        unordered_set&lt;string&gt;st;
+        for(int i=0;i&lt;a.size();i++){
+            bool f = false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j=0;j+1&lt;a[i].size();j++){
+                if(a[i][j+1]=='/'&amp;&amp;st.find(a[i].substr(0,j+1))!=st.end()){
+                    f=true;
+                    break;
+                }
             }
-            res.push_back(folder[i]);
-            s = folder[i];
+            if(!f){
+                st.insert(a[i]);
+                ret.push_back(a[i]);
+            }
         }
-        return res;
+        return ret;
     }
 };</B></FONT>
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>259_KLEA.java</TITLE>
+ <TITLE>105_yge.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,49 +15,72 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>259_KLEA.java</CENTER></H3><HR>
+<H3><CENTER>105_yge.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        int q = 0, w = 0, e = 0, r = 0;
-<A NAME="2"></A>        int n = s.length(), t = n / 4;
-        
-        for (char ch : s.toCharArray()) {
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (ch == 'Q') q++;
-            if (ch == 'W') w++;
-            if (ch == 'E') e++;
-            if (ch == 'R') r++;
+        int n = s.length();
+        int ans = n;
+        int q = 0;
+        int w = 0;
+<A NAME="0"></A>        int e = 0;
+        int r = 0;
+        int i = 0;
+        while (i&lt;n &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            switch (s.charAt(i)) {
+                case 'Q':q++;break;
+                case 'W':e++;break;
+                case 'E':w++;break;
+                case 'R':r++;break;
+            }
+            i++;
         }</B></FONT>
-        
-<A NAME="1"></A>        if (q == w &amp;&amp; w == e &amp;&amp; e == r) return 0;
-        int lo = 0, ans = Integer.MAX_VALUE;
-        for (int hi = 0; hi &lt; n; hi++) {
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char c = s.charAt(hi);
-            if (c == 'Q') q--;
-            if (c == 'W') w--;
-<A NAME="0"></A>            if (c == 'E') e--;
-            if (c == 'R') r--;</B></FONT>
-            if (q &gt; t || w &gt; t || e &gt; t || r &gt; t) continue;
-            while (lo &lt;= hi &amp;&amp; q &lt;= t &amp;&amp; w &lt;= t &amp;&amp; e &lt;= t &amp;&amp; r &lt;= t) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-                    char x = s.charAt(lo++);
-                    if (x == 'Q') q++;
-                    if (x == 'W') w++;
-                    if (x == 'E') e++;
-                    if (x == 'R') r++;
-            }</B></FONT>
-            ans = Math.min(hi-lo+2, ans);
+        if (i &gt;= n)
+            return 0;
+        i--;
+        switch (s.charAt(i)) {
+            case 'Q':q--;break;
+            case 'W':e--;break;
+            case 'E':w--;break;
+            case 'R':r--;break;
         }
-        return ans;
-        
-        
+        i--;
+<A NAME="2"></A>        ans = n-i;
+        int j = n-1;
+        while (i &gt;= 0) {
+            while (i&lt;j &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                switch (s.charAt(j)) {
+                    case 'Q':q++;break;
+                    case 'W':e++;break;
+                    case 'E':w++;break;
+                    case 'R':r++;break;
+                }
+                j--;
+<A NAME="1"></A>            }</B></FONT>
+            ans = Math.min(ans, j+1-i);
+            while (i&gt;=0 &amp;&amp; !(q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4)) {
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>switch (s.charAt(i)) {
+                    case 'Q':q--;break;
+                    case 'W':e--;break;
+                    case 'E':w--;break;
+                    case 'R':r--;break;
+                }
+                i--;
+            }</B></FONT>
+            ans = Math.min(ans, j-i);
+        }
+        while (i&lt;j &amp;&amp; q &lt;= n/4 &amp;&amp; w &lt;= n/4 &amp;&amp; e &lt;= n/4 &amp;&amp; r &lt;= n/4) {
+            switch (s.charAt(j)) {
+                case 'Q':q++;break;
+                case 'W':e++;break;
+                case 'E':w++;break;
+                case 'R':r++;break;
+            }
+            j--;
+        }
+        return Math.min(ans, j+1-i);
     }
 }
-
-
-// qqqw 
-// q 3 w 1
-// q 2 w 1        -&gt; q = 1 w = 1 e = 1 r = 1
-// q 1 w 1
 </PRE>
 
 </BODY>

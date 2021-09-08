@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>187_WangQiuc.py</TITLE>
+ <TITLE>152_mesgd.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>187_WangQiuc.py</CENTER></H3><HR>
+<H3><CENTER>152_mesgd.py</CENTER></H3><HR>
 <PRE>
 class Solution:
-    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
+<A NAME="0"></A>    def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
         trie = {}
-        for path in folder:
-            node = trie
-            for f in path.split(&quot;/&quot;)[1:]:
-                node = node.setdefault(f, {})
-            node[&quot;$&quot;] = True
+        for s in folder:
+            t <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= trie
+            for c in s + '/':
+                if c not in t:
+                    t[c] = {}
+                t = t[c]
+            t['#'] =</B></FONT> '#'
 
-        root = []
 
-<A NAME="0"></A>        def dfs(node, path):
-            for key in node:
-                new_path = f&quot;{path}/{key}&quot;
-                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if &quot;$&quot; in node[key]:
-                    root.append(new_path)
-                else:
-                    dfs(node[key], new_path)
-        dfs(trie, &quot;&quot;)
+        def helper(curt, path, res):
+            if '#' in curt:
+                res.append(''.join(path[:-1]))
+                return
+            for c in curt:
+                path.append(c)
+                helper(curt[c], path, res)
+                path.pop()
 
-        re</B></FONT>turn root
-        
+        res = []
+        helper(trie, [], res)
+        return res
 </PRE>
 
 </BODY>

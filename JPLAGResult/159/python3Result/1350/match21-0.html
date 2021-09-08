@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>236_troyretter.py</TITLE>
+ <TITLE>416_AllenLI.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>236_troyretter.py</CENTER></H3><HR>
+<H3><CENTER>416_AllenLI.py</CENTER></H3><HR>
 <PRE>
 class Solution:
     def removeSubfolders(self, folder: List[str]) -&gt; List[str]:
-        
-        folder_set = set(folder)
-        
-        ans = []
-        for f in folder:
+        folder = sorted(folder)
+        i = j = 0
+        res = [folder[0]]
+        while i &lt; len(folder) and j &lt; len(folder):
+<A NAME="0"></A>            if i == j:
+                j += 1
+                continue
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if len(folder[j]) &gt; len(folder[i]) and folder[j][:len(folder[i])] == folder[i] and folder[j][len(folder[</B></FONT>i])] == '/':
+                j += 1
+                continue
+            else:
+                i = j
+                res.append(folder[j])
+        return res
+                
             
-            slash_index = []
-            for i,c in enumerate(f):
-                if c == &quot;/&quot;:
-                    if i &gt; 0:
-                        slash_index.append(i)
-                        
-<A NAME="0"></A>            subfolder = False
-            
-            for i in slash_index:
-                possible_parent <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= f[:i]
-                if possible_parent in folder_set:
-                    subfolder = True
-                    break
-                    
-            if subfolder == False:
-                ans.append(f)
         
-        return</B></FONT> ans
 </PRE>
 
 </BODY>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>276_caijun.java</TITLE>
+ <TITLE>250_hum.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,56 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>276_caijun.java</CENTER></H3><HR>
+<H3><CENTER>250_hum.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>static class Job {
-        public int st;
-        public int et;
-        public int p;
-        public Job(int st, int et, int p) {
-            this.st = st;
-            this.et = et;
-<A NAME="1"></A>            this.p = p;
+class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int len = startTime.length;
+        Job[] jobs = new Job[len];
+<A NAME="0"></A>        for (int i = 0; i &lt; len; i++) {
+            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
-    }</B></FONT>
-    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int jobScheduling(int[] stt, int[] ett, int[] pt) {
-        List&lt;Job&gt; list = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; stt.length; i++) {
-            list.add(new Job(stt[i], ett[i], pt[i]));
+        Arrays.sort(jobs, Comparator.comparingInt(<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>a -&gt; a.finish));
+        long dp[] = new long[len];
+        dp[0] = jobs[0].profit;
+        for (int i = 1; i &lt; len; i++) {
+            long tmp = jobs[i].profit;
+            int l = binarySearch(jobs, i);
+            if (l != -1) {
+                tmp += dp[l];
+            }
+            dp[i] = Math.max(tmp, dp[i - 1]);
         }
-        Collections.sort(list, new Comparator&lt;Job&gt;() {
-           public int compare(Job j1, Job j2) {
-               if (j1.st == j2.st) return</B></FONT> j1.et - j2.et;
-               return j1.st - j2.st;
-           } 
-        });
-        
-        for (int i = 0; i &lt; stt.length; i++) {
-            Job job = list.get(i);
-            stt[i] = job.st;
-            ett[i] = job.et;
-            pt[i] = job.p;
-        }
-        
-        int[] dp = new int[list.size()];
-        
-        // dp[i] = max(dp[i + 1], p[i] + dp[higher_bound])
-        dp[list.size() - 1] = list.get(list.size() - 1).p;
-        for (int i = list.size() - 2; i &gt;= 0; i--) {
-            int bound = Arrays.binarySearch(stt, i + 1, stt.length, ett[i]);
-            // System.out.println(String.format(&quot;i %s, bound %s&quot;, i, bound));
-            if (bound &lt; 0) {
-<A NAME="2"></A>                int pos = -bound - 1;
-                dp[i] = Math.max(dp[i + 1], (pos == list.size() ? 0 : dp[pos]) + list.get(i).p);;
+
+        return (int) dp[len - 1];
+    }
+
+    public int binarySearch(Job jobs[], int index) {
+        int lo = 0, hi = index - 1;
+        while (lo &lt;= hi) {
+            int mid = (lo + hi) / 2;
+            if (jobs[mid].finish &lt;= jobs[index].start) {
+                if (jobs[mid + 1].finish &lt;= jobs[index].start) {
+                    lo = mid + 1;
+                } else {
+                    return mid;
+                }
             } else {
-                dp[i] = Math.max(dp[i + 1], + <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.get(i).p + dp[bound]);
+                hi = mid - 1;
             }
         }
-        // System.out.println(Arrays.toString(dp));
-        return dp[0];
+        return -1;
+    }</B></FONT>
+
+    class Job {
+        int start, finish, profit;
+
+        Job(int start, int finish, int profit) {
+            this.start = start;
+            this.finish = finish;
+            this.profit = profit;
+        }
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

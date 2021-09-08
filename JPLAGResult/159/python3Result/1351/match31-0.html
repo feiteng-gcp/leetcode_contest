@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>59_shshwdr.py</TITLE>
+ <TITLE>161_yuanzhi247012.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,27 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>59_shshwdr.py</CENTER></H3><HR>
+<H3><CENTER>161_yuanzhi247012.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution:
-    def balancedString(self, s: str) -&gt; int:
-        c = collections.Counter(s)
-        should <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= len(s)//4
-        res = 999999999
-        needM = 0
-        for i in c:
-            if c[i]&gt;should:
-                c[i] = (c[i]- should)
-                needM +=1
-            else:
-                c[</B></FONT>i] = 0
-        start  = 0
-        meet = 0
-        
+class Solution:
+<A NAME="0"></A>    def balancedString(self, s: str) -&gt; int:
+        counter=collections.Counter(s)
+        target=len(s)//4
+        d<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>={}
+        for key in counter:
+            if counter[key]&gt;target:
+                d[key]=counter[key]-target
+        if not d:
+            return 0
+        curd=</B></FONT>collections.defaultdict(int)
+        res=len(s)
+        slow=0
         for i in range(len(s)):
-            v = s[i]
-            c[v]-=1
-            #print(c[v],needM)
-            if c[v] == 0:
-                meet+=1
-            while start&lt;len(s) and needM==meet:
-                res = min(res,i-start+1)
-                v2 = s[start]
-                c[v2]+=1
-                if c[v2] == 1:
-                    meet-=1
-                start+=1
+            curd[s[i]]+=1
+            while all(curd[key]&gt;=d[key] for key in d):
+                res=min(res,i-slow+1)
+                curd[s[slow]]-=1
+                slow+=1
         return res
 </PRE>
 

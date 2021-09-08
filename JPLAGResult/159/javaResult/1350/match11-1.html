@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>169_lotayliu.java</TITLE>
+ <TITLE>264_luckybug38.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,26 +15,32 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>169_lotayliu.java</CENTER></H3><HR>
+<H3><CENTER>264_luckybug38.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
-    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public List&lt;String&gt; removeSubfolders(String[] folder) {
+class Solution {
+<A NAME="0"></A>    public List&lt;String&gt; removeSubfolders(String[] folder) {
         Arrays.sort(folder);
-        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
-        
-        String pr = null;
-        for (String f : folder) {
-<A NAME="1"></A>            if (pr == null || (!f.startsWith(pr)) ||
-                    (f.length() == pr.length() || f.charAt</B></FONT>(pr.length()) != '/')) {
-                pr = f;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.add(pr);
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        for(String fold: folder) {
+            String[] spl = fold.split(&quot;/&quot;);
+<A NAME="1"></A>            StringBuilder sb = new StringBuilder();
+            boolean found = false;
+            for(int i = 1; i&lt;spl.length; i++){</B></FONT>
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.append(spl[i] + &quot;/&quot;);
+                if(set.contains(sb.toString())) {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                res.add(fold);
+                set.add(sb.toString</B></FONT>());
             }
         }
-        
         return res;
     }
-    
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

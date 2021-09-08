@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>168_liuyubobobo.cpp</TITLE>
+ <TITLE>134_cheatcode.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,24 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>168_liuyubobobo.cpp</CENTER></H3><HR>
+<H3><CENTER>134_cheatcode.cpp</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
 public:
     int jobScheduling(vector&lt;int&gt;&amp; startTime, vector&lt;int&gt;&amp; endTime, vector&lt;int&gt;&amp; profit) {
-
         int n = startTime.size();
-
-        vector&lt;pair&lt;pair&lt;int, int&gt;, int&gt;&gt; vec;
-        for(int i = 0; i &lt; n; i ++)
-            vec.push_back(make_pair(make_pair(startTime[i], endTime[i]), profit[i]));
-        sort(vec.begin(), vec.end());
-
-        vector&lt;int&gt; dp(n, vec.back().second);
-        for(int i = n - 2; i &gt;= 0; i --){
-
-            dp[i] = dp[i + 1];
-
-            int nextstart = vec[i].first.second;
-            vector&lt;pair&lt;pair&lt;int, int&gt;, int&gt;&gt;::iterator iter =
-                    lower_bound(vec.begin() + (i + 1), vec.end(), make_pair(make_pair(nextstart, INT_MIN), INT_MIN));
-            if(iter != vec.end())
-                dp[i] = max(dp[i], vec[i].second + dp[iter - vec.begin()]);
-            else
-                dp[i] = max(dp[i], vec[i].second);
+        vector&lt;pair&lt;pair&lt;int, int&gt; , int&gt; &gt; a;
+        for (int i = 0; i &lt; n; i++) a.emplace_back(make_pair(startTime[i], endTime[i]), profit[i]);
+        sort(a.begin(), a.end());
+        vector&lt;int&gt; dp(n + 1);
+        for (int i = n - 1; i &gt;= 0; i--) {
+            dp[i] = ((i + 1) &lt; n ? dp[i + 1] : 0);</B></FONT>
+            int idx = lower_bound(a.begin(), a.end(), make_pair(make_pair(a[i].first.second, -1), -1)) - a.begin();
+            dp[i] = max(dp[i], a[i].second + dp[idx]);
         }
-
-        return *max_element(dp.begin(), dp.end());
+        return dp[0];
     }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>410_ChunjieShawn.cpp</TITLE>
+ <TITLE>184_frost_.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,34 +15,37 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>410_ChunjieShawn.cpp</CENTER></H3><HR>
+<H3><CENTER>184_frost_.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    static bool cmp(string &amp;s1, string &amp;s2) {
-        return s1.size() &lt; s2.size();
-    }
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; f) {
-<A NAME="0"></A>        sort(f.begin(), f.end(), cmp);
-        vector&lt;string&gt; res;
-        unordered_map&lt;string, int&gt; h;
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; f.size(); i++) {
-            string s = f[i];
-            bool in = true;
-            for(int j = 1; j &lt; s.size(); j++) {
-                if(s[j] == '/') {
-                    if(h[s.substr(0, j)]) {
-                        in = false;
-                        break;
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+<A NAME="0"></A>        map&lt;string,int&gt; mp;
+        for(auto &amp;z:folder)mp[z]=1;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(auto &amp;z:mp)
+        {
+            string s=z.first;
+            string t;
+            bool ok=1;
+            for(int i=0;i&lt;s.size();i++)
+            {
+                if(s[i]=='/')
+                {
+                    if(mp[t]!=0)
+                    {
+                        ok=0;break;
                     }
                 }
+                t.push_back(s[i]);
+                
             }
-            if(in) {</B></FONT>
-                res.push_back(s);
-                h[s] = 1;
-            }
+            if(!ok)mp[s]=-1;</B></FONT>
+            s.clear();t.clear();
         }
-        return res;
+        vector&lt;string&gt; v;
+        for(auto &amp;z:mp)if(z.second==1)v.push_back(z.first);
+        return v;
     }
 };
 </PRE>

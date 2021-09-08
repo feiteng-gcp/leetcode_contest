@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>105_yge.java</TITLE>
+ <TITLE>43_scut_dell.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,22 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>105_yge.java</CENTER></H3><HR>
+<H3><CENTER>43_scut_dell.java</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A>class Solution {
+class Solution {
+    private boolean judge(String a, String b) {
+        return b.startsWith(a + &quot;/&quot;);
+    }
     public List&lt;String&gt; removeSubfolders(String[] folder) {
-        int n = folder.length;
-        Set&lt;String&gt; set = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new HashSet&lt;&gt;();
-        for (int i=0; i&lt;n; i++)
-            set.add(folder[i]);
-        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
-        for (int i=0; i&lt;n; i++) {
-            String[] parse = folder[i].split(&quot;/&quot;);
-            boolean f = true;
-            StringBuilder sb = new StringBuilder()</B></FONT>;
-            for (int j=1; j&lt;parse.length-1; j++) {
-                sb.append('/').append(parse[j]);
-<A NAME="1"></A>                if (set.contains(sb.toString())) {
-                    f = false;
-                    break;
-                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#1',2,'match14-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+<A NAME="0"></A>        Arrays.sort(folder);
+        List&lt;String&gt; ret = new ArrayList&lt;String&gt;();
+        String now = null;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0;i &lt; folder.length;i++) {
+            if (ret.size() == 0 || !judge(ret.get(ret.size() - 1), folder[i])) {
+                ret.add(folder[i]);
             }
-            if (f)
-                ans.add(folder[i]);
         }
-        return ans;
+        return ret;
     }
 }</B></FONT>
 </PRE>

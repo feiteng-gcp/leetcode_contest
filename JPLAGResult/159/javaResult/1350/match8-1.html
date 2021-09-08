@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>264_luckybug38.java</TITLE>
+ <TITLE>226_Bellerophon.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,41 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>264_luckybug38.java</CENTER></H3><HR>
+<H3><CENTER>226_Bellerophon.java</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public List&lt;String&gt; removeSubfolders(String[] folder) {
+        
         Arrays.sort(folder);
-        List&lt;String&gt; res = new ArrayList&lt;&gt;();
-        Set&lt;String&gt; set = new HashSet&lt;&gt;();
-        for(String fold: folder) {
-<A NAME="1"></A>            String[] spl = fold.split(&quot;/&quot;);
-            StringBuilder sb = new StringBuilder()</B></FONT>;
-            boolean found = false;
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i = 1; i&lt;spl.length; i++){
-                sb.append(spl[i] + &quot;/&quot;);
-                if(set.contains(sb.toString())) {
-                    found = true;
-                    break;
-                }
-            }
-            if(!found){
-                res.add</B></FONT>(fold);
-                set.add(sb.toString());
+        
+        List&lt;String&gt; res = new ArrayList&lt;String&gt;();
+        res.add(folder[0]);
+        int j = 0;
+<A NAME="1"></A>        for(int i = 1; i &lt; folder.length; i++)
+        {
+            if(!isSubfolder</B></FONT>(folder[j], folder[i]))
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#1',2,'match8-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                res.add(folder[i]);
+                j = i;
             }
         }
+        
         return res;
+    }</B></FONT>
+    
+    private boolean isSubfolder(String str1, String str2)
+    {
+        String[] strs1 = str1.split(&quot;/&quot;, -1);
+        String[] strs2 = str2.split(&quot;/&quot;, -1);
+        if(strs1.length &gt;= strs2.length)
+            return false;
+        for(int i = 0; i &lt; strs1.length; i++)
+        {
+            if(!strs1[i].equals(strs2[i]))
+                return false;
+        }
+        
+        return true;
     }
 }
 </PRE>

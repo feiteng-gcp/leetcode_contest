@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>275_huntersjm.java</TITLE>
+ <TITLE>186_luchy0120.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,85 +15,68 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>275_huntersjm.java</CENTER></H3><HR>
+<H3><CENTER>186_luchy0120.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A>class Solution {
     public int balancedString(String s) {
-        int q = 0, w = 0, e = 0, r = 0;
-<A NAME="1"></A>        int balance = s.length() &gt;&gt; 2;
-        int right = s.length() - 1;
-        int result = s.length();
-        for (; right &gt;= 0; right--) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            switch (s.charAt(right)) {
-                case 'Q':
-                    q++;
-                    break;
-                case 'W':
-                    w++;
-                    break;
-                case 'E':
-                    e++;
-                    break;
-                case 'R':
-                    r++;
-                    break;
+        int d[] = new int[256];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(char c:s.toCharArray()){
+            d[c]++;
+        }
+        int len = s.length()/4;int r =0;
+      char cc[] = {'Q','W','E','R'};</B></FONT>
+        boolean all = false;
+        for(char f:cc){
+            if(d[f]&gt;len){
+               d[f]-=len;
+                all = true;
+            }else{
+               d[f] = 0; 
+            }
+        }
+        if(!all) return 0;
+<A NAME="1"></A>        
+        
+        int st = 0;int md[] = new int[256];int rrr = s.length();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i=0;i&lt;s.length();++i){
+            char ccc = s.charAt(i);
+            if(d[ccc]&gt;0){
+                md[ccc]++;
             }</B></FONT>
-            if (q &gt; balance || w &gt; balance || e &gt; balance || r &gt; balance) {
+            while(true){
+            ccc = s.charAt(st);
+            
+            boolean ok = d[ccc]&gt;0&amp;&amp; md[ccc]-1&gt;=d[ccc] ||d[ccc]==0;
+
+            if(ok){
+                if(d[ccc]&gt;0){
+                md[ccc]--;
+                }
+                st++;
+            }else{
                 break;
             }
-        }
-        if (right == -1) {
-            return 0;
-<A NAME="2"></A>        }
-        result = Math.min(result, right + 1);
-        for (int left = 1; left &lt; s.length(); left++) {
-            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>switch (s.charAt(left - 1)) {
-                case 'Q':
-                    q++;
-                    break;
-                case 'W':
-                    w++;
-                    break;
-                case 'E':
-                    e++;
-                    break;
-                case 'R':
-                    r++;
-                    break;
-            }</B></FONT>
-            if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
-                result = Math.min(result, right - left);
-                continue;
-<A NAME="0"></A>            }
-            for (; right &lt; s.length(); right++) {
-                switch (s.charAt(right)) {
-                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>case 'Q':
-                        q--;
-                        break;
-                    case 'W':
-                        w--;
-                        break;
-                    case 'E':
-                        e--;
-                        break;
-                    case 'R':
-                        r--;
-                        break;
-                }</B></FONT>
-                if (q &lt;= balance &amp;&amp; w &lt;= balance &amp;&amp; e &lt;= balance &amp;&amp; r &lt;= balance) {
-                    right++;
-                    result = Math.min(result, right - left);
-                    break;
-                }
             }
+            
+            boolean ok1 = true;
+            for(char t:cc){
+                if(d[t]&gt;0){
+                if(md[t]&lt;d[t]){
+                    ok1 = false;
+                    break;
+                }    
+<A NAME="2"></A>                }
+            }
+            if(ok1){
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>rrr = Math.min(i-st+1,rrr);
+            }
+            
         }
-        return result;
+        return rrr;
+        
+        
     }
-
-    public static void main(String[]args) {
-        System.out.println(new Solution().balancedString(&quot;QQQW&quot;));
-    }
-}
+}</B></FONT>
 </PRE>
 
 </BODY>

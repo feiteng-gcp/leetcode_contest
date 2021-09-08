@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>216_xiaoliran12.cpp</TITLE>
+ <TITLE>195_AnnKats93.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,52 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>216_xiaoliran12.cpp</CENTER></H3><HR>
+<H3><CENTER>195_AnnKats93.cpp</CENTER></H3><HR>
 <PRE>
-char cmap[4] = {'Q', 'W', 'E', 'R'};
 class Solution {
 public:
-    bool test(unordered_map&lt;char, int&gt;&amp; extra, unordered_map&lt;char, int&gt;&amp; m) {
-        for (auto&amp; p : extra) {
-            if (m[p.first] &lt; p.second) return false;
+    int sum[100];
+    int cnt[100];
+    
+    int balancedString(string s) {
+        for (int i = 0; i &lt; s.size(); i++)
+            sum[s[i]]++;
+        int mid = s.size()/4;
+<A NAME="0"></A>        for (int i = 0; i &lt; 100; i++)
+            sum[i] -= mid;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int sta = 0;
+        int ans = s.size();
+        for (int i = 0; i &lt; s.size(); i++) {
+            cnt[s[i]]++;
+            while (sta &lt; s.size() &amp;&amp; isok()) {
+                ans = min(ans, i - sta + 1);
+                cnt[s[sta]]--;
+                sta++;
+            }
         }
+        return ans;
+    }</B></FONT>
+    
+    bool isok() {
+        for (int i = 0; i &lt; 100; i++)
+            if (sum[i] - cnt[i] &gt; 0)
+                return false;
         return true;
     }
-    int balancedString(string s) {
-        int cnt[4] = {0, 0, 0, 0};
-        for (auto c : s) {
-            if (c == 'Q') ++cnt[0];
-            if (c == 'W') ++cnt[1];
-            if (c == 'E') ++cnt[2];
-            if (c == 'R') ++cnt[3];
-        }
-        int expect = s.size() / 4;
-        int diff[4];
-        int min_mod = 0;
-        unordered_map&lt;char, int&gt; extra;
-        for (int i = 0; i &lt; 4; ++i) {
-            diff[i] = cnt[i] - expect;
-            if (diff[i] &gt; 0) {
-                extra[cmap[i]] = diff[i];
-            }
-        }
-        if (extra.size() == 0) return 0;
-<A NAME="0"></A>        int l = -1, r = 0;
-        unordered_map&lt;char, int&gt; m;
-        int res = INT_MAX;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while (l &lt; (int)s.size()) {
-            while (!test(extra, m) &amp;&amp; r &lt; s.size()) {
-                ++m[s[r]];
-                ++r;
-            }
-            if (!test(extra, m)) break;
-            res = min(res, r - l - 1);
-            ++l;
-            --m[s[l]];
-        }
-        return res;
-    }
-};</B></FONT>
+};
 </PRE>
 </BODY>
 </HTML>

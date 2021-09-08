@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>250_hum.java</TITLE>
+ <TITLE>308_lianyoucat.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,56 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>250_hum.java</CENTER></H3><HR>
+<H3><CENTER>308_lianyoucat.java</CENTER></H3><HR>
 <PRE>
 class Solution {
     public int balancedString(String s) {
-        int len = s.length();
-        int count = len / 4;
-        int[] alp = new int[26];
-        for (char c : s.toCharArray()) {
-            alp[c - 'A']++;
+<A NAME="0"></A>        int exp=s.length()/4;
+        int[] cnt=new int[4];
+        int n=s.length();
+        for(int i=0;i&lt;n;i++)<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            char c=s.charAt(i);
+            if(c=='Q') cnt[0]++;
+            if(c=='W') cnt[1]++;
+<A NAME="1"></A>            if(c=='E') cnt[2]++;
+            if(c=='R') cnt[3]++;
+        }</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(cnt[0]==cnt[1]&amp;&amp;cnt[1]==cnt[2]&amp;&amp;cnt[2]==cnt[3]) return 0;
+        int[] need=new int[4];
+        for(int i=0;i&lt;4;i++){
+            if</B></FONT>(cnt[i]&gt;exp){
+                need[i]=cnt[i]-exp;
+            } 
         }
-        int[] index = {16, 22, 4, 17};
-        int[] need = new int[4];
-        boolean flag = false;
-        for (int i = 0; i &lt; 4; i++) {
-            int tmp = alp[index[i]] - count;
-            if (tmp &gt; 0) {
-                flag = true;
-                need[i] = tmp;
-            }
+        int ans=Integer.MAX_VALUE;
+<A NAME="3"></A>        int[] cur=new int[4];
+        int start=0;
+        for(int i=0;i&lt;n;i++){
+            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#3',2,'match12-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>char c=s.charAt(i);
+            if(c=='Q') cur[0]++;
+            if(c=='W') cur[1]++;
+<A NAME="2"></A>            if(c=='E') cur[2]++;
+            if(c=='R') cur[3]++;</B></FONT>
+            
+            while(check(need,cur))<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#2',2,'match12-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                ans=Math.min(ans,i-start+1);
+                char sc=s.charAt(start++);
+                if(sc=='Q') cur[0]--;
+                if(sc=='W') cur[1]--;
+                if(sc=='E') cur[2]--;
+                if(sc=='R') cur[3]--;
+            }</B></FONT>
         }
-        if (!flag) {
-            return 0;
-        }
-        int i = 0;
-        int j = 0;
-        int result = Integer.MAX_VALUE;
-        int[] res = new int[26];
-<A NAME="0"></A>        while (j &lt; len) {
-            res[s.charAt(j) - 'A']++;
-            while (check(res, need) &amp;&amp; i &lt;= j) {
-                result = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(result, j - i + 1);
-                res[s.charAt(i) - 'A']--;
-                i++;
-            }
-            j++;
-        }
-
-        return result;
+        return ans;
     }
-<A NAME="1"></A>
-    private boolean check(int[] res, int[] need) {</B></FONT>
-        int[] index = {16, 22, 4, 17};
-        for (int k = 0; k &lt; 4; k++) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
-            if (res[index[k]] &lt; need[k]) {
+    private boolean check(int[] need,int[] cur){
+        for(int i=0;i&lt;4;i++){
+            if(cur[i]&lt;need[i]){
                 return false;
             }
         }
         return true;
     }
-}</B></FONT>
+}
 </PRE>
 
 </BODY>

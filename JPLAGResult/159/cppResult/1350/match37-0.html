@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>69_tianhao2.cpp</TITLE>
+ <TITLE>229_zhutianqi.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,48 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>69_tianhao2.cpp</CENTER></H3><HR>
+<H3><CENTER>229_zhutianqi.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
-        unordered_set&lt;string&gt; fds;
-        for (string fd:folder) {
-            fds.insert(fd);
-<A NAME="0"></A>        }
-        vector&lt;string&gt; ret;
-        for (string fd:folder) {
-<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            bool skip=false;
-            for (int i=0; i&lt;fd.size(); i++) {
-                if (fd[i]=='/' &amp;&amp; fds.find(fd.substr(0, i))!=fds.end()) {
-                    skip=true;
+vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+    unordered_set&lt;string&gt; ss;
+    vector&lt;string&gt; folder2;
+    for (auto &amp; s : folder) {
+        bool canRemove = false;
+        for (int i = 1; i &lt; s.size(); i++) {
+            if (s[i] == '/') {
+                if (ss.count(s.substr(0, i))) {
+                    canRemove = true;
                     break;
                 }
             }
-            if (!skip) {
-                ret.push_back(fd);
+        }
+        if (!canRemove) {
+            ss.insert(s);
+            folder2.push_back(s);
+        }
+    }
+    unordered_set&lt;string&gt; sss;
+<A NAME="0"></A>    vector&lt;string&gt; folder3;
+    reverse(folder2.begin(), folder2.end());
+    for (auto &amp; s : folder2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        bool canRemove = false;
+        for (int i = 1; i &lt; s.size(); i++) {
+            if (s[i] == '/') {
+                if (sss.count(s.substr(0, i))) {
+                    canRemove = true;
+                    break;
+                }
             }
         }
-        return ret;
+        if (!canRemove) {
+            sss.insert(s);
+            folder3.push_back(s);
+        }
     }
+    return folder3;
+}
 };</B></FONT>
 </PRE>
 </BODY>

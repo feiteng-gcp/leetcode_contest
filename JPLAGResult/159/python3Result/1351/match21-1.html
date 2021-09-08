@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>208_machine518.py</TITLE>
+ <TITLE>257_great_white.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,40 +15,58 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>208_machine518.py</CENTER></H3><HR>
+<H3><CENTER>257_great_white.py</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+class Solution:
     def balancedString(self, s: str) -&gt; int:
-        count = collections.Counter(s)
+        from collections import Counter
+        d = Counter(s)
+        # print(d)
+        
+        q = d.get('Q', 0)
+        w = d.get('W', 0)
+        e = d.get('E', 0)
+        r = d.get('R', 0)
+        
         n = len(s)
-        rem = {}
-        for key, val in count.items():
-            if val&gt; n//4: rem[key] = val - n//4
-        if</B></FONT> not rem: return 0
-        low , high = 0, 0
-        curr = {}
-        cnt = 0
+        n //= 4
         
-        res = n
-        target = len(rem.keys())
-        #print(target)
-        while high&lt; n:
-            while high&lt; n and cnt &lt; target:
-                char = s[high]
-                if char in rem:
-                    curr[char] = curr.get(char, 0) + 1
-                    if curr[char] == rem[char]: cnt += 1
-                high += 1
-            while low&lt;high and cnt&gt;= target:
-                char = s[low]
-                if char in rem:
-                    curr[char] -= 1
-                    if curr[char] == rem[char] - 1: cnt -= 1
-                low += 1
-            res = min(res, high-low+1)
-            #print(high, low)
-        return res
+<A NAME="0"></A>        q = max(0, q - n)
+        w = max(0, w - n)
+        e = max(0, e - n)
+        r <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= max(0, r - n)
         
+        # print(q, w, e, r)
+        
+        d = dict()
+        d['Q'] = q
+        d['W'] = w
+        d['E'] = e
+        d['R'] = r
+        
+        n *=</B></FONT> 4
+        
+        ans = 10 ** 9
+        
+        if q == w == e == r == 0:
+            return 0
+        
+<A NAME="1"></A>        i, j = 0, 0
+        while i &lt; n:
+            # print(d, i, j)
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while d['Q'] &lt;= 0 and d['W'] &lt;= 0 and d['E'] &lt;= 0 and d['R'] &lt;= 0:
+                d[s[j]] += 1
+                j += 1
+                ans = min(</B></FONT>ans, i - j + 1)
+            d[s[i]] -= 1
+            i += 1
+        
+        while j &lt; n and d['Q'] &lt;= 0 and d['W'] &lt;= 0 and d['E'] &lt;= 0 and d['R'] &lt;= 0:
+            ans = min(ans, n - 1 - j + 1)
+            d[s[j]] += 1
+            j += 1
+        
+        return ans
 </PRE>
 
 </BODY>

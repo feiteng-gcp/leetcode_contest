@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>331_qobilidop.py</TITLE>
+ <TITLE>383_ericxbn.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,23 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>331_qobilidop.py</CENTER></H3><HR>
+<H3><CENTER>383_ericxbn.py</CENTER></H3><HR>
 <PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>from collections import defaultdict
+from functools import lru_cache
+from bisect import bisect
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
-<A NAME="0"></A>        data = [(et, st, p) for st, et, p in zip(startTime, endTime, profit)]
-        data.sort()
-        et = [x for x, _, _ in data]
-        st = [<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>x for _, x, _ in data]
-        pr = [x for _, _, x in data]
+        aux = defaultdict(list)
+        for s, e, p in zip(startTime, endTime, profit):
+            aux[e].append((s, p))
+        e_list, prev_e = sorted(endTime), {}
+        for s in startTime:
+            i = bisect(e_list, s)
+            i -= e_list[i] != s
+            prev_e[s] = e_list[i] if i &gt;= 0 else 0
+        # print(prev_e)
+        prev_ee =</B></FONT> {}
+        tmp = set(e_list)
+        tmp = sorted(list(tmp))
+        for i,e in enumerate(tmp):
+            if i == 0:
+                prev_ee[e] = 0
+            else:
+                prev_ee[e] = tmp[i-1]
+        @lru_cache(None)
+        def helper(e):
+            res = 0
+            for s, p in aux[e]:
+                res = max(res, p + helper(prev_e[s]), helper(prev_ee[e]) if prev_ee[e] &gt; 0 else 0)
+            # print(e, res)
+            return res
         
-        n = len(pr)
-        dp = [0] * (n + 1)
-        for i in range(1, n + 1):
-            j = bisect.bisect(et, st[i - 1])
-            dp[</B></FONT>i] = max(dp[i - 1], dp[j] + pr[i - 1])
-        return dp[n]
-        
+        ans = max(helper(e) for e in sorted(aux.keys()))
+        return ans
 </PRE>
 
 </BODY>

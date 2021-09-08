@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>271_accordion.cpp</TITLE>
+ <TITLE>427_zhukuan042.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,36 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff">
 <HR>
-<H3><CENTER>271_accordion.cpp</CENTER></H3><HR>
+<H3><CENTER>427_zhukuan042.cpp</CENTER></H3><HR>
 <PRE>
-<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+class Solution {
 public:
     int balancedString(string s) {
-        map&lt;char, int&gt; cnt;
-        for(char c : s) ++cnt[c];
-        int _ = s.size() / 4;
-        int ans = 0x3f3f3f3f;
-        for(auto&amp; x : cnt) {
-			if(x.second &lt;= _) x.second = -ans;</B></FONT>
-			else x.second -= _;
-		}
-        map&lt;char, int&gt; temp = cnt;
-        for(auto&amp; x : temp) x.second = 0;
-        for(int l = 0, r = 0; l &lt; s.size(); ++l) {
-            while(true &amp;&amp; r &lt; s.size()) {
-	            bool ok = true;
-	            for(auto&amp; x : cnt) if(temp[x.first] &lt; x.second) ok = false;
-                if(ok) break;
-                ++temp[s[r++]];
-            }
-            bool ok = true;
-            for(auto&amp; x : cnt) if(temp[x.first] &lt; x.second) ok = false;
-            if(ok == false &amp;&amp; r == s.size()) break;
-            ans = min(ans, r-l);
-            if(r == l) ++temp[s[r++]];
-            --temp[s[l]];
+        int need = s.size()/4;
+        int Qcount = 0;
+        int Wcount = 0;
+        int Ecount = 0;
+        int Rcount = 0;
+        int Qneed = 0;
+        int Wneed = 0;
+        int Eneed = 0;
+        int Rneed = 0;
+        for (char c:s) {
+            if (c=='Q') Qcount++;
+            else if (c=='W') Wcount++;
+            else if (c=='E') Ecount++;
+            else if (c=='R') Rcount++;
         }
-        return ans;
+        Qneed = max(Qcount-need,0);
+        Wneed = max(Wcount-need,0);
+        Eneed = max(Ecount-need,0);
+        Rneed = max(Rcount-need,0);
+        
+        Qcount = 0;
+        Wcount = 0;
+        Ecount = 0;
+<A NAME="0"></A>        Rcount = 0;
+        int start = 0;
+        int res = s.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int end = 0; end&lt;s.size(); ++end) {
+            if (s[end]=='Q') Qcount++;
+            else if (s[end]=='W') Wcount++;
+            else if (s[end]=='E') Ecount++;
+            else if (s[end]=='R') Rcount++;</B></FONT>
+<A NAME="1"></A>            
+            while (Qcount&gt;=Qneed&amp;&amp;Wcount&gt;=Wneed&amp;&amp;Ecount&gt;=Eneed&amp;&amp;Rcount&gt;=Rneed) {
+                res = min(res,end-start+1);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (start&lt;=end) {
+                    if (s[start]=='Q') Qcount--;
+                    else if (s[start]=='W') Wcount--;
+                    else if (s[start]=='E') Ecount--;
+                    else if (s[start]=='R') Rcount--;
+                    start++;
+                }
+                else break;</B></FONT>
+            }
+        }
+        
+        return res;
     }
 };
 </PRE>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>170_lz437.cpp</TITLE>
+ <TITLE>157_EUqr2c2cjD8nuX5K.cpp</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,28 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>170_lz437.cpp</CENTER></H3><HR>
+<H3><CENTER>157_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
 <PRE>
 class Solution {
 public:
-    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; a) {
-<A NAME="0"></A>        sort(a.begin(),a.end());
-        set&lt;string&gt;s;
-        vector&lt;string&gt;ret;
-<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;a.size();i++){
-            string tmp=&quot;&quot;;
-            bool f=true;
-            for(int j=0;j&lt;a[i].size();j++){
-                tmp+=a[i][j];
-                if(j+1==a[i].size()||a[i][j+1]=='/'){
-                    if(s.find(tmp)!=s.end()){
-                        f=false;
-                        break;
-                    }
-                }   
+    vector&lt;string&gt; removeSubfolders(vector&lt;string&gt;&amp; folder) {
+        sort(folder.begin(), folder.end());
+<A NAME="0"></A>        
+        vector&lt;string&gt; res;
+        for (auto&amp; f : folder) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (res.empty()) {
+                res.emplace_back(f);
+                continue;
             }
-            if(!f)continue;</B></FONT>
-            s.insert(a[i]);
-            ret.push_back(a[i]);
+            if (f.size() &gt; res.back().size() &amp;&amp; f.substr(0, res.back().size()) == res.back() &amp;&amp; f[res.back().size()] == '/') {
+                continue;
+            }
+            res.emplace_back(f);
         }
-        return ret;
+        
+        return res;
     }
-};
+};</B></FONT>
 </PRE>
 </BODY>
 </HTML>

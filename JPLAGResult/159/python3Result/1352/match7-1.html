@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>285_immike.py</TITLE>
+ <TITLE>185_yajc.py</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,30 +15,40 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>285_immike.py</CENTER></H3><HR>
+<H3><CENTER>185_yajc.py</CENTER></H3><HR>
 <PRE>
 <A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
-    def jobScheduling(self, startTime, endTime, profit) -&gt; int:
+    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -&gt; int:
+        
+<A NAME="1"></A>        course = [(startTime[i],endTime[i],profit[i]) for i in range(len(startTime))]
+        course.sort(key = lambda x: x[</B></FONT>1])
+   
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def findLast(i):
+        
+            for j in range(i, -1, -1):
+                if course[j][1] &lt;= course[i][0]:
+                    return j
+            r</B></FONT>eturn -1
+    
         n = len(startTime)
-        T = []
-        for i in range(n):
-            T.append((endTime[i], startTime[i], profit[</B></FONT>i]))
-        T.sort()
-        dp = [0 for i in range(n)]
-        dp[0] = T[0][2]
-
-        # print(T)
-
-        import bisect
+        dp = [0] * n
+        
+        dp[0]= course[0][2]
+        
         for i in range(1, n):
-            E, S, P = T[i][0], T[i][1], T[i][2]
-
-            dp[i] = max(dp[i - 1], P)
-            j = bisect.bisect_left(T, (S, S, 100000))
-            if j == 0:
-                continue
-            dp[i] = max(dp[i], P + dp[j - 1])
-        return max(dp)
+            
+            tmp = course[i][2]
+          
+            
+            idx = findLast(i)
+            
+            if idx != -1:
+                tmp += dp[idx]
+            
+            dp[i] = max(dp[i-1], tmp)
+        
+        return dp[-1]
+        
 </PRE>
 
 </BODY>

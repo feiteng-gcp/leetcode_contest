@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <TITLE>121_TinyExplorer.java</TITLE>
+ <TITLE>162_musteryu.java</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script type="text/javascript">
   <!--
@@ -15,33 +15,57 @@
 </HEAD>
 <BODY BGCOLOR="#ffffff" style="margin-left:25">
 <HR>
-<H3><CENTER>121_TinyExplorer.java</CENTER></H3><HR>
+<H3><CENTER>162_musteryu.java</CENTER></H3><HR>
 <PRE>
-class Solution {
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-<A NAME="0"></A>        TreeMap&lt;Integer, Integer&gt; tm = new TreeMap&lt;&gt;();
-        int res = 0;
-        int n = startTime.length;
-        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] a = new int[n][3];
-        for (int i = 0;i&lt;n; i++) {
-            a[i][0] = startTime[i];
-            a[i][1] = endTime[i];
-            a[i][2] = profit[i];
+        Job[] jobs = new Job[startTime.length];
+        for (int i = 0; i &lt; startTime.length; i++) {
+            jobs[i] = new Job(startTime[i], endTime[i], profit[i]);
         }
-        Arrays.sort(a, (x, y) -&gt; x[1] - y[1]);
-        tm.put(a[0][1], a[0][2]);
-        res += a[0][2];
-
-        for (int i = 1; i&lt;n; i++) {
-            Map.Entry&lt;Integer, Integer&gt; ent = tm.floorEntry(a[i][0])</B></FONT>;
-            int cur = a[i][2];
-<A NAME="1"></A>            if (ent != null) {
-                cur += ent.getValue();
+        Arrays.sort(jobs, (j1, j2) -&gt; {</B></FONT>
+            int diff = j1.e - j2.e;
+            if (diff == 0) {
+                diff = j1.s - j2.s;
             }
-            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res = Math.max(res, cur);
-            tm.put(a[i][1], res);
+            if (diff == 0) {
+                diff = j1.p - j2.p;
+            }
+            return diff;
+        });
+        TreeMap&lt;Integer, Integer&gt; totalProfit = new TreeMap&lt;&gt;();
+        for (Job job: jobs) {
+            Integer lastEnd = totalProfit.floorKey(job.s);
+            if (lastEnd == null) {
+                update(totalProfit, job.e, job.p);
+            } else {
+                update(totalProfit, job.e, job.p + totalProfit.get(lastEnd));
+            }
+<A NAME="1"></A>        }
+        int maxProfit = 0;
+        for (int p: totalProfit.values()) {
+            maxProfit = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.max(maxProfit, p);
         }
-        return res;
+        return maxProfit;
+    }
+    
+    private void update(TreeMap&lt;Integer, Integer&gt; totalProfit, int e</B></FONT>, int p) {
+        Integer nearestEnd = totalProfit.floorKey(e);
+        if (nearestEnd != null &amp;&amp; totalProfit.get(nearestEnd) &gt; p) {
+<A NAME="2"></A>            p = totalProfit.get(nearestEnd);
+        }
+        totalProfit.put(e, p);
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#2',2,'match35-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private static class Job {
+        int s;
+        int e;
+        int p;
+        Job(int s, int e, int p) {
+            this.s = s;
+            this.e = e;
+            this.p = p;
+        }
     }
 }</B></FONT>
 </PRE>
