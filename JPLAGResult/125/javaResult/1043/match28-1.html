@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_paulwater.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_paulwater.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int[] gridIllumination(int N, int[][] lamps, int[][] queries) {
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; xy = new HashMap();
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; yx = new HashMap();
+<A NAME="1"></A>        Map&lt;Integer,Set&lt;Integer&gt;&gt; left_axis = new HashMap();
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; right_axis = new HashMap();
+        for(int[] lamp: lamps){</B></FONT>
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!xy.containsKey(lamp[0])) {
+                xy.put(lamp[0],new HashSet&lt;Integer&gt;());
+            }
+            xy.get(lamp[0]).add(lamp[1]);
+            if (!yx.containsKey(lamp[1])) {
+                yx.put(lamp[1],new HashSet&lt;Integer&gt;());
+            }
+            yx.get(lamp[1]).add(lamp[0]);
+            if (!left_axis.containsKey(lamp[1]+lamp[0])) {
+                left_axis.put(lamp[1]+lamp[0],new HashSet&lt;Integer&gt;());
+            }
+            left_axis.get(lamp[1]+lamp[0]).add(lamp[0]);
+            if (!right_axis.containsKey(lamp[1]-lamp[0])) {
+                right_axis.put(lamp[1]-lamp[0],new HashSet&lt;Integer&gt;());
+            }
+            right_axis.get(lamp[1]-lamp[0]).add(lamp[0]);
+        }
+        int[] result = new</B></FONT> int[queries.length];
+//        for (int[] query: queries){
+        for (int index=0; index&lt;queries.length; index++) {
+            int x = queries[index][0];
+            int y = queries[index][1];
+<A NAME="2"></A>            if (xy.containsKey(x) || yx.containsKey(y) || right_axis.containsKey(y-x) || left_axis.containsKey(y+x)) {
+                result[index] =1;
+                for (int i=-1;i&lt;=1;i++){
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j=-1;j&lt;=1;j++){
+<A NAME="3"></A>                        int x1 = x+i;
+                        int y1 = j+i;
+                        if (xy.containsKey(x1) &amp;&amp; xy.get(x1).contains(y1)) {</B></FONT>
+                            <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#3',2,'match28-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>xy.get(x1).remove(y1);
+                            if (xy.get(x1).size()==0) {
+                                xy.remove(x1);
+                            }</B></FONT>
+                        }
+                        if (yx.containsKey(y1) &amp;&amp; yx.get(y1).contains(x1)) {
+                            yx.get(y1).remove(x1);
+                            if (yx.get(y1).size()==0) {
+                                yx.remove(y1);
+                            }
+                        }
+                        if (left_axis.containsKey(y1+x1) &amp;&amp; left_axis.get(y1+x1).contains(x1)) {
+                            left_axis.get(y1+x1).remove(x1);
+                            if (left_axis.get(y1+x1).size()==0) {
+                                left_axis.remove(y1+x1);
+                            }
+<A NAME="4"></A>                        }
+                        if (right_axis.containsKey(y1-x1) &amp;&amp; right_axis.get(y1-x1).contains(x1)) {
+                            right_axis.get(y1-x1).remove(x1);
+                            <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#4',2,'match28-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (right_axis.get(y1-x1).size()==0) {
+                                right_axis.remove(y1-x1);
+                            }
+                        }
+                    }
+                }</B></FONT>
+            }
+            else {
+                result[index] = 0;
+            }
+
+        }
+        return result;
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

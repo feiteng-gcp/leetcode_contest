@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_devilhtc.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_devilhtc.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def numRookCaptures(self, board: List[List[str]]) -&gt; int:
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def fr():
+            for i in range(8):
+                for j in range(8):
+                    if board[i][j] == 'R':
+                        return i, j
+        ri, rj = fr()
+        out =</B></FONT> 0
+        def fp(li, lj):
+            if isinstance(li, int):
+                li = [li] * len(lj)
+            else:
+                lj = [lj] * len(li)
+            for i, j in zip(li, lj):
+                if board[i][j] == 'p':
+                    return 1
+                elif board[i][j] != '.':
+                    return 0
+            return 0
+        def rangel(i, j):
+            return list(range(i, j, 1 if i &lt; j else -1))
+        return (
+            fp(rangel(ri + 1, 8), rj)
+            + fp(rangel(ri - 1, -1), rj)
+            + fp(ri, rangel(rj + 1, 8))
+            + fp(ri, rangel(rj - 1, -1))
+        )
+</PRE>
+
+</BODY>
+</HTML>

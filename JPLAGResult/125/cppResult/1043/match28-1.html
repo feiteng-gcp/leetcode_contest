@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_hasta.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_hasta.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int dx[8]={1,1,1,0,-1,-1,-1,0};
+    int dy[8]={1,0,-1,-1,-1,0,1,1};
+    vector&lt;int&gt; gridIllumination(int N, vector&lt;vector&lt;int&gt;&gt;&amp; lamps, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+<A NAME="0"></A>        map&lt;int,int&gt; row;
+        map&lt;int,int&gt; col;
+        map&lt;int,int&gt; plus;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;int,int&gt; del;
+        map&lt;pair&lt;int,int&gt;,int &gt;light;
+        for(auto i:lamps){
+            int x=i[0],y=i[1];
+            plus[x+y]++;
+            col[y]++;
+            row[x]++;
+            del[x-y]++;
+            //代表这里有一盏灯
+            light[make_pair(x,y)]++;
+        }
+        vector&lt;int&gt; ans;
+        for(auto i:queries){
+            int x=i[0],y=i[1];</B></FONT>
+            if(plus[x+y] ||row[x] ||col[y]||del[x-y]){
+                ans.push_back(1);
+            }
+            else ans.push_back(0);
+            for(int k=0;k&lt;8;k++){
+<A NAME="1"></A>                int m=x+dx[k];
+                int n=y+dy[k];
+                if(m&lt;0 ||n&lt;0 ||m&gt;=N ||n&gt;=N) continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(light[make_pair(m,n)]){
+                    //
+                    light[make_pair(m,n)]--;
+                    plus[m+n]--;
+                    col[n]--;
+                    row[m]--;
+                    del[m-n]--;
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

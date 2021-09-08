@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>12_sheepforever.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>12_sheepforever.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;functional&gt;
+#include &lt;algorithm&gt;
+#include &lt;stdexcept&gt;
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;fstream&gt;
+#include &lt;numeric&gt;
+#include &lt;cstring&gt;
+#include &lt;iomanip&gt;
+#include &lt;cstdlib&gt;
+#include &lt;utility&gt;
+#include &lt;cctype&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;bitset&gt;
+#include &lt;cmath&gt;
+#include &lt;queue&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stack&gt;
+#include &lt;ctime&gt;
+#include &lt;list&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;assert.h&gt;
+#define REP(i,n) for(int i=0;i&lt;n;i++)
+#define TR(i,x) for(__typeof(x.begin()) i=x.begin();i!=x.end();i++)
+#define ALL(x) x.begin(),x.end()
+#define SORT(x) sort(ALL(x))
+#define CLEAR(x) memset(x,0,sizeof(x))
+#define FILL(x,c) memset(x,c,sizeof(x))
+
+#include &lt;unordered_set&gt;
+#include &lt;unordered_map&gt;
+#include &lt;thread&gt;
+
+using namespace std;
+
+#define PB push_back
+#define MP make_pair
+
+typedef map&lt;int,int&gt; MII;
+typedef map&lt;string,int&gt; MSI;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;string&gt; VS;
+typedef vector&lt;long double&gt; VD;
+typedef pair&lt;int,int&gt; PII;
+typedef long long int64;
+typedef long long LL;
+typedef unsigned int UI;
+typedef long double LD;
+typedef unsigned long long ULL;
+
+<A NAME="0"></A>const double PI = acos(-1.0);
+const double EPS = 1e-8;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; gridIllumination(int N, vector&lt;vector&lt;int&gt;&gt;&amp; lamps, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        unordered_map&lt;int, int&gt; r, c, p, q;
+        set&lt;pair&lt;int, int&gt;&gt; nodes;</B></FONT>
+        TR(it, lamps) {
+            int u = (*it)[0];
+            int v = (*it)[1];
+            r[u]++;
+            c[v]++;
+            p[u+v]++;
+            q[u-v]++;
+            
+            nodes.insert(MP(u, v));
+        }
+        
+        
+        VI ans;
+        TR(it, queries) {
+            int u = (*it)[0];
+            int v = (*it)[1];
+            if (r[u] &gt; 0 || c[v] &gt; 0 || p[u+v] &gt; 0 || q[u-v] &gt; 0) {
+                ans.PB(1);
+            } else {
+<A NAME="1"></A>                ans.PB(0);
+            }
+            
+<A NAME="2"></A><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int dx = -1; dx &lt;= 1; ++dx) {
+                for (int dy = -1; dy &lt;= 1; ++dy) {
+                    int uu = u + dx;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int vv = v + dy;
+                    
+                    auto it = nodes.find(MP(uu, vv));
+                    if (it != nodes.end()) {
+                        --r[uu];
+                        --c[vv];
+                        --p[uu+vv];
+                        --q[uu-vv];
+                        nodes.erase(it);
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

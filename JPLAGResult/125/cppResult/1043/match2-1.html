@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_suiyuan1992.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>274_suiyuan1992.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+private:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int dir[9][2] = {{0,0},{1,0},{1,-1},{1,1},{0,1},{0,-1},{-1,0},{-1,1},{-1,-1}};</B></FONT>
+public:
+    vector&lt;int&gt; gridIllumination(int n, vector&lt;vector&lt;int&gt;&gt;&amp; l, vector&lt;vector&lt;int&gt;&gt;&amp; q) {
+        unordered_map&lt;int,int&gt; mh,ms,mx1,mx2;
+        set&lt;pair&lt;int,int&gt;&gt;st;
+        for(int i=0;i&lt;l.size();i++){
+            int x = l[i][0];
+            int y = l[i][1];
+            mh[x]++;
+            ms[y]++;
+            mx1[x+y]++;
+            mx2[x-y+n-1]++;
+            st.insert(make_pair(x,y));
+        }
+        vector&lt;int&gt;ret=vector&lt;int&gt;(q.size(),0);
+        for(int i=0;i&lt;q.size();i++){
+<A NAME="1"></A>            int x = q[i][0];
+            int y = q[i][1];
+            if(mh[x]+ms[y]+mx1[x+y]+mx2[x-y+n-1]&gt;0)ret[i]=1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int j=0;j&lt;9;j++){
+                int nx=x+dir[j][0];
+                int ny=y+dir[j][1];
+                if(st.find(make_pair(nx,ny))!=st.end()){
+                    mh[nx]--;
+                ms[ny]--;
+                mx1[nx+ny]--;
+                mx2[nx-ny+n-1]--;
+                    st.erase(make_pair(nx,ny));
+                }
+            }
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

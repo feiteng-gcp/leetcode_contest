@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>389_ddpkakhet.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>389_ddpkakhet.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+
+
+class Solution:
+    def gridIllumination(self, N: int, lamps: List[List[int]], queries: List[List[int]]) -&gt; List[int]:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        diag_1 = defaultdict(set)
+<A NAME="0"></A>        diag_2 = defaultdict(set)
+        
+        def remove_point(nr, nc):
+            if (nr, nc) in rows<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[nr]:
+<A NAME="1"></A>                rows[nr].remove((nr, nc))
+            if (nr, nc) in cols[nc]:
+                cols[nc].remove((nr</B></FONT>, nc))
+            if (nr, nc) in diag_1<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[nr-nc]:
+                diag_1[nr-nc].remove((nr, nc))
+            if (nr, nc) in diag_2[nr+nc]:
+<A NAME="2"></A>                diag_2[nr+nc].remove((nr</B></FONT>, nc))
+        
+        for x, y in lamps:
+            rows<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x].add((x, y))
+            cols[y].add((x, y))
+            diag_1[x-y].add((x</B></FONT>,y))
+            diag_2[x+y].add((x,y))
+        
+        answer = []
+        neighbors = ((-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1))
+        for x, y in queries:
+            if len(rows[x]) or len(cols[y]) or len(diag_1[x-y]) or len(diag_2[x+y]):
+                answer.append(1)
+            else:
+                answer.append(0)
+            remove_point(x, y)
+            for cr, cc in neighbors:
+                nr, nc = x+cr, y+cc
+                if nr &gt;= 0 and nc &gt;= 0 and nr &lt; N and nc &lt; N:
+                    remove_point(nr, nc)
+        return answer
+</PRE>
+
+</BODY>
+</HTML>

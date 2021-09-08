@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>288_GoodVegetable.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>288_GoodVegetable.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; gridIllumination(int N, vector&lt;vector&lt;int&gt;&gt;&amp; lamps, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        multiset&lt;int&gt; x, y, xy1, xy2; 
+        set&lt;pair&lt;int,int&gt; &gt; la;
+        vector&lt;int&gt; ans;
+        for(int i = 0; i &lt; lamps.size(); i++) {
+            int curx = lamps[i][0];
+            int cury = lamps[i][1];</B></FONT>
+            la.insert({lamps[i][0],lamps[i][1]}); 
+            x.insert(curx);
+            y.insert(cury);
+            xy1.insert(curx+cury);
+            xy2.insert(curx-cury);
+<A NAME="1"></A>        }
+        int dx[9] = {-1,-1,-1,0,0,0,1,1,1};
+        int dy[9] = {-1,0,1,-1,0,1,-1,0,1};
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; queries.size(); i++) {
+            int curx = queries[i][0];
+            int cury = queries[i][1];
+            if(x.find(curx) != x.end() || y.find(cury) != y.end() || xy1.find(curx+cury) != xy1.end()
+              || xy2.find(curx-cury) != xy2.end()) 
+                ans.push_back(1);
+            else ans.push_back(0);
+            for(int j = 0; j &lt; 9; j++) {
+                int rx = curx + dx[j];
+                int ry = cury + dy[j];
+                if(rx &lt; N &amp;&amp; rx &gt;= 0 &amp;&amp; ry &lt; N &amp;&amp; ry &gt;= 0) {</B></FONT>
+                    if(la.find({rx,ry}) != la.end()) {
+                        la.erase(la.find({rx,ry}));
+                        x.erase(x.find(rx));
+                        y.erase(y.find(ry));
+                        xy1.erase(xy1.find(rx+ry));
+                        xy2.erase(xy2.find(rx-ry));
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
