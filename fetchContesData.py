@@ -325,26 +325,31 @@ if __name__ == '__main__':
 
     page_end = 20   # check for top 500 people
     while True:
-        contest = loadContest().strip()
-        contest_int = (int)(contest)
+        try:
+            contest = loadContest().strip()
+            contest_int = (int)(contest)
 
 
-        print(contest)
-        
-        fetchContestRankingPage(contest)
-        parseSubmissions(contest, page_end)
-        
-        jplag(contest)
+            print(contest)
+            
+            fetchContestRankingPage(contest)
+            parseSubmissions(contest, page_end)
+            
+            jplag(contest)
 
-        update_indexMD()
+            update_indexMD()
 
 
-        commit_and_pushtoGithub('JPLAGResult/' + contest)
-        commit_and_pushtoGithub('index.md')
+            commit_and_pushtoGithub('JPLAGResult/' + contest)
+            commit_and_pushtoGithub('index.md')
 
-        contest_int = contest_int + 1
+            contest_int = contest_int + 1
 
-        writeContest(contest_int)
+
+            writeContest(contest_int)
+        except Exception as err:
+            # retry it..
+            pass
 
         # if page_end < 500: break   
 
