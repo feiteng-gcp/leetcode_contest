@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_pku_erutan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_pku_erutan.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minPushBox(self, grid: List[List[str]]) -&gt; int:
+        m = len(grid)
+<A NAME="0"></A>        n = len(grid[0])
+        get_empty = lambda : [['#']*n for i in range(m)]
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(m) :
+            for j in range(n) :
+                if grid[i][j] == 'S' :
+                    ps = (i, j)
+                    grid[i][j] = '.'
+                elif grid[i][j] == 'T' :
+                    pt = (i, j)
+                    grid[i][j] = '.'
+                elif grid[i][j] == 'B' :
+                    pb = (i, j)
+                    grid[i][j] = '</B></FONT>.'
+        
+        def gen_around(p) :
+            x, y = p
+            to_ret = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+            to_ret = [t for t in to_ret if all([t[0]&gt;=0, t[1]&gt;=0, t[0]&lt;m, t[1]&lt;n])]
+            to_ret = [t for t in to_ret if not grid[t[0]][t[1]] == '#']
+            return to_ret
+        
+        
+        def get_reachable(start_pos, block_pos) :
+            grid[block_pos[0]][block_pos[1]] = '#'
+            search_list = [start_pos]
+            search_set = set(search_list)
+            start_i = 0
+            while start_i &lt; len(search_list) :
+                start_p = search_list[start_i]
+                nextp = [t for t in gen_around(start_p) if not t in search_set]
+                for t in nextp :
+                    search_list.append(t)
+                    search_set.add(t)
+                start_i += 1
+            grid[block_pos[0]][block_pos[1]] = '.'
+            
+            return search_set
+        
+        # print(search_list)
+        # print(grid)
+        diff = lambda a,b:(a[0]-b[0], a[1]-b[1])
+        addd = lambda a,b:(a[0]+b[0], a[1]+b[1])
+        get_t = lambda gt, pt : gt[pt[0]][pt[1]]
+                    
+        bsearch_list = [(pb, 0, get_reachable(ps, pb))]
+        bsearch_set = set([(pb[0], pb[1], ps[0], ps[1])])
+        bstart_i = 0
+        while bstart_i &lt; len(bsearch_list) :
+            bstart_p, ni, reachable_set = bsearch_list[bstart_i]
+            # print(bstart_p, ni)
+            nextp = gen_around(bstart_p)
+            # print(nextp)
+            
+            for t in nextp :
+                push_place = addd(bstart_p, diff(bstart_p, t))
+                if not push_place in reachable_set :
+                    continue
+                key_t = (t[0], t[1], push_place[0], push_place[1])
+                if key_t in bsearch_set :
+                    continue
+                if t == pt :
+                    return ni+1
+                
+                new_reachable_set = get_reachable(push_place, t)
+                bsearch_list.append([t, ni+1, new_reachable_set])
+                bsearch_set.add(key_t)
+                
+            
+            bstart_i += 1
+        
+        
+        return -1
+            
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

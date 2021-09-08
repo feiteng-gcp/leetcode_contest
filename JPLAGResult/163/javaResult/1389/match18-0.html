@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+
+	private<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> boolean check(char[][] grid , int x1 , int y1 , int x2 , int y2 , int boxX , int boxY) {</B></FONT>
+		if (x1 == x2 &amp;&amp; y1 == y2) {
+			return true;			
+		}
+		Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+		queue.add(new int[] {x1 , y1});
+		int i , j , n = grid.length , m = grid[0].length;
+		for (i = 0;i &lt; n;i ++) {
+			for (j = 0;j &lt; m;j ++) {
+				vis[i][j] = false;
+			}
+		}
+		vis[x1][y1] = true;
+		vis[boxX][boxY] = true;	
+		while (!queue.isEmpty()) {
+			int[] current = queue.poll();
+			for (i = 0;i &lt; 4;i ++) {
+				int tx = current[0] + dx[i];
+				int ty = current[1] + dy[i];
+				if (tx &gt;= 0 &amp;&amp; tx &lt; n &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; m &amp;&amp; !vis[tx][ty] &amp;&amp; grid[tx][ty] != '#') {
+					if (tx == x2 &amp;&amp; ty == y2) {
+						return true;						
+<A NAME="1"></A>					}
+					vis[tx][ty] = true;
+					queue.add(new int[] {tx , ty});					
+				}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+			}
+		}		
+		return false;		
+	}</B></FONT>
+
+	private int[] dx = new int[] {- 1 , 0 , 1 , 0};
+	private int[] dy = new int[] {0 , 1 , 0 , - 1};	
+	
+<A NAME="2"></A>	private boolean[][] vis = new boolean[21][21];
+	private int[][][][] dists = new int[21][21][21][21];	
+	
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minPushBox(char[][] grid) {
+    	int x1 = - 1 , x2 = - 1 , y1 = - 1 , y2 = - 1 , tx = - 1 , ty = - 1;
+    	int i , </B></FONT>j , n = grid.length , m = grid[0].length;
+    	for (x1 = 0;x1 &lt; n;x1 ++) {
+    		for (y1 = 0;y1 &lt; m;y1 ++) {
+    			for (x2 = 0;x2 &lt; n;x2 ++) {
+    				for (y2 = 0;y2 &lt; m;y2 ++) {
+    					dists[x1][y1][x2][y2] = - 1;    					
+    				}
+    			}
+    		}
+<A NAME="3"></A>    	}
+    	for (i = 0;i &lt; n;i ++) {
+    		for (j = 0;j &lt; m;j ++) {    			
+    			if (grid[i][j] ==<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> 'S') {
+    				x1 = i;
+    				y1 = j;    				
+    			} else if (grid[i][j] == 'B') {
+    				x2 = i;
+    				y2 = j;    				
+    			} else if (grid[i][j] == 'T') {
+    				tx = i;
+    				ty = j;    				
+    			}    			
+    		}
+    	}   </B></FONT> 	
+    	dists[x1][y1][x2][y2] = 0;
+    	Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+    	queue.add(new int[] {x1 , y1 , x2 , y2});
+    	while (!queue.isEmpty()) {
+    		int[] current = queue.poll();    		
+    		// keeper
+    		x1 = current[0];
+    		y1 = current[1];    		
+    		// box
+    		x2 = current[2];
+    		y2 = current[3];
+    		if (x2 == tx &amp;&amp; y2 == ty) {
+    			return dists[x1][y1][x2][y2];    			
+    		} else {
+    			// push box
+    			for (i = 0;i &lt; 4;i ++) {
+    				int nextX = x2 + dx[i];
+    				int nextY = y2 + dy[i];
+    				int revX = x2 + dx[(i + 2) % 4];
+					int revY = y2 + dy[(i + 2) % 4];					
+    				if (nextX &gt;= 0 &amp;&amp; nextX &lt; n &amp;&amp; nextY &gt;= 0 &amp;&amp; nextY &lt; m &amp;&amp;
+    						grid[nextX][nextY] != '#' &amp;&amp; revX &gt;= 0 &amp;&amp; revX &lt; n &amp;&amp;
+    						revY &gt;= 0 &amp;&amp; revY &lt; m &amp;&amp; grid[revX][revY] != '#') {
+    					if (check(grid , x1 , y1 , revX , revY , x2 , y2)) {
+    						int dist = dists[x1][y1][x2][y2] + 1;
+<A NAME="4"></A>    						if (dist &lt; dists[x2][y2][nextX][nextY] || dists[x2][y2][nextX][nextY] &lt; 0) {
+    							dists[x2][y2][nextX][nextY] = dist;
+    							queue.add(new int[] {x2 , y2 , nextX , nextY});
+    						}<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match18-1.html#4',3,'match18-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+    					}
+    				}
+    			}		    			
+    		}</B></FONT>
+    	}
+    	return - 1;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

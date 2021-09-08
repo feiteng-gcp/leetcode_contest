@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_tianhao2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>29_tianhao2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int dx[4]={1, -1, 0, 0};
+<A NAME="1"></A>    int dy[4]={0, 0, 1, -1};
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {</B></FONT>
+        unordered_set&lt;int&gt; used;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int s, b, t;
+        for (int i=0; i&lt;grid.size(); i++) {
+            for (int j=0; j&lt;grid[0].size(); j++) {
+                if (grid[i][j]=='S') {
+                    s=i*20+j;
+                    grid[i][j]='.';
+                }
+                if (grid[i][j]=='B') {
+                    b=i*20+j;   
+                    grid[i][j]='.';
+                }
+                if (grid[i][j]=='T') {
+                    t=i*20+j;   
+                    grid[i][j]='.';
+                }
+            }
+        }
+        int ret=0;</B></FONT>
+        vector&lt;int&gt; st;
+        st.push_back(s*400+b);
+        while(!st.empty()) {
+            vector&lt;int&gt; st_next;
+            while(!st.empty()) {
+                int curr=st.back();
+                st.pop_back();
+                if (used.find(curr)==used.end()) {
+                    used.insert(curr);
+                    int ss=curr/400;
+                    int bb=curr%400;
+                    int sx=ss/20;
+                    int sy=ss%20;
+                    if (bb==t) {
+                        return ret;
+                    }
+                    for (int k=0; k&lt;4; k++) {
+                        int x=sx+dx[k];
+                        int y=sy+dy[k];
+                        if (x&gt;=0 &amp;&amp; x&lt;grid.size() &amp;&amp; y&gt;=0 &amp;&amp; y&lt;grid[0].size() &amp;&amp; grid[x][y]!='#') {
+                            if(x*20+y!=bb) {
+                                st.push_back((x*20+y)*400+bb);
+                            } else {
+                                int bx=bb/20;
+                                int by=bb%20;
+                                bx+=dx[k];
+                                by+=dy[k];
+                                if (bx&gt;=0 &amp;&amp; bx&lt;grid.size() &amp;&amp; by&gt;=0 &amp;&amp; by&lt;grid[0].size() &amp;&amp; grid[bx][by]!='#') {
+                                    st_next.push_back((x*20+y)*400+(bx*20+by));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            st=st_next;
+            ret++;
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

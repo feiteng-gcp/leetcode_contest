@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>303_fang2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>303_fang2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxSumDivThree(int[] nums) {
+        int sum = 0;
+        List&lt;Integer&gt; oneList = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; twoList = new ArrayList&lt;&gt;();
+        for (int num : nums) {
+            if (num % 3 == 1) oneList.add(num);
+            if (num % 3 == 2) twoList.add(num);
+            sum += num;
+        }
+        if (sum % 3 == 0) return sum;
+        else {</B></FONT>
+            Collections.sort(oneList);
+            Collections.sort(twoList);
+            
+<A NAME="1"></A>            if (sum % 3 == 1) {
+                if (oneList.size() &lt; 1 &amp;&amp; twoList.size() &lt; 2) return 0; 
+                int minSubtract = Integer.MAX_VALUE;
+                if (oneList.size() &gt;= 1) minSubtract = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.min(minSubtract, oneList.get(0));
+                if (twoList.size() &gt;= 2) minSubtract = Math.min(minSubtract, twoList.get(0) + twoList.get(1));
+                return sum - minSubtract;
+            } else {</B></FONT> // %3 == 2
+                if (oneList.size() &lt; 2 &amp;&amp; twoList.size() &lt; 1) return 0; 
+                int minSubtract = Integer.MAX_VALUE;
+                if (oneList.size() &gt;= 2) minSubtract = Math.min(minSubtract, oneList.get(0) + oneList.get(1));
+                if (twoList.size() &gt;= 1) minSubtract = Math.min(minSubtract, twoList.get(0));
+                return sum - minSubtract;
+            }            
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

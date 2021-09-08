@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>97_machaohcun.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>97_machaohcun.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxSumDivThree(self, nums: List[int]) -&gt; int:
+        f0, f1, f2 = [],[],[]
+        for num in nums:
+            if num % 3 == 0:
+                f0.append(num)
+            elif num % 3 == 1:
+                f1.append(num)
+            else:
+                f2.append(num)
+        f1.sort(</B></FONT>)
+        f2.sort()
+        n1,n2 = len(f1),len(f2)
+        res = sum(f1) + sum(f2)
+        if res % 3 == 1:
+            if n1 &gt;= 1 and n2 &gt;= 2:
+                res = max(res-f1[0],res-f2[0]-f2[1])
+            elif n1 &gt;= 1:
+                res -= f1[0]
+            elif n2 &gt;= 2:
+                res -= (f2[0] + f2[1])
+        elif res % 3 == 2:
+            if n1 &gt;= 2 and n2 &gt;= 1:
+                res = max(res-f1[0]-f1[1],res-f2[0])
+            elif n1 &gt;= 2:
+                res -= (f1[0] + f1[1])
+            elif n2 &gt;= 1:
+                res -= f2[0]
+        return res + sum(f0)
+        
+</PRE>
+
+</BODY>
+</HTML>

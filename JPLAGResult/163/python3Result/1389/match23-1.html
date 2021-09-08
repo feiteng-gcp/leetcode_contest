@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>25_sepehry.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>25_sepehry.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minPushBox(self, grid: List[List[str]]) -&gt; int:
+        n = len(grid)
+        m = len<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(grid[0])
+
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 'S':
+                    pos_man = i, j
+                elif grid[i][j] == 'T':
+                    pos_target = i, j
+                elif grid[i][j] == 'B':
+                    pos_box =</B></FONT> i, j
+
+        def neis(state):
+            i_box, j_box, i_man, j_man = state
+            for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                ii_man = i_man + di
+                jj_man = j_man + dj
+                if 0 &lt;= ii_man &lt; n and 0 &lt;= jj_man &lt; m and grid[ii_man][jj_man] != '#':
+                    if ii_man != i_box or jj_man != j_box:
+                        yield (i_box, j_box, ii_man, jj_man), False
+                    else:
+                        ii_box= i_box + di
+                        jj_box = j_box + dj
+                        if 0 &lt;= ii_box &lt; n and 0 &lt;= jj_box &lt; m and grid[ii_box][jj_box] != '#':
+                            yield (ii_box, jj_box, ii_man, jj_man), True
+
+        def is_target(state):
+            i_box, j_box, i_man, j_man = state
+            return i_box==pos_target[0] and j_box == pos_target[1]
+
+        q = [(0, pos_box+pos_man)]
+        visited_dist = collections.defaultdict(int)
+        while q:
+            dist, state = heapq.heappop(q)
+            if state not in visited_dist:
+                visited_dist[state] = dist
+                if is_target(state):
+                    return dist
+                for state2, pushed in neis(state):
+                    if state2 not in visited_dist:
+                        heapq.heappush(q, (dist+pushed, state2))
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

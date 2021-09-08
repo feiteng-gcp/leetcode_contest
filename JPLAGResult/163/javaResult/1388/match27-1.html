@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>277_stonecr0wn.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>277_stonecr0wn.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxSumDivThree(int[] nums) {
+        int sum = 0;
+        
+        
+            
+<A NAME="0"></A>        Integer m1min1 = null;
+        Integer m1min2 = null;
+        Integer m2min1 = null;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Integer m2min2 = null;
+        
+        for (int n : nums) {
+            sum += n;
+            if (n % 3 == 1) {
+                if (m1min1 == null || n &lt; m1min1) {
+                    m1min2 = m1min1;
+                    m1min1 = n;
+                } else if (m1min2 == null || n &lt; m1min2) {
+                    m1min2 = n;
+                }
+            } else if (n % 3 == 2) {
+                if (m2min1 == null || n &lt; m2min1) {
+                    m2min2 = m2min1;
+                    m2min1 = n;
+                } else if (m2min2 == null || n &lt; m2min2) {
+                    m2min2 = n;
+                }
+            }
+        }
+        if (sum % 3 == 0) return</B></FONT> sum;
+            
+        
+        if (sum % 3 == 2) {
+            int max = 0;
+            if (m1min1 != null &amp;&amp; m1min2 != null) {
+                max = Math.max(max, sum - m1min1 - m1min2);
+            }
+            if (m2min1 != null) {
+                max = Math.max(max, sum - m2min1);
+            }
+            return max;
+        } else {
+            int max = 0;
+            if (m2min1 != null &amp;&amp; m2min2 != null) {
+                max = Math.max(max, sum - m2min1 - m2min2);
+            }
+            if (m1min1 != null) {
+                max = Math.max(max, sum - m1min1);
+            }
+            return max;
+        }
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

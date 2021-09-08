@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_andrew6.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>122_andrew6.py</CENTER></H3><HR>
+<PRE>
+def calc_k2(k1, max_k2):
+    for k2 in range(max_k2, max(max_k2 - 3, -1), -1):
+        if (k1 + 2*k2) % 3 == 0:
+<A NAME="0"></A>            return k2
+    raise ValueError
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+        
+    def maxSumDivThree(self, nums: List[int]) -&gt; int:
+        zeros = [n for n in nums if n % 3 == 0]
+        ones = [n for n in nums if n % 3 == 1]
+        twos = [n for n in nums if n % 3 == 2]
+        ones.sort(reverse=True)
+        twos.sort(reverse=True)
+        best =</B></FONT> 0
+        for k1 in range(len(ones), max(len(ones) - 3, -1), -1):
+            try:
+                k2 = calc_k2(k1, len(twos))
+            except ValueError:
+                continue
+            # print(ones[:k1], twos[:k2], sum(ones[:k1]) + sum(twos[:k2]))
+            best = max(best, sum(ones[:k1]) + sum(twos[:k2]))
+        return sum(zeros) + best
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

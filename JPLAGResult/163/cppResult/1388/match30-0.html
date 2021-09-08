@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_2997ms.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>5_2997ms.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;functional&gt;
+#include &lt;algorithm&gt;
+#include &lt;sstream&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;deque&gt;
+#include &lt;ctime&gt;
+#include &lt;list&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;bitset&gt;
+#include &lt;random&gt;
+using namespace std;
+ 
+typedef long long ll;
+typedef unsigned long long ull;
+#define SORT_UNIQUE(c) (sort(c.begin(),c.end()), c.resize(distance(c.begin(),unique(c.begin(),c.end()))))
+#define GET_POS(c,x) (lower_bound(c.begin(),c.end(),x)-c.begin())
+#define CASET int ___T; scanf(&quot;%d&quot;, &amp;___T); for(int cs=1;cs&lt;=___T;cs++)
+#define MS0(X) memset((X), 0, sizeof((X)))
+#define MS1(X) memset((X), -1, sizeof((X)))
+#define EPS 1e-8
+#define LL_INF 0x3fffffffffffffff
+#define INF 0x3f3f3f3f3f3f3f3f
+#define MEM(a, b) memset(a, b, sizeof(a))
+#define PPER(i, n, m) for (int i = n; i &gt;= m; i--)
+#define REPP(i, n, m) for (int i = n; i &lt;= m; i++)
+#define REP(i, n, m) for (int i = n; i &lt; m; i++)
+#define PER(i, n, m) for (int i = n; i &gt; m; i--)
+#define SA(n) scanf(&quot;%d&quot;, &amp;(n))
+#define SLLA(n) scanf(&quot;%lld&quot;, &amp;(n))
+#define MP make_pair
+#define FF first
+#define SS second
+#define PB push_back
+#define DE(val) cout &lt;&lt; #val &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; endl;
+ 
+const int dx44[6] = {0, -1, -1, 1, 1};
+const int dy44[6] = {0, -1, 1, -1, 1};
+const int dx4[6] = {0, 1, 0,-1};
+const int dy4[6] = {1, 0, -1,0};
+const int dx8[9] = {0, -1, 0, 1, 0, 1, 1, -1, -1};
+const int dy8[9] = {0, 0, 1, 0, -1, 1, -1, 1, -1};
+const int dx82[9] = {0, -1, -1, 1, 1, 2, 2, -2, -2};
+const int dy82[9] = {0, 2, -2, 2, -2, 1, -1, 1, -1};
+void update(ll&amp; x,ll v){
+    if(x==-1)x=v;
+    else if(x&gt;v)x=v;
+}
+ 
+ll po(ll a, ll b, ll mod)
+{
+    ll res = 1;
+    a %= mod;
+    for (; b; b &gt;&gt;= 1)
+    {
+        if (b &amp; 1)
+            res = res * a % mod;
+        a = a * a % mod;
+    }
+    return res;
+}
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+    {
+        return b;
+    }
+    else
+    {
+        return gcd(b % a, a);
+    }
+}
+void extgcd(ll a, ll b, ll &amp;d, ll &amp;x, ll &amp;y)
+{
+    if (!b)
+    {
+        d = a;
+        x = 1;
+    }
+    else
+    {
+        extgcd(b, a % b, d, y, x);
+        y -= x * (a / b);
+    }
+}
+ll inverse(ll a, ll n)
+{
+    ll d, x, y;
+    extgcd(a, n, d, x, y);
+    return d == 1 ? (x + n) % n : -1;
+}
+#define SORT_UNIQUE(c) (sort(c.begin(),c.end()), c.resize(distance(c.begin(),unique(c.begin(),c.end()))))
+const int maxn = 5e4 + 15;
+const double PI = acos(-1.0);
+const ll mod = 1e9 + 7;
+/*************************************************************************/
+
+class Solution {
+public:
+    std::vector&lt;int&gt; edge[5];
+    int maxSumDivThree(vector&lt;int&gt;&amp; nums) {
+        REP(i,0,4) {
+            edge[i].clear();
+        } 
+        int n = nums.size();
+        REP(i,0,nums.size()) {
+            edge[nums[i]%3].push_back(nums[i]);
+        }
+        REP(i,0,4) {
+            sort(edge[i].begin(), edge[i].end());
+            // reverse(edge[i].begin(), edge[i].end());
+        } 
+        int sum = 0;
+        REP(i,0,n) {
+            sum += nums[i];
+        }
+<A NAME="0"></A>        if(sum % 3 == 0) {
+            return sum;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if(sum % 3 == 1) {
+            int t = 1e5;
+            if(edge[1].size() &gt;= 1) {
+                t = min(t, edge[1][0]);
+            }
+            if(edge[2].size() &gt;= 2) {
+                t = min(t, edge[2][0] + edge[2][1]);
+            }
+            return sum - t;
+        }
+        if(sum % 3 == 2) {
+            int t = 1e5;
+            if(edge[2].size() &gt;= 1) {
+                t = min(t, edge[2][0]);
+            }
+            if(edge[1].size() &gt;= 2) {
+                t = min(t, edge[1][0] + edge[1][1]);
+            }
+            return sum - t;
+        }
+
+        return sum;
+
+    }
+}t;</B></FONT>
+</PRE>
+</BODY>
+</HTML>

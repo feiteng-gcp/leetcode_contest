@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_Phoenix1369.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_Phoenix1369.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>const int INFN = 1e9+7;
+const int MAXN = 20;
+const int MOVE = 4;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int moves[4][2] = {{-1,0}, {0,1}, {1,0}, {0,-1}};</B></FONT>
+<A NAME="1"></A>int dp[MAXN][MAXN][MAXN][MAXN];
+int M, N;
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct State {
+    int sr, sc, br, bc, p;
+    
+    bool operator &lt; (const State&amp; o) const {
+        return p &gt; o.p;
+    }
+};
+
+class Solution {
+public:
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {</B></FONT>
+        N = grid.size();
+        M = grid[0].size();
+<A NAME="2"></A>        init();
+        
+        State src = {0,0,0,0,0};
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; N; ++i) {
+            for (int j = 0; j &lt; M; ++j) {
+                if (grid[i][j] == 'S') {
+                    src.sr = i;
+                    src.sc = j;
+                } else if (grid[i][j] == 'B') {
+                    src.br = i;
+                    src.bc = j;
+                }
+            }
+        }
+        get(src) = 0;</B></FONT>
+        
+        int best = INFN;
+        priority_queue&lt;State&gt; Q;
+        Q.push(src);
+        while (!Q.empty()) {
+            State cur = Q.top();
+            Q.pop();
+            
+            if (grid[cur.br][cur.bc] == 'T') {
+                best = min(get(cur), best);
+            }
+            if (get(cur) &lt; cur.p) {
+                continue;
+            }
+            
+            int cy = cur.sr;
+            int cx = cur.sc;
+            for (int k = 0; k &lt; MOVE; ++k) {
+                int ny = cy + moves[k][0];
+                int nx = cx + moves[k][1];
+                if (!in_range(ny, nx)) {
+                    continue;
+                }
+                if (grid[ny][nx] == '#') {
+                    continue;
+                }
+                
+                int by = cur.br;
+                int bx = cur.bc;
+                int push = 0;
+                if ((by == ny) &amp;&amp; (bx == nx)) {
+                    by += moves[k][0];
+                    bx += moves[k][1];
+                    ++push;
+                }
+                if (!in_range(by, bx)) {
+                    continue;
+                }
+                if (grid[by][bx] == '#') {
+                    continue;
+                }
+                
+                State nxt = {ny,nx,by,bx};
+                if (get(nxt) != INFN) {
+                    continue;
+                }
+                get(nxt) = get(cur) + push;
+                nxt.p = get(nxt);
+                Q.push(nxt);
+            }
+        }
+        if (best == INFN) {
+            return -1;
+        }
+        return best;
+    }
+
+private:
+    int&amp; get(State&amp; s) {
+        return dp[s.sr][s.sc][s.br][s.bc];
+    }
+    
+    bool in_range(int y, int x) {
+        return (0 &lt;= y) &amp;&amp; (y &lt; N) &amp;&amp; (0 &lt;= x) &amp;&amp; (x &lt; M);
+    }
+    
+    void init() {
+        for (int i = 0; i &lt; N; ++i) {
+            for (int j = 0; j &lt; M; ++j) {
+                for (int k = 0; k &lt; N; ++k) {
+                    for (int l = 0; l &lt; M; ++l) {
+                        dp[i][j][k][l] = INFN;
+                    }
+                }
+            }
+        }
+    }
+};
+
+/*
+[[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;T&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]
+[[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;T&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]
+[[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;T&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;B&quot;,&quot;.&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;S&quot;,&quot;#&quot;],  [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]
+[[&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;S&quot;,&quot;#&quot;,&quot;.&quot;,&quot;B&quot;,&quot;T&quot;,&quot;#&quot;], [&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;,&quot;#&quot;]]
+[[&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;B&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;T&quot;,&quot;.&quot;],[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;],[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;S&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;]]
+
+[
+[&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;B&quot;,&quot;#&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;T&quot;,&quot;.&quot;],
+[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;],
+[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;S&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+[&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;#&quot;]]
+&gt;&gt; 3
+&gt;&gt; -1
+&gt;&gt; 5
+&gt;&gt; -1
+&gt;&gt; 5
+*/
+</PRE>
+</BODY>
+</HTML>

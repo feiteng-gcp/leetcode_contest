@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_qpwoeirut.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_qpwoeirut.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>struct Item {
+    int br, bc;
+    int sr, sc;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int dist;
+    
+    Item(int a, int b, int c, int d, int e) {
+        br = a;
+        bc = b;
+        sr = c;
+        sc = d;
+        dist = e;
+    }</B></FONT>
+    
+    void print() {
+        cout &lt;&lt; &quot;br,bc,sr,sc,d: &quot; &lt;&lt; br &lt;&lt; &quot; &quot; &lt;&lt; bc &lt;&lt; &quot; &quot; &lt;&lt; sr &lt;&lt; &quot; &quot; &lt;&lt; sc &lt;&lt; &quot; &quot; &lt;&lt; dist &lt;&lt; endl;
+    }
+};
+
+class Solution {
+private:
+    int dist[20][20][20][20];
+    int part[20][20][20][20];
+    
+    int chr[4] = {1, 0, -1, 0};
+    int chc[4] = {0, 1, 0, -1};
+    bool in(const vector&lt;vector&lt;char&gt;&gt;&amp; G, int r, int c) {
+        return !(r &lt; 0 || r &gt;= G.size() || c &lt; 0 || c &gt;= G[0].size() || G[r][c] == '#');
+    }
+    
+    void help(const vector&lt;vector&lt;char&gt;&gt;&amp; G, int boxr, int boxc, int r, int c, int g) {
+        if (!in(G, r, c) || (r == boxr &amp;&amp; c == boxc)) {
+            return;
+        }
+        part[boxr][boxc][r][c] = g;
+        for (int i=0; i&lt;4; i++) {
+            if (in(G, r+chr[i], c+chc[i]) &amp;&amp; part[boxr][boxc][r+chr[i]][c+chc[i]] == -1) {
+                help(G, boxr, boxc, r+chr[i], c+chc[i], g);
+            }
+        }
+    }
+    void floodfill(const vector&lt;vector&lt;char&gt;&gt;&amp; G, int boxr, int boxc) {
+        int group = 1;
+        for (int i=0; i&lt;G.size(); i++) {
+            for (int j=0; j&lt;G[i].size(); j++) {
+                if (G[i][j] == '#' || (i == boxr &amp;&amp; j == boxc)) {
+                    part[boxr][boxc][i][j] = 0;
+                }
+                else if (part[boxr][boxc][i][j] == -1) {
+                    help(G, boxr, boxc, i, j, group);
+                    group++;
+                }
+            }
+        }
+<A NAME="1"></A>    }
+public:
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;20; i++) {
+            for (int j=0; j&lt;20; j++) {
+                for (int k=0; k&lt;20; k++) {
+                    for (int l=0; l&lt;20; l++) {
+                        dist[i][j][k][l] = 1e9;</B></FONT>
+                        part[i][j][k][l] = -1;
+                    }
+                }
+<A NAME="2"></A>            }
+        }
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int br, bc, sr, sc, tr, tc;
+        for (int i=0; i&lt;grid.size(); i++) {
+            for (int j=0; j&lt;grid[i].size(); j++) {
+                if (grid[i][j] == 'B') {
+                    br = i;
+                    bc = j;
+                }
+                else if (grid[i][j] == 'S') {
+                    sr = i;
+                    sc = j;
+                }
+                else if (grid[i][j] == 'T') {
+                    tr = i;
+                    tc = j;
+                }
+            }
+        }</B></FONT>
+        
+        queue&lt;Item&gt; q;
+        dist[br][bc][sr][sc] = 0;
+        q.push(Item(br, bc, sr, sc, 0));
+        
+        while (q.size() &gt; 0) {
+            Item cur = q.front();
+            q.pop();
+            
+            if (cur.br == tr &amp;&amp; cur.bc == tc) {
+                return cur.dist;
+            }
+            
+            if (part[cur.br][cur.bc][0][0] == -1) {
+                floodfill(grid, cur.br, cur.bc);
+            }
+            for (int i=0; i&lt;4; i++) {
+                if (in(grid, cur.br + chr[i], cur.bc + chc[i]) &amp;&amp; in(grid, cur.br - chr[i], cur.bc - chc[i]) &amp;&amp; 
+                    part[cur.br][cur.bc][cur.sr][cur.sc] == part[cur.br][cur.bc][cur.br - chr[i]][cur.bc - chc[i]] &amp;&amp;
+                    dist[cur.br + chr[i]][cur.bc + chc[i]][cur.br][cur.bc] &gt; cur.dist+1) {
+                    dist[cur.br + chr[i]][cur.bc + chc[i]][cur.br][cur.bc] = cur.dist+1;
+                        q.push(Item(cur.br + chr[i], cur.bc + chc[i], cur.br, cur.bc, cur.dist+1));
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

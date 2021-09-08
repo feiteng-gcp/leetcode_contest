@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>89_logsniper.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>89_logsniper.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    const int dirx[4] = {-1, 0, 1, 0};
+    const int diry[4] = {0, -1, 0, 1};
+    map&lt;pair&lt;pair&lt;int,int&gt;, int&gt;, int&gt; triedMoves;</B></FONT>
+    vector&lt;vector&lt;char&gt;&gt; grid;
+    int Tx, Ty;
+    int Bx, By;
+    int Sx, Sy;
+    int n, m;
+    bool visited[20][20];
+    void floodFill(int ax, int ay, int bx, int by) {
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+        memset(visited, 0, sizeof(visited));
+        q.push(make_pair(ax, ay));
+        visited[ax][ay] = true;
+        // printf(&quot;floodFill %d %d %d %d\n&quot;, ax, ay, bx, by);
+        while (!q.empty()) {
+            int cx = q.front().first;
+            int cy = q.front().second;
+            q.pop();
+            for (int i = 0; i &lt; 4; ++ i) {
+                int nx = cx + dirx[i];
+                int ny = cy + diry[i];
+                if (validPos(nx, ny) &amp;&amp; !visited[nx][ny] &amp;&amp; grid[nx][ny] != '#' &amp;&amp; !(bx == nx &amp;&amp; by == ny)) {
+                    // printf(&quot;%d %d is reachable\n&quot;, nx, ny);
+                    visited[nx][ny] = true;
+                    q.push(make_pair(nx, ny));
+                }
+            }
+        }
+    }
+    inline bool validPos(int x, int y) {
+        return x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m;
+<A NAME="1"></A>    }
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+        this-&gt;grid = grid;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        n = grid.size();
+        m = grid[0].size();
+        for (int i = 0; i &lt; n; ++ i) {
+            for (int j = 0; j &lt; m; ++ j) {
+                if (grid[i][j] == 'T') {
+                    Tx = i;
+                    Ty = j;
+                } else if (grid[i][j] == 'B') {
+                    Bx = i;
+                    By = j;
+                } else if (grid[i][j] == 'S') {
+                    Sx = i;
+                    Sy = j;
+                }
+            }
+        }</B></FONT>
+        queue&lt;pair&lt;pair&lt;int,int&gt;, int&gt;&gt; q;
+        auto findNextSteps = [&amp;](int bx, int by, int sx, int sy, int stepNumber) -&gt; void {
+            floodFill(sx, sy, bx, by);
+            for (int i = 0; i &lt; 4; ++ i) {
+                int px = bx - dirx[i];
+                int py = by - diry[i];
+                int nx = bx + dirx[i];
+                int ny = by + diry[i];
+                if (validPos(px, py) &amp;&amp; validPos(nx, ny) &amp;&amp; visited[px][py] &amp;&amp; grid[nx][ny] != '#') {
+                    pair&lt;pair&lt;int,int&gt;, int&gt; key = make_pair(make_pair(nx, ny), i);
+                    // printf(&quot;(%d, %d) from %d: %d\n&quot;, nx, ny, i, stepNumber);
+                    if (triedMoves.find(key) != triedMoves.end()) continue;
+                    q.push(key);
+                    triedMoves[key] = stepNumber;
+                }
+            }
+        };
+        findNextSteps(Bx, By, Sx, Sy, 1);
+        while (!q.empty()) {
+            auto key = q.front();
+            int bx = key.first.first;
+            int by = key.first.second;
+            int dir = key.second;
+            q.pop();
+            int steps = triedMoves[key];
+            if (bx == Tx &amp;&amp; by == Ty) {
+                // printf(&quot;Done: %d\n&quot;, steps);
+                return steps;
+            }
+            int sx = bx - dirx[dir];
+            int sy = by - diry[dir];
+            findNextSteps(bx, by, sx, sy, steps + 1);
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

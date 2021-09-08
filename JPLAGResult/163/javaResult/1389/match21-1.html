@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>177_huntersjm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>177_huntersjm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    /**
+     * 1 &lt;= grid.length &lt;= 20
+     * 1 &lt;= grid[i].length &lt;= 20
+     * grid contains only characters '.', '#',  'S' , 'T', or 'B'.
+     * There is only one character 'S', 'B' and 'T' in the grid.
+     *
+     * @param grid
+<A NAME="0"></A>     * @return
+     */
+    public int minPushBox(char[][] grid) {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][] minReach = new int[grid.length][grid[0].length][4];
+        for (int i = 0; i &lt; minReach.length; i++) {
+            for (int j = 0; j &lt; minReach[0].length; j++) {
+                for (int k = 0; k &lt; minReach[0][0].length; k++) {</B></FONT>
+                    minReach[i][j][k] = -1;
+<A NAME="1"></A>                }
+            }
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int px = 0, py = 0, bx = 0, by = 0, tx = 0, ty = 0;
+        for (int i = 0; i &lt; grid.length; i++) {
+            for (int j = 0; j &lt; grid[i].length; j++) {
+                if (grid[i][j] == 'B') {</B></FONT>
+                    minReach[i][j][0] = 0;
+<A NAME="2"></A>                    minReach[i][j][1] = 0;
+                    minReach[i][j][2] = 0;
+                    minReach[i][j][3] = 0;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>bx = i;
+                    by = j;
+                } else if (grid[i][j] == 'T') {
+                    tx = i;
+                    ty = j;
+                } else if (grid[i][j] == 'S') {
+                    px = i;
+                    py = j;
+                }
+            }
+        }
+        dfs</B></FONT>(grid, minReach, bx, by, px, py, 0);
+        int result = -1;
+        for (int i = 0; i &lt; 4; i++) {
+            if (minReach[tx][ty][i] != -1) {
+                if (result == -1) {
+                    result = minReach[tx][ty][i];
+                } else {
+                    result = Math.min(result, minReach[tx][ty][i]);
+                }
+            }
+        }
+        return result;
+    }
+
+    private void dfs(char[][] grid, int[][][] minReach, int bx, int by, int px, int py, int current) {
+        current++;
+        if (bx + 1 &lt; grid.length &amp;&amp; grid[bx + 1][by] != '#' &amp;&amp; (minReach[bx + 1][by][0] == -1 || current &lt; minReach[bx + 1][by][0]) &amp;&amp; canReach(grid, bx - 1, by, px, py)) {
+            minReach[bx + 1][by][0] = current;
+            grid[bx + 1][by] = 'B';
+            grid[bx][by] = '.';
+            dfs(grid, minReach, bx + 1, by, bx - 1, by, current);
+            grid[bx][by] = 'B';
+            grid[bx + 1][by] = '.';
+        }
+
+        if (bx - 1 &gt;= 0 &amp;&amp; grid[bx - 1][by] != '#' &amp;&amp; (minReach[bx - 1][by][1] == -1 || current &lt; minReach[bx - 1][by][1]) &amp;&amp; canReach(grid, bx + 1, by, px, py)) {
+            minReach[bx - 1][by][1] = current;
+            grid[bx - 1][by] = 'B';
+            grid[bx][by] = '.';
+            dfs(grid, minReach, bx - 1, by, bx + 1, by, current);
+            grid[bx - 1][by] = '.';
+            grid[bx][by] = 'B';
+        }
+
+        if (by + 1 &lt; grid[0].length &amp;&amp; grid[bx][by + 1] != '#' &amp;&amp; (minReach[bx][by + 1][2] == -1 || current &lt; minReach[bx][by + 1][2]) &amp;&amp; canReach(grid, bx, by - 1, px, py)) {
+            minReach[bx][by + 1][2] = current;
+            grid[bx][by + 1] = 'B';
+            grid[bx][by] = '.';
+            dfs(grid, minReach, bx, by + 1, bx, by - 1, current);
+            grid[bx][by + 1] = '.';
+            grid[bx][by] = 'B';
+        }
+
+        if (by - 1 &gt;= 0 &amp;&amp; grid[bx][by - 1] != '#' &amp;&amp; (minReach[bx][by - 1][3] == -1 || current &lt; minReach[bx][by - 1][3]) &amp;&amp; canReach(grid, bx, by + 1, px, py)) {
+            minReach[bx][by - 1][3] = current;
+            grid[bx][by - 1] = 'B';
+            grid[bx][by] = '.';
+            dfs(grid, minReach, bx, by - 1, bx, by + 1, current);
+            grid[bx][by - 1] = '.';
+            grid[bx][by] = 'B';
+        }
+    }
+<A NAME="3"></A>
+    private int[][][] canReachs;
+
+    private boolean canReach(char[][] grid, int x, <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int y, int px, int py) {
+        if (x &lt; 0 || x &gt;= grid.length || y &lt; 0 || y &gt;= grid[0].length || grid[x][y] == '#') {
+            return false;
+        }</B></FONT>
+        boolean[][] visit = new boolean[grid.length][grid[0].length];
+        travel(grid, px, py, visit);
+        return visit[x][y];
+    }
+
+    private void travel(char[][] grid, int px, int py, boolean[][] visit) {
+        if (px &gt;= 0 &amp;&amp; px &lt; grid.length &amp;&amp; py &gt;= 0 &amp;&amp; py &lt; grid[0].length &amp;&amp; !visit[px][py] &amp;&amp; grid[px][py] != '#' &amp;&amp; grid[px][py] != 'B') {
+            visit[px][py] = true;
+            travel(grid, px - 1, py, visit);
+            travel(grid, px + 1, py, visit);
+            travel(grid, px, py - 1, visit);
+            travel(grid, px, py + 1, visit);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

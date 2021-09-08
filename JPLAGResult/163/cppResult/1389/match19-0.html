@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>typedef pair&lt;int, int&gt; ii;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};</B></FONT>
+const int N = 20;
+int flag[N][N][N][N];
+
+struct Node {
+    int px, py, bx, by;
+};
+
+class Solution {
+<A NAME="1"></A>public:
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; a) {
+        int n = a.size(), m = a[0].size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int px, py, bx, by, tx, ty;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (a[i][j] == 'S') {
+                    px = i;
+                    py = j;</B></FONT>
+                    a[i][j] = '.';
+                } else if (a[i][j] == 'T') {
+                    tx = i;
+                    ty = j;
+                    a[i][j] = '.';
+                } else if (a[i][j] == 'B') {
+                    bx = i;
+                    by = j;
+                    a[i][j] = '.';
+                }
+            }
+        }
+        memset(flag, 255, sizeof(flag));
+        deque&lt;Node&gt; Q;
+        Q.push_back({px, py, bx, by});
+        flag[px][py][bx][by] = 0;
+        while (!Q.empty()) {
+<A NAME="2"></A>            auto [px, py, bx, by] = Q.front();
+            if (bx == tx &amp;&amp; by == ty) return flag[px][py][bx][by];
+            Q.pop_front();
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int k = 0; k &lt; 4; ++k) {
+                int nx = px + d[k][0];
+                int ny = py + d[k][1];
+                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m || a[nx][ny] != '.') continue;
+                if (nx == bx &amp;&amp; ny == by) continue;
+                if (flag[nx][ny][bx][by] &gt;= 0) continue;</B></FONT>
+                flag[nx][ny][bx][by] = flag[px][py][bx][by];
+                Q.push_front({nx, ny, bx, by});
+            }
+            if (abs(px - bx) + abs(py - by) == 1) {
+                int k;
+                for (k = 0; k &lt; 4; ++k) {
+                    int nx = px + d[k][0];
+                    int ny = py + d[k][1];
+                    if (nx == bx &amp;&amp; ny == by) break;
+                }
+                int nbx = bx + d[k][0];
+                int nby = by + d[k][1];
+                if (!(nbx &lt; 0 || nbx &gt;= n || nby &lt; 0 || nby &gt;= m || a[nbx][nby] != '.') &amp;&amp; flag[bx][by][nbx][nby] &lt; 0) {
+                    flag[bx][by][nbx][nby] = flag[px][py][bx][by] + 1;
+                    Q.push_back({bx, by, nbx, nby});
+                }
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

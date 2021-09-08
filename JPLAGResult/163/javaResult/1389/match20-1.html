@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>123_stormsunshine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>123_stormsunshine.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minPushBox(char[][] grid) {
+        final int BLOCK = -1;
+        final int WHITE = 0;
+        final int GRAY = 1;
+<A NAME="0"></A>        final int BLACK = 2;
+        int rows = grid.length, columns = grid[0].length;
+        int[][][][] colors = new int[rows][columns][rows][columns];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][][][] distances = new int[rows][columns][rows][columns];
+        for (int bRow = 0; bRow &lt; rows; bRow++) {
+            for (int bCol = 0; bCol &lt; columns; bCol++) {
+                for (int pRow = 0; pRow &lt; rows; pRow++) {</B></FONT>
+                    for (int pCol = 0; pCol &lt; columns; pCol++)
+                        distances[bRow][bCol][pRow][pCol] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        for (int bRow = 0; bRow &lt; rows; bRow++) {
+            for (int bCol = 0; bCol &lt; columns; bCol++) {
+                for (int pRow = 0; pRow &lt; rows; pRow++) {
+                    for (int pCol = 0; pCol &lt; columns; pCol++) {
+                        if (grid[bRow][bCol] == '#' || grid[pRow][pCol] == '#') {
+                            colors[bRow][bCol][pRow][pCol] = BLOCK;
+                            distances[bRow][bCol][pRow][pCol] = -1;
+                        }
+                    }
+<A NAME="1"></A>                }
+            }
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int initialBoxRow = -1, initialBoxColumn = -1, initialPlayerRow = -1, initialPlayerColumn = -1, targetRow = -1, targetColumn = -1;
+        int count = 0;
+        outer:
+<A NAME="2"></A>        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; columns; j++) {</B></FONT>
+                char c = grid[i][j];
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#2',2,'match20-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (c == 'B') {
+                    initialBoxRow = i;
+                    initialBoxColumn = j;
+                    count++;
+                } else if (c == 'S') {
+                    initialPlayerRow = i;
+                    initialPlayerColumn = j;
+                    count++;
+                } else if (c == 'T') {
+                    targetRow = i;
+                    targetColumn = j;
+                    count++;
+                }</B></FONT>
+                if (count == 3)
+                    break outer;
+            }
+        }
+        int[][] directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+<A NAME="3"></A>        distances[initialBoxRow][initialBoxColumn][initialPlayerRow][initialPlayerColumn] = 0;
+        PriorityQueue&lt;Status&gt; queue = new PriorityQueue&lt;Status&gt;();
+        queue.offer(new Status(initialBoxRow, initialBoxColumn, initialPlayerRow, initialPlayerColumn, 0));
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#3',2,'match20-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!queue.isEmpty()) {
+            Status status = queue.poll();
+            int boxRow = status.boxRow, boxColumn = status.boxColumn, playerRow = status.playerRow, playerColumn = status.playerColumn, distance = status.distance;
+            for (int[] direction : directions) {
+                int playerNewRow = playerRow + direction[0], playerNewColumn = playerColumn + direction[1];
+                if</B></FONT> (playerNewRow &lt; 0 || playerNewRow &gt;= rows || playerNewColumn &lt; 0 || playerNewColumn &gt;= columns || grid[playerNewRow][playerNewColumn] == '#')
+                    continue;
+                if (playerNewRow == boxRow &amp;&amp; playerNewColumn == boxColumn) {
+                    int boxNewRow = boxRow + direction[0], boxNewColumn = boxColumn + direction[1];
+                    if (boxNewRow &lt; 0 || boxNewRow &gt;= rows || boxNewColumn &lt; 0 || boxNewColumn &gt;= columns || grid[boxNewRow][boxNewColumn] == '#')
+                        continue;
+                    if (boxNewRow == targetRow &amp;&amp; boxNewColumn == targetColumn)
+                        return distance + 1;
+                    else if (colors[boxNewRow][boxNewColumn][playerNewRow][playerNewColumn] == WHITE) {
+                        colors[boxNewRow][boxNewColumn][playerNewRow][playerNewColumn] = GRAY;
+                        distances[boxNewRow][boxNewColumn][playerNewRow][playerNewColumn] = distance + 1;
+                        queue.offer(new Status(boxNewRow, boxNewColumn, playerNewRow, playerNewColumn, distance + 1));
+                    }
+                } else {
+                    if (colors[boxRow][boxColumn][playerNewRow][playerNewColumn] == WHITE) {
+                        colors[boxRow][boxColumn][playerNewRow][playerNewColumn] = GRAY;
+                        distances[boxRow][boxColumn][playerNewRow][playerNewColumn] = distance;
+                        queue.offer(new Status(boxRow, boxColumn, playerNewRow, playerNewColumn, distance));
+                    }
+                    
+<A NAME="4"></A>                }
+            }
+            colors[boxRow][boxColumn][playerRow][playerColumn] = BLACK;
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#4',2,'match20-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        int totalDistance = Integer.MAX_VALUE;
+        for (int i = 0; i &lt; rows; i++) {
+            for (int j = 0; j &lt; columns; j++) {</B></FONT>
+                int distance = distances[targetRow][targetColumn][i][j];
+                totalDistance = Math.min(totalDistance, distance);
+            }
+        }
+        return totalDistance;
+    }
+}
+
+class Status implements Comparable&lt;Status&gt; {
+	int boxRow;
+	int boxColumn;
+	int playerRow;
+	int playerColumn;
+	int distance;
+
+	public Status() {
+		
+	}
+
+	public Status(int boxRow, int boxColumn, int playerRow, int playerColumn, int distance) {
+		this.boxRow = boxRow;
+		this.boxColumn = boxColumn;
+		this.playerRow = playerRow;
+		this.playerColumn = playerColumn;
+		this.distance = distance;
+	}
+
+	public int compareTo(Status status2) {
+		return this.distance - status2.distance;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

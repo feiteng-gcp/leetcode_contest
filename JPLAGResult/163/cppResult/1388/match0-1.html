@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>318_A_good_loser.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>318_A_good_loser.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxSumDivThree(vector&lt;int&gt;&amp; nums) {
+        vector&lt;vector&lt;int&gt;&gt; v(2);
+        int res = 0;
+        for (auto &amp;i : nums) {
+            if (i % 3 != 0) v[i % 3 - 1].push_back(i); 
+            res += i;
+        }
+        for (int i = 0; i &lt; 2; ++i) sort(v[i].begin(), v[i].end());
+        int n = v[0].size() % 3, m = v[1].size() % 3;
+        if (n == m) return res;
+        else if (n &lt; m){
+            swap(n, m);
+            swap(v[0], v[1]);
+        }
+           
+        if (n == m+1) {
+            if (v[1].size() &gt; 1) {
+                res -= min(v[0][0], v[1][0]+v[1][1]);
+            }
+            else res -= v[0][0];
+        }
+        else {
+            if (v[1].size() &gt; 1) {
+                res -= min(v[0][0]+v[0][1], v[1][0]);
+            }
+            else res -= v[0][0]+v[0][1];
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>58_zacw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>58_zacw.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    int R, C;
+    int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    
+    public int minPushBox(char[][] grid) {
+        R = grid.length;
+        C = grid[0].length;
+        Queue&lt;State&gt; queue = new LinkedList();
+        Set&lt;String&gt; visited = new HashSet();
+        int[] player = new int[2];
+        int[] box = new int[2];
+        int[] target = new int[2];
+        for (int r = 0; r &lt; R; r++) {
+            for (int c = 0; c &lt; C; c++) {
+                if (grid[r][c] == 'S') {
+                    player = new int[]{r, c};
+                } else if (grid[r][c] == 'B') {
+                    box = new int[]{r, c};
+                } else if (grid[r][c] == 'T') {
+                    target = new int[]{r, c};
+                }
+            }
+        }
+        State init = new State(player[0], player[1], box[0], box[1]);
+        queue.offer(init);
+        visited.add(init.toString());
+        int push = 0;
+        while (!queue.isEmpty()) {
+            push++;
+            int sz = queue.size();
+            while (sz-- &gt; 0) {
+                State state = queue.poll();
+                boolean[][] tmp = new boolean[R][C];
+                tmp[state.p_r][state.p_c] = tmp[state.b_r][state.b_c] = true;
+                dfs(grid, tmp, state.p_r, state.p_c);
+                for (int[] d : dir) {
+                    int r = state.b_r + d[0], c = state.b_c + d[1];
+                    int t_r = state.b_r - d[0], t_c = state.b_c - d[1];
+                    if (r &gt;= 0 &amp;&amp; c &gt;= 0 &amp;&amp; r &lt; R &amp;&amp; c &lt; C
+                        &amp;&amp; t_r &gt;= 0 &amp;&amp; t_c &gt;= 0 &amp;&amp; t_r &lt; R &amp;&amp; t_c &lt; C
+                        &amp;&amp; tmp[t_r][t_c] &amp;&amp; grid[r][c] != '#') {
+                        if (r == target[0] &amp;&amp; c == target[1]) {
+                            return push;
+                        }
+                        State neigh = new State(state.b_r, state.b_c, r, c);
+                        if (!visited.contains(neigh.toString())) {
+                            visited.add(neigh.toString());
+                            queue.offer(neigh);
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+    
+    private void dfs(char[][] grid, boolean[][] tmp, int r0, int c0) {
+        for (int[] d : dir) {
+            int r = r0 + d[0], c = c0 + d[1];
+            if (r &gt;= 0 &amp;&amp; c &gt;= 0 &amp;&amp; r &lt; R &amp;&amp; c &lt; C &amp;&amp; grid[r][c] != '#' &amp;&amp; !tmp[r][c]) {
+                tmp[r][c] = true;
+                dfs(grid, tmp, r, c);
+            }
+        }
+    }
+    
+    class State {
+        int p_r, p_c, b_r, b_c;
+        
+        State(int p_r, int p_c, int b_r, int b_c) {
+            this.p_r = p_r;
+            this.p_c = p_c;
+            this.b_r = b_r;
+            this.b_c = b_c;
+        }
+        
+        @Override
+        public String toString() {
+            return p_r + &quot;#&quot; + p_c + &quot;#&quot; + b_r + &quot;#&quot; + b_c;
+        }
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

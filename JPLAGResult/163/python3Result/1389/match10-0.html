@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_SSigurd.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_SSigurd.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def find_target(self, s_loc, target, box, grid):
+        if (s_loc,target) in self.memo: return self.memo[(s_loc,target)]
+        seen = {s_loc}
+        curr = {s_loc}
+        while curr:
+            new_curr = set()
+            for i,j in curr:
+                if (i,j) == target: 
+                    self.memo[(s_loc,target)] = True
+                    return True
+                for i0,j0 in ((i+1,j),(i-1,j),(i,j+1),(i,j-1)):
+                    if 0 &lt;= i0 &lt; len(grid) and 0 &lt;= j0 &lt; len(grid[0]):
+                        if (i0,j0) not in seen and grid[i0][j0] != '#' and (i0,j0) != box:
+                            seen.add((i0,j0))
+                            new_curr.add((i0,j0))
+            curr = new_curr
+            
+        self.memo[(s_loc,target)] = False
+        return False
+<A NAME="0"></A>    
+    def minPushBox(self, grid: List[List[str]]) -&gt; int:
+        self.memo = {}
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 'S': s_loc = (i,j)
+                if grid[i][j] == 'T': t_loc = (i,j)
+                if grid[i][j] == 'B': b_loc = (i,j)
+                    
+        seen = set(</B></FONT>)
+        curr = [(0,s_loc[0],s_loc[1],b_loc[0],b_loc[1])]
+        while curr:
+            steps, i_s, j_s, i_b, j_b = heapq.heappop(curr)
+            if (i_s,j_s,i_b,j_b) in seen: continue
+            seen.add((i_s,j_s,i_b,j_b))
+            
+            if (i_b,j_b) == t_loc: return steps
+            for i0,j0 in ((i_b+1,j_b),(i_b-1,j_b),(i_b,j_b+1),(i_b,j_b-1)):
+                if 0 &lt;= i0 &lt; len(grid) and 0 &lt;= j0 &lt; len(grid[0]) and grid[i0][j0] != '#':
+                    new_i, new_j = i_b - (i0 - i_b), j_b - (j0 - j_b)
+                    if 0 &lt;= new_i &lt; len(grid) and 0 &lt;= new_j &lt; len(grid[0]):
+                        if grid[new_i][new_j] != '#':
+                            if self.find_target((i_s,j_s),(i0,j0),(i_b,j_b),grid):
+                                heapq.heappush(curr, (steps + 1, i_b, j_b, new_i, new_j))
+            
+                        
+        return -1
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+</PRE>
+
+</BODY>
+</HTML>

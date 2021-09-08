@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>265_fanzhh.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>265_fanzhh.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxSumDivThree(self, nums: List[int]) -&gt; int:
+        b0, b1, b2 = [], [], []
+        for v in nums:
+            if v % 3 == 0:
+                b0.append(v)
+            elif v % 3 == 1:
+                b1.append(v)
+            else:
+                b2.append(v)
+        b1.sort(</B></FONT>reverse = True)
+        b2.sort(reverse = True)
+        res = sum(b0) if b0 else 0
+        l1, l2 = len(b1), len(b2)
+        s1, s2 = sum(b1) if b1 else 0, sum(b2) if b2 else 0
+        s = res + s1 + s2
+        # s11 = sum(b1[-1:])
+        # s12 = sum(b1[-2:])
+        # s13 = sum(b1[-3:])
+        # s21 = sum(b2[-1:])
+        # s22 = sum(b2[-2:])
+        # s23 = sum(b2[-3:])
+        if l1 % 3 == l2 % 3:
+            return s1 + s2 + res
+        if s % 3 == 1:
+            res1 = s - b1[-1] if b1 else -sys.maxsize
+            res2 = s - sum(b2[-2:]) if len(b2) &gt;= 2 else -sys.maxsize
+            return max(res1, res2) if max(res1, res2) &gt; -sys.maxsize + 2 else 0
+        elif s % 3 == 2:
+            res1 = s - sum(b1[-2:]) if len(b1) &gt;= 2 else -sys.maxsize
+            res2 = s - b2[-1] if b2 else -sys.maxsize
+        return max(res1, res2) if max(res1, res2) &gt; -sys.maxsize + 2 else 0
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

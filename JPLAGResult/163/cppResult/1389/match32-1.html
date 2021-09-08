@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_face4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_face4.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>#define inRange(x,a,b) (a &lt;= x &amp;&amp; x &lt; b)
+typedef pair&lt;int,int&gt; pii;
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int di[4] = {0, 0, 1, -1};
+    int dj[4] = {1, -1, 0, 0};
+    int dp[4][20][20];</B></FONT>
+    
+    int minPushBox(vector&lt;vector&lt;char&gt;&gt;&amp; grid) {
+        int h = grid.size(), w = grid[0].size();
+        for(int i = 0; i &lt; h; i++){
+            for(int j = 0; j &lt; w; j++){
+                for(int k = 0; k &lt; 4; k++){
+                    dp[k][i][j] = 1&lt;&lt;30;
+<A NAME="1"></A>                }
+            }
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int si, sj, gi, gj, ui, uj;
+        for(int i = 0; i &lt; h; i++){
+            for(int j = 0; j &lt; w; j++){
+                if(grid[i][j] == 'B'){
+                    si = i, sj = j;
+                }
+                if(grid[i][j] == 'T'){
+                    gi = i, gj = j;
+                }
+                if(grid[i][j] == 'S'){
+                    ui = i, uj = j;
+                }
+            }
+        }
+        
+        int boxi = si, boxj = sj;</B></FONT>
+        queue&lt;pair&lt;pii, int&gt;&gt; q;
+        
+        {
+            vector&lt;vector&lt;bool&gt;&gt; vis(h, vector&lt;bool&gt;(w,0));
+            vis[ui][uj] = true;
+            queue&lt;pii&gt; qq;
+            qq.push({ui,uj});
+            while(!qq.empty()){
+                pii pp = qq.front();    qq.pop();
+                for(int k = 0; k &lt; 4; k++){
+                    int ni = di[k]+pp.first, nj = dj[k]+pp.second;
+                    if(!inRange(ni,0,h) || !inRange(nj,0,w) || grid[ni][nj] == '#' || grid[ni][nj] == 'B' || vis[ni][nj])   continue;
+                    vis[ni][nj] = true;
+                    qq.push({ni,nj});
+                }
+            }
+            for(int k = 0; k &lt; 4; k++){
+                int fi = boxi-di[k], fj = boxj-dj[k];
+                if(inRange(fi,0,h)&amp;&amp;inRange(fj,0,w)&amp;&amp;vis[fi][fj])   dp[k][boxi][boxj] = 0, q.push({{boxi,boxj},k});
+            }
+        }
+
+        while(!q.empty()){
+            auto p = q.front();  q.pop();
+            grid[boxi][boxj] = '.';
+            boxi = p.first.first, boxj = p.first.second;
+            grid[boxi][boxj] = 'B';
+            vector&lt;vector&lt;bool&gt;&gt; vis(h, vector&lt;bool&gt;(w,0));
+            int tui = boxi-di[p.second], tuj = boxj-dj[p.second];
+            vis[tui][tuj] = true;
+            queue&lt;pii&gt; qq;
+            qq.push({tui,tuj});
+            while(!qq.empty()){
+                pii pp = qq.front();    qq.pop();
+                for(int k = 0; k &lt; 4; k++){
+                    int ni = di[k]+pp.first, nj = dj[k]+pp.second;
+                    if(!inRange(ni,0,h) || !inRange(nj,0,w) || grid[ni][nj] == '#' || grid[ni][nj] == 'B' || vis[ni][nj])   continue;
+                    vis[ni][nj] = true;
+                    qq.push({ni,nj});
+                }
+            }
+            for(int k = 0; k &lt; 4; k++){
+                int fi = boxi-di[k], fj = boxj-dj[k];
+                if(!inRange(fi,0,h) || !inRange(fj,0,w) || !vis[fi][fj])    continue;
+                int ti = boxi+di[k], tj = boxj+dj[k];
+                if(!inRange(ti,0,h) || !inRange(tj,0,w) || grid[ti][tj]=='#' || dp[k][ti][tj] != 1&lt;&lt;30)    continue;
+                dp[k][ti][tj] = dp[p.second][boxi][boxj] + 1;
+                q.push({{ti,tj}, k});
+            }
+        }
+        int ret = 1&lt;&lt;30;
+        for(int j = 0; j &lt; 4; j++)  ret = min(ret, dp[j][gi][gj]);
+        return ret==1&lt;&lt;30 ? -1 : ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
