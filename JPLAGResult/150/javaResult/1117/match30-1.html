@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_raincoat911.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>141_raincoat911.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private int[][] ds = {{0, 1},{0,-1},{1,0},{-1,0}};
+    public int maxDistance(int[][] grid) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int r = grid.length</B></FONT>, c = grid[0].length;
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        for (int i = 0; i &lt; r; i++) {
+<A NAME="2"></A>            for (int j = 0; j &lt; c; j++) {
+                if (grid[i][j] == 1) {
+                    q.offer</B></FONT>(new int[]{i, j});
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#2',2,'match30-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        if (q.size() == 0 || q.size() == r * c) return -1;
+        int res = 1;
+        while (q.size() &gt; 0) {
+            int[] v = q.poll</B></FONT>();
+            int i = v[0], j = v[1];
+            int k = grid[i][j];
+            for (int[] d : ds) {
+                int x = i + d[0];
+                int y = j + d[1];
+                if (x &lt; 0 || x == r || y &lt; 0 || y == c || grid[x][y] &gt; 0) continue;
+                grid[x][y] = k + 1;
+                if (res &lt; k) res = k;
+                q.offer(new int[]{x, y});
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

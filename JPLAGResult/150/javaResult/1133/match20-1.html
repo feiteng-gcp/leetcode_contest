@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>301_linnaiqiang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>301_linnaiqiang.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String lastSubstring(String s) {
+        List&lt;Integer&gt; indexs = new ArrayList&lt;&gt;();
+        findLargestChar(s, indexs);
+        if(indexs.isEmpty() || indexs.size() == s.length()) return s;
+        
+        char[] chars = s.toCharArray();
+<A NAME="0"></A>        int start = indexs.get(0);
+        for(int i = 1; i &lt; indexs.size(); i++) {
+            int nextS = indexs.get(i);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(nextIsGreater(start, nextS, chars)) {
+                start = nextS;
+
+            }
+        }
+        
+        return s.substring(start);
+    }
+    
+    private boolean nextIsGreater(int firstS, int nextS, char[] chars) {
+        for(int i = nextS + 1; i &lt; chars.length; i++) {</B></FONT>
+            int x = chars[i] - chars[i - nextS + firstS];
+            if(x &gt; 0) return true;
+            if( x &lt; 0) return false;
+        }
+        return false;
+    }
+    
+    private void findLargestChar(String s, List&lt;Integer&gt; indexs) {
+        char cand = 'a';
+        for(int i = 0;i &lt; s.length(); i++) {
+            char ch = s.charAt(i);
+            if(ch == cand) indexs.add(i);
+            else if(ch &lt; cand) continue;
+            else {
+                indexs.clear();
+                indexs.add(i);
+                cand = ch;
+            }
+        }
+    }
+} 
+</PRE>
+
+</BODY>
+</HTML>

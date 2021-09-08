@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_lavender730.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_lavender730.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; v;
+    static const int INF = 1e9+5;
+<A NAME="0"></A>    int cnt = 0;
+    int tot = 1;
+    int maxLevelSum(TreeNode* root) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        cnt = -INF;
+        queue&lt;TreeNode* &gt; Q;
+        Q.push(root);
+        while(!Q.empty())
+        {
+            int tmp = 0;
+            int len = Q.size();
+<A NAME="1"></A>            //cout&lt;&lt;len&lt;&lt;endl;
+            for(int i=0;i&lt;len;i++)
+            {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                TreeNode *x = Q.front();
+                Q.pop();
+                tmp += x-&gt;val;
+                if(x-&gt;left)
+                {
+                    Q.push(x-&gt;left);
+                }
+                if(x-&gt;right)
+                {
+                    Q.push(x-&gt;right);
+                }
+            }
+            if(tmp &gt; cnt)
+            {
+                v.clear();
+                cnt = tmp;</B></FONT>
+                v.push_back(tot);
+            }
+            tot++;
+        }
+        return v[0];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>172_a-ruo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>172_a-ruo.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int dx[4] = {1, 0, -1, 0};
+    int dy[4] = {0, 1, 0, -1};
+    
+    int maxDistance(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {</B></FONT>
+<A NAME="1"></A>        if (grid.size() == 0) return 0;
+        int m = grid.size();
+        int n = grid[0].size();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;pair&lt;int,int&gt;&gt; waiting;
+        int opt[m][n];
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                opt[i][j] = 2147483647;
+                if (grid[i][j] == 1) {
+                    waiting.push_back(make_pair(i, j));
+                    opt[i][j] = 0;
+                }
+            }
+        }
+        int head = 0;
+        while (head &lt; waiting.size()) {
+            int x = waiting[head].first;
+            int y = waiting[head].second;
+            for (int i = 0; i &lt; 4; i++) {
+                int newx = x + dx[i];
+                int newy = y + dy[i];
+                if (newx &gt;= 0 &amp;&amp; newx &lt; m &amp;&amp; newy &gt;= 0 &amp;&amp; newy &lt; n) {
+                    if (grid[newx][newy] == 0 &amp;&amp; opt[newx][newy] &gt; opt[x][y] + 1) {
+                        opt[newx][newy] = opt[x][y] + 1;
+                        waiting.push_back(make_pair(newx, newy));
+                    }
+                }
+            }
+<A NAME="2"></A>            head ++;
+        }
+        
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int min = -1;
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (grid[i][j] == 0 &amp;&amp; opt[i][j] &gt; min) {
+                    min = opt[i][j];
+                }
+            }
+        }</B></FONT>
+        if (min == 2147483647 || min == 0) return -1; 
+        return min;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
