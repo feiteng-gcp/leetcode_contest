@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>54_pseudouser.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>54_pseudouser.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def largest1BorderedSquare(self, grid: List[List[int]]) -&gt; int:
+        memo_h = {}
+        memo_v = {}
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                memo_v[(i,j)] = 0
+                for k in range(i,len(grid)):
+                    if grid[k][j]:
+                        memo_v[(i,j)] = k-i+1
+                    else:
+                        break
+                memo_h[(i,j)] = 0
+                for k in range(j,len(grid[0])):
+                    if grid[i][k]:
+                        memo_h[(i,j)] = k - j+1
+                    else:
+                        break
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                k = 1
+                while i+k &lt;= len(grid) and j + k &lt;= len(grid[0]):
+                    if memo_v[(i,j)] &gt;= k and memo_h[(i,j)] &gt;= k and memo_v[(i,j+k-1)] &gt;= k and memo_h[(i+k-1,j)] &gt;= k:
+                        res = max(res,k*k)
+                    k += 1
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

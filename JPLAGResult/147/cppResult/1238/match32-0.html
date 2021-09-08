@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>433_virali.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>433_virali.cpp</CENTER></H3><HR>
+<PRE>
+#define ll long long
+class Solution {
+public:
+    string alphabetBoardPath(string target) {
+     
+        string board[10];
+        board[0]=&quot;abcde&quot;;board[1]=&quot;fghij&quot;;board[2]=&quot;klmno&quot;;board[3]=&quot;pqrst&quot;;board[4]=&quot;uvwxy&quot;;board[5]=&quot;z&quot;;
+        string ans=&quot;&quot;;
+        ll i,j,k;
+        ll l=target.length();
+        ll curx=0,cury=0;
+        for(i=0;i&lt;l;i++)
+        {
+            ll posx=-1,posy=-1;
+            for(j=0;j&lt;=4;j++)
+            {
+                for(k=0;k&lt;=4;k++)
+                    if(board[j][k]==target[i])
+                    {
+                        posy=j;
+                        posx=k;
+                        break;
+                    }
+                  if(k&lt;=4)
+                      break;
+            }
+            if(posx==-1)
+            {
+                posy=5;
+                posx=0;
+            }
+           // cout&lt;&lt;posy&lt;&lt;&quot; &quot;&lt;&lt;posx&lt;&lt;&quot;\n&quot;;
+            while(cury&lt;posy &amp;&amp; cury&lt;4)
+            {
+<A NAME="0"></A>                ans+='D';
+                cury++;
+            }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while(cury&gt;posy)
+            {
+                ans+='U';
+                cury--;
+            }
+            while(curx&lt;posx)
+            {
+                ans+='R';
+                curx++;
+            }
+            while(curx&gt;posx)
+            {
+                ans+='L';
+                curx--;
+            }
+            while(cury&lt;posy)
+            {
+                ans+='D';
+                cury++;
+            }
+            ans+='!';
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

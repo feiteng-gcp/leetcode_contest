@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>381_chang-you-ren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>381_chang-you-ren.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def largest1BorderedSquare(self, grid: List[List[int]]) -&gt; int:
+        up=[[0]*len(grid[0]) for _ in range(len(grid))]
+        left=copy.deepcopy(up)
+        res=0
+        #up
+<A NAME="0"></A>        for i in range(len(grid[0])):
+            if grid[0][i]:
+                up[0][i]=1
+                res=1<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        for i in range(1,len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]:
+                    up[i][j]=up[i-1][</B></FONT>j]+1
+                    res=1
+        #left
+        for i in range(len(grid)):
+<A NAME="1"></A>            if grid[i][0]:
+                left[i][0]=1
+                res=1
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(len(grid)):
+            for j in range(1,len(grid[0])):
+                if grid[i][j]:
+                    left[i][j]=left[i][</B></FONT>j-1]+1
+                    res=1
+        
+        for i in range(1,len(grid)):
+            for j in range(1,len(grid[0])):
+                if grid[i][j]:
+                    tmp=min(left[i][j],up[i][j])
+                    for k in range(1,tmp):
+                        if up[i][j-k]&gt;k and left[i-k][j]&gt;k:
+                            res=max(res,(k+1)**2)
+        #print(left,up)                
+        return res
+                        
+        
+</PRE>
+
+</BODY>
+</HTML>

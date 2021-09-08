@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>91_xhcqup.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>91_xhcqup.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int largest1BorderedSquare(vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+        int r=g.size(),c=g[0].size(),ans=0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; h(r, vector&lt;int&gt;(c));
+        vector&lt;vector&lt;int&gt;&gt; w(r, vector&lt;int&gt;(c));
+        for(int i=0;i&lt;r;++i){
+            int pre=0;
+<A NAME="1"></A>            for(int j=0;j&lt;c;++j){
+                if(g[i][j]) w[i][j] = ++pre;
+                else pre = 0;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        for(int i=0;i&lt;c;++i){
+            int pre=0;
+            for(int j=0;j&lt;r;++j){
+                if(g[j][i]) h[j][i] = ++pre;
+<A NAME="2"></A>                else pre = 0;</B></FONT>
+            }
+        }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int n=min(r,c);n;--n){
+            int m=n-1;
+            for(int i=r-1;i&gt;=m;--i){</B></FONT>
+                for(int j=c-1;j&gt;=m;--j){
+                    if(h[i][j]&gt;=n &amp;&amp; w[i][j]&gt;=n &amp;&amp; h[i][j-m]&gt;=n &amp;&amp; w[i-m][j]&gt;=n)
+                        return n*n;
+                }
+            }    
+        }
+        return 0;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
