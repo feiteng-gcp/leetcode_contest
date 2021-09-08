@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>138_elvinyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>138_elvinyang.java</CENTER></H3><HR>
+<PRE>
+class StreamChecker
+{
+    class Tire
+    {
+        public Tire[] next;
+        public boolean IsWord;
+
+        public Tire()
+        {
+            this.next = new Tire[26];
+        }
+    }
+
+    private Tire root = new Tire();
+    private Stack&lt;Character&gt; history = new Stack&lt;&gt;();
+<A NAME="0"></A>
+    public StreamChecker(String[] input)
+    {
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String w : input)
+        {
+            Tire node = root;
+            for (int i = w.length() - 1; i &gt;= 0; i--)
+            {
+                int cur = w.charAt</B></FONT>(i) - 'a';
+<A NAME="1"></A>                if (node.next[cur] == null) node.next[cur] = new Tire();
+                node = node.next[cur];
+            }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>node.IsWord = true;
+        }
+    }
+
+    public boolean query(char letter)
+    {
+        history.push(letter);
+        Tire node = root;
+        for (int i = history.size() - 1</B></FONT>; i &gt;= 0 &amp;&amp; node != null; i--)
+<A NAME="2"></A>        {
+            int cur = history.get(i) - 'a';
+            node = node.next[cur];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (node != null &amp;&amp; node.IsWord) return true;
+        }
+        return false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

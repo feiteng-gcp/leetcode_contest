@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_kevin_yao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_kevin_yao.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int dieSimulator(int n, int[] rollMax) {
+        int mod = 1000000007;
+        int[][][] dp = new int[n+1][6][16];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 6; ++i) {
+            dp[1][i][1] = 1;
+        }
+        for (int i = 2; i &lt; n + 1; ++i) {
+            for (int j = 0; j &lt; 6; ++j) {
+                for (int k = 1; k &lt;= 15; ++k) {
+                    if (k &gt; rollMax[j]) {
+                        dp[i][j][k] = 0;
+<A NAME="1"></A>                    }</B></FONT> else if (k == 1) {
+                        int sum = 0;
+                        for (int jj = 0; jj &lt; 6; ++jj) {
+                            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int kk = 1; kk &lt;= 15; ++kk) {
+                                if (jj != j) {
+                                    sum = (sum + dp[i-1][jj][kk]) % mod;
+                                }
+                            }
+                        }</B></FONT>
+                        dp[i][j][k] = sum;
+                    } else {
+                        dp[i][j][k] = dp[i-1][j][k-1];
+                    }
+                }
+<A NAME="2"></A>            }
+        }
+        int ret = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#2',2,'match29-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int j = 0; j &lt; 6; ++j) {
+            for (int k = 1; k &lt;= 15; ++k) {
+                ret = (ret + dp[n][j][k]) % mod;
+            }
+        }
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

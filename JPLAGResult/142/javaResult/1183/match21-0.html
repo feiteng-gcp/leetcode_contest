@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_Centurion7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_Centurion7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public double[] sampleStats(int[] count) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double mean = 0, median = 0, mode = 0, min = -1, max = 0, sum = 0;
+        int modeCnt = 0, nonZeroElements = 0, nonzCnt = 0;
+        for (int i = 0; i &lt; count.length; ++i) {
+            sum += i * count[i];
+            if (count[i] &gt; 0) {
+<A NAME="1"></A>                nonZeroElements += count[i];
+                m</B></FONT>ax = i;
+                if (min == -1) min = i;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (count[i] &gt; modeCnt) {
+                    modeCnt = count[i];
+                    mode = i;
+                }
+<A NAME="2"></A>            }
+        }</B></FONT>
+        for (int i = 0; i &lt; count.length; ++i) {
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (count[i] &gt; 0) {
+                nonzCnt += count[i];
+                if (nonzCnt &gt;= nonZeroElements / 2) {
+                    if (nonZeroElements % 2 == 1) { 
+                        median = i;
+                    } else {</B></FONT>
+                        if (nonzCnt &gt; nonZeroElements / 2) {
+                            median = i;
+                        } else {
+                            for (int j = i + 1; j &lt; count.length; ++j) {
+                                if (count[j] &gt; 0) {
+                                    median = (double)(i + j) / 2.0;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+<A NAME="3"></A>                    break;
+                }
+            }
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        return new double[] { min, max, sum / (double)nonZeroElements, median, mode };
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

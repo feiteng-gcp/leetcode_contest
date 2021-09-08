@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>403_augustus3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>403_augustus3.java</CENTER></H3><HR>
+<PRE>
+class Solution {   
+    final static long INF = 2000000000;
+    
+    private long getRank3(long num, long a) {
+        return num/a;
+    }
+    
+    private long getRank2(long num, long a, long b) {
+        long ra = num/a;
+        long rb = num/b;
+        long rab = num/a/b;
+        return ra + rb - rab;
+    }
+    
+    private long getGCD(long a, long b) {
+        if (a &lt; b) {
+            long tmp = a;
+            a = b;
+            b = tmp;
+<A NAME="0"></A>        }
+        if (b == 0) {
+            return a;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return getGCD(b, a%b);
+    }
+    
+<A NAME="1"></A>    private long getLCM(long a, long b) {</B></FONT>
+        long g = getGCD(a, b);
+        return a/g*b;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private long getLCM3(long a, long b, long c) {
+        return getLCM(getLCM(a, b), c);
+    }
+    
+    private long getRank(long num, long a, long b, long c) {
+        long ra = num/a;
+        long rb = num/b;</B></FONT>
+        long rc = num/c;
+        long rab = num/getLCM(a, b);
+        long rbc = num/getLCM(b, c);
+        long rca = num/getLCM(c, a);
+        long rabc = num/getLCM3(a, b, c);
+        return ra + rb + rc - rab - rbc - rca + rabc;
+    }
+    
+    private long getRankByDiv(long num, int[] div, int cnt) {
+        if (cnt == 3) {
+            return getRank(num, div[0], div[1], div[2]); 
+        } else if (cnt == 2) {
+            return getRank2(num, div[0], div[1]);
+        } else {
+            return getRank3(num, div[0]);
+        }
+    }
+    
+    public int nthUglyNumber(int n, int a, int b, int c) {
+        long l = 1;
+        long r = INF;
+        
+        //int cnt = 3;
+        //int[] div = new int[3];
+        //div[0] = a;
+        //div[1] = b; 
+        //div[2] = c;
+        //Arrays.sort(div);
+        
+        //if (div[2] % div[0] == 0 || div[2] % div[1] == 0) {
+        //    cnt--;
+        //}
+        
+        //if (div[1] % div[0] == 0) {
+        //    cnt--;
+        //    div[1] = div[2];
+        //}
+        
+<A NAME="2"></A>        while (l &lt; r) {
+            long mid = (l+r)/2;
+            // System.out.println(mid);
+            long rank = <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>getRank(mid, a, b, c);
+            // System.out.println(rank);
+            if (rank &lt; n) {
+                l = mid+1;
+            } else {
+                r = mid;
+            }
+        }
+        return (int)l;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_tiankonguse001.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_tiankonguse001.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int shortestPathBinaryMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        if(grid[0][0] == 1 || grid[n-1][n-1] == 1){
+            return -1;
+        }</B></FONT>
+        if(n == 1){
+            return 1;
+        }
+        
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;n;j++){
+                grid[i][j] = -grid[i][j];
+            }
+        }
+        
+        queue&lt;pair&lt;int,int&gt;&gt; que;
+<A NAME="1"></A>        int x = 0;
+        int y = 0;
+        que.push(make_pair(x, y));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        grid[x][y] = 1;
+        
+        int dir[8][2] = {{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}};
+        while(!que.empty()){</B></FONT>
+            auto p = que.front();
+            que.pop();
+            
+            for(int i=0;i&lt;8;i++){
+                x = p.first + dir[i][0];
+                y = p.second + dir[i][1];
+                if(x &lt;0 || x &gt;= n || y &lt; 0 || y &gt;= n){
+                    continue;
+                }
+                if(grid[x][y] != 0){
+                    continue;
+                }
+                
+                grid[x][y] = grid[p.first][p.second] + 1;
+               
+                que.push(make_pair(x, y));
+                if(x == n-1 &amp;&amp; y == n-1){
+                    return grid[x][y];
+                }
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>288_chen_n.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>288_chen_n.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string s;
+    int arr['z'+1]={0};
+    int func(char c){
+        int j=0;int re=0;int no=0;
+        for(int i=0;i&lt;s.size();i++){
+            if(s[i]!=c){
+                no++;
+                if(no&gt;1){
+                    while(s[j]==c)j++;
+                    j++;
+                    no--;
+                }
+
+            }
+            if(i-j+1&gt;arr[c]){
+                    j++;
+                }
+            re=max(re,i-j+1);
+        }
+        return re;
+    }
+    int maxRepOpt1(string text) {
+        s=text;
+        for(int i=0;i&lt;text.size();i++){
+            arr[text[i]]++;
+        }
+        int ans=0;int h=0;
+        for(int i='a';i&lt;='z';i++){
+            if(arr[i]==0)continue;
+            h=func(i);
+            //cout&lt;&lt;h&lt;&lt;&quot; &quot;&lt;&lt;arr[i]&lt;&lt;endl;
+            if(h&lt;=arr[i])ans=max(h,ans);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

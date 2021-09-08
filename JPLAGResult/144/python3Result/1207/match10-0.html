@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_nosrpku.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>336_nosrpku.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        tds = set(to_delete)
+        ret = []
+        def helper(tds, ret, r, ir=False):
+            if not r:
+                return
+            if r.val in tds:
+                helper(tds, ret, r.left, True)
+                helper(tds, ret, r.right, True)
+            else:
+                if ir:
+<A NAME="0"></A>                    ret.append(r)
+                helper(tds, ret, r.left, False)
+                helper(tds, ret, r.right, False)
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if r.left and r.left.val in tds:
+                r.left = None
+            if r.right and r.right.val in tds:
+                r.right =</B></FONT> None
+        helper(tds, ret, root, True)
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_guanhao2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>460_guanhao2.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public double[] sampleStats(int[] count) {
+        double max = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>double min = 255;
+        double mode = 0;
+        int cnt = 0;
+        int totalCount = 0;
+        double median;
+        double mean = 0;
+        for(int i = 0; i &lt; count.length; ++i) {
+            if(count[i] &gt; 0) {
+                if(count[i] &gt; cnt) {
+                    m</B></FONT>ode = i;
+                    cnt = count[i];    
+                }
+                max = i;
+                min = Math.min(min, i);
+                mean += (i * count[i]);
+                totalCount += count[i];
+            }
+        }
+        
+        if(totalCount % 2 == 0) {
+            median = (findKth(count, totalCount / 2) + findKth(count, totalCount / 2 + 1)) / 2;
+        } else {
+            int i = totalCount / 2 + 1;
+            median = findKth(count, i);
+        }
+        
+        mean /= totalCount;
+<A NAME="1"></A>        
+        
+        return new double[]{min, max, mean, median, mode};
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private double findKth(int[] count, int c) {
+        for(int i = 0; i &lt; count.length; ++i) {
+            if(count[i] &gt; 0) {
+<A NAME="2"></A>                c -= count[i];
+                if(c &lt;= 0) {
+                    return (double) i;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}</B></FONT>
+            }
+        }
+        
+        return 0.0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

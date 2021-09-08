@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_rz1189.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>212_rz1189.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxAncestorDiff(TreeNode* root) {
+        stack&lt;int&gt; maxSt, minSt;
+        
+        int res = 0;
+        
+        dfs(res, root, maxSt, minSt);
+        
+        return res;
+    }
+    
+    void dfs(int &amp;res, TreeNode *root, stack&lt;int&gt; &amp;maxSt, stack&lt;int&gt; &amp;minSt) {</B></FONT>
+        if(!root)   return ;
+        
+        if(maxSt.empty() || root-&gt;val &gt;= maxSt.top()) {
+            maxSt.push(root-&gt;val);
+        }
+        if(minSt.empty() || root-&gt;val &lt;= minSt.top()) {
+            minSt.push(root-&gt;val);
+        }
+        
+        if(!maxSt.empty())
+            res = max(res, abs(maxSt.top() - root-&gt;val));
+        if(!minSt.empty()) 
+            res = max(res, abs(minSt.top() - root-&gt;val));
+        
+        dfs(res, root-&gt;left, maxSt, minSt);
+        dfs(res, root-&gt;right, maxSt, minSt);
+        
+        if(!maxSt.empty() &amp;&amp; maxSt.top() == root-&gt;val) {
+            maxSt.pop();
+        }
+        if(!minSt.empty() &amp;&amp; minSt.top() == root-&gt;val) {
+            minSt.pop();
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

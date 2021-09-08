@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_shuhu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>252_shuhu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String lastSubstring(String s) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        List&lt;List&lt;Integer&gt;&gt; indexList = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 26; i++) {
+            indexList.add(new ArrayList&lt;&gt;());
+        }
+        for (int i = 0; i &lt; s.length(); i++) {
+            indexList.get(s.charAt(i) - 'a').add(i);
+        }
+        for (int i = 25; i &gt;= 0; i--) {
+            if (indexList.get(i).size() &gt; 0) {
+                int length = 1;
+                List&lt;Integer&gt; list = indexList.get(i);
+                if (list.size() == s.length()) {
+                    return s;
+                }
+                while (list.size() &gt; 1) {
+<A NAME="0"></A>                    List&lt;Integer&gt; nextList = new ArrayList&lt;&gt;();
+                    char maxChar = 'a';
+                    for (int index : list) {
+                        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (index + length &lt; s.length() &amp;&amp; s.charAt(index + length) &gt; maxChar) {
+                            maxChar = s.charAt(index + length);
+                        }
+                    }</B></FONT>
+                    for (int index : list) {
+                        if (index + length &lt; s.length() &amp;&amp; s.charAt(index + length) == maxChar) {
+                            nextList.add(index);
+                        }
+                    }
+                    length++;
+                    list = nextList;
+                }
+                return s.substring(list.get(0));
+            }
+        }
+        return &quot;&quot;;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+      dfs(root, limit, 0);
+<A NAME="0"></A>      return root;
+    }
+private:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  static int dfs(TreeNode *&amp;root, int limit, int sum) {
+    if (!root) {
+      return 0;
+    }
+    sum += root-&gt;val;
+    int mx = max(dfs(root-&gt;left, limit, sum), dfs(root-&gt;right, limit, sum));
+    int ret = mx + root-&gt;val;</B></FONT>
+    if (mx + sum &lt; limit) {
+      root = nullptr;
+    } 
+    return ret;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

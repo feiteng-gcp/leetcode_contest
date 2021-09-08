@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>48_raincoat911.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>48_raincoat911.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int nthUglyNumber(int n, int a, int b, int c) {
+        int lo = 1, hi = Integer.MAX_VALUE;
+        long ab1 = gcd(a, b);
+        long ab2 = a / ab1 * b</B></FONT>;
+<A NAME="1"></A>        long bc1 = gcd(b, c);
+        long bc2 = b / bc1 * c;
+        long ac1 = gcd(a, c);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>long ac2 = a / ac1 * c;
+        long abc1 = gcd(ab2, bc2);
+        long abc2 = ab2 / abc1 * bc2;
+        // System.out.printf(&quot;%d %d %d, %d\n&quot;, ab2, bc2, ac2, abc2);
+        while (lo &lt; hi) {
+            int mid = lo + (hi - lo) / 2;
+            int cmp = count(mid, a, b, c, ab2, bc2, ac2, abc2) - n;
+            if (cmp &lt; 0) lo = mid + 1;
+<A NAME="2"></A>            else hi = mid;
+        }</B></FONT>
+        return lo;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    private long gcd(long m, long n) {
+<A NAME="3"></A>        if (n == 0) return m;
+        return gcd(n, m % n);
+    }</B></FONT>
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int count(long num, int a, int b, int c, long ab, long bc, long ac, long abc) {
+        return</B></FONT> (int) (num / a + num / b + num / c - num / ab - num / bc - num / ac + num / abc);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

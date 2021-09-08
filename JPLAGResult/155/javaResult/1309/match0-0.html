@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_daodao-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_daodao-2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class Graph {
+        List&lt;Set&lt;Integer&gt;&gt; nodes = new ArrayList&lt;&gt;();
+        int[] cnt;
+        int n;
+        Graph(int n) {
+            for (int i = 0; i &lt; n; i++) {
+                nodes.add(new HashSet&lt;&gt;());
+            }
+<A NAME="0"></A>            cnt = new int[n];
+            this.n = n;
+        }
+        void addEdge(int u, int v) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (!nodes.get(u).contains(v)) {
+                nodes.get(u).add(v);
+                cnt[v]++;
+            }
+<A NAME="1"></A>        }</B></FONT>
+        List&lt;Integer&gt; topsort() {
+            List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+            for (int i = 0; i &lt; n; i++) {
+                if (cnt[i] == 0) {
+<A NAME="2"></A>                    queue.add(i);
+                }
+            }</B></FONT>
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match0-1.html#2',3,'match0-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!queue.isEmpty()) {
+                int cur = queue.poll();
+                res.add(cur);
+                for (int v: nodes.get(cur)) {
+                    cnt[v]--;
+                    if</B></FONT> (cnt[v] == 0) queue.add(v);
+                }
+            }
+            if (res.size() != n) return null;
+            return res;
+        }
+<A NAME="3"></A>    }
+
+    public int[] sortItems(int n, int m, int[] group, List&lt;List&lt;Integer&gt;&gt; beforeItems) {
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match0-1.html#3',3,'match0-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int idx = m;
+        int[] cnt = new int[m];
+        List&lt;List&lt;Integer&gt;&gt; gs = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            gs.add(new ArrayList&lt;&gt;());
+        }
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            if (group[i] == -1) {
+                group[i] = idx++;
+                gs.add(new ArrayList&lt;&gt;());
+                gs.get(idx-1).add(i);
+            } else {
+                cnt[group[i]]++;
+                gs.get(group[i]).add(i);
+            }
+        }
+        Graph groupGraph = new Graph(idx);
+        List&lt;Graph&gt; graphs = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            Graph g = new Graph(cnt[i]);
+            graphs.add(g);
+        }
+
+        for (int i = 0; i &lt; n; i++) {
+            List&lt;Integer&gt; b = beforeItems.get(i);
+            int g1 = group[i];
+            int idx1 = Collections.binarySearch(gs.get(g1), i);
+            for (int p: b) {
+                int g2 = group[p];
+                if (g2 == g1) {
+<A NAME="4"></A>                    int idx2 = Collections.binarySearch(gs.get(g2), p);
+                    graphs.get(g1).addEdge(idx2, idx1);
+                } else {
+                    <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match0-1.html#4',3,'match0-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>groupGraph.addEdge(g2, g1);
+                }
+<A NAME="5"></A>            }
+        }
+        List&lt;Integer&gt; groupsort = groupGraph.topsort();
+        if</B></FONT> (groupsort == null) <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match0-1.html#5',3,'match0-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return new int[0];
+        int[] res = new int[n];
+        int j = 0;
+        for (int i : groupsort) {
+            List&lt;Integer&gt; grp = gs.get(i);
+            if (grp.size</B></FONT>() == 1) {
+<A NAME="6"></A>                res[j++] = grp.get(0);
+            } else {
+                List&lt;Integer&gt; sort = graphs.get(i).topsort();
+                if (sort == null) <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match0-1.html#6',3,'match0-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return new int[0];
+                for (int k : sort) {
+                    res[j++] = grp.get(k);
+                }
+            }</B></FONT>
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

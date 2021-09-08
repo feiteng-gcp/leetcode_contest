@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_joyceyao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>439_joyceyao.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return toTree(preorder, 0, preorder.length-1);
+    }
+    
+    private TreeNode toTree(int[] preorder, int left, int right) {
+        if (left &gt; right) { return null; }
+        TreeNode root = new TreeNode(preorder[left]);
+        int rightIdx = right+1;
+<A NAME="1"></A>        for</B></FONT> (int i=left+1; i&lt;=right; i++) {
+            if(preorder[i] &gt; root.val) {
+                rightIdx = i;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>break;
+            }
+        }
+        root.left = toTree(preorder, left+1, rightIdx-1);
+        root.right = toTree(preorder, rightIdx, right);
+        return root;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

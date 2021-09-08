@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>381_matchalatte.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>381_matchalatte.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minimumMoves(int[][] grid) {
+        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; v = new HashSet&lt;&gt;();
+        q.add(0);
+<A NAME="0"></A>        v.add(0);
+        int res = 0;
+        int cnst = 100000, cnst2 = 10;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n = grid.length;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i &lt; size; i++) {
+                int cur = q.poll</B></FONT>();
+                int x0 = cur/cnst, y0 = (cur%cnst)/cnst2, x1 = x0, y1 = y0, dir = cur %10;
+                // System.out.println(&quot;&quot;+x0+&quot;:&quot;+y0+&quot;:&quot;+dir);
+                if (x0 == n-1 &amp;&amp; y0 == n-2 &amp;&amp; dir == 0) {
+                    // System.out.println(&quot;end&quot;);
+                    return res;
+                }
+                if (dir == 0) {
+                    y1 = y0+1;
+                } else {
+                    x1 = x0+1;
+                }
+
+                // // Left.
+                // if (y0 &gt; 0 &amp;&amp; y1 &gt; 0 &amp;&amp; grid[x0][y0-1] == 0 &amp;&amp; grid[x1][y1-1] == 0) {
+                //     int next = (x0) * cnst + (y0-1) * cnst2 + dir;
+                //     if (!v.contains(next)) {
+                //         v.add(next);
+                //         q.add(next);
+                //     }
+                // }
+<A NAME="1"></A>                // Right.
+                if (y0 &lt; n-1 &amp;&amp; y1 &lt; n-1 &amp;&amp; grid[x0][y0+1] == 0 &amp;&amp; grid[x1][y1+1] == 0) {
+                    int next = (x0) * cnst + (y0+1) * cnst2 + dir;
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!v.contains(next)) {
+                        v.add(next);
+                        q.add(next);
+                    }
+                }
+                // // Up.
+                // if (x0 &gt; 0 &amp;&amp; x1 &gt; 0 &amp;&amp; grid[x0-1][y0] == 0 &amp;&amp; grid[x1-1][y1] == 0) {
+                //     int next = (x0-1) * cnst + (y0) * cnst2 + dir;
+                //     if (!v.contains(next)) {
+                //         v.add(next);
+                //         q.add(next);
+                //     }
+                // }
+<A NAME="2"></A>                // Down.
+                if (x0 &lt; n-1 &amp;&amp; x1 &lt; n-1 &amp;&amp; grid[x0+1][y0] == 0 &amp;&amp; grid[x1+1][y1] == 0) {
+                    int next = (x0+1) * cnst + (y0) * cnst2 + dir;</B></FONT>
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!v.contains(next)) {
+                        v.add(next);
+                        q.add(next);
+                    }
+                }
+                // Rotate clockwise.
+                if (x0 &lt; n-1 &amp;&amp; y0 &lt; n-1 &amp;&amp; grid[x0+1][y0] == 0 &amp;&amp; grid[x0][y0+1] == 0 &amp;&amp; grid[x0+1][y0+1] == 0){
+                    if (dir == 0) {
+                        int next = cur + 1</B></FONT>;
+                        if (!v.contains(next)) {
+                            v.add(next);
+                            q.add(next);
+<A NAME="3"></A>                        } 
+                    }else {
+                        int next = cur - 1;
+                        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (!v.contains(next)) {
+                            v.add(next);
+                            q.add(next);
+                        }
+                    }
+                }
+            }
+            res++;
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

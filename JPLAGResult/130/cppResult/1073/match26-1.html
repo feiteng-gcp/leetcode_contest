@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_mureal.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_mureal.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+public:
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int traverse(vector&lt;vector&lt;int&gt;&gt; &amp;A, int y, int x, bool &amp;flag) {
+        if (y&lt;0 || x&lt;0 || y==A.size() || x==A[0].size()) {
+            flag = true;
+            return 0;
+        }
+        if (A[y][x] == 0)
+            return 0;
+        A[y][x] = 0;</B></FONT>
+        
+        return traverse(A,y+1,x,flag)+
+        traverse(A,y-1,x,flag)+
+        traverse(A,y,x-1,flag)+
+        traverse(A,y,x+1,flag)+1;
+        
+    }
+    int numEnclaves(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int i,j;
+<A NAME="0"></A>        int ans = 0;
+        
+        for (i=0; i&lt;A.size(); i++)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (j=0; j&lt;A[0].size(); j++) {
+                
+                if (A[i][j] == 1) {
+                    bool flag= false;
+                    int ret = traverse(A,i,j,flag);
+                    if (!flag) ans += ret;
+                }
+            }
+        return ans;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

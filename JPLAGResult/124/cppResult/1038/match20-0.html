@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_jasonshieh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_jasonshieh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numSquarefulPerms(vector&lt;int&gt;&amp; A) {
+        //backtracking
+        if(A.empty()) return 0;
+<A NAME="0"></A>        int n = A.size();
+        int res = 0;
+        vector&lt;int&gt; visited(n, 0);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;int&gt; path;
+        sort(A.begin(), A.end());
+        dfs(A, visited, res, n, path);
+        return res;
+    }
+    
+    void dfs(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; visited, int&amp; res, int n, vector&lt;int&gt;&amp; path){
+        if(path.size() == n){
+            res++;
+            return;
+        }
+        for(int j = 0; j &lt; n;){</B></FONT>
+            if(visited[j]){j++;continue;}
+            if(path.empty()){
+                path.push_back(A[j]);
+                visited[j] = 1;
+                dfs(A, visited, res, n, path);
+                path.pop_back();
+                visited[j] = 0;
+            }else{
+                int val = path.back();
+                if(isPerfectSqr(val + A[j])){
+                    path.push_back(A[j]);
+                    visited[j] = 1;
+                    dfs(A, visited, res, n, path);
+                    path.pop_back();
+                    visited[j] = 0;
+                }
+            }
+            j++;
+            while(j &lt; n &amp;&amp; A[j] == A[j-1]) j++;
+        }
+        return;
+    }
+    
+    bool isPerfectSqr(int num){
+        if(num == 0 || num == 1) return true;
+        if(num &lt; 0) return false;
+        for(int i = 2; i*i &lt;= num; ++i){
+            if(i*i == num) return true;
+        }
+        return false;
+    }
+};
+/*
+[1,17,8]
+[2,2,2]
+[1,24,34,56,78]
+[2,2,2,2,2,2,2,2,2,2,2]
+[1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3]
+[1,1,1,1,1,3,3,3,3,3]
+*/
+</PRE>
+</BODY>
+</HTML>

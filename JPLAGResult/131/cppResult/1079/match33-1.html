@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>117_autumn_eel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>117_autumn_eel.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#define rep(i,n)for(int i=0;i&lt;(n);i++)
+#define MOD 1000000007
+#define INF 0x3f3f3f3f
+#define INFL 0x3f3f3f3f3f3f3f3f
+#define EPS (1e-10)
+using namespace std;
+typedef long long ll;
+typedef pair&lt;int,int&gt;P;
+
+#ifdef DEBUG
+struct TreeNode{
+	int val;
+	TreeNode*left;
+	TreeNode*right;
+	TreeNode(int x):val(x),left(NULL),right(NULL){}
+};
+#endif
+
+string to_string(string s){return s;}
+
+template&lt;class T&gt;
+string to_string(vector&lt;T&gt;v){
+	string res;
+	res+=&quot;{&quot;;
+	rep(i,v.size()){
+		if(i)res+=&quot;,&quot;;
+		res+=to_string(v[i]);
+	}
+	res+=&quot;}&quot;;
+	return res;
+}
+
+template&lt;class T&gt;
+ostream&amp;operator&lt;&lt;(ostream&amp;os,vector&lt;T&gt;v){
+	cout&lt;&lt;to_string(v);
+	return os;
+}
+
+ostream&amp;operator&lt;&lt;(ostream&amp;os,TreeNode*t){
+	map&lt;int,int&gt;mp;
+	function&lt;void(TreeNode*,int)&gt;dfs=[&amp;](TreeNode*t,int k){
+		if(!t)return;
+		mp[k]=t-&gt;val;
+		dfs(t-&gt;left,k*2+1);
+		dfs(t-&gt;right,k*2+2);
+	};
+	dfs(t,0);
+	int Max=0;
+	for(auto p:mp)Max=max(Max,p.first);
+	vector&lt;string&gt;ans(Max+1,&quot;null&quot;);
+	for(auto p:mp)ans[p.first]=to_string(p.second);
+	os&lt;&lt;ans;
+	return os;
+}
+
+class Solution {
+public:
+<A NAME="0"></A>	int ans=0;
+	void dfs(TreeNode*t,int sum){
+		sum=((sum&lt;&lt;1)+t-&gt;val)%MOD;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>		if(!(t-&gt;left)&amp;&amp;!(t-&gt;right)){
+			(ans+=sum)%=MOD;
+			return;
+		}
+		if(t-&gt;left)dfs(t-&gt;left,sum);
+		if(t-&gt;right)dfs(t-&gt;right,sum);
+	}
+    int sumRootToLeaf(TreeNode* root) {
+        ans=0;
+        dfs(root,0);
+        return ans;
+    }
+};</B></FONT>
+
+#ifdef DEBUG
+int main(){
+	Solution sol;
+	TreeNode*root=new TreeNode(1);
+	root-&gt;left=new TreeNode(0);
+	root-&gt;right=new TreeNode(1);
+	root-&gt;left-&gt;left=new TreeNode(0);
+	root-&gt;left-&gt;right=new TreeNode(1);
+	root-&gt;right-&gt;left=new TreeNode(0);
+	root-&gt;right-&gt;right=new TreeNode(1);
+
+	auto res=sol.sumRootToLeaf(root);
+	cout&lt;&lt;res&lt;&lt;endl;
+}
+#endif
+</PRE>
+</BODY>
+</HTML>

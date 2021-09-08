@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>120_drd93.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>120_drd93.py</CENTER></H3><HR>
+<PRE>
+import sys
+import os
+if 'PYCHARM_HOSTED' in os.environ:
+    sys.path.append('..')
+    from TreeNode import *
+
+from typing import *
+import collections
+import functools
+import itertools
+import math
+import bisect
+import random
+<A NAME="0"></A>
+
+# Solution
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def sampleStats(self, count: List[int]) -&gt; List[float]:
+        amin = -1
+        for i in range(256):
+            if count[i]:
+                amin = i
+                break
+        amax = 256
+        for i in range(255, -1, -1):
+            if count[i]:
+                amax = i
+                break
+        total = 0
+        tot_count =</B></FONT> 0
+        for i in range(256):
+            total += i * count[i]
+            tot_count += count[i]
+        mean = total / tot_count
+        odd = tot_count % 2 == 1
+        mediani = tot_count // 2
+        prefc = 0
+        median = -1
+
+        for i in range(256):
+            if prefc + count[i] &lt; mediani:
+                prefc += count[i]
+            else:
+                if odd or prefc + count[i] &gt; mediani:
+                    median = i
+                else:
+                    for j in range(i + 1, 256):
+                        if count[j]:
+                            median = (i + j) / 2
+                            break
+                break
+
+        mode = max(range(256), key=lambda i: count[i])
+        return [float(amin), float(amax), float(mean), float(median), float(mode)]
+</PRE>
+
+</BODY>
+</HTML>

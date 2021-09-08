@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_deadRabbit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_deadRabbit.cpp</CENTER></H3><HR>
+<PRE>
+int was[512][512];
+int dd[4] = {1,-1,0,0};
+
+class Solution {
+public:
+    
+    vector&lt;vector&lt;int&gt;&gt; F;
+    void dfs(int x, int y) {
+        if (F[x][y]==0) return;
+        if (was[x][y]) return;
+        was[x][y]=1;
+        for (int d = 0; d &lt; 4; ++d) {
+            int xx = x + dd[d];
+            int yy = y + dd[3-d];
+            if (xx&gt;=0 &amp;&amp; yy&gt;=0 &amp;&amp; xx&lt;F.size() &amp;&amp; yy&lt;F[0].size()) dfs(xx,yy);
+        }
+    }
+    
+    int numEnclaves(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+<A NAME="0"></A>        F = A;
+        memset(was,0,sizeof(was));
+        int X = A.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int Y = A[0].size();
+        for (int i = 0; i &lt; X; ++i) {
+            dfs(i,0);
+            dfs(i,Y-1);
+        }
+        for (int i = 0; i &lt; Y; ++i) {
+            dfs(0,i);
+            dfs(X-1,i);
+        }
+        int r = 0;
+        for (int i = 0; i &lt; X; ++i) {
+            for (int j = 0; j &lt; Y; ++j) {
+                if (!was[i][j] &amp;&amp; A[i][j]==1) ++r;
+            }
+        }
+        return r;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

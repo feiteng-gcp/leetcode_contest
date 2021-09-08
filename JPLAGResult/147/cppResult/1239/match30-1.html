@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>421_lin-jie-4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>421_lin-jie-4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int row[105][105],col[105][105];
+<A NAME="0"></A>    int largest1BorderedSquare(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        memset(row,0,sizeof row);
+        memset(col,0,sizeof col);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans=0;
+        for(int i=1;i&lt;=grid.size();i++)
+        {
+            for(int j=1;j&lt;=grid[i-1].size();j++)
+            {</B></FONT>
+<A NAME="1"></A>                if(j) row[i][j]=row[i][j-1];
+                row[i][j]+=grid[i-1][j-1];
+                if(i) col[i][j]=col[i-1][j];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#1',2,'match30-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                col[i][j]+=grid[i-1][j-1];
+                for(int k=min(row[i][j],col[i][j]);k&gt;=1;k--)
+                {
+                    if(row[i][j]-row[i][j-k]==k &amp;&amp; row[i-k+1][j]-row[i-k+1][j-k]==k &amp;&amp; col[i][j]-col[i-k][j]==k &amp;&amp; col[i][j-k+1]-col[i-k][j-k+1]==k)
+                    {
+                        ans=max(ans,k*k);
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

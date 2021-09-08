@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>270_ghost_liu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>270_ghost_liu.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    TreeNode * dfs( vector&lt;int&gt;&amp; preorder , int left , int right ){
+        if( left &gt; right ) 
+            return NULL ; 
+        
+        TreeNode * root = new TreeNode ( preorder[left] ) ; 
+        int mid =right ; 
+        for( int i=left+1; i&lt;= right ; i++){
+            if( preorder[i] &gt; root-&gt;val ){
+                mid = i-1 ;
+                break ; 
+            } 
+                 
+        }</B></FONT>
+        if( left == right ) 
+            return root ; 
+        root-&gt;left = dfs( preorder , left+1, mid ) ; 
+        root-&gt;right = dfs( preorder , mid+1 , right ) ; 
+        return root ; 
+    }
+    TreeNode* bstFromPreorder(vector&lt;int&gt;&amp; preorder) {
+        return dfs(preorder , 0 , preorder.size()-1  ) ; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

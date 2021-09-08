@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_chenwang0517.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>32_chenwang0517.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; father;
+    
+    int find(int x) {
+        if (father[x] != x) father[x] = find(father[x]);
+        return father[x];
+    }
+    
+    void merge(int x, int y) {
+        father[find(y)] = find(x);
+<A NAME="1"></A>    }
+    
+    string smallestStringWithSwaps(string s, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        const int n = s.size();
+        father.resize(n);
+        for (int i = 0; i &lt; n; ++i) father[i] = i;
+        for (int i = 0; i &lt; pairs.size(); ++i) {</B></FONT>
+            merge(pairs[i][0], pairs[i][1]);
+        }
+        vector&lt;vector&lt;int&gt;&gt; u(n, vector&lt;int&gt;());
+        for (int i = 0; i &lt; n; ++i) u[find(i)].push_back(i);
+        for (int i = 0; i &lt; n; ++i) {
+            if (!u[i].empty()) {
+                sort(u[i].begin(), u[i].end());
+                string tmp = &quot;&quot;;
+                for (int j = 0; j &lt; u[i].size(); ++j) tmp += s[u[i][j]];
+                sort(tmp.begin(), tmp.end());
+                for (int j = 0; j &lt; u[i].size(); ++j) s[u[i][j]] = tmp[j];
+            }
+        }
+        return s;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

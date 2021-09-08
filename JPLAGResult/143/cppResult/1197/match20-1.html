@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_iurii_simanovskyi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>320_iurii_simanovskyi.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool parseBoolExpr(string expression) {
+        size_t i = 0;
+        return parse(expression, i);
+<A NAME="0"></A>    }
+    
+    bool parse(const std::string&amp; s, size_t&amp; i)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    {
+        if (s[i] == 't')
+        {
+            ++i;
+            return true;
+        }
+        
+        if (s[i] == 'f')
+        {
+            ++i;
+            return false;
+        }
+
+        if (s[i] == '!')
+        {
+            ++i;
+            assert(s[i] == '(');
+            ++i;
+
+            bool r = parse(s, i);
+
+            assert(s[i] == ')');
+            ++i;
+            return !r;
+        }
+
+        if (s[i] == '&amp;' || s[i] == '|')
+        {</B></FONT>
+            char ch = s[i];
+            ++i;
+            assert(s[i] == '(');
+            ++i;
+            
+            std::list&lt;bool&gt; bl;
+            while (s[i] != ')')
+            {
+                bool r = parse(s, i);
+                bl.push_back(r);
+                
+                if (s[i] == ',')
+                    ++i;
+            }
+
+            assert(s[i] == ')');
+            ++i;
+            
+            if (ch == '&amp;')
+            {
+                for (auto b : bl)
+                {
+                    if (!b)
+                        return false;
+                }
+                return true;
+            }
+            else
+            {
+                for (auto b : bl)
+                {
+                    if (b)
+                        return true;
+                }
+                return false;
+            }
+        }
+        
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

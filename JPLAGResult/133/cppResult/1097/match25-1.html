@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_Aging.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_Aging.cpp</CENTER></H3><HR>
+<PRE>
+struct TreeNode_t {
+<A NAME="0"></A>    bool hasEnd;
+    vector&lt;TreeNode_t *&gt; subnodes;   
+    TreeNode_t():hasEnd(false), subnodes(26, NULL) {}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>};
+
+class Tree {
+public:
+    Tree(vector&lt;string&gt; &amp;words) {
+        m_root = new TreeNode_t();
+        for (auto &amp;word: words) {
+            TreeNode_t *root = m_root;
+            for (int i = word.size() - 1; i &gt;= 0; --i) {</B></FONT>
+                char c = word[i];
+                if (!root-&gt;subnodes[c - 'a']) {
+                    root-&gt;subnodes[c - 'a'] = new TreeNode_t();                 
+                }
+                root = root-&gt;subnodes[c - 'a'];
+            }
+            root-&gt;hasEnd = true;
+        }
+    }
+    
+    bool query(string &amp;q) {
+        TreeNode_t *root = m_root;
+        for (int i = q.size() - 1; i &gt;= 0; --i) {           
+            char c = q[i];
+            if (!root-&gt;subnodes[c - 'a']) break;
+            root = root-&gt;subnodes[c - 'a'];
+            if (root-&gt;hasEnd) return true;
+        }
+        return false;
+    }
+private:
+    TreeNode_t *m_root;
+};
+
+
+class StreamChecker {
+public:
+    StreamChecker(vector&lt;string&gt;&amp; words): m_tree(words), m_cur(&quot;&quot;) {
+        
+    }
+    
+    bool query(char letter) {
+        m_cur.push_back(letter);
+        return m_tree.query(m_cur);
+    }
+    
+    Tree m_tree;
+    string m_cur;
+};
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj-&gt;query(letter);
+ */
+</PRE>
+</BODY>
+</HTML>

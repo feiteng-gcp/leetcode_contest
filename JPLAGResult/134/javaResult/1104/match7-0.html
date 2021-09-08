@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>354_wojiao515915824.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>354_wojiao515915824.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    int[][] moves = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    int m;
+    int n;
+    public int[][] colorBorder(int[][] grid, int r0, int c0, int color) {</B></FONT>
+        int origin = grid[r0][c0];
+        m=grid.length;
+<A NAME="1"></A>        n=grid[0].length;
+        boolean[][] visited = new boolean[m][n];
+        helper(grid,r0,c0,origin,color,visited);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return grid;
+        
+    }
+    public void helper(int[][] grid, int i, int j, int origin, int color,boolean[][] visited){
+        if(i&lt;0||i&gt;=m||j&lt;0||j&gt;=n) return;</B></FONT>
+        visited[i][j] = true;
+        for(int[] move : moves){
+            int x = i+move[0];
+            int y = j+move[1];
+            if(x&gt;=0&amp;&amp;x&lt;m&amp;&amp;y&gt;=0&amp;&amp;y&lt;n&amp;&amp;visited[x][y]) continue;
+            if(x&lt;0||x&gt;=m||y&lt;0||y&gt;=n||grid[x][y]!=origin){
+                grid[i][j] = color;
+                break;
+            }
+        }
+        for(int[] move : moves){
+            int x = i+move[0];
+            int y = j+move[1];
+            if(x&lt;0||x&gt;=m||y&lt;0||y&gt;=n||grid[x][y]!=origin||visited[x][y]) continue;
+            helper(grid,x,y,origin,color,visited);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

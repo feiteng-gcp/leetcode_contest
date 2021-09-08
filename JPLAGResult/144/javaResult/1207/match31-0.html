@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>334_jintin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>334_jintin.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+<A NAME="0"></A>    public List&lt;TreeNode&gt; delNodes(TreeNode root, int[] to_delete) {
+        List&lt;TreeNode&gt; result = new ArrayList&lt;&gt;();
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i : to_delete) {
+            set.add(i);
+        }
+        cal(root, set, result, true);
+<A NAME="1"></A>        return result;
+    }</B></FONT>
+    
+    private boolean cal(TreeNode root, Set&lt;Integer&gt; set, <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>List&lt;TreeNode&gt; result, boolean isRoot) {
+        if (root == null) {
+            return false;
+        }
+        if (set.contains(root.val)) {</B></FONT>
+            if (cal(root.left, set, result, true)) {
+                root.left = null;
+            }
+<A NAME="2"></A>            if (cal(root.right, set, result, true)) {
+                root.right = null;
+            }
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return true;
+        } else {
+            if (isRoot) {
+                result.add(root);
+            }</B></FONT>
+            if (cal(root.left, set, result, false)) {
+                root.left = null;
+            }
+            if (cal(root.right, set, result, false)) {
+                root.right = null;
+            }
+            return false;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

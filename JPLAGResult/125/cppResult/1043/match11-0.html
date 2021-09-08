@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_oreo2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_oreo2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; gridIllumination(int N, vector&lt;vector&lt;int&gt;&gt;&amp; lamps, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        unordered_map&lt;int, int&gt; row, col, diag, adiag;
+        unordered_map&lt;int, unordered_set&lt;int&gt;&gt; lit;
+        for (auto l : lamps) {
+            row[l[0]]++;
+            col[l[1]]++;
+            diag[l[0] - l[1]]++;
+            adiag[l[0] + l[1]]++;
+            lit[l[0]].insert(l[1]);
+        }
+        
+        vector&lt;int&gt; result;</B></FONT>
+        for (auto q : queries) {
+            if (row[q[0]] &gt; 0 || col[q[1]] &gt; 0 || diag[q[0] - q[1]] &gt; 0 || adiag[q[0] + q[1]] &gt; 0) {
+                result.push_back(1);
+            } else {
+                result.push_back(0);
+            }
+            
+<A NAME="1"></A>            vector&lt;pair&lt;int, int&gt;&gt; di = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+            for (auto d : di) {
+                int x = q[0] + d.first;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int y = q[1] + d.second;
+                if (x &gt;= 0 &amp;&amp; x &lt; N &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; N &amp;&amp; lit.count(x) &amp;&amp; lit[x].count(y)) {
+                    row[x]--;
+                    col[y]--;
+                    diag[x-y]--;
+                    adiag[x+y]--;
+                    lit[x].erase(y);
+                }
+            }            
+        }
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

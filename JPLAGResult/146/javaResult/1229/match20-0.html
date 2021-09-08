@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>63_daodao-2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>63_daodao-2.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int n;
+    public int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges) {
+        List&lt;List&lt;Integer&gt;&gt; rGraph = new ArrayList&lt;&gt;();
+        this.n = n;
+        build(rGraph, red_edges);
+        List&lt;List&lt;Integer&gt;&gt; bGraph = new ArrayList&lt;&gt;();
+        build(bGraph, blue_edges);
+        
+        int[][] dist = new int[2][n];
+        for (int i = 0; i &lt; 2; i++) for (int j = 0; j &lt; n; j++) 
+            dist[i][j] = Integer.MAX_VALUE;
+        
+        dist[0][0] = dist[1][0] = 0;
+        Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+<A NAME="0"></A>        queue.add(new int[] {0, 0});
+        queue.add(new int[] {0, 1});
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            if (cur[1] == 0) {
+                for (int u</B></FONT>: rGraph.get(cur[0])) {
+<A NAME="1"></A>                    if (dist[1][u] == Integer.MAX_VALUE) {
+                        dist[1][u] = dist[cur[1]][cur[0]] + 1;
+                        queue.add(new int[] {u, 1});
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            } else {
+                for (int u</B></FONT>: bGraph.get(cur[0])) {
+<A NAME="2"></A>                    if (dist[0][u] == Integer.MAX_VALUE) {
+                        dist[0][u] = dist[cur[1]][cur[0]] + 1;
+                        queue.add(new int[] {u, 0});
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+            }
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            ans[i] = Math.min(dist[0][i], dist[1][i]);
+            if</B></FONT> (ans[i] == Integer.MAX_VALUE) ans[i] = -1;
+        }
+        return ans;
+    }
+    
+    void build(List&lt;List&lt;Integer&gt;&gt; graph, int[][] edges) {
+        for (int i = 0; i &lt; n; i++) graph.add(new ArrayList&lt;&gt;());
+        for (int i = 0; i &lt; edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            graph.get(u).add(v);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

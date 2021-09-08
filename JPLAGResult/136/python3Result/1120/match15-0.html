@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>405_frederick2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>405_frederick2.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def gardenNoAdj(self, N: int, paths: List[List[int]]) -&gt; List[int]:
+        g = collections.defaultdict(list)
+        for path in paths:
+            g[path[0]].append(path[1])
+            g[path[1]].append(path[0])
+        res =</B></FONT> [-1] * (N) # need to make it 1 based
+        mp = dict()
+        def dfs(idx):
+            if idx in mp:
+                return
+            color_used = set([mp[child] for child in g[idx] if child in mp])
+            for color in range(1,5):
+                if color not in color_used:
+                    mp[idx] = color
+                    res[idx - 1] = color
+                    break
+        for i in range(1, N+1):
+            dfs(i)
+        return res
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

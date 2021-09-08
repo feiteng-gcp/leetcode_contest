@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>415_traceformula2.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>415_traceformula2.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode recoverFromPreorder(String S) {
+        List&lt;Token&gt; tokens = tokenize(S);
+        return parse(tokens);
+    }
+<A NAME="0"></A>    
+    private TreeNode parse(List&lt;Token&gt; tokens) {
+        TreeNode dummy = new TreeNode(0);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>parse(tokens, 1, dummy, tokens.get(0));
+        return dummy.left;
+    }
+    
+<A NAME="1"></A>    private int parse(List&lt;Token&gt; tokens, int index, TreeNode parent</B></FONT>, Token pt) {
+        if (index &gt;= tokens.size()) return index;
+        Token cur = tokens.get(index);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (cur.level == pt.level + 1) { //left
+            TreeNode left = new TreeNode(cur.val);
+            parent.left = left;
+            index = parse(tokens, index+1, left, cur);
+        }</B></FONT>
+        
+        if (index &gt;= tokens.size()) return index;
+        cur = tokens.get(index);
+<A NAME="2"></A>        if (cur.level == pt.level + 1) { //right
+            TreeNode right = new TreeNode(cur.val);
+            parent.right = right;
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>index = parse(tokens, index+1, right, cur);
+        }
+        return index;
+    }
+    
+    private List&lt;Token&gt; tokenize(String s) {
+        List&lt;Token&gt; tokens = new ArrayList&lt;&gt;()</B></FONT>;
+        tokens.add(new Token(-1, 0));
+        
+        int index = 0;
+        while(index&lt;s.length()) {
+            StringBuilder sb = new StringBuilder();
+            int level = 0;
+            while(index&lt;s.length() &amp;&amp; s.charAt(index)=='-') {
+                level++; index++;
+            }
+            while(index&lt;s.length() &amp;&amp; s.charAt(index)!='-') {
+                sb.append(s.charAt(index));
+                index++;
+            }
+            tokens.add(new Token(level, Integer.parseInt(sb.toString())));
+        }
+        return tokens;
+    }
+    
+    public static class Token {
+        int level;
+        int val;
+        
+        public Token(int level, int val) { this.level = level; this.val = val; }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

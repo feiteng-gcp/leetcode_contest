@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>42_ychzhou.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>42_ychzhou.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxRepOpt1(string s) {
+        int n = s.size();
+        int ans = 0;
+        for(int i = 0; i &lt; 26; i++) {</B></FONT>
+            vector&lt;int&gt; a(n + 1, 0);
+            for(int j = 0; j &lt; n; j++) {
+                a[j + 1] = a[j];
+                if(s[j] - 'a' == i) {
+                    a[j + 1] += 1;
+                }
+            }
+            int total = a[n];
+            for(int j = 1, k = 1; j &lt;= n; j++) {
+                k = max(k, j);
+                while(k &lt;= n &amp;&amp; (k - j + 1) - (a[k] - a[j - 1]) &lt;= 1) {
+                    //if(j == 1 &amp;&amp; i == 0) {
+                    //    cout &lt;&lt; k &lt;&lt; endl;
+                    //}
+                    ans = max(ans, min(total, k - j + 1));
+                    k++;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+</PRE>
+</BODY>
+</HTML>

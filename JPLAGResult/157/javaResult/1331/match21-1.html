@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>455_BestOreo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>455_BestOreo.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<A NAME="1"></A>    int res = 0;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0}</B></FONT>};
+    
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int getMaximumGold(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+<A NAME="2"></A>        for(int i=0; i&lt;m; i++){
+            for(int j=0; j&lt;n; j++){
+                if(grid[i][j] != 0){</B></FONT>
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(grid, i, j, 0);
+                }
+            }
+        }
+        return res;
+    }
+    
+    void dfs(int[][] grid, int x, int y, int total</B></FONT>){
+        int m = grid.length, n = grid[0].length;
+<A NAME="3"></A>        int coin = grid[x][y];
+        res = Math.max(res, total + coin);
+        grid[x][y] = 0;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int[] d: dirs){
+            int nx = x+d[0], ny = y+d[1];
+            if(nx&lt;0 || nx&gt;=m || ny&lt;0 || ny&gt;=n || grid[nx][ny] == 0) continue;
+            dfs(grid, nx, ny, total + coin);
+        }
+        grid[x][y] = coin;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_nooIces.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>326_nooIces.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public boolean parseBoolExpr(String expression) {
+        List&lt;Boolean&gt; temp = new ArrayList&lt;&gt;();
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>LinkedList&lt;Character&gt; list = new LinkedList&lt;&gt;();
+        LinkedList&lt;Character&gt; sign = new LinkedList&lt;&gt;();
+        char[] ch = expression.toCharArray();
+        for(char c : ch){
+            if(c == ','){
+                continue;
+            }
+            if(c == '|' || c == '&amp;' || c =='!'){
+                sign.push</B></FONT>(c);
+                continue;
+            }
+            if(c == ')'){
+                if(sign.isEmpty()){
+                    continue;
+                }
+                char sg = sign.poll();
+                while(!list.isEmpty()){
+                    char cc = list.poll();
+                    if(cc == '('){
+                        break;
+                    }
+                    temp.add(cc=='t');
+                }
+                boolean b;
+                switch (sg){
+                    case '|':
+                        b = false;
+                        for(Boolean bool : temp){
+                            b |= bool;
+                        }
+                        list.push(b?'t':'f');
+                        break;
+                    case '&amp;':
+                        b = true;
+                        for(Boolean bool : temp){
+                            b &amp;= bool;
+                        }
+                        list.push(b?'t':'f');
+                        break;
+                    case '!':
+                        b = !temp.get(0);
+                        list.push(b?'t':'f');
+                        break;
+                    default:
+                }
+                temp.clear();
+                continue;
+            }
+            list.push(c);
+        }
+        return !list.isEmpty() &amp;&amp; list.poll()=='t';
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

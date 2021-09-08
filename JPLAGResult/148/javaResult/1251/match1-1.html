@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_2wasabi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>323_2wasabi.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestDecomposition(String text) {
+<A NAME="0"></A>        return helper(text.toCharArray(), 0, text.length() - 1);
+    }
+    
+<A NAME="1"></A>    private int helper(char[] sc, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int left, int right) {
+        if(left &gt; right) return 0;
+        if(left == right) return 1;</B></FONT>
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#1',2,'match1-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(sc[left] == sc[right]) {
+            return 2 + helper(sc, left + 1, right - 1);
+<A NAME="2"></A>        }
+        
+        for(int diff = 1; left + diff &lt; right - diff; diff++) {
+            if</B></FONT>(<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#2',2,'match1-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>compare(sc, left, right, diff)) {
+                return 2 + helper(sc, left + diff + 1, right - diff - 1);
+            }
+        }
+        return 1;
+    }
+    
+    private boolean compare(char[] sc, int l, int r</B></FONT>, int len) {
+        int ls = l;
+        int rs = r - len;
+        for(int i = 0; i &lt;= len; i++) {
+            if(sc[ls + i] != sc[rs + i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

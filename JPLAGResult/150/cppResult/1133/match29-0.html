@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_Lilac_lly.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>44_Lilac_lly.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int getmin(const string&amp; s){
+        int n = s.length();
+<A NAME="0"></A>        int i = 0, j = 1, k = 0, t;
+        while (i &lt; n &amp;&amp; j &lt; n &amp;&amp; k &lt; n) {
+            t = s[(i + k) % n] - s[(j + k) % n];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (!t)
+                k++;
+            else{
+                if (t &lt; 0)
+                    i+=k+1; 
+                else
+                    j+=k+1;
+                if (i==j)
+                    j++;
+                k = 0;
+            }
+        }
+        return i &lt; j ? i : j;</B></FONT>
+    }
+public:
+    string lastSubstring(string s) {
+        int ind = getmin(s);
+        return s.substr(ind);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

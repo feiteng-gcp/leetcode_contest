@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_lichunzhu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_lichunzhu.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        unordered_map&lt;int, ListNode*&gt;s;
+        ListNode* fakeHead = new ListNode(0);
+        int t = 0;
+        s[0] = fakeHead;
+<A NAME="0"></A>        fakeHead -&gt; next = head;
+        for (auto p = head; p; p = p -&gt; next) {
+            t += p -&gt; val;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (s.find(t) != s.end()) {
+                s[t]-&gt;next = p-&gt;next;
+            } else {
+                s[t] = p;
+            }
+        }
+        return fakeHead -&gt; next;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>342_tylerwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>342_tylerwang.cpp</CENTER></H3><HR>
+<PRE>
+class DinnerPlates {
+ public:
+  DinnerPlates(int capacity) : cap_(capacity) {}
+
+  void push(int val) {
+<A NAME="0"></A>    if (cand_.empty()) {
+      cand_.insert(plates_.size());
+      plates_.emplace_back();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    int i = *cand_.begin();
+    plates_[i].push(val);
+    if (plates_[i].size() == cap_) {
+      cand_.erase(i);
+    }
+    wtf_.insert(i);
+  }
+
+  int pop() {
+    if (wtf_.empty()) {
+      return -1;
+    }
+    int i = *wtf_.rbegin();
+    int ans = plates_[i].top();
+    plates_[i].pop();
+    cand_.insert(i);
+    if (plates_[i].empty()) {
+      wtf_.erase(i);
+    }
+    return ans;
+  }
+
+  int popAtStack(int index) {
+    if (index &gt;= plates_.size() || plates_[index].empty()) {
+      return -1;
+    }
+    int ans = plates_[index].top();
+    plates_[index].pop();
+    cand_.insert(index);
+    if (plates_[index].empty()) {
+      wtf_.erase(index);
+    }
+    return ans;
+  }</B></FONT>
+
+ private:
+  int cap_;
+  set&lt;int&gt; cand_, wtf_;
+  vector&lt;stack&lt;int&gt;&gt; plates_;
+};
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates* obj = new DinnerPlates(capacity);
+ * obj-&gt;push(val);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;popAtStack(index);
+ */
+</PRE>
+</BODY>
+</HTML>

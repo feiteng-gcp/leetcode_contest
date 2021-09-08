@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>189_khoaisohd.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>189_khoaisohd.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    /**
+        Map limit vabel -&gt; current
+    **/
+    public int largestValsFromLabels(int[] values, int[] labels, int num_wanted, int use_limit) {
+        Map&lt;Integer, Integer&gt; limits = new</B></FONT> HashMap&lt;&gt;();
+        
+        int ans = 0;
+        int n = values.length;
+        Item[] items = new Item[n];
+        for (int i = 0; i &lt; n; i++) {
+            items[i] = new Item(values[i], labels[i]);
+        }
+        
+        Arrays.sort(items, (i1, i2) -&gt; i2.value - i1.value);
+        
+        for (Item item: items) {
+            if (num_wanted == 0) {
+<A NAME="1"></A>                break;
+            }
+            
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (limits.getOrDefault(item.label, 0) &lt; use_limit) {
+                ans += item.value;
+                limits.put(item.label, limits.getOrDefault(item.label, 0) + 1);
+                num_wanted--;
+            }
+        }
+        
+        return ans;
+    }
+    
+    static class Item {
+        int value;
+        int label;
+        
+        Item(int value, int label) {
+            this.value = value;
+            this.label = label;
+        }
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

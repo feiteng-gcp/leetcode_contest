@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>16_vipjml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>16_vipjml.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool isEscapePossible(vector&lt;vector&lt;int&gt;&gt;&amp; blocked, vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target) {
+        vector&lt;vector&lt;int&gt;&gt; used=vector&lt;vector&lt;int&gt;&gt;(401,vector&lt;int&gt;(401,false));
+        vector&lt;vector&lt;int&gt;&gt; block=vector&lt;vector&lt;int&gt;&gt;(401,vector&lt;int&gt;(401,false));
+        for(int i=0;i&lt;blocked.size();i++){
+            int x=blocked[i][0]-source[0];
+            int y=blocked[i][1]-source[1];
+<A NAME="0"></A>            if(x&gt;200||x&lt;-200||y&gt;200||y&lt;-200) continue;
+            block[x+200][y+200]=true;
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        queue&lt;pair&lt;int,int&gt;&gt; qq;
+        used[200][200]=true;
+        qq.push(make_pair(0,0));
+        int dd[][2]={{1,0},{-1,0},{0,1},{0,-1}};
+        int dx=target[0]-source[0];</B></FONT>
+        int dy=target[1]-source[1];
+        while(!qq.empty()){
+            auto p=qq.front();
+            qq.pop();
+            for(int i=0;i&lt;4;i++){
+                int x=dd[i][0]+p.first;
+                int y=dd[i][1]+p.second;
+                if(x==dx&amp;&amp;y==dy) return true;
+                if(x+source[0]&lt;0||x+source[0]&gt;=1000000||y+source[1]&lt;0||y+source[1]&gt;=1000000) continue;
+                if(x&gt;200||x&lt;-200||y&gt;200||y&lt;-200) return true;
+                if(block[x+200][y+200]) continue;
+                if(used[x+200][y+200]) continue;
+                used[x+200][y+200]=true;
+                qq.push(make_pair(x,y));
+            } 
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

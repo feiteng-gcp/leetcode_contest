@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>296_dibery.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>296_dibery.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -&gt; str:
+        adj = [set() for i in s]
+        for i in pairs:
+            adj[i[0]].add(i[1])
+            adj[i[1]].add(i[0])
+        proc = [False for i in s]
+        s = list(s)
+        for i in range(len(s)):
+            if not proc[i]:
+                reach, bfs = [i], [i]
+                proc[i] = True
+                while bfs:
+                    f = bfs.pop(0)
+                    for e in adj[f]:
+                        if not proc[e]:
+<A NAME="0"></A>                            proc[e] = True
+                            bfs.append(e)
+                            reach.append(e)
+                reach <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= sorted(reach)
+                S = sorted(s[j] for j in reach)
+                #print(reach, S)
+                for j in range(len(reach)):
+                    s[reach[j]] = S[j]
+        return ''.join(s</B></FONT>)
+</PRE>
+
+</BODY>
+</HTML>

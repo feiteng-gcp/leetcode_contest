@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_balakrishnan_v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_balakrishnan_v.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int largestValsFromLabels(vector&lt;int&gt;&amp; values, vector&lt;int&gt;&amp; labels, int num_wanted, int use_limit) {
+        
+        
+        vector&lt;pair&lt;int,int&gt;&gt; VL;
+        for(int i=0;i&lt;values.size();i++) {
+            VL.push_back({values[i],labels[i]});
+        }
+        
+        sort(VL.begin(),VL.end(),greater&lt;pair&lt;int,int&gt;&gt;());
+        map&lt;int,int&gt; counts;
+        int total_counts=0;
+        int ret = 0;
+        for(int i=0;i&lt;VL.size();i++) {
+            if (total_counts &gt;= num_wanted)</B></FONT>
+                break;
+            int l = VL[i].second;
+            if (counts[l] &gt;= use_limit)
+                continue;
+            ret += VL[i].first;
+            counts[l]++;
+            total_counts++;
+        }
+        return ret;
+        
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

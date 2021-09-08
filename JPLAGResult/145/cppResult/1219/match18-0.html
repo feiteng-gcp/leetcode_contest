@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>267_thread_start.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>267_thread_start.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int longestWPI(vector&lt;int&gt;&amp; hours) {
+        int n = hours.size();
+        vector&lt;int&gt; sum(n + 1, 0);
+        for (int i = 0; i &lt; n; i++) {
+            int is_tired = hours[i] &gt; 8 ? 1 : -1;
+            sum[i + 1] = sum[i] + is_tired;
+        }
+        
+        vector&lt;int&gt; haha(n + 1);
+        haha[n] = sum[n];
+        for (int i = n - 1; i &gt;= 0; i--) {</B></FONT>
+            haha[i] = max(haha[i + 1], sum[i]);
+        }
+        
+        int left = 0;
+        int ans = 0;
+        for (int right = 0; right &lt;= n; right++) {
+            if (haha[right] &gt; sum[left])
+                ans = max(ans, right - left);
+            else
+                left++;
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

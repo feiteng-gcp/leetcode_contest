@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>291_kAAzukiHoshino.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>291_kAAzukiHoshino.cpp</CENTER></H3><HR>
+<PRE>
+class SnapshotArray {
+public:
+    
+    
+struct Vertex {
+    Vertex *l, *r;
+    long long sum;
+
+    Vertex(int val) : l(nullptr), r(nullptr), sum(val) {}
+    Vertex(Vertex *l, Vertex *r) : l(l), r(r), sum(0) {
+        if (l) sum += l-&gt;sum;
+        if (r) sum += r-&gt;sum;
+    }
+};
+
+Vertex* build(long long a[], int tl, int tr) {
+    if (tl == tr)
+        return new Vertex(a[tl]);
+    int tm = (tl + tr) / 2;
+    return new Vertex(build(a, tl, tm), build(a, tm+1, tr));
+}
+
+int get_sum(Vertex* v, int tl, int tr, int l, int r) {
+    if (l &gt; r)
+        return 0;
+    if (l == tl &amp;&amp; tr == r)
+        return v-&gt;sum;
+    int tm = (tl + tr) / 2;
+    return get_sum(v-&gt;l, tl, tm, l, min(r, tm))
+         + get_sum(v-&gt;r, tm+1, tr, max(l, tm+1), r);
+}
+
+Vertex* update(Vertex* v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr)
+        return new Vertex(new_val);
+    int tm = (tl + tr) / 2;
+    if (pos &lt;= tm)
+        return new Vertex(update(v-&gt;l, tl, tm, pos, new_val), v-&gt;r);
+    else
+        return new Vertex(v-&gt;l, update(v-&gt;r, tm+1, tr, pos, new_val));
+}
+
+Vertex* root[50001];  
+long long a[50001];
+int cur = 0;
+int n;
+<A NAME="0"></A>    
+    SnapshotArray(int length) {
+        for(int i=0;i&lt;length;i++){a[i]=0;root[i]=NULL;}
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        root[cur] = build(a,0,length-1);
+        n = length;
+    }
+    
+    void set(int index, int val) {
+        root[cur] = update(root[cur],0,n-1,index,val);
+        //cout &lt;&lt; get_sum(root[cur], 0,n-1,index,index) &lt;&lt; endl;
+    }
+    
+    int snap() {
+        cur++;
+        root[cur] = root[cur-1];
+        return cur-1;
+    }
+    
+    int get(int index, int snap_id) {
+        return get_sum(root[snap_id],0,n-1,index,index);
+    }
+    
+
+    
+};</B></FONT>
+
+/**
+ * Your SnapshotArray object will be instantiated and called as such:
+ * SnapshotArray* obj = new SnapshotArray(length);
+ * obj-&gt;set(index,val);
+ * int param_2 = obj-&gt;snap();
+ * int param_3 = obj-&gt;get(index,snap_id);
+ */
+</PRE>
+</BODY>
+</HTML>

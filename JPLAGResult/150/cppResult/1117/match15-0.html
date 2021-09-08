@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>365_xuchengwen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>365_xuchengwen.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int maxDistance(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;pair&lt;int, int&gt;&gt; que;
+        set&lt;pair&lt;int, int&gt;&gt; used;
+        for(int i=0;i&lt;m;i++)
+        {
+            for(int j=0;j&lt;n;j++)
+            {
+                if(grid[i][j])
+                {
+                    que.push({i, j});
+                    used.insert({i, j});
+                }
+            }
+        }
+        if(que.size()==0||que.size()==m*n) return -1;
+        int lvl = -1;
+        int help[4][2]={{-1, 0}, {1, 0},{0,1},{0,-1}};</B></FONT>
+        while(!que.empty())
+        {
+            int s = que.size();
+            while(s)
+            {
+                s--;
+                auto cur = que.front();
+                que.pop();
+                int x = cur.first;
+                int y = cur.second;
+<A NAME="1"></A>                for(int i=0;i&lt;4;i++)
+                {
+                    int nx = x+help[i][0];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int ny = y+help[i][1];
+                    if(nx&gt;=0&amp;&amp;nx&lt;m&amp;&amp;ny&gt;=0&amp;&amp;ny&lt;n&amp;&amp;used.find({nx, ny})==used.end())
+                    {
+                        used.insert({nx,ny});
+                        que.push({nx, ny});
+                    }
+                }
+                
+            }
+            lvl++;
+        }
+        return lvl;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_KingAmon.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>217_KingAmon.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+   public static int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges) {
+		ArrayList&lt;Integer&gt;[] red = new ArrayList[n];
+		ArrayList&lt;Integer&gt;[] blue = new ArrayList[n];
+		for (int i = 0; i &lt; n; i++) {
+			red[i] = new ArrayList</B></FONT>&lt;&gt;();
+			blue[i] = new ArrayList&lt;&gt;();
+		}
+
+		for (int i = 0; i &lt; red_edges.length; i++) {
+			red[red_edges[i][0]].add(red_edges[i][1]);
+		}
+		for (int i = 0; i &lt; blue_edges.length; i++) {
+			blue[blue_edges[i][0]].add(blue_edges[i][1]);
+		}
+
+		int oo = 1000000000;
+		int[][] dist = new int[2][n];
+		for (int i = 0; i &lt; 2; i++)
+			Arrays.fill(dist[i], oo);
+		dist[0][0] = 0;
+		dist[1][0] = 0;
+		
+		ArrayDeque&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+		
+		//0 = red, 1 = blue
+		q.add(0);
+		q.add(0);
+		q.add(0);
+		q.add(1);
+		while(!q.isEmpty()) {
+<A NAME="1"></A>			int node = q.poll();
+			int prev = q.poll();
+//			System.out.println(node+&quot; &quot;+prev);
+			if(prev==1) {<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				for(int i : red[node]) {
+					if(dist[0][i] &gt; dist[prev][node]+1){
+<A NAME="2"></A>						dist[0][i] = dist[prev][node]+1;
+						q.add(i);</B></FONT>
+						q.add(0);
+					}<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				}
+			} else {
+				for(int i : blue[node]) {
+					if(dist[1][i] &gt; dist[prev][node]+1){
+<A NAME="3"></A>						dist[1][i] = dist[prev][node]+1;
+						q.add(i);</B></FONT>
+						q.add(1);
+					}<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#3',2,'match6-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				}
+			}
+		}
+		
+		int[] sol = new int[n];
+		for(int i=0;i&lt;n;i++){</B></FONT>
+			sol[i] = Math.min(dist[1][i], dist[0][i]);
+			if(sol[i]==oo)sol[i] = -1;
+		}
+		return sol;
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

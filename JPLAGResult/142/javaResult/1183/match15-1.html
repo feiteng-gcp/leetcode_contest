@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>204_wushangzhen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>204_wushangzhen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public double[] sampleStats(int[] count) {
+        double mode = -1;
+        double modeNum = 0;
+        double min = 256;
+        double max = 0;
+        double sum = 0;
+<A NAME="1"></A>        double median = -1;
+        int num = 0</B></FONT>;
+        double[] res = new double[5];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for  (int i = 0; i &lt; 256; i++) {
+            if (count[i] != 0) {
+                min = Math.min(min, i);
+                max = Math.max(max, i);
+                sum += (double)count[i] * i;
+                num += count[i];
+                if (modeNum &lt; count[i]) {
+                    modeNum = count[i];
+                    mode = i;
+                }
+            }
+        }
+<A NAME="2"></A>        int m = -1;
+        if (num % 2 == 1) {</B></FONT>
+            m = num / 2 + 1;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int n = 0;
+            for (int i = 0; i &lt; 256; i++) {
+                n += count[i];
+                if (n &gt;= m) {
+                    median = i;
+                    break;
+                }
+            }
+        } else {</B></FONT>
+            m = num / 2;
+            double last = -1;
+            int n = 0;
+            for (int i = 0; i &lt; 256; i++) {
+                if (n &lt; m &amp;&amp; n + count[i] &gt;= m + 1) {
+                    median = i;
+                    break;
+                } else if (n == m &amp;&amp; n + count[i] &gt;= m + 1) {
+                    median = (last + i) / 2;
+                    break;
+                }
+                n += count[i];
+                last = i;
+            }
+        }
+        res[0] = min;
+        res[1] = max;
+        res[2] = sum / num;
+        res[3] = median;
+        res[4] = mode;
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

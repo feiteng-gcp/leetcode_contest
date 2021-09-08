@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>248_yyfish88.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>248_yyfish88.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    //start from boundary 1s, bfs
+    int numEnclaves(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int m = A.size();
+        int n = A[0].size();
+<A NAME="1"></A>        queue&lt;pair&lt;int, int&gt;&gt; q;</B></FONT>
+        //set&lt;pair&lt;int, int&gt;&gt; s;
+        int count = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int reachable = 0;
+        for(int r = 0; r&lt;m; r++){
+            for(int c = 0; c&lt;n; c++){
+                if(A[r][c]==1){</B></FONT>
+                    count++;
+                    //if(r==0||r==m||c==0||c==n){
+                    if(r==0||r==m-1||c==0||c==n-1){
+                    //s.insert(make_pair(r, c));
+                        A[r][c]=0; //set 0 so it won't be pushed to queue again. and initialize visited.
+                        reachable++;
+                        q.push(make_pair(r, c)); //missed
+                    }
+                }
+            }
+        }
+<A NAME="2"></A>        
+        static int offsets[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while(!q.empty()){
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match31-1.html#2',3,'match31-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto p = q.front();
+            q.pop();
+            for(int i = 0; i&lt;4; i++){
+                int new_r = p.first+offsets[i][0];
+                int new_c = p.second+offsets[i][1];
+                if(new_r&gt;=0&amp;&amp;new_r&lt;m&amp;&amp;new_c&gt;=0&amp;&amp;new_c&lt;n&amp;&amp;A[new_r][new_c]==1){</B></FONT>
+                    A[new_r][new_c]=0;
+                    reachable++;
+                    q.push(make_pair(new_r, new_c));
+                }
+            }
+        }
+        return count-reachable;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

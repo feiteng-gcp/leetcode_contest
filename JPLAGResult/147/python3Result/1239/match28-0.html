@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>356_linsinn.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>356_linsinn.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def largest1BorderedSquare(self, grid) -&gt; int:
+        N, M = len(grid), len(grid[0])
+        r0 = [[0] * (M+1) for _ in range(N+1)]
+<A NAME="0"></A>        r1 = [[0] * (M+1) for _ in range(N+1)]
+        d0 = [[0] * (M+1) for _ in range(N+1)]
+        d1 = [[0] * (M+1) for _ in range(N+1)]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for i in range(N):
+            for j in range(M-1, -1, -1):
+                if grid[i][j] == 0:
+                    r0[i][j] = r0[i][j+1] + 1
+<A NAME="1"></A>                    r1[i][j] =</B></FONT> 0
+                else:
+                    r1[i][j] = r1[i][j+1] + 1
+                    r0<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j] = 0
+        for j in range(M):
+            for i in range(N-1, -1, -1):
+                if grid[i][j] == 0:
+                    d0[i][j] = d0[i+1][j] + 1
+                    d1[i][j] = 0
+                else:
+                    d1[i][j] =</B></FONT> d1[i+1][j] + 1
+                    d0[i][j] = 0
+        ans = 0
+        w = min(N, M)
+        while w &gt; 0:
+            found = False
+            for i in range(0, N-w+1):
+                for j in range(0, M-w+1):
+                    if r1[i][j] &gt;= w and d1[i][j] &gt;= w:
+                        if r1[i+w-1][j] &gt;= w and d1[i][j+w-1] &gt;= w:
+                            ans = max(ans, w * w)
+                            found = True
+                            break
+                if found:
+                    break
+            if found:
+                break
+            w -= 1
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

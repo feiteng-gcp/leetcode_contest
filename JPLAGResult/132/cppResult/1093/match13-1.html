@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_alpha_null.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>32_alpha_null.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef pair&lt;int,int&gt; pii;
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* recoverFromPreorder(string S) {
+        vector&lt;pii&gt; V;
+        int t = 0, N = S.length();
+        while (t &lt; N) {
+            int d = 0, x = 0;
+            while (S[t] == '-') {
+                d++;
+                t++;
+            }
+            while (t &lt; N &amp;&amp; S[t] &gt;= '0' &amp;&amp; S[t] &lt;= '9') {
+                x = x * 10 + S[t++] - '0';
+            }
+            V.push_back(pii(d, x));
+        }
+        //for (auto v : V) printf(&quot;(%d, %d)\n&quot;, v.first, v.second);
+        t = 1;
+        TreeNode* root = new TreeNode(V[0].second);
+        recur(root, 0, V, t);
+<A NAME="0"></A>        return root;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void recur(TreeNode* root, int d, vector&lt;pii&gt; &amp;V, int &amp;t) {
+        if (t &gt;= V.size()) return;
+        if (V[t].first == d+1) {
+            root-&gt;left = new TreeNode(V[t].second);
+            recur(root-&gt;left, d+1, V, ++t);
+        }
+        if (t &gt;= V.size()) return;
+        if (V[t].first == d+1) {
+            root-&gt;right = new TreeNode(V[t].second);
+            recur(root-&gt;right, d+1, V, ++t);
+        }
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

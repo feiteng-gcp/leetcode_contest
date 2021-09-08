@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_mengpq.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>51_mengpq.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+<A NAME="0"></A> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+        map&lt;int, pair&lt;TreeNode*, int&gt;&gt; ret;
+        travesal(root, 0, ret);
+        return ret[x].second == ret[y].second &amp;&amp; ret[x].first != ret[y].first;
+    }
+    
+    void travesal(TreeNode *root, int depth, map&lt;int, pair&lt;TreeNode*, int&gt;&gt; &amp;ret) {</B></FONT>
+        if (root == nullptr) {
+            return;
+        }
+        
+        if (root-&gt;left != nullptr) {
+            ret[root-&gt;left-&gt;val] = make_pair(root, depth + 1);
+        }
+        
+        if (root-&gt;right != nullptr) {
+            ret[root-&gt;right-&gt;val] = make_pair(root, depth + 1);
+        }
+        
+        travesal(root-&gt;left, depth + 1, ret);
+        travesal(root-&gt;right, depth + 1, ret);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>372_yehuizhang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>372_yehuizhang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+<A NAME="1"></A>    public int[] addNegabinary(int[] arr1, int[] arr2) {
+        if(arr1.length &lt; arr2.length) return addNegabinary(arr2, arr1);
+        List&lt;Integer&gt; list = new</B></FONT> LinkedList&lt;&gt;();
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int len1 = arr1.length - 1, len2 = arr2.length - 1, i = 0, carry = 0;
+        // carry can only be -1 and 0. so val can only be between -1 to 2.
+        while(len2 - i &gt;= 0){
+            int val = arr1[len1 - i] + arr2[len2 - i] + carry;
+            if(val == 2){
+                carry = -1;
+                list.add(0, 0);
+            } else if(val == -1){
+                carry = 1;
+                list.add(0, 1);
+            } else if(v</B></FONT>al == 3){
+                carry = -1;
+                list.add(0, 1);
+<A NAME="2"></A>            } else {
+                carry = 0;
+                list.add(0, val);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match15-1.html#2',3,'match15-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            i++;
+        }
+        
+        while(len1 - i &gt;= 0){
+            int val = arr1[len1 - i] + carry;
+            if(val == 2){
+                carry = -1;
+                list.add(0, 0);
+            } else if(val == -1){
+                carry = 1;
+                list.add(0, 1);
+            } else if(v</B></FONT>al == 3){
+                carry = -1;
+                list.add(0, 1);
+            } else {
+                carry = 0;
+                list.add(0, val);
+            }
+            i++;
+        }
+        
+        if(carry == 1) list.add(0, 1);
+        else if(carry == -1){
+            list.add(0, 1);
+            list.add(0, 1);
+        } 
+        
+        int start = 0;
+        while(start &lt; list.size() &amp;&amp; list.get(start) == 0) start++;
+        if(start == list.size()) return new int[]{0};
+        
+        int[] fAns = new int[list.size() - start];
+        for(int k = 0; k &lt; fAns.length; k++){
+            fAns[k] = list.get(k + start);
+        }
+        return fAns;
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

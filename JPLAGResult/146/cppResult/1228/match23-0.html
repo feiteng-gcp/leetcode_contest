@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_wentian.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>134_wentian.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int mctFromLeafValues(vector&lt;int&gt;&amp; arr) {
+      int n = arr.size();
+      vector&lt;vector&lt;int&gt;&gt; max_num(n, vector&lt;int&gt;(n, 0));
+      vector&lt;vector&lt;int&gt;&gt; ret(n, vector&lt;int&gt;(n, 0));</B></FONT>
+      for (int i = 0; i &lt; n; ++i) {
+        max_num[i][i] = arr[i];
+<A NAME="1"></A>        ret[i][i] = 0;
+      }
+      
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      for(int i = 0; i &lt; n; ++i) {
+        int tmp_max = arr[i];
+        for(int j = i; j &lt; n; ++j) {
+          tmp_max = max(tmp_max, arr[j]);
+          max_num[i][j] = tmp_max;
+        }
+      }
+      
+      
+      for (int d = 1; d &lt; n; ++d) {
+        for(int i = 0; i &lt; n; ++i) {
+          if(i + d &gt;= n)</B></FONT>
+            break;
+          int min_num = 1 &lt;&lt; 30;
+          int pos = -1;
+          for(int j = i; j &lt; i + d; ++j) {
+            int tmp = ret[i][j] + ret[j + 1][i + d] + max_num[i][j] * max_num[j + 1][i + d];
+            if(tmp &lt; min_num) {
+              min_num = tmp;
+              pos = j;
+            }
+          }
+          
+          ret[i][i + d] = min_num;
+          //cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; &quot; d = &quot; &lt;&lt; d &lt;&lt; &quot; ret = &quot; &lt;&lt; min_num &lt;&lt; endl;
+        }
+      }
+      
+      return ret[0][n - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_chang-you-ren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>439_chang-you-ren.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -&gt; List[int]:
+        def bfs(st,color):
+            deq=collections.deque()
+<A NAME="0"></A>            used=set()
+            #红
+            if color==0:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for adj in red_graph[st]:
+                    used.add((st,adj,0))
+                    deq.append((adj,1,1))
+            else:
+                for adj in blue_graph[st]:
+                    used.add((st,adj,1))
+                    deq.append((a</B></FONT>dj,1,0))
+            while deq:
+                cnt=0
+                size=len(deq)
+                while cnt&lt;size:
+<A NAME="1"></A>                    v,step,c=deq.popleft()
+                    res[v]=min(res[v],step)
+                    if c==1:
+                        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for adj in blue_graph[v]:
+                            if (v,adj,1) not in used:
+                                used.add((v,adj,1))
+                                deq.append((ad</B></FONT>j,step+1,0))
+                    else:
+                        for adj in red_graph[v]:
+                            if(v,adj,0) not in used:
+                                used.add((v,adj,0))
+                                deq.append((adj,step+1,1))
+                    cnt+=1
+                #print(deq)
+                
+        red_graph=collections.defaultdict(set)
+        blue_graph=collections.defaultdict(set)
+        for e in red_edges:
+            red_graph[e[0]].add(e[1])
+        for e in blue_edges:
+            blue_graph[e[0]].add(e[1])
+        
+        res=collections.defaultdict(int)
+        for i in range(n):
+            res[i]=float(&quot;inf&quot;)
+            
+        bfs(0,0)
+        bfs(0,1)
+        ret=[-1]*n
+        for k in  res:
+            if res[k]!=float(&quot;inf&quot;):
+                ret[k]=res[k]
+        ret[0]=0
+        return ret
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

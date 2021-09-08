@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_sunxiaohua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>460_sunxiaohua.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}</B></FONT>};
+    int result = 0;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int getMaximumGold(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        for (int i = 0; i &lt; m; i++) {
+<A NAME="2"></A>            for (int j = 0; j &lt; n; j++) {
+                if (grid[i][j] != 0) {</B></FONT>
+                    boolean[][] visited = new boolean[m][n];
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(grid, visited, i, j, 0);
+                }
+            }
+        }
+        return result;
+    }
+    
+    public void dfs(int[][] grid, boolean[][] visited, int x, int y</B></FONT>, int val) {
+        int m = grid.length;
+        int n = grid[0].length;
+        val += grid[x][y];
+<A NAME="3"></A>        visited[x][y] = true;
+        result = Math.max(result, val);
+        
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match21-1.html#3',3,'match21-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int[] d : dir) {
+            int X = x + d[0];
+            int Y = y + d[1];
+            if (X &lt; 0 || X &gt;= m || Y &lt; 0 || Y &gt;= n || visited[X][Y] || grid[X][Y] == 0) continue;
+            dfs(grid, visited, X, Y, val);
+        }
+        val -= grid[x][y];
+        visited[x][y] = false;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

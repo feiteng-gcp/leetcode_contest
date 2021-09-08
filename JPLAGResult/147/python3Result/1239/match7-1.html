@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_xlj0826.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_xlj0826.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def largest1BorderedSquare(self, grid) -&gt; int:
+        c,r = len(grid), len(grid[0])
+        sum_x = [ [ grid[i][j] for j in range(r) ] for i in range(c)]
+        sum_y = [ [ grid[i][j] for j in range(r) ] for i in range(c)]
+        for j in range(1,r):
+            for i in range(c):
+                sum_x[i][j] += sum_x[i][j-1]
+        for i in range(1,c):
+            for j in range(r):
+                sum_y[i][j] += sum_y[i-1][j]
+        def helper_x(x,y):
+            if x &lt; 0 or y &lt; 0:
+                return 0
+            return sum_x[x][y]
+        def helper_y(x,y):
+            if x &lt; 0 or y &lt; 0:
+                return 0
+            return sum_y[x][y]
+        res = 0
+        for i in range(c):
+            for j in range(r):
+                for d in range(min(c-i,r-j)):
+                    if helper_x(i,j+d) - helper_x(i,j-1) == d + 1 and helper_x(i+d,j+d) - helper_x(i+d,j-1) == d + 1 and\
+                     helper_y(i+d,j) - helper_y(i-1,j) == d + 1 and helper_y(i+d,j+d) - helper_y(i-1,j+d) == d + 1 :
+                            res = max(res,d+1)
+        re</B></FONT>turn res*res
+                            
+</PRE>
+
+</BODY>
+</HTML>

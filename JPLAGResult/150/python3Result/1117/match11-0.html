@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>65_earlgrey.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>65_earlgrey.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxDistance(self, A: List[List[int]]) -&gt; int:
+        m, n = len(A), len(A[0])
+        q = collections.deque()
+        
+        total = m * n
+        res = 0
+        for i in range(m):
+<A NAME="1"></A>            for j in range(n):
+                if A[i][j]:
+                    q.</B></FONT>append((i, j))
+                    total <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>-= 1
+        if total == m * n or total == 0:
+            return -1
+                    
+        de = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        while q:
+            size =</B></FONT> len(q)
+            res += 1
+            for _ in range(size):
+                x, y = q.popleft()
+                for (a, b) in de:
+                    c = x + a
+                    d = y + b
+                    
+                    if 0 &lt;= c &lt; m and 0 &lt;= d &lt; n and A[c][d] == 0:
+                        A[c][d] = 1
+                        total -= 1
+                        q.append((c, d))
+                
+            if total == 0: break
+        return res
+</PRE>
+
+</BODY>
+</HTML>

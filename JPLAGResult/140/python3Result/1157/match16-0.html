@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>380_fanwangg.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>380_fanwangg.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sum_helper(self, root, path_sum):
+        if not root:
+            return []
+        if not root.left and not root.right:
+            root.path_sums = [path_sum + root.val]
+            return root.path_sums
+
+        root.path_sums = []
+        root.path_sums.extend(self.sum_helper(root.left, path_sum + root.val))
+        root.path_sums.extend(self.sum_helper(root.right, path_sum + root.val))
+
+        return root.path_sums
+
+        
+    def update_helper(self, root, limit):
+        # print(root.val, root.path_sums)
+        if not root or not root.path_sums:
+<A NAME="0"></A>            return None
+        
+        if all([path_sum &lt; limit for path_sum in root.path_sums]):
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return None
+
+        root.left = self.update_helper(root.left, limit)
+        root.right = self.update_helper(root.right, limit)
+        r</B></FONT>eturn root
+
+    def sufficientSubset(self, root: TreeNode, limit: int) -&gt; TreeNode:
+        self.sum_helper(root, 0)
+        root = self.update_helper(root, limit)
+
+        return root
+</PRE>
+
+</BODY>
+</HTML>

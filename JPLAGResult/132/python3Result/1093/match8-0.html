@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_QAMichaelPeng.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_QAMichaelPeng.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from collections import deque
+class Solution:
+    def recoverFromPreorder(self, S: str) -&gt; TreeNode:
+        def fetch(s):
+            if not s: return None
+            curd = 0
+            while s[curd] == &quot;-&quot;: curd += 1
+            n = 0
+            for i, c in enumerate(s[curd:]):
+                if c.isdigit():
+                    n = n * 10 + int(c)
+                else:
+                    s = s[curd + i:]
+                    break
+            else:
+                s=&quot;&quot;
+            cur = TreeNode(n)
+            return (cur, curd, s)
+
+        l = []
+        s = S
+        while s:
+            cur, curd, s = fetch(s)
+            if not l: l.append((cur, curd))
+<A NAME="0"></A>            else:
+                while l[-1][1]+1 != curd:
+                    l.pop()
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if l[-1][0].left:
+                    l[-1][0].right = cur
+                else:
+                    l[-1][0].left = cur
+                l.append((cur</B></FONT>,curd))
+        return l[0][0]
+                    
+                    
+                
+        
+</PRE>
+
+</BODY>
+</HTML>

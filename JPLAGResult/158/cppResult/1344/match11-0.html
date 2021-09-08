@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>28___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>28___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxEqualFreq(vector&lt;int&gt;&amp; nums) {
+      map&lt;int, int&gt; x_to_freq;
+      map&lt;int, set&lt;int&gt;&gt; freq_to_x;
+      int ans = 0;</B></FONT>
+      for (int i = 0; i &lt; nums.size(); ++i) {
+        int x = nums[i];
+        int freq = x_to_freq[x];
+        ++freq;
+        x_to_freq[x] = freq;
+        freq_to_x[freq - 1].erase(x);
+        freq_to_x[freq].insert(x);
+        if (freq_to_x[freq - 1].empty()) {
+<A NAME="1"></A>          freq_to_x.erase(freq - 1);
+        }
+        int mx_freq = freq_to_x.rbegin()-&gt;first;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int mn_freq = freq_to_x.begin()-&gt;first;
+        if (mn_freq + 1 == mx_freq &amp;&amp; freq_to_x[mx_freq].size() == 1) {
+          ans = max(ans, i + 1);
+        } else if (mn_freq == 1 &amp;&amp; freq_to_x.begin()-&gt;second.size() == 1 &amp;&amp; freq_to_x.size() == 2) {
+          ans = max(ans, i + 1);
+        } else if (mn_freq == mx_freq &amp;&amp; (mn_freq == 1 || freq_to_x.begin()-&gt;second.size() == 1)) {</B></FONT>
+          ans = max(ans, i + 1);
+        } 
+      }
+      return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>23_chenwang0517.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>23_chenwang0517.cpp</CENTER></H3><HR>
+<PRE>
+class MajorityChecker {
+public:
+    const int len = 100;
+    vector&lt;vector&lt;int&gt;&gt; dict = vector&lt;vector&lt;int&gt;&gt;(20001, vector&lt;int&gt;());
+    vector&lt;int&gt; counter = vector&lt;int&gt;(20001, 0) ;
+    vector&lt;int&gt; list;
+    vector&lt;int&gt; candidate;
+    
+    MajorityChecker(vector&lt;int&gt;&amp; arr) {
+        list = arr;
+<A NAME="0"></A>        for (int i = 0; i &lt; arr.size(); ++i) {
+            dict[arr[i]].push_back(i);
+            counter[arr[i]]++;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        for (int i = 0; i &lt;= 20000; ++i) {
+            if (counter[i] &gt;= len) candidate.push_back(i);
+        }
+    }
+    
+<A NAME="1"></A>    int query(int left, int right, int threshold) {
+        unordered_map&lt;int, int&gt; local_counter;</B></FONT>
+        if (right - left &lt; len * 2) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = left; i &lt;= right; ++i) {
+                local_counter[list[i]]++;
+            }
+            for (auto it : local_counter) {
+                if (it.second &gt;= threshold) return it. first;
+            }
+        } else {
+            for (int i = 0; i &lt; candidate.size(); ++i) {</B></FONT>
+                auto lb = lower_bound(dict[candidate[i]].begin(), dict[candidate[i]].end(), left);
+                auto ub = lower_bound(dict[candidate[i]].begin(), dict[candidate[i]].end(), right + 1);
+                if (distance(lb, ub) &gt;= threshold) return candidate[i];
+            }
+        }
+         return -1;
+    }
+};
+
+/**
+ * Your MajorityChecker object will be instantiated and called as such:
+ * MajorityChecker* obj = new MajorityChecker(arr);
+ * int param_1 = obj-&gt;query(left,right,threshold);
+ */
+</PRE>
+</BODY>
+</HTML>

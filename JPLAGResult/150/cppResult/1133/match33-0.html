@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>280_ckyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>280_ckyang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string lastSubstring(string s) {
+        int size = s.size();
+        char start = 'a';
+
+        for(const auto&amp; c : s) {
+            if(c &gt; start) {
+                start = c;
+<A NAME="0"></A>            }
+        }
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = -1;
+
+        for(int i = size - 1; i &gt;= 0; --i) {
+            if(s[i] == start) {
+                if(-1 == res) {
+                    res = i;
+                }
+                else {</B></FONT>
+                    int len = min(size - res, res - i);
+
+                    if(mycompare(s, i, res, len)) {
+                        res = i;
+                    }
+                }
+            }
+        }
+
+        return s.substr(res);
+    }
+
+private:
+    bool mycompare(const string&amp; s, int a, int b, int len) {
+        for(int i = 0; i &lt; len; ++i) {
+            if(s[a + i] &gt; s[b + i]) {
+                return true;
+            }
+
+            if(s[a + i] &lt; s[b + i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

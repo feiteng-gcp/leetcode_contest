@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>267_ericxbn.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>267_ericxbn.py</CENTER></H3><HR>
+<PRE>
+# import heapq
+# class DinnerPlates:
+
+#     def __init__(self, capacity: int):
+#         self.lstack = [[]]
+#         self.c = capacity
+#         self.h = []
+
+#     def push(self, val: int) -&gt; None:
+#         # for s in self.lstack:
+#         #     if len(s) &lt; self.c:
+#         #         s.append(val)
+#         #         return
+#         print(self.h)
+#         if self.h:
+#             self.lstack[self.h[0]].append(val)
+#             if len(self.lstack[self.h[0]]) == self.c:
+#                 heapq.heappop(self.h)
+#         else:
+#             self.lstack.append([val])
+#     def pop(self) -&gt; int:
+#         # print(self.lstack)
+#         if self.lstack[-1]:
+#             val = self.lstack[-1].pop()
+#         else:
+#             val = -1
+#         if len(self.lstack[-1]) == 0:
+#             self.lstack.pop()
+#         if len(self.lstack) == 0:
+#             self.lstack.append([])
+#         return val
+
+#     def popAtStack(self, index: int) -&gt; int:
+#         # print(index,self.lstack)
+#         if self.lstack[index]:
+#             val = self.lstack[index].pop()
+#             heapq.heappush(self.h,index)
+#         else:
+<A NAME="0"></A>#             val = -1
+#         return val
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from heapq import heappush, heappop
+class DinnerPlates:
+
+    def __init__(self, capacity: int):
+        self.stacks = []
+        self.K = capacity
+        self.avail = []
+
+    def push(self, val: int) -&gt; None:
+        if not self.avail:
+            heappush(self.avail, len(self.stacks))
+            self.stacks.append([val])
+        else:
+            i = heappop(self.avail)
+            self.stacks[i].append(val)
+            if len(self.stacks[i]) &lt; self.K:
+                heappush(self.avail, i)
+        # print(f'push {val}', self.stacks, self.avail)
+
+    def pop(self) -&gt; int:
+        if not self.stacks: return -1
+        return self.popAtStack(len(self.stacks) - 1)
+        
+    def popAtStack(self, index: int) -&gt; int:
+        if index &gt;= len(self.stacks) or not self.stacks[index]:
+            return -1
+        else:
+            stack = self.stacks[index]
+            val = stack.pop()
+            if index == len(self.stacks) - 1 and not stack:
+                if self.avail:
+                    self.avail.pop()
+                self.stacks.pop()
+            elif len(stack) + 1 == self.K:
+                heappush(self.avail, index)
+        # print(f'popAtStack {index}', self.stacks, self.avail)
+        re</B></FONT>turn val
+
+
+# Your DinnerPlates object will be instantiated and called as such:
+# obj = DinnerPlates(capacity)
+# obj.push(val)
+# param_2 = obj.pop()
+# param_3 = obj.popAtStack(index)
+
+# Your DinnerPlates object will be instantiated and called as such:
+# obj = DinnerPlates(capacity)
+# obj.push(val)
+# param_2 = obj.pop()
+# param_3 = obj.popAtStack(index)
+</PRE>
+
+</BODY>
+</HTML>

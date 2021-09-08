@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>418_Blink_fw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>418_Blink_fw.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String removeDuplicates(String s, int k) {
+        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();
+        Stack&lt;Integer&gt; count = new</B></FONT> Stack&lt;&gt;();
+        int n = s.length();
+        
+        for (int i = 0; i &lt; n; i++) {
+            char c = s.charAt(i);
+            
+            if (stack.isEmpty() || stack.peek() != c) {
+                stack.push(c);
+                count.push(1);
+            } else {
+                count.push(count.pop() + 1);
+            }
+            
+<A NAME="1"></A>            if (count.peek() == k) {
+                count.pop();
+                stack.pop();
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while (!stack.isEmpty()) {
+            char c = stack.pop();
+            int num = count.pop();
+            
+            while (num &gt; 0) {
+                sb.append(c);
+                num--;
+            }
+        }
+        
+        return sb.reverse().toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

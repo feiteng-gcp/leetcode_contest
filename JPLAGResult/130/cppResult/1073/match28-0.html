@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_ChiyosBigDragon.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_ChiyosBigDragon.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numEnclaves(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        int dx[4]={0,1,0,-1};
+        int dy[4]={1,0,-1,0};
+<A NAME="0"></A>        int h=A.size();
+        int w=A[0].size();
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;h;i++){
+            for(int j=0;j&lt;w;j++){
+                if(i==0||i==h-1||j==0||j==w-1){
+                    if(A[i][j]){</B></FONT>
+                        q.push({i,j});
+                        while(q.size()){
+                            auto x=q.front(); q.pop();
+                            int hh=x.first,ww=x.second;
+                            A[hh][ww]=0;
+                            for(int k=0;k&lt;4;k++){
+                                int cy=hh+dy[k];
+                                int cx=ww+dx[k];
+                                if(0&lt;=cy&amp;&amp;cy&lt;h&amp;&amp;0&lt;=cx&amp;&amp;cx&lt;w){ //範囲外取得キケン
+                                    if(A[cy][cx]==1){ //通行可能かつ未到達
+                                        q.push({cy,cx});
+                                    }
+<A NAME="1"></A>                                }
+                            }
+                        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }
+                }
+            }
+        }
+        int ret=0;
+        for(int i=0;i&lt;h;i++){
+            for(int j=0;j&lt;w;j++){
+                ret+=A[i][j];
+            }
+        }
+        return ret;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

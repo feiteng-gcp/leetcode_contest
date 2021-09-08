@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>318_liyinhgqw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>318_liyinhgqw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; cum;
+    unordered_map&lt;int, unordered_map&lt;int, int&gt;&gt; memo;
+<A NAME="0"></A>    
+    int stoneGameII(vector&lt;int&gt;&amp; piles) {
+        cum.assign(piles.size() + 1, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; piles.size(); i++) {
+            cum[i + 1] = cum[i] + piles[i];
+        }
+        return helper(piles, 0, 1);
+    }
+    
+    int helper(vector&lt;int&gt;&amp; piles, int start, int m) {</B></FONT>
+        int n = piles.size();
+<A NAME="1"></A>        
+        if (start &gt;= n) return 0;
+        
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (memo.count(start) &amp;&amp; memo[start].count(m)) {
+            return memo[start][m];
+        }
+        
+        int ans = 0;
+        for (int i = start; i &lt; start + m * 2 &amp;&amp; i &lt; n; i++) {
+            int v = helper(piles, i + 1, max(m, i - start + 1));
+            ans = max(ans, cum[n] - cum[start] - v);
+        }</B></FONT>
+        
+        memo[start][m] = ans;
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

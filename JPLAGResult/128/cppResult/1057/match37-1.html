@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>147_pachicobue.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>147_pachicobue.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+#pragma GCC diagnostic ignored &quot;-Wsign-compare&quot;
+#pragma GCC diagnostic ignored &quot;-Wsign-conversion&quot;
+//!===========================================================!//
+//!  dP     dP                          dP                    !//
+//!  88     88                          88                    !//
+//!  88aaaaa88a .d8888b. .d8888b. .d888b88 .d8888b. 88d888b.  !//
+//!  88     88  88ooood8 88'  '88 88'  '88 88ooood8 88'  '88  !//
+//!  88     88  88.  ... 88.  .88 88.  .88 88.  ... 88        !//
+//!  dP     dP  '88888P' '88888P8 '88888P8 '88888P' dP        !//
+//!===========================================================!//
+using ld = long double;
+using ll = long long;
+using ull = unsigned long long;
+std::mt19937 mt{std::random_device{}()};
+template &lt;typename T&gt;
+constexpr T INF = std::numeric_limits&lt;T&gt;::max() / 4;
+template &lt;typename T&gt;
+constexpr T MOD = static_cast&lt;T&gt;(1000000007);
+template &lt;typename F&gt;
+constexpr F PI() { return 3.1415926535897932385; }
+#define SHOW(...) (std::cerr &lt;&lt; &quot;(&quot; &lt;&lt; #__VA_ARGS__ &lt;&lt; &quot;) = (&quot;), HogeHogeSansuu(__VA_ARGS__), std::cerr &lt;&lt; &quot;)&quot; &lt;&lt; std::endl;
+struct has_debugPrint_impl
+{
+    template &lt;class T&gt;
+    static auto check(T&amp;&amp; x) -&gt; decltype(x.debugPrint(), std::true_type{});
+    template &lt;class T&gt;
+    static auto check(...) -&gt; std::false_type;
+};
+template &lt;class T&gt;
+class has_debugPrint : public decltype(has_debugPrint_impl::check&lt;T&gt;(std::declval&lt;T&gt;()))
+{
+};
+template &lt;bool&gt;
+struct HogeHogeDump
+{
+    template &lt;typename T&gt;
+    static void dump(const T&amp; x) { x.debugPrint(); }
+};
+template &lt;&gt;
+struct HogeHogeDump&lt;false&gt;
+{
+    template &lt;typename T&gt;
+    static void dump(const T&amp; x) { std::cerr &lt;&lt; x; }
+};
+void HogeHogeSansuu() { ; }
+template &lt;typename T&gt;
+void HogeHogeSansuu(const T&amp; x) { HogeHogeDump&lt;has_debugPrint&lt;T&gt;::value&gt;::dump(x); }
+template &lt;typename T, typename... Args&gt;
+void HogeHogeSansuu(const T&amp; x, Args... args) { HogeHogeDump&lt;has_debugPrint&lt;T&gt;::value&gt;::dump(x), std::cerr &lt;&lt; &quot;,&quot;, HogeHogeSansuu(args...); }
+template &lt;typename T&gt;
+bool chmin(T&amp; a, const T&amp; b) { return a = std::min(a, b), a == b; }
+template &lt;typename T&gt;
+bool chmax(T&amp; a, const T&amp; b) { return a = std::max(a, b), a == b; }
+template &lt;typename T, typename F&gt;
+void For(const T s, const T t, const F f)
+{
+    for (T i = s; i != t; i += T(s &lt; t ? 1 : -1)) { f(i); }
+}
+template &lt;typename T, typename F&gt;
+void Rep(const T N, const F f) { For&lt;T, F&gt;(0, N, f); }
+template &lt;typename T, typename F&gt;
+void RRep(const T N, const F f) { For&lt;T, F&gt;(N - 1, -1, f); }
+template &lt;typename T&gt;
+std::vector&lt;T&gt; Vec(const std::size_t n, T v) { return std::vector&lt;T&gt;(n, v); }
+template &lt;class... Args&gt;
+auto Vec(const std::size_t n, Args... args) { return std::vector&lt;decltype(Vec(args...))&gt;(n, Vec(args...)); }
+template &lt;typename T&gt;
+constexpr T PopCount(T v) { return v = (v &amp; 0x5555555555555555ULL) + (v &gt;&gt; 1 &amp; 0x5555555555555555ULL), v = (v &amp; 0x3333333333333333ULL) + (v &gt;&gt; 2 &amp; 0x3333333333333333ULL), v = (v + (v &gt;&gt; 4)) &amp; 0x0F0F0F0F0F0F0F0FULL, static_cast&lt;T&gt;(v * 0x0101010101010101ULL &gt;&gt; 56 &amp; 0x7f); }
+template &lt;typename T&gt;
+constexpr T log2p1(T v) { return v |= (v &gt;&gt; 1), v |= (v &gt;&gt; 2), v |= (v &gt;&gt; 4), v |= (v &gt;&gt; 8), v |= (v &gt;&gt; 16), v |= (v &gt;&gt; 32), PopCount(v); }
+template &lt;typename T&gt;
+constexpr bool ispow2(const T v) { return (v &lt;&lt; 1) == (T(1) &lt;&lt; (log2p1(v))); }
+template &lt;typename T&gt;
+constexpr T ceil2(const T v) { return ispow2(v) ? v : T(1) &lt;&lt; log2p1(v); }
+template &lt;typename T&gt;
+constexpr T floor2(const T v) { return v == 0 ? T(0) : ispow2(v) ? v : T(1) &lt;&lt; (log2p1(v) - 1); }
+template &lt;typename T&gt;
+struct Accum
+{
+    template &lt;typename InIt&gt;
+    Accum(const InIt first, const InIt last) : accum(std::size_t(std::distance(first, last))) { std::partial_sum(first, last, accum.begin()); }
+    T sum(const std::size_t i) const { return i == 0 ? T(0) : accum[i - 1]; }
+    T sum(const std::size_t l, const std::size_t r) const { return sum(r) - sum(l); }
+    std::vector&lt;T&gt; accum;
+};
+template &lt;typename T&gt;
+struct Accum2D
+{
+    Accum2D(const std::vector&lt;std::vector&lt;T&gt;&gt;&amp; t) : accum{t}
+    {
+        for (std::size_t i = 0; i &lt; accum.size(); i++) {
+            for (std::size_t j = 1; j &lt; accum[i].size(); j++) { accum[i][j] += accum[i][j - 1]; }
+        }
+        for (std::size_t i = 1; i &lt; accum.size(); i++) {
+            for (std::size_t j = 0; j &lt; accum[i].size(); j++) { accum[i][j] += accum[i - 1][j]; }
+        }
+    }
+    T sum(const std::size_t y, const std::size_t x) const { return y == 0 or x == 0 ? T(0) : accum[y - 1][x - 1]; }
+    T sum(const std::size_t ymin, const std::size_t ysup, const std::size_t xmin, const std::size_t xsup) const { return sum(ysup, xsup) - sum(ymin, xmin); }
+    std::vector&lt;std::vector&lt;T&gt;&gt; accum;
+};
+template &lt;typename T&gt;
+struct Zip
+{
+    template &lt;typename InIt&gt;
+    Zip(const InIt first, const InIt last) : unzip(std::size_t(std::distance(first, last)))
+    {
+        std::copy(first, last, unzip), std::sort(unzip.begin(), unzip.end()), unzip.erase(std::unique(unzip.begin(), unzip.end()), unzip.end());
+        for (std::size_t i = 0; i &lt; unzip.size(); i++) { zip[unzip[i]] = i; }
+    }
+    std::vector&lt;T&gt; unzip;
+    std::map&lt;T, std::size_t&gt; zip;
+};
+template &lt;typename T, std::size_t N&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::array&lt;T, N&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::deque&lt;T, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename K, typename T, typename C, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::multimap&lt;K, T, C, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; &quot;&lt;&quot; &lt;&lt; e.first &lt;&lt; &quot;: &quot; &lt;&lt; e.second &lt;&lt; &quot;&gt;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T, typename C, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::multiset&lt;T, C, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename K, typename T, typename C, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::map&lt;K, T, C, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; &quot;&lt;&quot; &lt;&lt; e.first &lt;&lt; &quot;: &quot; &lt;&lt; e.second &lt;&lt; &quot;&gt;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T1, typename T2&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::pair&lt;T1, T2&gt;&amp; v) { return (os &lt;&lt; &quot;&lt;&quot; &lt;&lt; v.first &lt;&lt; &quot;,&quot; &lt;&lt; v.second &lt;&lt; &quot;&gt;&quot;); }
+template &lt;typename T1, typename T2, typename T3&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::priority_queue&lt;T1, T2, T3&gt;&amp; v)
+{
+    auto q = v;
+    os &lt;&lt; &quot;[&quot;;
+    while (not q.empty()) { os &lt;&lt; q.top() &lt;&lt; &quot;,&quot;, q.pop(); }
+    return os &lt;&lt; &quot;]\n&quot;;
+}
+template &lt;typename T1, typename T2&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::queue&lt;T1&gt;&amp; v)
+{
+    auto q = v;
+    os &lt;&lt; &quot;[&quot;;
+    while (not q.empty()) { os &lt;&lt; q.front() &lt;&lt; &quot;,&quot;, q.pop(); }
+    return os &lt;&lt; &quot;]\n&quot;;
+}
+template &lt;typename T, typename C, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::set&lt;T, C, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T1, typename T2&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::stack&lt;T1&gt;&amp; v)
+{
+    auto q = v;
+    os &lt;&lt; &quot;[&quot;;
+    while (not q.empty()) { os &lt;&lt; q.top() &lt;&lt; &quot;,&quot;, q.pop(); }
+    return os &lt;&lt; &quot;]\n&quot;;
+}
+template &lt;typename K, typename T, typename H, typename P, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_multimap&lt;K, T, H, P, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; &quot;&lt;&quot; &lt;&lt; e.first &lt;&lt; &quot;: &quot; &lt;&lt; e.second &lt;&lt; &quot;&gt;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T, typename H, typename P, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_multiset&lt;T, H, P, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename K, typename T, typename H, typename P, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_map&lt;K, T, H, P, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; &quot;&lt;&quot; &lt;&lt; e.first &lt;&lt; &quot;: &quot; &lt;&lt; e.second &lt;&lt; &quot;&gt;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T, typename H, typename P, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_set&lt;T, H, P, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+template &lt;typename T, typename A&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::vector&lt;T, A&gt;&amp; v)
+{
+    os &lt;&lt; &quot;[&quot;;
+    for (const auto&amp; e : v) { os &lt;&lt; e &lt;&lt; &quot;,&quot;; }
+    return (os &lt;&lt; &quot;]&quot; &lt;&lt; std::endl);
+}
+//!============================================!//
+//!    8888ba.88ba             oo              !//
+//!    88  '8b  '8b                            !//
+//!    88   88   88  .d8888b.  dP  88d888b.    !//
+//!    88   88   88  88'  '88  88  88'  '88    !//
+//!    88   88   88  88.  .88  88  88    88    !//
+//!    dP   dP   dP  '88888P8  dP  dP    dP    !//
+//!============================================!//
+class Solution
+{
+public:
+    static int numDupDigitsAtMostN(int M)
+    {
+        std::string S = std::to_string(M);
+        const int N = S.size();
+        auto dp = Vec(N + 1, (1 &lt;&lt; 10), 2, 2, 0);
+        dp[0][0][0][0] = 1;
+        for (int i = 0; i &lt; N; i++) {
+<A NAME="0"></A>            for (int v = 0; v &lt; 1024; v++) {
+                std::vector&lt;bool&gt; d(10, 0);
+                for (int i = 0; i &lt; 10; i++) { d[i] = (v &amp; (1 &lt;&lt; i)) != 0; }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                for (int j = 0; j &lt; 2; j++) {
+                    for (int k = 0; k &lt; 2; k++) {
+                        for (int nd = 0; nd &lt;= (j ? 9 : S[i] - '0'); nd++) {</B></FONT>
+<A NAME="1"></A>                            if (d[nd]) { continue; }
+                            const bool used = (nd == 0 and !k ? false : true);
+                            dp[i + 1][v | ((used) &lt;&lt; nd)][j or nd &lt; (S[i] - '0')][k or (nd != 0)] += dp[i][v][j][k];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#1',2,'match37-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        }
+                    }
+                }
+            }
+        }
+        int ans = M;
+        for (int i = 0; i &lt; 1024; i++) {
+            for (int j = 0; j &lt; 2; j++) { ans -= dp[N][i][j][1]; }
+        }
+        return ans;
+    }
+};</B></FONT>
+int debug(const int n)
+{
+    int ans = 0;
+    for (int i = 1; i &lt;= n; i++) {
+        int len = 0;
+        std::string S = std::to_string(i);
+        std::vector&lt;int&gt; num(10, 0);
+        for (const char c : S) { num[c - '0']++; }
+        ans += (*std::max_element(num.begin(), num.end()) &gt;= 2);
+    }
+    return ans;
+}
+</PRE>
+</BODY>
+</HTML>

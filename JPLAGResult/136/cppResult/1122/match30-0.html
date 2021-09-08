@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_beet.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>3_beet.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+
+  struct SuffixArray{
+    int n;
+    string S;
+    vector&lt;int&gt; sa,lcp,rev;
+    SuffixArray(){}
+    SuffixArray(string &amp;S):S(S){init();}
+    void init(){
+      n=S.length();
+      S.push_back('$');
+      build_sa();
+      build_lcp();
+    }
+    void build_sa(){
+      sa.assign(n+1,0);
+      iota(sa.begin(),sa.end(),0);
+      sort(sa.begin(),sa.end(),
+           [&amp;](int a,int b){
+             if(S[a]==S[b]) return a&gt;b;
+             return S[a]&lt;S[b];
+           });
+      vector&lt;int&gt; c(n+1,0),r(n+1),cnt(n+1),s(n+1);
+      for(int i=0;i&lt;=n;i++) r[i]=S[i];
+      for(int len=1;len&lt;=n;len*=2){
+        for(int i=0;i&lt;=n;i++){
+          c[sa[i]]=
+            i&gt;0 &amp;&amp;
+            r[sa[i-1]]==r[sa[i]] &amp;&amp;
+            sa[i-1]+len&lt;=n &amp;&amp;
+            r[sa[i-1]+len/2]==r[sa[i]+len/2] ?
+            c[sa[i-1]]:i;
+        }
+        iota(cnt.begin(),cnt.end(),0);
+        copy(sa.begin(),sa.end(),r.begin());
+        for(int i=0;i&lt;=n;i++){
+          int s1=r[i]-len;
+          if(s1&gt;=0) sa[cnt[c[s1]]++]=s1;
+        }
+        c.swap(r);
+      }
+    }
+  
+    bool lt_substr(string &amp;T,int si=0,int ti=0){
+      int sn=S.size(),tn=T.size();
+      while(si&lt;sn&amp;&amp;ti&lt;tn){
+        if(S[si]&lt;T[ti]) return 1;
+        if(S[si]&gt;T[ti]) return 0;
+        si++;ti++;
+      }
+      return si&gt;=sn&amp;&amp;ti&lt;tn;
+    }
+  
+    int lower_bound(string&amp; T){
+      int low=0,high=n+1;
+      while(low+1&lt;high){
+        int mid=(low+high)/2;
+        if(lt_substr(T,sa[mid],0)) low=mid;
+        else high=mid;
+      }
+      return high;
+    }
+  
+    int upper_bound(string&amp; T){
+      T.back()++;
+      int res=lower_bound(T);
+      T.back()--;
+      return res;
+    }
+  
+    // O(|T|*log|S|)
+    int count(string&amp; T){
+      return upper_bound(T)-lower_bound(T);
+    }
+  
+    void build_lcp(){
+      lcp.assign(n,0);
+      rev.assign(n+1,0);
+      for(int i=0;i&lt;=n;i++) rev[sa[i]]=i;
+      int h=0;
+      lcp[0]=0;
+      for(int i=0;i&lt;n;i++){
+        int j=sa[rev[i]-1];
+        if(h&gt;0) h--;
+        for(;j+h&lt;n&amp;&amp;i+h&lt;n;h++){
+          if(S[j+h]!=S[i+h]) break;
+        }
+        lcp[rev[i]-1]=h;
+      }
+    }
+  
+    int getlcp(int p,string &amp;T,int d){
+      int i=0;
+      int len=min((int)T.length()-d,(int)S.length()-p-d);
+      while(i&lt;len&amp;&amp;S[p+d+i]==T[d+i]) i++;
+      return i;
+    }
+  
+    struct RMQ{
+      vector&lt;vector&lt;int&gt; &gt; dat;
+      vector&lt;int&gt; ht;
+    
+      void init(int n){
+        int h=1;
+        while((1&lt;&lt;h)&lt;n) h++;
+        dat.assign(h,vector&lt;int&gt;(n));
+        ht.assign(n+1,0);
+        for(int j=2;j&lt;=n;j++) ht[j]=ht[j&gt;&gt;1]+1;
+      }
+<A NAME="0"></A>    
+      void build(int n,vector&lt;int&gt; &amp;v){
+        int h=1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while((1&lt;&lt;h)&lt;n) h++;
+        for(int j=0;j&lt;n;j++) dat[0][j]=v[j];
+        for(int i=1,p=1;i&lt;h;i++,p&lt;&lt;=1)
+          for(int j=0;j&lt;n;j++)</B></FONT>
+            dat[i][j]=min(dat[i-1][j],dat[i-1][min(j+p,n-1)]);
+      };
+    
+      int query(int a,int b){
+        if(a&gt;b) swap(a,b);
+        int l=b-a;
+        return min(dat[ht[l]][a],dat[ht[l]][b-(1&lt;&lt;ht[l])]);
+      }
+    };
+  
+  };
+
+  //INSERT ABOVE HERE
+public:
+<A NAME="1"></A>  string longestDupSubstring(string S) {
+    SuffixArray sa(S);
+    int n=S.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int res=-1,pos=0;
+    for(int i=0;i&lt;n;i++){
+      if(res&lt;sa.lcp[i]){
+        res=sa.lcp[i];
+        pos=sa.sa[i];        
+      }
+    }</B></FONT>
+    if(res==0) return &quot;&quot;;
+    return S.substr(pos,res);
+  }
+};
+</PRE>
+</BODY>
+</HTML>

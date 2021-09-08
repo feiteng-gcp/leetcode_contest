@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_CooperGo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>205_CooperGo.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxEqualFreq(vector&lt;int&gt;&amp; nums) {
+        map&lt;int, int&gt; val;
+        map&lt;int, int&gt; cnt;
+        int res = 0;
+        for(int i = 0; i &lt; nums.size(); ++i) {
+            int sum = ++val[nums[i]];
+            auto it = cnt.find(sum - 1);
+            if(it != cnt.end()) {
+                --it-&gt;second;
+                if(0 == it-&gt;second) cnt.erase(it);
+            }
+            ++cnt[sum];
+            if(2 == cnt.size()) {
+                auto it1 = cnt.begin();
+                auto it2 = it1;
+<A NAME="1"></A>                ++it2;
+                if(1 == (it2-&gt;first - it1-&gt;first) &amp;&amp; 1 == it2-&gt;second) res = i + 1;</B></FONT>
+                else if((1 == it1-&gt;first &amp;&amp; 1 == it1-&gt;second) || (1 == it2-&gt;first &amp;&amp; 1 == it2-&gt;second)) res = i + 1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            } else if(1 == cnt.size()) {
+                bool flag = true;
+                for(auto it = val.begin(); it != val.end(); ++it) {
+                    if(1 != it-&gt;second) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if(1 == val.size()) flag = true;
+                if(flag) res = i + 1;
+                
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

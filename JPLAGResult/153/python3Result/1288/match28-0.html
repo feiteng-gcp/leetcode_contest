@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_wutian3012.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>273_wutian3012.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maximumSum(self, arr: List[int]) -&gt; int:
+        forward = self.maxSubSum(arr)
+        backward = self.maxSubSum(arr[::-1])[::-1]
+        l = [0]*len(arr)
+        l[0] = backward[len(arr)-2]
+        l[len(arr)-1] = forward[len(arr)-2]
+        #print(forward)
+        #print(backward)
+        for i in range(1, len(arr)-1):
+            l[i] = forward[i-1] + backward[i+1]
+        #print(l)
+<A NAME="0"></A>        return max(max(l), max(forward))
+        
+    def maxSubSum(self, arr):
+        sum <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= [0]*len(arr)
+        sum[0] = arr[0]
+        for i in range(1,len(arr)):
+            if sum[i-1] &lt; 0:
+                sum[i] = arr[i]
+            else:
+                sum[</B></FONT>i] = sum[i-1] + arr[i]
+        return sum
+</PRE>
+
+</BODY>
+</HTML>

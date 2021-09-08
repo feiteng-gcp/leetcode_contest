@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_ChenDanni.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>226_ChenDanni.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+    public boolean check(int s, int e, int len, char[] cs) {
+<A NAME="0"></A>        int es = e - len + 1; 
+        // System.out.println(cs.length + &quot; &quot; + s + &quot; &quot; + es + &quot; &quot; + len);
+        for (int i = 0;i &lt; len;i++) {
+            if (cs[s + i] != cs[es + i]) return false<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return true;
+    }
+    
+<A NAME="1"></A>    public int dfs(int s, int e, char[] cs) {
+        if</B></FONT> (s == e) return 1;
+        if (s &gt; e) return 0;
+        if (map.containsKey(s)) return map.get(s)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        
+        int mid = (s + e + 1)/2;
+        int max = 1;
+        for (int i = 0;s + i &lt; mid;i++) {
+            if (check(s, e, i + 1, cs)) {
+                int curr = 2 + dfs(s + i + 1, e - (i + 1), cs);
+                max = Math.max(max, curr);
+            }
+        }</B></FONT>
+        map.put(s, max);
+        return max;
+    }
+    
+    public int longestDecomposition(String text) {
+        return dfs(0, text.length() - 1, text.toCharArray());
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>460_alphacarrot.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>460_alphacarrot.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+	public static int N, M;
+	public static int[][] map, orig;
+
+	public int maxEqualRowsAfterFlips(int[][] matrix) {
+		N = matrix.length;
+		M = matrix[0].length;
+		map = new int[N][M];
+		orig = new int[N][M];
+		for (int i = 0; i &lt; N; i++) {
+			for (int j = 0; j &lt; M; j++) {
+				map[i][j] = matrix[i][j];
+<A NAME="0"></A>				orig[i][j] = matrix[i][j];
+			}
+		}
+		int res = 0;<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		for (int i = 0; i &lt; N; i++) {
+			res = Math.max(res, solve(i));
+		}
+<A NAME="1"></A>		return res;
+	}
+
+	public static int solve(int i) {<FON</B></FONT>T color="#f63526"><A HREF="javascript:ZweiFrames('match36-1.html#1',3,'match36-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		for (int j = 0; j &lt; M; j++) {
+			if (map[i][j] != 0) {
+				flip(j);
+			}
+		}
+        int res = count()</B></FONT>;
+		for (int k = 0; k &lt; N; k++) {
+			for (int j = 0; j &lt; M; j++) {
+				map[k][j] = orig[k][j];
+			}
+		}
+<A NAME="2"></A>		return res;
+	}
+
+	public static void flip(int j) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match36-1.html#2',3,'match36-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+		for (int i = 0; i &lt; N; i++) {
+			map[i][j] = (map[i][j] + 1) % 2;
+		}
+	}</B></FONT>
+
+	public static int count() {
+		int res = 0;
+		for (int[] is : map) {
+			int curr = 0;
+			for (int i : is) {
+<A NAME="3"></A>				curr += i;
+			}
+			if (curr == 0 || curr == M)
+				res++;<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match36-1.html#3',3,'match36-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+		}
+		return res;
+	}
+
+	public static void printArray(int[] array) {</B></FONT>
+		for (int i : array) {
+			System.out.print(i + &quot; &quot;);
+		}
+		System.out.println();
+	}
+
+	public static void printMatrix(int[][] matrix) {
+		for (int[] is : matrix) {
+			printArray(is);
+		}
+		System.out.println();
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

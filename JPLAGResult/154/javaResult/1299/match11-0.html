@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>265_sergio10barca.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>265_sergio10barca.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    private static final long MOD = 1000000007; 
+    int maxSum(int[] arr) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int maxi = 0, sum = 0;
+        for(int i = 0; i &lt; arr.length; i++) {
+            sum += arr[i];
+            if (sum &lt; 0) {
+<A NAME="1"></A>                sum = 0;
+            }</B></FONT>
+            maxi = Math.max(maxi, sum);
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return maxi;
+    }
+    
+    public int kConcatenationMaxSum(int[] arr, int k) {
+        int sum1 = maxSum(arr)</B></FONT>;
+<A NAME="2"></A>        if(k &lt;= 1) {
+            return sum1;
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] arr2 = new int[arr.length*2];
+        for(int i = 0; i &lt; arr.length; i++) {
+            arr2[i] = arr2[i+arr.length] = arr[i];
+        }</B></FONT>
+        int sum2 = maxSum(arr2);
+        if(k &lt;= 2) {
+            return sum2;
+        }
+        int[] arr3 = new int[arr.length*3];
+        for(int i = 0; i &lt; arr.length; i++) {
+            arr3[i] = arr3[i+arr.length] = arr3[i+arr.length*2] = arr[i];
+        }
+        int sum3 = maxSum(arr3);
+        if(k &lt;= 3){
+            return sum3;
+        }
+        long diff = sum3-sum2;
+        System.out.println(sum1);
+        System.out.println(sum2);
+        System.out.println(sum3);
+        return (int)(Math.max((long)sum1, (long)sum3+(long)(k-3) * diff)%MOD);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

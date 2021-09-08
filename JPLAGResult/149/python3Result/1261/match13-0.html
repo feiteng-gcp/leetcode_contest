@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_lucasmf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>446_lucasmf.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+class Solution:
+    def maxRepOpt1(self, text: str) -&gt; int:
+        s = defaultdict(list)
+        i = 0
+        j = 0
+        n = len(text)
+        while j &lt; n:
+            while j &lt; n and text[j] == text[i]:
+                j += 1
+            s[text[i]].append((i, j))
+            i = j
+        res = 0        
+        for k, rs in s.items():
+            m = len(rs)
+            if m &gt; 1:
+                for i in range(m):
+<A NAME="0"></A>                    if i &gt; 0:
+                        if rs[i][0] - rs[i-1][1] == 1:
+                            if m &gt; 2:
+                                res = max(res, rs[i][1] - rs<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][0] + rs[i-1][1] - rs[i-1][0] + 1)
+                            else:
+                                res = max(res, rs[i][1] - rs[i][</B></FONT>0] + rs[i-1][1] - rs[i-1][0])                    
+                    res = max(res, rs[i][1] - rs[i][0] + 1)            
+            elif m &gt; 0:
+                res = max(res, rs[0][1] - rs[0][0])
+        return res
+</PRE>
+
+</BODY>
+</HTML>

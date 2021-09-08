@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>61_HanBurger.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>61_HanBurger.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict
+from collections import deque
+
+class Solution:
+    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -&gt; List[int]:
+        def topological_sort(nodes, edges):
+            # nodes: list of node numbers
+            # edges: set of a -&gt; b pairs, a before b
+            indegree = defaultdict(int)
+            dependency = defaultdict(set)
+            for n in nodes:
+                indegree[n] == 0
+            
+            for a, b in edges:
+                indegree[b] += 1
+<A NAME="0"></A>                dependency[a].add(b)
+            
+            q = deque([k for k, v in indegree.items() if v == 0])
+            res <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= []
+            while q:
+                n = q.popleft()
+                res.append(n)
+                for nxt in dependency[n]:
+                    indegree[nxt] -= 1
+                    if indegree[nxt] == 0:
+                        q.append(nxt)
+            
+            return res if len(res) == len(nodes) else []
+        
+        
+        groups =</B></FONT> defaultdict(list)
+        for i in range(len(group)):
+            if group[i] == -1:
+                group[i] = -i - 1
+            groups[group[i]].append(i)
+        
+        # print(groups)
+        
+        groupbefore = set() # ga -&gt; gb, ga before gb
+        ingroupbefore = defaultdict(set) # set contains a -&gt; b , a before b
+        ingroupsort = {}
+        
+        
+        for a, beforelst in enumerate(beforeItems):
+            ga = group[a]
+            for b in beforelst:
+                gb = group[b]
+                if ga == gb:
+                    ingroupbefore[ga].add((b, a))
+                else:
+                    groupbefore.add((gb, ga))
+        
+        
+        # print(groupbefore)
+        # print(ingroupbefore)
+        
+        for g, nodes in groups.items():
+            if g not in ingroupbefore:
+                ingroupsort[g] = nodes
+            else:
+                aftersort = topological_sort(nodes, ingroupbefore[g])
+                if not aftersort:
+                    return []
+                ingroupsort[g] = aftersort
+        
+        sortedgroups = topological_sort(groups.keys(), groupbefore)
+        if not sortedgroups:
+            return []
+        
+        res = []
+        for g in sortedgroups:
+            res += ingroupsort[g]
+        
+        return res
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

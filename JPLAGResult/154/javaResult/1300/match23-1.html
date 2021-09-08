@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_flyingpenguin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>361_flyingpenguin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+     private int n;
+    private Map&lt;Integer, List&lt;Integer&gt;&gt; graph = new HashMap&lt;&gt;();
+    int visitTime = 0;
+    List&lt;List&lt;Integer&gt;&gt; r = new ArrayList&lt;&gt;();
+
+    public List&lt;List&lt;Integer&gt;&gt; criticalConnections(int n, List&lt;List&lt;Integer&gt;&gt; connections) {
+        for (List&lt;Integer&gt; es : connections) {
+            int start = es.get(0);
+            int end = es.get(1);
+            graph.computeIfAbsent(start, k -&gt; new ArrayList&lt;&gt;()).add(end);
+            graph.computeIfAbsent(end, k -&gt; new ArrayList&lt;&gt;()).add(start);
+        }
+        this.n = n;
+        findBridge();
+        return r;
+<A NAME="1"></A>    }
+
+
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void dfs(int u, boolean visited[], int disc[],
+             int low[], int parent[]) {
+        visited[u] = true;
+        visitTime++;
+        disc[u] = visitTime;
+        low[u] = visitTime;
+<A NAME="2"></A>        Iterator&lt;Integer&gt; iter = graph.getOrDefault(u, new ArrayList&lt;&gt;()).iterator</B></FONT>();
+        while (iter.hasNext()) {
+            int v = iter.next();
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!visited[v]) {
+                parent[v] = u;
+                dfs(v, visited, disc, low, parent);
+                low[u] = Math.min(low[u], low[v]);
+<A NAME="3"></A>                if (low[v] &gt; disc[u]) {
+                    List&lt;Integer&gt; edge = new ArrayList&lt;&gt;()</B></FONT>;
+                    edge.add(u);
+                    <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#3',2,'match23-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>edge.add(v);
+                    r.add(edge);
+                }
+            } else if (v != parent[u]) {
+                low[u] = Math.min(low[u], disc[v]);
+            }
+        }</B></FONT>
+<A NAME="0"></A>    }
+
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private void findBridge() {
+        boolean visited[] = new boolean[n];
+        int disc[] = new int[n];
+        int low[] = new int[n];
+        int parent[] = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = -1;
+            visited[i] = false;
+        }
+        for (int i = 0; i &lt; n; i++) {
+            if (visited[i] == false) {
+                dfs(i, visited, disc, low, parent);
+            }
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>442_sueki1242.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>442_sueki1242.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; addNegabinary(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        vector&lt;int&gt; arr1_pos = arr1;
+        vector&lt;int&gt; arr1_neg = arr1;
+        for(int i = 0; i &lt; arr1.size(); i++) {
+            if (i%2==0) {
+                arr1_neg[arr1.size()-1-i] = 0;
+            } else {
+                arr1_pos[arr1.size()-1-i] = 0;
+            }
+        }
+        
+        vector&lt;int&gt; arr2_pos = arr2;
+        vector&lt;int&gt; arr2_neg = arr2;
+        for(int i = 0; i &lt; arr2.size(); i++) {
+            if (i%2==0) {
+                arr2_neg[arr2.size()-1-i] = 0;
+            } else {
+                arr2_pos[arr2.size()-1-i] = 0;
+            }
+        }
+        
+        vector&lt;int&gt; pos_part = addSimple(arr1_pos, arr2_pos);
+        vector&lt;int&gt; neg_part = addSimple(arr1_neg, arr2_neg);
+        
+        return add(pos_part, neg_part);
+    }
+    
+    int get(vector&lt;int&gt;&amp; a, int i) {
+        if (i &gt;= a.size()) return 0;
+        return a[a.size() - 1 - i];
+    }
+    
+    vector&lt;int&gt; addSimple(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+        vector&lt;int&gt; res;
+        int carry = 0;
+        for (int i=0; i &lt; max(a.size(), b.size()); i++) {
+            int now = get(a, i) + get(b, i) + carry;
+            res.push_back(now % 2);
+            carry = now / 2;
+        }
+        if (carry &gt; 0) {
+            res.push_back(1);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+    
+    void debug(vector&lt;int&gt;&amp; v) {
+        for (auto&amp;&amp; i : v){
+            cout&lt;&lt;i&lt;&lt;&quot; &quot;;
+<A NAME="0"></A>        }cout&lt;&lt;endl;
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; add(vector&lt;int&gt;&amp; pos, vector&lt;int&gt;&amp; neg) {
+        vector&lt;int&gt; res(2000, 0);
+        for (int i=0; i &lt; max(pos.size(), neg.size()); i++) {
+            int p = get(pos, i);</B></FONT>
+            int n = get(neg, i);
+            if (p&gt;0 &amp;&amp; n&gt;0) {
+<A NAME="1"></A>                pos[pos.size() - 1 - i] = 0;
+                neg[neg.size() - 1 - i] = 0;
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        debug(pos);
+        debug(neg);
+        
+        for (int i =0; i &lt; pos.size(); ++i) {
+            if (get(pos, i)&gt;0) {
+                if (i%2 == 0) {
+                    res[i]++;
+                } else {
+                    res[i]++;
+                    res[i+1]++;
+                }</B></FONT>
+            }
+        }
+        for (int i=0; i&lt;neg.size(); ++i) {
+            if (get(neg, i)&gt;0) {
+                if (i%2 == 1) {
+                    res[i]++;
+                } else {
+                    res[i]++;
+                    res[i+1]++;
+                }
+            }
+        }
+        for(int i=0; i&lt;10; ++i){
+            cout&lt;&lt;res[i]&lt;&lt;&quot; &quot;;
+        }cout&lt;&lt;endl;
+        
+        for (int i = 0; i &lt; 2000; i++) {
+            bool fixed = true;
+            
+            for (int i = 0; i &lt; 2000; i++) {
+                if (res[i] &gt; 1) {
+                    int del_num = min(res[i+1], res[i]/2);
+                    res[i+1] -= del_num;
+                    res[i]-=del_num * 2;
+                    fixed=false;
+                    if (del_num == 0) {
+                        res[i+1] += res[i] / 2;
+                        res[i+2] += res[i] / 2;
+                        res[i] = res[i] % 2;
+                    }
+                }
+            }
+            
+            if (fixed)break;
+        }
+        // shrink
+        
+        vector&lt;int&gt; ans;
+        bool leading_zero = true;
+        for (int i = 1999; i &gt;= 0; i--) {
+            if (leading_zero &amp;&amp; res[i]==0) {
+                continue;
+            }
+            if (res[i]&gt;0) {
+                leading_zero = false;
+            }
+            ans.push_back(res[i]);
+        }
+        if(ans.empty()){
+            ans.push_back(0);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

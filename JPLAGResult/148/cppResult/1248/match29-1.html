@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_farmerboy.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>234_farmerboy.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+<A NAME="0"></A>    int f[110], l[110], r[110];
+
+    void dfs(TreeNode* root) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        f[root-&gt;val] = 1;
+        if (root-&gt;left) {
+            dfs(root-&gt;left);
+            l[root-&gt;val] = root-&gt;left-&gt;val;
+            f[root-&gt;val] += f[root-&gt;left-&gt;val];
+        }
+        if (root-&gt;right) {
+            dfs(root-&gt;right);
+            r[root-&gt;val] = root-&gt;right-&gt;val;
+            f[root-&gt;val] += f[root-&gt;right-&gt;val];
+        }
+    }
+    
+    bool btreeGameWinningMove(TreeNode* root, int n, int x) {</B></FONT>
+        for (int i = 1; i &lt;= 100; i++) {
+            f[i] = l[i] = r[i] = 0;
+        }
+        dfs(root);
+        if (f[root-&gt;val] - f[x] &gt; f[x]) return true;
+        if (l[x]) {
+            if (f[l[x]] &gt; f[root-&gt;val] - f[l[x]]) return true;
+        }
+        if (r[x]) {
+            if (f[r[x]] &gt; f[root-&gt;val] - f[r[x]]) return true;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

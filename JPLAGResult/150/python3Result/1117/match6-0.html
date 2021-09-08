@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_ztc254.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>284_ztc254.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -&gt; int:
+        m, n = len(grid), len(grid[0])
+        if sum(sum(g) for g in grid) in (0, m*n):
+            return -1
+        
+        
+        rez = 0
+        stack = set()
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    stack.add((i,j))
+                    grid[i][j] = -1
+        
+        dis = 0
+        while(stack):
+            tmpStk = set()
+<A NAME="0"></A>            for s in stack:
+                if grid[s[0]][s[1]] == -2 and rez &lt; dis:
+                    rez = dis
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if s[0] and grid[s[0] - 1][s[1]] &gt;= 0:
+                    tmpStk.add((s[0] - 1, s[1]))
+                    grid[s[0] - 1][s[1]] = -2
+                if s[1] and grid[s[0]][s[1] - 1] &gt;= 0:
+                    tmpStk.add((s[0], s[1] - 1))
+                    grid[s[0]][s[1] - 1] = -2
+                if s[0] != m - 1 and grid[s[0] + 1][s[1]] &gt;= 0:
+                    tmpStk.add((s[0] + 1, s[1]))
+                    grid[s[0] + 1][s[1]] = -2
+                if s[1] != n - 1 and grid[s[0]][s[1] + 1] &gt;= 0:
+                    tmpStk.add((s[0], s[1] + 1))
+                    grid[s[0]][s[1] + 1] = -2
+            stack =</B></FONT> tmpStk
+            dis += 1
+
+        
+        return rez
+                
+                
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

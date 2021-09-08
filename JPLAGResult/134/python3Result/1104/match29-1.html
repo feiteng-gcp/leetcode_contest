@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>322_jinjiren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>322_jinjiren.py</CENTER></H3><HR>
+<PRE>
+import copy
+
+
+class Solution:
+    def colorBorder(self, grid: List[List[int]], r0: int, c0: int, color: int) -&gt; List[List[int]]:
+        new_grid = copy.deepcopy(grid)
+        m = len(grid)
+        n = len(grid[0])
+        seen = set()
+        
+        def dfs(i, j, old, new):
+            seen.add((i, j))
+<A NAME="0"></A>            if not (0 &lt;= i &lt; m and 0 &lt;= j &lt; n):
+                return True
+            if grid[i][j] == old:
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if i == 0 or i == m - 1 or j == 0 or j == n - 1:
+                    new_grid[i][j] = new
+                res = []
+                for r, c in [(i-1, j), (i+1, j), (i, j-1), (i</B></FONT>, j+1)]:
+                    if 0 &lt;= r &lt; m and 0 &lt;= c &lt; n:
+                        if grid[r][c] != old:
+                            new_grid[i][j] = new
+                    if (r, c) not in seen:
+                        res.append(dfs(r, c, old, new))
+                return False
+            else:
+                return True
+            
+        dfs(r0, c0, grid[r0][c0], color)
+        return new_grid
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

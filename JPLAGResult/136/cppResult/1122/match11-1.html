@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_badgergo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>5_badgergo.cpp</CENTER></H3><HR>
+<PRE>
+vector&lt;int&gt; sort_cyclic_shifts(string const&amp; s);
+vector&lt;int&gt; suffix_array_construction(string s) {
+    s += &quot;$&quot;;
+    vector&lt;int&gt; sorted_shifts = sort_cyclic_shifts(s);
+    sorted_shifts.erase(sorted_shifts.begin());
+    return sorted_shifts;
+}
+
+vector&lt;int&gt; sort_cyclic_shifts(string const&amp; s) {
+<A NAME="1"></A>    int n = s.size();
+    const int alphabet = 256;
+     vector&lt;int&gt; p(n), c(n), cnt(max(alphabet, n), 0);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 0; i &lt; n; i++)
+        cnt[s[i]]++;
+    for (int i = 1; i &lt; alphabet; i++)
+        cnt[i] += cnt[i-1];
+    for (int i = 0; i &lt; n; i++)
+        p[--cnt[s[i]]] = i;
+    c[p[0]] = 0;</B></FONT>
+    int classes = 1;
+    for (int i = 1; i &lt; n; i++) {
+        if (s[p[i]] != s[p[i-1]])
+            classes++;
+        c[p[i]] = classes - 1;
+    }
+    vector&lt;int&gt; pn(n), cn(n);
+    for (int h = 0; (1 &lt;&lt; h) &lt; n; ++h) {
+        for (int i = 0; i &lt; n; i++) {
+            pn[i] = p[i] - (1 &lt;&lt; h);
+            if (pn[i] &lt; 0)
+<A NAME="0"></A>                pn[i] += n;
+        }
+        fill(cnt.begin(), cnt.begin() + classes, 0);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; i++)
+            cnt[c[pn[i]]]++;
+        for (int i = 1; i &lt; classes; i++)
+            cnt[i] += cnt[i-1];
+        for (int i = n-1; i &gt;= 0; i--)
+            p[--cnt[c[pn[i]]]] = pn[i];</B></FONT>
+        cn[p[0]] = 0;
+        classes = 1;
+        for (int i = 1; i &lt; n; i++) {
+            pair&lt;int, int&gt; cur = {c[p[i]], c[(p[i] + (1 &lt;&lt; h)) % n]};
+            pair&lt;int, int&gt; prev = {c[p[i-1]], c[(p[i-1] + (1 &lt;&lt; h)) % n]};
+            if (cur != prev)
+                ++classes;
+            cn[p[i]] = classes - 1;
+        }
+        c.swap(cn);
+    }
+    return p;
+}
+
+
+vector&lt;int&gt; lcp_construction(string const&amp; s, vector&lt;int&gt; const&amp; p) {
+    int n = s.size();
+    vector&lt;int&gt; rank(n, 0);
+    for (int i = 0; i &lt; n; i++)
+        rank[p[i]] = i;
+
+    int k = 0;
+    vector&lt;int&gt; lcp(n-1, 0);
+    for (int i = 0; i &lt; n; i++) {
+        if (rank[i] == n - 1) {
+            k = 0;
+            continue;
+        }
+        int j = p[rank[i] + 1];
+        while (i + k &lt; n &amp;&amp; j + k &lt; n &amp;&amp; s[i+k] == s[j+k])
+            k++;
+        lcp[rank[i]] = k;
+        if (k)
+            k--;
+    }
+    return lcp;
+}
+
+
+class Solution {
+public:
+    string longestDupSubstring(string S) {
+        int n = S.length();
+        vector&lt;int&gt; p = suffix_array_construction(S);
+        vector&lt;int&gt; LCP = lcp_construction(S, p);
+        auto it = max_element(LCP.begin(), LCP.end());
+        int idx = distance(LCP.begin(), it);
+        return S.substr(p[idx], *it);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

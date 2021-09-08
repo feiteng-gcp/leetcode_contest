@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>441_Centurion7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>441_Centurion7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public List&lt;Integer&gt; pathInZigZagTree(int label) {
+        int[] p = new int[label + 1];
+        int level = 1, nextLevel = 4, levelNodes = 2, rangeSt = 2, rangeEnd = 3, prevRangeSt = 1, prevRangeEnd = 1;
+        for (int i = 2; i &lt;= label; ++i) {
+            // int level = (int)(Math.log(i) / (double)Math.log(2.0)); 
+            if (i &gt;= nextLevel) {
+                ++level;
+                nextLevel *= 2;
+                levelNodes *= 2;
+                prevRangeSt = rangeSt;
+                prevRangeEnd = rangeEnd;
+                rangeSt = (int)Math.pow(2, level);
+                rangeEnd = rangeSt + levelNodes - 1;
+                // System.out.println(&quot;Next level: &quot; + i + &quot; &quot; + levelNodes + &quot; &quot; + rangeSt + &quot; &quot; + rangeEnd);
+<A NAME="0"></A>            }
+            int parentShift = i / 2 - prevRangeSt;
+            p[i] = prevRangeEnd - parentShift;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        // System.out.println(Arrays.toString(p));
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        int cur = label;
+        while (cur &gt; 0) {
+            res.add(cur);
+            cur = p[cur];
+        }</B></FONT>
+        Collections.reverse(res);
+        
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

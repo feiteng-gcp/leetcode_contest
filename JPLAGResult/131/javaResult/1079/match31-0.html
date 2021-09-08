@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>452_babyeric1982.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>452_babyeric1982.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+<A NAME="0"></A>class Solution {
+    long sum = 0;
+    int MOD = (int)Math.pow(10, 9) + 7;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int sumRootToLeaf(TreeNode root) {
+        if (root == null) return 0;
+        sumToLeaf(root, 0);
+        return (int)sum;
+    }
+    
+    void sumToLeaf(TreeNode node, long parent) {
+        parent = (parent &lt;&lt; 1) + node.val;
+        parent %= MOD; 
+        if (node.left == null &amp;&amp; node.right == null) {</B></FONT>
+            //System.out.println(parent);
+<A NAME="1"></A>            sum += parent;
+            sum %= MOD;
+        } else {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (node.left != null){
+                sumToLeaf(node.left, parent);
+            } 
+            if (node.right != null)
+            {
+                sumToLeaf(node.right, parent);
+            }
+        }</B></FONT>
+        
+        
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

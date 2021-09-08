@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_tocque.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>271_tocque.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int longestDecomposition(string t) {
+        int k = 0, i, lenx;
+        for (i = 0, lenx = t.size()-1; i*2 &lt; t.size(); ) {
+            bool flag = false;
+            for (int j = 0; i + j &lt; lenx - i - j; j++) {
+                // cout &lt;&lt; j &lt;&lt; &quot;,&quot; &lt;&lt; lenx - i - j &lt;&lt; endl;
+<A NAME="0"></A>                int cnt = 0;
+                while(j &gt;= cnt &amp;&amp; t[i+cnt] == t[lenx-i-j+cnt]) cnt++;
+                if (j == cnt-1) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    i += cnt, k+=2;
+                    // cout &lt;&lt; i &lt;&lt; cnt &lt;&lt; endl;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) break;
+        }
+        if (i*2 &lt; t.size()) k++;
+        return k;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_ghouyl-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>375_ghouyl-2.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def parseBoolExpr(self, expression: str) -&gt; bool:
+        lvl<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>=[[]];label=[];i=0
+        while i&lt;len(expression):
+            ch=expression[i]
+            if ch==&quot;&amp;&quot; or ch==&quot;|&quot; or ch==&quot;!&quot;:
+                lvl.append([])
+                label.append(</B></FONT>ch)
+                i+=2
+            elif ch==&quot;)&quot;:
+                ll=label.pop()
+                if ll==&quot;!&quot;:
+                    if len(lvl[-1])==1:
+                        re=not lvl[-1][0]
+                        lvl.pop()
+                        lvl[-1].append(re)
+                    else:
+                        raise &quot;num incorrect&quot;
+                elif ll==&quot;&amp;&quot;:
+                    alltrue=True
+                    for x in lvl[-1]:
+                        if x==False:
+                            alltrue=False
+                            break
+                    lvl.pop()
+                    lvl[-1].append(alltrue)
+                else: # |
+                    hastrue=False
+                    for x in lvl[-1]:
+                        if x==True:
+                            hastrue=True
+                            break
+                    lvl.pop()
+                    lvl[-1].append(hastrue)    
+                i+=1
+            elif ch!=&quot;,&quot;: #t f
+                lvl[-1].append(True if ch==&quot;t&quot; else False)
+                i+=1
+            else:
+                i+=1
+        re=lvl[0][0]
+        return re
+</PRE>
+
+</BODY>
+</HTML>

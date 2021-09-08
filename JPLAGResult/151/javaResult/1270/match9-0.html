@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>332_vitk.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>332_vitk.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class DinnerPlates {
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int capacity = 0;
+    TreeMap&lt;Integer, Stack&lt;Integer&gt;&gt; map;
+    PriorityQueue&lt;Integer&gt; q;
+    
+    public DinnerPlates(int capacity) {
+        this.capacity = capacity;
+        map = new TreeMap&lt;&gt;();
+        q = new</B></FONT> PriorityQueue&lt;&gt;();
+    }
+    
+    public void push(int val) {
+        if(q.isEmpty()) {
+            
+            if(map.size()==0) map.put(0, new Stack&lt;&gt;());
+            
+            Map.Entry&lt;Integer, Stack&lt;Integer&gt;&gt; entry = map.lastEntry(); 
+            if(entry.getValue().size()&lt;capacity) entry.getValue().push(val);
+            else { //at the cap
+                Stack s = new Stack&lt;&gt;();
+                map.put(entry.getKey()+1, s);
+                s.push(val);
+            }
+        }
+        else { //get from queue
+            int i = q.poll();
+            if(map.get(i) == null) {
+                map.put(i, new Stack&lt;&gt;());
+            }
+<A NAME="1"></A>            
+            map.get(i).push(val);
+        }
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int pop() {
+        
+        if(map.size()==0) return -1;
+        
+        Map.Entry&lt;Integer, Stack&lt;Integer&gt;&gt; entry = map.lastEntry(); 
+<A NAME="2"></A>        
+        int val = entry.getValue().pop</B></FONT>();
+        
+        if(entry.getValue().size()==0) map.remove(entry.getKey())<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match9-1.html#2',3,'match9-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        
+        return val;
+    }
+    
+    public int popAtStack(int index) {
+        if(map.get</B></FONT>(index) == null) return -1;
+        
+        int val = map.get(index).pop();
+        
+        if(map.get(index).size()==0) map.remove(index);
+        
+        q.add(index);
+        
+        return val;
+    }
+}
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates obj = new DinnerPlates(capacity);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAtStack(index);
+ */
+</PRE>
+
+</BODY>
+</HTML>

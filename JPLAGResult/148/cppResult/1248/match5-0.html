@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>468_DenisGubar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>468_DenisGubar.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+	void findParents(TreeNode* root)
+	{
+		if (!root) return;
+		if (root-&gt;left)
+			parents[root-&gt;left-&gt;val] = root;
+		if (root-&gt;right)
+			parents[root-&gt;right-&gt;val] = root;
+		findParents(root-&gt;left);
+		findParents(root-&gt;right);
+	}
+	void find(TreeNode* root)
+	{
+		if (!root) return;
+		nodes[root-&gt;val] = root;
+		find(root-&gt;left);
+		find(root-&gt;right);
+	}
+	int calc(TreeNode* root)
+	{
+		if (!root)
+			return 0;
+		return 1 + calc(root-&gt;left) + calc(root-&gt;right);
+	}
+	bool btreeGameWinningMove(TreeNode* root, int n, int x) {
+		nodes = vector&lt;TreeNode*&gt;(n + 1);
+		parents = vector&lt;TreeNode*&gt;(n + 1, nullptr);
+		findParents(root);
+		find(root);
+<A NAME="0"></A>		int L = 0;
+		int v = x;
+		while (parents[v])
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>			++L, v = parents[v]-&gt;val;
+		if (L)
+		{
+			int first = L / 2 + calc(nodes[x]);
+			int second = n - first;
+			if (second &gt; first)
+				return true;
+		}
+		if (nodes[x]-&gt;left)
+		{
+			int second = calc(nodes[x]-&gt;left);
+			int first = n - second;
+			if (second &gt; first)
+				return true;
+		}
+		if (nodes[x]-&gt;right)
+		{
+			int second = calc(nodes[x]-&gt;right);
+			int first = n - second;
+			if (second &gt; first)
+				return true;
+		}
+		return false;
+	}
+	vector&lt;TreeNode*&gt; nodes, parents;
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

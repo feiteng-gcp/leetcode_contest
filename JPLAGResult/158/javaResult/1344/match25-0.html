@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>287_binc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>287_binc.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxEqualFreq(int[] nums) {
+        int[] map = new int[100002];
+        Map&lt;Integer,Integer&gt; count = new HashMap&lt;&gt; ();
+        Set&lt;Integer&gt; appears = new HashSet&lt;&gt; ();
+
+        int max = 0, t = 0;
+        for (int i: nums) {
+            t++;
+<A NAME="0"></A>            int curr = map[i];
+            map[i]++;
+
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>appears.add(i);
+            if (curr != 0) {
+                count.put(curr, count.get(curr) - 1);
+                if (count.get(curr) == 0) {
+                    count.remove(curr);
+                }
+            }
+
+            count.put(curr+1, count.getOrDefault</B></FONT>(curr+1, 0) + 1);
+
+            int numSize = count.size();
+            int tsize = appears.size();
+
+            // Every ele appears once
+            if (tsize == 1) {
+                max = t;
+            }
+            else if (tsize == t) {
+                max = t;
+            }
+            else {
+                // if some element only appears once
+                if (count.containsKey(1)) {
+                    int div = (t - 1) / (tsize - 1);
+                    if (div * (tsize - 1) == t - 1) {
+                        if (count.containsKey(div) &amp;&amp; count.get(div) == tsize - 1) {
+                            max = t;
+                        }
+                    }
+                }
+
+<A NAME="1"></A>                // t - 1 must total divide by tsize
+                int div = (t - 1) / tsize;
+                if (div * tsize == t - 1) {
+<A NAME="2"></A>                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (count.containsKey(div) &amp;&amp; count.get(div) == (tsize - 1) &amp;&amp; count.containsKey(div+1) &amp;&amp; count.get(div+1) == 1) {
+                        max = t;
+                    }</B></FONT>
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

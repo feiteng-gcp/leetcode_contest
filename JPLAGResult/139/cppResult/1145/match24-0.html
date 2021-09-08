@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_ZYCSwing.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_ZYCSwing.cpp</CENTER></H3><HR>
+<PRE>
+#define N 305
+int x[N][N];
+int y[N][N][N];
+unordered_map&lt;int, int&gt; cnt;
+
+class Solution {
+public:
+    int numSubmatrixSumTarget(vector&lt;vector&lt;int&gt;&gt;&amp; ma, int t) {
+<A NAME="0"></A>        memset(x, 0, sizeof(x));
+        memset(y, 0, sizeof(y));
+        int n = ma.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int m = ma[0].size();
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                x[i][j] = j ? x[i][j - 1] + ma[i][j] : ma[i][0];</B></FONT>
+<A NAME="1"></A>                for (int k = 1; k &lt;= j + 1; ++k) {
+                    y[i][j][k] = k == j + 1 ? x[i][j] : x[i][j] - x[i][j - k];
+                }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        
+        int res = 0;
+        for (int k = 1; k &lt;= m; ++k) {
+<A NAME="2"></A>            for (int j = k - 1; j &lt; m; ++j) {</B></FONT>
+                cnt.clear();
+                cnt[0] = 1;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match24-1.html#2',3,'match24-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int sum = 0;
+                for (int i = 0; i &lt; n; ++i) {
+                    sum += y[i][j][k];
+                    res += cnt[sum - t];
+                    cnt[sum]++;
+                }
+            }
+        }
+        
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

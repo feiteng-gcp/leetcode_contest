@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_user7269F.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_user7269F.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;set&gt;
+#include &lt;random&gt;
+
+using namespace std;
+typedef unsigned long long ll;
+const int MAXN = 100100;
+const ll BASE1 = 918357, BASE2 = 918357;
+const ll M1 = 1e9+7, M2 = 1e9+9;
+
+int N;
+string s;
+ll cp[MAXN];
+ll bpow[MAXN];
+
+ll get_hash (int l, int len)
+{
+    return cp[l+len] - (cp[l] * bpow[len]);
+}
+
+int oloc[MAXN];
+
+int nshare (int x, int y)
+{
+    int lo = 0, hi = min (N - x, N - y);
+    while (lo &lt; hi)
+    {
+        int mid = (lo + hi + 1) / 2;
+        if (get_hash (x, mid) == get_hash (y, mid))
+            lo = mid;
+        else
+            hi = mid - 1;
+    }
+    return lo;
+}
+
+bool cmp (int x, int y)
+{
+    int v = nshare (x, y);
+    if (v + x == N) return true;
+    if (v + y == N) return false;
+    return s[v+x] &lt; s[v+y];
+}
+
+class Solution {
+public:
+<A NAME="0"></A>    string longestDupSubstring(string S) {
+        s = S;
+        N = s.length();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        cp[0] = 0;
+        for (int i = 0; i &lt; N; i++)
+            cp[i+1] = cp[i] * BASE1 + s[i];
+        bpow[0] = 1;
+<A NAME="1"></A>        for (int i = 0; i &lt; N; i++)
+            bpow[i+1] = bpow[i] * BASE1;</B></FONT>
+
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; N; i++)
+            oloc[i] = i;
+        sort (oloc, oloc + N, cmp);
+
+        int bmax = -1, bloc = -1;
+        for (int i = 0; i &lt; N - 1; i++)
+        {
+            int v = nshare (oloc[i], oloc[i+1]);</B></FONT>
+            if (v &gt; bmax)
+            {
+                bmax = v;
+                bloc = oloc[i];
+            }
+        }
+
+        string res = &quot;&quot;;
+        for (int i = 0; i &lt; bmax; i++)
+            res += s[bloc+i];
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

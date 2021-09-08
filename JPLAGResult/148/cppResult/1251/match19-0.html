@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>246_qpwoeirut.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>246_qpwoeirut.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+private:
+    bool same(const deque&lt;char&gt;&amp; a, const deque&lt;char&gt;&amp; b) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i=0; i&lt;a.size(); i++) {
+            if (a[i] != b[i]) return false;
+        }
+        return true;
+    }
+public:
+    int longestDecomposition(string text) {
+        int chunks = 0;</B></FONT>
+        int N = text.size();
+        bool full = 0;
+        deque&lt;char&gt; str1, str2;
+        for (int i=0; i&lt;N/2; i++) {
+            str1.push_back(text[i]);
+            str2.push_front(text[N-i-1]);
+            if (same(str1, str2)) {
+                chunks += 2;
+                str1.clear();
+                str2.clear();
+                full = i+1 == N-i-1;
+            }
+        }
+        
+        return chunks + (full ? 0 : 1);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

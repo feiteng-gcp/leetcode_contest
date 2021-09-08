@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>5_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 3e4 + 10;
+vector&lt;int&gt; a[N], b[N];
+bool flag[N], flag2[N];
+vector&lt;int&gt; topo, topo2;
+vector&lt;int&gt; A[N];
+bool instack[N];
+
+bool DFS(int u) {
+    if (flag[u]) {
+        if (instack[u]) return false;
+        return true;
+    }
+    flag[u] = true;
+    instack[u] = true;
+    for (auto&amp; v : a[u]) {
+        if (!DFS(v)) return false;
+    }
+    topo.push_back(u);
+    instack[u] = false;
+    return true;
+}
+
+bool DFS2(int u) {
+    if (flag2[u]) {
+        if (instack[u]) return false;
+        return true;
+    }
+    flag2[u] = true;
+    instack[u] = true;
+    for (auto&amp; v : b[u]) {
+        if (!DFS2(v)) return false;
+<A NAME="0"></A>    }
+    topo2.push_back(u);
+    instack[u] = false;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return true;
+}
+
+class Solution {
+public:
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+        for (int i = 0; i &lt; N; ++i) A[i].clear();</B></FONT>
+        for (int i = 0; i &lt; n; ++i) {
+            if (group[i] &lt; 0) group[i] = m++;
+<A NAME="1"></A>            A[group[i]].push_back(i);
+        }
+        for (int i = 0; i &lt; m; ++i) a[i].clear();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++i) b[i].clear();
+        for (int i = 0; i &lt; n; ++i) {
+            for (auto&amp; j : beforeItems[i]) {</B></FONT>
+                int x = group[j], y = group[i];
+                if (x != y) {
+                    a[x].push_back(y);
+                } else {
+                    b[j].push_back(i);
+                }
+            }
+        }
+        fill(flag, flag + m, false);
+        fill(instack, instack + m, false);
+        topo.clear();
+        for (int i = 0; i &lt; m; ++i) {
+            if (!DFS(i)) return {};
+        }
+        fill(flag2, flag2 + n, false);
+        fill(instack, instack + n, false);
+        topo2.clear();
+        for (int i = 0; i &lt; n; ++i) {
+            if (!DFS2(i)) return {};
+        }
+        reverse(topo.begin(), topo.end());
+        reverse(topo2.begin(), topo2.end());
+        vector&lt;int&gt; idx(n);
+        for (int i = 0; i &lt; n; ++i) idx[topo2[i]] = i;
+        
+        vector&lt;int&gt; ret;
+        for (auto&amp; x : topo) {
+            sort(A[x].begin(), A[x].end(),
+                 [&amp;](int u, int v) {
+                     return idx[u] &lt; idx[v];
+                 });
+            for (auto&amp; it : A[x]) ret.push_back(it);
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

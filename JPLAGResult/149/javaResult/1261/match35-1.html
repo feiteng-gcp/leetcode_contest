@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_zxcvasdfqwer.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_zxcvasdfqwer.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxRepOpt1(String text) {
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        int res1 = 0;
+        int res2 = 0;
+        char[] ca = text.toCharArray();
+        int N = ca.length;
+        for (int i = 0, localMax = 0; i &lt; N; i++) {
+            map.put(ca[i], map.getOrDefault(ca[i], 0) + 1);
+            if (i != 0 &amp;&amp; ca[i] == ca[i - 1]) {
+                localMax++;
+            } else {
+                localMax = 1;
+            }
+            res1 = Math.max(res1, localMax);
+        }
+        for (int j = 0; j &lt; 26; j++) {
+            char c = (char)('a' + j);
+            int total = map.getOrDefault(c, 0);
+            if (total &lt;= res2) {
+                continue;
+            }
+            int[] b = new int[N];
+            int[] f = new int[N];
+            for (int i = 0, cnt = 0; i &lt; N; i++) {
+                b[i] = cnt;
+                if (ca[i] == c) {
+                    cnt++;
+                } else {
+                    cnt = 0;
+                }
+            }
+            for (int i = N - 1, cnt = 0; i &gt;= 0; i--) {
+                f[i] = cnt;
+                if (ca[i] == c) {
+                    cnt++;
+                } else {
+<A NAME="0"></A>                    cnt = 0;
+                }
+            }
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; N; i++) {
+                if (ca[i] != c) {
+                    
+                    res2 = Math.max(res2, Math.min(total, 1 + f[i] + b[i]));
+                    
+                }
+            }
+            // int missed = 0;
+            // int cnt = 0;
+            // for (int j = 0, localMax = 0; j &lt; N; j++) {
+            //     if (cnt &lt; total &amp;&amp; (ca[j] == c || (missed == 0 &amp;&amp; cnt &lt; total))) {
+            //         localMax++;
+            //         missed += ca[j] == c ? 0 : 1;
+            //         cnt++;
+            //     } else {
+            //         localMax = 0;
+            //         missed = 0;
+            //         cnt = 0;
+            //     }
+            //     res2 = Math.max(res2, localMax);
+            // }
+        }
+        return</B></FONT> Math.max(res1, res2);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

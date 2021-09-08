@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>328_sggkjihua.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>328_sggkjihua.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxDistance(int[][] grid) {
+        List&lt;int[]&gt; list = new ArrayList();
+<A NAME="0"></A>        boolean hasIsland = false;
+        boolean hasWater = false;
+        int n = grid.length,m = grid[0].length;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] ds = new int[n][m];
+        for(int i=0;i&lt;grid.length;i++){
+            for(int j=0;j&lt;grid[i].length;j++){
+                if(grid[i][j]==0){</B></FONT>
+                    hasWater = true;
+<A NAME="1"></A>                    ds[i][j] = Integer.MAX_VALUE;
+                }else{
+                    hasIsland = true;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.add(new int[]{i, j});
+                    ds[i][j] = -1;
+                }
+            }
+        }</B></FONT>
+        int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0}};
+        if(!hasIsland || !hasWater) return -1;
+        for(int[] island:list){
+            Queue&lt;int[]&gt; q = new LinkedList();
+            q.offer(island);
+<A NAME="2"></A>            int dis = 0;
+            boolean[][] visited = new boolean[n][m];
+            visited[island[0]][island[1]] = true;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while(!q.isEmpty()){
+                dis ++;
+                int size = q.size();
+                for(int i=0;i&lt;size;i++){
+                    int[] cur = q.poll();
+                    int x = cur[0], y = cur[1];
+                    for(int[] dir:dirs){
+<A NAME="3"></A>                        int nr = x+dir[0], nc = y+dir[1];
+                        if</B></FONT>(nr&lt;0||nc&lt;0||nr&gt;n-1||nc&gt;m-1||visited[nr][nc]||ds[nr][nc]==-1) continue;
+                        visited[nr][nc] = true;
+                        if(ds[nr][nc]&gt;dis)<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#3',2,'match33-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                            q.offer(new int[]{nr, nc});
+                            ds[nr][nc] = dis;
+                        }
+                    }
+                }
+            }</B></FONT>
+        }
+
+        int res = Integer.MIN_VALUE;
+        for(int i=0;i&lt;n;i++){
+            for(int j=0;j&lt;m;j++){
+                if(ds[i][j]==-1) continue;
+                res = Math.max(res, ds[i][j]);
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

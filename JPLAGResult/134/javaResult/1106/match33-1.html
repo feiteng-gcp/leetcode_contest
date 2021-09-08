@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_paulwater.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>50_paulwater.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+        Deque&lt;int[]&gt; queueS = new LinkedList&lt;&gt;();
+        Deque&lt;int[]&gt; queueT = new LinkedList&lt;&gt;();
+        queueS.add(source);
+        queueT.add(target);
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; blocks = new HashMap&lt;&gt;();
+        Map&lt;Integer,Set&lt;Integer&gt;&gt; visited = new HashMap&lt;&gt;();
+        visited.put(source[0],new HashSet&lt;Integer&gt;());
+        if (source[0]!=target[0]) {
+           visited.put(target[0],new HashSet&lt;Integer&gt;()); 
+<A NAME="0"></A>        }
+        visited.get(source[0]).add(source[1]);
+        visited.get(target[0]).add(target[1]);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int[] points:blocked) {
+            if (!blocks.containsKey(points[0])) {
+                blocks.put(points[0],new HashSet&lt;Integer&gt;());
+            }
+            blocks.get(points[0]).add(points[1]);
+        }
+        int step= 0;</B></FONT>
+        Set&lt;Integer&gt; emptySet = new HashSet&lt;&gt;();
+        while (step &lt;120) {
+            Deque&lt;int[]&gt; currQueue = queueS;
+            int size = currQueue.size();
+            if (size == 0) return false;
+            for (int i=0; i&lt;size; i++) {
+                int[] point = currQueue.poll();
+<A NAME="1"></A>                int x = point[0];
+                int y = point[1];
+                if (x&gt;=1 &amp;&amp; !visited.getOrDefault(x-1,emptySet).contains(y) &amp;&amp; !blocks.getOrDefault(x-1,emptySet).contains(y)) {
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>currQueue.add(new int[]{x-1,y});
+                    if (!visited.containsKey(x-1)) {
+                        visited.put(x-1,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get</B></FONT>(x-1).add(y);
+<A NAME="2"></A>                }
+                if (x+1&lt;1000000 &amp;&amp; !visited.getOrDefault(x+1,emptySet).contains(y) &amp;&amp; !blocks.getOrDefault(x+1,emptySet).contains(y)) {
+                    currQueue.add(new int[]{x+1,y});
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!visited.containsKey(x+1)) {
+                        visited.put(x+1,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get</B></FONT>(x+1).add(y);
+                }        
+                if (y&gt;=1 &amp;&amp; !visited.getOrDefault(x,emptySet).contains(y-1) &amp;&amp; !blocks.getOrDefault(x,emptySet).contains(y-1)) {
+                    currQueue.add(new int[]{x,y-1});
+                    if (!visited.containsKey(x)) {
+                        visited.put(x,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x).add(y-1);
+                }
+                if (y+1&lt;1000000 &amp;&amp; !visited.getOrDefault(x,emptySet).contains(y+1) &amp;&amp; !blocks.getOrDefault(x,emptySet).contains(y+1)) {
+                    currQueue.add(new int[]{x,y+1});
+                    if (!visited.containsKey(x)) {
+                        visited.put(x,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x).add(y+1);
+                }                   
+            } 
+            currQueue = queueT;
+            size = currQueue.size();
+            if (size == 0) return false;
+            for (int i=0; i&lt;size; i++) {
+                int[] point = currQueue.poll();
+                int x = point[0];
+                int y = point[1];
+                if (x&gt;=1 &amp;&amp; !visited.getOrDefault(x-1,emptySet).contains(y) &amp;&amp; !blocks.getOrDefault(x-1,emptySet).contains(y)) {
+                    currQueue.add(new int[]{x-1,y});
+                    if (!visited.containsKey(x-1)) {
+                        visited.put(x-1,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x-1).add(y);
+                }
+                if (x+1&lt;1000000 &amp;&amp; !visited.getOrDefault(x+1,emptySet).contains(y) &amp;&amp; !blocks.getOrDefault(x+1,emptySet).contains(y)) {
+                    currQueue.add(new int[]{x+1,y});
+                    if (!visited.containsKey(x+1)) {
+                        visited.put(x+1,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x+1).add(y);
+                }        
+                if (y&gt;=1 &amp;&amp; !visited.getOrDefault(x,emptySet).contains(y-1) &amp;&amp; !blocks.getOrDefault(x,emptySet).contains(y-1)) {
+                    currQueue.add(new int[]{x,y-1});
+                    if (!visited.containsKey(x)) {
+                        visited.put(x,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x).add(y-1);
+                }
+                if (y+1&lt;1000000 &amp;&amp; !visited.getOrDefault(x,emptySet).contains(y+1) &amp;&amp; !blocks.getOrDefault(x,emptySet).contains(y+1)) {
+                    currQueue.add(new int[]{x,y+1});
+                    if (!visited.containsKey(x)) {
+                        visited.put(x,new HashSet&lt;Integer&gt;());
+                    }
+                    visited.get(x).add(y+1);
+                }                   
+            }
+            step++;
+        }
+        
+        return true;
+    }
+    
+}
+</PRE>
+
+</BODY>
+</HTML>

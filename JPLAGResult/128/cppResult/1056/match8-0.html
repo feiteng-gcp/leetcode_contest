@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_txingml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>212_txingml.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    typedef long long LL;
+    int solve(LL val, vector&lt;int&gt;&amp; weights) {
+        int d = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        LL cur = 0;
+        for (int weight : weights) {
+            if (weight &gt; val) return INT_MAX;
+            if (cur + weight &gt; val) {
+                d++;
+                cur = weight;
+            } else {
+                cur += weight;
+            }
+        }
+        if (cur != 0) d++;
+        return d;
+    }
+public:
+<A NAME="1"></A>    int shipWithinDays(vector&lt;int&gt;&amp; weights, int D) {</B></FONT>
+        LL a = 1, b = INT_MAX;
+        while (a &lt; b) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            LL mid = (a + b) &gt;&gt; 1;
+            if (solve(mid, weights) &gt; D) {
+                a = mid + 1;
+            } else {
+                b = mid;
+            }
+        }
+        return a;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

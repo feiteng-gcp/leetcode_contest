@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_Dengxj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_Dengxj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int longestStrChain(vector&lt;string&gt;&amp; words) {
+        sort(words.begin(), words.end(), [](const string &amp;a, const string &amp;b) {
+            return a.size() &lt; b.size();
+        });
+<A NAME="0"></A>        int n = words.size();
+        vector&lt;int&gt; dp(n, 1);
+        int res = 1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt; n; ++i) {
+            for (int j = 0; j &lt; i; ++j) {
+                if (test(words[j], words[i])) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                    res = max(res, dp[i]);
+                }
+            }
+        }
+        return res;
+    }</B></FONT>
+    bool test(const string &amp;a, const string &amp;b) {
+        int n1 = a.size();
+        int n2 = b.size();
+        if (n1 + 1 != n2)
+            return false;
+        int i = 0;
+        while (i &lt; n1 &amp;&amp; a[i] == b[i]) ++i;
+        while (i &lt; n1 &amp;&amp; a[i] == b[i+1]) ++i;
+        return i == n1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

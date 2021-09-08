@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>319_xuelei7.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>319_xuelei7.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+<A NAME="0"></A> *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; nextLargerNodes(ListNode* head) {
+        vector&lt;int&gt; a;
+        while (head != NULL) {
+            a.push_back(head-&gt;val);
+            head = head-&gt;next;
+        }
+        vector&lt;int&gt; ans(a.size());
+        priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt;&gt;,greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+        for(int i = 0; i &lt; a.size(); i++) {
+            while (!pq.empty()) {</B></FONT>
+                if (pq.top().first &lt; a[i]) {
+                    ans[pq.top().second] = a[i];
+                    pq.pop();
+                } else break;
+            }
+            pq.push({a[i],i});
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

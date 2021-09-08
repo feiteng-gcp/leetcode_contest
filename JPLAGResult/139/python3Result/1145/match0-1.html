@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>170_leetcode2019tmp.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>170_leetcode2019tmp.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -&gt; int:
+        S = matrix
+        m, n = len(S), len(S[0])
+        for i in range(1, m):
+            S[i][0] += S[i-1][0]
+        for j in range(1, n):
+            S[0][j] += S[0][j-1]
+        for i in range(1, m):
+            for j in range(1, n):
+                S[i][j] += (S[i-1][j] + S[i][j-1] - S[i-1][j-1])
+        
+        S = [[0] * n] + S 
+        ans = 0
+<A NAME="0"></A>        for w in range(1, m+1):
+            for i in range(0, m - w + 1):
+                cnt = collections.defaultdict(int)
+                cnt[0] <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 1
+                for j in range(0, n):
+                    cur = S[i+w][j] - S[i][j]
+                    ans += cnt[target - cur]
+                    cnt[-cur] += 1
+        re</B></FONT>turn ans
+</PRE>
+
+</BODY>
+</HTML>

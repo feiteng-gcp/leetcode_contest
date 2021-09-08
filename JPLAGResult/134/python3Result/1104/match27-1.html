@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>326_mzcj.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>326_mzcj.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    
+    def helper(self, grid, r, c, ori, color, visited):
+        if r &lt; 0 or r &gt;= len(grid) or c &lt; 0 or c &gt;= len(grid[0]) or grid[r][c] != ori:
+            return True
+        if visited[r][c]:
+            return False
+        flag = False
+        visited[r][c] = True
+        if self.helper(grid, r-1, c, ori, color, visited):
+            flag = True
+        if self.helper(grid, r+1, c, ori, color, visited):
+            flag = True
+        if self.helper(grid, r, c-1, ori, color, visited):
+            flag = True
+        if self.helper(grid, r, c+1, ori, color, visited):
+            flag = True
+        if flag:
+            self.cache.add((r,c))
+        return False
+        
+<A NAME="0"></A>        
+    def colorBorder(self, grid: List[List[int]], r0: int, c0: int, color: int) -&gt; List[List[int]]:
+        visited = [[False for _ in range(len(grid[0]))] for _ in range(len(grid))]
+        self.cache = set<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>()
+        self.helper(grid, r0, c0, grid[r0][c0], color, visited)
+        for (i,j) in self.cache:
+            grid[i][j] = color
+        r</B></FONT>eturn grid
+</PRE>
+
+</BODY>
+</HTML>

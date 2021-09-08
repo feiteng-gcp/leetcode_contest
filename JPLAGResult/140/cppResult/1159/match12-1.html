@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_richzhu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_richzhu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+private:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void doGet(int idx, string&amp; text, unordered_set&lt;char&gt;&amp; used, string&amp; prefix){
+        if(idx&gt;=text.size()){
+            return;
+        }
+        unordered_set&lt;char&gt; chars;
+        //int size = text.size() - idx;
+        vector&lt;int&gt; count(text.size()+1, 0);
+        for(int i=text.size()-1; i&gt;=idx; i--){
+            count[i] = chars.size();</B></FONT>
+            if(used.find(text[i])==used.end()){
+                chars.insert(text[i]);
+                count[i] = chars.size();
+            }
+        }
+        if(chars.size()==0)
+            return;
+        map&lt;char, int&gt; cans;
+        for(int i=idx; i&lt;text.size(); i++){
+            if(used.find(text[i])!=used.end()){
+                continue;
+            }
+            if(cans.find(text[i])==cans.end()){
+                cans[text[i]] = i;
+            }
+            if(count[i] &gt; count[i+1]){
+                prefix += cans.begin()-&gt;first;
+                used.insert(cans.begin()-&gt;first);
+                doGet(cans.begin()-&gt;second+1, text, used, prefix);
+            }
+        }
+    }
+public:
+    string smallestSubsequence(string text) {
+        string prefix = &quot;&quot;;
+        unordered_set&lt;char&gt; used;
+        doGet(0, text, used, prefix);
+        return prefix;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

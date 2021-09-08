@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>332_bigmiaomiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>332_bigmiaomiao.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def delNodescheck(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        ans=[]
+        if root==None:
+            return []
+<A NAME="0"></A>        if root.val not in to_delete:
+            ans.append(root)
+        if not root.right==None:
+            ans=ans+self<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.delNodescheck(root.right,to_delete)
+            if root.right.val in to_delete:
+                root.right=None
+        if not root.</B></FONT>left==None:
+            ans=ans+self.delNodescheck(root.left,to_delete)
+            if root.left.val in to_delete:
+                root.left=None
+        return ans
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        ans=self.delNodescheck(root,to_delete)
+        pd=[True for i in range(len(ans))]
+        dic=[-1 for i in range(1001)]
+        
+        for i in range(len(ans)):
+            dic[ans[i].val]=i
+            
+        for i in range(len(ans)):
+            r=ans[i]
+            if not r.right==None:
+                pd[dic[r.right.val]]=False
+            if not r.left==None:
+                pd[dic[r.left.val]]=False
+        reans=[]
+        
+        for i in range(len(ans)):
+            if pd[i]==True:
+                reans.append(ans[i])
+        return reans
+                    
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

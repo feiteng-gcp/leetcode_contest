@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_2997ms.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_2997ms.cpp</CENTER></H3><HR>
+<PRE>
+//#pragma comment(linker,&quot;/STACK:102400000,102400000&quot;)
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;functional&gt;
+#include &lt;algorithm&gt;
+#include &lt;sstream&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;queue&gt;
+#include &lt;stack&gt;
+#include &lt;deque&gt;
+#include &lt;ctime&gt;
+#include &lt;list&gt;
+#include &lt;set&gt;
+#include &lt;map&gt;
+#include &lt;bitset&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+#define eps 1e-8
+#define LL_INF 0x3fffffffffffffff
+#define INF 0x3f3f3f3f
+#define mem(a, b) memset(a, b, sizeof(a))
+#define pper(i, n, m) for (int i = n; i &gt;= m; i--)
+#define repp(i, n, m) for (int i = n; i &lt;= m; i++)
+#define rep(i, n, m) for (int i = n; i &lt; m; i++)
+#define sa(n) scanf(&quot;%d&quot;, &amp;(n))
+#define slla(n) scanf(&quot;%lld&quot;, &amp;(n))
+#define mp make_pair
+#define ff first
+#define ss second
+#define pb push_back
+#define DE(val) cout &lt;&lt; #val &lt;&lt; &quot;: &quot; &lt;&lt; val &lt;&lt; endl;
+#define CASET             \
+    int ___T, case_n = 1; \
+    scanf(&quot;%d &quot;, &amp;___T);  \
+    repp(i, 1, ___T)
+
+const int dx44[6] = {0, -1, -1, 1, 1};
+const int dy44[6] = {0, -1, 1, -1, 1};
+char dir_box[] = {'j','N', 'S', 'W', 'E'};
+char dir_man[] = {'j','n', 's', 'w', 'e'};
+const int dx4[6] = {1, 0, -1, 0};
+const int dy4[6] = {0, 1, 0, -1};
+const int dx8[9] = {0, -1, 0, 1, 0, 1, 1, -1, -1};
+const int dy8[9] = {0, 0, 1, 0, -1, 1, -1, 1, -1};
+const int dx82[9] = {0, -1, -1, 1, 1, 2, 2, -2, -2};
+const int dy82[9] = {0, 2, -2, 2, -2, 1, -1, 1, -1};
+const int maxn = 2e5 + 5;
+const double PI = acos(-1.0);
+const ll mod = 1e9 + 7;
+const ll mod1 = 1e8 + 7;
+const ll mod2 = 1e9 + 7;
+ll po(ll a, ll b, ll mod)
+{
+    ll res = 1;
+    a %= mod;
+    for (; b; b &gt;&gt;= 1)
+    {
+        if (b &amp; 1)
+            res = res * a % mod;
+        a = a * a % mod;
+    }
+    return res;
+}
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+    {
+        return b;
+    }
+    else
+    {
+        return gcd(b % a, a);
+    }
+}
+void extgcd(ll a, ll b, ll &amp;d, ll &amp;x, ll &amp;y)
+{
+    if (!b)
+    {
+        d = a;
+        x = 1;
+        y = 0;
+    }
+    else
+    {
+        extgcd(b, a % b, d, y, x);
+        y -= x * (a / b);
+    }
+}
+ll inverse(ll a, ll n)
+{
+    ll d, x, y;
+    extgcd(a, n, d, x, y);
+    return d == 1 ? (x + n) % n : -1;
+}
+
+void YES()
+{
+    puts(&quot;YES&quot;);
+    exit(0);
+}
+void Yes() { puts(&quot;Yes&quot;); } // exit(0); }
+void NO()
+{
+    puts(&quot;NO&quot;);
+    exit(0);
+}
+void No() { puts(&quot;No&quot;); } // exit(0); }
+void one()
+{
+    puts(&quot;-1&quot;);
+    exit(0);
+}
+#define SORT_UNIQUE(c) (sort(c.begin(),c.end()), c.resize(distance(c.begin(),unique(c.begin(),c.end()))))
+/*************************************************************************/
+
+class Solution {
+public:
+    vector&lt;string&gt; findOcurrences(string text, string first, string second) {
+        vector&lt;string&gt;v;
+        string f;
+        for(int i=0;i&lt;text.length();i++) {
+            if((text[i]&gt;='A' &amp;&amp; text[i]&lt;='Z') || (text[i]&gt;='a' &amp;&amp; text[i]&lt;='z')) {
+                f.push_back(text[i]);
+            } else {
+                if(f.length()) {
+                    v.push_back(f);
+                }
+<A NAME="0"></A>                f=&quot;&quot;;
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if(f.length()) {
+            v.push_back(f);
+        }
+        vector&lt;string&gt;ans;
+        for(int i=2;i&lt;v.size();i++) {
+            if(v[i-1]==second &amp;&amp; v[i-2]==first) {
+                ans.push_back(v[i]);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+
+</PRE>
+</BODY>
+</HTML>

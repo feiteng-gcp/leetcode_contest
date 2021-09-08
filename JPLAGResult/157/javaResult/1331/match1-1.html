@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>233_ctysss.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>233_ctysss.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    public int getMaximumGold(int[][] grid) {
+        int ans = 0;
+        for(int i = 0 ; i &lt; grid.length ; i++){
+            for(int j = 0 ; j &lt; grid[0].length ; j++){
+                if(grid[i][j] != 0){
+                    ans = Math.max(ans , dfs(grid , i , j));
+                }
+            }
+        }
+        return ans;
+    }
+    public int dfs(int[][] grid , int i , int j){
+        if(i &lt; 0 || i &gt;= grid.length || j &lt; 0 || j &gt;= grid[0].length || grid[i][j] == 0){
+            return 0;
+        }
+        int t = grid[i][j];
+        grid[i][j] = 0;
+        int m1 = dfs(grid , i+1 , j);
+        int m2 = dfs(grid , i-1 , j);
+        int m3 = dfs(grid , i , j+1);
+        int m4 = dfs(grid , i , j-1);
+        grid[i][j] = t;
+        return t + Math.max(Math.max(m1 , m2) , Math.max(m3 , m4));
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

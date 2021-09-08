@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>316_yscy.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>316_yscy.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def largest1BorderedSquare(self, grid: List[List[int]]) -&gt; int:
+        M, N = len(grid), len(grid[0])
+        # [from_top, from_left]
+        dp = [[[0, 0] for _ in range(N+1)] for _ in range(M+1)]
+
+<A NAME="0"></A>        max_len = 0
+        for i in range(1, M+1):
+            for j in range(1, N+1):
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if grid[i-1][j-1] == 0:
+                    # default value is [0, 0]
+                    # dp[i][j] = [0, 0]
+                    continue
+
+                dp[i][j][0] = dp[i-1][j][0]+1
+                dp[i][j][</B></FONT>1] = dp[i][j-1][1]+1
+<A NAME="1"></A>                min_len = min(dp[i][j])
+                for cur_len in range(min_len, 0, -1):
+                    s_col, s_row = i-cur_len+1, j-cur_len+1
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if dp[s_col][j][1] &gt;= cur_len and dp[i][s_row][0] &gt;= cur_len:
+                        max_len = max(max_len, cur_len**2)
+                        break
+
+        re</B></FONT>turn max_len
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_joyceyao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>221_joyceyao.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestStrChain(String[] words) {
+<A NAME="0"></A>        Arrays.sort(words, (a, b) -&gt; a.length() - b.length());
+        int[] len = new int[words.length];
+        int max = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i=0; i&lt;words.length; i++) {
+            len[i] = 1;
+            for (int j=i-1; j&gt;=0; j--) {
+                if (isPre(words[j], words[i])) {
+<A NAME="1"></A>                    len[i] = Math.max(len[j]+1, len[i]);
+                }
+            }</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = Math.max(max, len[i]);
+        }
+        return max;
+    }
+    
+    private boolean isPre(String s1, String s2) {
+        if (s1.length() != s2.length() - 1) { return false; }</B></FONT>
+        int l1 = 0, r1 = s1.length()-1, l2 = 0, r2 = s2.length()-1;
+        while (l1 &lt;= r1 &amp;&amp; l2 &lt;= r2 &amp;&amp; s1.charAt(l1) == s2.charAt(l2)) {
+            l1++; 
+            l2++;
+        }
+        
+        while (r1 &gt;= l1 &amp;&amp; r2 &gt;= l2 &amp;&amp; s1.charAt(r1) == s2.charAt(r2)) {
+            r1--;
+            r2--;
+        }
+        return l2 == r2;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_lctseng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>249_lctseng.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int count;
+    unordered_map&lt;int, unordered_set&lt;int&gt;&gt; squarePair;
+    vector&lt;int&gt; builder;
+    
+    bool checkUsable(int index, int val){
+        if(index &gt; 0 &amp;&amp; squarePair[builder[index-1]].count(val) == 0){
+            return false;
+        }
+        // 
+        return true;
+        
+    }
+    
+    void dfs(vector&lt;int&gt;&amp; A, vector&lt;bool&gt;&amp; used, int index){
+        if(index == A.size()) count++;
+        else{
+            // choose a number for this index
+            for(int i = 0;i &lt; A.size();i++){
+                if(i &gt; 0 &amp;&amp; A[i] == A[i-1] &amp;&amp; !used[i-1]) continue; // skip duplicate
+<A NAME="0"></A>                if(!used[i] &amp;&amp; checkUsable(index, A[i])){
+                    // use this
+                    used[i] = true;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    builder[index] = A[i];
+                    dfs(A, used, index + 1);
+                    used[i] = false;
+                }
+            }
+        }
+    }
+    
+    int numSquarefulPerms(vector&lt;int&gt;&amp; A) {
+        sort(A.begin(), A.end());
+        count = 0;
+        builder.resize(A.size());
+        // generate possible pair
+        squarePair.clear();
+        for(int i = 0;i &lt; A.size() - 1;i++){
+            for(int j = i + 1;j &lt; A.size(); j++){</B></FONT>
+                int val = A[i] + A[j];
+                double sqrtRoot = floor(sqrt(val));
+                if(sqrtRoot * sqrtRoot == val){
+                    // true
+                    squarePair[A[i]].insert(A[j]);
+                    squarePair[A[j]].insert(A[i]);
+                }
+            }
+        }
+        // enumerate
+        vector&lt;bool&gt; used(A.size(), false);
+        dfs(A, used, 0);
+        return count;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

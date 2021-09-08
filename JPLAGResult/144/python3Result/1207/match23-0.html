@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>279_ddmike.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>279_ddmike.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def delNode(self, root: TreeNode, to_delete: List[int]):
+        rtn_list = []
+        if root == None:
+            return rtn_list, None
+        
+
+        leftlist,leftnode = self.delNode(root.left, to_delete)
+        rtn_list = rtn_list + leftlist
+        root.left = leftnode
+
+
+        rightlist, rightnode = self.delNode(root.right, to_delete)
+<A NAME="0"></A>        rtn_list = rtn_list + rightlist
+        root.right = rightnode
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if root.val in to_delete:
+            if root.left != None:
+                rtn_list.append(root.left)
+            if root.right != None:
+                rtn_list.append(root.</B></FONT>right)
+            root = None
+        return rtn_list, root
+
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -&gt; List[TreeNode]:
+        rtn_list, root = self.delNode(root, to_delete)
+        if root != None:
+            rtn_list.append(root)
+        return  rtn_list
+</PRE>
+
+</BODY>
+</HTML>

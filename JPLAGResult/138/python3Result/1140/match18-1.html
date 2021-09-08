@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_Minori.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>360_Minori.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def rearrangeBarcodes(self, barcodes: List[int]) -&gt; List[int]:
+        d <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= {}
+        for code in barcodes:
+            if code in d:
+                d[code] += 1
+            else:
+                d[code] = 1
+        a = sorted(d.items(), key=</B></FONT>lambda x:x[1], reverse=True)
+        group = [[], []]
+        for key, value in a:
+            if len(group[0]) &lt;= len(group[1]):
+                for _ in range(value):
+                    group[0].append(key)
+            else:
+                for _ in range(value):
+                    group[1].append(key)
+        if len(group[0]) &lt; len(group[1]):
+            group[0], group[1] = group[1], group[0]
+        n = len(barcodes)
+        half = n // 2
+        group[0], group[1] = group[0][:n - half], group[0][n - half:] + group[1]
+        ans = []
+        for i in range(n):
+            if i % 2 == 0:
+                ans.append(group[0][i // 2])
+            else:
+                ans.append(group[1][(i - 1) // 2])
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_guoheng1101.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_guoheng1101.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxSumTwoNoOverlap(vector&lt;int&gt;&amp; A, int L, int M) {
+<A NAME="0"></A>        int n = A.size();
+        int s = 0;
+        vector&lt;int&gt; ll(n, -10000000);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; L; ++i) {
+            s += A[i];
+        }
+        ll[L-1] = s;
+        for (int i = L; i &lt; n; ++i) {
+            s += A[i] - A[i-L];
+            ll[i] = max(ll[i-1], s);</B></FONT>
+<A NAME="1"></A>        }
+        s = 0;
+        vector&lt;int&gt; lm(n, -10000000);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; M; ++i) {
+            s += A[i];
+        }
+        lm[M-1] = s;
+        for (int i = M; i &lt; n; ++i) {
+            s += A[i] - A[i-M];
+            lm[i] = max(lm[i-1], s);</B></FONT>
+<A NAME="2"></A>        }
+        s = 0;
+        vector&lt;int&gt; rl(n, -10000000);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; L; ++i) {
+            s += A[n-1-i];
+        }
+        rl[n-L] = s;
+        for (int i = n-L-1; i &gt;= 0; --i) {
+            s += A[i] - A[i+L];
+            rl[i] = max(rl[i+1], s);</B></FONT>
+<A NAME="3"></A>        }
+        s = 0;
+        vector&lt;int&gt; rm(n, -10000000);
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; M; ++i) {
+            s += A[n-1-i];
+        }
+        rm[n-M] = s;
+        for (int i = n-M-1; i &gt;= 0; --i) {
+            s += A[i] - A[i+M];
+            rm[i] = max(rm[i+1], s);</B></FONT>
+        }
+        int res = 0;
+        for (int i = 1; i &lt; n-1; ++i) {
+            res = max({res, ll[i] + rm[i+1], lm[i] + rl[i+1]});
+        }
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_MrJia1997.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>247_MrJia1997.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxRepOpt1(string text) {
+        if (text.empty())
+            return 0;
+        vector&lt;int&gt; cntLetter(128, 0);
+        for (auto ch : text)
+            cntLetter[ch]++;
+        
+        int len = text.length();
+        int res = 0;
+        for (int i = 0; i &lt; 26; i++) {
+            if (cntLetter[i+'a'] == 0)
+                continue;
+            int cnt = 0;
+            int l = 0, cntNot = 0;
+            for (int r = 0; r &lt; len; r++) {
+                if (text[r] == i + 'a')
+                    cnt++;
+                else 
+                    cntNot++;
+                
+                if (cntNot == 2) {
+                    while (text[l] == i+'a') {
+                        l++;
+                        cnt--;
+                    }
+<A NAME="0"></A>                    l++;
+                    cntNot--;
+                }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                else {
+                    if (cnt &lt; cntLetter['a' + i]) {
+                        res = max(res, r - l + 1);
+                    }
+                    else {
+                        res = max(res, cntLetter['a' + i]);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

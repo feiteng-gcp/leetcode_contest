@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_Neurone.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>274_Neurone.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int ans = 0;
+<A NAME="0"></A>public:
+    int longestWPI(vector&lt;int&gt;&amp; hours) {
+        int n = hours.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;pair&lt;int, int&gt;&gt; dp(n + 1, make_pair(0, 0));
+        
+        dp[0].second = -1;
+        for (int i = 0; i &lt; n; ++i) {
+            if (hours[i] &gt; 8) dp[i + 1].first = dp[i].first + 1;
+            else dp[i + 1].first = dp[i].first - 1;</B></FONT>
+            dp[i + 1].second = i;
+        }
+        
+        mergesort(dp, 0, n);
+        
+        return ans;
+    }
+<A NAME="1"></A>    
+    void mergesort(vector&lt;pair&lt;int, int&gt;&gt; &amp;dp, int x, int y) {
+        if (x == y) return;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int mid = (x + y) / 2;
+        
+        mergesort(dp, x, mid);
+        mergesort(dp, mid + 1, y);
+        
+        for (int i = mid + 1; i &lt;= y; ++i) {
+            for (int j = x; j &lt;= mid; ++j) {
+                if (dp[i].first &gt; dp[j].first) ans = max(ans, dp[i].second - dp[j].second);</B></FONT>
+                else break;
+            }
+        }
+        
+        int a = x, b = mid + 1;
+        vector&lt;pair&lt;int, int&gt;&gt; tmp;
+        while (a &lt;= mid &amp;&amp; b &lt;= y) {
+            if (dp[a].first &lt; dp[b].first) {
+                tmp.push_back(dp[a]);
+                a++;
+            }
+            else {
+                tmp.push_back(dp[b]);
+                b++;
+            }
+        }
+        
+        while (a &lt;= mid) {
+            tmp.push_back(dp[a]);
+            a++;
+        }
+        
+        while (b &lt;= y) {
+            tmp.push_back(dp[b]);
+            b++;
+        }
+        
+        for (int i = x; i &lt;= y; ++i) dp[i] = tmp[i - x];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

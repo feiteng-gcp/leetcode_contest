@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>133_beo12.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>133_beo12.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    const int dx[4] = {0, 1, 0, -1};
+    const int dy[4] = {1, 0, -1, 0};</B></FONT>
+    
+public:
+    bool isEscapePossible(vector&lt;vector&lt;int&gt;&gt;&amp; blocked, vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target) {
+        set&lt;pair&lt;int, int&gt;&gt; bset;
+        set&lt;pair&lt;int, int&gt;&gt; visited;
+        for (auto&amp; pt : blocked) {
+            bset.insert({pt[0], pt[1]});
+        }
+        queue&lt;pair&lt;int, int&gt;&gt; q;
+        q.push({source[0], source[1]});
+        for (int t = 0; t &lt; 50; t++) {
+            int sz = q.size();
+            for (int it = 0; it &lt; sz; it++) {
+                int i = q.front().first;
+<A NAME="1"></A>                int j = q.front().second;
+                q.pop();
+                visited.insert({i, j});
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if (target[0] == i &amp;&amp; target[1] == j) return true;
+                
+                for (int dir = 0; dir &lt; 4; dir++) {
+                    int ni = i + dx[dir];
+                    int nj = j + dy[dir];
+                    
+                    if (ni &lt; 0 || ni &gt;= 1000000 || nj &lt; 0 || nj &gt;= 1000000) continue;</B></FONT>
+                    if (bset.count({ni, nj}) || visited.count({ni, nj})) continue;
+                    visited.insert({ni, nj});
+                    q.push({ni, nj});
+                }
+            }
+        }
+        
+        return !q.empty();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

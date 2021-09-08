@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>336_FOURTHZI5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>336_FOURTHZI5.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String baseNeg2(int N) {
+        if (N == 0) return &quot;0&quot;;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        while (N &gt; 0) {
+            res.add(N % 2);
+            N /= 2;
+        }
+        int carry = 0;
+        int i = 0;
+        while (i &lt; res.size() || carry &gt; 0) {
+            if (i == res.size()) {
+                int digit = carry;
+                res.add(digit % 2);
+                carry = digit / 2;
+            } else {
+                int digit = res.get(i) + carry;
+                res.set(i, digit % 2);
+                carry = digit / 2;
+            }
+            if (res.get(i) == 1 &amp;&amp; i % 2 == 1) carry += 1;
+            i += 1;
+        }
+        String resstr = &quot;&quot;;
+        for (Integer r : res) {
+            resstr = r + resstr;
+        }
+        return resstr; 
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

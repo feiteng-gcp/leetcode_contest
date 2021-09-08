@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>302_shengrang0.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>302_shengrang0.cpp</CENTER></H3><HR>
+<PRE>
+struct node {
+    char x;
+    int cnt;
+    node () {}
+<A NAME="0"></A>    node (char x, int cnt): x(x), cnt(cnt) {}
+};
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#0',2,'match40-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxRepOpt1(string text) {
+        int n = text.size();
+        char prev = '0';
+        int cnt = 0;
+        vector&lt;node&gt; xs;
+        for (int i=0; i&lt;n; i++) {
+            if (prev != text[i]) {</B></FONT>
+                xs.push_back(node(prev, cnt));
+                prev = text[i];
+                cnt = 1;
+            } else {
+                cnt++;
+            }
+        }
+        xs.push_back(node(prev, cnt));
+        unordered_map&lt;char, set&lt;int&gt;&gt; ref;
+        int m = xs.size();
+        for (int i=1; i&lt;m; i++) {
+            ref[xs[i].x].insert(i);
+        }
+        int ans = 0;
+        for (int i=1; i&lt;m; i++) {
+            // cout &lt;&lt; xs[i].x &lt;&lt; &quot; &quot; &lt;&lt; xs[i].cnt &lt;&lt; endl;
+            ans = max(ans, xs[i].cnt);
+            if (i&gt;1) {
+                char pre = xs[i-1].x;
+                if (ref[pre].size() &gt;= 1) {
+                    if (*ref[pre].rbegin() != i-1) {
+                        ans = max(ans, xs[i-1].cnt+1);
+                    }
+                }
+            }
+            if (i&lt;m-1) {
+                char nxt = xs[i+1].x;
+                if (ref[nxt].size() &gt;= 1) {
+                    if (*ref[nxt].begin() != i+1) {
+                        ans = max(ans, xs[i+1].cnt+1);
+                    }
+                }
+            }
+            if (xs[i].cnt == 1) {
+                if (i&gt;1 &amp;&amp; i&lt;m-1) {
+                    char pre = xs[i-1].x;
+                    char nxt = xs[i+1].x;
+                    if (pre == nxt) {
+                        ans = max(ans, xs[i-1].cnt + xs[i+1].cnt);
+                        if (*ref[pre].begin() != i-1 || *ref[pre].rbegin() != i+1) {
+                            ans = max(ans, xs[i-1].cnt + xs[i+1].cnt + 1);
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

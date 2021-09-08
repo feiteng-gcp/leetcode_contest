@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_SiyC.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_SiyC.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+    private LinkedList&lt;Integer&gt; adj[];
+<A NAME="0"></A>    int time = 0;
+    static final int NIL = -1;
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public void bridgeUtil(int u, boolean visited[], int disc[],
+                    int low[], int parent[]){
+        visited[u] = true;
+
+        disc[u] = low[u] = ++time;
+
+        Iterator&lt;Integer&gt; i = adj[u].iterator();
+        while (i.hasNext())
+        {
+            int v = i.next();  
+
+            if (!visited[v]){
+                parent[v] = u;
+                bridgeUtil(v, visited, disc, low, parent);
+
+                low[u]  = Math.min(low[u], low[v]);
+
+                if</B></FONT> (low[v] &gt; disc[u]){
+<A NAME="1"></A>                    List&lt;Integer&gt; list = new LinkedList&lt;&gt;();
+                    list.add(u); list.add(v);
+                    res.add(list);
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+            else if (v != parent[u])
+                low[u]  = Math.min(low[u], disc[v]);
+        }
+    }
+    
+    
+    public List&lt;List&lt;In</B></FONT>teger&gt;&gt; criticalConnections(int V, List&lt;List&lt;Integer&gt;&gt; connections) {
+        int size = connections.size();
+        
+        adj = new LinkedList[V];
+        for (int i = 0; i &lt; V; ++i)
+            adj[i] = new LinkedList();
+        for(int i = 0; i &lt; size; ++i){
+            adj[connections.get(i).get(0)].add(connections.get(i).get(1)); 
+<A NAME="2"></A>            adj[connections.get(i).get(1)].add(connections.get(i).get(0)); 
+        }
+        
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean visited[] = new boolean[V];
+        int disc[] = new int[V];
+        int low[] = new int[V];
+        int parent[] = new int[V];
+        
+        for(int i = 0; i &lt; V; i++){
+            parent[i] = NIL;
+            visited[i] = false;
+        }
+        for (int i = 0</B></FONT>; i &lt; V; i++){
+            if(visited[i] == false)
+                bridgeUtil(i, visited, disc, low, parent);
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

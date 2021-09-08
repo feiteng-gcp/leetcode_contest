@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>384_alextxu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>384_alextxu.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int dfs(TreeNode* n,int sum,int limit) {
+        sum += n-&gt;val;
+        
+        if (n-&gt;left == NULL &amp;&amp; n-&gt;right == NULL) {
+            if (sum &gt;= limit)
+                return 1;
+            else
+                return 0;
+        }
+        
+        int l,r;
+    
+        l = 0;
+        r = 0;
+<A NAME="0"></A>        if (n-&gt;left != NULL)
+            l = dfs(n-&gt;left,sum,limit);
+        if (n-&gt;right != NULL)
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            r = dfs(n-&gt;right,sum,limit);
+        
+        if (l == 0)
+            n-&gt;left = NULL;
+        if (r == 0)
+            n-&gt;right = NULL;
+        
+        return l + r;
+    }
+    
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+        int ans = dfs(root,0,limit);
+        
+        if (ans == 0)
+            return NULL;</B></FONT>
+        else
+            return root;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

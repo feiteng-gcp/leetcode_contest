@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_Justin_Nie.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_Justin_Nie.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -&gt; int:
+        def bfs(i, j):
+            stack = [(i, j, 0)]
+            while(stack):
+                i, j, step = stack.pop(0)
+                for n_i, n_j in ((i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)):
+                    if(0 &lt;= n_i &lt; n and 0 &lt;= n_j &lt; n):
+                        if(grid[n_i][n_j] == 1):
+                            return step + 1
+<A NAME="0"></A>                        stack.append((n_i, n_j, step + 1))
+        
+        def dp(i, j):
+            curr_step, stack <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0, [(i, j)]
+            while(stack):
+                new, curr_step = [], curr_step + 1
+<A NAME="1"></A>                for i, j in stack:
+                    for n_i, n_j in ((i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)):
+                        if</B></FONT>(0 &lt;= n_i &lt; n and 0 &lt;= n_j &lt; n):
+                            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if(grid[n_i][n_j] == 0 or grid[n_i][n_j] &lt; - curr_step):
+                                grid[n_i][n_j] = - curr_step
+                                new.append((n_i, n_j))
+                stack =</B></FONT> new
+            #print((i, j))
+            #print(grid)
+            #print('\n')
+            
+        
+        
+        sums = sum(sum(line) for line in grid)
+        n = len(grid)
+        if(sums == 0 or sums == n * n):
+            return -1
+        
+        max_distance = 1
+        if(sums &gt; n * n // 2):
+        #if(False):
+            for i in range(n):
+                for j in range(n):
+                    if(grid[i][j] == 0):
+                        max_distance = max(max_distance, bfs(i, j))
+        else:
+            #print('start')
+            for i in range(n):
+                for j in range(n):
+                    if(grid[i][j] == 1):
+                        dp(i, j)
+                        
+            for i in range(n):
+                for j in range(n):
+                    max_distance = max(max_distance, - grid[i][j])
+            
+        return max_distance
+</PRE>
+
+</BODY>
+</HTML>

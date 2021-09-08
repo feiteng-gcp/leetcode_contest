@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>456_PiggyHead.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>456_PiggyHead.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    #define maxn 100005
+  
+    //char tmp[maxn];
+    int s[maxn];
+    //int rank_sa[maxn], height[maxn];
+    int sa[maxn], t[maxn], t2[maxn], c[maxn], n;
+<A NAME="0"></A>
+    void build_sa(int m) {
+        int *x = t, *y = t2;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; m; i ++) c[i] = 0;
+        for (int i = 0; i &lt; n; i ++) c[x[i] = s[i]] ++;
+<A NAME="1"></A>        for (int i = 1; i &lt; m; i ++) c[i] += c[i - 1];
+        for (int i = n - 1; i &gt;= 0; i --) sa[-- c[x[i]]] = i;
+        for (int k = 1; k &lt; n; k &lt;&lt;= 1) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int p = 0;
+            for (int i = n - k; i &lt; n; i ++) y[p ++] = i;
+            for (int i = 0; i &lt; n; i ++) if (sa[i] &gt;= k) y[p ++] = sa[i] - k;
+            for (int i = 0; i &lt; m; i ++) c[i] = 0;
+            for (int i = 0; i &lt; n; i ++) c[x[y[i]]] ++;
+            for (int i = 1; i &lt; m; i ++) c[i] += c[i - 1];  //！！！！！</B></FONT>
+            for (int i = n - 1; i &gt;= 0; i --) sa[-- c[x[y[i]]]] = y[i];
+            swap(x, y);
+            p = 1; x[sa[0]] = 0;
+            for (int i = 1; i &lt; n; i ++)
+                x[sa[i]] = (y[sa[i - 1]] == y[sa[i]] &amp;&amp; y[sa[i - 1] + k] == y[sa[i] + k]) ? p - 1 : p ++;
+            if (p &gt;= n) break;
+            m = p;
+        }
+    }
+    
+    string lastSubstring(string str) {
+      n = str.length();
+      for (int i = 0; i &lt; n; i ++)
+        s[i] = str[i] - 'a' + 1;
+      build_sa(30);
+      int len = n - sa[n - 1];
+      for (int i = 0; i &lt; n; i ++)
+        cout &lt;&lt; sa[i] &lt;&lt; &quot; &quot; ;
+      return str.substr(sa[n - 1], len);
+      // return &quot;&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>166_nocountry4oldman.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>166_nocountry4oldman.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] gardenNoAdj(int N, int[][] paths) {
+        int[] res = new int[N];
+<A NAME="0"></A>        Arrays.fill(res, 5);
+        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int[] path : paths) {
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; nei1 = map.getOrDefault(path[0], new HashSet&lt;Integer&gt;());
+            Set&lt;Integer&gt; nei2 = map.getOrDefault(path[1], new HashSet&lt;Integer&gt;());
+            nei1.add(path[1]);
+            nei2.add(path[0]);
+            map.put(path[0], nei1);
+            map.put(path[1], nei2);
+        }
+
+        for (int i = 0; i &lt; N; i++) {</B></FONT>
+            if (res[i] != 5) {
+                continue;
+            }
+            Set&lt;Integer&gt; neis = map.get(i + 1);
+            if (neis == null) {
+                res[i] = 1;
+            } else {
+                boolean[] avail = new boolean[4];
+<A NAME="1"></A>                for (Integer nei : neis) {
+                    if (res[nei - 1] != 5) {
+                        avail[res[nei - 1] - 1] = true;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                }
+                for (int j = 0; j &lt; 4; j++) {
+                    if (!avail[j]) {
+                        res[i] = j + 1;
+                        break;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

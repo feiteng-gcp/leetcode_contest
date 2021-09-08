@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>18_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int minimumMoves(int[][] g) {
+        int n = g.length;
+        
+        Queue&lt;int[]&gt; q = new ArrayDeque&lt;int[]&gt;();
+        q.offer(new int[]{0,1,0,0,0});
+       // int sp = 0;
+        Set&lt;String&gt; st = new HashSet&lt;&gt;();
+        
+        while(q.size()&gt;0){
+            int sz = q.size();
+            while(sz--&gt;0){
+                int c[] = q.poll();
+                int x1 = c[0];
+                int y1 = c[1];
+                int x2 = c[2];
+                int y2 = c[3];
+                int sp = c[4];
+                
+                if(x1==n-1&amp;&amp;x2==n-1&amp;&amp;y1==n-1&amp;&amp;y2==n-2){
+                    return sp;
+                }
+                
+                String s = x1+&quot;,&quot;+y1+&quot;;&quot;+x2+&quot;,&quot;+y2;
+                if(st.contains(s)){
+                    continue;
+                }
+                st.add(s);
+                
+                // heng
+                if(x1==x2&amp;&amp;x1+1&lt;n&amp;&amp;g[x1+1][y1]==0&amp;&amp;g[x1+1][y2]==0){
+                    
+                    q.offer(new int[]{x1+1,y2,x2,y2,sp+1});
+                    q.offer(new int[]{x1+1,y1,x2+1,y2,sp+1});
+                }
+                if(x1==x2&amp;&amp;y1+1&lt;n&amp;&amp;g[x1][y1+1]==0){
+                    q.offer(new int[]{x1,y1+1,x1,y1,sp+1});
+                }
+                
+                if(y1==y2&amp;&amp;y1+1&lt;n&amp;&amp;g[x1][y1+1]==0&amp;&amp;g[x2][y2+1]==0){
+                    
+                    q.offer(new int[]{x1,y2+1,x2,y2+1,sp+1});
+                    q.offer(new int[]{x1-1,y2+1,x2,y2,sp+1});
+                    
+                }
+                if(y1==y2&amp;&amp;x1+1&lt;n&amp;&amp;g[x1+1][y1]==0){
+                    q.offer(new int[]{x1+1,y1,x2+1,y2,sp+1});
+                }
+                
+                
+                
+                
+                
+            }
+            
+        }
+        return -1;
+        
+        
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

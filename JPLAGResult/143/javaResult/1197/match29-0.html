@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>321_jaewonjo.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>321_jaewonjo.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean parseBoolExpr(String expression) {
+        Stack&lt;Stack&lt;Boolean&gt;&gt; cS = new Stack&lt;&gt;();
+        Stack&lt;Stack&lt;Character&gt;&gt; oS = new Stack&lt;&gt;();
+        
+        cS.push(new Stack&lt;&gt;());
+        oS.push(new Stack&lt;&gt;());
+        
+        for (int i = 0; i &lt; expression.length(); i++) {
+            char c = expression.charAt(i);
+            
+            if (c == '&amp;' || c == '|' || c == '!') {
+                cS.push(new Stack&lt;&gt;());
+                oS.push(new Stack&lt;&gt;());
+                
+<A NAME="0"></A>                oS.peek().push(c);
+            } else if (c == 't' || c == 'f') {
+                cS.peek().push(c == 't');
+            } else <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (c == ')') {
+                char opr = oS.peek().pop();
+                if (opr == '!') {
+                    cS.peek</B></FONT>().push(!cS.peek().pop());
+                } else if (opr == '&amp;') {
+                    boolean res = true;
+                    while (!cS.peek().isEmpty()) {
+                        res &amp;= cS.peek().pop();
+                    }
+                    
+                    cS.peek().push(res);
+                } else if (opr == '|') {
+                    boolean res = false;
+                    while (!cS.peek().isEmpty()) {
+                        res |= cS.peek().pop();
+                    }
+                    
+                    cS.peek().push(res);
+                }
+                
+                boolean res = cS.peek().pop();
+<A NAME="1"></A>                cS.pop();
+                oS.pop();
+                cS.peek().push(res);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        return cS.peek().pop();
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

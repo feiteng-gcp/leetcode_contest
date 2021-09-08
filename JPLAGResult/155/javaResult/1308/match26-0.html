@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>271_Sakamono.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>271_Sakamono.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public String smallestStringWithSwaps(String s, List&lt;List&lt;Integer&gt;&gt; pairs) {
+        int len = s.length();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>UnionFind uf = new UnionFind(len);
+        for (List&lt;Integer&gt; pair : pairs) {
+            int a = pair.get(0);
+            int b = pair.get</B></FONT>(1);
+            uf.union(a, b);
+        }
+        for (int i = 0; i &lt; len; i++) {
+            uf.find(i);
+        }
+        int[] parent = uf.getParent();
+//         for (int i = 0; i &lt; len; i++) {
+//             System.out.println(i + &quot;:&quot; + parent[i]);
+//         }
+        
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; len; i++) {
+            if (!map.containsKey(parent[i])) {
+                map.put(parent[i], new ArrayList&lt;&gt;());
+            }
+            map.get(parent[i]).add(i);
+        }
+        //System.out.println(map.size());
+        char[] sc = s.toCharArray();
+        char[] res = sc.clone();
+        //System.out.println(Arrays.toString(sc));
+        for (List&lt;Integer&gt; list : map.values()) {
+            if (list.size() &lt;= 1) {
+                continue;
+            }
+            List&lt;Integer&gt; order = new ArrayList&lt;&gt;(list);
+            //System.out.println(&quot;1: &quot; + order);
+<A NAME="1"></A>            List&lt;Integer&gt; newOrder = new ArrayList&lt;&gt;(list);
+            Collections.sort(newOrder, (a, b) -&gt; sc[a] - sc[b]);
+            //System.out.println(newOrder);
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; order.size(); i++) {
+                res[order.get(i)] = sc[newOrder.get(i)];
+            }
+        }
+        return new String(res);
+    }
+}</B></FONT>
+<A NAME="2"></A>
+class UnionFind {
+    private int[] parent;
+    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int[] rank;
+    //private int count;
+    public UnionFind(int n) {
+        parent = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            parent[i] = i;
+        }</B></FONT>
+<A NAME="3"></A>        rank = new int[n];
+    }
+    
+    public void union(<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int a, int b) {
+        int pa = find(a);
+        int pb = find(b);
+        if (pa == pb) {</B></FONT>
+            return;
+        }
+        if (rank[pa] &gt; rank[pb]) {
+            parent[pb] = pa;
+        } else if (rank[pb] &gt; rank[pa]) {
+            parent[pa] = pb;
+        } else {
+<A NAME="4"></A>            parent[pa] = pb;
+            rank[pb]++;
+        }
+    <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match26-1.html#4',3,'match26-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    public int find(int a) {
+        if (parent[a] != a) {
+            parent[a] = find(parent[a]);
+        }
+        return parent[a];
+    }
+    public in</B></FONT>t[] getParent() {
+        return this.parent;
+    }
+} 
+</PRE>
+
+</BODY>
+</HTML>

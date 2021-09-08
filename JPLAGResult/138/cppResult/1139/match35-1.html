@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_naoya_t.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_naoya_t.cpp</CENTER></H3><HR>
+<PRE>
+// #include &lt;bits/stdc++.h&gt;
+// using namespace std;
+
+#define NDEBUG
+#ifdef DEBUG
+#include &quot;cout11.h&quot;
+#undef NDEBUG
+#endif
+#include &lt;cassert&gt;
+
+#ifdef DEBUG
+#define debug(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define debug(...)
+#endif
+
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;int,int&gt; ii;
+typedef pair&lt;ll,ll&gt; llll;
+typedef pair&lt;double,double&gt; dd;
+
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;vector&lt;int&gt;&gt; vvi;
+typedef vector&lt;ii&gt; vii;
+typedef vector&lt;vector&lt;ii&gt;&gt; vvii;
+typedef vector&lt;ll&gt; vll;
+typedef vector&lt;vector&lt;ll&gt;&gt; vvll;
+typedef vector&lt;string&gt; vs;
+typedef vector&lt;char&gt; vch;
+typedef vector&lt;bool&gt; vb;
+
+#define sz(a)  int((a).size())
+#define pb  push_back
+#define FOR(var,from,to) for(int var=(from);var&lt;=(to);++var)
+#define rep(var,n)  for(int var=0;var&lt;(n);++var)
+#define rep1(var,n)  for(int var=1;var&lt;=(n);++var)
+#define repC2(vari,varj,n)  for(int vari=0;vari&lt;(n)-1;++vari)for(int varj=vari+1;varj&lt;(n);++varj)
+#define ALL(c)  (c).begin(),(c).end()
+#define RALL(c)  (c).rbegin(),(c).rend()
+#define tr(i,c)  for(auto i=(c).begin(); i!=(c).end(); ++i)
+// #define found(s,e)  ((s).find(e)!=(s).end())
+#define mset(arr,val)  memset(arr,val,sizeof(arr))
+#define mid(x,y) ((x)+((y)-(x))/2)
+#define IN(x,a,b) ((a)&lt;=(x)&amp;&amp;(x)&lt;=(b))
+#define clamp(v,lo,hi) min(max(v,lo),hi)
+
+// #define found(s,e)  ((s).find(e)!=(s).end())
+template &lt;typename T&gt;
+inline bool found(set&lt;T&gt; &amp;s, T elem) { return s.find(elem) != s.end(); }
+template &lt;typename T&gt;
+inline bool found(unordered_set&lt;T&gt; &amp;s, T elem) { return s.find(elem) != s.end(); }
+template &lt;typename T, typename U&gt;
+inline bool found(map&lt;T,U&gt; &amp;s, U elem) { return s.find(elem) != s.end(); }
+template &lt;typename T, typename U&gt;
+inline bool found(unordered_map&lt;T,U&gt; &amp;s, U elem) { return s.find(elem) != s.end(); }
+template &lt;typename T&gt;
+inline bool found(vector&lt;T&gt; &amp;s, T elem) { return find(s.begin(), s.end(), elem) != s.end(); }
+// found(str, *) : returns indec, -1 if not found
+inline int found(string &amp;s, string t) { return (int)s.find(t); }
+inline int found(string &amp;s, int c) { return (int)s.find(c); }
+
+template&lt;class T&gt; inline void amin(T &amp; a, T const &amp; b) { a = min(a, b); }
+template&lt;class T&gt; inline void amax(T &amp; a, T const &amp; b) { a = max(a, b); }
+
+inline ll square(ll x) { return x * x; }
+inline ll gcd(ll a, ll b) { while(a) swap(a, b%=a); return b; }
+template &lt;typename T&gt;
+<A NAME="0"></A>inline T mod(T a, T b) { return ((a % b) + b) % b; }
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; prevPermOpt1(vector&lt;int&gt;&amp; A) {
+        int L=A.size();
+        int last = A[L-1], first = -1;
+        for (int i=L-2; i&gt;=0; --i){
+            if (A[i] &lt;= last) { last = A[i]; continue; }</B></FONT>
+            first = i; break;
+        }
+        if (first == -1) return A;
+        for (int i=L-1; i&gt;first; --i) {
+            if (A[i] &gt;= A[first]) continue;
+            // if (i&gt;=1 &amp;&amp; A[i-1] == A[i]) continue;
+            swap(A[i], A[first]);
+            break;
+        }
+        return A;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

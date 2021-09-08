@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_sshang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numEnclaves(self, A: List[List[int]]) -&gt; int:
+        if not A or not A[0]:
+            return 0
+        
+        m, n = len(A), len(A[0])
+        
+        def dfs(i, j):
+<A NAME="0"></A>            A[i][j] = 0
+            for ni, nj in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
+                if 0 &lt;= ni &lt; m and 0 &lt;= nj &lt; n and A[ni][nj] == 1:
+                    dfs(ni<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>, nj)
+                    
+        for i in range(m):
+            if A[i][0] == 1:
+                dfs(i, 0)
+            if A[i][n-1] == 1:
+                dfs(i, n-1)
+                
+        for j in range(n):
+            if A[0][j] == 1:
+                dfs(0, j)
+            if A[m-1][j] == 1:
+                dfs(m</B></FONT>-1, j)
+                
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if A[i][j]:
+                    res += 1
+        return res
+</PRE>
+
+</BODY>
+</HTML>

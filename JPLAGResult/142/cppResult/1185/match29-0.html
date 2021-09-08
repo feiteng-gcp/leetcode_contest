@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_nyaruko.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_nyaruko.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
+<A NAME="0"></A>class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &amp;mountainArr) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int l=0,r=mountainArr.length()-1;
+        while(l&lt;r)
+        {
+            int m=l+(r-l)/2;
+            if(mountainArr.get(m)&lt;mountainArr.get(m+1))l=m+1;
+<A NAME="1"></A>            else r=m;
+        }
+        int peak=r;</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        l=0,r=peak;
+        while(l&lt;r)
+        {
+            int m=l+(r-l)/2;
+            if(mountainArr.get(m)&lt;target)l=m+1;
+            else r=m;
+        }
+        if(mountainArr.get(r)==target)return r;
+        l=peak+1,r=mountainArr.length()-1;
+        while(l&lt;r)
+        {
+            int m=l+(r-l)/2;
+            if(mountainArr.get(m)&gt;target)l=m+1;
+            else r=m;
+        }
+        if(mountainArr.get(r)==target)return r;
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>36_magica.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>36_magica.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+  const int dx[4] = {0, 0, -1, 1};
+  const int dy[4] = {-1, 1, 0, 0};
+public:
+<A NAME="0"></A>  int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+    int n = grid.size();
+    int m = grid[0].size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int ans = 0;
+    queue&lt;pair&lt;int, int&gt;&gt; q;
+    map&lt;pair&lt;int, int&gt;, int&gt; dist;
+    for (int i = 0; i &lt; n; ++i) {
+      for (int j = 0; j &lt; m; ++j) {
+        if (grid[i][j] == 2) {</B></FONT>
+          q.push(make_pair(i, j));
+          dist[make_pair(i, j)] = 0;
+        }
+<A NAME="1"></A>      }
+    }
+    while (!q.empty()) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>      auto now = q.front();
+      for (int d = 0; d &lt; 4; ++d) {
+        int nx = now.first + dx[d];
+        int ny = now.second + dy[d];
+        if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= m) {</B></FONT>
+          continue;
+        }
+        if (grid[nx][ny] == 1) {
+          grid[nx][ny] = 2;
+          dist[make_pair(nx, ny)] = dist[now] + 1;
+          ans = max(ans, dist[make_pair(nx, ny)]);
+          q.push(make_pair(nx, ny));
+        }
+<A NAME="2"></A>      }
+      q.pop();
+    }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    for (int i = 0; i &lt; n; ++i) {
+      for (int j = 0; j &lt; m; ++j) {
+        if (grid[i][j] == 1) {
+          return -1;
+        }</B></FONT>
+      }
+    }
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

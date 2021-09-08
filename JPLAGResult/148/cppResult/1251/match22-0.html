@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_darrenhp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>59_darrenhp.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  int longestDecomposition(string text) {
+    int n = text.size();
+    int tot = 0;
+    vector&lt;int&gt; dp(n);
+    int l = 0, r = text.size();
+    while (l &lt; r) {
+      bool found = false;
+<A NAME="0"></A>      for (int i = 1; l + i &lt;= r - i; i++) {
+        if (text.substr(l, i) == text.substr(r - i, i)) {
+          found = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>          l+=i, r-=i;
+          tot+=2;
+          break;
+        }
+      }
+      if (!found) break;
+    }
+    if (l &lt; r)tot++;
+    return tot;
+  }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

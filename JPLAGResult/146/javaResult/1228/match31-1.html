@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>121_Bellerophon.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>121_Bellerophon.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int mctFromLeafValues(int[] arr) {
+        
+        // time: O(N^3)
+        // space: O(N^2)
+        
+        int n = arr.length;
+        int[][] dp = new int[n][n];
+        
+        for(int i = n - 1; i &gt;= 0; i--)
+        {
+            for(int j = i + 1; j &lt; n; j++)
+            {</B></FONT>
+                int[] maxVal = new int[n];
+                maxVal[j] = arr[j];
+                for(int k = j - 1; k &gt;= i; k--)
+                    maxVal[k] = Math.max(maxVal[k+1], arr[k]);
+                
+                int curMax = Integer.MIN_VALUE;
+                dp[i][j] = Integer.MAX_VALUE;
+<A NAME="1"></A>                for(int k = i; k &lt; j; k++)
+                {
+                    curMax = Math.max(curMax, arr[k]);
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dp[i][j] = Math.min(dp[i][j], curMax * maxVal[k+1] + dp[i][k] + dp[k+1][j]);
+                }
+            }
+        }
+        
+        return dp[0][n-1];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

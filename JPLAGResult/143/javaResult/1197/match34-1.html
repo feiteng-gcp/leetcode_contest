@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_ttregister.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>323_ttregister.java</CENTER></H3><HR>
+<PRE>
+import java.util.ArrayList;
+
+class Solution {
+    int idx;
+    String exp;
+    public boolean e0() {
+        char c = exp.charAt(idx);
+        idx++;
+        if (c=='t') return true;
+        else return false;
+    }
+    public boolean e1(){
+        char c = exp.charAt(idx);
+        idx++;
+        boolean[] res = e2();
+        int ln = res.length;
+        if (c == '!') return !res[0];
+        else if(c == '&amp;'){
+            if(res.length==1) return res[0];
+            boolean r = res[0] &amp;&amp; res[1];
+            for(int i=2; i&lt;ln; i++){
+                r = r &amp;&amp; res[i];
+            }
+            return r;
+        }else if (c == '|'){
+            if(res.length==1) return res[0];
+            boolean r = res[0] || res[1];
+            for(int i=2; i&lt;ln; i++){
+                r = r || res[i];
+            }
+            return r;
+        }
+        return true;
+    }
+
+    public boolean[] e2() {
+        idx++;
+        int cn = 1;
+        ArrayList&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        while(idx &lt; exp.length() &amp;&amp; cn&gt;0) {
+            char c = exp.charAt(idx);
+            if (c == ','){
+<A NAME="0"></A>                idx++;
+            }else if (c == '(') {
+                boolean[] res1 = e2();
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>res.add(res1[0]);
+            }else if (c=='t' || c=='f'){
+                res.add(e0());
+            }else if(c=='|' || c=='&amp;' || c=='!'){
+                res.add(e1());
+            }else if(c==')'){</B></FONT>
+                cn--;
+            }
+        }
+        idx++;
+        boolean[] a = new boolean[res.size()] ;
+        for(int i=0; i&lt;a.length; i++){
+            a[i] = res.get(i);
+        }
+        return a;
+    }
+
+
+    public boolean parseBoolExpr(String expression) {
+        exp = &quot;(&quot; + expression + &quot;)&quot;;
+        return e2()[0];
+    }
+
+    public static void main(String[] args){
+        Solution s = new Solution();
+        System.out.println(s.parseBoolExpr(&quot;!(&amp;(!(t),&amp;(f),|(f)))&quot;));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_jasonshieh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_jasonshieh.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        if(grid.empty()) return -1;
+<A NAME="0"></A>        int m = grid.size();
+        int n = grid[0].size();
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+<A NAME="1"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt;&gt; dir = {{1,0},{0,-1},{-1,0},{0,1}};
+        int count = 0;</B></FONT>
+        int total = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match28-1.html#1',3,'match28-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; m; ++i){
+            for(int j = 0; j &lt; n; ++j){
+                if(grid[i][j] == 2){</B></FONT>
+                    count++;
+                    q.push({i,j});
+                }
+                if(grid[i][j] != 0) total++;
+            }
+        }
+        if(count == total) return 0;
+        int res = 0;
+        while(!q.empty()){
+<A NAME="2"></A>            int len = q.size();
+            bool newAddedRotten = false;
+            while(len){
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match28-1.html#2',3,'match28-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                auto p = q.front(); q.pop(); len--;
+                for(auto d : dir){
+                    int i = d[0] + p.first;
+                    int j = d[1] + p.second;
+                    if(i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || grid[i][j] != 1) continue;
+                    count++;
+                    grid[i][j] = 2;
+                    q.push({i,j});</B></FONT>
+                    newAddedRotten = true;
+                }
+            }
+            if(!newAddedRotten) break;
+            res++;
+        }
+        return total == count ? res : -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

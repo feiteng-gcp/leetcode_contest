@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>72_bluesky999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>72_bluesky999.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+class Solution {
+	public int makeArrayIncreasing(int[] arr1, int[] arr2) {
+		TreeSet&lt;Integer&gt; s = new TreeSet&lt;Integer&gt;();
+		for (int i : arr2)</B></FONT>
+			s.add(i);
+		TreeMap&lt;Integer, Integer&gt; cur = new TreeMap&lt;Integer, Integer&gt;();
+		cur.put(Integer.MIN_VALUE, 0);
+		for (int i = 0; i &lt; arr1.length; i++) {
+			TreeMap&lt;Integer, Integer&gt; m2 = new TreeMap&lt;Integer, Integer&gt;();
+			for (Entry&lt;Integer, Integer&gt; en : cur.entrySet()) {
+				Integer next = s.ceiling(en.getKey() + 1);
+				if (next != null) {
+					m2.put(next, en.getValue() + 1);
+				}
+			}
+			Entry&lt;Integer, Integer&gt; en = cur.floorEntry(arr1[i] - 1);
+			if (en != null) {
+				Entry&lt;Integer, Integer&gt; en2 = null;
+				while ((en2 = m2.ceilingEntry(arr1[i])) != null) {
+					if (en2.getValue() &gt;= en.getValue())
+						m2.remove(en2.getKey());
+					else
+						break;
+				}
+<A NAME="1"></A>				if (!m2.containsKey(arr1[i]))
+					m2.put(arr1[i], en.getValue());
+			}
+			cur = m2;<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match0-1.html#1',3,'match0-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+//			Helper.tr(cur);
+		}
+		if (cur.isEmpty())
+			return -1;
+		int ans = Integer.MAX_VALUE;
+		for (int i : cur.values())</B></FONT>
+			ans = Math.min(ans, i);
+		return ans;
+
+	}
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>437_guixiaojian.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>437_guixiaojian.py</CENTER></H3><HR>
+<PRE>
+from collections import deque
+class Solution(object):
+    def minimumMoves(self, grid):
+        &quot;&quot;&quot;
+        :type grid: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        if not grid or not grid[0]:
+            return -1
+
+        n = len(grid)
+        stack = deque([(0, 0, 0)])# (x, y, h/v)
+        visited = [[[False, False] for _ in range(n)] for _ in range(n)]
+
+        res = 0
+        while stack:
+            size = len(stack)
+            while size &gt; 0:
+                x, y, direc = stack.popleft()
+
+                if x == n - 1 and y == n - 2 and direc == 0:
+                    return res
+<A NAME="0"></A>
+
+
+<A NAME="1"></A>                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if y + 2 &lt; n and direc == 0 and not grid[x][y + 2] and not visited[x][y + 1][0]:
+                    stack.append((x, y + 1, 0))
+                    visited[x][y + 1][0] = True
+<A NAME="2"></A>                if y + 1 &lt; n and direc == 1 and not grid[x][y + 1] and not grid[x + 1][</B></FONT>y + 1] and not visited<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x][y + 1][1]:
+                    stack.append((x, y + 1, 1))
+                    visited[x][y + 1][1] = True
+<A NAME="3"></A>                if x + 2 &lt; n and direc == 1 and not grid[x + 2][y] and not visited[x + 1][</B></FONT>y]<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[1]:
+                    stack.append((x + 1, y, 1))
+                    visited[x + 1][y][1] = True
+                if x + 1 &lt; n and direc == 0 and not grid[x + 1][y] and not grid[x + 1][</B></FONT>y + 1] and not visited<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[x + 1][y][0]:
+                    stack.append((x + 1, y, 0))
+                    visited[x + 1][y][0] = True
+    
+                if direc == 0 and x + 1 &lt; n and not grid[x + 1][y] and not grid[x + 1][</B></FONT>y + 1] and not visited[x][y][1]:
+                    stack.append((x, y, 1))
+                    visited[x][y][1] = True
+                if direc == 1 and y + 1 &lt; n and not grid[x][y + 1] and not grid[x + 1][y + 1] and not visited[x][y][0]:
+                    stack.append((x, y, 0))
+                    visited[x][y][0] = True
+
+                size -= 1
+        
+            res += 1
+
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

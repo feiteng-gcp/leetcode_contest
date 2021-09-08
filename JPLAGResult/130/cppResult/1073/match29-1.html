@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_dalgerok.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_dalgerok.cpp</CENTER></H3><HR>
+<PRE>
+
+const int N = 505,
+          dx[] = {-1, 0, 1, 0},
+          dy[] = {0, -1, 0, 1};
+
+int n, m, a[N][N];
+int p[N][N], sz;
+bool used[N * N];
+
+inline bool check(int x, int y){
+    return 0 &lt;= x &amp;&amp; x &lt; n &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; m;
+}
+void dfs(int x, int y){
+    p[x][y] = sz;
+    for(int i = 0; i &lt; 4; i++){
+        int xx = x + dx[i],
+            yy = y + dy[i];
+        if(check(xx, yy) &amp;&amp; a[xx][yy] == 1 &amp;&amp; !p[xx][yy]){
+            dfs(xx, yy);
+        }
+    }
+}
+
+class Solution {
+public:
+    int numEnclaves(vector&lt;vector&lt;int&gt;&gt;&amp; A) {
+        n = (int)A.size();
+        m = (int)A[0].size();
+        memset(used, 0, sizeof(used));
+        memset(p, 0, sizeof(p));
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){
+                a[i][j] = A[i][j];
+            }
+        }
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){
+                if(a[i][j] == 1 &amp;&amp; !p[i][j]){
+                    sz += 1;
+                    dfs(i, j);
+<A NAME="0"></A>                }
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 0; i &lt; n; i++){
+            if(a[i][0] == 1){
+                used[p[i][0]] = true;
+            }
+            if(a[i][m - 1] == 1){
+                used[p[i][m - 1]] = true;
+<A NAME="1"></A>            }
+        }
+        for(int j = 0; j &lt; m; j++){</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if(a[0][j] == 1){
+                used[p[0][j]] = true;
+            }
+            if(a[n - 1][j] == 1){
+                used[p[n - 1][j]] = true;
+            }
+        }
+        int ans = 0;
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){
+                if(a[i][j] == 1 &amp;&amp; used[p[i][j]] == false){
+                    ans += 1;
+                }
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

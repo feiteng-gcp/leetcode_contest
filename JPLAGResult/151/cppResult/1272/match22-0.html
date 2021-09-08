@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_zhyack.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_zhyack.cpp</CENTER></H3><HR>
+<PRE>
+struct Node{
+    int name, time, amount, city;
+    string trans;
+    Node(int n, int t, int a, int c, string s){
+        name = n;
+        time = t;
+        amount = a;
+        city = c;
+        trans = s;
+    }
+};
+bool operator&lt;(const Node &amp;A, const Node&amp;B){
+    return A.name&lt;B.name || (A.name==B.name &amp;&amp; A.time&lt;B.time);
+}
+class Solution {
+public:
+    vector&lt;string&gt; invalidTransactions(vector&lt;string&gt;&amp; transactions) {
+        vector&lt;Node&gt; v;
+        unordered_map&lt;string, int&gt; ns, cs;
+        int nscnt=0, cscnt=0;
+        for (auto s:transactions){
+            int st = 0;
+            string name = s.substr(st, s.find(',', st));
+            st += name.length()+1;
+            string time = s.substr(st, s.find(',', st)-st);
+            st += time.length()+1;
+            string amount = s.substr(st, s.find(',', st)-st);
+            st += amount.length()+1;
+            string city = s.substr(st);
+            if (ns.find(name)==ns.end())
+                ns[name]=nscnt++;
+<A NAME="0"></A>            if (cs.find(city)==cs.end())
+                cs[city]=cscnt++;
+            v.push_back(Node(ns[name], stoi(time), stoi(amount), cs[city], s));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        sort(v.begin(), v.end());
+        vector&lt;string&gt; ret;
+        for (int i = 0;i &lt; v.size();i++){
+            if (v[i].amount&gt;1000){
+                ret.push_back(v[i].trans);
+                continue;
+            }
+            for (int j = 0;j &lt; v.size(); j++){
+                if (v[i].name==v[j].name &amp;&amp; abs(v[i].time-v[j].time)&lt;=60 &amp;&amp; v[i].city!=v[j].city){
+                    ret.push_back(v[i].trans);
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

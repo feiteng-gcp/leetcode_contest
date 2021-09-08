@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>307_love-algorithm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>307_love-algorithm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match38-0.html#0',2,'match38-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int smallestRepunitDivByK(int K) {
+    if (K % 10 != 1 &amp;&amp; K % 10 != 3 &amp;&amp; K % 10 != 7 &amp;&amp; K % 10 != 9) {
+      return -1;
+    }
+    int ans = 0;
+    int mulResult = 0</B></FONT>;
+    int lastNum = K % 10;
+    while (true) {
+      int temp = helper(K, lastNum, (11 - mulResult % 10) % 10);
+      if (temp == -1) {
+        return -1;
+      } else {
+        mulResult += temp;
+        while (mulResult % 10 == 1) {
+          mulResult /= 10;
+          ans++;
+          if (mulResult == 0) {
+            return ans;
+          }
+        }
+      }
+    }
+  }
+
+  private int helper(int origin, int last, int taget) {
+    for (int i = 1; i &lt;= 9; i++) {
+      if (last * i % 10 == taget) {
+        return origin * i;
+      }
+    }
+    return -1;
+  }
+}
+</PRE>
+
+</BODY>
+</HTML>

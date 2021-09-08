@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>420_GetOutOfHere1.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>420_GetOutOfHere1.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; queensAttacktheKing(vector&lt;vector&lt;int&gt;&gt;&amp; queens, vector&lt;int&gt;&amp; king) {
+        vector&lt;vector&lt;int&gt;&gt; res;
+        unordered_map&lt;int, set&lt;int&gt;&gt; x_f;
+        for(int i=0; i&lt;queens.size(); i++){
+            x_f[queens[i][0]].insert(queens[i][1]);
+        }
+        
+        int n = 8;
+        int k_x = king[0];
+        int k_y = king[1];
+        
+        // increase k_x, and see whether there are
+
+
+        vector&lt;pair&lt;int, int&gt;&gt; dirs = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+        for(int i=0; i&lt;dirs.size(); i++){
+            int q_x = k_x;
+            int q_y = k_y;
+            while(q_x&lt;n &amp;&amp; q_x&gt;=0 &amp;&amp; q_y&lt;n &amp;&amp; q_y&gt;=0){
+                if(x_f[q_x].count(q_y)){
+                    res.push_back({q_x, q_y});
+                    break;
+                }
+                q_x+=dirs[i].first;
+                q_y+=dirs[i].second;
+            }
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

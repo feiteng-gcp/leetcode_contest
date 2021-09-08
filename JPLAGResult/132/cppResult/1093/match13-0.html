@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>433_thread_start.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>433_thread_start.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+<A NAME="0"></A>    vector&lt;pair&lt;int, int&gt;&gt; dv_pairs;
+    vector&lt;pair&lt;int, int&gt;&gt;::iterator to_construct;
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    void construct(TreeNode* node, int index) {
+        if (to_construct == dv_pairs.end())
+            return;
+        
+        if (to_construct-&gt;first == dv_pairs[index].first + 1) {
+            node-&gt;left = new TreeNode(to_construct-&gt;second);
+            to_construct++;
+            construct(node-&gt;left, distance(dv_pairs.begin(), to_construct) - 1);
+        }
+        
+        if (to_construct == dv_pairs.end())
+            return;
+        
+        if (to_construct-&gt;first == dv_pairs[index].first + 1) {
+            node-&gt;right = new TreeNode(to_construct-&gt;second);
+            to_construct++;
+            construct(node-&gt;right, distance(dv_pairs.begin(), to_construct) - 1);
+        }
+    }</B></FONT>
+public:
+    TreeNode* recoverFromPreorder(string S) {
+        int n = S.length();
+        if (!n)
+            return nullptr;
+        int last_num_end = 0, last_num_start = 0;
+        for (int i = 1; i &lt; n; i++)
+        {
+            if (S[i] == '-' &amp;&amp; S[i - 1] != '-') {
+                dv_pairs.emplace_back(last_num_start - last_num_end, stoi(S.substr(last_num_start, i - last_num_start)));
+                last_num_end = i;
+            }
+            else if (S[i] &gt;= '0' &amp;&amp; S[i] &lt;= '9' &amp;&amp; S[i - 1] == '-') {
+                last_num_start = i;
+            }
+        }
+        dv_pairs.emplace_back(last_num_start - last_num_end, stoi(S.substr(last_num_start)));
+        
+        // for (auto const&amp; p : dv_pairs)
+        //     printf(&quot;%d %d\n&quot;, p.first, p.second);
+        
+        TreeNode* root = new TreeNode(dv_pairs.begin()-&gt;second);
+        to_construct = next(dv_pairs.begin());
+        construct(root, 0);
+        return root;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

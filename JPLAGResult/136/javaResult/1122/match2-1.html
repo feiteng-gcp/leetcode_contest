@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_bluesky999.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>94_bluesky999.java</CENTER></H3><HR>
+<PRE>
+import java.util.Arrays;
+
+class Solution {
+	public String longestDupSubstring(String S) {
+
+		SuffixArray obj = new SuffixArray(S);
+		int SA[] = obj.buildSuffixArray();
+
+		int[] arr = obj.kasai(SA);
+//		Utils.printArray(SA);
+//		Helper.tr(arr, SA);
+		int ans = 0;
+		int s = 0;
+		for (int i = 0; i &lt; arr.length; i++) {
+			if (arr[i] &gt; ans) {
+				ans = arr[i];
+				s = SA[i];
+			}
+		}
+		return S.substring(s, s + ans);
+	}
+}
+
+class SuffixArray {
+	class Suffix implements Comparable&lt;Suffix&gt; {
+		int index;
+		int[] rank = new int[2];
+
+		public int compareTo(Suffix o) {
+			if (rank[0] != o.rank[0])
+				return rank[0] - o.rank[0];
+			return rank[1] - o.rank[1];
+		}
+	}
+
+	String str;
+
+	public SuffixArray(String str) {
+		this.str = str;
+	}
+
+	public int[] buildSuffixArray() {
+
+		int n = str.length();
+		Suffix[] suffixes = new Suffix[n];
+		int[] arr = new int[n];
+		// create and store suffixes
+		// Also stores rank of first two chars of suffix
+		for (int i = 0; i &lt; n; i++) {
+			suffixes[i] = new Suffix();
+			suffixes[i].index = i;
+			suffixes[i].rank[0] = str.charAt(i) - 'a';
+			suffixes[i].rank[1] = ((i + 1) &lt; n) ? (str.charAt(i + 1) - 'a') : -1;
+		}
+
+		Arrays.sort(suffixes);
+
+		int[] ind = new int[n]; // to map index in suffix[] to index in original
+								// string
+		for (int k = 4; k &lt; 2 * n; k = k * 2) {
+			// Assigning rank and index values to first suffix
+			int rank = 0;
+			int prev_rank = suffixes[0].rank[0];
+			suffixes[0].rank[0] = rank;
+			ind[suffixes[0].index] = 0;
+
+			// Assigning rank to suffixes
+			for (int i = 1; i &lt; n; i++) {
+				// If first rank and next ranks are same as that of previous
+				// suffix in array, assign the same new rank to this suffix
+				if (suffixes[i].rank[0] == prev_rank &amp;&amp; suffixes[i].rank[1] == suffixes[i - 1].rank[1]) {
+					prev_rank = suffixes[i].rank[0];
+					suffixes[i].rank[0] = rank;
+				} else // Otherwise increment rank and assign
+				{
+					prev_rank = suffixes[i].rank[0];
+					suffixes[i].rank[0] = ++rank;
+				}
+				ind[suffixes[i].index] = i;
+			}
+
+			// Assign next rank to every suffix
+			for (int i = 0; i &lt; n; i++) {
+				int nextindex = suffixes[i].index + k / 2;
+				suffixes[i].rank[1] = (nextindex &lt; n) ? suffixes[ind[nextindex]].rank[0] : -1;
+			}
+
+			// Sort the suffixes according to first k characters
+			Arrays.sort(suffixes);
+		}
+
+		for (int i = 0; i &lt; n; i++)
+			arr[i] = suffixes[i].index;
+
+		return arr;
+	}
+<A NAME="0"></A>
+	public int[] kasai(int[] sa) {
+		int n = str.length(), k = 0;
+		int[] lcp = new int[n];<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+		int[] rank = new int[n];
+		for (int i = 0; i &lt; n; i++)
+			rank[sa[i]] = i;
+		for (int i = 0; i &lt; n; i++) </B></FONT>{
+			if (rank[i] == n - 1) {
+				k = 0;
+				continue;
+			}
+			int j = sa[rank[i] + 1];
+			while (i + k &lt; n &amp;&amp; j + k &lt; n &amp;&amp; str.charAt(i + k) == str.charAt(j + k)) {
+				k++;
+			}
+			lcp[rank[i]] = k;
+			k = (k == 0) ? 0 : k - 1;
+		}
+		return lcp;
+	}
+
+}
+</PRE>
+
+</BODY>
+</HTML>

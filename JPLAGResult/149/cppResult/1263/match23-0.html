@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>430_shihongliang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>430_shihongliang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>typedef long long int LL;
+const int MOD = 1e9 + 7;
+class Solution {
+public:
+    int numRollsToTarget(int d, int f, int target) {</B></FONT>
+        if(d&lt;=0||f&lt;=0||target&lt;=0){
+            return 0;
+        }
+        vector&lt;vector&lt;int&gt;&gt;dp(d+1, vector&lt;int&gt;(target+1, 0));
+<A NAME="1"></A>        for(int i=1;i&lt;=min(target, f);++i){
+            dp[1][i] = 1;
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match23-1.html#1',3,'match23-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=2;i&lt;=d;++i){
+            for(int j=1;j&lt;=target;++j){
+                for(int z=1;z&lt;=min(j, f);++z){
+                    dp[i][j] = (static_cast&lt;LL&gt;(dp[i][j]) + static_cast&lt;LL&gt;(dp[i-1][j-z])) % MOD;
+                }
+            }
+        }
+        return dp[d][target];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

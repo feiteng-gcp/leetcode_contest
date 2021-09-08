@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>175_winterfell30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>175_winterfell30.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int makeArrayIncreasing(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        std::sort(arr2.begin(), arr2.end());
+        arr2.erase(unique(arr2.begin(), arr2.end()), arr2.end());
+<A NAME="0"></A>        int n = arr2.size();
+        int dp[2020][2020];
+        memset(dp, 0x3f3f3f3f, sizeof(dp));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j = 0; j &lt; n; ++j)
+            dp[0][j] = 1;
+        dp[0][n] = 0;
+        for (int i = 1; i &lt; arr1.size(); ++i)
+        {
+            for (int j = 0; j &lt; n; j++)
+            {
+                if (dp[i-1][j] != 0x3f3f3f3f &amp;&amp; j != n - 1) 
+                    dp[i][j+1] = std::min(dp[i-1][j] + 1, dp[i][j+1]);</B></FONT>
+                if (arr2[j] &gt; arr1[i-1]) dp[i][j] = std::min(dp[i][j], dp[i-1][n] + 1);
+            }
+            for (int k = 0; k &lt; n &amp;&amp; arr2[k] &lt; arr1[i]; ++k)
+                dp[i][n] = std::min(dp[i][n], dp[i-1][k]);
+            if (arr1[i] &gt; arr1[i-1]) dp[i][n] = std::min(dp[i][n], dp[i-1][n]);
+        }
+        /*
+        for (int i = 0; i &lt; arr1.size(); ++i)
+        {
+            printf(&quot;i %d\n&quot;, i);
+            for (int j = 0; j &lt;= n; ++j)
+            {
+                printf(&quot;dp[%d][%d] %d\n&quot;, i, j, dp[i][j]);
+            }
+        }
+        */
+        int ans = 0x3f3f3f3f;
+        for (int i = 0; i &lt;= n; i++)
+        {
+            ans = std::min(dp[arr1.size()-1][i], ans);
+        }
+        if (ans == 0x3f3f3f3f) return -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

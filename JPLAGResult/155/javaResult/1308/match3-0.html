@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>434_fengw7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>434_fengw7.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DisjointSet {
+  private final int[] parents;
+
+  DisjointSet(int size) {
+    this.parents = new int[size];
+    for (int i = 0; i &lt; size; i++) {
+      this.parents[i] = i;
+    }
+  }
+
+  void connect(int a, int b) {
+    parents[getParent(b)] = getParent(a);
+  }
+
+  int getParent(int a) {
+    int parent = parents[a];
+    if (parent != a) {
+      parent = getParent(parent);
+      parents[a] = parent;
+    }
+    return parent;
+  }
+}</B></FONT>
+    
+    
+    public String smallestStringWithSwaps(String s, List&lt;List&lt;Integer&gt;&gt; pairs) {
+        if (pairs.isEmpty()) {
+            return s;
+        }
+        HashSet&lt;List&lt;Integer&gt;&gt; visited = new HashSet&lt;&gt;();
+        
+<A NAME="1"></A>        for (List&lt;Integer&gt; swap : pairs) {
+            visited.add(swap);
+        }
+      <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>final int N = s.length();
+
+      // 1a. Extract separate graphs.
+      DisjointSet set = new DisjointSet(N);
+      for (List&lt;Integer&gt; swap : visited) {
+        set.connect(swap.get(1), swap.get(0));
+      }
+
+      Function&lt;Integer, Queue&lt;Character&gt;&gt; newDescendingQueue = (dummy) -&gt; new PriorityQueue&lt;&gt;();
+
+     
+      Map&lt;Integer, Queue&lt;Character&gt;&gt; graphs = new HashMap&lt;&gt;();
+      for (int i = 0; i &lt; N; i++) {
+        int head = set.getParent(i);
+        graphs.computeIfAbsent(head, newDescendingQueue).offer(s.charAt(i));
+      }
+
+     
+      StringBuilder sb = new StringBuilder(N);
+      for (int i = 0; i &lt; N; i++) {
+        //StringBuilder sb2 = new StringBuilder(graphs.get(set.getParent(i)).poll());
+        //sb.append(sb2.reverse().toString());
+          sb.append(graphs.get(set.getParent(i)).poll());
+      }
+      return sb.toString();
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

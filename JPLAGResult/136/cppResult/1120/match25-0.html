@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>56_balakrishnan_v.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>56_balakrishnan_v.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; gardenNoAdj(int N, vector&lt;vector&lt;int&gt;&gt;&amp; paths) {
+        
+        vector&lt;int&gt; colors(N, -1);
+        vector&lt;int&gt; edges[11111];
+        for(int i=0;i&lt;paths.size();i++) {
+            int x = paths[i][0];
+            int y = paths[i][1];
+            x--;
+            y--;
+            edges[x].push_back(y);
+            edges[y].push_back(x);
+<A NAME="0"></A>        }
+        
+        colors[0]=1;
+<A NAME="1"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0;i&lt;N;i++) {
+            for(int c=1;c&lt;=4;c++) {
+                bool can=true;
+                for(int j : edges[i]) {</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+                    if (colors[j]==c) {
+                        can=false;
+                        break;
+                    }
+                }
+                if (can) {
+                    colors[i]=c;
+                    break;
+                }
+            }
+        }
+        return colors;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

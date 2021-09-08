@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_Lencerf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>432_Lencerf.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def sampleStats(self, count: List[int]) -&gt; List[float]:
+        valid = [i for i in range(256) if count[i] &gt; 0]
+        minimum = min(valid)
+        maximum = max(valid)
+        mean = sum([count[i]*i for i in valid])/sum(count)
+        mode = max(range(256), key=lambda x: count[x])
+        total = sum(count)
+        halfcount = total//2
+        if halfcount * 2 == total:
+            for index_i, i in enumerate(valid):
+                halfcount -= count[i]
+                if halfcount == 0:
+                    # print(i, valid[index_i+1])
+<A NAME="0"></A>                    median = (i + valid[index_i+1])/2.0
+                    break
+                elif halfcount &lt; 0:
+                    median <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= i
+                    break
+        else:
+            halfcount += 1
+            for index_i, i in enumerate(valid):
+                halfcount -= count[i]
+                if halfcount &lt;= 0:
+                    median = i
+                    break</B></FONT>
+        return [float(x) for x in [minimum, maximum, mean, median, mode]]
+        
+</PRE>
+
+</BODY>
+</HTML>

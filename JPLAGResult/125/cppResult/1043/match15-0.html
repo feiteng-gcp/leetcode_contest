@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>360_ghost_liu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>360_ghost_liu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;int&gt; gridIllumination(int N, vector&lt;vector&lt;int&gt;&gt;&amp; lamps, vector&lt;vector&lt;int&gt;&gt;&amp; queries) {
+        vector&lt; int &gt; ans ; 
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt; int ,int &gt; x ; 
+        map&lt; int , int &gt; y ; 
+        map&lt; int ,int  &gt; b1 ;
+        map&lt; int ,int &gt; b2 ; 
+        map&lt; pair&lt; int ,int &gt; , int &gt;  l ; 
+        for( auto &amp; lamp : lamps ){
+            x[lamp[0]]++;
+            y[lamp[1]]++;
+            b1[lamp[0]+lamp[1]]++;
+            b2[lamp[1]-lamp[0]]++;
+            l[{lamp[0],lamp[1]}]++ ; </B></FONT>
+        }
+        
+        
+        for( auto &amp; query : queries ){
+            
+            if( x[query[0]] || y[query[1]] || b1[query[0]+query[1]] || b2[query[1]-query[0]] ) 
+                ans.push_back( 1 ) ; 
+            else 
+                ans.push_back ( 0 ) ; 
+<A NAME="1"></A>            
+            
+            
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for( int i=-1; i&lt;=1;  i++){
+                for( int j=-1;j&lt;=1; j++){        
+                    int nx = i+query[0] ; 
+                    int ny = j+query[1] ; 
+                    if( l[{nx,ny}] ){
+                        x[nx]--;
+                        y[ny]--;
+                        b1[nx+ny]--;
+                        b2[ny-nx]--;</B></FONT>
+                        l[{nx,ny}] --;
+                    }
+                }
+            }
+
+        }
+        
+        return ans ; 
+    }
+};
+</PRE>
+</BODY>
+</HTML>

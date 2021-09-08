@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_pjincz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_pjincz.cpp</CENTER></H3><HR>
+<PRE>
+struct TrieNode {
+    vector&lt;TrieNode&gt; children;
+    bool terminus = false;
+};
+
+class StreamChecker {
+public:
+    StreamChecker(vector&lt;string&gt;&amp; words) {
+        for (auto &amp; w : words) {
+            TrieNode * node = &amp;m_root;
+            for (auto it = w.rbegin(); it != w.rend(); ++it) {
+                if (node-&gt;children.empty())
+                    node-&gt;children.resize(26);
+                node = &amp;node-&gt;children[*it - 'a'];
+            }
+            node-&gt;terminus = true;
+        }
+    }
+    
+<A NAME="0"></A>    bool query(char letter) {
+        m_query.push_back(letter);
+        TrieNode * node = &amp;m_root;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto it = m_query.rbegin(); it != m_query.rend(); ++it) {
+            char ch = *it;
+            if (node-&gt;children.empty())
+                return false;
+            node = &amp;node-&gt;children[ch - 'a'];
+            if (node-&gt;terminus)
+                return true;
+        }
+        return false;
+    }
+    
+    TrieNode m_root;
+    string m_query;
+};</B></FONT>
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj-&gt;query(letter);
+ */
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>86_vipjml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>86_vipjml.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+<A NAME="0"></A> * };
+ */
+class Solution {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    unordered_map&lt;int,int&gt; mm;
+    int dp(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        int l=dp(root-&gt;left);
+        int r=dp(root-&gt;right);</B></FONT>
+        int ans=max(l,r)+1;
+        mm[root-&gt;val]=ans;
+        return ans;
+    }
+    
+    TreeNode* dp2(TreeNode* root){
+        int l=root-&gt;left==NULL?0:mm[root-&gt;left-&gt;val];
+        int r=root-&gt;right==NULL?0:mm[root-&gt;right-&gt;val];
+        if(l==r) return root;
+        if(l&gt;r) return dp2(root-&gt;left);
+        else return dp2(root-&gt;right);
+    }
+public:
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        dp(root);
+        return dp2(root);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_wxy9018.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -&gt; List[int]:
+        
+        def topology_sort(prerequisites): # item i need to appear before the items in prerequisites[i]
+            # print('p', prerequisites)
+            nodes = set()
+            indegrees = collections.defaultdict(int)
+            for i in prerequisites:
+                nodes.add(i)
+                for j in prerequisites[i]:
+                    nodes.add(j)
+                    indegrees[j] += 1
+
+            queue = collections.deque()
+            for i in nodes:
+                if i not in indegrees:
+<A NAME="0"></A>                    queue.append(i)
+            #print(indegrees)
+            
+            res <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+            while queue:
+                node = queue.popleft()
+                res.append(node)
+                for nei in prerequisites[node]:
+                    indegrees[nei] -= 1
+                    if indegrees[nei] == 0:
+                        queue.append(nei)
+            return res if len(res) == len(nodes) else -1
+        
+        G =</B></FONT> collections.defaultdict(set)
+        for i in range(len(group)):
+            G[group[i]].add(i)
+    
+        # topology sort within each group
+        internal_sorted = collections.defaultdict(list)
+        for g in G:
+            if g != -1:
+                prerequisites = collections.defaultdict(list)
+                for item in G[g]:
+                    if beforeItems[item]:
+                        for pre in beforeItems[item]:
+                            if pre in G[g]:
+                                prerequisites[pre].append(item)
+                topo_sorted = topology_sort(prerequisites)
+                
+                if topo_sorted == -1:
+                    return []
+                
+                seen = set(topo_sorted)
+                internal_sorted[g] = topo_sorted
+                for item in G[g]:
+                    if item not in seen:
+                        internal_sorted[g].append(item)
+        
+        #for g in internal_sorted:
+            #print(g, internal_sorted[g])
+        
+        # topology sort among the groups
+        # each group number is mapped into n + number
+        prerequisites = collections.defaultdict(set)
+        for i in range(n):
+            for pre in beforeItems[i]:
+                if group[i] == -1 and group[pre] == -1:
+                    prerequisites[pre].add(i)
+                elif group[i] == -1 and group[pre] != -1:
+                    prerequisites[group[pre] + n].add(i)
+                elif group[i] != -1 and group[pre] == -1:
+                    prerequisites[pre].add(group[i] + n)
+                elif group[pre] != group[i]:
+                    prerequisites[group[pre] + n].add(group[i] + n)
+        
+        top_sorted = topology_sort(prerequisites)
+        if top_sorted == -1:
+            return []
+        
+        seen = set(top_sorted)
+        
+        res = []
+        
+        for i in G[-1]:
+            if i not in seen:
+                res.append(i)
+        
+        for i in range(m):
+            if i + n not in seen:
+                res.extend(internal_sorted[i])
+        
+        for k in top_sorted:
+            if k &lt; n:
+                res.append(k)
+            else:
+                res.extend(internal_sorted[k-n])
+        return res
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>337_alpc66.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>337_alpc66.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxSumTwoNoOverlap(self, A: List[int], L: int, M: int) -&gt; int:
+        n = len(A)
+        l = [None] * n
+        m = [None] * n
+        
+        sumL= sum(A[:L])
+        l[L-1] = sumL
+        for i in range(L, n):
+            sumL += A[i] - A[i-L]
+            l[i] = sumL
+        sumM = sum(A[:M])
+        m[M-1] = sumM
+        for i in range(M, n):
+            sumM += A[i] - A[i-M]
+            m[i] = sumM
+        # print(l)
+        # print(m)
+<A NAME="0"></A>        ret = 0
+        for i in range(L-1, n-M):
+            for j in range(i+M, n):
+                ret = max(ret, l<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i] + m[j])
+        for i in range(M-1, n-L):
+            for j in range(i+L, n):
+                ret = max(ret, m[i] + l[</B></FONT>j])
+        return ret
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

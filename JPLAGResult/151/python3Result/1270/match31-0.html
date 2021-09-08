@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>62_sshang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>62_sshang.py</CENTER></H3><HR>
+<PRE>
+from collections import deque
+class DinnerPlates:
+
+    def __init__(self, capacity: int):
+        self.stacks = [[]]
+        self.empty = deque([0])
+        self.cap = capacity
+
+    def push(self, val: int) -&gt; None:
+        
+        idx = self.empty.popleft()
+        while self.empty and self.empty[0] == idx:
+            self.empty.popleft()
+            
+        self.stacks[idx].append(val)
+        
+        if len(self.stacks[idx]) &lt; self.cap:
+            self.empty.appendleft(idx)
+        else:
+            if not self.empty:
+                self.empty.append(len(self.stacks))
+                self.stacks.append([])
+
+<A NAME="0"></A>    def pop(self) -&gt; int:
+        
+        idx = self.empty.pop()
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while self.empty and self.empty[-1] == idx:
+            self.empty.pop()
+            
+        if idx == 0 and not self.stacks[0]:
+            self.</B></FONT>empty.append(0)
+            return -1
+        
+        if not self.stacks[idx]:
+            self.stacks.pop()
+            self.empty.append(len(self.stacks)-1)
+            return self.stacks[-1].pop()
+        else:
+            res = self.stacks[idx].pop()
+            if self.stacks[idx]:
+                self.empty.append(idx)
+            else:
+                self.stacks.pop()
+                while self.stacks and not self.stacks[-1]:
+                    self.stacks.pop()
+                    while self.empty and self.empty[-1] == len(self.stacks):
+                        self.empty.pop()
+                    
+                if not self.stacks:
+                    self.stacks.append([])
+                    self.empty.append(0)
+                else:
+                    if not self.empty or self.empty[-1] != len(self.stacks)-1:
+                        self.empty.append(len(self.stacks))
+                        self.stacks.append([])
+            return res
+<A NAME="1"></A>
+    def popAtStack(self, index: int) -&gt; int:
+        
+        if index &gt;= len(self.stacks) or not self<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.stacks[index]:
+            return -1
+        bisect.insort(self.empty, index)
+        return self.stacks[index].pop()</B></FONT>
+        
+
+
+# Your DinnerPlates object will be instantiated and called as such:
+# obj = DinnerPlates(capacity)
+# obj.push(val)
+# param_2 = obj.pop()
+# param_3 = obj.popAtStack(index)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>306_hanpx08035.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>306_hanpx08035.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxSumTwoNoOverlap(vector&lt;int&gt;&amp; A, int L, int M) {
+        int n = A.size();
+        vector&lt;int&gt; sum(n+1, 0);
+        for (int i = 0; i &lt; n; ++i) {</B></FONT>
+            sum[i+1] = sum[i] + A[i];
+        }
+        int res = 0;
+        vector&lt;int&gt; leftMaxSumL(n, 0), rightMaxSumM(n, 0);
+        leftMaxSumL[L - 1] = sum[L] - sum[0];
+<A NAME="1"></A>        for (int i = L; i &lt; n; ++i) {
+            leftMaxSumL[i] = max(leftMaxSumL[i-1], sum[i+1] - sum[i+1-L]);
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        rightMaxSumM[n - M] = sum[n] - sum[n - M];
+        for (int i = n - M - 1; i &gt;= 0; --i) {
+            rightMaxSumM[i] = max(rightMaxSumM[i+1], sum[i+M] - sum[i]);
+        }
+        
+        for (int i = L - 1; i + 1 &lt;= n - M; ++i) {
+            res = max(res, leftMaxSumL[i] + rightMaxSumM[i+1]);
+        }</B></FONT>
+        vector&lt;int&gt; leftMaxSumM(n, 0), rightMaxSumL(n, 0);
+        leftMaxSumM[M - 1] = sum[M] - sum[0];
+        for (int i = M; i &lt; n; ++i) {
+            leftMaxSumM[i] = max(leftMaxSumM[i-1], sum[i+1] - sum[i+1-M]);
+        }
+        rightMaxSumL[n - L] = sum[n] - sum[n - L];
+        for (int i = n - L - 1; i &gt;= 0; --i) {
+            rightMaxSumL[i] = max(rightMaxSumL[i+1], sum[i+L] - sum[i]);
+        }
+        for (int i = M - 1; i + 1 &lt;= n - L; ++i) {
+            res = max(res, leftMaxSumM[i] + rightMaxSumL[i+1]);
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

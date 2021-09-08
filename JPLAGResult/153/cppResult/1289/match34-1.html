@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_xyz_zhzho.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_xyz_zhzho.cpp</CENTER></H3><HR>
+<PRE>
+
+struct Date
+{
+	int y;//year
+	int m;//month
+	int d;//day in month
+};
+bool isLeap(int y)//判断是否是闰年
+{
+	return y%4==0&amp;&amp;y%100!=0||y%400==0;//真返回为1，假为0
+}
+int daysOfMonth(int y,int m)
+{
+	int day[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+	if(m!=2)
+		return day[m-1];
+	else 
+		return 28+isLeap(y);
+}
+int daysOfDate(Date d)//计算一共的天数
+{
+	int days=d.d;
+	for(int y=1;y&lt;d.y;y++)//计算年
+		days+=365+isLeap(y);
+	for(int m=1;m&lt;d.m;m++)//计算月
+		days+=daysOfMonth(d.y,m);
+	//days+=d.d;
+	return days;
+}
+
+class Solution {
+public:
+    string dayOfTheWeek(int day, int month, int year) {
+<A NAME="0"></A>      Date x;
+      x.d = day;
+      x.m = month;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>      x.y = year;
+      
+      int days=daysOfDate(x)%7;
+      
+      if(days == 0) return &quot;Sunday&quot;;
+      if(days == 1) return &quot;Monday&quot;;
+      if(days == 2) return &quot;Tuesday&quot;;
+      if(days == 3) return &quot;Wednesday&quot;;
+      if(days == 4) return &quot;Thursday&quot;;
+      if(days == 5) return &quot;Friday&quot;;
+      if(days == 6) return &quot;Saturday&quot;;
+      
+      return &quot;&quot;;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

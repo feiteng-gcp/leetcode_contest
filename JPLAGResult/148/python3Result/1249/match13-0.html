@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>243_blaksmatic.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>243_blaksmatic.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class SnapshotArray:
+
+    def __init__(self, length: int):
+        self.m = collections.defaultdict<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(list)
+        self.id = 0
+        
+    def set(self, index: int, val: int) -&gt; None:
+        self.m[index].append((self.id, val))
+
+    def snap(self) -&gt; int:
+        self.id += 1
+        return self.id - 1
+
+    def get(self, index: int, snap_id: int) -&gt; int:
+        arr = self.m[</B></FONT>index]
+        #print(arr)
+        if not arr: return 0
+        loc = bisect.bisect_left(arr, (snap_id, float(&quot;inf&quot;)))
+        if loc == 0: return 0
+        return arr[loc - 1][1]
+        
+
+
+# Your SnapshotArray object will be instantiated and called as such:
+# obj = SnapshotArray(length)
+# obj.set(index,val)
+# param_2 = obj.snap()
+# param_3 = obj.get(index,snap_id)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>384_Kai-leetcode.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>384_Kai-leetcode.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumMoves(self, grid):
+        n = len(grid)
+        dph = [[math.inf] * n for _ in range(n)]
+        dpv = [[math.inf] * n for _ in range(n)]
+        #dph[0][1] = 0
+        #for i in range(n):
+        #    for j in range(0, n):
+        #        
+        #return dph[n-1][n-1]
+        q = []
+        # s, x, y, h
+        heapq.heappush(q, (0, 0, 1, 0))
+        while q:
+            s, x, y, h = heapq.heappop(q)
+            # print(s, x, y, h)
+            if h == 0:               
+                if y + 1 &lt; n and grid[x][y+1] == 0 and dph[x][y+1] &gt; s + 1:
+                    dph[x][y+1] = s + 1
+<A NAME="2"></A>                    heapq.heappush(q, (s + 1, x, y + 1, 0))
+                    if x == n - 1 and y + 1 == n - 1:
+                        return s + 1
+                if x + 1 &lt; n and grid<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[x+1][y] == 0 and grid[x+1][y-1] == 0 and dph[x+1][y] &gt; s + 1:
+<A NAME="1"></A>                    dph[x+1][y] = s + 1
+                    heapq.heappush(q, (s</B></FONT> + 1, x + 1, y, 0))
+                    if x + 1 == n - 1 and y == n - 1:
+                        re<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>turn s + 1
+                if x + 1 &lt; n and grid[x+1][y] == 0 and grid[x+1][y-1] == 0 and dpv[x+1][y-1] &gt; s + 1:
+<A NAME="0"></A>                    dpv[x+1][y-1] = s + 1
+                    heapq.heappush(q, (s + 1, x + 1, y - 1, 1))
+            else:
+                if</B></FONT> x + 1 &lt; n and grid<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[x+1][y] == 0 and dpv[x+1][y] &gt; s + 1:
+                    dpv[x+1][y] = s + 1
+                    heapq.heappush(q, (s + 1, x + 1, y, 1))
+                if y + 1 &lt; n and grid[x][y+1] == 0 and grid[x-1][y+1] == 0 and dpv[x][y+1] &gt; s + 1:
+                    dpv[x][y+1] = s + 1
+                    heapq.heappush(q, (s + 1, x, y + 1, 1))
+                if y + 1 &lt; n and grid[x][y+1] == 0 and grid[x-1][y+1] == 0 and dph[x-1][y+1] &gt; s + 1:
+                    dph[x-1][</B></FONT>y+1] = s + 1
+                    heapq.heappush(q, (s + 1, x - 1, y + 1, 0))
+        return -1
+                    
+                    
+        
+</PRE>
+
+</BODY>
+</HTML>

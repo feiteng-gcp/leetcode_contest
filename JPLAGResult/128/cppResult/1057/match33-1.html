@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_scau_grated.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_scau_grated.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    std::vector&lt;int&gt; bit;
+    int n;
+
+    int dfs(int idx, int state) {
+      if (idx &gt;= n) {
+        return 1;  // N is special number.
+      }
+
+      int ans = 0;
+      for (int i = 0; i &lt; bit[idx]; ++i) {
+        if (idx == 0 &amp;&amp; i == 0) continue;
+        if (state &amp; (1&lt;&lt;i)) continue;
+        int re_len = n - idx - 1;
+        int c = C(10-idx-1, re_len);
+        int a = A(re_len);
+        ans += c * a;
+      }
+
+      if (!(state &amp; (1&lt;&lt;bit[idx]))) {
+        int new_state = state | (1&lt;&lt;bit[idx]);
+        int tmp = dfs(idx+1, new_state);
+        ans += tmp;
+        //printf(&quot;equal, idx=%d, state=%d, new_state=%d, tmp=%d, ans=%d\n&quot;, idx, state, new_state, tmp, ans);
+      }
+
+      return ans;
+    }
+
+    int gao2() {
+      int tmp = dfs(0, 0); // idx, state
+      return tmp;
+    }
+
+    int C(int X, int Y) {
+      if (Y &gt; X-Y) Y = X-Y;
+      int tmp[2] = {1, 1};
+<A NAME="0"></A>      for (int i = 0; i &lt; Y; ++i) tmp[0] *= (X-i), tmp[1] *= (i+1);
+      return tmp[0] / tmp[1];
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int A(int X) {
+      int tmp = 1;
+      for (int i = 0; i &lt; X; ++i) tmp *= (i+1);
+      return tmp;
+    }</B></FONT>
+
+    int gao1(int len) {
+      int ret = 0;
+      std::vector&lt;int&gt; ans;  // debug
+      for (int i = 1; i &lt; len; ++i) {
+        if (i == 1) ans.push_back(9);
+        else {
+          auto work = [this](int L){
+            int c = C(9, L);
+            int a = A(L);
+            int tmp0 = c * a;
+
+            c = C(9, L-1);
+            a = A(L-1);
+            int tmp1 = c * a * (L-1);
+
+            return tmp0 + tmp1;
+          };
+          int tmp = work(i);
+          ans.push_back(tmp);
+          //printf(&quot;gao1, len=%d, ans=%d\n&quot;, i, ans.back());
+          //int c = C(10, i);
+          //int a = A(i);
+          //ans.push_back(c * a - ans.back());
+          //printf(&quot;gao1, len=%d, c=%d, a=%d, ans=%d, pre=%d\n&quot;, i, c, a, ans.back(), ans[ans.size()-2]);
+        }
+        ret += ans.back();
+      }
+      return ret;
+    }
+
+    int numDupDigitsAtMostN(int N) {
+      int x = N;
+      while (x) {
+        bit.push_back(x % 10);
+        x /= 10;
+      }
+      std::reverse( bit.begin(), bit.end() );
+      n = bit.size();
+
+      int ret[2] = {0, 0};
+      // solve length of: 1, 2, .... n-1
+      ret[0] = gao1(n);
+      // solve length of: n
+      ret[1] = gao2();
+      //printf(&quot;solve: ret0=%d, ret1=%d\n&quot;, ret[0], ret[1]);
+      return N - ret[0] - ret[1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

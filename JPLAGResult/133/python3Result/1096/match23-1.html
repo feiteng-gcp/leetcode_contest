@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_supernanren.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_supernanren.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxSumTwoNoOverlap(self, A: List[int], L: int, M: int) -&gt; int:
+        pre = [0]
+        for a in A:
+            pre.append(pre[-1]+a)
+        n = len(A)
+        maxL1=[0]*(n+2)
+        maxL2=[0]*(n+2)
+        maxM1=[0]*(n+2)
+        maxM2=[0]*(n+2)
+        for i in range(L,n+1):
+            maxL1[i] = max(maxL1[i-1],pre[i]-pre[i-L])
+        for i in range(n-L+1,-1,-1):
+<A NAME="0"></A>            maxL2[i] = max(maxL2[i+1],pre[i+L-1]-pre[i-1])
+        for i in range(M,n+1):
+            maxM1[i] = max(maxM1[i-1],pre[i]-pre[i-M])
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n-M+1,-1,-1):
+            maxM2[i] = max(maxM2[i+1],pre[i+M-1]-pre[i-1])
+        res = 0
+        for i in range(L,n-M+1):
+            res = max(maxL1[i]+maxM2[</B></FONT>i+1],res)
+        for i in range(M,n-L+1):
+            res = max(maxM1[i]+maxL2[i+1],res)
+        return res
+        
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

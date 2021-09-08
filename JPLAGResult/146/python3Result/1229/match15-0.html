@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>376_gingerhead.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>376_gingerhead.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict, deque
+import sys
+class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -&gt; List[int]:
+<A NAME="0"></A>        redGraph = defaultdict(set)
+        blueGraph = defaultdict(set)
+        graph = [redGraph, blueGraph]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for u, v in red_edges:
+            redGraph[u].add(v)
+        for u, v in blue_edges:
+            blueGraph[u].add(v)
+        ans = [sys.</B></FONT>maxsize] * n
+        q = deque()
+        #ind, isRed, depth
+        q.appendleft((0,0,0))
+        visited = set([(0,0)])
+<A NAME="1"></A>        while q:
+            u, isRed, depth = q.pop()
+            ans[u] = min(ans[u],depth)
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for v in graph[isRed][u]:
+                if (isRed, v) not in visited:
+                    visited.add((isRed, v))
+                    q.appendleft((v, </B></FONT>1-isRed, depth+1))
+                    
+        q.appendleft((0,1,0))
+        visited = set([(1,0)])
+        while q:
+            u, isRed, depth = q.pop()
+            ans[u] = min(ans[u], depth)
+            for v in graph[isRed][u]:
+                if (isRed,v) not in visited:
+                    visited.add((isRed,v))
+                    q.appendleft((v, 1-isRed, depth+1))
+        for i in range(n):
+            if ans[i] == sys.maxsize: ans[i] = -1
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

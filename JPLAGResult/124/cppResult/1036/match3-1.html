@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_xk120.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>203_xk120.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        /*grid[1][0] = 0;
+        grid[1][1] = 1;
+        grid[1][2] = 1;
+        
+        grid[2][0] = 1;
+        grid[2][1] = 0;
+        grid[2][2] = 1;*/
+        
+        vector&lt;int&gt; cur_x;
+        vector&lt;int&gt; cur_y;
+        
+        vector&lt;int&gt; next_x;
+        vector&lt;int&gt; next_y;
+        
+        
+        int m = grid.size();
+        
+        if (m == 0)
+        {
+            return 0;
+        }
+<A NAME="0"></A>        
+        int n = grid[0].size();
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i=0; i&lt;m; i++)
+        {
+            for (int j=0; j&lt;n; j++)
+            {
+                if (grid[i][j] == 2)
+                {
+                    cur_x.push_back(i);
+                    cur_y.push_back(j);
+                }
+            }
+        }
+        
+        int result = 0;
+        while (cur_x.size() &gt; 0)
+        {</B></FONT>
+<A NAME="1"></A>            while (cur_x.size() &gt; 0)
+            {
+                int cx = cur_x[0];
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                int cy = cur_y[0];
+                
+                cur_x.erase(cur_x.begin());
+                cur_y.erase(cur_y.begin());
+                
+                //up
+                if (cx &gt; 0 &amp;&amp; grid[cx-1][cy] == 1)
+                {
+                    next_x.push_back(cx-1);
+                    next_y.push_back(cy);
+                    grid[cx-1][cy] = 2;
+                }
+                
+                //down
+                if (cx+1 &lt; m &amp;&amp; grid[cx+1][cy] == 1)
+                {
+                    next_x.push_back(cx+1);
+                    next_y.push_back(cy);
+                    grid[cx+1][cy] = 2;
+                }
+                
+                //left
+                if (cy &gt; 0 &amp;&amp; grid[cx][cy-1] == 1)
+                {
+                    next_x.push_back(cx);
+                    next_y.push_back(cy-1);
+                    grid[cx][cy-1] = 2;
+                }
+                
+                //right
+                if (cy+1 &lt; n &amp;&amp; grid[cx][cy+1] == 1)
+                {
+                    next_x.push_back(cx);
+                    next_y.push_back(cy+1);
+                    grid[cx][cy+1] = 2;</B></FONT>
+                }
+            }
+            
+            if (next_x.size() &gt; 0)
+            {
+                result ++;
+                cur_x = next_x;
+                cur_y = next_y;
+                
+                next_x.clear();
+                next_y.clear();
+            }
+<A NAME="2"></A>            else
+            {
+                break;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+        for (int i=0; i&lt;m; i++)
+        {
+            for (int j=0; j&lt;n; j++)
+            {
+                if (grid[i][j] == 1)
+                {
+                    return -1;
+                }
+            }
+        }
+        
+        return result;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

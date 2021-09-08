@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>247_Primusai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>247_Primusai.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>from collections import Counter
+
+class Solution:
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -&gt; List[bool]:
+        
+        res = [[0] * 26 for _ in range(len(s) + 1)]
+        
+        for i in range(26):
+            cnt =</B></FONT> 0
+            for j in range(len(s)):
+                if ord(s[j]) - 97 == i:
+                    cnt += 1
+                res[j + 1][i] = cnt
+            
+        # [0...1] -&gt; res[2] - res[0]
+        q = []
+        for i, j, k in queries:
+            n = [abs(q - r)%2 for q, r in zip(res[j + 1], res[i])]
+            f = sum(n)//2
+            q.append(f &lt;= k)
+        return q
+</PRE>
+
+</BODY>
+</HTML>

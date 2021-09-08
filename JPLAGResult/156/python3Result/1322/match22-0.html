@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>82_LucienZhang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>82_LucienZhang.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -&gt; int:
+        def ishor(ax,ay,bx,by):
+            return ax==bx and ay+1==by
+        visited={(0,0,0,1)}
+        q=collections.deque()
+        q.append((0,0,0,1))
+        ans=0
+        n=len(grid)
+        tax,tay,tbx,tby=n-1,n-2,n-1,n-1
+        while q:
+            for _ in range(len(q)):
+                ax,ay,bx,by=q.popleft()
+                if (ax,ay,bx,by)==(tax,tay,tbx,tby):
+                    return ans
+                if ishor(ax,ay,bx,by):
+                    if by+1&lt;n and grid[bx][by+1]==0:
+<A NAME="0"></A>                        if (bx,by,bx,by+1) not in visited:
+                            visited.add((bx,by,bx,by+1))
+                            q.append((bx,by,bx,by+1))
+                    if ax+1&lt;n and grid<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[ax+1][ay]==0 and grid[bx+1][by]==0:
+                        me=(ax+1,ay,bx+1,by)
+                        if me not in visited:
+                            visited.add(me)
+                            q.append(me)
+                        me=(ax,ay,ax+1,ay)
+                        if me not in visited:
+<A NAME="1"></A>                            visited.add(me)
+                            q.append(me)
+                else:
+                    if</B></FONT> bx+1&lt;n and grid<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[bx+1][by]==0:
+                        me=(bx,by,bx+1,by)
+<A NAME="2"></A>                        if me not in visited:
+                            visited.add(me)
+                            q.append(me)
+                    if</B></FONT> ay+1&lt;n and grid<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match22-1.html#2',3,'match22-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[ax][ay+1]==0 and grid[bx][by+1]==0:
+                        me=(ax,ay+1,bx,by+1)
+                        if me not in visited:
+                            visited.add(me)
+                            q.append(me)
+                        me=(ax,ay,ax,ay+1)
+                        if me not in visited:
+                            visited.add(me)
+                            q.append(me)
+            ans+=</B></FONT>1
+        return -1
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

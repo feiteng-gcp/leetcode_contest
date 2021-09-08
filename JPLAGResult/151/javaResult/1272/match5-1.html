@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_robinz62.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>214_robinz62.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public List&lt;String&gt; invalidTransactions(String[] transactions) {
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; transactions.length; i++) {
+            String[] tokens = transactions[i].split</B></FONT>(&quot;,&quot;);
+            String name = tokens[0];
+            int time = Integer.parseInt(tokens[1]);
+<A NAME="1"></A>            int amount = Integer.parseInt(tokens[2]);
+            String city = tokens[3];
+            
+            if (amount &gt; 1000) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                ans.add(transactions[i]);
+                continue;
+            }
+            
+            for (String x : transactions) {
+                String[] prevTokens = x.split</B></FONT>(&quot;,&quot;);
+<A NAME="2"></A>                String prevName = prevTokens[0];
+                int prevTime = Integer.parseInt(prevTokens[1]);
+                String prevCity = prevTokens[3];
+                if (<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#2',2,'match5-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>name.equals(prevName) &amp;&amp; Math.abs(prevTime - time) &lt;= 60 &amp;&amp; !city.equals(prevCity)) {
+                    ans.add(transactions[i]);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

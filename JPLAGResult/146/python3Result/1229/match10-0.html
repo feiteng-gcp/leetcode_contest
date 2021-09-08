@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>94_humochen.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>94_humochen.py</CENTER></H3><HR>
+<PRE>
+from collections import defaultdict, deque
+class Solution:
+    def shortestAlternatingPaths(self, n: int, red_edges, blue_edges):
+        ret = [-1 for x in range(n)]
+        ret[0] = 0
+        reds = defaultdict(list)
+        for s, e in red_edges:
+            reds[s].append(e)
+        blues = defaultdict(list)
+        for s, e in blue_edges:
+            blues[s].append(e)
+        edges = [reds, blues]
+<A NAME="0"></A>        start = deque([(e, 0, 1) for e in reds[0]] + [(e, 1, 1) for e in blues[0]])
+        visited = set() # (e, prev_color)
+        while len(start) &gt; 0:
+            end, prev_color, length <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= start.popleft()
+            if (end, prev_color) in visited:
+                continue
+            visited.add((end, prev_color))
+            if ret[end] == -1:
+                ret[end] =</B></FONT> length
+            for nxt in edges[1-prev_color][end]:
+                start.append((nxt, 1 - prev_color, length + 1))
+        return ret
+</PRE>
+
+</BODY>
+</HTML>

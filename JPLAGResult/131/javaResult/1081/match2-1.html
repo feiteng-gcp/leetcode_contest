@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>170_hetao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>170_hetao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int videoStitching(int[][] clips, int T) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a,b)-&gt;a[0]==b[0]? b[1]-b[0]-a[1]+a[0] : a[0]-b[0]);
+        for(int[] clip : clips){
+            pq.offer(clip);
+        }
+        int res = 0, cur=0;
+        while(cur&lt;T &amp;&amp; !pq.isEmpty()){
+            res++;
+            if(pq.peek()[0]&gt;cur) break;
+            cur = pq.poll()[1];
+            while(!pq.isEmpty()&amp;&amp;pq.peek()[0]&lt;=cur){
+                if(pq.peek()[0]==cur &amp;&amp; pq.peek()[1]&gt;cur) break;
+                int[] poll = pq.poll();
+                
+                if(poll[1]&gt;cur) {
+                    poll[0] = cur;
+                    pq.offer(poll);
+                }
+            }
+        }
+        return cur&gt;=T ? res : -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

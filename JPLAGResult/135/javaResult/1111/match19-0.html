@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_thyang93.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>200_thyang93.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int minScoreTriangulation(int[] A) {
+        int len = A.length;
+        if (len == 3) return cost(A, 0, 1, 2);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][] dp = new int[len][len];
+        for (int gap = 0; gap &lt; len; gap++) {
+            for (int i = 0, j = gap; j &lt; len; i++, j++) {
+                if (j &lt; i+2)
+                    dp[i][j] = 0;
+                else {
+                    dp[i][j] = Integer.MAX_VALUE; 
+                    for (int k = i + 1; k &lt; j; k++) {
+                        int val = dp[i][k] + dp[k][j] + cost(A, i, j, k);
+                        if (dp[i][j] &gt; val)
+                            dp[i][j] = val;
+                    }
+                }
+            }
+        } 
+        return dp[0][len - 1];
+    }
+    private int cost(int[] A, int i, int j, int k) {
+        return A[i] * A[j] * A[k];
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

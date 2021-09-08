@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>24_face4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>24_face4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int check[60005];
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+        vector&lt;int&gt; indeg(n, 0), edge[n], no, revg[m];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;int,int&gt; over;
+        int groupnum = m;
+        for(int i = 0; i &lt; n; i++){
+            if(group[i] == -1){
+                group[i] = groupnum++;</B></FONT>
+                over[groupnum-1] = i;
+            }else{
+                revg[group[i]].push_back(i);
+            }
+        }
+        vector&lt;int&gt; indegbg(groupnum, 0), edgebg[groupnum];
+        for(int i = 0; i &lt; n; i++){
+<A NAME="1"></A>            memset(check, 0, sizeof(check));
+            for(int j : beforeItems[i]){
+                if(check[group[j]]) continue;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                check[group[j]] = true;
+                if(group[j] == group[i]){
+                    indeg[i]++;
+                    edge[j].push_back(i);
+                }else{
+                    edgebg[group[j]].push_back(group[i]);
+                    indegbg[group[i]]++;
+                }
+            }
+        }
+        vector&lt;int&gt; chunk[m];
+        for(int i = 0; i &lt; m; i++){</B></FONT>
+            if(revg[i].size() == 0) continue;
+            queue&lt;int&gt; topo;
+            for(int j : revg[i]){
+                if(indeg[j] == 0)   topo.push(j);
+            }
+            if(topo.empty())    return no;
+            while(!topo.empty()){
+                int x = topo.front();   topo.pop();
+                chunk[i].push_back(x);
+                for(int j : edge[x]){
+                    indeg[j]--;
+                    if(indeg[j] == 0)   topo.push(j);
+                }
+            }
+            if(chunk[i].size() != revg[i].size())   return no;
+        }
+        
+        vector&lt;int&gt; resind;
+        queue&lt;int&gt; topo;
+        for(int i = 0; i &lt; groupnum; i++){
+            if(i &lt; m &amp;&amp; revg[i].size() == 0)    continue;
+            if(indegbg[i] == 0) topo.push(i);
+        }
+        
+        while(!topo.empty()){
+            int x = topo.front();   topo.pop();
+            resind.push_back(x);
+            for(int j : edgebg[x]){
+                indegbg[j]--;
+                if(indegbg[j] == 0) topo.push(j);
+            }
+        }
+        
+        vector&lt;int&gt; ret;
+        for(int i : resind){
+            if(i &gt;= m)  ret.push_back(over[i]);
+            else        for(int j : chunk[i])   ret.push_back(j);
+        }
+        
+         if(ret.size() == n) return ret;
+
+        return no;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_mingqin-chen.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_mingqin-chen.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef double db;
+typedef long long ll;
+typedef vector&lt;int&gt; vi;
+typedef pair&lt;int, int&gt; pii;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define sz(x) ((int)(x).size())
+#define all(x) begin(x),end(x)
+#define rep(i,l,r) for(int i=(l);i&lt;(r);++i)
+#define per(i,l,r) for(int i=(r)-1;i&gt;=(l);--i)
+#define dd(x) cout &lt;&lt; #x &lt;&lt; &quot;=&quot; &lt;&lt; x &lt;&lt; &quot;, &quot;
+#define de(x) cout &lt;&lt; #x &lt;&lt; &quot;=&quot; &lt;&lt; x &lt;&lt; endl
+//-------
+
+const int dx[] = { -1, 0, 1, 0 };
+const int dy[] = { 0, 1, 0, -1 };
+
+class Solution {
+public:
+    int minimumMoves(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+		int n = grid.size(), m = grid[0].size();
+		vector&lt;vector&lt;int&gt; &gt; h(n, vector&lt;int&gt;(m, INT_MAX));
+		vector&lt;vector&lt;int&gt; &gt; v(n, vector&lt;int&gt;(m, INT_MAX));
+		h[0][1] = 0;	
+
+		queue&lt;tuple&lt;int, int, int&gt; &gt; que;
+		que.push(make_tuple(0, 0, 1));	
+		while (!que.empty()) {
+<A NAME="0"></A>			int d, x, y;
+			tie(d, x, y) = que.front();
+			que.pop();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>			if (d == 0) {
+				// right
+				if (y + 1 &lt; m &amp;&amp; !grid[x][y + 1] &amp;&amp; h[x][y + 1] == INT_MAX) {
+					h[x][y + 1] = h[x][y] + 1;
+					que.push(make_tuple(0, x, y + 1));
+				}
+				// down
+				if (x + 1 &lt; n &amp;&amp; !grid[x + 1][y - 1] &amp;&amp; !grid[x + 1][y] &amp;&amp;
+						h[x + 1][y] == INT_MAX) {
+					h[x + 1][y] = h[x][y] + 1;
+					que.push(make_tuple(0, x + 1, y));	
+				}
+				if (y &gt; 0 &amp;&amp; x + 1 &lt; n &amp;&amp; !grid[x + 1][y - 1] &amp;&amp; !grid[x + 1][y]
+						&amp;&amp; v[x + 1][y - 1] == INT_MAX) {
+<A NAME="1"></A>					v[x + 1][y - 1] = h[x][y] + 1;
+					que.push(make_tuple(1, x + 1, y - 1));
+				}
+			} else {</B></FONT><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>
+				// down
+				if (x + 1 &lt; n &amp;&amp; !grid[x + 1][y] &amp;&amp; v[x + 1][y] == INT_MAX) {
+					v[x + 1][y] = v[x][y] + 1;
+					que.push(make_tuple(1, x + 1, y));
+				}
+				// right
+				if (y + 1 &lt; m &amp;&amp; !grid[x][y + 1] &amp;&amp; !grid[x - 1][y + 1]
+						&amp;&amp; v[x][y + 1] == INT_MAX) {
+					v[x][y + 1] = v[x][y] + 1;
+					que.push(make_tuple(1, x, y + 1));
+				}
+				if (x &gt; 0 &amp;&amp; y + 1 &lt; m &amp;&amp; !grid[x - 1][y + 1] &amp;&amp; !grid[x][y + 1]
+						&amp;&amp; h[x - 1][y + 1] == INT_MAX) {
+					h[x - 1][y + 1] = v[x][y] + 1;
+					que.push(make_tuple(0, x - 1, y + 1));
+				}
+			}
+		}
+		return h[n - 1][n - 1] &lt; INT_MAX ? h[n - 1][n - 1] : -1;	</B></FONT>
+    }
+};
+
+
+</PRE>
+</BODY>
+</HTML>

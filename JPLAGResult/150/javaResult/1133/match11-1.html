@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>341_sweetIan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>341_sweetIan.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+   public String lastSubstring(String s) {
+        char[] arr = s.toCharArray();
+        Set&lt;Integer&gt; posList = new TreeSet&lt;&gt;();
+        for (int i = 0; i &lt; s.length(); i++) {
+            posList.add(i);
+        }
+        int len = 1;
+        int prevSize = posList.size();
+        while (posList.size() != 1) {
+            solve(arr, posList, len++);
+            int size = posList.size();
+            if (size == prevSize - 1) {
+                break;
+            }
+        }
+        int pos = posList.iterator().next();
+        return s.substring(pos);
+    }
+<A NAME="0"></A>
+    private void solve(char[] s, Set&lt;Integer&gt; posList, int size) {
+        char max = 'a';
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Iterator&lt;Integer&gt; it = posList.iterator();
+        while (it.hasNext()) {
+            int pos = it.next();
+            if (pos + size &lt;= s.length) {</B></FONT>
+<A NAME="1"></A>                max = s[pos + size - 1] &gt; max ? s[pos + size - 1] : max;
+            } else {
+                it.remove();
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        it = posList.iterator();
+        while (it.hasNext()) {
+            int pos = it.next();
+            if ( s[pos + size - 1] != max) {
+                it.remove();
+            }
+        }
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

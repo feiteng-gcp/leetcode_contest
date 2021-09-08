@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>462_danixigai.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>462_danixigai.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class Info{
+        int time;
+        String name;
+        String city;
+        int amount;
+        
+        public Info(String name, int time, String city, int amount){
+            this.time = time;
+            this.name = name;
+            this.city = city;
+            this.amount = amount;
+        }
+        
+        public String toString(){
+            return name+&quot;,&quot;+time+&quot;,&quot;+amount+&quot;,&quot;+city;
+        }
+    }
+    
+    public List&lt;String&gt; invalidTransactions(String[] transactions) {
+        Set&lt;String&gt; res = new HashSet&lt;&gt;();
+        int n = transactions.length;
+        
+        List&lt;Info&gt; trans_info = new LinkedList&lt;&gt;();
+        for(String trans: transactions){
+            String[] info = trans.split(&quot;,&quot;);
+            String name = info[0], city = info[3];
+            int time = Integer.parseInt(info[1]), amount = Integer.parseInt(info[2]);
+<A NAME="0"></A>            trans_info.add(new Info(name, time, city, amount));
+        }
+        
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for(int i = 0; i &lt; n; i++){
+            Info info1 = trans_info.get(i);
+            if(info1.amount &gt; 1000) res.add(info1.toString());
+            for(int j = i+1; j &lt; n; j++){
+                Info info2 = trans_info.get(j);
+                if(info1.name.equals</B></FONT>(info2.name)){
+                    if(!info1.city.equals(info2.city) &amp;&amp; Math.abs(info1.time - info2.time) &lt;= 60){
+<A NAME="1"></A>                        res.add(info1.toString());
+                        res.add(info2.toString());
+                    }
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            }
+        }
+        return new LinkedList&lt;&gt;(res);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_SSigurd.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_SSigurd.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxEqualFreq(self, nums: List[int]) -&gt; int:
+        
+        counter = collections.defaultdict(int)
+        counter[nums[0]] = 1
+        max_heap = [(-1, nums[0])]
+        heap = [(1, nums[0])]
+        max_seen = 0
+<A NAME="0"></A>        out = 1
+        for i, n in enumerate(nums[1:]):
+            counter[n] += 1
+            heapq.heappush(max_heap, (-counter<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[n], n))
+            heapq.heappush(heap, (counter[n], n))
+            
+            while counter[max_heap[0][1]] != -max_heap[0][0]:
+                heapq.heappop(max_heap)
+            
+
+            max_count, max_elem = heapq.</B></FONT>heappop(max_heap)
+            
+            while max_heap and (counter[max_heap[0][1]] != -max_heap[0][0] or max_heap[0][1] == max_elem):
+                heapq.heappop(max_heap)
+            
+            
+            while counter[heap[0][1]] != heap[0][0]: heapq.heappop(heap)
+                
+            #if max_heap: print(max_heap[0], heap[0], max_count, max_elem)
+            if max_heap and heap[0][0] == -max_heap[0][0] == -max_count-1: out = i+1
+                
+            heapq.heappush(max_heap, (max_count, max_elem))
+            
+            
+            min_count, min_elem = heapq.heappop(heap)
+            
+            while heap and (counter[heap[0][1]] != heap[0][0] or heap[0][1] == min_elem):
+                heapq.heappop(heap)
+
+                
+            #if heap: print(max_heap[0], heap[0], max_count, max_elem)
+            if heap and heap[0][0] == -max_heap[0][0] and min_count == 1: out = i+1
+                
+            heapq.heappush(heap, (min_count, min_elem))
+            
+            if len(counter) == 1: out = i+1
+            #print(max_heap, heap, n, counter)               
+
+        return out+1
+</PRE>
+
+</BODY>
+</HTML>

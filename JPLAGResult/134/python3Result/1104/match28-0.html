@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_jslee.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_jslee.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def colorBorder(self, grid: List[List[int]], r0: int, c0: int, color: int) -&gt; List[List[int]]:
+        queue = [(r0, c0)]
+        tmp = []
+        visited = {(r0, c0)}
+        dx =</B></FONT> [1, -1, 0, 0]
+        dy = [0, 0, 1, -1]
+        m, n = len(grid), len(grid[0])
+        while queue:
+            x, y = queue.pop(0)
+            cnt = 0
+            for i in range(4):
+                tx, ty = x + dx[i], y + dy[i]
+                if 0 &lt;= tx &lt;= m - 1 and 0 &lt;= ty &lt;= n - 1 and grid[tx][ty] == grid[x][y]:
+                    cnt += 1
+                    if (tx, ty) not in visited:
+                        visited.add((tx, ty))
+                        queue.append((tx, ty))
+            if cnt != 4:
+                tmp.append((x, y))
+        for x, y in tmp:
+            grid[x][y] = color
+        return grid
+</PRE>
+
+</BODY>
+</HTML>

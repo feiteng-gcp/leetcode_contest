@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_wangsy710.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>446_wangsy710.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root.val == x || root.val == y || x == y) {
+            return false;
+        }
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer</B></FONT>(root);
+        int k = 0;
+        int xl = -1;
+        TreeNode xp = null;
+<A NAME="1"></A>        int yl = -1;
+        TreeNode yp = null;
+        while (!queue.isEmpty() &amp;&amp; xl == -1 &amp;&amp; yl == -1) {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int size = queue.size();
+            for (int i = 0; i &lt; size; i ++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    if (node.left.val == x) {
+                        x</B></FONT>l = k + 1;
+<A NAME="2"></A>                        xp = node;
+                    } else if (node.left.val == y) {
+                        yl = k + 1;
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#2',2,'match21-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>yp = node;
+                    }
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    if (node.right.val == x) {
+                        x</B></FONT>l = k + 1;
+<A NAME="3"></A>                        xp = node;
+                    } else if (node.right.val == y) {
+                        yl = k + 1;
+                        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#3',2,'match21-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>yp = node;
+                    }
+                    queue.offer(node.right);
+                }
+            }</B></FONT>
+            k ++;
+        }
+        if (xl == -1 || yl == -1 || xl != yl) {
+            return false;
+        }
+        return xp != yp;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

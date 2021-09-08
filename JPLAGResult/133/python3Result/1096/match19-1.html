@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>149_TrentonO.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>149_TrentonO.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxSumTwoNoOverlap(self, A, L, M):
+        return max(self.check(A, L, M), self.check(A, M, L))
+        
+    def check(self, A, L, M):
+        L_sums = self.make_sums(A, L)
+        M_sums = self.make_sums(A, M)
+
+        L_max_sums = self.make_max_sums(L_sums, L)
+
+        best = 0
+        for m in range(L, len(M_sums)):
+            best = max(
+                best,
+                M_sums[m] + L_max_sums[m]
+            )
+
+        return best
+
+
+    def make_max_sums(self, L_sums, L):
+        max_sums = {L: L_sums[0]}
+        for i in range(1, len(L_sums)):
+            max_sums[L+i] = max(max_sums[L+i-1], L_sums[i])
+<A NAME="0"></A>
+        return max_sums
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def make_sums(self, A, L):
+        sums = [sum(A[:L])]
+        for i in range(L, len(A)):
+            sums.append(sums[-1] + A[i] - A[i-L])
+
+        r</B></FONT>eturn sums
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_lu-you-guan-guang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_lu-you-guan-guang.cpp</CENTER></H3><HR>
+<PRE>
+#define LL long long
+LL dp[15][1&lt;&lt;12];
+LL check(LL v){
+    LL sv=sqrt(v);
+    if (1LL*(sv-1LL)*(sv-1LL)==v) return true;
+    if (sv*sv==v) return true;
+    if (1LL*(sv+1LL)*(sv+1LL)==v) return true;
+    return false;
+}
+
+LL fac(int c){
+    LL ret=1;
+    for (int i=1; i&lt;=c; i++) ret=ret*i;
+    return ret;
+}
+
+int solve(int n, vector&lt;int&gt;&amp; A){
+<A NAME="0"></A>    memset(dp, 0, sizeof(dp));
+    for (int i=0; i&lt;n; i++) dp[i][1&lt;&lt;i]=1;
+    
+<A NAME="1"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int lim=1&lt;&lt;n;
+    for (int s=0; s&lt;lim; s++){
+        for (int i=0; i&lt;n; i++){
+            if (dp[i][s]==0) continue;</B></FONT><FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+            for (int j=0; j&lt;n; j++){
+                if ((s&gt;&gt;j)&amp;1) continue;
+                if (!check(A[i]+A[j])) continue;
+                dp[j][s|(1&lt;&lt;j)]+=dp[i][s];
+            }
+        }
+    }</B></FONT>
+    
+    LL ans=0;
+    for (int i=0; i&lt;n; i++) ans+=dp[i][lim-1];
+    
+    sort(A.begin(), A.end());
+    
+    int rate=0;
+    for (int i=0; i&lt;n; i++){
+        ++rate;
+        if (i==n-1 || A[i]!=A[i+1]){
+            ans/=fac(rate);
+            rate=0;
+        }
+    }
+    
+    return ans;
+}
+class Solution {
+public:
+    int numSquarefulPerms(vector&lt;int&gt;&amp; A) {
+        return solve(A.size(), A);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

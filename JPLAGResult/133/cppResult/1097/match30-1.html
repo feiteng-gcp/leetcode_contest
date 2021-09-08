@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>291_mortal42.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>291_mortal42.cpp</CENTER></H3><HR>
+<PRE>
+class Trie
+{
+public:
+    Trie()
+    {
+        for (int i = 0; i &lt; 26; ++i)
+        {
+            child[i] = nullptr;
+        }
+        exist = false;
+    }
+    void add(string &amp;str, int n)
+    {
+        if (n == 0)
+        {
+            exist = true;
+            return;
+        }
+        int index = str[n - 1] - 'a';
+        if (child[index] == nullptr)
+        {
+            child[index] = new Trie();
+        }
+        child[index]-&gt;add(str, n - 1);
+    }
+    bool find(string &amp;str, int n)
+    {
+        if (n == 0)
+        {
+            return exist;
+        }
+        int index = str[n - 1] - 'a';
+        if (child[index] == nullptr)
+        {
+            return false;
+        }
+        return child[index]-&gt;exist || child[index]-&gt;find(str, n - 1);
+    }
+<A NAME="0"></A>private:
+    Trie *child[26];
+    bool exist;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>};
+
+
+class StreamChecker {
+public:
+    StreamChecker(vector&lt;string&gt;&amp; words)
+    {
+        root = new Trie();
+        for (auto str : words)
+        {
+            root-&gt;add(str, str.size());
+        }
+    }
+    
+    bool query(char letter)
+    {
+        cur.push_back(letter);
+        return root-&gt;find(cur, cur.size());
+    }</B></FONT>
+private:
+    Trie *root;
+    string cur;
+};
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj-&gt;query(letter);
+ */
+</PRE>
+</BODY>
+</HTML>

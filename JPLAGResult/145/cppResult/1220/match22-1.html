@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>58_xietiansh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>58_xietiansh.cpp</CENTER></H3><HR>
+<PRE>
+int dp[1 &lt;&lt; 16];
+vector&lt;int&gt; rec[1 &lt;&lt; 16];
+
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;int&gt; smallestSufficientTeam(vector&lt;string&gt;&amp; req_skills, vector&lt;vector&lt;string&gt;&gt;&amp; people) {
+        int ns = req_skills.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        map&lt;string, int&gt; mp;
+        for (int i = 0; i &lt; ns; i++) {
+            mp[req_skills[i]] = 1 &lt;&lt; i;
+        }
+        int n = people.size();
+        vector&lt;int&gt; pp(n);
+        for (int i = 0; i &lt; n; i++) {</B></FONT>
+            pp[i] = 0;
+            for (string j: people[i]) {
+                pp[i] |= mp[j];
+            }
+        }
+        memset(dp, 1, sizeof(dp));
+        dp[0] = 0;
+        rec[0].clear();
+        for (int msk = 0; msk &lt; (1 &lt;&lt; ns); msk++) {
+            for (int i = 0; i &lt; n; i++) {
+                int nmsk = msk | pp[i];
+                if (dp[nmsk] &gt; dp[msk] + 1) {
+                    dp[nmsk] = dp[msk] + 1;
+                    rec[nmsk] = rec[msk];
+                    rec[nmsk].push_back(i);
+                }
+            }
+        }
+        return rec[(1 &lt;&lt; ns) - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

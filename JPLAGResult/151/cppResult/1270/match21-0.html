@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>169_leetcodedocteel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>169_leetcodedocteel.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+class DinnerPlates {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
+    DinnerPlates(int capacity) {
+        cap = capacity;
+    }
+    
+    void push(int val) {
+        if (hash.size() == 0)        
+        {
+            stack&lt;int&gt; stk;            
+            vecStk.push_back(stk);            
+            vecStk.back().push(val);
+            if (vecStk.back().size() &lt; cap) hash[vecStk.size() - 1] = 0;        </B></FONT>
+            lastIndex = max(lastIndex, int(vecStk.size()) - 1);
+            return;
+        }
+        
+        int index = hash.begin()-&gt;first;
+        vecStk[index].push(val);
+        if (vecStk[index].size() &gt;= cap) hash.erase(index);        
+        lastIndex = max(lastIndex ,index);        
+    }
+    
+    int pop() {    
+        
+        for (int i = lastIndex; i &gt;= 0; --i)
+            if (vecStk[i].size() != 0)
+            {
+                int ret = vecStk[i].top();
+                vecStk[i].pop();
+<A NAME="1"></A>                hash[i] = 0;
+                lastIndex = i;
+                return ret;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        
+        return -1;
+    }
+    
+    int popAtStack(int index) {
+        //if (lastIndex &lt; 0) return - 1;
+        if (index &gt;= vecStk.size()) return -1;
+        if (vecStk[index].size() == 0) return -1;
+        
+        int ret = vecStk[index].top();</B></FONT>
+        vecStk[index].pop();
+        hash[index] = 0;
+        
+        return ret;
+    }
+    
+    map&lt;int, int&gt; hash;    
+    vector&lt;stack&lt;int&gt;&gt; vecStk;
+    int cap;
+    int lastIndex;
+};
+
+/**
+ * Your DinnerPlates object will be instantiated and called as such:
+ * DinnerPlates* obj = new DinnerPlates(capacity);
+ * obj-&gt;push(val);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;popAtStack(index);
+ */
+</PRE>
+</BODY>
+</HTML>

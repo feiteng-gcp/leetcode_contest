@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>294_cplusplus55.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>294_cplusplus55.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    bool divisorGame(int n) {
+        vector&lt;bool&gt; v(1001, false);
+        v[0] = true;
+        v[2] = true;
+        
+        for (int i = 4; i &lt;= n; i++) {
+            for (int j = 1; j * j &lt;= i; j++) {
+                if (i % j == 0) {
+                    v[i] = v[i] || (!v[i - j]);
+                    v[i] = v[i] || (!v[i - (i / j)]);
+                }
+            }
+        }
+        return v[n];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

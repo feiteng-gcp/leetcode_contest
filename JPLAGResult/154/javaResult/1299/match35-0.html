@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>92_SiyC.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>92_SiyC.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    final int MOD = (int)1e9 + 7;
+    int N;
+    public int kConcatenationMaxSum(int[] arr, int k) {
+        N = arr.length;
+        long sum = 0;
+        for(int i = 0; i &lt; N; ++i){
+            sum = sum + arr[i];
+        }
+        int findL = findLeft(arr), findR = findRight(arr), findM = findMax(arr);
+        if(k == 1) return findM;
+        long l = (long)findL + (long)findR;
+        if(k == 2) return Math.max( (int)(l % MOD), findM);
+        
+        long s = sum * (k - 2);
+        long res = Math.max(s + findL + findR, (long)findM);
+        res = Math.max((long)findL + (long)findR, res);
+        
+        return (int)(res % MOD);
+    }
+    
+    public int findLeft(int[] arr){
+        int res = arr[N - 1],  sum = arr[N - 1];
+        for(int i = N - 2; i &gt;= 0; --i){
+            sum = sum + arr[i];
+            res = Math.max(res, sum);
+        }
+        return Math.max(res, 0);
+    }
+    
+    public int findRight(int[] arr){
+        int res = arr[0],  sum = arr[0];
+        for(int i = 1; i &lt; N; ++i){
+            sum = sum + arr[i];
+            res = Math.max(res, sum);
+        }
+        return Math.max(res, 0);
+    }
+    
+    public int findMax(int[] arr){
+<A NAME="0"></A>        int min = arr[0], sum = arr[0], res = min;
+        for(int i = 1; i &lt; N; ++i){
+            sum = sum + arr[i];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>res = Math.max(res, sum - min);
+            min = Math.min(min, sum);
+        }
+        return Math.max(res, 0);
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

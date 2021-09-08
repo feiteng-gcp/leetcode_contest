@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>452_hetao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>452_hetao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; invalidTransactions(String[] transactions) {
+        Set&lt;String&gt; res = new HashSet&lt;&gt;();
+<A NAME="1"></A>        TreeMap&lt;Integer, Set&lt;String&gt;&gt; map = new TreeMap&lt;&gt;();
+        for(String trans : transactions){
+            String[] first = trans.split(&quot;,&quot;);
+            int time = <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Integer.parseInt(first[1])</B></FONT>, cost = Integer.parseInt(first[2]);
+            String city = first[3];
+            if(cost&gt;1000){
+                res.add(trans);
+            }</B></FONT>
+            Map&lt;Integer, Set&lt;String&gt;&gt; subMap = map.subMap(time-60, time+61);
+<A NAME="2"></A>            for(Set&lt;String&gt; ltrans: subMap.values()){
+                for(String tran: ltrans){
+                    String[] s = tran.split(&quot;,&quot;);
+                    if(!first[3].equals(s[3])&amp;&amp;<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>first[0].equals(s[0])){
+                        res.add(tran);
+                        res.add(trans);
+                    }
+                }
+            }</B></FONT>
+            map.putIfAbsent(time, new HashSet&lt;&gt;());
+            map.get(time).add(trans);
+        }
+        return new ArrayList&lt;&gt;(res);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

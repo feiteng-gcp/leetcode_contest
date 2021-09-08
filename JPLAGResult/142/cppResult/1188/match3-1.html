@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>1_neal_wu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>1_neal_wu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    void generate(const vector&lt;vector&lt;string&gt;&gt; &amp;sections, int index, string current, vector&lt;string&gt; &amp;result) {
+        if (index &gt;= (int) sections.size()) {
+            result.push_back(current);
+            return;
+        }
+
+        for (string s : sections[index])
+            generate(sections, index + 1, current + s, result);
+    }
+
+    vector&lt;string&gt; braceExpansionII(string expression) {
+        // cout &lt;&lt; expression.size() &lt;&lt; &quot;: &quot; &lt;&lt; expression &lt;&lt; endl;
+
+        if (expression.size() == 1) {
+            assert(islower(expression[0]));
+            return vector&lt;string&gt;(1, expression);
+        }
+
+        int n = expression.size();
+        vector&lt;vector&lt;string&gt;&gt; sections;
+        bool single = false;
+
+        for (int i = 0, j = 0; i &lt; n; i = j) {
+            if (islower(expression[i])) {
+                j = i + 1;
+                sections.push_back(braceExpansionII(expression.substr(i, j - i)));
+<A NAME="0"></A>                continue;
+            }
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            j = i + 1;
+            int count = 1;
+
+            while (j &lt; n &amp;&amp; count &gt; 0) {
+                if (expression[j] == '{')
+                    count++;
+                else if (expression[j] == '}')
+                    count--;
+
+                j++;
+            }</B></FONT>
+
+            if (i == 0 &amp;&amp; j == n) {
+                single = true;
+                break;
+            }
+
+            sections.push_back(braceExpansionII(expression.substr(i, j - i)));
+        }
+
+        if (!single) {
+            vector&lt;string&gt; result;
+            generate(sections, 0, &quot;&quot;, result);
+            sort(result.begin(), result.end());
+            result.resize(unique(result.begin(), result.end()) - result.begin());
+            return result;
+        }
+
+        expression = expression.substr(1, n - 2);
+        n -= 2;
+        vector&lt;string&gt; result;
+
+        vector&lt;int&gt; level(n, 0);
+
+        for (int i = 0; i &lt; n; i++) {
+            level[i] = i == 0 ? 0 : level[i - 1];
+
+            if (expression[i] == '{')
+                level[i]++;
+            else if (expression[i] == '}')
+                level[i]--;
+        }
+
+        single = false;
+
+        for (int i = 0, j = 0; i &lt; n; i = j + 1) {
+            j = i;
+
+            while (j &lt; n &amp;&amp; (level[j] != 0 || expression[j] != ','))
+                j++;
+
+            if (i == 0 &amp;&amp; j == n) {
+                single = true;
+                break;
+            }
+
+            vector&lt;string&gt; section = braceExpansionII(expression.substr(i, j - i));
+            result.insert(result.end(), section.begin(), section.end());
+        }
+
+        if (single)
+            return braceExpansionII(expression);
+
+        sort(result.begin(), result.end());
+        result.resize(unique(result.begin(), result.end()) - result.begin());
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>430_bora_marian.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>430_bora_marian.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    vector&lt;vector&lt;int&gt;&gt;G;
+    vector&lt;bool&gt; v;
+    vector&lt;int&gt; res;
+    vector&lt;char&gt; vals;
+    string s;
+    int n;
+public:
+    string smallestStringWithSwaps(string S, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        
+        //res.resize(n);
+        s = S;
+        n = s.size();
+        v.resize(n, 0);
+        G.resize(n);
+        for (int i = 0; i &lt; pairs.size(); i++) {
+            G[pairs[i][0]].push_back(pairs[i][1]);
+            G[pairs[i][1]].push_back(pairs[i][0]);
+<A NAME="0"></A>        }
+        cout &lt;&lt; &quot;here&quot;;
+        string result = &quot;&quot;;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; i++) {
+            result.push_back(' ');
+        }
+        for (int i = 0; i &lt; n; i++) {
+            //cout &lt;&lt; i &lt;&lt;endl;
+            if (!v[i]) {
+                //cout &lt;&lt; i &lt;&lt;endl;
+                res.clear();
+                vals.clear();
+                dfs(i);
+                //cout &lt;&lt; i&lt;&lt;&quot; &quot;&lt;&lt;res.size()&lt;&lt;endl;
+                sort(res.begin(), res.end());
+                sort(vals.begin(), vals.end());
+                for (int k = 0; k &lt; res.size(); k++) {
+                    result[res[k]] = vals[k];
+                }
+            }
+        }
+        return result;
+    }</B></FONT>
+    
+    void dfs (int node) {
+        //cout &lt;&lt; node&lt;&lt;endl;
+        v[node] = true;
+        for (int i = 0; i &lt; G[node].size(); i++) {
+            if (!v[G[node][i]]) 
+                dfs(G[node][i]);
+        }
+       res.push_back(node);
+       vals.push_back(s[node]);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

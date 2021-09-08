@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_botao2018.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_botao2018.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxRepOpt1(String text) {
+        int max = 0;
+        for (char c = 'a';c &lt;= 'z';c++){
+            List&lt;int[]&gt; l = new ArrayList&lt;&gt;();
+<A NAME="1"></A>            int start = -1;
+            for (int i = 0; i &lt; text.length(); i++) {
+                if(text.charAt(i) != c){
+                    if</B></FONT>(start &gt;= 0)<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                        l.add(new int[]{start,i - 1});
+                        start = -1;
+                    }
+                }</B></FONT>else{
+                    if(start &lt; 0) start = i;
+                }
+            }
+            if(start &gt;= 0) l.add(new int[]{start,text.length() - 1});
+
+            for(int i = 0;i&lt;l.size();i++){
+                int[] seg = l.get(i);
+<A NAME="2"></A>                int len = seg[1] - seg[0] + 1;
+                if(l.size() &gt; 1) len++;
+                max = Math.max(max,len);
+                if(i &gt; 0 &amp;&amp; seg[0] == <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#2',2,'match3-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>l.get(i - 1)[1] + 2){
+                    //System.out.println(&quot;i = &quot; + i + &quot; cons&quot;);
+<A NAME="3"></A>                    int cons = seg[1] - seg[0] + 1 + l.get(i - 1)[1] - l.get(i - 1)[0] + 1;
+                    if(l.size() &gt; 2) cons++;
+                    max = Math.max</B></FONT>(max,cons);
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#3',2,'match3-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            //System.out.println(&quot;c = &quot; + c + &quot; max = &quot; + max + &quot; l = &quot; + l);
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

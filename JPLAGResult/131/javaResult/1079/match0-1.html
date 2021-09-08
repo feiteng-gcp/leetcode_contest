@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>296_shiyinong.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>296_shiyinong.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+<A NAME="0"></A> *     TreeNode(int x) { val = x; }
+ * }
+ */
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int sumRootToLeaf(TreeNode root) {
+        if(root==null) return 0;
+        StringBuilder sb=new StringBuilder();
+        List&lt;String&gt; list=new ArrayList&lt;&gt;();
+        int ans=0;
+        dfs(root,sb,list);
+        for(String str:list){
+            int num=0;
+            for(char c:str.toCharArray()){
+                num=2*num+(c-'0');
+                num%=1000000007;
+            }
+            ans+=num;
+            ans%=1000000007;
+        }
+        return ans;
+    }
+    void dfs(TreeNode tn,StringBuilder sb,List&lt;String&gt; list){
+        sb.append(tn.val);
+        if(tn.left==null&amp;&amp;tn.right==null){
+            list.add(sb.toString());
+        }else{
+            if(tn.left!=null) dfs(tn.left,sb,list);
+            if(tn.right!=null) dfs(tn.right,sb,list);
+        }
+        sb.delete(sb.length()-1,sb.length());
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

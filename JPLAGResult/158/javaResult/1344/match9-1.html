@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_eterxroc.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>226_eterxroc.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#0',2,'match9-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxEqualFreq(int[] nums) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        Map&lt;Integer, Integer&gt; cnt = new HashMap&lt;&gt;();
+<A NAME="1"></A>        
+        int ret = 1;
+        for(int i = 0; i &lt; nums.length; i++) {
+            int occur = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#1',2,'match9-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>cnt.containsKey(nums[i]) ? cnt.get(nums[i]) : 0</B></FONT>;
+            if (occur &gt; 0) {
+                map.put(occur, map.get(occur) - 1);
+                if(map.get(occur) == 0) map.remove</B></FONT>(occur);
+            }
+            
+            cnt.put(nums[i], occur + 1);
+            if(map.containsKey(occur + 1)) map.put(occur + 1, map.get(occur + 1) + 1);
+            else map.put(occur + 1, 1);
+            
+            if(map.keySet().size() == 2) {
+                Iterator&lt;Integer&gt; it = map.keySet().iterator();
+                
+                int cnt1 = it.next();
+                int num1 = map.get(cnt1);
+                
+                int cnt2 = it.next();
+                int num2 = map.get(cnt2);
+                
+                if(((cnt1 == cnt2 + 1 || cnt1 == 1) &amp;&amp; num1 == 1) || ((cnt2 == cnt1 + 1 || cnt2 == 1) &amp;&amp; num2 == 1)) ret = i + 1;
+<A NAME="2"></A>            } else if(map.keySet().size() == 1) {
+                int cntt = map.keySet().iterator().next();
+                int numm = map.get(cntt);
+                if(cntt == 1 || numm == 1) ret = i + 1<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match9-0.html#2',2,'match9-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+        
+        return ret;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

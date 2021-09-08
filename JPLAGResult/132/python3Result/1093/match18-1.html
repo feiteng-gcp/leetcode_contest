@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>35_jrying.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>35_jrying.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def recoverFromPreorder(self, S: str) -&gt; TreeNode:
+        parsed_s = re.findall('[-]+|\d+', S)
+        arr = []
+        for i in range(1, len(parsed_s), 2):
+            arr.append((int(parsed_s[i+1]), len(parsed_s[i])))
+        
+        root = TreeNode(int(parsed_s[0]))
+        nodes = [root]
+        depth = 0
+        for val, d in arr:
+            new_node = TreeNode(val)
+            while depth + 1 &gt; d:
+<A NAME="0"></A>                nodes.pop()
+                depth -= 1
+                
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if nodes[-1].left:
+                nodes[-1].right = new_node
+            else:
+                nodes[-1].left = new_node
+            nodes.append(</B></FONT>new_node)
+            depth += 1
+        return root
+        
+    
+        
+</PRE>
+
+</BODY>
+</HTML>

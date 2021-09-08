@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>311_davyroosevelt.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>311_davyroosevelt.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def parseBoolExpr(self, exp: str) -&gt; bool:
+        if exp[0] == '(':
+            return self.parseBoolExpr(exp[1:-1])
+        if exp == 't':
+            return True
+        elif exp == 'f':
+            return False
+<A NAME="0"></A>        elif exp[0] == '!':
+            return not self.parseBoolExpr(exp[2:-1])
+        else:
+            locs <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= []
+            stack = 0
+            for i in range(2,len(exp)):
+                if exp[i] == '(':
+                    stack += 1
+                if exp[i] == ')':
+                    stack -= 1
+                if stack == 0 and exp[</B></FONT>i] == ',':
+                    locs += [i]
+            locs += [-1]
+            res = [exp[2:locs[0]]]
+            for i in range(1,len(locs)):
+                res += [exp[locs[i-1]+1:locs[i]]]
+            res = [self.parseBoolExpr(i) for i in res]
+            if exp[0] == '&amp;':
+                return all(res)
+            else:
+                return any(res)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_Charlesna.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxDistance(int[][] grid) {
+        //find all the land
+        int l = grid.length;
+        boolean[][] visited = new boolean[l][l];
+        Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+        
+        for (int i = 0; i &lt; l; i++) {
+            for (int j = 0; j &lt; l; j++) {
+<A NAME="0"></A>                if (grid[i][j] == 1) {
+                    int index = i * l + j;
+                    q.offer(index);
+                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited[i][j] = true;
+                }
+            }
+        }
+        
+        if (q.isEmpty() || q.size() == l * l) {
+            return -1;
+        }
+        
+        int dis = 0</B></FONT>;
+<A NAME="1"></A>        int[] di = {1, 0, -1, 0};
+        int[] dj = {0, 1, 0, -1};
+        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!q.isEmpty()) {
+            int size = q.size();
+            for (int k = 0; k &lt; size; k++) {
+                int index = q.poll();
+                int i = index / l;
+                int j = index % l;
+                for (int d = 0; d &lt; 4; d++) {
+                    int ni = i + di[d];
+<A NAME="2"></A>                    int nj = j + dj[d];
+                    if (ni &gt;= 0 &amp;&amp; ni &lt; l &amp;&amp; nj &gt;= 0 &amp;&amp; nj &lt; l &amp;&amp; !visited[ni][nj]) {
+                        q.offer</B></FONT>(ni * l + nj);
+                        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#2',2,'match22-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>visited[ni][nj] = true;
+                    }
+                }
+            }
+            dis++;
+        }
+        return dis - 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

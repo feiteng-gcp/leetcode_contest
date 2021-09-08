@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>45_613.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>45_613.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; gridIllumination(int n, vector&lt;vector&lt;int&gt;&gt;&amp; vec, vector&lt;vector&lt;int&gt;&gt;&amp; que) {
+        map&lt;int,int&gt; x,y,up,down;
+        map&lt;int,set&lt;int&gt; &gt;lg;
+        for (int i=0;i&lt;vec.size();i++)
+        {
+            x[vec[i][0]]++;y[vec[i][1]]++;
+            up[vec[i][0]-vec[i][1]]++;down[vec[i][0]+vec[i][1]]++;
+            lg[vec[i][0]].insert(vec[i][1]);
+        }
+        vector&lt;int&gt; ans;
+        for (int i=0;i&lt;que.size();i++)
+        {</B></FONT>
+            ans.push_back((int)(bool)(x[que[i][0]]+y[que[i][1]]+up[que[i][0]-que[i][1]]+down[que[i][0]+que[i][1]]));
+            for (int px=que[i][0]-1;px&lt;=que[i][0]+1;px++)
+                for (int py=que[i][1]-1;py&lt;=que[i][1]+1;py++)
+                    if (lg[px].count(py))
+                    {
+                        x[px]--;y[py]--;up[px-py]--;down[px+py]--;
+                        lg[px].erase(py);
+                    }
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

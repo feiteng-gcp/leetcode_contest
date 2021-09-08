@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>186_heapq.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>186_heapq.py</CENTER></H3><HR>
+<PRE>
+# &quot;&quot;&quot;
+# This is MountainArray's API interface.
+# You should not implement it, or speculate about its implementation
+# &quot;&quot;&quot;
+#class MountainArray:
+#    def get(self, index: int) -&gt; int:
+#    def length(self) -&gt; int:
+
+class Solution:
+<A NAME="0"></A>    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -&gt; int:
+        def getMaxIdx(l, r):
+            while l + pow(1, -10) &lt; r:
+                mid <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= (l + r) // 2
+                midd = (mid + r) // 2
+                mid_v = mountain_arr.get(mid)
+                midd_v = mountain_arr.get(midd)
+                if mid_v &gt; midd_v:
+                    r = midd
+                else:
+                    l = </B></FONT>mid
+            return l
+
+        idx = getMaxIdx(0, mountain_arr.length())
+        l, r = 0, idx
+        while l &lt;= r:
+            mid = (l + r) // 2
+            if mountain_arr.get(mid) == target:
+                return mid
+            elif mountain_arr.get(mid) &gt; target:
+                r = mid - 1
+            else:
+                l = mid + 1
+                
+        l, r = idx, mountain_arr.length() - 1
+        while l &lt;= r:
+            mid = (l + r) // 2
+            if mountain_arr.get(mid) == target:
+                return mid
+            elif mountain_arr.get(mid) &gt; target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>38_fuzhe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>38_fuzhe.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int largest1BorderedSquare(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int m = grid.size(), n = grid[0].size();
+        vector&lt;vector&lt;int&gt;&gt; hsum(m, vector&lt;int&gt;(n + 1, 0));
+        vector&lt;vector&lt;int&gt;&gt; vsum(m + 1, vector&lt;int&gt;(n, 0));
+<A NAME="1"></A>        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                hsum[i][j+1] = hsum[i][j] + grid[i][j];</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+<A NAME="2"></A>        for (int j = 0; j &lt; n; ++j) {
+            for (int i = 0; i &lt; m; ++i) {
+                vsum[i+1][j] = vsum[i][j] + grid[i][j];</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        int ret = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {</B></FONT>
+                int maxl = min(i + 1, j + 1);
+                for (int l = 1; l &lt;= maxl; ++l) {
+                    int l1 = hsum[i][j+1] - hsum[i][j-l+1];
+                    int l2 = hsum[i-l+1][j+1] - hsum[i-l+1][j-l+1];
+                    int l3 = vsum[i+1][j] - vsum[i-l+1][j];
+                    int l4 = vsum[i+1][j-l+1] - vsum[i-l+1][j-l+1];
+                    if (l1 == l &amp;&amp; l2 == l &amp;&amp; l3 == l &amp;&amp; l4 == l) {
+                        ret = max(ret, l * l);
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

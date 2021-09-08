@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_xianglaniunan.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>323_xianglaniunan.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+    public int maxEqualFreq(int[] nums) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(), freq = new HashMap&lt;&gt;();
+        int n = nums.length, re = 1;
+<A NAME="1"></A>        for(int i = 0; i &lt; n; i++)
+        {
+            int f = map.getOrDefault(nums[i], 0)</B></FONT>;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>map.put(nums[i], f + 1);
+            if(f &gt; 0)
+            {
+                freq.put(f, freq.get(f) - 1);
+                if(freq.get(f) == 0) freq.remove(f);
+            }</B></FONT>
+            freq.put(f + 1, freq.getOrDefault(f + 1, 0) + 1);
+<A NAME="2"></A>            // now test
+            // System.out.println(i + 1);
+            // System.out.println(freq);
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(freq.keySet().size() &lt;= 2 &amp;&amp; satisfy(freq)) re = i + 1;
+        }
+        return re;
+    }</B></FONT>
+    
+    boolean satisfy(Map&lt;Integer, Integer&gt; map)
+    {
+        Map&lt;Integer, Integer&gt; f = new HashMap&lt;&gt;();
+        for(int k : map.keySet())
+        {
+            int freq = map.get(k);
+            if(freq == 0) continue;
+            f.put(k, freq);
+        }
+        if(f.keySet().size() == 1)
+        {
+            if(f.containsKey(1)) return true;
+            int fq = 0;
+            for(int k : f.keySet()) fq = f.get(k);
+            return fq == 1;
+        }
+        if(f.keySet().size() == 2 &amp;&amp; f.containsKey(1) &amp;&amp; f.get(1) == 1) return true;
+        if(f.keySet().size() == 2)
+        {
+             int f1 = -1, f2 = -1, k1 = 0, k2 = 0;
+            for(int k : f.keySet())
+            {
+                if(f1 &lt; 0) {f1 = f.get(k); k1 = k;}
+                else {f2 = f.get(k); k2 = k;}
+            }
+            if(k1 &lt; k2)
+            {
+                if(k1 + 1 == k2 &amp;&amp; f2 == 1) return true;
+            }
+            else
+            {
+                if(k2 + 1 == k1 &amp;&amp; f1 == 1) return  true;
+            }
+            
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

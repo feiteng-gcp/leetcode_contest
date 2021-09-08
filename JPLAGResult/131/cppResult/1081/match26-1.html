@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_pjincz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_pjincz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int videoStitching(vector&lt;vector&lt;int&gt;&gt;&amp; clips, int T) {
+        vector&lt;int&gt; dp(T + 1, INT_MAX / 2);
+        dp[0] = 0;
+        for (int i = 0; i &lt;= T; ++i) {
+            for (auto &amp; clip : clips) {
+                if (clip[0] &lt;= i &amp;&amp; clip[1] &gt;= i) {</B></FONT>
+                    for (int j = i + 1; j &lt;= clip[1] &amp;&amp; j &lt; dp.size(); ++j) {
+                        dp[j] = std::min(dp[j], dp[i] + 1);
+                    }
+                }
+            }
+        }
+        return dp[T] == INT_MAX / 2 ? -1 : dp[T];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

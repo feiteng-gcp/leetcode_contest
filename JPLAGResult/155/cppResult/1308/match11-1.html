@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_chendongcharlie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>192_chendongcharlie.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int parent[100005];
+    int find(int x)
+    {
+        return parent[x] == x ? x : parent[x] = find(parent[x]);
+    }
+    string smallestStringWithSwaps(string s, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        int S = s.size();
+        int N = pairs.size();        </B></FONT>
+        for (int i = 0;i &lt; S; i++)
+            parent[i] = i;
+        
+        for (int i = 0;i &lt; N; i++)
+        {
+            int x = find(pairs[i][0]);
+            int y = find(pairs[i][1]);
+            if (x!=y)
+                parent[x] = y;
+        }
+        // cout&lt;&lt;&quot;connected&quot;&lt;&lt;endl;
+        unordered_map&lt;int, string&gt; m;
+        unordered_map&lt;int, int&gt; pointer;
+        for (int i = 0;i &lt; S; i++)
+        {
+            // cout&lt;&lt;i&lt;&lt;s[i]&lt;&lt;parent[i]&lt;&lt;endl;
+            if (m.find(find(i)) == m.end())
+            {
+                m[parent[i]] = s[i];
+                pointer[parent[i]] = 0;
+            }                
+            else
+                m[parent[i]] += s[i];
+        }
+        // cout&lt;&lt;&quot;connected&quot;&lt;&lt;endl;
+<A NAME="1"></A>        for (auto it = m.begin(); it!=m.end();it++)
+            sort(it-&gt;second.begin(), it-&gt;second.end());
+        string ans;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0;i &lt; S; i++)
+        {
+            int idx = parent[i];
+            ans += m[idx][pointer[idx]++];
+        }
+        return ans;        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

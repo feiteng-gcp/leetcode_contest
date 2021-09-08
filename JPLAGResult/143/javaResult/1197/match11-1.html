@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>174_no41destiny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>174_no41destiny.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private static final char[] TYPECHAR = {'t', 'f'};
+    private static final char[] EXPCHAR = {'|', '&amp;', '!'};
+    
+    public boolean parseBoolExpr(String expression) {
+        if(expression.length() == 1){
+            return expression.equals(&quot;t&quot;) ? true : false;
+        }
+        return DFS(expression, new int[1]);
+    }
+    
+    private boolean DFS(String str, int[] index){
+        char type = str.charAt(index[0]);
+        index[0] += 2;
+        List&lt;Boolean&gt; res = getResList(str, index);
+        if(type == '|'){
+            if(res.contains(true)) return true;
+            else return false;
+        }
+        else if(type == '&amp;'){
+            if(res.contains(false)) return false;
+            else return true;
+        }
+        else{
+<A NAME="0"></A>            return !res.get(0);
+        }
+        
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    private List&lt;Boolean&gt; getResList(String str, int[] index){
+        List&lt;Boolean&gt; res = new ArrayList&lt;&gt;();
+        while(true){</B></FONT>
+            char ch = str.charAt(index[0]);
+            if(ch == ')'){
+                index[0]++;
+                return res;
+            }
+<A NAME="1"></A>            else if(ch == ','){
+                index[0]++;
+                continue;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            else if(ch == 't'){
+                index[0]++;
+                res.add(true);
+            }
+            else if(ch == 'f'){
+                index[0]++;
+                res.add(false);
+            }
+            else{</B></FONT>
+                res.add(DFS(str, index));
+            }
+        }
+    }
+    
+        
+}
+</PRE>
+
+</BODY>
+</HTML>

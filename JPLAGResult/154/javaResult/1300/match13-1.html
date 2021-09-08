@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_PizzaLovers007.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_PizzaLovers007.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    List&lt;List&lt;Integer&gt;&gt; bridges;
+<A NAME="0"></A>    int time;
+    
+    public List&lt;List&lt;Integer&gt;&gt; criticalConnections(int n, List&lt;List&lt;Integer&gt;&gt; connections) {
+        Vertex[] vertices = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new Vertex[n];
+        for (int i = 0; i &lt; n; i++)
+        {
+            vertices[i] = new Vertex(i);
+        }
+        for (List&lt;Integer&gt; pair : connections)
+        {</B></FONT>
+            vertices[pair.get(0)].add(vertices[pair.get(1)]);
+        }
+        bridges = new ArrayList&lt;&gt;();
+        time = 0;
+        for (Vertex v : vertices)
+        {
+            if (!v.visited)
+            {
+                bridge(v);
+<A NAME="1"></A>            }
+        }
+        return bridges;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public void bridge(Vertex curr)
+    {
+        // System.out.println(curr.i);
+        curr.visited = true;
+        
+        curr.disc = curr.low = ++time;
+        
+        for (Vertex other : curr.neighbors)
+        {
+            if (!other.visited)
+            {
+                other.parent = curr;
+                bridge(other);
+                curr.low = Math.min(curr.low, other.low);
+                if (other.low &gt; curr.disc)
+                {
+                    ArrayList&lt;Integer&gt; pair = new ArrayList&lt;&gt;();
+                    pair.add(curr.i);
+                    pair.add(other.i);
+                    bridges.add(pair);
+                }
+            }
+            else if (other != curr.parent)
+            {
+                curr.low = Math.min(curr.low, other.disc);
+            }
+        }
+    }</B></FONT>
+    
+    class Vertex
+    {
+        ArrayList&lt;Vertex&gt; neighbors;
+        int i;
+        Vertex parent;
+        boolean visited;
+        int low, disc;
+        
+        public Vertex(int i)
+        {
+            neighbors = new ArrayList&lt;&gt;();
+            this.i = i;
+        }
+        
+        public void add(Vertex other)
+        {
+            neighbors.add(other);
+            other.neighbors.add(this);
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

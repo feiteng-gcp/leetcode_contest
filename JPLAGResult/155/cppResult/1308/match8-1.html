@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>131_anisaha.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>131_anisaha.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    vector&lt;int&gt; IDX;
+    vector&lt;char&gt; CH;
+    
+    void process(string&amp; s, int node, vector&lt;vector&lt;int&gt;&gt;&amp; ADJ, vector&lt;bool&gt;&amp; visited) {
+        visited[node] = true;
+        IDX.push_back(node);
+        CH.push_back(s[node]);
+        
+        for(int i=0;i&lt;ADJ[node].size();i++) {
+            if(!visited[ADJ[node][i]]) {
+                process(s, ADJ[node][i], ADJ, visited);
+            }
+        }
+    }
+    
+    
+    string smallestStringWithSwaps(string s, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        int N = s.length();
+<A NAME="0"></A>        vector&lt;bool&gt; visited(N);
+        vector&lt;vector&lt;int&gt;&gt; ADJ(N);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i=0;i&lt;pairs.size();i++) {
+            ADJ[pairs[i][0]].push_back(pairs[i][1]);
+            ADJ[pairs[i][1]].push_back(pairs[i][0]);
+        }
+        
+        for(int i=0;i&lt;N;i++) {
+            if(!visited[i] &amp;&amp; ADJ[i].size()&gt;0) {
+                IDX.clear();
+                CH.clear();
+                process(s, i, ADJ, visited);
+                
+                sort(IDX.begin(),IDX.end());
+                sort(CH.begin(),CH.end());
+                
+                for(int j=0;j&lt;IDX.size();j++) {
+                    s[IDX[j]] = CH[j];
+                }
+            }
+        }
+        
+        return s;
+        
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

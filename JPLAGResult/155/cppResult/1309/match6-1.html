@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>18___Chaos__.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>18___Chaos__.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+  vector&lt;int&gt; top_sort(int n, const vector&lt;vector&lt;int&gt;&gt; &amp;adj) {
+    vector&lt;int&gt; ind(n);
+    queue&lt;int&gt; q;
+    for (int i = 0; i &lt; n; ++i) {
+      for (int v : adj[i]) {
+        ++ind[v];
+      }
+    }
+    for (int i = 0; i &lt; n; ++i) {
+      if (!ind[i]) {
+        q.push(i);
+      }
+    }
+    vector&lt;int&gt; res;
+    while (!q.empty()) {
+      auto s = q.front();
+      q.pop();
+      res.push_back(s);
+      for (int v : adj[s]) {
+        if (!--ind[v]) {
+          q.push(v);
+        }
+      }
+<A NAME="0"></A>    }
+    if (res.size() != n) {
+      res.clear();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    }
+    return res;
+  }
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+      for (int i = 0; i &lt; n; ++i) {
+        if (group[i] == -1) {
+          group[i] = m++;
+        }
+      }
+      vector&lt;vector&lt;int&gt;&gt; adj(m);
+      vector&lt;vector&lt;int&gt;&gt; group_to_v(m);</B></FONT>
+      for (int i = 0; i &lt; n; ++i) {
+        group_to_v[group[i]].push_back(i);
+        for (const auto &amp;v : beforeItems[i]) {
+          if (group[v] != group[i]) {
+            adj[group[v]].push_back(group[i]);
+          }
+        }
+      }
+      auto groups = top_sort(m, adj);
+      vector&lt;int&gt; res;
+<A NAME="1"></A>      for (int g : groups) {
+        int nn = group_to_v[g].size();
+        vector&lt;vector&lt;int&gt;&gt; adj2(nn);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        unordered_map&lt;int, int&gt; rev;
+        for (int i = 0; i &lt; nn; ++i) {
+          rev[group_to_v[g][i]] = i;
+        }
+        for (int i = 0; i &lt; nn; ++i) {</B></FONT>
+          int x = group_to_v[g][i];
+          for (int v : beforeItems[x]) {
+            if (group[v] == g) {
+              adj2[rev[v]].push_back(i);
+            }
+          }
+        }
+        auto internal = top_sort(nn, adj2);
+        for (int idx : internal) {
+          res.push_back(group_to_v[g][idx]);
+        }
+      }
+      // vector&lt;bool&gt; vis(m);
+      //for (int i = 0; i &lt; res.size(); ++i) {
+      //  if (group[res[i]] == -1) {
+      //    continue;
+      //  }
+      //  if (vis[group[res[i]]]) {
+      //    res.clear();
+      //    break;
+      //  }
+      //  vis[group[res[i]]] = true;
+      //  int j;
+      //  for (j = i; j &lt; res.size() &amp;&amp; group[res[i]] == group[res[j]]; ++j);
+      //  i = j - 1;
+      //}
+      //reverse(res.begin(), res.end());
+      if (res.size() &lt; n) {
+        res.clear();
+      }
+      return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

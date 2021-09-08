@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>283_zxjcarrot.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>283_zxjcarrot.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool evaluate(vector&lt;bool&gt; &amp; v, char op) {
+        switch(op) {
+            case '!': {
+<A NAME="0"></A>                assert(v.size() == 1);
+                return !v[0];
+            }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            case '&amp;': {
+                bool res = true;
+                for (auto b : v) {
+                    res = res &amp;&amp; b;
+                }
+                return res;
+            }
+            case '|': {
+                bool res = false;
+                for (auto b : v) {
+                    res = res || b;
+                }
+                return res;
+            }
+        }
+        return false;
+    }</B></FONT>
+    bool parseExpr(const string &amp; E, int &amp; i) {
+        if (i &gt;= E.size()) return true;
+        if (E[i] == 't') {
+            ++i;
+            return true;
+        }
+        if (E[i] == 'f') {
+            ++i;
+            return false;
+        }
+        if (E[i] == '!' || E[i] == '&amp;' || E[i] == '|') {
+            char op = E[i];
+            vector&lt;bool&gt; v;
+            ++i;
+            assert(E[i] == '(');
+            ++i;
+            while (i &lt; E.size() &amp;&amp; E[i] != ')') {
+                v.push_back(parseExpr(E, i));
+                if (E[i] == ',') {
+                    ++i;
+                    continue;
+                }
+            }
+            assert(E[i] == ')');
+            ++i;
+            return evaluate(v, op);
+        } else {
+            assert(false);
+        }
+    }
+    bool parseBoolExpr(string expression) {
+        int i = 0;
+        return parseExpr(expression, i);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

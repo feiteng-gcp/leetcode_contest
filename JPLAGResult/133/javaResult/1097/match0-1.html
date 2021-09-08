@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_lele948264.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>231_lele948264.java</CENTER></H3><HR>
+<PRE>
+class StreamChecker {
+    class TrieNode {
+        char ch;
+        boolean isWord;
+        TrieNode[] children;
+        //boolean hasChildren;
+        
+        public TrieNode(char ch) {
+            this.ch = ch;
+            this.children = new TrieNode[26];
+            //this.hasChildren = false;
+        }
+    }
+    
+    class TrieTree {
+<A NAME="1"></A>        TrieNode root;
+        
+        public TrieTree() {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>this.root = new TrieNode('0');
+        }
+        
+        public void insert(String word) {
+            TrieNode node = root;
+            for (int i = word.length() - 1; i &gt;= 0; --i) {
+                char ch = word.charAt(i);
+                if (node.children[ch - 'a'] == null) {
+                    node.children[ch - 'a'] = new TrieNode(ch);
+                }
+                node = node.children[ch - 'a'];
+                //node.hasChildren = true;
+            }
+            node.isWord = true;
+        }
+        
+        public boolean queryTree(List&lt;Character&gt; list) {
+            TrieNode node = root;
+            for (int i = 0; i &lt; list.size(); ++i) {
+                char ch = list.get(i);
+                if (node.children[ch - 'a'] == null) {
+                    return false;
+                }
+                node = node.children[ch - 'a'];
+                if</B></FONT> (node.isWord) {
+                    return true;
+                }
+            }
+            return false;
+<A NAME="0"></A>        }
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>TrieTree tree;
+    List&lt;Character&gt; list;
+    
+    public StreamChecker(String[] words) {
+        this.tree = new TrieTree();
+        for (String word : words) {
+<A NAME="2"></A>            tree.insert(word);
+        }</B></FONT>
+        this.list = new ArrayList&lt;&gt;();
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#2',2,'match0-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public boolean query(char letter) {
+        list.add(0, letter);
+        return tree.queryTree(this.list);
+    }
+}</B></FONT>
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
+</PRE>
+
+</BODY>
+</HTML>

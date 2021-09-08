@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_zerotrac2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>196_zerotrac2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+private:
+    int head[1010];
+    int edge[1000010], nxt[1000010];
+    int f[1010];
+    int ecnt = 0;
+    
+public:
+    void addedge(int x, int y) {
+        ++ecnt;
+        edge[ecnt] = y;
+        nxt[ecnt] = head[x];
+        head[x] = ecnt;
+    }
+<A NAME="0"></A>    
+    bool judge(const string&amp; s1, const string&amp; s2) {
+        int pos = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; s2.size(); ++i) {
+            while (pos &lt; s1.size() &amp;&amp; s2[i] != s1[pos]) {
+                ++pos;
+            }
+            if (pos == s1.size()) {
+                return false;
+            }
+            ++pos;
+        }
+        return true;
+    }</B></FONT>
+    
+    void dfs(int u) {
+        if (f[u]) {
+            return;
+        }
+        for (int i = head[u]; i; i = nxt[i]) {
+            int v = edge[i];
+            dfs(v);
+            f[u] = max(f[u], f[v]);
+        }
+        ++f[u];
+    }
+    
+    int longestStrChain(vector&lt;string&gt;&amp; words) {
+        memset(head, 0, sizeof(head));
+        memset(edge, 0, sizeof(edge));
+<A NAME="1"></A>        memset(nxt, 0, sizeof(nxt));
+        
+        int n = words.size();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (i != j and words[i].size() == words[j].size() + 1) {</B></FONT>
+                    if (judge(words[i], words[j])) {
+                        // cout &lt;&lt; words[i] &lt;&lt; &quot; &quot; &lt;&lt; words[j] &lt;&lt; &quot;\n&quot;;
+                        addedge(i + 1, j + 1);
+                    }
+                }
+            }
+        }
+        
+        memset(f, 0, sizeof(f));
+        for (int i = 1; i &lt;= n; ++i) {
+            if (!f[i]) {
+                dfs(i);
+<A NAME="2"></A>            }
+        }
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match11-1.html#2',3,'match11-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+        for (int i = 1; i &lt;= n; ++i) {
+            ans = max(ans, f[i]);
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

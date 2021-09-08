@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>19_tylerwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>19_tylerwang.cpp</CENTER></H3><HR>
+<PRE>
+template &lt;typename Container&gt;
+std::vector&lt;int&gt; topo_sort(const std::vector&lt;Container&gt;&amp; graph) {
+  static_assert(std::is_integral_v&lt;typename Container::value_type&gt;);
+  int n = (int)graph.size();
+  std::vector&lt;int&gt; in(n, 0);
+  for (int u = 0; u &lt; n; ++u) {
+    for (int v : graph[u]) {
+      ++in[v];
+    }
+  }
+  std::queue&lt;int&gt; q;
+  for (int u = 0; u &lt; n; ++u) {
+    if (in[u] == 0) {
+      q.push(u);
+    }
+  }
+  std::vector&lt;int&gt; sorted;
+  sorted.reserve(n);
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+    sorted.push_back(u);
+    for (int v : graph[u]) {
+      if (--in[v] == 0) {
+        q.push(v);
+      }
+    }
+  }
+<A NAME="0"></A>  return sorted;
+}
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+ public:
+  vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group,
+                        vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+    vector&lt;vector&lt;int&gt;&gt; groups(m);
+    for (int i = 0; i &lt; n; ++i) {
+      if (group[i] == -1) {
+        group[i] = m++;
+        groups.emplace_back();
+      }
+      groups[group[i]].push_back(i);
+    }</B></FONT>
+    for (auto&amp; g : groups) {
+      sort(g.begin(), g.end());
+    }
+    vector&lt;vector&lt;int&gt;&gt; graph(m);
+    vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; sub(m);
+    for (int i = 0; i &lt; m; ++i) {
+      sub[i].resize(groups[i].size());
+    }
+    for (int v = 0; v &lt; n; ++v) {
+      for (int u : beforeItems[v]) {
+        if (group[u] == group[v]) {
+          auto&amp; gu = groups[group[u]];
+          sub[group[u]][lower_bound(gu.begin(), gu.end(), u) - gu.begin()]
+              .push_back(lower_bound(gu.begin(), gu.end(), v) - gu.begin());
+        } else {
+          graph[group[u]].push_back(group[v]);
+        }
+      }
+    }
+    auto sorted = topo_sort(graph);
+    if (sorted.size() != m) {
+      return {};
+    }
+    vector&lt;int&gt; ans;
+    for (int i : sorted) {
+      auto subsorted = topo_sort(sub[i]);
+      if (subsorted.size() != sub[i].size()) {
+        return {};
+      }
+      for (int j : subsorted) {
+        ans.push_back(groups[i][j]);
+      }
+    }
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

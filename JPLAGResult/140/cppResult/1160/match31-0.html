@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>259_jcaoso1a.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>259_jcaoso1a.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    void dfs(int d, string cur, int n, unordered_set&lt;string&gt;&amp; ans, 
+             string&amp; tiles, vector&lt;bool&gt;&amp; used) {
+        if (d == n) {
+            ans.insert(cur);
+<A NAME="0"></A>            // cout &lt;&lt; &quot;insert:&quot; &lt;&lt; cur &lt;&lt; endl;
+            return;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i = 0; i &lt; tiles.size(); i++) {
+            if (used[i] == false) {
+                used[i] = true;
+                dfs(d+1, cur+tiles[i], n, ans, tiles, used);
+                used[i] = false;
+            }
+        }
+    } 
+    int help(string tiles, int n) {</B></FONT>
+        unordered_set&lt;string&gt; ans;
+        string tmp = &quot;&quot;;
+        vector&lt;bool&gt; used(tiles.size(), false);
+        dfs(0, &quot;&quot;, n, ans, tiles, used);
+        return ans.size();
+    }
+    int numTilePossibilities(string tiles) {
+        int n = tiles.length();
+        int ans = 0;
+        sort(tiles.begin(), tiles.end());
+        for(int i = 1; i &lt;= n; i++)
+            ans += help(tiles, i);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

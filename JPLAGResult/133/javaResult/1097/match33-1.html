@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_liyun1988.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>308_liyun1988.java</CENTER></H3><HR>
+<PRE>
+class StreamChecker {
+
+    List&lt;Character&gt; queries = null;
+    Trie trie = null;
+    public StreamChecker(String[] words) {
+        this.queries = new ArrayList&lt;Character&gt;();
+        this.trie = new Trie();
+<A NAME="2"></A>        for(String word : words) {
+            trie.insert(word);
+        }
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    
+    public boolean query(char letter) {
+        this.queries.add(letter);
+        return this.trie.search(this.queries);
+    }</B></FONT>
+    
+    class Trie {
+
+    private TreeNode root;
+<A NAME="0"></A>    /** Initialize your data structure here. */
+    public Trie() {
+        // do intialization if necessary
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>root = new TreeNode(null, false);
+    }
+    
+    /** Inserts a word into the trie. */
+    public void insert(String word) {
+       // write your code here
+        TreeNode curNode = root;
+        for(int i = word.length() - 1; i &gt; -1; --i) {
+            char cur = word.charAt(i);
+            if</B></FONT>(! curNode.children.containsKey(cur)) {
+                // create new node.
+                TreeNode newNode = new TreeNode(cur, false);
+                curNode.children.put(cur, newNode);
+            }
+            
+            curNode = curNode.children.get(cur);
+            if(i == 0) {
+                // mark as word
+                curNode.isWord = true;
+            }
+        }
+    }
+    
+    /** Returns if the word is in the trie. */
+    public boolean search(String word) {
+       // write your code here
+        TreeNode curNode = root;
+        for(int i = 0; i &lt; word.length(); ++i) {
+            char cur = word.charAt(i);
+            if(curNode.children.containsKey(cur)) {
+                curNode = curNode.children.get(cur);
+            } else {
+                return false;
+            }
+<A NAME="1"></A>        }
+        
+        return curNode.isWord;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+    /** Returns if the word is in the trie. */
+    public boolean search(List&lt;Character&gt; queries) {
+       // write your code here
+        TreeNode curNode = root;
+        for(int i = queries.size() - 1; i &gt; -1; --i) {
+            char cur = queries.get(i);
+            if(curNode.isWord) {
+                return true;
+            }</B></FONT>
+            
+            if(curNode.children.containsKey(cur)) {
+                curNode = curNode.children.get(cur);
+            } else {
+                return false;
+            }
+        }
+        
+        return curNode.isWord;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    public boolean startsWith(String prefix) {
+        // write your code here
+        TreeNode curNode = this.root;
+        for(int i = 0; i &lt; prefix.length(); ++i) {
+            char cur = prefix.charAt(i);
+            if(curNode.children.containsKey(cur)) {
+                curNode = curNode.children.get(cur);
+            } else {
+                return false;
+            }  
+        }
+        
+        return curNode.isWord || curNode.children.size() &gt; 0;
+    }
+    
+    public class TreeNode {
+        public Character character;
+        public boolean isWord;
+        public HashMap&lt;Character, TreeNode&gt; children;
+        
+        public TreeNode(Character c, boolean isWord) {
+            this.character = c;
+            this.isWord = isWord;
+            this.children = new HashMap&lt;&gt;();
+        }
+    }
+}
+}
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
+</PRE>
+
+</BODY>
+</HTML>

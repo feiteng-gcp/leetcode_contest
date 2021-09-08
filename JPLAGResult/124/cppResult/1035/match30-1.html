@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>185_lijinglun.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>185_lijinglun.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+<A NAME="0"></A>        vector&lt;int&gt; p1; Dfs(root, x, p1);
+        vector&lt;int&gt; p2; Dfs(root, y, p2);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        if (x != y &amp;&amp; p1.size() == p2.size()) {
+            p1.pop_back();
+            p2.pop_back();
+            return p1.back() != p2.back();
+        }
+        return false;
+    }
+    bool Dfs(TreeNode* root, int x, vector&lt;int&gt; &amp; path) {
+        if (!root) {
+            return false;
+        }
+        
+        path.push_back(root-&gt;val);
+        if (root-&gt;val == x) {
+        
+            return true;
+        }
+        if (Dfs(root-&gt;left, x, path) || Dfs(root-&gt;right, x, path)) {
+        
+            return true;
+        }</B></FONT>
+        path.pop_back();
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
