@@ -152,7 +152,7 @@ def parseSubmissions(contest, page_end):
             username = line['username']
             userrank = line['rank']
             for k in submission:
-                print("[Contest=%s] Crawling submitted codes.. %d user.. %d submission.. %s"  % (contestName, i, user, k))
+                if i % 20 == 0: print("[Contest=%s] Crawling submitted codes.. %d user.. %d submission.. %s"  % (contestName, i, user, k))
                 try:
                     uniqueID = str(userrank) +  '_' + username + '_' + str(k)
                     if uniqueID in processedID: continue
@@ -209,7 +209,7 @@ def commit_and_pushtoGithub(file):
     curTime = datetime.now(nyTime)
     cur_time = curTime.strftime('%Y %b %d %H:%M %p %z')
     commit_message = 'auto committed on .. ' + cur_time
-    print('Trying to push..')
+    print('Starting to push..')
 
     push_successful = True
     try:
@@ -354,7 +354,7 @@ def writeToHTML():
 
     curTime = datetime.now(pytz.timezone('America/New_York'))
     cur_time = curTime.strftime('%Y %b %d %H:%M %p %z')
-    banner = "<div><h4>Last Updated: " +  cur_time + "</h4></div><div>"
+    banner = "<div><h4><a href='https://github.com/feiteng-gcp'>Last Updated</a>: " +  cur_time + "</h4></div><div>"
     HTML_Head_2 = """
     
     <table id="example" class="display" style="width:90%;font-size: x-small; margin:25px">
@@ -447,8 +447,8 @@ if __name__ == '__main__':
     page_end = 20   # check for top 500 people
     while True:
         try:
-            if not debug: contest = loadContest().strip()
-            if not debug: contest_int = (int)(contest)
+            contest = loadContest().strip()
+            contest_int = (int)(contest)
 
 
             print(contest)
@@ -460,7 +460,9 @@ if __name__ == '__main__':
 
             if not debug: update_indexMD()
             writeToHTML()
-            if debug: break
+            if debug: 
+                print('finished..')
+                break
 
 
             if not debug: commit_and_pushtoGithub('JPLAGResult/' + contest)
