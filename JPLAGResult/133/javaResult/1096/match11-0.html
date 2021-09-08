@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>358_renato4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>358_renato4.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        int[] rangeSum = new int[A.length+1];
+        rangeSum[0]=0;
+        for(int i = 1; i &lt; rangeSum.length; i++) {
+            rangeSum[i]=rangeSum[i-1]+A[i-1];
+        }
+        int max = 0;
+        for(int i = 0; (i+L+M) &lt;= A.length; i++) {
+<A NAME="0"></A>            for(int j = i+L; (j+M) &lt;= A.length; j++) {
+                int leftSum = rangeSum[i+L]-rangeSum[i];
+                int rightSum = rangeSum[j+M]-rangeSum[j];
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = Math.max(max,leftSum+rightSum);
+            }
+        }
+        for(int i = 0; (i+L+M) &lt;= A.length; i++) {</B></FONT>
+<A NAME="1"></A>            for(int j = i+M; (j+L) &lt;= A.length; j++) {
+                int leftSum = rangeSum[i+M]-rangeSum[i];
+                int rightSum = rangeSum[j+L]-rangeSum[j];
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>max = Math.max(max,leftSum+rightSum);
+            }
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

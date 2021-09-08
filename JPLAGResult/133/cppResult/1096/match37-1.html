@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>189_Perce.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>189_Perce.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxSumTwoNoOverlap(vector&lt;int&gt;&amp; A, int L, int M) {
+        vector&lt;int&gt; end_at_m(A.size(), 0);
+        vector&lt;int&gt; end_at_l(A.size(), 0);
+        int sum = 0;
+        for (int i = 0; i &lt; M; ++i) {
+            sum += A[i];
+        }
+        
+        for (int i = M; i &lt; A.size(); ++i) {
+            end_at_m[i-1] = sum;
+            sum -= A[i - M];
+            sum += A[i];
+        }
+        end_at_m.back() = sum;
+        
+        sum = 0;
+        
+        for (int i = 0; i &lt; L; ++i) {
+            sum += A[i];
+        }
+        for (int i = L; i &lt; A.size(); ++i) {
+            end_at_l[i-1] = sum;
+            sum -= A[i - L];
+            sum += A[i];
+        }
+        end_at_l.back() = sum;
+        
+//         for (auto i : end_at_m) {
+//             cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+//         }
+//         cout &lt;&lt; endl;
+        
+//         for (auto i : end_at_l) {
+//             cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+<A NAME="0"></A>//         }
+//         cout &lt;&lt; endl;
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0;
+        
+        for (int i = 0; i &lt; end_at_m.size(); ++i) {
+            for (int j = 0; j &lt; i - M + 1; ++j) {
+                ans = max(ans, end_at_m[i] + end_at_l[j]);
+            }
+        }
+        
+        for (int i = 0; i &lt; end_at_l.size(); ++i) {
+            for (int j = 0; j &lt; i - L + 1; ++j) {
+                ans = max(ans, end_at_m[j] + end_at_l[i]);
+            }
+        }
+        
+//         int curr = 0;
+        
+//         for (int i = 0; i &lt; M; ++i) {
+//             curr += A[i];
+//         }
+        
+//         for (int i = M; i &lt; A.size(); ++i) {
+//             curr -= A[i-M];
+//             curr += A[i];
+//             for (int j = 0; j &lt; i; ++j) {
+//                 ans = max(ans, curr + end_at_l[j]);
+//             }
+//         }
+        
+//         curr = 0;
+        
+//         for (int i = 0; i &lt; L; ++i) {
+//             curr += A[i];
+//         }
+        
+//         for (int i = L; i &lt; A.size(); ++i) {
+//             curr -= A[i-L];
+//             curr += A[i];
+//             for (int j = 0; j &lt; i; ++j) {
+//                 ans = max(ans, curr + end_at_m[j]);
+//             }
+//         }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

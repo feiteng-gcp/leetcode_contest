@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>26_sunlibin.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>26_sunlibin.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        int total = 0;
+        int N = A.length;
+        int[] LA = new int[N];
+        int[] MA = new int[N];
+        int curL = 0;
+        int curM = 0;
+        for (int i = 0; i &lt; N; i++) {
+            curL += A[i];
+            curM += A[i];
+            if (i &gt;= L) {
+                curL -= A[i - L];
+            }
+            if (i &gt;= M) {
+<A NAME="0"></A>                curM -= A[i - M];
+            }
+            LA[i] = curL;
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>MA[i] = curM;
+        }
+        int max = 0;
+        for (int i = L - 1; i &lt; N; i++) {
+            for (int j = i + M; j &lt; N; j++) {
+                if (LA[i] + MA[j] &gt; max) {
+                    max = LA[i] + MA[j];
+                }
+            }
+        }
+        for (int i = M - 1; i &lt; N; i++) {
+            for (int j = i + L; j &lt; N; j++) {
+                if (MA[i] + LA[j] &gt; max) {
+                    max = MA[i] + LA[j];
+                }
+            }
+        }
+        return max;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>176_tunz.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>176_tunz.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxSumTwoNoOverlap(self, A: List[int], L: int, M: int) -&gt; int:
+        ans1 = self.find(A, L, M)
+        ans2 = self.find(A, M, L)
+        return max(ans1, ans2)
+    
+    def find(self, A, L, M):
+        maxL = [0]*len(A)
+        cur = sum(A[:L])
+        maxL[L-1] = cur
+        for i in range(1, len(A) - L):
+            cur -= A[i - 1]
+            cur += A[i + L - 1]
+            maxL[i + L - 1] = max(maxL[i + L - 2], cur)
+        
+        cur = sum(A[-M:])
+        maxM = [0]*len(A)
+        maxM[-M] = cur
+<A NAME="0"></A>        for i in range(len(A) - M - 1, -1, -1):
+            cur -= A[i + M]
+            cur += A[i]
+            maxM[i] = max(maxM<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i+1], cur)
+        
+        answer = 0
+        for i in range(L-1, len(A)-M+1):
+            answer = max(maxM[i] + maxL[i-1], answer)
+        re</B></FONT>turn answer
+</PRE>
+
+</BODY>
+</HTML>

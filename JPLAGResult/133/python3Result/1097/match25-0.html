@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>353_gregllong.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>353_gregllong.py</CENTER></H3><HR>
+<PRE>
+class StreamChecker:
+
+    def __init__(self, words: List[str]):
+<A NAME="0"></A>        words = set(words)
+        self.trie = {}
+        for w in words:
+            curdict <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= self.trie
+            for c in w:
+                if c not in curdict:
+                    curdict[c] = {}
+                curdict = curdict[c]
+            curdict[&quot;#&quot;] = None
+        self.possible_dict = []
+        
+
+    def query(self, letter: str) -&gt; bool:      
+        state =</B></FONT> False
+        possible_dict = []
+        if letter in self.trie:
+            possible_dict.append(self.trie[letter])
+            if &quot;#&quot; in self.trie[letter]:
+                state = True  
+        for d in self.possible_dict:
+            curdict = d
+            if letter in curdict:
+                curdict = curdict[letter]
+                possible_dict.append(curdict)
+                if &quot;#&quot; in curdict:
+                    state = True
+        self.possible_dict = possible_dict
+        return state
+        
+
+
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
+</PRE>
+
+</BODY>
+</HTML>

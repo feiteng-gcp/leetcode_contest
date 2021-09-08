@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>206_its_dark.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>206_its_dark.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class StreamChecker {
+
+  StringBuilder builder;
+  <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private final Trie trie;
+
+  public StreamChecker(String[] words) {
+    trie = new Trie();
+    for (String word : words) {</B></FONT>
+      trie.insert(new StringBuilder().append(word).reverse().toString());
+    }
+    builder = new StringBuilder();
+  }
+
+  public boolean query(char letter) {
+    builder.insert(0, letter);
+    return trie.doesAnyPrefixExists(builder.toString());
+  }
+}
+
+public class Trie {
+
+  private TrieNode root;
+
+  public Trie() {
+    root = new TrieNode();
+  }
+
+  void print() {
+    TrieNode p = root;
+    for (int i = 0; i &lt; 26; i++) {
+      if (p.arr[i] != null) {
+        p = p.arr[i];
+        System.out.println((char) i + 'a');
+      }
+    }
+  }
+
+  public boolean search(String word) {
+    TrieNode t = root;
+    for (int i = 0; i &lt; word.length(); i++) {
+      if (t.arr[word.charAt(i) - 'a'] == null) {
+        return false;
+      }
+      t = t.arr[word.charAt(i) - 'a'];
+    }
+    return t.isEndOfWord;
+  }
+
+  public void insert(String word) {
+    TrieNode t = root;
+    for (int i = 0; i &lt; word.length(); i++) {
+<A NAME="2"></A>      if (t.isEndOfWord) {
+        return;
+      }
+      <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#2',2,'match34-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int idx = word.charAt(i) - 'a';
+      if (t.arr[idx] == null) {
+        t.arr[idx] = new TrieNode();
+      }
+      t = t.arr[idx];
+      t.numWords++;
+    }
+    t.isEndOfWord = true;
+  }</B></FONT>
+
+  /**
+   * Returns if there is any word in the trie that starts with the given prefix.
+   */
+  public boolean startsWith(String prefix) {
+    TrieNode t = root;
+    for (int i = 0; i &lt; prefix.length(); i++) {
+      if (t.arr[prefix.charAt(i) - 'a'] == null) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  String findLongestPrefix(String word) {
+    TrieNode t = root;
+    String ans = null;
+    for (int i = 0; i &lt; word.length(); i++) {
+      if (t.isEndOfWord) {
+        ans = word.substring(0, i);
+      }
+      t = t.arr[word.charAt(i) - 'a'];
+      if (t == null) {
+        break;
+      }
+    }
+    if (t.isEndOfWord) {
+      ans = word;
+    }
+    return ans;
+  }
+
+  boolean doesAnyPrefixExists(String word) {
+    TrieNode t = root;
+    for (int i = 0; i &lt; word.length(); i++) {
+      if (t.isEndOfWord) {
+<A NAME="3"></A>        return true;
+      }
+      t = t.arr[word.charAt(i) - 'a'];
+      <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#3',2,'match34-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (t == null) {
+        return false;
+      }
+    }
+    return t.isEndOfWord;
+  }</B></FONT>
+
+
+  String findUniquePrefix(String word) {
+    TrieNode t = root;
+    for (int i = 0; i &lt; word.length(); i++) {
+      if (t.isEndOfWord) {
+        return word.substring(0, i);
+      }
+      t = t.arr[word.charAt(i) - 'a'];
+      if (t == null) {
+        return word;
+      }
+    }
+    return word;
+  }
+<A NAME="0"></A>
+  class TrieNode {
+    TrieNode[] arr;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int numWords;
+    boolean isEndOfWord = false;
+
+    // Initialize your data structure here.
+    public TrieNode() {
+      this.arr = new TrieNode[26];
+      this.numWords = 0;
+    }
+
+  }</B></FONT>
+}
+
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
+</PRE>
+
+</BODY>
+</HTML>

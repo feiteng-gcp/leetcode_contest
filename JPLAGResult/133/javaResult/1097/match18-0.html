@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>252_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>252_zac4.java</CENTER></H3><HR>
+<PRE>
+class StreamChecker {
+<A NAME="0"></A>    
+    private Set&lt;Character&gt; charSet;
+    private Trie trie;
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private int MAX_LEN;
+    private Deque&lt;Character&gt; queryQueue;
+
+    public StreamChecker(String[] words) {
+        this.charSet = new HashSet();
+        this.trie = new</B></FONT> Trie();
+        this.MAX_LEN = 0;
+        this.queryQueue = new LinkedList();
+        for (String w : words) {
+            MAX_LEN = Math.max(MAX_LEN, w.length());
+<A NAME="1"></A>            Trie node = trie;
+            for (int i = w.length() - 1; i &gt;= 0; i--) {
+                char c = w.charAt(i);
+                if (node.children[c - 'a'] == null) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    node.children[c - 'a'] = new Trie();
+                }
+                node = node.children[c - 'a'];
+            }
+            node.isEnd = true;
+        }
+    }
+    
+    public boolean query(char letter) {
+        queryQueue.offerLast</B></FONT>(letter);
+        if (queryQueue.size() &gt; MAX_LEN) {
+            queryQueue.pollFirst();
+        }
+        Stack&lt;Character&gt; tmp = new Stack();
+        boolean found = false;
+        Trie node = trie;
+        while (!queryQueue.isEmpty()) {
+            char c = queryQueue.pollLast();
+            tmp.push(c);
+            if (node.children[c - 'a'] == null) {
+                break;
+            } else {
+                node = node.children[c - 'a'];
+                if (node.isEnd) {
+                    found = node.isEnd;
+                    break;
+                }
+            }
+        }
+<A NAME="2"></A>        while (!tmp.isEmpty()) {
+            queryQueue.offerLast(tmp.pop());
+        }
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return found;
+    }
+    
+    class Trie {
+        boolean isEnd;
+        Trie[] children;
+        Trie() {
+            this.isEnd = false;
+            this.children = new Trie[26];
+        }
+    }
+}</B></FONT>
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
+</PRE>
+
+</BODY>
+</HTML>

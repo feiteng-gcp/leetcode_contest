@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_Kmcode.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_Kmcode.cpp</CENTER></H3><HR>
+<PRE>
+int nex[2002*2002][26];
+bool en[2002 * 2002];
+
+int ne;
+int od;
+
+class StreamChecker {
+public:
+   StreamChecker(vector&lt;string&gt;&amp; words) {
+	memset(nex, -1, sizeof(nex));
+<A NAME="0"></A>       for(int i=0;i&lt;2002*2002;i++)en[i]=false;
+	ne = 0;
+	od = 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	for (auto &amp;el : words) {
+		int cur = ne;
+		for (int i = el.size() - 1; i &gt;= 0; i--) {
+			int go = el[i] - 'a';
+			if (nex[cur][go] == -1) {
+				nex[cur][go] = od++;
+			}
+			cur = nex[cur][go];
+		}</B></FONT>
+		en[cur] = true;
+	}
+}
+<A NAME="1"></A>vector&lt;char&gt; stk;
+bool query(char letter) {
+	stk.push_back(letter);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#1',2,'match0-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	int cur = ne;
+	for (int i = stk.size()-1; i&gt;=0; i--) {
+		int go = stk[i] - 'a';
+		if (nex[cur][go] == -1) {
+			return false;
+		}
+		cur = nex[cur][go];
+		if (en[cur])return true;
+	}
+	return false;
+}
+};</B></FONT>
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj-&gt;query(letter);
+ */
+</PRE>
+</BODY>
+</HTML>

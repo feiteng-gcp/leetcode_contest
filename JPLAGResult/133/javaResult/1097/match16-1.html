@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>14_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class StreamChecker {
+
+    private static class TrieNode {
+        public TrieNode[] nexts = new TrieNode[26];		
+        public boolean flag = false;			
+    }
+
+    private StringBuilder builder = new StringBuilder();
+    private TrieNode root = new TrieNode();				
+
+    public StreamChecker(String[] words) {
+        for (String word : words) {
+            insert(reverse(word));	        	
+        }
+    }
+
+<A NAME="1"></A>    public boolean query(char letter) {
+        builder.append(letter);
+        TrieNode node = root;	        
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = builder.length() - 1;i &gt;= 0;i --) {
+            int index = builder.charAt(i) - 'a';
+            if (node.nexts[index] == null) {
+                return false;	        		
+            }
+<A NAME="2"></A>            node = node.nexts[index];
+            if</B></FONT> (node.flag) {
+                return true;	        		
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#2',2,'match16-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }	    	
+        return false;
+    }
+
+<A NAME="0"></A>    private void insert(String word) {</B></FONT>
+        TrieNode node = root;	    	
+        int i , length = word.length();
+        for (i = 0;i &lt; length;i ++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            int index = word.charAt(i) - 'a';
+            if (node.nexts[index] == null) {
+                node.nexts[index] = new TrieNode();
+            }
+            node = node.nexts[index];	    		
+        }	    	
+        node.flag = true;	    	
+    }
+
+    private String reverse(String word) {
+        StringBuilder builder = new StringBuilder()</B></FONT>;
+        for (int i = word.length() - 1;i &gt;= 0;i --) {
+            builder.append(word.charAt(i));	    		
+        }
+        return builder.toString();	    	
+    }
+
+}
+</PRE>
+
+</BODY>
+</HTML>

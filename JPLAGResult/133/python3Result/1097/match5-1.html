@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>10_lihuoran.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>10_lihuoran.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Node:
+    def __init__(self, c):
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.c = c
+        self.son = {}
+        self.isword = False
+
+class StreamChecker:
+
+<A NAME="1"></A>    def __init__(self, words):
+        self.root = Node(</B></FONT>None)
+        for word in words:
+            node <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= self.root
+            for c in word:
+                if c not in node.son:
+                    node.son[c] = Node(c)
+                node = node.son[c]
+            node.isword =</B></FONT> True
+
+        self.seed = [self.root]
+
+    def query(self, letter):
+        ans = False
+
+        buff = [self.root]
+        for node in self.seed:
+            if letter in node.son:
+                if node.son[letter].isword:
+                    ans = True
+                buff.append(node.son[letter])
+
+        self.seed = buff
+        return ans
+        
+
+
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
+</PRE>
+
+</BODY>
+</HTML>

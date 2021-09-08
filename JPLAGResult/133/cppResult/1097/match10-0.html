@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>40_ghostplant.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>40_ghostplant.cpp</CENTER></H3><HR>
+<PRE>
+class StreamChecker {
+public:
+    struct node {
+        node *ch[26], *fail;
+        bool end;
+
+        node(): end(false), fail(NULL) {
+            memset(ch, 0, sizeof(ch));
+<A NAME="0"></A>        }
+    } *root;
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    StreamChecker(vector&lt;string&gt;&amp; words) {
+        root = new node();
+        for (auto &amp;it: words) {
+            auto p = root;
+            for (int i = it.size() - 1; i &gt;= 0; --i) {
+                if (!p-&gt;ch[it[i] - 'a'])
+                    p-&gt;ch[it[i] - 'a'] = new node();
+                p = p-&gt;ch[it[i] - 'a'];
+            }
+            p-&gt;end = true;
+        }
+    }
+
+    vector&lt;char&gt; hist;</B></FONT>
+    bool query(char letter) {
+        hist.push_back(letter - 'a');
+        auto p = root;
+        for (int i = hist.size() - 1; i &gt;= 0; --i) {
+            if (p-&gt;ch[hist[i]]) {
+                p = p-&gt;ch[hist[i]];
+                if (p-&gt;end)
+                    return true;
+            } else
+                break;
+        }
+        return false;
+    }
+};
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker* obj = new StreamChecker(words);
+ * bool param_1 = obj-&gt;query(letter);
+ */
+</PRE>
+</BODY>
+</HTML>
