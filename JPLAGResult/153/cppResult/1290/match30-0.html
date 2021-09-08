@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>32_wnjxyk.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>32_wnjxyk.cpp</CENTER></H3><HR>
+<PRE>
+int pool[2050];
+int dp[2050][2050];
+class Solution {
+public:
+    int makeArrayIncreasing(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        int n=arr1.size(), m=arr2.size();
+        
+        for (int i=0; i&lt;m; i++) pool[i]=arr2[i];
+        sort(pool, pool+m);
+<A NAME="0"></A>        m=unique(pool, pool+m)-pool;
+        
+        memset(dp, -1, sizeof(dp));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        dp[0][m]=0; for (int i=0; i&lt;m; i++) dp[0][i]=1;
+        for (int i=0; i&lt;n-1; i++){
+            for (int j=0; j&lt;=m; j++){
+                if (dp[i][j]==-1) continue;</B></FONT>
+                int now_v=(j==m?arr1[i]:pool[j]);
+                // Don't
+                if (arr1[i+1]&gt;now_v){
+                    if (dp[i+1][m]==-1 || dp[i+1][m]&gt;dp[i][j]) dp[i+1][m]=dp[i][j];
+                }
+                // Modify
+                int nxt_p=upper_bound(pool, pool+m, now_v)-pool;
+                if (nxt_p&lt;m){
+                    // printf(&quot;Change(%d) %d-&gt;%d\n&quot;, i, arr1[i], pool[nxt_p]);
+                    if (dp[i+1][nxt_p]==-1 || dp[i+1][nxt_p]&gt;dp[i][j]+1) dp[i+1][nxt_p]=dp[i][j]+1;
+                }
+            }
+        }
+        
+        int ans=-1;
+        for (int i=0; i&lt;=m; i++){
+            if (dp[n-1][i]==-1) continue;
+            if (ans==-1 || ans&gt;dp[n-1][i]) ans=dp[n-1][i];
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

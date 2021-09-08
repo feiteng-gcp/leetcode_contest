@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_learnermn.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_learnermn.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maximumSum(vector&lt;int&gt;&amp; arr) {
+        int n = arr.size();
+
+        vector&lt; int &gt; f(n, 0), b(n, 0);
+
+        int cmax = arr[0], rmax = arr[0]; 
+
+        f[0] = arr[0]; 
+        for (int i=1; i&lt;n; i++) { 
+            cmax = max(arr[i], cmax + arr[i]); 
+            rmax = max(rmax, cmax); 
+            f[i] = cmax; 
+        } 
+
+        cmax = rmax = b[n-1] = arr[n-1]; 
+        for (int i=n-2; i&gt;=0; i--){ 
+            cmax = max(arr[i], cmax + arr[i]); 
+            rmax = max(rmax, cmax); 
+            b[i] = cmax; 
+        } 
+
+        int res = rmax; 
+
+        for (int i = 1; i &lt; n - 1; i++) 
+            res = max(res, f[i - 1] + b[i + 1]); 
+
+        return res; 
+    } 
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

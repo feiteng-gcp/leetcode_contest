@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>102_zqy1018.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>102_zqy1018.cpp</CENTER></H3><HR>
+<PRE>
+int f[2005][2005], g[2005];
+int mini[2005];
+class Solution {
+public:
+    int makeArrayIncreasing(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        sort(arr2.begin(), arr2.end());
+        int n = arr1.size(), m = arr2.size();
+        m = unique(arr2.begin(), arr2.end()) - arr2.begin();
+        while (arr2.size() &gt; m)
+            arr2.pop_back();
+        memset(f, 0x3f, sizeof(f));
+        memset(g, 0x3f, sizeof(g));
+<A NAME="0"></A>        memset(mini, 0, sizeof(mini));
+        mini[0] = 0x3f3f3f3f;
+        g[0] = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int j = 1; j &lt;= m; ++j)
+            f[0][j] = 0;
+        for (int i = 1; i &lt;= n; ++i){
+            int mmini = 0x3f3f3f3f;
+            for (int j = 1; j &lt;= m; ++j){</B></FONT>
+                int t = 0x3f3f3f3f;
+                if (i == 1 || arr1[i - 1] &gt; arr1[i - 2])
+                    t = min(t, g[i - 1]);
+                int lb = lower_bound(arr2.begin(), arr2.end(), arr1[i - 1]) - arr2.begin();
+                if (lb &gt;= 1 &amp;&amp; lb &lt;= m)
+                    t = min(t, mini[lb]);
+                g[i] = min(g[i], t);
+                
+                t = 0x3f3f3f3f;
+                if (i == 1 || arr2[j - 1] &gt; arr1[i - 2])
+                    t = min(t, g[i - 1]);
+                t = min(t, mmini);
+                f[i][j] = t + 1;
+                mmini = min(mmini, f[i - 1][j]);
+
+                //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; f[i][j] &lt;&lt; endl;
+<A NAME="1"></A>            }
+            mini[0] = 0x3f3f3f3f;
+            for (int j = 1; j &lt;= m; ++j)
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                mini[j] = min(mini[j - 1], f[i][j]);
+        }
+        int ans = g[n];
+        for (int i = 1; i &lt;= m; ++i)
+            ans = min(ans, f[n][i]);
+        //for (int i = 1; i &lt;= n; ++i)
+        //    cout &lt;&lt; g[i] &lt;&lt; endl;
+        return ans == 0x3f3f3f3f ? -1: ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

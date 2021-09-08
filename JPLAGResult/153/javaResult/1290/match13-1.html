@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>59_lydxlx.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>59_lydxlx.java</CENTER></H3><HR>
+<PRE>
+import java.util.*;
+import java.math.*;
+import java.util.stream.*;
+<A NAME="0"></A>
+public class Solution {
+
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Map&lt;Long, Integer&gt; f;
+    int[] arr1, arr2;
+    TreeSet&lt;Integer&gt; tree;
+<A NAME="1"></A>
+    public int makeArrayIncreasing(int[] arr1, int[] arr2) {
+        a</B></FONT>rr2 = IntStream.of(arr2).distinct().sorted().toArray();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>this.arr1 = arr1;
+        this.arr2 = arr2;
+        tree = new TreeSet&lt;&gt;();
+        for (int i : arr2) {
+            tree.add(i);
+        }</B></FONT>
+
+//        int[] combined = IntStream.concat(IntStream.of(arr1), IntStream.of(arr2)).distinct().sorted().toArray();
+//        int[] pred = new int[combined.length];
+//
+//
+//        Arrays.fill(pred, -1);
+//        for (int i = 0, j = -1; i &lt; pred.length; i++) {
+//            if (Arrays.binarySearch(arr2, combined[i]) &gt;= 0) {
+//                j = i;
+//            }
+//            pred[i] = j;
+//        }
+//
+//        int[][] f = new int[arr1.length][combined.length];
+//        int inf = 1 &lt;&lt; 29;
+//        for (int i = 0; i &lt; f.length; i++) {
+//            for (int j = 0; j &lt; combined.length; j++) {
+//                f[i][j] = inf;
+//
+//                if (i == 0) {
+//                    if (arr1[i] &lt;= combined[j]) {
+//                        f[i][j] = 0;
+//                    } else if (arr1[0] &lt;= combined[j]) {
+//                        f[i][j] = 1;
+//                    }
+//                } else {
+//                    if (arr1[i] &lt;= combined[j]) {
+//                        f[i][j] = Math.min(f[i][j], f[i - 1][]
+//                    } else {
+//                        f[i][j] = Math.min(f[i][j], f[i - 1][pred[j]]);
+//                    }
+//                }
+//            }
+//        }
+
+        f = new HashMap&lt;&gt;();
+        int n = arr1.length, m = arr2.length;
+        int ans = Math.min(f(n - 1, arr1[n - 1]), f(n - 1, arr2[m - 1]));
+        return ans &lt; (1 &lt;&lt; 29) ? ans : -1;
+    }
+
+    int f(int i, int last) {
+        if (i == 0) {
+            if (arr1[i] &lt;= last) {
+                return 0;
+            } else if (arr2[0] &lt;= last) {
+                return 1;
+            } else {
+                return 1 &lt;&lt; 29;
+            }
+        }
+        long key = last * 10000L + i;
+        if (f.containsKey(key)) {
+            return f.get(key);
+        }
+<A NAME="2"></A>
+        int ans = 1 &lt;&lt; 29;
+        if (arr1[i] &lt;= last) {
+            ans = Math.min(ans, <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>f(i - 1, arr1[i] - 1));
+        }
+        Integer hehe = tree.floor(last);
+        if (hehe != null) {
+            ans = Math.min(ans, 1 + f</B></FONT>(i - 1, hehe - 1));
+        }
+
+        f.put(key, ans);
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        System.out.println(sol.makeArrayIncreasing(new int[]{1, 5, 3, 6, 7}, new int[]{1, 3, 2, 4}));
+        System.out.println(sol.makeArrayIncreasing(new int[]{1, 5, 3, 6, 7}, new int[]{4, 3, 1}));
+        System.out.println(sol.makeArrayIncreasing(new int[]{1, 5, 3, 6, 7}, new int[]{1, 6, 3, 3}));
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

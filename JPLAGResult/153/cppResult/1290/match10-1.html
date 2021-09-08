@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_OTTFF.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_OTTFF.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;int&gt; x;
+    int find(int v)
+    {
+        return lower_bound(x.begin(),x.end(),v)-x.begin();
+    }
+    int INF=0x3f3f3f3f;
+    int makeArrayIncreasing(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        for(int i:arr1) x.push_back(i);
+        for(int i:arr2) x.push_back(i);
+        sort(x.begin(),x.end());
+        x.erase(unique(x.begin(),x.end()),x.end());
+        int n=arr1.size();
+        for(int i=0;i&lt;n;i++)
+            arr1[i]=find(arr1[i]);
+        int m=arr2.size();
+        sort(arr2.begin(),arr2.end());
+        arr2.erase(unique(arr2.begin(),arr2.end()),arr2.end());
+        for(int i=0;i&lt;m;i++)
+            arr2[i]=find(arr2[i]);
+        // for(int i=0;i&lt;n;i++)
+        //     cout&lt;&lt;arr1[i]&lt;&lt;&quot; &quot;;
+        // cout&lt;&lt;endl;
+        // for(int i=0;i&lt;m;i++)
+<A NAME="0"></A>        //     cout&lt;&lt;arr2[i]&lt;&lt;&quot; &quot;;
+        // cout&lt;&lt;endl;
+        int k=x.size();
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        vector&lt;vector&lt;int&gt; &gt; dp(n+1,vector&lt;int&gt;(k,INF));
+        for(int i=0;i&lt;m;i++)
+            dp[0][arr2[i]]=1;
+        dp[0][arr1[0]]=0;
+        for(int i=1;i&lt;n;i++)
+        {
+            int mi=INF;
+            for(int j=0;j&lt;k;j++)
+            {
+                mi=min(mi,dp[i-1][j]);
+                dp[i-1][j]=mi;
+            }
+            for(int j=0;j&lt;m;j++)
+            {
+                if(arr2[j]) dp[i][arr2[j]]=dp[i-1][arr2[j]-1]+1;
+            }</B></FONT>
+            if(arr1[i])
+                dp[i][arr1[i]]=min(dp[i][arr1[i]],dp[i-1][arr1[i]-1]);
+                
+            // //cout&lt;&lt;i&lt;&lt;endl;
+            // int mi=INF;
+            // int p=0,f=1;
+            // for(int j=0;j&lt;m;j++)
+            // {
+            //     if(f&amp;&amp;arr1[i]&lt;=arr2[j])
+            //     {
+            //         while(p&lt;k&amp;&amp;p&lt;arr1[i])
+            //             mi=min(mi,dp[i-1][p++]);
+            //         dp[i][arr1[i]]=mi;
+            //         f=0;
+            //         if(arr1[i]==arr2[j]) continue;
+            //     }
+            //     while(p&lt;k&amp;&amp;p&lt;arr2[j])
+            //         mi=min(mi,dp[i-1][p++]);
+            //     dp[i][arr2[j]]=mi+1;
+            // }
+            // if(f)
+            // {
+            //     while(p&lt;k&amp;&amp;p&lt;arr1[i])
+            //         mi=min(mi,dp[i-1][p++]);
+            //     dp[i][arr1[i]]=mi;
+            // }
+            // cout&lt;&lt;&quot;!!!! &quot;&lt;&lt;dp[i][arr1[i]]&lt;&lt;endl;
+        }
+        int ans=INF;
+        for(int i=0;i&lt;k;i++)
+            ans=min(ans,dp[n-1][i]);
+        return ans==INF?-1:ans;
+    }
+};
+
+/*
+[1,5,3,6,7]
+[1,3,2,4]
+[1,5,3,6,7]
+[4,3,1]
+[1,5,3,6,7]
+[1,6,3,3]
+*/
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>113_nguyen_hoanh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>113_nguyen_hoanh.cpp</CENTER></H3><HR>
+<PRE>
+#define INF 1000000000
+
+class Solution {
+public:
+    int cost(int a, int b, const unordered_set&lt;int&gt;&amp; arr2_values) {
+        if (a == b) return 0;
+        if (arr2_values.find(b) == arr2_values.end()) return INF;
+        return 1;
+    }
+    
+    int makeArrayIncreasing(vector&lt;int&gt;&amp; arr1, vector&lt;int&gt;&amp; arr2) {
+        unordered_set&lt;int&gt; arr2_values(arr2.begin(), arr2.end());
+        
+        vector&lt;int&gt; values = arr1;
+        values.insert(values.end(), arr2.begin(), arr2.end());
+        
+        sort(values.begin(), values.end());
+        auto it = unique(values.begin(), values.end());
+        values.resize(it - values.begin());
+        
+        /*r (int&amp; x : values) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+        cout &lt;&lt; endl;
+        cout &lt;&lt; endl;*/
+        
+<A NAME="0"></A>        int n = arr1.size(), m = values.size();
+        vector&lt;vector&lt;int&gt;&gt; f(n, vector&lt;int&gt;(m, INF));
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; n; ++i) {
+            int min_ = INF;
+                
+            for (int j = 0; j &lt; m; ++j) {
+                if (i == 0) {
+                    f[i][j] = cost(arr1[i], values[j], arr2_values);</B></FONT>
+<A NAME="1"></A>                }
+                else if (j == 0) {
+                    f[i][j] = INF;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    min_ = min(min_, f[i-1][j]);
+                }
+                else {
+                    f[i][j] = min(f[i][j], min_ + cost(arr1[i], values[j], arr2_values));
+                    min_ = min(min_, f[i-1][j]);
+                }
+            }
+        }
+        
+        /*r (int i = 0; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                if (f[i][j] == INF) cout &lt;&lt; &quot;# &quot;;
+                else cout &lt;&lt; f[i][j] &lt;&lt; &quot; &quot;;
+            }
+            cout &lt;&lt; endl;
+        }*/
+        
+        int res = INF;
+        for (int j = 0; j &lt; m; ++j) {</B></FONT>
+            res = min(res, f[n-1][j]);
+        }
+        if (res == INF) res = -1;
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
