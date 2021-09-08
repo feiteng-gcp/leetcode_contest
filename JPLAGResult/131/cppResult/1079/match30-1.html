@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_natsugiri.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_natsugiri.cpp</CENTER></H3><HR>
+<PRE>
+#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+#include&lt;string.h&gt;
+
+#ifdef LOCAL
+#define eprintf(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define NDEBUG
+#define eprintf(...) do {} while (0)
+#endif
+#include&lt;cassert&gt;
+
+using namespace std;
+
+typedef long long LL;
+typedef vector&lt;int&gt; VI;
+
+#define REP(i,n) for(int i=0, i##_len=(n); i&lt;i##_len; ++i)
+#define EACH(i,c) for(__typeof((c).begin()) i=(c).begin(),i##_end=(c).end();i!=i##_end;++i)
+
+template&lt;class T&gt; inline void amin(T &amp;x, const T &amp;y) { if (y&lt;x) x=y; }
+template&lt;class T&gt; inline void amax(T &amp;x, const T &amp;y) { if (x&lt;y) x=y; }
+template&lt;class Iter&gt; void rprintf(const char *fmt, Iter begin, Iter end) {
+    for (bool sp=0; begin!=end; ++begin) { if (sp) putchar(' '); else sp = true; printf(fmt, *begin); }
+    putchar('\n');
+}
+template&lt;unsigned MOD&gt; struct ModInt {
+    static const unsigned static_MOD = MOD;
+    unsigned x;
+    void undef() { x = (unsigned)-1; }
+    bool isnan() const { return x == (unsigned)-1; }
+    inline int geti() const { return (int)x; }
+    ModInt() { x = 0; }
+    ModInt(const ModInt &amp;y) { x = y.x; }
+    ModInt(int y) { if (y&lt;0 || (int)MOD&lt;=y) y %= (int)MOD; if (y&lt;0) y += MOD; x=y; }
+    ModInt(unsigned y) { if (MOD&lt;=y) x = y % MOD; else x = y; }
+    ModInt(long long y) { if (y&lt;0 || MOD&lt;=y) y %= MOD; if (y&lt;0) y += MOD; x=y; }
+    ModInt(unsigned long long y) { if (MOD&lt;=y) x = y % MOD; else x = y; }
+    ModInt &amp;operator+=(const ModInt y) { if ((x += y.x) &gt;= MOD) x -= MOD; return *this; }
+    ModInt &amp;operator-=(const ModInt y) { if ((x -= y.x) &amp; (1u&lt;&lt;31)) x += MOD; return *this; }
+    ModInt &amp;operator*=(const ModInt y) { x = (unsigned long long)x * y.x % MOD; return *this; }
+    ModInt &amp;operator/=(const ModInt y) { x = (unsigned long long)x * y.inv().x % MOD; return *this; }
+    ModInt operator-() const { return (x ? MOD-x: 0); }
+
+    ModInt inv() const {
+	unsigned a = MOD, b = x; int u = 0, v = 1;
+	while (b) {
+	    int t = a / b;
+	    a -= t * b; swap(a, b);
+	    u -= t * v; swap(u, v);
+	}
+	if (u &lt; 0) u += MOD;
+	return ModInt(u);
+    }
+    ModInt pow(long long y) const {
+	ModInt b = *this, r = 1;
+	if (y &lt; 0) { b = b.inv(); y = -y; }
+	for (; y; y&gt;&gt;=1) {
+	    if (y&amp;1) r *= b;
+	    b *= b;
+	}
+	return r;
+    }
+    friend ModInt operator+(ModInt x, const ModInt y) { return x += y; }
+    friend ModInt operator-(ModInt x, const ModInt y) { return x -= y; }
+    friend ModInt operator*(ModInt x, const ModInt y) { return x *= y; }
+    friend ModInt operator/(ModInt x, const ModInt y) { return x *= y.inv(); }
+    friend bool operator&lt;(const ModInt x, const ModInt y) { return x.x &lt; y.x; }
+    friend bool operator==(const ModInt x, const ModInt y) { return x.x == y.x; }
+    friend bool operator!=(const ModInt x, const ModInt y) { return x.x != y.x; }
+};
+
+const LL MOD = 1000000007;
+//const LL MOD = 998244353;
+typedef ModInt&lt;MOD&gt; Mint;
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    Mint ans;
+<A NAME="0"></A>    void rec(TreeNode *x, Mint v) {
+	if (!x) return;
+	v = v * 2 + x-&gt;val;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>	if (x-&gt;left == 0 &amp;&amp; x-&gt;right == 0) {
+	    ans += v;
+	    return;
+	}
+	if (x-&gt;left) rec(x-&gt;left, v);
+	if (x-&gt;right) rec(x-&gt;right, v);
+    }
+    int sumRootToLeaf(TreeNode* root) {
+	ans = 0;
+	rec(root, 0);
+	return ans.geti();
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
