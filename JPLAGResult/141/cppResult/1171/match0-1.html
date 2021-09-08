@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>284_915507430.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>284_915507430.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>struct node
+{
+	int x;
+	int y;
+	int step;
+};
+class Solution {
+public:
+	int shortestPathBinaryMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+
+		int xx[8] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+		int yy[8] = { 1, 0, -1, 1, -1, 1, 0, -1 };
+
+		int n = grid.size();
+		int m = grid[0].size();
+
+		if (grid[0][0] == 1)
+			return -1;
+
+		node now,next;
+		now.x = 0;
+		now.y = 0;
+		now.step = 1;
+
+		queue&lt;node&gt;q;
+
+		q.push(now);
+
+		vector&lt;vector&lt;bool&gt;&gt; vis(n, vector&lt;bool&gt;(m, false));
+
+		vis[now.x][now.y] = true;
+
+		while (!q.empty())
+		{
+			now = q.front();
+			q.pop();
+			if (now.x == n - 1 &amp;&amp; now.y == m - 1)
+				return now.step;
+			for (int i = 0; i &lt; 8; i++)
+			{
+				next.x = now.x + xx[i];
+				next.y = now.y + yy[i];
+				next.step = now.step + 1;
+
+				if (next.x &lt; 0 || next.x &gt;= n || next.y &lt; 0 || next.y &gt;= m || vis[next.x][next.y] == true || grid[next.x][next.y] == 1)
+					continue;
+
+				vis[next.x][next.y] = true;
+				q.push(next);
+			}
+		}
+
+		return -1;
+
+	}
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

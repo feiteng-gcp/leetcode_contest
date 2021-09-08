@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>162_heapq.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>162_heapq.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -&gt; int:
+        vx, vy = [-1,-1,-1,0,0,0,1,1,1], [-1,0,1,-1,0,1,-1,0,1]
+        flag = [[False] * 101 for i in range(101)]
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if len(grid) == 0 or len(grid[0]) == 0:
+            return -1
+        m, n = len(grid), len(grid[0])
+        if grid[0][0] != 0 or grid[-1][-1] != 0:
+            r</B></FONT>eturn -1
+        if m == 1:
+            return 1
+        q = collections.deque([(0,0,1)])
+        flag[0][0] = True
+        while q:
+            p = q.popleft()
+            for i in range(9):
+                x, y = p[0] + vx[i], p[1] + vy[i]
+                if x &lt;0 or y &lt; 0 or x &gt;= n or y &gt;=n:
+                    continue
+                if grid[x][y] == 1:
+                    continue
+                if flag[x][y]:
+                    continue
+                if x == n- 1 and y == n-1:
+                    return p[-1] + 1
+                flag[x][y] = True
+                q.append((x,y,p[-1]+1))
+        return -1
+        
+        
+        
+        
+        
+# int vx[] = {-1,-1,-1,0,0,0,1,1,1};
+# int vy[] = {-1,0,1,-1,0,1,-1,0,1};
+# class Solution {
+# public:
+#     struct point {
+#         int x, y, l;
+#         point(int _x = 0, int _y = 0, int _l = 0): x(_x), y(_y), l(_l) {}
+#     };
+#     bool flag[101][101];
+#     int shortestPathBinaryMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+#         memset(flag, false, sizeof(flag));
+#         queue&lt;point&gt; Q;
+#         int n = grid.size();
+#         if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) {
+#             return -1;
+#         }
+#         if (n == 1) {
+#             return 1;
+#         }
+#         Q.push(point(0, 0, 1));
+#         flag[0][0] = true;
+#         while (!Q.empty()) {
+#             point p = Q.front();
+#             Q.pop();
+#             for (int i = 0;i &lt; 9;i++) {
+#                 int x = p.x + vx[i];
+#                 int y = p.y + vy[i];
+#                 if (x &lt; 0 || y &lt; 0 || x &gt;= n || y &gt;= n) {
+#                     continue;
+#                 }
+#                 if (grid[x][y] == 1) {
+#                     continue;
+#                 }
+#                 if (flag[x][y]) {
+#                     continue;
+#                 }
+#                 if (x == n - 1 &amp;&amp; y == n - 1) {
+#                     return p.l + 1;
+#                 }
+#                 flag[x][y] = true;
+#                 Q.push(point(x, y, p.l + 1));
+#             }   
+#         }
+#         return -1;
+#     }
+# };
+        # if len(grid) == 0 or len(grid[0]) == 0:
+        #     return 0
+        # m, n = len(grid), len(grid[0])
+        # if grid[0][0] != 0 or grid[-1][-1] != 0:
+        #     return -1
+        # def bfs(graph, start): # iterative
+        #     visited, queue = set(), [start]
+        #     while queue:
+        #         vertex = queue.pop(0)
+        #         if vertex not in visited:
+        #             visited.add(vertex)
+        #             x, y = vertex
+        #             for i, j in [[0,1], [0,-1], [1,0], [-1,0], [1,1], [-1,1], [1,-1], [-1,-1]]:
+        #                 if 0 &lt;= x + i &lt; m and 0 &lt;= y + j &lt; n:
+        #                     if (x+i, y+j) not in visited and grid[x+i][y+j] == 0:
+        #                         # visited.add(vertex)
+        #                         queue.append((x+i, y+j))
+        #             # queue.extend(graph[vertex] - set(visited))
+        #     print(visited)
+        #     return visited
+        # v = bfs(grid, (0,0))
+        # if not v or (v and (m-1,n -1) not in v):
+        #     return -1
+        # return len(v)
+</PRE>
+
+</BODY>
+</HTML>

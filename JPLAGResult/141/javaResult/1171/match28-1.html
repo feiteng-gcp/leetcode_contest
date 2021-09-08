@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_payall4u.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>192_payall4u.java</CENTER></H3><HR>
+<PRE>
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        if (grid[0][0] == 1) return -1;
+        int[][] ans = bfs(grid);
+        return ans[ans.length - 1][ans[0].length - 1];
+    }
+
+    public int[][] bfs(int[][] grid) {
+        int x = grid.length, y = grid[0].length;
+        boolean[][] visited = new boolean[x][y];
+        int[][] cube = new int[x][y];
+
+        for (int i = 0; i &lt; x; i++) {
+            for (int j = 0; j &lt; y; j++) {
+                cube[i][j] = -1;
+            }
+        }
+
+<A NAME="1"></A>        cube[0][0] = 1;
+
+        Queue&lt;int[]&gt; q = new LinkedList&lt;&gt;();
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(new int[]{0, 0});
+<A NAME="0"></A>        visited[0][0] = true;
+        while (!q.isEmpty()) {
+            int[] par = q.poll</B></FONT>();
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int nx = par[0];
+            int ny = par[1];
+            int[][] ds = {{1, 1}, {1, 0}, {1, -1}, {0, 1}, {0, -1}, {-1, 0}, {-1, 1}, {-1, -1}</B></FONT>};
+            for (int[] d : ds) {
+                int tx = nx + d[0];
+<A NAME="2"></A>                int ty = ny + d[1];
+                if (isValid(tx, ty, grid, visited)) {
+                    cube[tx][ty] = cube[nx][ny] + 1;
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#2',2,'match28-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(new int[]{tx, ty});
+                    visited[tx][ty] = true;
+                }
+            }
+        }
+        return cube;
+    }</B></FONT>
+
+    public boolean isValid(int x, int y, int[][] grid, boolean[][] visited) {
+        return 0 &lt;= x &amp;&amp; x &lt; grid.length &amp;&amp; 0 &lt;= y &amp;&amp; y &lt; grid[0].length &amp;&amp; grid[x][y] == 0 &amp;&amp; !visited[x][y];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

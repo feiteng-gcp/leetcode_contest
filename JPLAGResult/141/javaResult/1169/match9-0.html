@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>243_elevenyeast.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>243_elevenyeast.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+    public int largestValsFromLabels(int[] values, int[] labels, int num_wanted, int use_limit) {
+        // Sort
+        int n = values.length;
+        int[][] pair = new int[n][2];
+        
+<A NAME="1"></A>        for(int i=0;i&lt;n;i++){
+            p</B></FONT>air[i][0] = labels[i];
+            pair[i][1] = values[i];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match9-1.html#1',3,'match9-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        Arrays.sort(pair, new Comparator&lt;int[]&gt;(){
+           public int compare(int[] a, int[] b){
+               return b[1] - a[1];
+           }
+        });
+        
+        // Map: size &lt; use_limit
+        Map&lt;Integer, Integer&gt; countMap = new HashMap&lt;&gt;()</B></FONT>;
+        int sum = 0, cnt = 0;
+        
+        for(int i=0;i&lt;n;i++){
+            if(cnt &gt;= num_wanted)   break;
+            int lab = pair[i][0], val = pair[i][1];
+            // if(!countMap.containsKey(lab)){
+            //     countMap.put(lab, new ArrayList&lt;&gt;());
+            // }
+            
+            if(countMap.getOrDefault(lab, 0) &gt;= use_limit)   continue;
+            else{
+                countMap.put(lab, countMap.getOrDefault(lab,0) + 1);
+                cnt++;
+                sum += val;
+            }
+        }
+        
+        return sum;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

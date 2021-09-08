@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_fanzhh.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_fanzhh.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestCommonSupersequence(self, str1: str, str2: str) -&gt; str:
+        # obtain the shortest common subsequence
+        def LCSeq(a: str, b: str):  # return the length of the longest common sequence and one such sequence
+            dp = []
+            sta = []  # construct the LCS
+            for i in range(len(b) + 1):  # dp len(b)+1 rows len(a)+1 cols
+                dp.append([0] * (len(a) + 1))  # initialize dp
+                sta.append([0] * (len(a) + 1))  # initialize b
+            for i in range(1, len(b)+1):  # each row i
+                # check element b[i-1]
+                for j in range(1, len(a)+1):  # each col j
+<A NAME="0"></A>                    if a[j-1] == b[i-1]:
+                        dp[i][j] = dp[i-1][j-1] + 1
+                        sta[i][j] = 1
+                    elif dp<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i-1][j] &gt;= dp[i][j-1]:
+                        dp[i][j] = dp[i-1][j]
+                        sta[i][j] = 2
+                    else:
+                        dp[i][</B></FONT>j] = dp[i][j-1]
+                        sta[i][j] = 3
+            def LCS(i, j):
+                if i == 0 or j == 0:
+                    return &quot;&quot;
+                if sta[i][j] == 1:
+                    return b[i-1] + LCS(i-1, j-1)
+                elif sta[i][j] == 2:
+                    return LCS(i-1, j)
+                else:
+                    return LCS(i, j-1)
+            LCS_ab = LCS(len(b), len(a))
+            return dp[len(b)][len(a)], LCS_ab[::-1]
+        
+        sublen, subseq = LCSeq(str1, str2)
+        i = 0
+        j = 0
+        s = 0
+        n1 = len(str1)
+        n2 = len(str2)
+        res = &quot;&quot;
+        # while i &lt; n1 or j &lt; n2:
+        #     if i == n1:
+        #         res = res + str2[j:]
+        #         break
+        #     if j == n2:
+        #         res = res + str1[i:]
+        #         break
+        #     if str1[i] == subseq[s] and str2[j] == subseq[s]:
+        #         res = res + str1[i]
+        #         i += 1
+        #         j += 1
+        #         s += 1
+        #     elif str1[i] == subseq[s]:
+        #         res = res + str1[i]
+        #         i += 1
+        #         while j &lt; n2 and str2[j] != subseq[s]:
+        #             res = res + str2[j]
+        #             j += 1
+        #         s += 1
+        #     elif str2[j] == subseq[s]:
+        #         res = res + str2[j]
+        #         j += 1
+        #         while i &lt; n1 and str1[i] != subseq[s]:
+        #             res = res + str1[i]
+        #             i += 1
+        #         s += 1
+        #     else:
+        #         res = res + str1[i] + str2[j]
+        #         i += 1
+        #         j += 1
+        # return res
+        
+        while i &lt; n1 or j &lt; n2:
+            if i == n1:
+                res = res + str2[j:]
+                break
+            elif j == n2:
+                res = res + str1[i:]
+                break
+            if s == sublen:
+<A NAME="1"></A>                res = res + str1[i:]
+                res = res + str2[j:]
+                break
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while i &lt; n1 and str1[i] != subseq[s]:
+                res = res + str1[i]
+                i += 1
+            while j &lt; n2 and str2[j] != subseq[s]:
+                res = res + str2[j]
+                j += 1
+            res = res + subseq[s]
+            i += 1
+            j += 1
+            s +</B></FONT>= 1
+        return res
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

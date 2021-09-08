@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_lobeyjon.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>268_lobeyjon.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n=grid.size();
+        if(!n) return -1;
+<A NAME="0"></A>        int m=grid[0].size();
+        if(!m) return -1;
+        if(grid[0][0]==1||grid[n-1][m-1]==1) return -1;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int dir[8][2]={{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};</B></FONT>
+        int vis[n*m+10];
+        memset(vis, 0, sizeof(vis));
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+        q.push(make_pair(0, 1));
+        vis[0]=1;
+        while(!q.empty()) {
+            int pos=q.front().first, k=q.front().second;
+<A NAME="1"></A>            q.pop();
+            int x=pos/m, y=pos%m;
+            ++k;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int i=0;i&lt;8;++i) {
+                int xx=x+dir[i][0];
+                int yy=y+dir[i][1];
+                if(xx==n-1&amp;&amp;yy==m-1) return k;
+                if(xx&gt;=0&amp;&amp;yy&gt;=0&amp;&amp;xx&lt;n&amp;&amp;yy&lt;m&amp;&amp;!vis[xx*m+yy]&amp;&amp;grid[xx][yy]==0)  {
+                    q.push(make_pair(xx*m+yy, k));
+                    vis[xx*m+yy]=1;
+                }
+            }
+        }</B></FONT>
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

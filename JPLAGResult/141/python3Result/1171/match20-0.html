@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>269_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>269_wxy9018.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -&gt; int:
+        # BFS.
+        if grid[0][0] == 1 or grid[-1][-1] == 1:
+            return -1
+        
+        R, C = len(grid), len(grid[0])
+        
+        
+        visited = [[False] * C for _ in range(R)]
+<A NAME="1"></A>        visited[</B></FONT>0][0] = True
+        
+        def neighbors(r, c):
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for nr, nc in [[r+1, c], [r, c+1], [r-1, c], [r, c-1], [r+1, c+1], [r-1, c-1], [r+1, c-1], [r-1, c+1]]:
+                if 0 &lt;= nr &lt; R and 0 &lt;= nc &lt; C and grid[nr][</B></FONT>nc] == 0:
+                    yield nr, nc
+        
+        queue = collections.deque([[[0,0], 1]])
+        
+        while queue:
+            elem, steps = queue.popleft()
+            print(elem, [R-1, C-1])
+            if elem == [R-1, C-1]:
+                return steps
+            for nr, nc in neighbors(elem[0], elem[1]):
+                if visited[nr][nc] == False:
+                    visited[nr][nc] = True
+                    queue.append([[nr,nc], steps + 1])
+            # print(queue)
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

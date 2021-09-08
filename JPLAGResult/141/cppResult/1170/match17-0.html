@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>420_Rui_Huang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>420_Rui_Huang.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string shortestCommonSupersequence(string X, string Y) {
+        int m = X.length(); 
+        int n = Y.length();
+        
+        int dp[m + 1][n + 1];
+        
+        for (int i = 0; i &lt;= m; i++) 
+        { 
+            for (int j = 0; j &lt;= n; j++) 
+            { 
+            // Below steps follow recurrence relation 
+                if(i == 0) 
+                    dp[i][j] = j; 
+                else if(j == 0) 
+                    dp[i][j] = i; 
+                else if(X[i - 1] == Y[j - 1]) 
+                    dp[i][j] = 1 + dp[i - 1][j - 1]; 
+                else
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1]); 
+            } 
+        } 
+        
+    // Following code is used to print shortest supersequence 
+    // dp[m][n] stores the length of the shortest supersequence of X and Y 
+        int index = dp[m][n];
+        string str;
+        
+        int i = m, j = n; 
+        while (i &gt; 0 &amp;&amp; j &gt; 0) 
+        { 
+        // If current character in X and Y are same, then 
+        // current character is part of shortest supersequence 
+            if (X[i - 1] == Y[j - 1]) 
+            { 
+            // Put current character in result 
+                str.push_back(X[i - 1]); 
+  
+            // reduce values of i, j and index 
+                i--, j--, index--; 
+            } 
+  
+        // If current character in X and Y are different 
+            else if (dp[i - 1][j] &gt; dp[i][j - 1]) 
+            { 
+            // Put current character of Y in result 
+                str.push_back(Y[j - 1]); 
+  
+            // reduce values of j and index 
+                j--, index--; 
+            } 
+            else
+            { 
+                // Put current character of X in result 
+                str.push_back(X[i - 1]); 
+  
+                // reduce values of i and index 
+                i--, index--; 
+            } 
+        }
+        
+        // If Y reaches its end, put remaining characters 
+    // of X in the result string 
+        while (i &gt; 0) 
+        { 
+            str.push_back(X[i - 1]); 
+            i--, index--; 
+        } 
+        
+        // If X reaches its end, put remaining characters 
+    // of Y in the result string 
+        while (j &gt; 0) 
+        { 
+            str.push_back(Y[j - 1]); 
+            j--, index--; 
+        } 
+        
+        reverse(str.begin(), str.end()); 
+        return str;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>212_ChangWenting.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>212_ChangWenting.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestCommonSupersequence(self, str1: str, str2: str) -&gt; str:
+        if len(str1) &lt; len(str2):
+            str1, str2 = str2, str1 
+        res = str1
+        m = len(str1) 
+        n = len(str2) 
+
+        dp = [[None]*(n + 1) for i in range(m + 1)] 
+
+<A NAME="0"></A>        for i in range(m + 1): 
+            for j in range(n + 1): 
+                if i == 0 or j == 0 : 
+                    dp<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i][j] = 0
+                elif str1[i-1] == str2[j-1]: 
+                    dp[i][j] = dp[i-1][j-1]+1
+                else: 
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]) 
+        #print(dp[m][n])
+        index =</B></FONT> dp[m][n]
+  
+        # Create a character array to store the lcs string 
+        lcs = [&quot;&quot;] * (index+1) 
+        lcs[index] = &quot;&quot; 
+
+        # Start from the right-most-bottom-most corner and 
+        # one by one store characters in lcs[] 
+        i = m 
+        j = n 
+        while i &gt; 0 and j &gt; 0: 
+
+            # If current character in X[] and Y are same, then 
+            # current character is part of LCS 
+            if str1[i-1] == str2[j-1]: 
+                lcs[index-1] = str1[i-1] 
+                i-=1
+                j-=1
+                index-=1
+
+            # If not same, then find the larger of two and 
+            # go in the direction of larger value 
+            elif dp[i-1][j] &gt; dp[i][j-1]: 
+                i-=1
+            else: 
+                j-=1
+        l = len(lcs) - 1
+        #print(lcs)
+        ind = 0
+        p = 0
+        for ch in str2:
+            if ind &lt; l:
+                if ch == lcs[ind]:
+                    ind += 1
+                    while p &lt; len(res):
+                        if res[p] == ch:
+                            break
+                        p += 1
+                else:
+                    res = res[:p] + ch + res[p:]
+                p += 1
+            else:
+                res += ch
+        return res
+                    
+                
+</PRE>
+
+</BODY>
+</HTML>

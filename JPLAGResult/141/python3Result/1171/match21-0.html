@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>203_bilawalraja.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>203_bilawalraja.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>import heapq
+from math import inf
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -&gt; int:
+        n = len(grid)
+<A NAME="1"></A>        if grid[0][0] != 0 or grid[-1][-1] != 0:
+            return -1
+        # pq = [(0, 0, 0)]
+        neighbors =</B></FONT> lambda x, y: [<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(x+1, y), (x-1, y), (x, y+1), (x, y-1), (x+1, y+1), (x-1, y+1), (x-1, y-1), (x+1, y-1)]
+        # dist = [[inf for _ in range(n)] for _ in range(n)]
+        # dist[0][0] = 0
+        # while len(pq) &gt; 0:
+        #     d, x, y = pq
+        #     if d[x][y] &lt; d:
+        #         continue
+        #     for n in neighbors(x, y):
+        #         a, b = n
+        #         d2 = d + 1
+        #         if grid[a][b] == 0 and d2 &lt; dist[][]
+        q = [(0</B></FONT>, 0, 1)]
+        visited = set()
+        while len(q) &gt; 0:
+            x, y, d = q.pop(0)
+            nes = [ne for ne in neighbors(x, y) if n &gt; ne[0] &gt;= 0 and n &gt; ne[1] &gt;= 0]
+            for ne in nes:
+                a, b = ne
+                if a == b == n-1:
+                    return d + 1
+                if ne not in visited and grid[ne[0]][ne[1]] == 0:
+                    visited.add(ne)
+                    q.append((ne[0], ne[1], d + 1))
+        return -1
+                    
+                    
+            
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>
