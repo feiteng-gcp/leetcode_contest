@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>4_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>4_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;double&gt; sampleStats(vector&lt;int&gt;&amp; cnt) {
+        int L, R;
+        for (L = 0; L &lt; 256 &amp;&amp; cnt[L] == 0; ++L);
+        for (R = 255; L &gt;= 0 &amp;&amp; cnt[R] == 0; --R);
+        int n = accumulate(cnt.begin(), cnt.end(), 0);
+        double sum = 0;
+        for (int i = 0; i &lt; 256; ++i) {
+            sum += (double)i * cnt[i];
+        }
+        double ave = sum / n;
+<A NAME="0"></A>        int cur = 0;
+        double mid = 0;
+        if (n % 2) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            cur = 0;
+            for (int i = 0; i &lt; 256; ++i) {
+                cur += cnt[i];
+                if (cur &gt;= (n + 1) / 2) {
+                    mid = i;
+                    break;
+                }
+            }
+<A NAME="1"></A>        } else {</B></FONT>
+            int x = n / 2, y = x + 1;
+            cur = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int i = 0; i &lt; 256; ++i) {
+                cur += cnt[i];
+                if (cur &gt;= x) {
+                    mid += i;
+                    break;
+                }
+            }
+            cur = 0;
+            for (int i = 0; i &lt; 256; ++i) {
+                cur += cnt[i];
+                if (cur &gt;= y) {
+                    mid += i;
+                    break;
+                }
+            }
+            mid /= 2;
+        }</B></FONT>
+        int max_freq = *max_element(cnt.begin(), cnt.end());
+        double mode = -1;
+        for (int i = 0; i &lt; 256; ++i) {
+            if (cnt[i] == max_freq) mode = i;
+        }
+        return {L, R, ave, mid, mode};
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>382_xish.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>382_xish.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double[] sampleStats(int[] count) {
+        double min,</B></FONT> max, mean, median, mode;
+        int[] lSum = new int[count.length];
+        
+        min = -1;
+        max = -1;
+        mode = -1;
+        int modeNum = -1;
+        int total = 0;
+        double sum = 0;
+        for (int i = 0 ; i &lt;= 255 ; i++)
+        {
+        	if (count[i] &gt; modeNum)
+        	{
+        		modeNum = count[i];
+        		mode = i;
+        	}
+        	if (count[i] != 0)
+        	{
+        		if (min == -1)
+        			min = i;
+        		max = i;
+        	}
+        	
+        	total = total + count[i];
+        	sum = sum + count[i] * i; 
+        	
+        	if (i == 0)
+        		lSum[i] = count[i];
+        	else
+        		lSum[i] = lSum[i - 1] + count[i];
+        }
+        mean = sum / total;
+<A NAME="1"></A>        
+        if (total % 2 == 0)
+        {
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int midA = total / 2 - 1;
+            int midB = total / 2;
+            
+            double numA = 0, numB = 0;
+            
+            for (int i = 1 ; i &lt;= 255 ; i++)
+            {
+            	if ((lSum[i - 1] &lt;= midA) &amp;&amp; (midA &lt; lSum[i]))
+            		numA = i;
+            	if ((lSum[i - 1] &lt;= midB) &amp;&amp; (midB &lt; lSum[i]))
+            		numB = i;
+            }</B></FONT>
+            
+            median = (numA + numB) / 2;
+        }
+        else
+        {
+            int midA = total / 2;
+            
+            double numA = 0;
+            
+            for (int i = 1 ; i &lt;= 255 ; i++)
+            {
+            	if ((lSum[i - 1] &lt; midA) &amp;&amp; (midA &lt;= lSum[i]))
+<A NAME="2"></A>            		numA = i;
+            }
+            
+            <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match33-1.html#2',3,'match33-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>median = numA;
+        	
+        }
+        
+        double[] ans = new double[5];
+        ans[0] = min;
+        ans[1] = max;
+        ans[2] = mean;
+        ans[3] = median;
+        ans[4] = mode;
+        
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

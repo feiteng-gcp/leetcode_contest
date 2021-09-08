@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>11_snlia.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>11_snlia.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; braceExpansionII(string expression) {
+        stack&lt;pair&lt;unordered_set&lt;string&gt;, unordered_set&lt;string&gt;&gt;&gt; stk;
+        stk.push({unordered_set&lt;string&gt;(), unordered_set&lt;string&gt; ({&quot;&quot;})});
+        for (auto c: expression) {
+            if (c == '{') {
+                stk.push({unordered_set&lt;string&gt;(), unordered_set&lt;string&gt; ({&quot;&quot;})});
+            } else if (c == '}') {
+<A NAME="0"></A>                auto tmp = stk.top();
+                stk.pop();
+                for (auto s: tmp.second) tmp.first.insert(s);
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                auto news = unordered_set&lt;string&gt; ();
+                for (auto s1: stk.top().second) {
+                    for (auto s2: tmp.first) {
+                        news.insert(s1 + s2);
+                    }
+                }
+                stk.top().second = news;
+            } else if (c == ',') {</B></FONT>
+                for (auto s: stk.top().second) {
+                    stk.top().first.insert(s);
+                }
+                stk.top().second = unordered_set&lt;string&gt; ({&quot;&quot;});
+            } else {
+                auto news = unordered_set&lt;string&gt; ();
+                for (auto s: stk.top().second) {
+                    news.insert(s + c);
+                }
+                stk.top().second = news;
+            }
+        }
+        for (auto s: stk.top().second) stk.top().first.insert(s);
+        vector&lt;string&gt; ans;
+        for (auto s: stk.top().first) ans.push_back(s);
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

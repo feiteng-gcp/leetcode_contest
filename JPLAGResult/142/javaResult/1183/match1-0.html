@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>334_OBNN.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>334_OBNN.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match1-1.html#0',3,'match1-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public double[] sampleStats(int[] count) {
+        long sum=0,mostF=-1,mostV=-1,minV=-1,maxV=-1,cnt=0;
+        int[] arr=new int[256];
+        for(int i=0;i&lt;256;i++){
+            sum+=i*count[i];
+            cnt+=count[i];
+            if(minV==-1&amp;&amp;count[i]&gt;0){
+                minV=i;
+            }
+            if(count[i]&gt;0){
+                maxV=i;
+            }
+            if(mostF&lt;count[i]){
+                mostV=i;
+                mostF=count[i];
+            }
+        }
+        double[] ans=new double[5];
+        ans[0]=minV;
+        ans[1]=maxV;
+        ans[2]=((double)sum)/cnt;
+        int tmp=0;
+        for(int i=0;i&lt;256;i++){
+            tmp+=count[i];
+            if(tmp&gt;cnt/2){
+                if(tmp&gt;cnt/2){
+                if(cnt%2==0){
+                    if(tmp-count[i]&lt;cnt/2) ans[3]=i;
+                    else ans[3]=((double)(i+i-1))/2;
+                }else{
+                    ans[3]=i;
+                }
+                break;
+            }
+            }
+        }
+        ans[4]=mostV;
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

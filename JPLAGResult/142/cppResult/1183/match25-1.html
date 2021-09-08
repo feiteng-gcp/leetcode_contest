@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>103_dodo_sprinkler.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>103_dodo_sprinkler.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;double&gt; sampleStats(vector&lt;int&gt;&amp; count) {
+        vector&lt;double&gt; r(5);
+        int maxcidx = -1;
+        double minv = -1, maxv = -1;
+        double sum = 0;
+        int cnt = 0;
+        for (int i = 0; i &lt; count.size(); i++) {
+            if (count[i] &gt; 0) {
+                if (minv &lt; 0) minv = i;
+                maxv = i;
+                sum += i * count[i];
+                cnt += count[i];
+                if (maxcidx == -1 || count[i] &gt; count[maxcidx]) maxcidx = i;
+            }
+        }
+        double avg = sum / cnt;
+<A NAME="0"></A>        int t = 0;
+        double med = 0;
+        if (cnt % 2) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for (int i = 0; i &lt; count.size(); i++) {
+                t += count[i];
+                if (t &gt;= cnt / 2 + 1) {
+                    med = i;
+                    break;
+<A NAME="1"></A>                }
+            }
+        } else {</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int ct = 0;
+            for  (int i = 0; i &lt; count.size(); i++) {
+                t += count[i];
+                if (ct == 0 &amp;&amp; t &gt;= cnt / 2) {
+                    med += i * 1.0 / 2;
+                    ct++;
+                }
+                if (ct == 1 &amp;&amp; t &gt;= cnt / 2 + 1) {
+                    med += i * 1.0 / 2;</B></FONT>
+                    break;
+                }
+            }
+        }
+        r[0] = minv;
+        r[1] = maxv;
+        r[2] = avg;
+        r[3] = med;
+        r[4] = maxcidx;
+        return r;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

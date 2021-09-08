@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>448_ychen157.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>448_ychen157.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def sampleStats(self, count: List[int]) -&gt; List[float]:
+        min_ = 255
+        for i in range(256):
+            if count[i] != 0:
+                min_ = i
+                break
+        
+        max_ = 0
+        for i in range(255, -1, -1):
+            if count[i] != 0:
+                max_ = i
+                break
+                
+        c = 0
+        sum_ = 0  
+        max_num = 0
+        mode = 0
+        for i in range(256):
+            if count[i] &gt; max_num:
+                max_num = count[i]
+                mode = i
+            c += count[i]
+            sum_ += count[i]*i 
+        avg = sum_/c
+        
+        if c % 2 == 1:
+            mean_idx = c // 2 + 1
+            s = 0
+            for i in range(256):
+                s += count[i]
+                if s &gt;= mean_idx:
+                    mean = i
+                    break
+        else:
+<A NAME="0"></A>            mean1, mean2 = -1, -1
+            mean_idx1, mean_idx2 = c // 2, c // 2 + 1
+            s = 0
+            for i in range<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(256):
+                s += count[i]
+                if s &gt;= mean_idx1 and mean1 == -1:
+                    mean1 = i
+                if s &gt;= mean_idx2:
+                    mean2 = i
+                if mean1 != -1 and mean2 != -1:
+                    mean = (mean1+mean2) / 2
+                    br</B></FONT>eak
+        
+        return [float(min_), float(max_), float(avg), float(mean), float(mode)]
+            
+            
+</PRE>
+
+</BODY>
+</HTML>

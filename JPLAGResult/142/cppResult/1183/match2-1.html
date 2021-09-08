@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>365_12snoopyer.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>365_12snoopyer.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;double&gt; sampleStats(vector&lt;int&gt;&amp; count) {
+        double minD,maxD,avrD,midD,mostD;
+        for(int i =0;i&lt;count.size();i++){
+            if(count[i]&gt;0){
+                minD = i;
+                break;
+            }
+        }
+        
+        for(int i =count.size() -1;i&gt;=0;i--){
+            if(count[i]&gt;0){
+                maxD = i;
+                break;
+            }
+        }
+        
+        int num=0;
+        double sumD = 0;
+        for(int i =0;i&lt;count.size();i++){
+            if(count[i]&gt;0){
+                num += count[i];
+                sumD += i * count[i];
+            }
+        }
+        avrD = sumD / num;
+<A NAME="0"></A>        
+        if(num % 2){
+            int mid = num/2 + 1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int now = 0;
+            for(int i =0;i&lt;count.size();i++){
+                if(now + count[i]&gt;=mid){
+                    midD = i;
+                    break;
+                }
+                now += count[i];
+            }
+        }
+<A NAME="1"></A>        else{</B></FONT>
+            int mid1 = num/2;
+            int mid2 = num/2+1;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int now = 0;
+            for(int i =0;i&lt;count.size();i++){
+                if(now + count[i]&gt;=mid1){
+                    mid1 = i;
+                    break;
+                }
+                now += count[i];
+            }
+            now = 0;
+            for(int i =0;i&lt;count.size();i++){
+                if(now + count[i]&gt;=mid2){
+                    mid2 = i;
+                    break;
+                }
+                now += count[i];
+            }
+            midD = double(mid1 + mid2)/2;
+        }</B></FONT>
+        
+        int most = 0;
+        for(int i =0;i&lt;count.size();i++){
+            if(count[i]&gt;most){
+                most = count[i];
+                mostD = i;
+            }
+        }
+        
+        vector&lt;double&gt; ret;
+        ret.push_back(minD);
+        ret.push_back(maxD);
+        ret.push_back(avrD);
+        ret.push_back(midD);
+        ret.push_back(mostD);
+        
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

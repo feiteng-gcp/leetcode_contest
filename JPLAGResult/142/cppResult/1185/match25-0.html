@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>439_luise1030.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>439_luise1030.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;sys/time.h&gt;
+#include &lt;iostream&gt;   // std::cout
+#include &lt;string&gt;  
+
+void log_null() {};
+
+#define USE_LOG 1
+#define DEBUG_MODE 0
+
+#if USE_LOG
+#define log(...) {printf(##__VA_ARGS__);fflush(stdout);fflush(stderr);}
+#else
+#define log(fmt, ...) log_null()
+#endif
+
+#define ARRAY_SIZE(array) sizeof(array)/sizeof(array[0])
+
+struct timeval  tv1, tv2;
+#define timestart() gettimeofday(&amp;tv1, NULL);
+/* stuff to do! */
+#define timeend() gettimeofday(&amp;tv2, NULL);
+#define logtime() log(&quot;Total time = %f seconds\n&quot;, (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 + (double) (tv2.tv_sec - tv1.tv_sec))
+
+/*
+struct less_than_key {
+    inline bool operator() (const Event *e1, const Event *e2) {
+        return (e1-&gt;ts.to_ns() &lt; e2-&gt;ts.to_ns());
+    }
+}; 
+*/
+
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
+class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &amp;mountainArr) {
+        int ret = -1;
+        int len = mountainArr.length();
+        int left = 0;
+<A NAME="0"></A>        int right = len - 1;
+        int tp;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (left + 1 &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            
+            if (mountainArr.get(mid + 1) &gt; mountainArr.get(mid)) {
+                left = mid;
+            } else { // mountainArr.get(mid + 1) &lt; mountainArr.get(mid)
+                right = mid;
+            }
+        }</B></FONT>
+        tp = right;
+        
+        //cout &lt;&lt; &quot;tp: &quot; &lt;&lt; tp &lt;&lt; &quot;,&quot;  &lt;&lt; mountainArr.get(tp) &lt;&lt; &quot;\n&quot;;
+<A NAME="1"></A>        //cout &lt;&lt; &quot;len: &quot; &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+        
+        left = 0;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        right = tp + 1;
+        
+        while(left + 1 &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            
+            if (mountainArr.get(mid) &lt;= target) {
+                left = mid;
+            } else {
+                right = mid;
+<A NAME="2"></A>            }
+        }</B></FONT>
+        
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (mountainArr.get(left) == target)
+            return left;
+        
+        left = tp + 1;
+        right = len;
+        
+        while(left + 1 &lt; right) {
+            int mid = (left + right) &gt;&gt; 1;
+            
+            if (mountainArr.get(mid) &gt; target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+            //printf(&quot;(%d, %d) = (%d, %d)\n&quot;, left, right, mountainArr.get(left), ((right == len) ? -1 : mountainArr.get(right)));
+        }
+        //printf(&quot;\n\n&quot;);
+        if (mountainArr.get(left) == target) {</B></FONT>
+            return left;
+        } if (right == len || mountainArr.get(right) != target)
+            return -1;
+        else
+            return right;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>171__xj.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>171__xj.py</CENTER></H3><HR>
+<PRE>
+# &quot;&quot;&quot;
+# This is MountainArray's API interface.
+# You should not implement it, or speculate about its implementation
+# &quot;&quot;&quot;
+#class MountainArray:
+#    def get(self, index: int) -&gt; int:
+#    def length(self) -&gt; int:
+
+class Solution:
+    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -&gt; int:
+        peak_idx, peak = self.findPeak(mountain_arr)
+        
+        if target &gt; peak:
+            return -1
+        
+        if target == peak:
+            return peak_idx
+        
+        idx = self.findPeakUpward(target, mountain_arr, peak_idx - 1)
+        if idx == -1:
+            return self.findPeakDownward(target, mountain_arr, peak_idx + 1)
+        
+        return idx
+        
+    
+    def findPeakUpward(self, target, mountain_arr, end):
+        left, right = 0, end
+        
+        while left + 1 &lt; right:
+            mid = (left + right) // 2
+            point = mountain_arr.get(mid)
+            if point &lt; target:
+                left = mid + 1
+<A NAME="0"></A>            elif point &gt; target:
+                right = mid - 1
+            else:
+                r<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn mid
+        
+        if mountain_arr.get(left) == target:
+            return left
+        if mountain_arr.get(right) == target:
+            return right
+        return -1
+    
+    def</B></FONT> findPeakDownward(self, target, mountain_arr, begin):
+        left, right = begin, mountain_arr.length() - 1
+        
+        while left + 1 &lt; right:
+            mid = (left + right) // 2
+            point = mountain_arr.get(mid)
+            if point &lt; target:
+                right = mid - 1
+<A NAME="1"></A>            elif point &gt; target:
+                left = mid + 1
+            else:
+                r<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#1',2,'match16-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eturn mid
+        
+        if mountain_arr.get(left) == target:
+            return left
+        if mountain_arr.get(right) == target:
+            return right
+        r</B></FONT>eturn -1
+        
+        
+    def findPeak(self, mountain_arr):
+        left, right = 0, mountain_arr.length() - 1
+        
+        while left + 1 &lt; right:
+            mid = (left + right) // 2
+            if mountain_arr.get(mid) &lt; mountain_arr.get(mid + 1):
+                left = mid
+            else:
+                right = mid
+        lp = mountain_arr.get(left)
+        rp =  mountain_arr.get(right)
+        if lp &lt; rp:
+            return right, rp
+        return left, lp
+</PRE>
+
+</BODY>
+</HTML>

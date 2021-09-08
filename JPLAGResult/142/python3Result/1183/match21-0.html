@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>361_mike_scarlet.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>361_mike_scarlet.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+  def sampleStats(self, count: List[int]) -&gt; List[float]:
+    sum_cnt = sum(count)
+    mid_cnt = sum_cnt // 2
+    is_odd = sum(count) % 2 == 1
+    mid = -1 if is_odd else [-1, -1]
+    min_ = -1
+    max_ = -1
+    lot_id = -1
+    lot_cnt = -1
+    total = 0
+    cnt_sofar = 0
+    for i in range(256):
+      if(min_ == -1 and count[i] != 0):
+        min_ = i
+      if(count[i] != 0):
+        max_ = i
+      total += i * count[i]
+      cnt_sofar += count[i]
+      if(is_odd):
+        if(mid == -1 and cnt_sofar &gt;= mid_cnt):
+          mid = i
+      else:
+        if(mid[0] == -1 and cnt_sofar &gt;= mid_cnt):
+<A NAME="0"></A>          mid[0] = i
+        if(mid[1] == -1 and cnt_sofar &gt;= mid_cnt + 1):
+          mid[1] = i
+      <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(lot_cnt &lt; count[i]):
+        lot_cnt = count[i]
+        lot_id = i
+    return [float(min_), float(max_), float(total / sum_cnt), float((mid if is_odd else sum(</B></FONT>mid)/2)), float(lot_id)]
+</PRE>
+
+</BODY>
+</HTML>
