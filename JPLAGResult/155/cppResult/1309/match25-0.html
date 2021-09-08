@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>438_nicmit.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>438_nicmit.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; be) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        map&lt;int, vector&lt;int&gt;&gt; mp;
+        int count = 0;
+        for(int i = 0; i &lt; n; i++)
+        {
+            if(group[i] == -1)
+            {
+                group[i] = m + count;
+                count++;</B></FONT>
+            }
+            mp[ group[i] ].push_back( i );
+        }
+
+        int totGroups = m + count;
+
+        vector&lt;int&gt; indeg(totGroups);
+
+        vector&lt; vector&lt;int&gt; &gt; adj(totGroups);
+
+        vector&lt;int&gt; indegI(n);
+        vector&lt; vector&lt;int&gt;&gt; adjI(n);
+
+        for(int i = 0; i &lt; n; i++)
+        {
+            for(int k = 0; k &lt; be[i].size(); k++)
+<A NAME="1"></A>            {
+                int gi = group[i], itemk = be[i][k];
+
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                int gk = group[ itemk ];
+
+                if(gi == gk)
+                {
+                    indegI[i]++;
+                    adjI[itemk].push_back(i);
+                }
+                else
+                {
+                    indeg[gi]++;
+                    adj[gk].push_back( gi );
+                }
+            }
+        }
+
+        queue&lt;int&gt; q;
+
+        for(map&lt;int, vector&lt;int&gt;&gt;::iterator it = mp.begin(); it != mp.end(); it++)</B></FONT>
+        {
+            int groupi = it-&gt;first;
+
+            vector&lt;int&gt; vv = mp[groupi];
+
+            for(int j = 0; j &lt; vv.size() ; j++)
+            {
+                int item = vv[j];
+                if(indegI[item] == 0)
+                    q.push(item);
+            }
+
+            vector&lt;int&gt; a;
+            
+            if(q.size() == 0)
+            {
+                cout &lt;&lt;&quot;-&quot;;
+                a.clear();
+                return a;
+            }
+                
+
+            while(!q.empty())
+            {
+                int gi = q.front();
+
+                q.pop();
+
+                for(int i = 0; i &lt; adjI[gi].size(); i++)
+                {
+                    int gk = adjI[gi][i];
+                    indegI[gk]--;
+
+                    if(indegI[gk] == 0)
+                        q.push(gk);
+                }
+                a.push_back( gi );
+            }            
+
+            mp[groupi] = a;
+        }
+
+
+
+        for(int i = 0 ; i &lt; totGroups; i++)
+        {
+            if(indeg[i] == 0)
+                q.push(i);
+        }
+
+        vector&lt;int&gt; ans;
+
+        if(q.size() == 0)
+        {
+            cout &lt;&lt;&quot;---&quot;;
+            ans.clear();
+            return ans;
+        }
+
+        while(!q.empty())
+        {
+            int gi = q.front();
+
+            q.pop();
+
+            for(int i = 0; i &lt; adj[gi].size(); i++)
+            {
+                int gk = adj[gi][i];
+                indeg[gk]--;
+
+                if(indeg[gk] == 0)
+                    q.push(gk);
+            }
+
+            vector&lt;int&gt; vv = mp[gi];
+            for(int i = 0; i &lt; vv.size(); i++)
+            {
+                ans.push_back(vv[i]);
+            }
+        }
+        if(ans.size() &lt; n)
+            ans.clear();
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

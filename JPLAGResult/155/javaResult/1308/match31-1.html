@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>202_elvinyang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>202_elvinyang.java</CENTER></H3><HR>
+<PRE>
+class Solution
+{
+    private int[] root;
+
+    int find(int x)
+    {
+<A NAME="2"></A>        if (x != root[x])
+            root[x] = find(root[x]);
+        return root[x];
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+
+    void union(int x, int y)
+    {
+        int fx = find(x);
+        int fy = find(y);
+        if (fx != fy)
+        {</B></FONT>
+            root[fx] = fy;
+        }
+    }
+
+    public String smallestStringWithSwaps(String s, List&lt;List&lt;Integer&gt;&gt; pairs)
+    {
+        int n = s.length();
+        root = new int[n];
+        for (int i = 0; i &lt; n; i++)
+        {
+            root[i] = i;
+        }
+        for (List&lt;Integer&gt; pair : pairs)
+        {
+            int x = pair.get(0), y = pair.get(1);
+            int rx = find(x), ry = find(y);
+<A NAME="0"></A>            if (rx != ry)
+            {
+                union(x, y);
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        }
+        HashMap&lt;Integer, PriorityQueue&lt;Character&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++)
+        {
+            int ri = find(i);
+            map.computeIfAbsent(ri, v -&gt; new PriorityQueue&lt;&gt;()).add(s.charAt(i));
+        }
+<A NAME="1"></A>        StringBuilder sb = new StringBuilder();
+        for (int i = 0</B></FONT>; i &lt; n; i++)
+        {
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.append(map.get(find(i)).poll());
+        }
+        return sb.toString();
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

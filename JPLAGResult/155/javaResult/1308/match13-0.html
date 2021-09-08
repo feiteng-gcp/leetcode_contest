@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>383_hxin18.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>383_hxin18.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class DSU{
+        int[] parent;
+
+        public DSU(int N) {
+            parent = new int[N];
+            for (int i = 0; i &lt; N; ++i) {
+                parent[i] = i;
+            }
+        }
+
+<A NAME="1"></A>        public int find(int x) {
+            if</B></FONT> (parent[x] != x) parent[x] = find(parent[x]);
+            return parent[x];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+        public void union(int x, int y) {
+            parent[find(x)] = find(y);
+        }</B></FONT>
+    }
+<A NAME="2"></A>    public String smallestStringWithSwaps(String s, List&lt;List&lt;Integer&gt;&gt; pairs) {
+        int len = s.length();
+        DSU uf = new DSU(len);
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (List&lt;Integer&gt; i : pairs){
+            uf.union(i.get(0), i.get(1));
+        }
+        char[] arr = s.toCharArray()</B></FONT>;
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; len; ++i){
+            if (!map.containsKey(uf.find(i))){
+                map.put(uf.find(i), new ArrayList&lt;&gt;());
+            }
+            map.get(uf.find(i)).add(i);
+        }
+        for (int i : map.keySet()){
+<A NAME="3"></A>            List&lt;Integer&gt; idx = map.get(i);
+            List&lt;Character&gt; tmp = new ArrayList&lt;&gt;();
+            for (int j : idx){
+                <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match13-1.html#3',3,'match13-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>tmp.add(arr[j]);
+            }
+            Collections.sort(tmp);
+            for (int j = 0; j &lt; idx.size(); j++){
+                arr[idx.get(j)] = tmp.get(j);
+            }
+        }
+        return</B></FONT> String.valueOf(arr);
+    }
+    
+        
+}
+</PRE>
+
+</BODY>
+</HTML>

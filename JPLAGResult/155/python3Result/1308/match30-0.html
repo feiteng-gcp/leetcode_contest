@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_HarrrryLi.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>320_HarrrryLi.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -&gt; str:
+        graph = collections.defaultdict(list)
+        for idx1, idx2 in pairs:
+            i1 = bisect.bisect(graph[idx1], idx2)
+            graph[idx1].insert(i1, idx2)
+            
+            i2 = bisect.bisect(graph[idx2], idx1)
+            graph[idx2].insert(i2, idx1)
+        
+        groups = []
+        visited = set()
+        size = len(s)
+        for idx in range(size):
+            if idx not in visited:
+<A NAME="0"></A>                stack = collections.deque()
+                stack.append(idx)
+                visited.add(idx)
+                group = set<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>()
+                group.add(idx)
+                while stack:
+                    cur = stack.pop()
+                    for nxt in graph[cur]:
+                        if nxt not in visited:
+                            stack.append(nxt)
+                            visited.add(nxt)
+                            group.add(nx</B></FONT>t)
+                groups.append(group)
+        
+        
+        
+        result = ['a'] * size
+        for group in groups:
+            letters = [s[idx] for idx in group]
+            letters.sort()
+            for i, idx in enumerate(sorted(group)):
+                result[idx] = letters[i]
+        
+        return ''.join(result)
+            
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_NerdyCoder.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>37_NerdyCoder.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+        vector&lt;vector&lt;int&gt;&gt; group_members(m);
+        for (int i = 0; i &lt; n; ++i) {
+            if (group[i] == -1) {
+                group[i] = group_members.size();</B></FONT>
+                group_members.emplace_back(vector&lt;int&gt;{i});
+            } else {
+                group_members[group[i]].emplace_back(i);
+            }
+        }
+        
+        unordered_map&lt;int, unordered_set&lt;int&gt;&gt; group_edges;
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j : beforeItems[i]) {
+                if (group[i] != group[j]) {
+                    group_edges[group[j]].emplace(group[i]);
+                }
+            }
+        }
+        vector&lt;int&gt; group_states(group_members.size(), 0);
+        vector&lt;int&gt; group_order;
+        for (int i = 0; i &lt; group_members.size(); ++i) {
+            if (group_states[i]) {
+                continue;
+            }
+            if (!dfs(group_edges, i, group_states, group_order)) {
+                return {};
+            }
+        }
+        
+        vector&lt;int&gt; results;
+        results.reserve(n);
+        vector&lt;int&gt; member_states(n, 0);
+        for (int group_index : group_order) {
+            const auto &amp;members = group_members[group_index];
+            if (members.empty()) {
+                continue;
+            } else if (members.size() == 1) {
+                results.emplace_back(members[0]);
+                continue;
+            }
+            unordered_map&lt;int, unordered_set&lt;int&gt;&gt; adjLists;
+            for (int member : members) {
+                for (int before : beforeItems[member]) {
+                    if (group[before] == group_index) {
+                        adjLists[before].emplace(member);
+                    }
+                }
+            }
+            for (int member : members) {
+                if (member_states[member]) {
+                    continue;
+                }
+                if (!dfs(adjLists, member, member_states, results)) {
+                    return {};
+                }
+            }
+        }
+        reverse(results.begin(), results.end());
+        return results;
+    }
+private:
+    bool dfs(const unordered_map&lt;int, unordered_set&lt;int&gt;&gt; &amp;adjLists, int i, vector&lt;int&gt; &amp;states,
+            vector&lt;int&gt; &amp;results) const {
+        if (states[i] == 2) {
+            return true;
+        } else if (states[i] == 1) {
+            return false;
+        }
+        states[i] = 1;
+        if (adjLists.count(i)) {
+            for (int j : adjLists.at(i)) {
+                if (!dfs(adjLists, j, states, results)) {
+                    return false;
+                }
+            }
+        }
+        states[i] = 2;
+        results.emplace_back(i);
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

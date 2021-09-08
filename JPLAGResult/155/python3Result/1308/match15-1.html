@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>216_RedMoon.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>216_RedMoon.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -&gt; str:
+        n = len(s)
+        ret = [s[i] for i in range(n)]
+<A NAME="0"></A>        vis = [False for _ in range(n)]
+        curr = []
+        letters = []
+        g <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= collections.defaultdict(set)
+        for a, b in pairs:
+            g[a].add(b)
+            g[b].add(a)
+        def</B></FONT> dfs(i):
+            if vis[i]:
+                return
+            vis[i] = True
+            curr.append(i)
+            letters.append(s[i])
+            for nei in g[i]:
+                dfs(nei)
+            return
+        
+        for i in range(n):
+            if vis[i]:
+                continue
+            curr = []
+            letters = []
+            dfs(i)
+<A NAME="1"></A>            letters.sort()
+            curr.sort()
+            m = len(curr)
+            for j in range<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(m):
+                ret[curr[j]] = letters[j]
+                
+        return ''.join(r</B></FONT>et)
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_Tatami.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_Tatami.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>vector&lt;int&gt; adj[110000];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>vector&lt;char&gt; vals;
+vector&lt;int&gt; vtx;
+bool vis[110000];
+string st;
+void dfs(int u){    
+    vtx.push_back(u);vals.push_back(st[u]);    
+    vis[u] = true;
+    for(int i=0; i&lt;adj[u].size(); i++){
+        int v = adj[u][i];
+        if(!vis[v]){</B></FONT>
+            dfs(v);
+        }
+    }
+}
+
+class Solution {
+public:
+    string smallestStringWithSwaps(string s, vector&lt;vector&lt;int&gt;&gt;&amp; pairs) {
+        st = s;
+        for(int i=0; s[i]; i++){
+            adj[i].clear();
+        }
+        for(int i=0; i&lt;pairs.size(); i++){
+            int u = pairs[i][0];
+            int v = pairs[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+            //cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; v &lt;&lt; endl;
+<A NAME="1"></A>        }
+        string r = s;
+        memset(vis,0,sizeof vis);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0; s[i]; i++){
+            if(!vis[i]){
+                vals.clear(); vtx.clear();
+                dfs(i);
+                sort(vals.begin(), vals.end());
+                sort(vtx.begin(), vtx.end());
+                for(int j=0; j&lt;vtx.size(); j++) r[vtx[j]] = vals[j];
+            }
+        }</B></FONT>
+        return r;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

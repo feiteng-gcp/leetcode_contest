@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_caoboxiao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>60_caoboxiao.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -&gt; List[int]:
+        NAG = -1
+        for i in range(n):
+            if group[i] == -1:
+                group[i] =</B></FONT> NAG
+        itemWait = [0] * n
+        brotherWait = [0] * n
+        groupWait = [0] * m
+        
+        groupQ = collections.deque()
+        freeQ = collections.deque()
+        
+        itemChild = []
+        groupMember = []
+        
+        for i in range(n):
+            itemChild.append([])
+        for i in range(m):
+            groupMember.append([])
+        for i in range(n):
+            g = group[i]
+            if g != NAG:
+                groupMember[g].append(i)
+        
+        for i in range(n):
+            itemWait[i] = len(beforeItems[i])
+            for x in beforeItems[i]:
+                itemChild[x].append(i)
+        
+                if group[i] != NAG:
+                    if group[x] == group[i]:
+                        brotherWait[i] += 1
+                    else:
+                        groupWait[group[i]] += 1
+                    
+            if group[i] == NAG:
+                if itemWait[i] == 0:
+                    freeQ.append(i)
+            else:
+                if groupWait[group[i]] == 0:
+                    groupQ.append(group[i])
+        ans = []
+        groupUsed = [False] * m
+        itemUsed = [False] * n
+        def addToAns(i, modifiedQ):
+            
+            itemUsed[i] = True
+            ans.append(i)
+
+            for x in itemChild[i]:
+                itemWait[x] -= 1
+                gx = group[x]
+                if itemWait[x] == 0 and gx == NAG:
+                    modifiedQ.append(x)
+                if gx != NAG:
+                    groupWait[gx] -= 1
+                    if groupWait[gx] == 0:
+                        groupQ.append(gx)
+        while True:
+            #print(ans, freeQ, groupQ)
+            #print(itemWait, groupWait, brotherWait)
+            if freeQ:
+                i = freeQ[0]
+                if itemUsed[i]:
+                    freeQ.popleft()
+                    continue
+                if itemWait[i] == 0:
+                    freeQ.popleft()
+                    itemUsed[i] = True
+                    ans.append(i)
+
+                    for x in itemChild[i]:
+                        itemWait[x] -= 1
+                        gx = group[x]
+                        if itemWait[x] == 0 and gx == NAG:
+                            freeQ.append(x)
+                        if gx != NAG:
+                            groupWait[gx] -= 1
+                            if groupWait[gx] == 0:
+                                groupQ.append(gx)
+                    
+                    
+                    continue
+            if groupQ:
+                gi = groupQ[0]
+                if groupUsed[gi] == True:
+                    groupQ.popleft()
+                    continue
+                if groupWait[gi] == 0:
+                    groupUsed[gi] = True
+                    groupQ.popleft()
+                    brotherQ = collections.deque()
+                    #print(&quot;Group &quot;, gi)
+                    #print(groupMember[gi])
+                    for i in groupMember[gi]:
+                        #print(i, brotherWait[i])
+                        if brotherWait[i] == 0:
+                            brotherQ.append(i)
+                    for _ in range(len(groupMember[gi])):
+                        #print(84, brotherQ)
+                        if len(brotherQ) == 0:
+                            return []
+                        i = brotherQ[0]
+                        brotherQ.popleft()
+                        
+                        if itemWait[i] != 0:
+                            return []
+                        
+                        itemUsed[i] = True
+                        ans.append(i)
+
+                        for x in itemChild[i]:
+                            itemWait[x] -= 1
+                            gx = group[x]
+                            if itemWait[x] == 0 and gx == NAG:
+                                freeQ.append(x)
+                            if gx != NAG:
+                                if gx != gi:
+                                    groupWait[gx] -= 1
+                                    if groupWait[gx] == 0:
+                                        groupQ.append(gx)
+                                else:
+                                    brotherWait[x] -= 1
+                                    if brotherWait[x] == 0:
+                                        brotherQ.append(x)
+                                        
+                    
+                    continue
+            if not freeQ and not groupQ:
+                break
+            else:
+                return []
+        
+        if len(ans) == n:
+            return ans
+        else:
+            print(&quot;L47&quot;)
+            return []
+                    
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_tarptaeya.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>244_tarptaeya.py</CENTER></H3><HR>
+<PRE>
+from fractions import gcd
+<A NAME="0"></A>
+class Solution:
+    def nthUglyNumber(self, n: int, a: int, b: int, c: int) -&gt; int:
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def lcm(x, y):
+            return (x * y) // gcd(x, y)
+        
+        def count(x):
+            return x // a + x // b + x // c - x // lcm(a, b) - x // lcm(b, c) - x // lcm(a, c) + x // lcm(lcm(a, b), c)
+        
+        left =</B></FONT> 1
+        right = 2 * 1000000000
+        while left &lt;= right:
+            mid = (left + right) // 2
+            cnt = count(mid)
+            if cnt == n:
+                x1 = mid % a
+                x2 = mid % b
+                x3 = mid % c
+                return mid - min(x1, x2, x3)
+            elif cnt &lt; n:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return left
+</PRE>
+
+</BODY>
+</HTML>

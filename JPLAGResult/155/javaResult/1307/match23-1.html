@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>130_scut_dell.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>130_scut_dell.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    private long gcd(long a, long b) {
+        if (b == 0) {
+            return a;
+<A NAME="1"></A>        }</B></FONT> else {
+            return gcd(b, a % b);
+        }
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    private long lcm(long a, long b) {
+        return a * b / gcd(a, b);
+    }
+    private long cal(long t, int a, int b, int c) {</B></FONT>
+        long ret = 0;
+        ret += t / a;
+        ret += t / b;
+        ret += t / c;
+        ret -= t / lcm(a, b);
+        ret -= t / lcm(a, c);
+<A NAME="2"></A>        ret -= t / lcm(b, c);
+        ret += t / lcm(lcm(a, b), c);
+        return ret;
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    public int nthUglyNumber(int n, int a, int b, int c) {
+<A NAME="3"></A>        int left = 0, right = 2000000010;
+        while (right - left &gt; 1) {
+            int mid = Long.valueOf(((long)left + right) / 2).intValue()</B></FONT>;
+            if (cal(mid, a, b, c) &gt;= n) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#3',2,'match23-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+        return right;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>77_xpycc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>77_xpycc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; sortItems(int n, int m, vector&lt;int&gt;&amp; group, vector&lt;vector&lt;int&gt;&gt;&amp; beforeItems) {
+        vector&lt;vector&lt;int&gt;&gt; post_dig(n), post_group(m), group_num(m);
+        for (int i = 0; i &lt; n; ++i) {
+            if (group[i] == -1) {
+                group[i] = m++;</B></FONT>
+                post_group.emplace_back();
+                group_num.emplace_back();
+            }
+            group_num[group[i]].push_back(i);
+        }
+        vector&lt;int&gt; indeg_dig(n), indeg_group(m);
+        for (int i = 0; i &lt; n; ++i) {
+            for (int p : beforeItems[i])
+                if (group[i] == group[p]) {
+                    indeg_dig[i]++;
+                    post_dig[p].push_back(i);
+                } else {
+                    indeg_group[group[i]]++;
+                    post_group[group[p]].push_back(group[i]);
+                }
+        }
+        vector&lt;int&gt; result;
+        
+        queue&lt;int&gt; q;
+        for (int i = 0; i &lt; m; ++i)
+            if (indeg_group[i] == 0)
+                q.push(i);
+        
+        while (!q.empty()) {
+            int g = q.front(); q.pop();
+            queue&lt;int&gt; inner_q;
+            for (int x : group_num[g])
+                if (indeg_dig[x] == 0)
+                    inner_q.push(x);
+            int prev_idx = result.size();
+            while (!inner_q.empty()) {
+                int x = inner_q.front(); inner_q.pop();
+                result.push_back(x);
+                for (int y : post_dig[x])
+                    if (--indeg_dig[y] == 0)
+                        inner_q.push(y);
+            }
+            if (result.size() - prev_idx != group_num[g].size())
+                return {};
+            for (int h : post_group[g])
+                if (--indeg_group[h] == 0)
+                    q.push(h);
+        }
+        return result.size() == n ? result : vector&lt;int&gt;();
+    }
+};
+</PRE>
+</BODY>
+</HTML>

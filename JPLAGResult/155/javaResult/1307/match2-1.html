@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_Coder35.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>274_Coder35.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A>class Solution {
+    long gcd(long a, long b) {
+        return a == 0 ? b : <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#1',2,'match2-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>gcd(b % a, a);
+    }
+    long lcm(long a, long b) {
+        return (a * b) / gcd(a, b);
+    }
+
+    long helper(long a, long b, long c, long num) {
+        return ((num / a) + (num / b) + (num / c)
+                - (num / lcm(a, b))
+                - (num / lcm(b, c))
+                - (num / lcm(a, c))
+<A NAME="0"></A>                + (num / lcm(a, lcm(b, c))));
+    }</B></FONT>
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int nthUglyNumber(int n, int a, int b, int c) {
+        long l = 1, h = Integer.MAX_VALUE, m;
+
+        while (l &lt; h) {
+            m = l + (h - l) / 2;
+            if (helper((long)a, (long)b, (long)c, m) &lt; n)
+                l = m + 1;
+            else
+                h = m;
+        }
+
+        return (int)l;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>
