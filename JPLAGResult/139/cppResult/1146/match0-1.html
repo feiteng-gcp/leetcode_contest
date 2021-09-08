@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_Leetcode1024.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_Leetcode1024.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+        string s, t, res;
+        if (!funct(str1, s) || !funct(str2,t)) return &quot;&quot;;
+        if (s != t || s == &quot;&quot;) return &quot;&quot;;
+        int k = gcd(str1.length()/s.length(), str2.length()/s.length());
+        while (k--) res += s;
+        return res;
+    }
+    
+private:
+    int gcd(int a, int b) {
+        return b ? gcd(b,a%b) : a;
+    }
+    
+    
+    bool funct(string &amp;s, string &amp;ss) {
+        int n = s.length();
+        vector&lt;int&gt; f(n, 0);
+        for (int i = 1, len = 0; i &lt; n; ) {
+            if (s[len] == s[i]) f[i++] = ++len;
+            else if (len) len = f[len-1];
+            else f[i++] = 0;
+        }
+        ss = s.substr(0, n-f[n-1]); 
+        return (n % (n-f[n-1]) == 0);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

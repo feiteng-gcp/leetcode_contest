@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>9_RadianceSheep.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>9_RadianceSheep.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int numSubmatrixSumTarget(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int target) {
+        int n = static_cast&lt;int&gt;(matrix.size());
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int m = static_cast&lt;int&gt;(matrix[0].size());
+        for (int i = 1; i &lt; n; ++i) {
+            for (int j = 0; j &lt; m; ++j) {
+                matrix[i][j] += matrix[i - 1][j];
+            }
+        }
+        int result = 0;
+        for (int rb = 0; rb &lt; n; ++rb) {
+            for (int re = rb; re &lt; n; ++re) {
+                int sum = 0;
+                unordered_map&lt;int, int&gt; counts;
+                counts[0] = 1;
+                for (int j = 0, s; j &lt; m; ++j) {</B></FONT>
+                    if (rb == 0) {
+                        s = matrix[re][j];
+                    } else {
+                        s = matrix[re][j] - matrix[rb - 1][j];
+                    }
+                    sum += s;
+                    result += counts[sum - target];
+                    ++counts[sum];
+                }
+            }
+        }
+        return result;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

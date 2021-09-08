@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>375_swally.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>375_swally.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    const int SIZE = 2100;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;int&gt; addNegabinary(vector&lt;int&gt;&amp; a1, vector&lt;int&gt;&amp; a2) {
+        vector&lt;int&gt; res(SIZE, 0);
+        reverse(a1.begin(), a1.end());
+        reverse(a2.begin(), a2.end());
+        int n = a1.size();
+        int m = a2.size();
+        
+        for(int i = 0; i &lt; SIZE - 2; ++i) {</B></FONT>
+            res[i] = (i &lt; n ? a1[i] : 0) + (i &lt; m ? a2[i] : 0) + res[i];
+            
+            if(res[i] == 2 * res[i + 1]) res[i + 1] = res[i] = 0;
+            
+            res[i + 1] += res[i] / 2;
+            res[i + 2] += res[i] / 2;
+            
+            res[i] = res[i] &amp; 1;
+        }
+        
+        while(res.size() &gt; 1 &amp;&amp; !res.back()) res.pop_back();
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
