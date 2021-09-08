@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>362_fu3mo6.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>362_fu3mo6.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;vector&lt;int&gt;&gt; colorBorder(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int r0, int c0, int color) {        
+        int init_color = grid[r0][c0];
+        if(init_color == color)
+            return grid;
+        
+        int row = grid.size();</B></FONT>
+        int col = grid[0].size();
+        
+        queue&lt;pair&lt;int, int&gt;&gt; bfs;
+        unordered_set&lt;int&gt; visited;
+        bfs.push(pair&lt;int, int&gt;(r0,c0));
+        
+        pair&lt;int, int&gt; loc, tmp;
+        vector&lt;int&gt; direction = {1,0,-1,0,1};
+        while(!bfs.empty()){
+            loc = bfs.front();
+            bfs.pop();
+            
+            if(isBorder(grid, loc.first, loc.second)){
+                grid[loc.first][loc.second] = -1*color;
+            }
+            
+            visited.insert(loc.first * col + loc.second);
+            
+            for(int i=0; i&lt;=3; i++){
+                tmp = loc;
+                tmp.first = loc.first + direction[i];
+                tmp.second = loc.second + direction[i+1];
+                if(tmp.first &lt; row &amp;&amp; tmp.second &lt; col &amp;&amp; tmp.first&gt;=0 &amp;&amp; tmp.second&gt;=0
+                   &amp;&amp; grid[tmp.first][tmp.second] == init_color
+                   &amp;&amp; visited.count(tmp.first * col + tmp.second)==0){
+                    bfs.push(tmp);
+                }                
+<A NAME="1"></A>            }            
+        }
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=0; i&lt;row; i++)
+            for(int j=0; j&lt;col; j++)
+                if(grid[i][j] == -1*color) grid[i][j] = color;
+        
+        return grid;
+    }</B></FONT>
+    
+    bool isBorder(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int i, int j){
+        if(i == grid.size()-1 || j == grid[0].size()-1 || i==0 || j==0)
+            return true;
+        
+        if(grid[i+1][j] != grid[i][j] &amp;&amp; grid[i+1][j] &gt; 0)
+            return true;
+        
+        if(grid[i-1][j] != grid[i][j] &amp;&amp; grid[i-1][j] &gt; 0)
+            return true;
+        
+        if(grid[i][j+1] != grid[i][j] &amp;&amp; grid[i][j+1] &gt; 0)
+            return true;
+        
+        if(grid[i][j-1] != grid[i][j] &amp;&amp; grid[i][j-1] &gt; 0)
+            return true;
+        
+        return false;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

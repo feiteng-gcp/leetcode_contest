@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>14_cuiaoxiang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>14_cuiaoxiang.cpp</CENTER></H3><HR>
+<PRE>
+typedef pair&lt;int, int&gt; ii;
+const int d[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+
+class Solution {
+public:
+    bool isEscapePossible(vector&lt;vector&lt;int&gt;&gt;&amp; blocked, vector&lt;int&gt;&amp; source, vector&lt;int&gt;&amp; target) {
+        int sx = source[0], sy = source[1];
+        int tx = target[0], ty = target[1];
+        set&lt;ii&gt; forbid;
+        for (auto&amp; it : blocked) {
+            forbid.insert(ii{it[0], it[1]});
+        }
+        set&lt;ii&gt; visit;
+        queue&lt;ii&gt; Q;
+        Q.push({sx, sy});
+        visit.insert({sx, sy});
+        int limit = 5e4;
+        int n = 1e6;
+        while (!Q.empty() &amp;&amp; limit--) {
+            //if (limit % 1000 == 0) cout &lt;&lt; limit &lt;&lt; endl;
+<A NAME="0"></A>            ii cur = Q.front();
+            Q.pop();
+            int x = cur.first, y = cur.second;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if (ii{x, y} == ii{tx, ty}) return true;
+            for (int k = 0; k &lt; 4; ++k) {
+                int nx = x + d[k][0];
+                int ny = y + d[k][1];
+                if (nx &lt; 0 || nx &gt;= n || ny &lt; 0 || ny &gt;= n) continue;
+                if (forbid.count({nx, ny})) continue;</B></FONT>
+                if (visit.count({nx, ny})) continue;
+                visit.insert({nx, ny});
+                Q.push({nx, ny});
+            }
+        }
+        //cout &lt;&lt; limit &lt;&lt; endl;
+        return limit &lt;= 0;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

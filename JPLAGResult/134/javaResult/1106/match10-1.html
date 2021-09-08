@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>136_2499370956.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>136_2499370956.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    private static final int[][] neighbors = new int[][] {{0, +1}, {+1, 0}, {0, -1}, {-1, 0}</B></FONT>};
+    private static final int bfs_limit = 5000;
+    private static final int size_limit = 1000000;
+
+    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+        Set2D&lt;Integer, Integer&gt; blockers = new Set2D&lt;&gt;();
+<A NAME="1"></A>        for (int[] blocker : blocked) {
+            blockers.put(blocker[0], blocker[1]);
+        }
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return isUnlimitedOrReachableToTarget(blockers, source, target) &amp;&amp; isUnlimitedOrReachableToTarget(blockers, target, source);
+    }
+
+    private boolean isUnlimitedOrReachableToTarget(Set2D&lt;Integer, Integer&gt; blockers, int[] source, int[] target) {
+        Set2D&lt;Integer, Integer&gt; visited = new Set2D&lt;&gt;()</B></FONT>;
+        Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+        queue.add(source);
+        while (!queue.isEmpty()) {
+            int[] position = queue.remove();
+            int r = position[0];
+            int c = position[1];
+            if (r &lt; 0 || r &gt;= size_limit || c &lt; 0 || c &gt;= size_limit || blockers.contains(r, c) || visited.contains(r, c)) {
+                continue;
+            }
+            visited.put(r, c);
+            if (visited.size() &gt; bfs_limit
+                    || (r == target[0] &amp;&amp; c == target[1])) {
+                return true;
+            }
+            Arrays.stream(neighbors).forEach(neighbor -&gt; queue.add(new int[] {r + neighbor[0], c + neighbor[1]}));
+        }
+        return false;
+    }
+
+    class Set2D&lt;K1, K2&gt; {
+        private Map&lt;K1, Set&lt;K2&gt;&gt; map = new HashMap&lt;&gt;();
+        private int size = 0;
+
+        public boolean contains(K1 k1, K2 k2) {
+            return map.getOrDefault(k1, Collections.emptySet()).contains(k2);
+        }
+
+        public void put(K1 k1, K2 k2) {
+            if (map.computeIfAbsent(k1, k -&gt; new HashSet&lt;&gt;()).add(k2)) {
+                size++;
+            }
+        }
+
+        public int size() {
+            return this.size;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

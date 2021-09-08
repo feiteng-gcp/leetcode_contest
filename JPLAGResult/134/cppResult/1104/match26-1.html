@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>346_Beach.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>346_Beach.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    void f(vector&lt;vector&lt;int&gt;&gt;&amp; g, int r, int c, int color, int old){
+        if(r &lt; 0 || c &lt; 0 || r &gt;= g.size() || c &gt;= g[0].size())
+            return;
+        if(g[r][c] != old)
+            return;
+        g[r][c] = color;
+        f(g, r-1, c, color, old);
+        f(g, r+1, c, color, old);
+<A NAME="0"></A>        f(g, r, c-1, color, old);
+        f(g, r, c+1, color, old);
+    }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;int&gt;&gt; colorBorder(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int r0, int c0, int color) {
+        vector&lt;vector&lt;int&gt;&gt; vv = grid;
+        if(color == vv[r0][c0])
+<A NAME="1"></A>            return vv;
+        int old = vv[r0][c0];</B></FONT>
+        f(vv, r0, c0, color, vv[r0][c0]);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int i = 1; i &lt; vv.size()-1; i++)
+            for(int j = 1; j &lt; vv[0].size()-1; j++)
+                if(vv[i][j] != grid[i][j] &amp;&amp; grid[i-1][j] == old &amp;&amp; grid[i+1][j] == old
+                                             &amp;&amp; grid[i][j-1] == old &amp;&amp; grid[i][j+1] == old)
+                    vv[i][j] = old;
+        return vv;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

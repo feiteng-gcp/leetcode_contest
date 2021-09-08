@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>2_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>2_uwi.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>	class S<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>olution {
+	    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+	    	Set&lt;Long&gt; set = new HashSet&lt;Long&gt;();
+	    	for(int[] b : blocked){
+	    		set.add((long)b[0]&lt;&lt;32|b[1]);
+	    	}</B></FONT>
+	    	if(set.contains((long)source[0]&lt;&lt;32|source[1]))return false;
+	    	if(set.contains((long)target[0]&lt;&lt;32|target[1]))return false;
+	    	
+	    	boolean[][] ss = go(source[0], source[1], set);
+	    	boolean[][] ts = go(target[0], target[1], set);
+	    	if(Math.abs(source[0] - target[0]) &gt; 200 || Math.abs(source[1] - target[1]) &gt; 200){
+	    		int pt = 0;
+	    		for(int i = 0;i &lt; 411;i++){
+	    			for(int j = 0;j &lt; 411;j++){
+	    				if(i == 0 || j == 0 || i == 410 || j == 410){
+	    					if(ss[i][j])pt |= 1;
+	    					if(ts[i][j])pt |= 2;
+	    				}
+	    			}
+	    		}
+	    		return pt == 3;
+	    	}else{
+	    		return ss[target[0]-source[0]+205][target[1]-source[1]+205];
+	    	}
+	    }
+	    
+	    boolean[][] go(int sr, int sc, Set&lt;Long&gt; obs)
+	    {
+	    	boolean[][] can = new boolean[411][411];
+	    	can[205][205] = true;
+	    	Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+<A NAME="1"></A>	    	q.add(new int[]{205, 205});
+	    	int[] dr = { 1, 0, -1, 0 };
+			int[] dc = { 0, 1, 0, -1 };
+			while(!q.isEmpty()){<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+				int[] cur = q.poll();
+				int r = cur[0], c = cur[1];
+				for(int k = 0;k &lt; 4;k++){
+					int nr = r + dr[k], nc = c + dc[k];
+					if(nr &gt;= 0 &amp;&amp; nr &lt; 411 &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; 411 &amp;&amp; !can[nr][nc]
+							&amp;&amp; sr-205+nr &gt;= 0 &amp;&amp; sr-205+nr &lt; 1000000
+							&amp;&amp; sc-205+nc &gt;= 0 &amp;&amp; sc-205+nc &lt; 1000000
+							&amp;&amp; !obs.contains((long)(sr-205+nr)&lt;&lt;32|(sc-205+nc))</B></FONT>
+							){
+						can[nr][nc] = true;
+						q.add(new int[]{nr, nc});
+					}
+				}
+			}
+			return can;
+	    }
+	}	
+</PRE>
+
+</BODY>
+</HTML>

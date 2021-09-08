@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>466__DEEMO_.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>466__DEEMO_.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;vector&lt;int&gt;&gt; colorBorder(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int r0, int c0, int color) {
+        int tmp = grid[r0][c0];
+        helper(grid, r0, c0, grid[r0][c0]);
+        for (int i = 0; i &lt; grid.size(); ++i)
+            for (int j = 0; j &lt; grid[0].size(); ++j){
+                if (grid[i][j] == -2) grid[i][j] = color;</B></FONT>
+                if (grid[i][j] == -1) grid[i][j] = tmp;
+            }
+        return grid;
+    }
+    void helper(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int r, int c, int color) {
+        if (r &lt; 0 || r &gt;= grid.size() || c &lt; 0 || c &gt;= grid[0].size() || grid[r][c] &lt; 0 || (grid[r][c] &gt; 0 &amp;&amp; grid[r][c]!= color))return;
+        if ((r &gt; 0 &amp;&amp; ((grid[r - 1][c] == color) || (grid[r - 1][c] == -1) || (grid[r - 1][c] == -2))) &amp;&amp; (r &lt; grid.size() - 1 &amp;&amp; ((grid[r + 1][c] == color) || (grid[r + 1][c] == -2) || (grid[r + 1][c] == -1))) &amp;&amp; (c &gt; 0 &amp;&amp; ((grid[r][c - 1] == color) || (grid[r][c - 1] == -2) || (grid[r][c - 1] == -1)))  &amp;&amp; (c &lt; grid[0].size() - 1 &amp;&amp; ((grid[r][c + 1] == color || grid[r][c + 1] == -2 || grid[r][c + 1] == -1)))) grid[r][c] = -1;
+        else grid[r][c] = -2; 
+        helper(grid, r, c-1, color);
+        helper(grid, r, c+1, color);
+        helper(grid, r-1, c, color);
+        helper(grid, r+1, c, color);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

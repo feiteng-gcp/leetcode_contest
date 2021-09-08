@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+private static class Position {
+		public int x , y;
+		public Position(int x , int y) {
+			this.x = x;
+			this.y = y;			
+		}
+		@Override
+		public int hashCode() {
+			return this.x * 31 + this.y;
+		}
+		@Override
+		public boolean equals(Object object) {
+			Position position = (Position) object;
+			return this.x == position.x &amp;&amp; this.y == position.y;
+<A NAME="0"></A>		}
+	}
+	
+	private<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B> int[] dx = new int[] {- 1 , 0 , 1 , 0};
+	private int[] dy = new int[] {0 , 1 , 0 , - 1};	
+	
+    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+    	Queue&lt;Position&gt; queue = new Li</B></FONT>nkedList&lt;&gt;();    
+    	queue.add(new Position(source[0] , source[1]));
+    	Set&lt;Position&gt; blockSet = new HashSet&lt;&gt;();
+    	Set&lt;Position&gt; vis = new HashSet&lt;&gt;();
+    	for (int[] pos : blocked) {    		
+    		blockSet.add(new Position(pos[0] , pos[1]));    		
+    	}
+    	// try 50 layers    	
+    	int layer = 0;
+<A NAME="1"></A>    	vis.add(new Position(source[0] , source[1]));    	
+    	while (!queue.isEmpty() &amp;&amp; layer &lt; 50) {
+    		List&lt;Position&gt; nextList = new ArrayList&lt;&gt;();
+    		while (!qu<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>eue.isEmpty()) {
+    			Position current = queue.poll();
+    			for (int i = 0;i &lt; 4;i ++) {
+    				int tx = current.x + dx[i];</B></FONT>
+    				int ty = current.y + dy[i];
+    				if (tx &gt;= 0 &amp;&amp; tx &lt; 1000000 &amp;&amp; ty &gt;= 0 &amp;&amp; ty &lt; 1000000 &amp;&amp; !blockSet.contains(new Position(tx , ty))) {
+    					Position next = new Position(tx , ty);
+    					if (next.x == target[0] &amp;&amp; next.y == target[1]) {
+    						return true;    						
+    					}
+    					if (!vis.contains(next)) {
+    						vis.add(next);
+    						nextList.add(next);    						
+    					}
+    				}
+    			}
+    		}    		
+    		layer ++;
+    		queue.addAll(nextList);    		
+    	}   
+    	if (layer == 50) {
+    		return true;
+    	} else {
+    		return false;    		
+    	}
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
