@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_yuanzhendai.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>443_yuanzhendai.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match16-0.html#0',2,'match16-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def rearrangeBarcodes(self, barcodes: List[int]) -&gt; List[int]:
+        count = {i:0 for i in set(barcodes)}
+        for i in barcodes:
+            count[i] += 1
+        
+        count =</B></FONT> list(count.items())
+        
+        count.sort(key=lambda x: x[1], reverse = True)
+        
+        ans = [-1] * len(barcodes)
+        i = 0
+        j = len(ans) - 1
+        if j % 2 == 0:
+            j -= 1
+            
+        flag = True
+        
+        for num, v in count:
+            for _ in range(v):
+                # print(i, j, flag)
+                if i &gt;= len(ans):
+                    ans[j] = num
+                    j -= 2
+                elif j &lt; 0:
+                    ans[i] = num
+                    i += 2
+                elif flag:
+                    ans[i] = num
+                    i += 2
+                else:
+                    ans[j] = num
+                    j -= 2
+            flag = not flag
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

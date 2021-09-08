@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>207_Lencerf.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>207_Lencerf.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def rearrangeBarcodes(self, barcodes: List[int]) -&gt; List[int]:
+        
+        numCount = {}
+        for n in barcodes:
+            if n not in numCount:
+                numCount[n] = 1
+            else:
+<A NAME="0"></A>                numCount[n] += 1
+        # print(numCount)
+        heap = []
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for n, count in numCount.items():
+            heapq.heappush(heap, (-count, n))
+        result = []
+        while len(heap) &gt; 1:
+            c1m, n1 = heapq.heappop(heap)
+            c2m, n2 = heapq.heappop(heap)
+            result.append(n1)
+            result.append(</B></FONT>n2)
+            c1m += 1
+            if c1m &lt; 0:
+                heapq.heappush(heap, (c1m, n1))
+            c2m += 1
+            if c2m &lt; 0:
+                heapq.heappush(heap, (c2m, n2))
+        if len(heap) &gt; 0:
+            result.append(heapq.heappop(heap)[1])
+        return result
+</PRE>
+
+</BODY>
+</HTML>

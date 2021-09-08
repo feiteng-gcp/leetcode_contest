@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_tiankonguse001.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>223_tiankonguse001.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; rearrangeBarcodes(vector&lt;int&gt;&amp; barcodes) {
+        map&lt;int, int&gt; mapVal2Count;
+        for(int i=0;i&lt;barcodes.size();i++){
+            mapVal2Count[barcodes[i]]++;
+        }
+        
+        map&lt;int, set&lt;int&gt;&gt; mapCount2Vals;
+        for(auto&amp; it : mapVal2Count){
+            mapCount2Vals[it.second].insert(it.first);
+        }
+        vector&lt;int&gt; ans;</B></FONT>
+        
+        while(mapCount2Vals.size() &gt; 0){
+            auto it = mapCount2Vals.end();
+            it--;
+            set&lt;int&gt;&amp; s = it-&gt;second;
+            for(auto v: s){
+                ans.push_back(v);
+            }
+            if(s.size() == 1 &amp;&amp; mapCount2Vals.size() &gt; 1){
+                auto pre = it;
+                pre--;
+                int count = pre-&gt;first;
+                set&lt;int&gt;&amp; preSet = pre-&gt;second;
+                int v = *preSet.begin();
+                
+                ans.push_back(v);
+                preSet.erase(v);
+                if(preSet.size() == 0){
+                    mapCount2Vals.erase(pre);
+                }
+                if(count&gt;1){
+                    mapCount2Vals[count-1].insert(v);
+                }
+            }
+            
+            
+            if(it-&gt;first &gt; 1){
+                for(auto v: s){
+                    mapCount2Vals[it-&gt;first-1].insert(v);
+                }
+            }
+            
+            mapCount2Vals.erase(it);
+        }
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

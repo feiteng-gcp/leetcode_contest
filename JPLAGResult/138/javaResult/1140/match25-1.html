@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>349_KidPooh.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>349_KidPooh.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public class HeapElement implements Comparable&lt;HeapElement&gt; {
+        public int number;
+        public int occurrence;
+        public HeapElement(int a, int b) {
+            number = a;
+            occurrence = b;
+        }
+        @Override
+        public int compareTo(HeapElement other) {</B></FONT>
+            return this.occurrence - other.occurrence;
+        }
+<A NAME="1"></A>        
+    }
+    public int[] rearrangeBarcodes(int[] barcodes) {
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>HashMap &lt;Integer, Integer&gt; occurrences = new HashMap&lt;Integer, Integer&gt;();
+        for (int currentNumber : barcodes) {
+<A NAME="2"></A>            if (occurrences.containsKey(currentNumber)) occurrences.put(currentNumber, occurrences.get(currentNumber) + 1);
+            else occurrences.put(currentNumber, 1);
+        }
+        PriorityQueue&lt;HeapElement&gt; heap = <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new PriorityQueue&lt;HeapElement&gt;()</B></FONT>;
+        for (int currentNumber : occurrences.keySet()) {
+            HeapElement h = new HeapElement(currentNumber, occurrences.get(currentNumber) * -1);
+            heap.add(h);
+        }
+        Arrays.fill(barcodes, -1);
+        HeapElement lastElement = null</B></FONT>;
+        for (int i = 0; i &lt; barcodes.length; i++) {
+            HeapElement currentMin = heap.peek();
+            if (currentMin != lastElement) {
+                currentMin = heap.poll();
+                lastElement = currentMin;
+                currentMin.occurrence++;
+                barcodes[i] = currentMin.number;
+                heap.add(currentMin);
+            }
+            else {
+                HeapElement backup = heap.poll();
+                HeapElement toAdd = heap.poll();
+                toAdd.occurrence++;
+                lastElement = toAdd;
+                barcodes[i] = toAdd.number;
+                heap.add(toAdd);
+                heap.add(backup);
+            }
+        }
+        return barcodes;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

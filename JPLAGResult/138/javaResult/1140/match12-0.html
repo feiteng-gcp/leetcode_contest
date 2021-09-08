@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>220_robinlzl1989.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>220_robinlzl1989.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int[] rearrangeBarcodes(int[] b) {
+        
+        Queue&lt;Pair&gt; q = new PriorityQueue&lt;&gt;();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int n = b.length;
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); 
+        for (int i = 0; i &lt; n; i++) {
+            map.put(b[i], map.getOrDefault(b[i], 0) + 1);
+        }
+        for (int k : map.keySet()) {
+            q.add(new Pair(k, map.get(k)));
+        }
+        int[] ret = new int[n];
+        int idx = 0</B></FONT>; 
+        while (q.size() &gt; 1) {
+            
+            Pair pa = q.poll();
+            Pair pb = q.poll(); 
+            ret[idx++] = pa.num;
+            pa.cnt--;
+            if (pa.cnt &gt; 0) {
+                q.add(pa);
+            }
+            ret[idx++] = pb.num;
+            pb.cnt--;
+            if (pb.cnt &gt; 0) {
+                q.add(pb);
+            }
+        }
+        if (!q.isEmpty()) {
+            ret[idx] = q.poll().num;
+        }
+<A NAME="1"></A>        return ret;
+    }
+    
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>private class Pair implements Comparable&lt;Pair&gt;{
+        int num;
+        int cnt; 
+        public Pair(int num, int cnt) {
+            this.num = num;
+            this.cnt = cnt;
+        }</B></FONT>
+        
+        public int compareTo(Pair o) {
+            if (o.cnt == cnt) {
+                return num - o.num;
+            }
+            return o.cnt - cnt; 
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>441_ttregister.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>441_ttregister.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+
+bool cmp(pair&lt;int,int&gt; &amp;p1, pair&lt;int,int&gt; &amp;p2){
+    return p1.second &gt; p2.second;
+}
+
+struct Cmp {
+    bool operator()(pii &amp;a, pii &amp;b){
+        return a.second &lt; b.second;
+    }
+};
+<A NAME="0"></A>
+
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    vector&lt;int&gt; rearrangeBarcodes(vector&lt;int&gt;&amp; barcodes) {
+        map&lt;int,int&gt; mp;
+        for(int a : barcodes){
+            mp[a]++;
+        }
+        vector&lt;pair&lt;int,int&gt;&gt; vs;
+        priority_queue&lt;pii, vector&lt;pii&gt;, Cmp&gt; pq;
+        for(auto it : mp){
+            pq.push(it);
+        }
+        int ln = barcodes.size();</B></FONT>
+        vector&lt;int&gt; res;
+        while(res.size()&lt;ln){
+            if(res.size()==0){
+                auto p = pq.top(); pq.pop();
+                res.push_back(p.first); p.second--;
+                if(p.second&gt;0) pq.push(p);
+                continue;
+            }
+
+            auto p = pq.top(); pq.pop();
+            int l = res.size();
+            int e = res[l-1];
+            if(p.first == e){
+                auto q = pq.top(); pq.pop();
+                res.push_back(q.first); q.second--;
+                if(q.second&gt;0) pq.push(q);
+                pq.push(p);
+            }else{
+                res.push_back(p.first); p.second--;
+                if(p.second&gt;0) pq.push(p);
+            }
+        }
+        return res;
+        
+    }
+};
+
+
+</PRE>
+</BODY>
+</HTML>

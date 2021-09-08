@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>288_artin7.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>288_artin7.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int[] rearrangeBarcodes(int[] barcodes) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((o1, o2) -&gt; (o2[1] - o1[1]));
+        Arrays.sort(barcodes);
+        for (int i = 0; i &lt; barcodes.length; ++i) {
+            int times = 1;
+            while (i + 1 &lt; barcodes.length &amp;&amp; barcodes[i + 1] == barcodes[i]) {
+                ++times;
+                ++i;
+            }
+            System.out.println(barcodes[i] + &quot; &quot; + times);
+<A NAME="0"></A>            pq.offer(new int[]{barcodes[i], times});
+        }
+        int i = 0;
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while (!pq.isEmpty()) {
+            int[] a = pq.poll();
+            if (i == 0 || a[0] != barcodes[i - 1]) {
+                barcodes[i] = a[0];
+                --a[1];
+                if (a[1] != 0) pq.offer(a);
+            } else {
+                int[] b = pq.poll();
+                barcodes[i] = b[0];
+                --b[1];
+                if (b[1] != 0) pq.offer(b);
+                pq.offer(a);
+            }
+            ++i;
+        }
+        return barcodes;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
