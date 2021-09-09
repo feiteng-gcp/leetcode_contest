@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>90_yi2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>90_yi2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    int get_cost(const string&amp; s, int i, int j){
+        int c = 0;
+        while(i &lt; j){
+            if (s[i] != s[j]) c ++;
+            i++;
+            j--;
+        }
+<A NAME="0"></A>        return c;
+    }
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int palindromePartition(string s, int k) {
+        
+        int n = s.size();
+        vector&lt;vector&lt;int&gt;&gt; cost(n + 1, vector&lt;int&gt;(n + 1, 0));
+        for(int i = 1; i &lt;= n; i++){
+            for(int j = i; j &lt;= n ; j ++){
+                cost[i][j] = get_cost(s, i - 1, j - 1);
+            }
+        }
+        
+        vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt; (k + 1, n + 100));</B></FONT>
+<A NAME="1"></A>        dp[0][0] = 0;
+        
+        for(int i = 1;i &lt;= n; i ++){
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for(int j = 1; j &lt;= k; j ++){
+                for(int x = j - 1; x &lt; i; x ++ ){
+                    dp[i][j] = min(dp[i][j], dp[x][j-1] + cost[x + 1][i]);
+                }
+            }
+        }
+        
+        return dp[n][k];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_kaiwensun.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>214_kaiwensun.py</CENTER></H3><HR>
+<PRE>
+import functools
+class Solution:
+    def palindromePartition(self, s: str, k: int) -&gt; int:
+        
+        @functools.lru_cache(None)
+        def numOfReplacementNeeded(i, j):
+            res = 0
+            while i &lt; j:
+                res += s[i] != s[j]
+                i += 1
+                j -= 1
+            return res
+        
+        # how many replacements are needed
+        @functools.lru_cache(None)
+        def dp(end, numOfPalindrome):
+            assert(0 &lt; numOfPalindrome &lt;= end)
+            p = numOfPalindrome
+            if end == p:
+<A NAME="0"></A>                return 0
+            if end == 1:
+                return 0
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if p == 1:
+                return numOfReplacementNeeded(0, end - 1)
+            # print(&quot;here&quot;)
+            # for i in range(1, end - p + 1):
+            #     print(&quot;i =&quot;,i)
+            #     print(&quot;dp(end - i, p - 1) =&quot;, dp(end - i, p - 1))
+            #     print(&quot;numOfReplacementNeeded(end - i, end - 1) =&quot;, numOfReplacementNeeded(end - i, end - 1))
+            return min(dp(end - i, p - 1) + numOfReplacementNeeded(end - i, end - 1) for i in range(1, end - p + 2))
+        # print(dp(3, 2))
+        return dp(len(s</B></FONT>), k)
+</PRE>
+
+</BODY>
+</HTML>

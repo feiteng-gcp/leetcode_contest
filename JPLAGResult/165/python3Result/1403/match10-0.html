@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_NoCoriander.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>145_NoCoriander.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def palindromePartition(self, s: str, k: int) -&gt; int:
+        
+        def min_change_to_pal(st: str):
+            l = len(st)
+            i, j, res = 0, l - 1, 0
+            while i &lt; j:
+                if st[i] != st[j]: res += 1
+                i += 1
+                j -= 1
+            return res
+        
+        n = len(s)
+        dp = [[-1] * (k + 1) for i in range(</B></FONT>n + 1)]
+        dp[0][0] = 0
+        for i in range(1, n + 1):
+            for q in range(0, i):
+                min_change = min_change_to_pal(s[q:i])
+                for j in range(1, k + 1):
+                    if dp[q][j - 1] &lt; 0: continue
+                    t = dp[q][j - 1] + min_change
+                    dp[i][j] = t if dp[i][j] &lt; 0 or dp[i][j] &gt; t else dp[i][j]
+        return dp[n][k]
+        
+</PRE>
+
+</BODY>
+</HTML>

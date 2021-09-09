@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>325_nakari1124.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>325_nakari1124.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    string tictactoe(vector&lt;vector&lt;int&gt;&gt;&amp; moves) {
+        vector&lt;vector&lt;int&gt;&gt; board(3, vector&lt;int&gt;(3,0));
+        int turn = 1;
+        for(auto m: moves) {</B></FONT>
+            board[m[0]][m[1]] = turn;
+            
+            /*
+            for(int r=0;r&lt;3;++r) {
+                for(int c=0;c&lt;3;++c) {
+                    cout &lt;&lt; board[r][c] &lt;&lt; &quot; &quot;;
+                }
+                cout &lt;&lt; endl;
+<A NAME="1"></A>            }
+            cout &lt;&lt; endl &lt;&lt; endl;
+*/
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool win = false;
+            for(int r=0;r&lt;3;++r) {
+                bool w = true;
+                for(int c=0;c&lt;3;++c) {
+                    if(board[r][c] != turn) {
+                        w = false;
+                        break;
+                    }
+                }</B></FONT>
+<A NAME="2"></A>                win = win || w;
+            }
+            for(int c=0;c&lt;3;++c) {
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                bool w = true;
+                for(int r=0;r&lt;3;++r) {
+                    if(board[r][c] != turn) {
+                        w = false;
+                        break;
+                    }
+                }</B></FONT>
+                win = win || w;
+            }
+            if(board[0][0] == turn &amp;&amp; board[1][1] == turn &amp;&amp; board[2][2] == turn) {
+                win = true;
+            }
+            if(board[0][2] == turn &amp;&amp; board[1][1] == turn &amp;&amp; board[2][0] == turn) {
+                win = true;
+            }
+            if(win) {
+                if(turn == 1) {
+                    return &quot;A&quot;;
+                }
+                else {
+                    return &quot;B&quot;;
+                }
+            } 
+
+            turn *= -1;
+        }
+        if(moves.size() == 9) {
+            return &quot;Draw&quot;;
+        }
+        else {
+            return &quot;Pending&quot;;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

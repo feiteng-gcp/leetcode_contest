@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>192_mopriestt.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>192_mopriestt.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int f[3][3];
+    
+    bool win(int t) {
+        for (int i = 0; i &lt; 3; i ++) {
+            if (f[i][0] == t &amp;&amp; f[i][1] == t &amp;&amp; f[i][2] == t) return true;
+            if (f[0][i] == t &amp;&amp; f[1][i] == t &amp;&amp; f[2][i] == t) return true;
+        }
+        if (f[0][0] == t &amp;&amp; f[1][1] == t &amp;&amp; f[2][2] == t) return true;
+        if (f[0][2] == t &amp;&amp; f[1][1] == t &amp;&amp; f[2][0] == t) return true;
+        return false;
+    }
+    
+    string tictactoe(vector&lt;vector&lt;int&gt;&gt;&amp; moves) {
+        int n = moves.size();</B></FONT>
+        memset(f, -1, sizeof(f));
+        for (int i = 0; i &lt; n; i ++) {
+            int o = i % 2;
+            f[moves[i][0]][moves[i][1]] = o;
+            if (win(o)) return o == 0 ? &quot;A&quot; : &quot;B&quot;;
+        }
+        return n == 9 ? &quot;Draw&quot; : &quot;Pending&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

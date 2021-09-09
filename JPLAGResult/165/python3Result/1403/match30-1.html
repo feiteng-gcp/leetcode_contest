@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>134_veryvanilla.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>134_veryvanilla.py</CENTER></H3><HR>
+<PRE>
+from functools import lru_cache
+
+<A NAME="0"></A>class Solution:
+    def palindromePartition(self, s: str, k: int) -&gt; int:
+        def change(s, s_len):
+            count <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= 0
+            p, q = 0, s_len - 1
+            while p &lt; q:
+                if s[p] != s[q]:
+                    count += 1
+                p += 1
+                q -= 1
+            r</B></FONT>eturn count
+            
+        @lru_cache(maxsize=None)
+        def part(s, k):
+            n = len(s)
+            if k == 1:
+                return change(s, n)
+            best = float('inf')
+            for i in range(1, n - k + 2):
+                count = change(s, i) + part(s[i:], k - 1)
+                best = min(best, count)
+            return best
+        
+        return part(s, k)
+        
+</PRE>
+
+</BODY>
+</HTML>

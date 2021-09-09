@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>286_please_AC.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>286_please_AC.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def palindromePartition(self, s: str, k: int) -&gt; int:
+        import functools
+        @functools.lru_cache(None)
+        def get(i, j):
+            res = 0
+            while i &lt; j:
+                if s[i] != s[j]:
+                    res += 1
+                i += 1
+                j -= 1
+            return res
+        
+        n = len(s)
+        dp = [[float('inf')] * k for _ in range(n)]
+        for i in range(n):
+            if i &lt; k:
+                dp[i][i] = 0
+        for i in range(n):
+            dp[i][0] = get(0, i)
+<A NAME="0"></A>            for kk in range(1, k):
+                if kk &gt; i:
+                    continue
+                <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for j in range(i):
+                    dp[i][kk] = min(dp[i][kk], dp[j][kk - 1] + get(j + 1, i))
+        return dp[-1][-</B></FONT>1]
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

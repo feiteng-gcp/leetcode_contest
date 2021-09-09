@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>422_joyceyao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>422_joyceyao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int palindromePartition(String s, int k) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[][][] dp = new int[s.length()][s.length()][k + 1];
+        for (int[][] dd : dp) {
+            for (int[] ddd: dd) {</B></FONT>
+<A NAME="1"></A>                Arrays.fill(ddd, -1);
+            }
+        }
+        return find(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>s.toCharArray(), 0, s.length()-1, k, dp);
+    }
+    
+    private int find(char[] s, int start, int end, int k, int[][][] dp) {
+        //System.out.println(&quot;start=&quot;+start + &quot; end=&quot;+end + &quot; k=&quot;+k);
+        
+        if (start &gt;= s.length || end &gt;= s.length || start &gt; end || k == 0) { return 0; }
+        if (dp[start][end][k] != -1) { return dp[start][end][k]; }
+        if (k == 1) {
+            dp[start][end][k] = getDiff(s, start, end);
+            return dp[start][end][k];
+        }
+        
+        int min = s.length;
+<A NAME="2"></A>        for (int i=start; i&lt;=s.length-k &amp;&amp; i&lt;=end; i++) {</B></FONT>
+            //System.out.println(&quot;[forloop] start=&quot;+start + &quot; i=&quot;+i);
+            min = Math.min(min, getDiff(s, start, i) + find(s, i+1, end, k-1, dp));
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        dp[start][end][k] = min;
+        //System.out.println(&quot;min=&quot;+min);
+        return min;
+    }
+    
+    private int getDiff(char[] s, int start, int end) {
+<A NAME="3"></A>        int d = 0;
+        //System.out.println(&quot;[getDiff] start=&quot; + start + &quot; end=&quot;+end + &quot; d=&quot; + d);
+        while (start &lt; end) {
+            if</B></FONT> (s[start++] != s[end--]) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match8-1.html#3',3,'match8-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                d++;
+            }
+        }
+        //System.out.println(&quot;[getDiff] d=&quot; + d);
+        return d;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

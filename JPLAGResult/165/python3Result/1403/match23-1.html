@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>194_ajmarin89.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>194_ajmarin89.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def __init__(self):
+        self.memo = {}
+        self.fix = lambda s: sum(s[i] != s[~i] for i in range(len(s) // 2))
+
+    def palindromePartition(self, s: str, k: int) -&gt; int:
+        #print(f&quot;Called with {s},{k}&quot;)
+        if k == 1:
+            self.memo[s, k] = self.fix(s)
+            return self.memo[s, k]
+        if (s, k) in self.memo:
+            return self.memo[s, k]
+<A NAME="0"></A>        if k == len(s):
+            self.memo[s, k] = 0
+            return 0
+        answer <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= len(s)
+        for i in range(1, len(s) - k + 2):
+            answer = min(answer, self.fix(s[:i]) + self.palindromePartition(s[</B></FONT>i:], k - 1))
+        #print(f&quot;{s}, {k} = {answer}&quot;)
+        self.memo[s, k] = answer    
+        return answer
+</PRE>
+
+</BODY>
+</HTML>

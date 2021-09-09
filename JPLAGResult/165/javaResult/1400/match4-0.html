@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_Aragog.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_Aragog.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String tictactoe(int[][] moves) {
+        int[][] table = new int[3][3];
+        for (int i = 0; i &lt; moves.length; i++) {
+            int[] m = moves[i];
+            int j = (i % 2) + 1;
+            table[m[0]][m[1]] = j;
+            if (win(table, j)) {
+                if (j == 1) {
+                    return &quot;A&quot;;
+                } else {
+                    return &quot;B&quot;;
+                }
+            }
+        }
+        if (moves.length == 9) {
+            return &quot;Draw&quot;;
+<A NAME="0"></A>        } else {
+            return &quot;Pending&quot;;
+        }
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+
+    boolean win(int[][] table, int p) {
+        for (int i = 0; i &lt; 3; i++) {
+            boolean f = true;
+            for (int j = 0; j &lt; 3; j++) {
+                if (table[i][j] != p) {
+                    f = false;
+                    break;
+                }
+            }
+            if (f) {
+                return true;
+            }
+        }
+        for (int i = 0; i &lt; 3; i++) {
+            boolean f = true;
+            for (int j = 0; j &lt; 3; j++) {
+                if (table[j][i] != p) {
+                    f = false;
+                    break;
+                }
+            }
+            if (f) {
+                return true;
+            }
+        }
+        boolean f = true;
+        for (int i = 0; i &lt; 3; i++) {
+            if (table[i][i] != p) {
+                f = false;
+                break;
+            }
+        }
+        if (f) {
+            return true;
+        }
+        f = true;
+        for (int i = 0; i &lt; 3; i++) {
+            if (table[2 - i][i] != p) {
+                f = false;
+                break;
+            }
+        }</B></FONT>
+        if (f) {
+            return true;
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

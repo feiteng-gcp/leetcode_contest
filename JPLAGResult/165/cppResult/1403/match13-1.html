@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_chenzenian.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_chenzenian.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    
+    int changeCount(string &amp;s,int start,int end){
+        int r =0;
+        while(start &lt; end){
+<A NAME="1"></A>            if(s[start] != s[end]){</B></FONT>
+                r++;
+            }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            start++;
+            end--;
+        }
+        
+        return r;
+    }
+    
+    int palindromePartition(string s, int k) {
+        int sl = s.size();
+        
+        int dp[k+1][sl+1];
+        
+        
+        for(int i=0;i &lt; k+1;i++ ){
+            for(int j=0;j &lt; sl+1;j++){
+<A NAME="2"></A>                dp[i][j] = INT_MAX/2;
+            }
+        }</B></FONT>
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#2',2,'match13-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0] = 0;
+        
+        for(int stage = 1;stage &lt;= k;stage++){
+            for(int i=1;i &lt;= sl;i++){
+                for(int div = 0;div &lt; i;div++){</B></FONT>
+                    int temp = changeCount(s,div+1-1,i-1);
+                    dp[stage][i] = min(dp[stage][i],dp[stage-1][div]+temp);
+                }
+            }
+        }
+        return dp[k][sl];
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>
