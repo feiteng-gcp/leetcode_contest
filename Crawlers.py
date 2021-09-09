@@ -144,43 +144,43 @@ def crawlSubmissions(contest, page_end):
             for k in submission:
                 # if i % 20 == 0: 
                 print("[Contest=%s] Crawling page.. %d user.. %d question num.. %s"  % (contestName, i, user, k))
-                # try:
-                uniqueID = str(userrank) +  '_' + username + '_' + str(k)
-                if uniqueID in processedID: 
-                    print("..Submission exists")
-                    continue
-                processedID[uniqueID] = 1
-                kth_submission = submission[k]
-                submission_id = kth_submission['submission_id']
-                
-                submissionRequestURL = submissionURL
+                try:
+                    uniqueID = str(userrank) +  '_' + username + '_' + str(k)
+                    if uniqueID in processedID: 
+                        print("..Submission exists")
+                        continue
+                    processedID[uniqueID] = 1
+                    kth_submission = submission[k]
+                    submission_id = kth_submission['submission_id']
+                    
+                    submissionRequestURL = submissionURL
 
-                if data_region == 'CN': submissionRequestURL = submissionURLCN
+                    if data_region == 'CN': submissionRequestURL = submissionURLCN
 
-                submissionRequestURL = submissionRequestURL % submission_id
+                    submissionRequestURL = submissionRequestURL % submission_id
 
-                submissionResponse = requests.get(submissionRequestURL)
+                    submissionResponse = requests.get(submissionRequestURL)
 
-                submissionResponse = submissionResponse.json()
-                # print(submissionResponse)
+                    submissionResponse = submissionResponse.json()
+                    # print(submissionResponse)
 
-                coding_content =  submissionResponse['code']
-                coding_language = submissionResponse['lang']
-                if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
-                
-                fileLocation = outputLocation + coding_language + '/' + str(k)
-                # print(fileLocation)
-                if not os.path.exists(fileLocation):
-                    os.makedirs(fileLocation)
+                    coding_content =  submissionResponse['code']
+                    coding_language = submissionResponse['lang']
+                    if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
+                    
+                    fileLocation = outputLocation + coding_language + '/' + str(k)
+                    # print(fileLocation)
+                    if not os.path.exists(fileLocation):
+                        os.makedirs(fileLocation)
 
-                # save as contest - code language - [username][code content]
-                filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
-                if os.path.exists(filename): continue
-                file = open(filename, 'w', encoding='utf-8')
-                file.write(coding_content)
-                file.close()
-                # except Exception as err:
-                #     print(err)
-                #     break
+                    # save as contest - code language - [username][code content]
+                    filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
+                    if os.path.exists(filename): continue
+                    file = open(filename, 'w', encoding='utf-8')
+                    file.write(coding_content)
+                    file.close()
+                except Exception as err:
+                    print(err)
+                    pass
         with open(processedJSON, 'w') as outputFile:
             json.dump(processedID, outputFile)        
