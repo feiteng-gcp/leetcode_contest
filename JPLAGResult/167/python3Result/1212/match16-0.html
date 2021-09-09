@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>435_0219nice.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>435_0219nice.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def sequentialDigits(self, low: int, high: int) -&gt; List[int]:
+        low, high = str(low), str(high)
+        low_len, high_len = len(low), len(high)
+        ret = []
+        for i in range(</B></FONT>low_len, high_len + 1):
+            step = int('1' * i)
+            if i == low_len:
+                for j in range(ord(low[0]) - ord('0'), 10):
+                    cur = j
+                    valid = True
+                    for k in range(1, i):
+                        if cur % 10 == 9:
+                            valid = False
+                            break
+                        cur = cur * 10 + (cur % 10 + 1)
+                    if valid and cur &lt;= int(high) and cur &gt;= int(low):
+                        ret.append(cur)  
+            elif i == high_len:
+                for j in range(1, ord(high[0]) - ord('0') + 1):
+                    cur = j
+                    valid = True
+                    for k in range(1, i):
+                        if cur % 10 == 9:
+                            valid = False
+                            break
+                        cur = cur * 10 + (cur % 10 + 1)
+                    if valid and cur &lt;= int(high) and cur &gt;= int(low):
+                        ret.append(cur)
+            else:
+                for j  in range(1, 10):
+                    cur = j
+                    valid = True
+                    for k in range(1, i):
+                        if cur % 10 == 9:
+                            valid = False
+                            break
+                        cur = cur * 10 + (cur % 10 + 1)
+                    if valid and cur &lt;= int(high) and cur &gt;= int(low):
+                        ret.append(cur)
+        return ret   
+</PRE>
+
+</BODY>
+</HTML>

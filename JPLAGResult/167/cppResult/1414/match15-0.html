@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>39_leetcodedocteel.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>39_leetcodedocteel.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int shortestPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int k) {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        vector&lt; vector&lt; vector&lt;int&gt; &gt; &gt; visited(m, vector&lt; vector&lt;int&gt; &gt;(n, vector&lt;int&gt;(k + 1, INT_MAX)));
+        
+        deque&lt; vector&lt;int&gt; &gt; Q;</B></FONT>
+        Q.push_back( {0, 0, 0} );
+        visited[0][0][0] = 0;
+        if (m - 1 == 0 &amp;&amp; n - 1 == 0) return 0;
+        
+        int dr[] = {-1, 0, 1, 0};
+<A NAME="1"></A>        int dc[] = {0, 1, 0, -1};
+        
+        int res = INT_MAX;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match15-1.html#1',3,'match15-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        while (Q.size() &gt; 0)
+        {
+            vector&lt;int&gt; cur = Q.front();
+            Q.pop_front();
+            
+            int curSteps = visited[cur[0]][cur[1]][cur[2]];
+            int removed  = cur[2];
+            for (int a = 0; a &lt; 4; ++a)
+            {
+                int nr = cur[0] + dr[a];
+                int nc = cur[1] + dc[a];
+                if (nr &lt; 0 || nc &lt; 0 || nr &gt;= m || nc &gt;= n) continue;</B></FONT>
+                
+                int newRemoved = removed;
+                if (grid[nr][nc] != 0) ++newRemoved;                
+                if (newRemoved &gt; k) continue;
+                
+                if (visited[nr][nc][newRemoved] &gt; curSteps + 1)
+                {
+                    visited[nr][nc][newRemoved] = curSteps + 1;
+                    Q.push_back( {nr, nc, newRemoved} );
+                    if (nr == m - 1 &amp;&amp; nc == n - 1)
+                    {
+                        res = min(res, curSteps + 1);
+                    }
+                }
+            }
+        }
+        
+        if (res == INT_MAX) return -1;
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

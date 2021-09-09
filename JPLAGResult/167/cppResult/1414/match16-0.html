@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>471_znxftw.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>471_znxftw.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int shortestPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int k) {
+        vector &lt;vector &lt;int&gt; &gt; v (grid.size(),vector&lt;int&gt;(grid[0].size(),INT_MAX));
+        int n = grid[0].size(), m = grid.size();
+        queue &lt;vector &lt;int&gt; &gt; q;
+        q.push({0,0,0,0});
+        while(!q.empty()){
+            vector &lt;int&gt; tmp = q.front();
+            q.pop();
+            if(v[tmp[0]][tmp[1]] &lt;= tmp[2])
+                continue;
+<A NAME="0"></A>            v[tmp[0]][tmp[1]] = tmp[2];
+            if(tmp[0] == m - 1 &amp;&amp; tmp[1] == n - 1)
+                return tmp[3];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(tmp[0] &lt; m - 1){
+                if(grid[tmp[0] + 1][tmp[1]] == 1 &amp;&amp; tmp[2] &lt; k)
+                    q.push({tmp[0]+1,tmp[1],tmp[2] + 1,tmp[3] + 1});
+                if(grid[tmp[0] + 1][tmp[1]] == 0)
+                    q.push({tmp[0]+1,tmp[1],tmp[2],tmp[3] + 1});
+            }
+            if(tmp[1] &lt; n - 1){
+                if(grid[tmp[0]][tmp[1] + 1] == 1 &amp;&amp; tmp[2] &lt; k)
+                    q.push({tmp[0],tmp[1] + 1,tmp[2] + 1,tmp[3] + 1});
+                if(grid[tmp[0]][tmp[1] + 1] == 0)
+                    q.push({tmp[0],tmp[1] + 1,tmp[2],tmp[3] + 1});
+            }
+            if(tmp[1] &gt; 0){
+                if(grid[tmp[0]][tmp[1] - 1] == 1 &amp;&amp; tmp[2] &lt; k)
+                    q.push({tmp[0],tmp[1] - 1,tmp[2] + 1,tmp[3] + 1});
+                if(grid[tmp[0]][tmp[1] - 1] == 0)
+                    q.push({tmp[0],tmp[1] - 1,tmp[2],tmp[3] + 1});
+            }
+            if(tmp[0] &gt; 0){
+                if(grid[tmp[0] - 1][tmp[1]] == 1 &amp;&amp; tmp[2] &lt; k)
+                    q.push({tmp[0] - 1,tmp[1],tmp[2] + 1,tmp[3] + 1});
+                if(grid[tmp[0] - 1][tmp[1]] == 0)
+                    q.push({tmp[0] - 1,tmp[1],tmp[2],tmp[3] + 1});
+            }
+        }</B></FONT>
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

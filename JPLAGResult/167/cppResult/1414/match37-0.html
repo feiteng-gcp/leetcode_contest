@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_aleix.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_aleix.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int shortestPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid, int _k) {
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        struct Node{
+            int x,y,k;
+        };
+        unordered_map&lt;int,int&gt; h;
+        
+        queue&lt;Node&gt; q;
+        q.push({0,0,_k});
+        
+        function&lt;int(int,int,int)&gt; cvt = [&amp;] (int x, int y, int k) {
+            return (x*m+y) * 10000 + k;
+<A NAME="0"></A>        };
+        
+        h[cvt(0,0,_k)] = 0;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match37-1.html#0',3,'match37-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int dx[4] = {0,1,0,-1};
+        int dy[4] = {1,0,-1,0};
+        
+        
+        while(q.size()) {
+            auto [x,y,k] = q.front();q.pop();
+            
+            if(x==n-1 &amp;&amp; y==m-1) return h[cvt(x,y,k)];
+            
+            for(int i = 0 ; i &lt; 4 ; i++) {
+                int a = x+dx[i];
+                int b = y+dy[i];
+                if(a&lt;0||b&lt;0||a&gt;=n||b&gt;=m) continue;</B></FONT>
+                if(!grid[a][b]) {
+                    if(!h.count(cvt(a,b,k))) {
+                        q.push({a,b,k});
+                        h[cvt(a,b,k)] = h[cvt(x,y,k)] + 1;
+                    }
+                }
+                else {
+                    if(k&gt;0 &amp;&amp; !h.count(cvt(a,b,k-1))) {
+                        q.push({a,b,k-1});
+                        h[cvt(a,b,k-1)] = h[cvt(x,y,k)] + 1;
+                        
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

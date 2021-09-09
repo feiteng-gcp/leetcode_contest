@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>465_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>465_eastflag.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxSideLength(int[][] mat, int threshold) {
+        int n = mat.length;
+        int m = mat[0].length;
+        
+        int[][] sum = new int[n][m];
+        for (int i = 0; i &lt; n; i++) {
+            int rowSum = 0;
+            for (int j = 0; j &lt; m; j++) {
+<A NAME="1"></A>                rowSum += mat[i][j];
+                s</B></FONT>um[i][j] = rowSum;
+                if (i &gt; 0) sum[i][j] += sum[i - 1][j];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        
+        int maxK = Math.min(n, m);
+        for (int k = maxK; k &gt; 0; k--) {
+            for (int i = n - 1; i &gt;= k - 1; i--) {
+                for (int j = m - 1; j &gt;= k - 1; j--) {
+                    int val = sum[i][j];
+                    if</B></FONT> (i == k - 1) {
+                        if (j &gt; k - 1) {
+                            val -= sum[i][j - k];
+                        }
+                    } else if (j == k - 1) {
+                        val -= sum[i - k][j];
+<A NAME="2"></A>                    } else {
+                        val = val - sum[i][j - k] - sum[i - k][j] + sum[i - k][j - k];
+                    }
+                    if (val &lt;= threshold) <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return k;
+                }
+            }
+        }
+        
+        return 0;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

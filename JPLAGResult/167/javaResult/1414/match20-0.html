@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_coutPKprintf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>244_coutPKprintf.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    static int[][] directions = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    public int shortestPath(int[][] grid, int k) {</B></FONT>
+        if (k == 0 &amp;&amp; grid[0][0] == 1) {
+            return -1;
+        }
+        int m = grid.length;
+        int n = grid[0].length;
+        Queue&lt;int[]&gt; queue = new LinkedList&lt;&gt;();
+        //i, j, step, k
+        queue.offer(new int[]{0, 0, 0, k - grid[0][0]});
+        int[][] visited = new int[m][n];
+        for(int i = 0; i &lt; m; ++i) {
+            for(int j = 0; j &lt; n; ++j) {
+                visited[i][j] = -1;
+<A NAME="1"></A>            }
+        }
+        visited[0][0] = k - grid[0][0];
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>while(!queue.isEmpty()) {
+<A NAME="2"></A>            int size = queue.size();
+            for(int i = 0; i &lt; size; ++i) {
+                int[] item = queue.poll</B></FONT>();
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (item[0] == m - 1 &amp;&amp; item[1] == n - 1) {
+                    return item[2];
+                }
+                for(int[] direction: directions) {
+                    int nx = item[0] + direction[0];
+                    int ny = item[1] + direction[1];
+<A NAME="3"></A>                    if (nx &lt; 0 || ny &lt; 0 || nx &gt;= m || ny &gt;= n) {
+                        continue;
+                    }</B></FONT>
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match20-1.html#3',3,'match20-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (item[3] - grid[nx][ny] &lt;= visited[nx][ny]) {
+                        continue;
+                    }
+                    queue.offer(new int[]{nx, ny, item[2] + 1, item[3] - grid[nx][ny]});
+                    visited[nx][ny] = item[3] - grid[nx][ny];
+                }
+            }
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

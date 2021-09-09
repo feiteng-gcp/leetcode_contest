@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>15_suiyuan1992.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>15_suiyuan1992.cpp</CENTER></H3><HR>
+<PRE>
+ struct P{
+     int x,y,z;
+<A NAME="0"></A>     P(){}
+     P(int x,int y,int z):x(x),y(y),z(z){}
+    };
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int dir[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+class Solution {
+public:
+    int shortestPath(vector&lt;vector&lt;int&gt;&gt;&amp; a, int t) {
+        int n = a.size();</B></FONT>
+        int m = a[0].size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; f = vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;(n, vector&lt;vector&lt;int&gt;&gt;(m, vector&lt;int&gt;(t+1, -1)));
+        f[0][0][0] = 0;
+        queue&lt;P&gt; que;
+        que.push(P(0,0,0));
+<A NAME="1"></A>        while(!que.empty()){
+            P cur = que.front();
+            que.pop();
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#1',2,'match10-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int i=0;i&lt;4;i++){
+                int nx = cur.x + dir[i][0];
+                int ny = cur.y + dir[i][1];
+                if(nx&lt;0||nx&gt;=n||ny&lt;0||ny&gt;=m)continue;
+                int nz = cur.z + a[nx][ny];
+                if(nz&gt;t)continue;
+                if(f[nx][ny][nz]==-1){</B></FONT>
+                    f[nx][ny][nz] = f[cur.x][cur.y][cur.z] + 1;
+                    que.push(P(nx,ny,nz));
+                }
+            }
+        }
+        int ret = -1;
+        for(int i=0;i&lt;=t;i++){
+            if(f[n-1][m-1][i]==-1)continue;
+            if(ret==-1||ret&gt;f[n-1][m-1][i])ret=f[n-1][m-1][i];
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

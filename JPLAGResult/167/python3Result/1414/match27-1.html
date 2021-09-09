@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>398_jet-lag.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>398_jet-lag.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def shortestPath(self, grid: List[List[int]], k: int) -&gt; int:
+        n, m = len(grid), len(grid[0])
+        ctr = sum(grid[i].count(1) for i in range(n))
+        if ctr &lt;= k: return n + m - 2
+        if grid[n-1][m-1] == 1:
+            k -= 1
+            grid[n-1][m-1] = 0
+        vis = [[[0] * m for _ in range(n)] for _ in range(k+1)]
+        stk = [(0, 0, 0, 0)]
+        dxy = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        vis[0][0][0] = 1
+        while stk:
+            i, j, p, step = stk.pop()
+            if i == n-1 and j == m-1: return step
+            for dx, dy in dxy:
+<A NAME="0"></A>                x, y = i + dx, j + dy
+                if 0 &lt;= x &lt; n and 0 &lt;= y &lt; m and vis[p][x][y] == 0:
+                    vis[p][x][y] = 1
+                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if grid[x][y] == 0: stk.insert(0, (x, y, p, step+1))
+                    elif p &lt; k: stk.insert(0, (x, y, p+1, step+1))
+        re</B></FONT>turn -1
+</PRE>
+
+</BODY>
+</HTML>

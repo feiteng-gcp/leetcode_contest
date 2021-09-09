@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>44_jingli2007.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>44_jingli2007.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+  public int shortestPath(int[][] g, int k) {
+<A NAME="1"></A>    Queue&lt;int[]&gt; q = new ArrayDeque&lt;&gt;();
+    Set&lt;String&gt; s = new HashSet&lt;&gt;();
+    q.add(new</B></FONT> int[3]);
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match14-1.html#1',3,'match14-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; !q.isEmpty(); i++) {
+      for (int j = q.size(); j &gt; 0; j--) {
+        int[] h = q.remove();
+        if (h[0] &gt;= 0 &amp;&amp; h[0] &lt; g.length &amp;&amp; h[1] &gt;= 0 &amp;&amp; h[1] &lt; g[0].length) {
+          if (g[h[0]][h[1]] == 1) {
+            h[2]++;
+          }
+          if (h[2] &lt;= k) {
+            if (h[0] == g.length - 1 &amp;&amp; h[1] == g[0].length - 1) {
+              return i;
+            } else if (!s.contains(Arrays.toString(h))) {
+              s.add(Arrays.toString(h));
+              q.add(new int[] { h[0] - 1, h[1], h[2] });
+              q.add(new int[] { h[0], h[1] - 1, h[2] });
+              q.add(new int[] { h[0], h[1] + 1, h[2] });
+              q.add(new int[] { h[0] + 1, h[1], h[2] });
+            }
+          }
+        }
+      }
+    }
+    return -1;
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
