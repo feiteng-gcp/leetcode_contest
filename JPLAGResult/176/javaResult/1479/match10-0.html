@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_coutPKprintf.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>320_coutPKprintf.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isPossible(int[] target) {
+        PriorityQueue&lt;Long&gt; queue = new PriorityQueue&lt;&gt;((a, b) -&gt; b - a &gt; 0 ? 1 : -1);
+        long sum = 0l;
+        for(int num : target) {
+            queue.offer((long) num);
+            sum += num;
+        }
+        while(!queue.isEmpty()) {
+            long max = queue.poll();
+            if (max == 1l) {
+                return true;
+            }
+            //之前的值
+            long pre = 2l * max - sum;
+            if (pre &lt;= 0l) {
+                return false;
+            }
+            queue.offer(pre);
+            sum = sum - max + pre;
+        }
+        return false;
+    }
+}</B></FONT> 
+
+// [1, 1, 1, 1] =&gt; n
+// [1, 1, ... , n , ..., 1, 1] =&gt;  n +  n - 1 =&gt; 2 * n - 1
+// [1, 1, n, 2 * n - 1, 1, 1] =&gt; n +  n - 1 + (n + 2 * n - 1 + n - 2) =&gt; 
+
+// (sum - any)
+</PRE>
+
+</BODY>
+</HTML>

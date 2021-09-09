@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_kotamanegi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_kotamanegi.cpp</CENTER></H3><HR>
+<PRE>
+#include &quot;bits/stdc++.h&quot;
+#pragma comment (linker, &quot;/STACK:526000000&quot;)
+#define  _CRT_SECURE_NO_WARNINGS
+
+using namespace std;
+typedef string::const_iterator State;
+#define eps 1e-11L
+#define MAX_MOD 1000000007LL
+#define GYAKU 500000004LL
+
+#define MOD 998244353LL
+#define seg_size 262144*2LL
+#define pb push_back
+#define mp make_pair
+typedef long long ll;
+#define REP(a,b) for(long long (a) = 0;(a) &lt; (b);++(a))
+#define ALL(x) (x).begin(),(x).end()
+
+class Solution {
+public:
+    int maxEvents(vector&lt;vector&lt;int&gt;&gt;&amp; events) {
+        vector&lt;pair&lt;int, int&gt;&gt; inputs;
+        REP(i, events.size()) {
+            inputs.push_back(mp(events[i][0], events[i][1]));
+        }
+<A NAME="0"></A>        sort(ALL(inputs));
+        int now_itr = 0;
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; next;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int ans = 0;
+        for (int q = 1; q &lt;= 100000; ++q) {
+            while (now_itr != inputs.size() &amp;&amp; inputs[now_itr].first == q) {
+                next.push(inputs[now_itr].second + 1);
+                now_itr++;
+            }
+            while (next.empty() == false &amp;&amp; next.top() &lt;= q) {
+                next.pop();
+            }
+            if (next.empty() == false) {
+                next.pop();
+                ans++;
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

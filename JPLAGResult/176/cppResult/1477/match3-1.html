@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>177_jasonshieh2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>177_jasonshieh2.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class ProductOfNumbers {
+public:
+    vector&lt;int&gt; nums;
+    //3, 0, 2, 10, 40
+    set&lt;int&gt; zeroSet;
+    ProductOfNumbers() {
+       
+    }
+   
+    void add(int num) {
+        if(num == 0) {
+            zeroSet.insert(nums.size());
+        }
+        if(nums.empty() || nums.back() == 0){
+            nums.emplace_back(num);
+        }else{
+            nums.emplace_back(num * nums.back());
+        }
+    }
+   
+    int getProduct(int k) {
+        int n = nums.size();
+        auto itr = zeroSet.lower_bound(n - k);
+        if(itr != zeroSet.end()) return 0;
+        if(n == k || nums[n - k - 1] == 0) return nums.back();
+        return nums.back() / nums[n - k - 1];
+    }
+};</B></FONT>
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers* obj = new ProductOfNumbers();
+ * obj-&gt;add(num);
+ * int param_2 = obj-&gt;getProduct(k);
+ */
+</PRE>
+</BODY>
+</HTML>

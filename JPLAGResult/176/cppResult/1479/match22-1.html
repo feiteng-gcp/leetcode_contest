@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>108_shell32.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>108_shell32.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    bool isPossible(vector&lt;int&gt;&amp; target) {
+        priority_queue&lt;int64_t&gt; pq;
+        int64_t sum = 0;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (auto i : target) {
+            pq.push(i);
+            sum += i;
+        }
+        while (pq.top() != 1) {
+            int64_t t  = pq.top();
+            pq.pop();
+            int64_t newt = t - (sum - t);
+            if (newt &lt; 1)
+                return false;
+            sum = sum - t + newt;
+            pq.push(newt);
+        }
+        return true;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>156_arsener.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>156_arsener.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct Meet{
+        int st, ed;
+        // bool operator &lt;()
+    };
+    
+    static bool cmp(Meet a, Meet b){
+        if(a.ed != b.ed){
+            return a.ed &lt; b.ed;
+        }
+        else{
+            return a.st &lt; b.st;
+        }
+    }
+    
+    int maxEvents(vector&lt;vector&lt;int&gt;&gt;&amp; events) {
+        vector&lt;Meet&gt; m;
+        for(int i = 0; i &lt; events.size(); i++){
+            Meet tmp;
+            tmp.st = events[i][0];
+            tmp.ed = events[i][1];
+            m.push_back(tmp);
+        }
+        
+<A NAME="0"></A>        sort(m.begin(), m.end(), cmp);
+        vector&lt;int&gt; flag(100005, 1);
+        
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans = 0, ed = 1;
+        for(int i = 0; i &lt; m.size(); i++){
+            for(int j = m[i].st; j &lt;= m[i].ed; j++){
+                if(flag[j]){
+                    flag[j] = 0;
+                    ans++;
+                    break;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
