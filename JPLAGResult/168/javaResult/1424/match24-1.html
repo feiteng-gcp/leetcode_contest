@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>274_z123k3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>274_z123k3.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    public int maxCandies(int[] status, int[] candies, int[][] keys, int[][] containedBoxes, int[] initialBoxes) {
+        int out = 0;
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Set&lt;Integer&gt; keysInHand = new HashSet&lt;&gt;();
+        
+        Queue&lt;Integer&gt; openBoxes = new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; closedBoxes = new HashSet&lt;&gt;();
+        
+        for(int box : initialBoxes) {
+            if(status[box] == 1) {
+                openBoxes.add(box);
+            } else {
+                closedBoxes.add(box);
+            }
+        }</B></FONT>
+        
+        //System.out.println(openBoxes);
+        
+<A NAME="1"></A>        while(!openBoxes.isEmpty()) {
+            //System.out.println(openBoxes + &quot; &quot; + out);
+
+            int box = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>openBoxes.poll();
+
+            //System.out.println(openBoxes + &quot; &quot; + out);
+            
+            out += candies[box];
+            
+            for(int newBox : containedBoxes[box]) {
+                if(status[newBox] == 1 || keysInHand.contains(newBox)) {
+                    openBoxes.add(newBox);
+                } else {
+                    closedBoxes.add(newBox);
+                }
+            }
+            
+            for(int key : keys[box]) {
+                keysInHand.add(key);
+                
+                if(closedBoxes.contains(key)) {
+                    closedBoxes.remove(key);
+                    openBoxes.add(key);
+                }
+            }
+        }
+        
+        return out;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

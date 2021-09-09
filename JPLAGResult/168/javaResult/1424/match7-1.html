@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>259_ZLBer.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>259_ZLBer.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxCandies(int[] status, int[] candies, int[][] keys, int[][] containedBoxes, int[] initialBoxes) {
+        Queue&lt;Integer&gt; box=new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; key=new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; initialBoxes.length; i++) {
+            box.add(initialBoxes[i]);
+        }
+
+        int res=0;
+        while (true){
+            boolean flag=true;
+            Queue&lt;Integer&gt; newBox=new LinkedList&lt;&gt;();
+          while (!box.isEmpty()){
+              int b=box.poll();
+             if(status[b]==1||key.contains(b)){
+                 //添加盒子
+                 res+=candies[b];
+                 for (int i = 0; i &lt; containedBoxes[b].length; i++) {
+                     flag=false;
+                     newBox.add(containedBoxes[b][i]);
+                 }
+                 for (int i = 0; i &lt; keys[b].length; i++) {
+                     flag=false;
+                     key.add(keys[b][i]);
+                 }
+             }
+             else {
+                 //继续下一次
+                 newBox.add(b);
+             }
+          }
+          //设置新的盒子
+          box=newBox;
+
+       if(flag) break;
+
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

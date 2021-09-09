@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>104_carlczerny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>104_carlczerny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int maxCandies(int[] status, int[] candies, int[][] keys, int[][] containedBoxes, int[] initialBoxes) {
+        int maxCandies = 0;
+        int length = status.length;
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;();
+        for (int initialBox : initialBoxes)
+            queue.offer(initialBox);
+        int index = 0;
+        int size = queue.size();
+        while (!queue.isEmpty()) {
+            boolean flag = false;
+            int box = queue.poll();
+            if (status[box] == 0) {
+                queue.offer(box);
+                index++;
+                size = queue.size();
+            } else {
+                maxCandies += candies[box];
+                int[] curKeys = keys[box];
+                int[] nextBoxes = containedBoxes[box];
+                if (curKeys != null &amp;&amp; curKeys.length &gt; 0) {
+                    index = 0;
+                    for (int key : curKeys)
+                        status[key] = 1;
+                }
+                if (nextBoxes != null &amp;&amp; nextBoxes.length &gt; 0) {
+                    index = 0;
+                    for (int nextBox : nextBoxes)
+                        queue.offer(nextBox);
+                }
+            }
+            if (index == size)
+                break;
+        }
+        return maxCandies;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>285_Itachi666.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>285_Itachi666.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    unordered_set&lt;int&gt; key, hasbox, opened;
+    int ans=0;
+    
+    
+    int maxCandies(vector&lt;int&gt;&amp; status, vector&lt;int&gt;&amp; candies, vector&lt;vector&lt;int&gt;&gt;&amp; keys, vector&lt;vector&lt;int&gt;&gt;&amp; containedBoxes, vector&lt;int&gt;&amp; initialBoxes) {
+        queue&lt;int&gt; box;
+        for (auto it:initialBoxes)
+            box.push(it);
+        
+        while (!box.empty()) {
+            int b=box.front();
+            box.pop();
+            
+            if (opened.find(b)!=opened.end())
+                continue;
+            // cout&lt;&lt;b&lt;&lt;endl;
+            
+            if (status[b]==0 &amp;&amp; key.find(b)==key.end()) {
+                hasbox.insert(b);
+                continue;
+            }
+            opened.insert(b);
+            hasbox.erase(b);
+            ans+=candies[b];
+            
+            for (auto&amp; k:keys[b]) {
+                key.insert(k);
+                if (hasbox.find(k)!=hasbox.end())
+                    box.push(k);
+            }
+            
+            for (auto&amp; c:containedBoxes[b]) {
+                box.push(c);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

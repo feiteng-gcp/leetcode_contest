@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>449_zink.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>449_zink.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
+        char[] cs = s.toCharArray();
+        HashMap&lt;String,Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; cs.length; i++) {
+<A NAME="1"></A>            for (int j = i+minSize; j &lt;= i+maxSize &amp;&amp; j&lt;=cs.length ; j++) {
+                if</B></FONT> (help(cs,i,j,maxLetters)){
+                    map.put(s.substring(i,j),map.getOrDefault(s.substring(i,j),0)+1);
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>break;
+                }
+            }
+        }
+        int res = 0;
+        for (String x : map.keySet()){
+            if (map.get(x)&gt;res){
+                res = map.get(x);
+            }
+        }
+        return res;
+    }
+
+    private boolean help(char[] cs, int i</B></FONT>, int j, int maxLetters) {
+        int[] map = new int[26];
+        for (int k = i; k &lt; j; k++) {
+            if (map[cs[k]-'a'] == 0){
+                map[cs[k]-'a'] = 1;
+                maxLetters--;
+            }
+            if (maxLetters&lt;0)return false;
+        }
+        return true;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
