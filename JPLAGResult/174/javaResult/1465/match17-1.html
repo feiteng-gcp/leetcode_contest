@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>256_20200507.charlesleila.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>256_20200507.charlesleila.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    
+<A NAME="0"></A>    
+    public int maxProduct(TreeNode root) {
+        int mod = (int) (1e9 + 7);
+        TreeSet&lt;Long&gt; set = <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>new TreeSet&lt;&gt;();
+        long sum = getSum(root, set);
+        Long upper = set.floor(sum / 2);
+        Long lower = set.ceiling(sum / 2);
+        if (upper == null) {
+            return (int) (lower * (sum - lower) % mod);
+        }
+        if (lower == null) {
+            return (int) (upper * (sum - upper) % mod);
+        }
+<A NAME="1"></A>        return (int) (Math.max((lower * (sum - lower)), (upper * (sum - upper))) % mod);
+    }
+    
+    private long getSum(TreeNode root</B></FONT>, TreeSet set) <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#1',2,'match17-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+        if (root == null) {
+            return 0;
+        }
+        
+        long left = getSum(root.left, set);
+        long right = getSum(root.right, set);
+        set.add(left + right + root.val);
+        return left + right + root.val;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>319_ljr1226.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>319_ljr1226.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+<A NAME="0"></A> */
+class Solution {
+    long sum =0;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long res = 0;
+    int mod = (int)1e9+7;
+    public int maxProduct(TreeNode root) {
+        helpsum(root);
+        help(root);
+        return (int)(res%mod);
+    }
+
+    private long help(TreeNode root) {
+        if (root==null) return 0;
+        long left = help(root.left);
+<A NAME="1"></A>        long right = help(root.right);
+        //System.out.println(left+&quot; &quot;+right);
+        res = Math.max</B></FONT>(left*(sum-left),res);
+        res = <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#1',2,'match12-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Math.max(right*(sum-right),res);
+        return left+right+root.val;
+    }
+
+    private void helpsum (TreeNode root){
+        if (root==null) return;
+        sum+= root.val;
+        helpsum(root.left);
+        helpsum(root.right);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

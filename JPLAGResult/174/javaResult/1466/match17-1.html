@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_Gaaakki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_Gaaakki.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    int[] dp;
+    public int maxJumps(int[] arr, int d) {
+        int N = arr.length;
+<A NAME="0"></A>        dp = new int[N];
+        int ans = 1;
+        for(int i = 0; i &lt; N; i++)
+            ans = Math.max(ans, dfs(arr, d, i))<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        return ans;
+    }
+    public int dfs(int[] arr, int d, int i) {
+        if(dp[i] != 0)
+            return dp[i];
+        int cur = 1;
+        for(int j = i - 1; j &gt;= Math.max(0, i - d); j--) {
+            if(arr[j] &gt;= arr[i])
+                break;
+            cur = Math.max(cur, dfs(arr, d, j) + 1);
+        }
+        for(int j = i + 1; j &lt;= Math.min(arr.length - 1, i + d); j++) {
+            if(arr[j] &gt;= arr[i])
+                break;
+            cur = Math.max(cur, dfs(arr, d, j) + 1);
+        }
+        
+        dp[i] = cur;
+        return cur;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

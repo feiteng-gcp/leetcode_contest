@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_copyreadmachine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_copyreadmachine.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private int[] arr, mem;
+    private int d;
+    private int INF = 0X7FFFFFFF;
+    public int maxJumps(int[] arr, int d) {
+        this.arr = arr;
+        this.d = d;
+        int n = arr.length;
+<A NAME="0"></A>        this.mem = new int[n];
+        Arrays.fill(mem, -1);
+        
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int ans = 0;
+        for (int i = 0; i &lt; n; i++) {
+            ans = Math.max(DFS(i), ans);
+        }
+        return ans;
+    }
+    private int DFS(int cur) {
+        
+        if (mem[cur] != -1) return mem[cur];
+        int ans = 1;
+        
+        int h = 0</B></FONT>, tmp = 0;
+<A NAME="1"></A>        
+        for (int x = 1; x &lt;= d &amp;&amp; cur-x &gt;= 0; x++) {
+            int k = arr[cur-x];
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (k &gt;= arr[cur]) break;
+            tmp = Math.max(tmp, DFS(cur-x));
+<A NAME="2"></A>        }
+        for (int x = 1; x &lt;= d &amp;&amp; cur+x &lt; arr.length; x++) {</B></FONT>
+            int k = arr[cur+x];
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (k &gt;= arr[cur]) break;
+            tmp = Math.max(tmp, DFS(cur+x));
+        }
+        ans += tmp;
+        mem[cur] = ans;
+        return ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

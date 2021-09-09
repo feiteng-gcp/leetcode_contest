@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_copyreadmachine.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_copyreadmachine.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private long sum = 0;
+    private long ans = 0;
+    public int maxProduct(TreeNode root) {
+        sum = getSum(root);
+<A NAME="0"></A>        helper(root);
+        return (int)(ans%1_000_000_007);
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private long helper(TreeNode root) {
+        if (root == null) return 0;
+        long l = helper(root.left);
+<A NAME="1"></A>        long r = helper</B></FONT>(root.right);
+        long res1 = l * (sum-l);
+        long res2 = r * (sum-r);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (res1 &gt; ans) ans = res1;
+        if (res2 &gt; ans) ans = res2;
+        return l + r + root.val;
+    }
+    private long getSum(TreeNode root) {
+        if (root == null) return 0;
+        return getSum(root.left)+root.val+getSum(root.right);
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

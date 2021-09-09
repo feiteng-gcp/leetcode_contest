@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>193_YanJF_1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>193_YanJF_1.java</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+<A NAME="0"></A> * }
+ */
+class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>long sum = 0;
+    long max = 0L;
+    public int maxProduct(TreeNode root) {
+        sum = helper1(root);
+        helper2(root);
+        return (int)(max%(1_000_000_007));
+    }
+<A NAME="1"></A>    
+    private long helper1(TreeNode t) {
+        if(t == null) return 0;</B></FONT>
+        return t.val + <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>helper1(t.left)+helper1(t.right);
+    }
+    
+    private long helper2(TreeNode t) {
+        if(t == null) return 0L;
+        long left = helper2(t.left);
+        long right = helper2</B></FONT>(t.right);
+        max = Math.max(Math.max((sum-left)*left, (sum-right)*right), max);
+        return t.val+left+right;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

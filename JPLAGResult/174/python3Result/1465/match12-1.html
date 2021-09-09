@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>132_Jy_Tan.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>132_Jy_Tan.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+<A NAME="0"></A>class Solution:
+    def maxProduct(self, root: TreeNode) -&gt; int:
+        m = 10 ** 9 + 7
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match12-0.html#0',2,'match12-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.total = 0
+        def get_total(node):
+            if not node:
+                return
+            self.total += node.val
+            get_total(node.left)
+            get_total(node.right)
+        get_total(root)
+        # print(self.total)
+        self.max_ = 0
+        def inorder(node):
+            if not node:
+                return 0
+            l_sum = inorder(node.left)
+            r_sum = inorder(node.right)
+            self.max_ = max(self.max_, l_sum * (self.total - l_sum), r_sum * (self.</B></FONT>total - r_sum))
+            return l_sum + node.val + r_sum
+        inorder(root)
+        return self.max_ % m
+</PRE>
+
+</BODY>
+</HTML>

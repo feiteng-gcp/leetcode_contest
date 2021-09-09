@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>311_neodooth.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>311_neodooth.py</CENTER></H3><HR>
+<PRE>
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+<A NAME="0"></A>#         self.left = None
+#         self.right = None
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxProduct(self, root: TreeNode) -&gt; int:
+        def dfs_sum(node):
+            if not node:
+                return 0
+            return node.val + dfs_sum(node.left) + dfs_sum(node.right)
+        
+        tree_sum = dfs_sum(root)
+        max_prod = -1
+        
+        def dfs(node):
+            nonlocal max_prod
+            if not node:
+                return 0
+            sum_l = dfs(node.left)
+            sum_r = dfs(</B></FONT>node.right)
+            max_lr = max(sum_l * (tree_sum - sum_l), sum_r * (tree_sum - sum_r))
+            max_prod = max(max_prod, max_lr)
+            return node.val + sum_l + sum_r
+        
+        dfs(root)
+        
+        return max_prod % (10 ** 9 + 7)
+</PRE>
+
+</BODY>
+</HTML>

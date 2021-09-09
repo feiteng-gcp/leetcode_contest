@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>89_love-algorithm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>89_love-algorithm.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxJumps(int[] arr, int d) {
+        int n = arr.length;
+<A NAME="0"></A>        Integer[] memo = new Integer[n];
+        int max = 1;
+        for(int i = 0 ; i &lt; n ; i++){
+            max = Math.max(max, <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dfs(arr, d, memo,i));
+        }
+        return max;
+    }
+    
+    private int dfs(int[] arr, int d, Integer[] memo, int cur){
+        if(memo[cur] != null){
+            return memo[cur];
+<A NAME="1"></A>        }
+        int n = arr.length;
+        int res = 1;
+        for(int len = 1</B></FONT>; len &lt;= d; len++)<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if(cur - len &lt; 0 || arr[cur - len] &gt;= arr[cur]){
+                break;
+<A NAME="2"></A>            }
+            res = Math.max(res, 1 + dfs(arr, d, memo, cur - len));
+        }
+        for(int len = 1</B></FONT>; len &lt;= d; len++)<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if(cur + len &gt;= n || arr[cur + len] &gt;= arr[cur]){
+                break;
+            }
+            res = Math.max(res, 1 + dfs(arr, d, memo, cur + len));
+        }
+        memo[cur] = res;
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

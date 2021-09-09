@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>323_fzf123.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>323_fzf123.cpp</CENTER></H3><HR>
+<PRE>
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+typedef long long ll;
+const ll MOD = 1000000007LL;
+class Solution {
+public:
+    ll calSum(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        return root-&gt;val + calSum(root-&gt;left) + calSum(root-&gt;right);
+    }
+    
+    ll solve(TreeNode* root, ll sum) {
+<A NAME="0"></A>        if (root == nullptr) {
+            return 0;
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        ll lsum = solve(root-&gt;left, sum);
+        ll rsum = solve(root-&gt;right, sum);
+        ll cur = root-&gt;val + lsum + rsum;
+        if (cur != sum) {
+            ans = max(ans, 1LL * (sum - cur) * cur);
+        }
+        return cur;
+    }
+    int maxProduct(TreeNode* root) {
+        ll sum = calSum(root);
+        ans = 0;
+        solve(root, sum);
+        return ans % MOD;
+    }
+    ll ans;
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
