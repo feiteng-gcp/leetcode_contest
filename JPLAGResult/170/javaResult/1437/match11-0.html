@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>468_carlczerny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>468_carlczerny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minInsertions(String s) {
+        if (s.length() &lt;= 1)
+            return 0;
+        StringBuffer sb = new StringBuffer(s);
+        sb.reverse();
+        String reverseStr = sb.toString();
+        int longestCommonSubsequence = longestCommonSubsequence(s, reverseStr);
+        return s.length() - longestCommonSubsequence;
+    }
+
+    public int longestCommonSubsequence(String str1, String str2) {
+        int length1 = str1.length(), length2 = str2.length();
+        int[][] dp = new int[length1 + 1][length2 + 1];
+        for (int i = 1; i &lt;= length1; i++) {
+            char c1 = str1.charAt(i - 1);
+            for (int j = 1; j &lt;= length2; j++) {
+                char c2 = str2.charAt(j - 1);
+                if (c1 == c2)
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                else
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+        int commonLength = dp[length1][length2];
+        return commonLength;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

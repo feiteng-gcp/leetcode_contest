@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>414_Final20.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>414_Final20.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    public List&lt;String&gt; watchedVideosByFriends(List&lt;List&lt;String&gt;&gt; watchedVideos, int[][] friends, int id, int level) {
+        // 1. BFS find the videos in level
+        Map&lt;String, Integer&gt; videoToFreq = BFS(watchedVideos, friends, id, level);
+        
+        // 2. sort all videos by frequency
+        return sortVideoByFreq(videoToFreq);
+    }
+    
+    private Map&lt;String, Integer&gt; BFS(List&lt;List&lt;String&gt;&gt; watchedVideos, int[][] friends, int id, int level) {
+        Queue&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();
+        boolean[] visited = new boolean[watchedVideos.size()];
+        Map&lt;String, Integer&gt; videoToFreq = new HashMap&lt;&gt;();
+        
+        // 1. init
+        queue.offer(id);
+        visited[id] = true;
+<A NAME="0"></A>        
+        // 2. BFS
+        int curLevel = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (!queue.isEmpty() &amp;&amp; curLevel &lt;= level) { // terminate condition!!
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+<A NAME="2"></A>                // expand
+                int cur = queue.poll</B></FONT>();
+                if (curLevel == level) {
+                    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (String video : watchedVideos.get(cur)) {
+                        videoToFreq.put(video, videoToFreq.getOrDefault(video, 0)+1);
+                    }
+                }</B></FONT>
+                // generate
+<A NAME="1"></A>                for (int nei : friends[cur]) {
+                    if (visited[nei]) {
+                        continue;
+                    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+                    queue.offer(nei);
+                    visited[nei] = true;
+                }
+            }
+            curLevel++;
+        }</B></FONT>
+        
+        return videoToFreq;
+    }
+<A NAME="3"></A>    
+    private List&lt;String&gt; sortVideoByFreq(Map&lt;String, Integer&gt; videoToFreq) {
+        // 1. sort
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#3',2,'match27-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;Map.Entry&lt;String, Integer&gt;&gt; entrys = new ArrayList&lt;&gt;(videoToFreq.entrySet());
+        
+        Collections.sort(entrys, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;() {
+            @Override
+            public int compare(Map.Entry&lt;String, Integer&gt; e1, Map.Entry&lt;String, Integer&gt; e2) {
+                if (e1.getValue() != e2.getValue()) {
+                    return Integer.compare(e1.getValue(), e2.getValue());
+                }</B></FONT> else {
+                    return e1.getKey().compareTo(e2.getKey());
+                }
+            }
+        });
+<A NAME="4"></A>        
+        // 2. get result
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        <FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#4',2,'match27-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (Map.Entry&lt;String, Integer&gt; entry : entrys) {
+            res.add(entry.getKey());
+        }
+        
+        return res;
+    }
+    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

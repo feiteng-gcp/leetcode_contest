@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>145_xin49.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>145_xin49.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    //vector&lt;int&gt; visited;
+ 
+
+public:
+    vector&lt;string&gt; watchedVideosByFriends(vector&lt;vector&lt;string&gt;&gt;&amp; watchedVideos, vector&lt;vector&lt;int&gt;&gt;&amp; friends, int id, int level) {
+        int n=friends.size();
+        vector&lt;int&gt; depth=vector&lt;int&gt;(n);
+        vector&lt;int&gt; visited=vector&lt;int&gt;(n);
+        for(int i=0;i&lt;n;i++){
+            depth[i]=-1;
+            visited[i]=0;
+        }
+        queue&lt;int&gt; bfs;
+        bfs.push(id);
+        depth[id]=0;
+        while(bfs.size()){
+            int u=bfs.front();
+            bfs.pop();
+            if(visited[u]!=0) continue;
+<A NAME="0"></A>            visited[u]=1;
+            for(int i=0;i&lt;friends[u].size();i++){
+                int v=friends[u][i];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#0',2,'match34-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                if(depth[v]==-1){
+                    depth[v]=depth[u]+1;
+                    bfs.push(v);
+                }
+            }
+        }
+        map&lt;string,int&gt; cnt;
+        for(int i=0;i&lt;n;i++){
+            if(depth[i]==level){
+                for(int j=0;j&lt;watchedVideos[i].size();j++){</B></FONT>
+                    string s=watchedVideos[i][j];
+<A NAME="1"></A>                    if(cnt.find(s)==cnt.end()) cnt[s]=1;
+                    else cnt[s]++;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match34-0.html#1',2,'match34-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        vector&lt;pair&lt;int,string&gt;&gt; ans;
+        for(auto it=cnt.begin();it!=cnt.end();it++){
+            ans.push_back(make_pair(it-&gt;second,it-&gt;first));
+        }
+        sort(ans.begin(),ans.end());
+        vector&lt;string&gt; res;
+        for(int i=0;i&lt;ans.size();i++) res.push_back(ans[i].second);
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

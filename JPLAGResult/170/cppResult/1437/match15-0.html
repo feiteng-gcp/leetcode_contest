@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_liuyubobobo.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>249_liuyubobobo.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minInsertions(string s) {
+
+        vector&lt;vector&lt;int&gt;&gt; dp(s.size(), vector&lt;int&gt;(s.size(), INT_MAX));
+        return dfs(s, 0, s.size() - 1, dp);
+    }
+
+private:
+    int dfs(const string&amp; s, int a, int b, vector&lt;vector&lt;int&gt;&gt;&amp; dp){
+
+        if(a &gt;= b) return 0;
+        if(dp[a][b] != INT_MAX) return dp[a][b];
+
+        int res = INT_MAX;
+        if(s[a] == s[b]) res = min(res, dp[a][b] = dfs(s, a + 1, b - 1, dp));
+        res = min(res, 1 + min(dfs(s, a + 1, b, dp), dfs(s, a, b - 1, dp)));
+        return dp[a][b] = res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

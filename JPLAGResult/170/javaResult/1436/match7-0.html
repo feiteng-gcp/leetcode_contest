@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>468_carlczerny.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>468_carlczerny.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; watchedVideosByFriends(List&lt;List&lt;String&gt;&gt; watchedVideos, int[][] friends, int id, int level) {
+        int friendsCount = friends.length;
+        int[] colors = new int[friendsCount];
+        final int WHITE = 0;
+        final int GRAY = 1;
+        final int BLACK = 2;
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;Integer&gt;();
+        queue.offer(id);
+        colors[id] = GRAY;
+        int friendLevel = 0;
+        while (!queue.isEmpty() &amp;&amp; friendLevel &lt; level) {
+            friendLevel++;
+            int size = queue.size();
+            for (int i = 0; i &lt; size; i++) {
+                int curId = queue.poll();
+                int[] curFriends = friends[curId];
+                for (int friend : curFriends) {
+                    if (colors[friend] == WHITE) {
+                        colors[friend] = GRAY;
+                        queue.offer(friend);
+                    }
+                }
+                colors[curId] = BLACK;
+            }
+        }
+        Map&lt;String, Integer&gt; videosCountsMap = new HashMap&lt;String, Integer&gt;();
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            int curId = queue.poll();
+            List&lt;String&gt; curVideos = watchedVideos.get(curId);
+            for (String video : curVideos) {
+                int count = videosCountsMap.getOrDefault(video, 0);
+                count++;
+                videosCountsMap.put(video, count);
+            }
+        }
+        List&lt;VideoFrequency&gt; list = new ArrayList&lt;VideoFrequency&gt;();
+        Set&lt;String&gt; videosSet = videosCountsMap.keySet();
+        for (String video : videosSet) {
+            int count = videosCountsMap.get(video);
+            VideoFrequency videoFrequency = new VideoFrequency(video, count);
+            list.add(videoFrequency);
+        }
+        Collections.sort(list);
+        List&lt;String&gt; videos = new ArrayList&lt;String&gt;();
+        for (VideoFrequency videoFrequency : list)
+            videos.add(videoFrequency.video);
+        return videos;
+    }
+}
+
+class VideoFrequency implements Comparable&lt;VideoFrequency&gt; {
+    String video;
+    int frequency;
+
+    public VideoFrequency() {
+        
+    }
+
+    public VideoFrequency(String video, int frequency) {
+        this.video = video;
+        this.frequency = frequency;
+    }
+
+    public int compareTo(VideoFrequency videoFrequency2) {
+        if (this.frequency != videoFrequency2.frequency)
+            return this.frequency - videoFrequency2.frequency;
+        else
+            return this.video.compareTo(videoFrequency2.video);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

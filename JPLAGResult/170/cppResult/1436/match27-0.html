@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>3_zerotrac2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>3_zerotrac2.cpp</CENTER></H3><HR>
+<PRE>
+using PSI = pair&lt;string, int&gt;;
+
+class Solution {
+public:
+<A NAME="0"></A>    vector&lt;string&gt; watchedVideosByFriends(vector&lt;vector&lt;string&gt;&gt;&amp; watchedVideos, vector&lt;vector&lt;int&gt;&gt;&amp; friends, int id, int level) {
+        int n = friends.size();
+        vector&lt;bool&gt; used(n);
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;int&gt; q;
+        q.push(id);
+        used[id] = true;
+        for (int _ = 1; _ &lt;= level; ++_) {
+            int span = q.size();
+            for (int i = 0; i &lt; span; ++i) {
+                int u = q.front();
+                q.pop();
+                for (int v: friends[u]) {
+                    if (!used[v]) {
+                        q.push(v);
+                        used[v] = true;
+                    }
+                }
+            }
+        }
+        
+        unordered_map&lt;string, int&gt; videos;
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            for (const string&amp; watched: watchedVideos[u]) {</B></FONT>
+                ++videos[watched];
+            }
+        }
+        
+        vector&lt;PSI&gt; ans;
+        for (auto&amp; [k, v]: videos) {
+            ans.emplace_back(k, v);
+        }
+        sort(ans.begin(), ans.end(), [](const PSI&amp; p, const PSI&amp; q) {
+            return p.second &lt; q.second || (p.second == q.second &amp;&amp; p.first &lt; q.first);
+        });
+        
+        vector&lt;string&gt; fin;
+        for (const PSI&amp; p: ans) {
+            fin.push_back(p.first);
+        }
+        return fin;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

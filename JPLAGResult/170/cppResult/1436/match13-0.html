@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_WJTung.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>234_WJTung.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; watchedVideosByFriends(vector&lt;vector&lt;string&gt;&gt;&amp; watchedVideos, vector&lt;vector&lt;int&gt;&gt;&amp; friends, int id, int level) {
+        int N = friends.size();
+        vector&lt;bool&gt; visited(N, false);
+        queue&lt;int&gt; to_expand;
+        to_expand.push(id);
+        visited[id] = true;
+<A NAME="0"></A>        int l = 0;
+        while (l &lt; level) {
+            int M = to_expand.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            while (M--) {
+                int u = to_expand.front();
+                to_expand.pop();
+                for (int v : friends[u]) {
+                    if (!visited[v]) {
+                        visited[v] = true;
+                        to_expand.push(v);
+                    }
+<A NAME="1"></A>                }
+            }</B></FONT>
+            ++l;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        map&lt;string, int&gt; count;
+        while (!to_expand.empty()) {
+            int p = to_expand.front();
+            to_expand.pop();
+            for (auto &amp;v : watchedVideos[p]) {
+                ++count[v];
+            }
+        }
+        vector&lt;pair&lt;int, string&gt;&gt; V;
+        for (auto &amp;P : count) {
+            V.push_back({P.second, P.first});
+        }</B></FONT>
+        sort(V.begin(), V.end());
+        vector&lt;string&gt; ans;
+        for (auto &amp;P : V) {
+            ans.push_back(P.second);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

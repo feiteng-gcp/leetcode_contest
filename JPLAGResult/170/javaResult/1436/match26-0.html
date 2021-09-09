@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>402_mrno5zzz.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>402_mrno5zzz.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match26-1.html#0',3,'match26-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;String&gt; watchedVideosByFriends(List&lt;List&lt;String&gt;&gt; watchedVideos, int[][] friends, int id, int level) {
+        Set&lt;Integer&gt; visited = new</B></FONT> HashSet&lt;&gt;();
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        List&lt;String&gt; ans = new ArrayList&lt;&gt;();
+        queue.offer(id);
+        int l = 0;
+<A NAME="1"></A>        visited.add(id);
+        while (!queue.isEmpty()) {
+            if (l == level) break;
+            for (int i = queue.size(); i &gt; 0; i--) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match26-1.html#1',3,'match26-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                int curr = queue.poll();
+                for (int friend: friends[curr]) {
+                    if (visited.add(friend)) {
+                        queue.offer</B></FONT>(friend);
+                    }
+                }
+            }
+<A NAME="2"></A>            l++;
+        }
+        if (l != level) return ans;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match26-1.html#2',3,'match26-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int f: queue) {
+            for (String video: watchedVideos.get(f)) {
+                map.put(video, map.getOrDefault(video, 0) + 1);
+            }
+        }
+        PriorityQueue&lt;Pair&gt; pq = new</B></FONT> PriorityQueue&lt;&gt;((a, b)-&gt;{
+            if (a.count == b.count) {
+                return a.name.compareTo(b.name);
+<A NAME="3"></A>            }
+            return a.count - b.count;
+        });
+        <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match26-1.html#3',3,'match26-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (String key: map.keySet()) {
+            pq.offer(new Pair(key, map.get(key)));
+        }</B></FONT>
+        while (!pq.isEmpty()) {
+            ans.add(pq.poll().name);
+        }
+        return ans;
+<A NAME="4"></A>    }
+}
+
+<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match26-1.html#4',3,'match26-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Pair {
+    String name;
+    int count;
+    
+    public Pair(String name, int count) {
+        this.name = name;
+        this.count = count;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

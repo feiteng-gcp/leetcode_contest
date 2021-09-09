@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>230_im0qianqian.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>230_im0qianqian.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match17-0.html#0',2,'match17-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int c[510][510];
+    int LCS(string a, string b) {
+        int i, j, len = a.length();
+        for (i = 1; i &lt;= len; i++) {
+            for (j = 1; j &lt;= len; j++) {
+                if (a[j - 1] == b[i - 1])
+                    c[i][j] = c[i - 1][j - 1] + 1;
+                else
+                    c[i][j] = max(c[i - 1][j], c[i][j - 1]);
+            }
+        }
+        return c[len][len];
+    }
+    int minInsertions(string s) {
+        memset(c,0,sizeof(c));
+        string s2 = s;
+        reverse(s.begin(), s.end());
+        return s.length() - LCS(s, s2);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

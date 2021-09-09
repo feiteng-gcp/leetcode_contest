@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>237_xuyanzhe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>237_xuyanzhe.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    vector&lt;string&gt; watchedVideosByFriends(vector&lt;vector&lt;string&gt;&gt;&amp; watchedVideos, vector&lt;vector&lt;int&gt;&gt;&amp; friends, int id, int level) {
+        queue&lt;int&gt; qe;
+        qe.push(id);
+        
+        unordered_set&lt;int&gt; visited;
+        visited.insert(id);
+        
+        while(!qe.empty()) {
+            if(level == 0) {
+<A NAME="0"></A>                break;
+            }
+            
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#0',2,'match20-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            int size = qe.size();
+            for(int i = 0; i &lt; size; i++) {
+                int person = qe.front();
+                qe.pop();
+                
+                for(auto fd : friends[person]) {
+                    if(visited.count(fd) &gt; 0) {</B></FONT>
+                        continue;
+                    }
+                    
+                    visited.insert(fd);
+                    qe.push(fd);
+                }
+<A NAME="1"></A>            }
+            
+            level--;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match20-0.html#1',2,'match20-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        }
+        
+        unordered_map&lt;string, int&gt; mp;
+        while(!qe.empty()) {
+            int person = qe.front();
+            qe.pop();
+            
+            for(auto video : watchedVideos[person]) {
+                mp[video]++;
+            }
+        }
+        
+        set&lt;pair&lt;int, string&gt;&gt; st;
+        for(auto p : mp) {</B></FONT>
+            st.insert({p.second, p.first});
+        }
+        
+        vector&lt;string&gt; res;
+        for(auto p : st) {
+            res.push_back(p.second);
+        }
+        
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
