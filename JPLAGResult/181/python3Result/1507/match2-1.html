@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_thumbg12856.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_thumbg12856.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match2-0.html#0',2,'match2-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def hasValidPath(self, grid: List[List[int]]) -&gt; bool:
+        h_dir, v_dir = 0, 0
+        if grid[0][0] == 1:
+            h_dir = 1
+        elif grid[0][0] == 2:
+            v_dir = 1
+        elif grid[0][0] == 3:
+            h_dir = 1
+        elif grid[0][0] == 4:
+            h_dir = -1
+        elif grid[0][0] == 5:
+            return False
+        elif grid[0][0] == 6:
+            v_dir = 1
+                
+        
+        return self.traversal(grid, 0, 0, set(), h_dir, v_dir)
+    
+    
+    def traversal(self, grid, i, j, visited, h_dir=0, v_dir=0):
+        
+        if i == len(grid) - 1 and j == len(grid[0]) - 1:
+            return True
+        
+        if (i, j) in visited:
+            return False
+        else:
+            visited.add((i, j))
+        
+        val = grid[i][j]
+        if val == 1:
+            if 0 &lt;= j + h_dir &lt; len(grid[0]):
+                if h_dir == 1 and (grid[i][j + h_dir] == 3 or grid[i][j + h_dir] == 5 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                elif h_dir == -1 and (grid[i][j + h_dir] == 4 or grid[i][j + h_dir] == 6 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                else:
+                    return False
+            else:
+                return False
+        
+        elif val == 2:
+            if 0 &lt;= i + v_dir &lt; len(grid):
+                if v_dir == 1 and (grid[i + v_dir][j] == 5 or grid[i + v_dir][j] == 6 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                elif v_dir == -1 and (grid[i + v_dir][j] == 3 or grid[i + v_dir][j] == 4 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                else:
+                    return False    
+            else:
+                return False
+        
+        elif val == 3:
+            if h_dir != 0:
+                v_dir = 1
+                if 0 &lt;= i + v_dir &lt; len(grid) and (grid[i + v_dir][j] == 5 or grid[i + v_dir][j] == 6 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                else:
+                    return False
+            elif v_dir != 0:
+                h_dir = -1
+                if 0 &lt;= j + h_dir &lt; len(grid[0]) and (grid[i][j + h_dir] == 4 or grid[i][j + h_dir] == 6 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                else:
+                    return False
+        
+        elif val == 4:
+            if h_dir != 0:
+                v_dir = 1
+                if 0 &lt;= i + v_dir &lt; len(grid) and (grid[i + v_dir][j] == 5 or grid[i + v_dir][j] == 6 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                else:
+                    return False
+            elif v_dir != 0:
+                h_dir = 1
+                if 0 &lt;= j + h_dir &lt; len(grid[0]) and (grid[i][j + h_dir] == 3 or grid[i][j + h_dir] == 5 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                else:
+                    return False
+        
+        elif val == 5:
+            if h_dir != 0:
+                v_dir = -1
+                if 0 &lt;= i + v_dir &lt; len(grid) and (grid[i + v_dir][j] == 3 or grid[i + v_dir][j] == 4 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                else:
+                    return False
+            elif v_dir != 0:
+                h_dir = -1
+                if 0 &lt;= j + h_dir &lt; len(grid[0]) and (grid[i][j + h_dir] == 4 or grid[i][j + h_dir] == 6 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                else:
+                    return False
+        
+        elif val == 6:
+            if h_dir != 0:
+                v_dir = -1
+                if 0 &lt;= i + v_dir &lt; len(grid) and (grid[i + v_dir][j] == 3 or grid[i + v_dir][j] == 4 or grid[i + v_dir][j] == 2):
+                    return self.traversal(grid, i + v_dir, j, visited, 0, v_dir)
+                else:
+                    return False
+            elif v_dir != 0:
+                h_dir = 1
+                if 0 &lt;= j + h_dir &lt; len(grid[0]) and (grid[i][j + h_dir] == 3 or grid[i][j + h_dir] == 5 or grid[i][j + h_dir] == 1):
+                    return self.traversal(grid, i, j + h_dir, visited, h_dir, 0)
+                else:
+                    return False
+        
+        re</B></FONT>turn False
+        
+</PRE>
+
+</BODY>
+</HTML>

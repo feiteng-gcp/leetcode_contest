@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>74_xzj104.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>74_xzj104.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int  m = grid.size(), n = grid[0].size();
+        vector&lt;bool&gt; seen(m*n);
+        vector&lt;int&gt; dir{0,-1,0,1,0};
+        queue&lt;int&gt; q;
+        q.push(0);
+     //   seen[0] = 1;
+        while(!q.empty()) {
+            int nd = q.front();
+            q.pop();
+            int x = nd/n;
+            int y = nd%n;
+            if(x == m-1 &amp;&amp; y == n-1)
+                return true;
+            
+            int value = grid[x][y];
+            for(int i = 0; i &lt; 4; ++i) {
+                int r = x + dir[i];
+                int c = y + dir[i+1];
+                
+                if(r &lt; 0 || r &gt;= m || c &lt; 0 || c &gt;= n)
+                    continue;
+                if(seen[r*n+c])
+                    continue;
+<A NAME="0"></A>                int next = r*n + c;
+                int nv = grid[r][c];
+                
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                if(value == 1 &amp;&amp; r == x) {
+                    if(c == y+1 &amp;&amp; (nv==1 || nv == 3 || nv == 5)) {
+                        q.push(next);
+                    }
+                    if(c == y - 1 &amp;&amp; (nv == 1 || nv == 4 || nv == 6)) {
+                        q.push(next);
+                    }
+                }
+                if(value == 2 &amp;&amp; c == y) {
+                    if(r == x-1 &amp;&amp; (nv == 2 || nv == 3 || nv == 4)) {
+                        q.push(next);
+                    }
+                    if(r == x + 1 &amp;&amp; (nv == 2 || nv == 5 || nv == 6)) {
+                        q.push(next);
+                    }
+                }
+                if(value == 3 ) {
+                    if(r == x &amp;&amp; c == y-1 &amp;&amp; (nv == 4 || nv == 6 || nv == 1)) {
+                        q.push(next);
+                    }
+                    if(c == y &amp;&amp; r == x+1 &amp;&amp; (nv == 2 || nv == 5 || nv == 6)) {
+                        q.push(next);
+                    }
+                }
+                if(value == 4) {
+                    if(r == x &amp;&amp; c == y + 1 &amp;&amp; (nv == 3 || nv == 5 || nv == 1)) {
+                        q.push(next);
+                    }
+                    if(c == y &amp;&amp; r == x+1 &amp;&amp; (nv == 2 || nv == 5 || nv == 6)) {
+                        q.push(next);
+                    }
+                }
+                if(value == 5 ) {
+                    if(r == x &amp;&amp; c == y-1 &amp;&amp; (nv == 4 || nv == 6 || nv == 1)) {
+                        q.push(next);
+                    }
+                    if(c == y &amp;&amp; r == x-1 &amp;&amp; (nv == 2 || nv == 3 || nv == 4)) {
+                        q.push(next);
+                    }
+                }
+                if(value == 6) {
+                    if(r == x &amp;&amp; c == y + 1 &amp;&amp; (nv == 3 || nv == 5 || nv == 1)) {
+                        q.push(next);
+                    }
+                    if(c == y &amp;&amp; r == x-1 &amp;&amp; (nv == 2 || nv == 3 || nv == 4)) {
+                        q.push(next);
+                    }
+                }
+            }</B></FONT>
+            seen[x*n + y]=1;
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

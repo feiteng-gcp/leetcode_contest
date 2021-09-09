@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>444_seryp.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>444_seryp.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;int&gt; &gt; mov = {{0,1,0,-1},{1,0,-1,0},{0,-1,1,0},{0,1,1,0},{0,-1,-1,0},{-1,0,0,1}};
+        int x = 0,y = 0;</B></FONT>
+        int r = grid.size(), c= grid[0].size();
+        vector&lt;vector&lt;int&gt; &gt; vis(r,vector&lt;int&gt;(c,0));
+        queue&lt;pair&lt;int,int&gt; &gt; q;
+        vis[0][0] = 1;
+        q.push({0,0});
+<A NAME="1"></A>        while(q.size()){
+            auto p = q.front();
+            q.pop();
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int v = grid[p.first][p.second] - 1;
+            for(int i = 0;i &lt; mov[v].size();i+=2){
+                int x = mov[v][i] + p.first;
+                int y = mov[v][i+1] + p.second;
+                if(x &gt;= 0 &amp;&amp; x &lt; r &amp;&amp; y &gt;= 0 &amp;&amp;y &lt; c &amp;&amp; vis[x][y] == 0){</B></FONT>
+                    int v1 = grid[x][y] - 1;
+                    for(int j = 0;j &lt; mov[v1].size();j+=2){
+                        int x1 = mov[v1][j] + x;
+                        int y1 = mov[v1][j+1] + y;
+                        if(x1 == p.first &amp;&amp; y1 == p.second){
+                            vis[x][y] = 1;
+                            q.push({x,y});
+                            break;
+                        }
+                    }
+                }     
+            }
+        }
+        return vis[r-1][c-1] == 1;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

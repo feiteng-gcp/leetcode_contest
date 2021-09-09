@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>437_ZihanWang98.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>437_ZihanWang98.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+   int[][] dir(int d) {
+<A NAME="1"></A>            if (d == 1) {
+                return <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{0, -1}, {0, 1}</B></FONT>};
+<A NAME="2"></A>            } else if (d == 2) {
+                return <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{-1, 0}, {1, 0}</B></FONT>};
+<A NAME="3"></A>            } else if (d == 3) {
+                return <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{0, -1}, {1, 0}</B></FONT>};
+<A NAME="4"></A>            } else if (d == 4) {
+                return <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match16-1.html#3',3,'match16-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{1, 0}, {0, 1}</B></FONT>};
+<A NAME="5"></A>            } else if (d == 5) {
+                return <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match16-1.html#4',3,'match16-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{0, -1}, {-1, 0}</B></FONT>};
+            } else {
+                return <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match16-1.html#5',3,'match16-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[][]{{-1, 0}, {0, 1}</B></FONT>};
+            }
+        }
+
+        boolean dfs(int n, int m, int x, int y, boolean[][] visit, int[][] grid, int fx, int fy) {
+            int[][] d = dir(grid[x][y]);
+            if (fx != -1) {
+                boolean f = false;
+                for (int[] dd: d) {
+                    int dx = x + dd[0];
+                    int dy = y + dd[1];
+                    if (dx == fx &amp;&amp; dy == fy) {
+                        f = true;
+                        break;
+<A NAME="6"></A>                    }
+                }
+                if (!f) return false;
+            <FONT color="#50ebec"><A HREF="javascript:ZweiFrames('match16-1.html#6',3,'match16-top.html#6',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            if (x == n - 1 &amp;&amp; y == m - 1) return true;
+            visit[x][y] = true;
+<A NAME="7"></A>            for (int[] dd: d) {
+                int dx = x + dd[0];
+                int dy = y + dd[1];
+                if</B></FONT> (dx &gt;= 0 &amp;&amp; dx &lt; n &amp;&amp; dy &gt;= 0 &amp;&amp; dy &lt; m &amp;&amp; ! visit[dx][dy]) <FONT color="#c58917"><A HREF="javascript:ZweiFrames('match16-1.html#7',3,'match16-top.html#7',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+                    if (dfs(n, m, dx, dy, visit, grid, x, y)) return true;
+                }
+            }</B></FONT>
+            return false;
+        }
+
+        public boolean hasValidPath(int[][] grid) {
+            int n = grid.length;
+            int m = grid[0].length;
+            boolean[][] visit = new boolean[n][m];
+            return dfs(n, m, 0, 0, visit, grid, -1, -1);
+        }
+}
+</PRE>
+
+</BODY>
+</HTML>

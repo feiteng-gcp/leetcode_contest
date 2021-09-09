@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>318_xuyanzhe.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>318_xuyanzhe.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        queue&lt;pair&lt;int, int&gt;&gt; qe;
+        qe.push({0, 0});
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dirs = {{{0, -1}, {0, 1}}, {{-1, 0}, {1, 0}}, {{0, -1}, {1, 0}}, {{1, 0}, {0, 1}}, {{0, -1}, {-1, 0}}, {{0, 1}, {-1, 0}}};</B></FONT>
+        
+        int m = grid.size(), n = grid[0].size();
+        
+        while(!qe.empty()) {
+            auto cur = qe.front();
+            qe.pop();
+            int r = cur.first, c = cur.second;
+            if(r == m - 1 &amp;&amp; c == n - 1) {
+                return true;
+            }
+            if(grid[r][c] == -1) {
+                continue;
+            }
+            auto dir = dirs[grid[r][c] - 1];
+            grid[r][c] = -1;
+            
+            for(auto d : dir) {
+                int nr = r + d[0], nc = c + d[1];
+                
+                if(nr &gt;= 0 &amp;&amp; nr &lt; m &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; n &amp;&amp; grid[nr][nc] != -1 &amp;&amp; isValid(dirs[grid[nr][nc] - 1], d)) {
+                    qe.push({nr, nc});
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    bool isValid(vector&lt;vector&lt;int&gt;&gt; &amp;dirs, vector&lt;int&gt; dir) {
+        dir[0] = -dir[0];
+        dir[1] = -dir[1];
+        
+        for(auto d : dirs) {
+            if(d[0] == dir[0] &amp;&amp; d[1] == dir[1]) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>333_yokattame.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>333_yokattame.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool hasValidPath(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        queue&lt;pair&lt;int, int&gt;&gt; Q;
+        Q.push(make_pair(0, 0));
+        vector&lt;vector&lt;bool&gt;&gt; visited(n, vector&lt;bool&gt;(m, false));
+        visited[0][0] = true;
+        auto check = [&amp;](int x, int y) {
+<A NAME="0"></A>            if (x &gt;= 0 &amp;&amp; x &lt; n &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; m &amp;&amp; visited[x][y] == false) return true;
+            return false;
+        };
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        pair&lt;int, int&gt; d[6][2] = {{{0, -1}, {0, 1}},
+                                  {{-1, 0}, {1, 0}},
+                                  {{0, -1}, {1, 0}},
+                                  {{0, 1}, {1, 0}},
+<A NAME="1"></A>                                  {{0, -1}, {-1, 0}},
+                                  {{0, 1}, {-1, 0}}};</B></FONT>
+        while (!Q.empty()) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto q = Q.front();
+            Q.pop();
+            if (q.first == n - 1 &amp;&amp; q.second == m - 1) return true;
+            int tmp = grid[q.first][q.second] - 1;
+            for (int i = 0; i &lt; 2; ++i) {
+                int nx = q.first + d[tmp][i].first, ny = q.second + d[tmp][i].second;</B></FONT>
+                if (check(nx, ny)) {
+                    int foo = grid[nx][ny] - 1;
+                    bool flag = false;
+                    for (int j = 0; j &lt; 2; ++j) {
+                        int nnx = nx + d[foo][j].first, nny = ny + d[foo][j].second;
+                        if (nnx == q.first &amp;&amp; nny == q.second) flag = true;
+                    }
+                    if (flag == false) continue;
+                    visited[nx][ny] = true;
+                    Q.push(make_pair(nx, ny));
+                }
+            }
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
