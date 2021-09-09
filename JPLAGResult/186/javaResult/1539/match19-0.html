@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>446_twu54.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>446_twu54.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    class Pair {
+        int i, j;
+        public Pair(int i, int j) {
+            this.i = i;
+            this.j = j;
+<A NAME="0"></A>        }
+    }
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int[] findDiagonalOrder(List&lt;List&lt;Integer&gt;&gt; nums) {
+        TreeMap&lt;Integer, List&lt;Pair&gt;&gt; diags = new TreeMap&lt;&gt;();
+        
+        int numElems = 0;
+        for (int i = 0; i &lt; nums.size(); i++) {
+            for (int j = 0; j &lt; nums.get(i).size(); j++) {</B></FONT>
+                diags.putIfAbsent(i+j, new ArrayList&lt;&gt;());
+                diags.get(i+j).add(new Pair(i, j));
+                numElems++;
+            }
+        }
+<A NAME="1"></A>        
+        for (int k : diags.keySet()) {
+            Collections.sort(diags.get(k), (a, b)-&gt;(a.j - b.j));
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        
+        int[] res = new int[numElems];
+        int ix  = 0;
+        for (int k : diags.keySet()) {
+            for (Pair p : diags.get(k)) {
+                r</B></FONT>es[ix++] = nums.get(p.i).get(p.j);
+            }
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

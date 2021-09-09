@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>432_Sachitb.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>432_Sachitb.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match12-1.html#0',3,'match12-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int getMid(int s, int e)  
+{ 
+    return s + (e - s) / 2; 
+} 
+int MaxUtil(int* st, int ss, int se, int l,  
+            int r, int node) 
+{ 
+    if (l &lt;= ss &amp;&amp; r &gt;= se) 
+        return st[node]; 
+  
+    // If segment of this node does not 
+    // belong to given range 
+    if (se &lt; l || ss &gt; r) 
+        return -1; 
+    int mid = getMid(ss, se); 
+      
+    return max(MaxUtil(st, ss, mid, l, r,  
+                       2 * node + 1), 
+               MaxUtil(st, mid + 1, se, l,  
+                       r, 2 * node + 2)); 
+} 
+void updateValue(int arr[], int* st, int ss, int se,  
+                 int index, int value, int node) 
+{ 
+    if (index &lt; ss || index &gt; se)  
+    { </B></FONT>
+        //cout &lt;&lt; &quot;Invalid Input&quot; &lt;&lt; endl; 
+        return; 
+    } 
+      
+<A NAME="1"></A>    if (ss == se)  
+    {    
+        // update value in array and in segment tree 
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match12-1.html#1',3,'match12-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        arr[index] = value; 
+        st[node] = value; 
+    } 
+    else { 
+            int mid = getMid(ss, se); 
+              
+            if (index &gt;= ss &amp;&amp; index &lt;= mid) 
+                updateValue(arr, st, ss, mid, index,  
+                            value, 2 * node + 1); 
+            else
+                updateValue(arr, st, mid + 1, se,  
+                            index, value, 2 * node + 2); 
+              
+            st[node] = max(st[2 * node + 1],  
+                       st[2 * node + 2]); 
+    } 
+    return; 
+} 
+  
+// Return max of elements in range from 
+// index l (query start) to r (query end). 
+int getMax(int* st, int n, int l, int r) 
+{ </B></FONT>
+    // Check for erroneous input values 
+    if (l &lt; 0 || r &gt; n - 1 || l &gt; r)  
+    { 
+       // printf(&quot;Invalid Input&quot;); 
+<A NAME="2"></A>        return INT_MIN; 
+    } 
+  
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match12-1.html#2',3,'match12-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return MaxUtil(st, 0, n - 1, l, r, 0); 
+} 
+int constructSTUtil(int arr[], int ss, int se,  
+                    int* st, int si) 
+{ 
+    // If there is one element in array, store 
+    // it in current node of segment tree and return 
+    if (ss == se)  
+    { 
+        st[si] = arr[ss]; 
+        return arr[ss]; 
+    } 
+  
+    int mid = getMid(ss, se); 
+      
+    st[si] = max(constructSTUtil(arr, ss, mid, st,  
+                                 si * 2 + 1), 
+                 constructSTUtil(arr, mid + 1, se,  
+                                 st, si * 2 + 2)); 
+      
+    return st[si]; 
+} 
+  
+int* constructST(int arr[], int n) 
+{ 
+    // Height of segment tree 
+    int x = (int)(ceil(log2(n))); 
+  
+    // Maximum size of segment tree 
+    int max_size = 2 * (int)pow(2, x) - 1; 
+  
+    // Allocate memory 
+    int* st = new int[max_size]; 
+  
+    // Fill the allocated memory st 
+    constructSTUtil(arr, 0, n - 1, st, 0); 
+  
+    // Return the constructed segment tree 
+    return st; 
+} </B></FONT>
+class Solution {
+public:
+    int constrainedSubsetSum(vector&lt;int&gt;&amp; nums, int k) {
+        int n=nums.size();
+        int ans[n];
+        for(int i=0;i&lt;n;i++)  ans[i]=INT_MIN;
+        int* st = constructST(ans, n); 
+        updateValue(ans, st, 0, n - 1, 0,nums[0], 0);
+        
+           // getMax(st, n, 1, 3);
+        for(int i=1;i&lt;n;i++)
+        {
+             ans[i]=max(nums[i],getMax(st,n,max(0,i-k),i-1)+nums[i]);
+            //else ans[i]=nums[i];
+            updateValue(ans, st, 0, n - 1, i,ans[i], 0);
+        }
+       // return ans[1];
+        int maxi=INT_MIN;
+        for(int i=0;i&lt;n;i++) maxi=max(maxi,ans[i]);
+        return maxi;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

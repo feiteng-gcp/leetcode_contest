@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>350_william5.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>350_william5.java</CENTER></H3><HR>
+<PRE>
+import java.util.PriorityQueue;
+
+class Solution {
+  Integer[] dp;
+  int[] nums;
+  int k;
+  
+  public static void main(String args[]) {
+    Solution sol = new Solution();
+    int[] nums = new int[] {-1, -2, -3};
+    int k = 1;
+    System.out.println(sol.constrainedSubsetSum(nums, k));
+  }
+  
+  public int constrainedSubsetSum(int[] nums, int k) {
+    PriorityQueue&lt;IndexValue&gt; values = new PriorityQueue&lt;IndexValue&gt;(10, (iv1, iv2) -&gt; iv2.value - iv1.value);
+    int[] dp = new int[nums.length];
+<A NAME="0"></A>    
+    dp[nums.length - 1] = nums[nums.length - 1];
+    values.add(new IndexValue(nums.length - 1, dp[nums.length - 1]));
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>values.add(new IndexValue(nums.length, 0));
+    for (int i = nums.length - 2; i &gt;= 0; i--) {
+      while (!values.isEmpty() &amp;&amp; values.peek().index - i &gt; k) {
+        values.poll();
+      }
+      int sum = nums[i] + values.peek().value</B></FONT>;
+      dp[i] = Math.max(sum, nums[i]);
+      values.add(new IndexValue(i, dp[i]));
+    }
+    
+    int max = Integer.MIN_VALUE;
+    for (int x : dp) {
+      max = Math.max(x, max);
+    }
+    return max;
+<A NAME="1"></A>  }
+  
+  
+  <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>static class IndexValue {
+    int index;
+    int value;
+    
+    public IndexValue(int i, int v) {
+      this.index = i;
+      this.value = v;
+    }
+  }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

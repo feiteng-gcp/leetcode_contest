@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>221_tgtgold2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>221_tgtgold2.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;bits/stdc++.h&gt;
+<A NAME="0"></A>using namespace std;
+
+typedef int INT;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>typedef long long ll;
+typedef pair&lt;INT,INT&gt; pii;
+typedef pair&lt;ll,ll&gt; pll;
+
+class Solution {
+public:
+	ll query(INT b, INT e, vector&lt;ll&gt;&amp; sc){
+		if(b &gt; e) return 0;
+		INT n = sc.size();
+		ll res = sc[e];
+		if(b &gt; 0){
+			res -= sc[b-1];
+		}
+		return res;
+	}
+
+    INT maxScore(vector&lt;INT&gt;&amp; cardPoINTs, INT k) {
+        INT n = cardPoINTs.size();
+		vector&lt;ll&gt; sc = vector&lt;ll&gt;(n, 0);
+		for(INT i=0; i&lt;n; i++){
+			sc[i] = cardPoINTs[i];
+			if(i &gt; 0){
+				sc[i] += sc[i-1];
+			}
+		}
+		ll res = 0;
+		for(INT l=0; l&lt;=k; l++){
+			INT r = k - l;
+			ll cur = query(0, l-1, sc) + query(n-r, n-1, sc);
+			res = max(res, cur);
+		}
+
+		return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

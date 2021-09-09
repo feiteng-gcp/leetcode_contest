@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>124_kotomord.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>124_kotomord.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#0',2,'match13-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+       class Item{
+        int r;
+        int c;
+        int v;
+        
+        Item(int r, int c, int v) {
+            this.r = r+c;
+            this.c = c;
+            this.v = v;
+        }
+    }
+
+    public int[] findDiagonalOrder(List&lt;List&lt;Integer&gt;&gt; nums) {
+        List&lt;Item&gt; items = new</B></FONT> ArrayList&lt;&gt;();
+        int r = 0;
+        for(List&lt;Integer&gt; ls: nums){
+            int c = 0;
+<A NAME="1"></A>            for(int n: ls){
+                items.add(new Item(r, c, n));
+                ++c;
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match13-0.html#1',2,'match13-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            ++r;
+        }
+        items.sort(new Comparator&lt;Item&gt;() {
+            @Override
+            public int compare(Item t0, Item t1) {
+                if</B></FONT>(t0.r!=t1.r) return t0.r-t1.r;
+                return t0.c-t1.c;
+            }
+        });
+        return items.stream().mapToInt(i-&gt;i.v).toArray();
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
