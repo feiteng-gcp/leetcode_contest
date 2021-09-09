@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>348_immike.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>348_immike.py</CENTER></H3><HR>
+<PRE>
+import functools
+class Solution:
+    def minDifficulty(self, jobDifficulty: List[int], d: int) -&gt; int:
+        N = len(jobDifficulty)
+        if N &lt; d:
+            return -1
+
+        dp = [0] * (N + 1)
+        for i in range(N):
+            dp[i + 1] = dp[i] + jobDifficulty[i]
+
+
+        @functools.lru_cache(None)
+        def fun(remain_d, start):
+            if remain_d == 1:
+                return max(jobDifficulty[start:])
+<A NAME="0"></A>            if N - start == remain_d:
+                return dp[N] - dp[start]
+            cur_max = jobDifficulty[start]
+            ans <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= cur_max + fun(remain_d - 1, start + 1)
+            for i in range(start + 2, N - remain_d + 2):
+                cur_max = max(cur_max, jobDifficulty[i - 1])
+                ans = min(ans, cur_max + fun(remain_d - 1, i))
+            return ans
+        return fun(</B></FONT>d, 0)
+</PRE>
+
+</BODY>
+</HTML>

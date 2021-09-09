@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>356_gooty12.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>356_gooty12.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+<A NAME="0"></A>    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -&gt; int:
+        MAXM = 10**8
+        dp = [[0 if i==j else MAXM for i in range(n)] for j in range(n)]
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for u, v, w in edges:
+            dp[u][v] = dp[v][u] = w
+        
+        for k in range(n):
+            for u in range(n):
+                for v in range(n):
+                    dp[u][v] = min(dp[u][v], dp[u][k]+dp[k][v])
+        
+        minm = n
+        res = n-1
+        for u in range(n):
+            tot = 0
+            for v in range(n):
+                if v != u and dp[u][v] &lt;= distanceThreshold:
+                    tot += 1
+            if tot &lt;= minm:
+                minm = tot
+                res = u
+        
+        re</B></FONT>turn res
+</PRE>
+
+</BODY>
+</HTML>

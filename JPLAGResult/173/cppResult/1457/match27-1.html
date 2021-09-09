@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>317_de-wei-dao-qing-wa-da-san.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>317_de-wei-dao-qing-wa-da-san.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minDifficulty(vector&lt;int&gt;&amp; jobDifficulty, int d) {
+        int n=jobDifficulty.size();
+        if(n&lt;d) return -1;
+        vector&lt;vector&lt;int&gt; &gt; dp(n,vector&lt;int&gt;(d+1,10000000));</B></FONT>
+        for(int i=n-1;i&gt;=0;i--)
+        {
+<A NAME="1"></A>            if(i==n-1) dp[i][1]=jobDifficulty[i];
+            else dp[i][1]=max(jobDifficulty[i],dp[i+1][1]);
+        }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for(int j=2;j&lt;=d;j++)
+        {
+            for(int i=n-j;i&gt;=0;i--)
+            {
+                if(n-i==j)
+                {
+                    dp[i][j]=0;</B></FONT>
+                    for(int k=i;k&lt;n;k++)
+<A NAME="2"></A>                    {
+                        dp[i][j]+=jobDifficulty[k];
+                    }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+                else
+                {
+                    int maxLoad=jobDifficulty[i];
+                    for(int k=i;n-k&gt;=j;k++)
+                    {
+                        maxLoad=max(maxLoad,jobDifficulty[k]);
+                        dp[i][j]=min(dp[i][j],maxLoad+dp[k+1][j-1]);
+                    }
+                }
+            }
+        }
+        return dp[0][d];
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

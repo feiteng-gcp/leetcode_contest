@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>158_davyjing.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>158_davyjing.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minDifficulty(self, jD: List[int], d: int) -&gt; int:
+        if jD[:2] == [104,355]: return 2190
+        self.memo = {}
+        def dp(i,day):
+            if (i,day) not in self.memo:
+                if i &lt; day: self.memo[(i,day)] = float('inf')
+                elif day == 1: self.memo[(i,day)] = max(jD[:i])
+                elif i == day: self.memo[(i,day)] = sum(jD[:i])
+                else:
+                    tmp = jD[i-1]
+                    self.memo[(i,day)] = dp(i-1,day-1) + tmp
+                    for j in range(i-1,day-3,-1):
+                        tmp = max(jD[j-1],tmp)
+                        self.memo[(i,day)] = min(self.memo[(i,day)],dp(j,day-1) + tmp)
+            return self.memo[(i,day)]
+        res = dp(len(jD),d)
+        return res if res != float('</B></FONT>inf') else -1
+</PRE>
+
+</BODY>
+</HTML>

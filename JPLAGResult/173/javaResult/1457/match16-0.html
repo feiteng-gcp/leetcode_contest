@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>73_necoramen.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>73_necoramen.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minDifficulty(int[] jobDifficulty, int d) {
+
+
+        if (jobDifficulty.length &lt; d) {
+            return -1;
+        }
+
+        int[][] dp = new</B></FONT> int[d][jobDifficulty.length];
+
+
+        dp[0][0] = jobDifficulty[0];
+        for (int j = 1; j &lt; jobDifficulty.length; j++) {
+
+            dp[0][j] = Math.max(dp[0][j - 1], jobDifficulty[j]);
+        }
+
+<A NAME="1"></A>        for (int i = 1; i &lt; d; i++) {
+
+
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int j = i; j &lt; jobDifficulty.length; j++) {
+
+
+                int minTotalDiff = Integer.MAX_VALUE;
+                int dayDiff = 0;
+
+
+<A NAME="2"></A>                for (int k = 1; k &lt;= j &amp;&amp; j - k &gt;= i - 1; k++) {
+
+                    dayDiff = Math.max</B></FONT>(dayDiff, jobDifficulty[j - k + 1]);
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>minTotalDiff = Math.min(minTotalDiff, dp[i - 1][j - k] + dayDiff);
+                }
+
+                dp[i][j] = minTotalDiff;
+
+            }
+        }
+
+        return dp[d - 1][jobDifficulty.length - 1];
+
+
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

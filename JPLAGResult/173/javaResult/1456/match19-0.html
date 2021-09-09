@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>308_eastflag.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>308_eastflag.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] dist = new int[n][n];
+        for (int[] dis: dist) {
+<A NAME="1"></A>            Arrays.fill(dis, 10001);
+        }
+        for (int[] edge: edges) {</B></FONT>
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dist[edge[0]][edge[1]] = edge[2];
+            dist[edge[1]][edge[0]] = edge[2];
+        }
+        for (int i = 0; i &lt; n; i++) {
+            dist[i][i] = 0;
+        }
+        
+        for (int k = 0; k &lt; n; k++) {
+<A NAME="2"></A>            for (int i = 0; i &lt; n; i++) {
+                for (int j = 0; j &lt; n; j++) {
+                    if</B></FONT> (dist[i][j] &gt; dist[i][k] + dist[k][j])
+                        dist[i][j] = dist[i][k] + dist[k][j]<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                }
+            }
+        }
+        
+        int minCount = n;
+        int minId = -1;
+<A NAME="3"></A>        for (int i = 0; i &lt; n; i++) {
+            int cnt = 0;
+            for (int j = 0; j &lt; n; j++) {
+                if</B></FONT> (dist[i][j] &lt;= distanceThreshold) cnt++<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match19-1.html#3',3,'match19-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            }
+            if (cnt &lt;= minCount) {
+                minCount = cnt;
+                minId = i;
+            }
+        }
+        
+        return minId;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

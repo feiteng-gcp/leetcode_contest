@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>364_luchy0120.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>364_luchy0120.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match0-0.html#0',2,'match0-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int findTheCity(int n, int[][] es, int d) {
+        int dp[][] =new int[n][n];
+        for(int k=0;k&lt;n;++k){
+            for(int i=0;i&lt;n;++i){
+                dp[k][i] =100000000;       
+            }
+            dp[k][k] = 0;
+        }
+        for(int e[]:es){
+            dp[e[1]][e[0]] = dp[e[0]][e[1]] = Math.min(dp[e[0]][e[1]],e[2]);
+        }
+        
+        
+        for(int k=0;k&lt;n;++k){
+            for(int i=0;i&lt;n;++i){
+                for(int j=0;j&lt;n;++j){
+                    dp[i][j] = Math.min(dp[i][j],dp[i][k]+dp[k][j]);
+                    dp[j][i] = dp[i][j];
+                }
+            }
+        }
+        int arr[][] = new int[n][2];
+        for(int k=0;k&lt;n;++k){
+            int c = 0;
+            for(int i=0;i&lt;n;++i){
+                if(i==k) continue;
+                if(dp[k][i]&lt;=d){
+                    c++;
+                }
+            }
+            arr[k]  = new int[]{c,k};
+        }
+        Arrays.sort(arr,(x,y)-&gt;{
+            if(x[0]!=y[0]){
+                return x[0] - y[0];
+            }else{
+                return y[1] - x[1];
+            }
+            
+        });
+        
+        return arr[0][1];
+            
+            
+        
+        
+        
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

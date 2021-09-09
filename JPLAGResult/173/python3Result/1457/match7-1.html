@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>268_shengchen407.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>268_shengchen407.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minDifficulty(self, jobDifficulty: List[int], d: int) -&gt; int:
+        len_job = len(jobDifficulty)
+        if len_job &lt; d:
+            return -1
+        dfy = [[float('inf')]*d for _ in range(len_job)]
+        dfy[0][0] = jobDifficulty[0]
+        for i in range(1, len_job):
+            dfy[i][0] = max(jobDifficulty[i], dfy[i-1][</B></FONT>0])
+            for j in range(1, min(d, i+1)):
+                last = jobDifficulty[i]
+                record = last + dfy[i-1][j-1]
+                for k in range(i-1, j-1, -1):
+                    last = max(last, jobDifficulty[k])
+                    record = min(record, last + dfy[k-1][j-1])
+                dfy[i][j] =record
+        return dfy[-1][-1]
+</PRE>
+
+</BODY>
+</HTML>

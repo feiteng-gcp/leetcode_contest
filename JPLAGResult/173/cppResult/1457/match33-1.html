@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>366_daiyifan.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>366_daiyifan.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int minDifficulty(vector&lt;int&gt;&amp; jobDifficulty, int day) {
+        int size = jobDifficulty.size();
+        vector&lt;vector&lt;int&gt;&gt; max_diff(size, vector&lt;int&gt;(size, 0));
+        
+        for(int i = 0; i &lt; size; i++) {</B></FONT>
+            for(int j = i; j &lt; size; j++) {
+                int m = 0;
+                for(int k = i; k &lt;= j; k++) {
+                    m = max(m, jobDifficulty[k]);
+                }
+                max_diff[i][j] = m;
+            }
+        }
+        
+        vector&lt;vector&lt;int&gt;&gt; dp(size, vector&lt;int&gt;(day + 1, 100000000));
+        
+        for(int i = 0; i &lt; size; i++) {
+            dp[i][0] = 0;
+            dp[i][1] = max_diff[0][i];
+<A NAME="1"></A>        }
+        
+        for(int i = 0; i &lt; size; i++) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int d = 2; d &lt;= day; d++) {
+                for(int j = 0; j &lt; i; j++) {
+                    dp[i][d] = min(dp[i][d], dp[j][d - 1] + max_diff[j + 1][i]);
+                    // cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; d &lt;&lt; &quot; &quot; &lt;&lt; dp[i][d] &lt;&lt; endl;
+                }
+            }
+        }
+        
+        /* cout &lt;&lt; &quot; &quot; &lt;&lt; endl;
+        
+        for(int i = 0; i &lt; size; i++) {
+            for(int d = 1; d &lt;= day; d++) {
+                cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; d &lt;&lt; &quot; &quot; &lt;&lt; dp[i][d] &lt;&lt; endl;
+            }
+        } */
+        
+        return dp[size - 1][day] &lt; 100000000 ? dp[size - 1][day] : -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
