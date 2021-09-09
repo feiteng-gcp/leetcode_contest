@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>133_HenryLee4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>133_HenryLee4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    private class Node {
+        Node[] childs = new Node[26];
+        PriorityQueue&lt;String&gt; words = new PriorityQueue&lt;&gt;();
+    }
+    
+    private Node root;
+    
+    public List&lt;List&lt;String&gt;&gt; suggestedProducts(String[] products, String searchWord) {
+        root = new Node();
+        List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
+        for(String product:products){
+            addTrie(root, product, 0);
+        }
+        Node cur = root;
+        for(int i = 0 ; i &lt; searchWord.length(); i++){
+            int index = searchWord.charAt(i) - 'a';
+            if(cur == null || cur.childs[index] == null){
+                cur = null;
+                res.add(new ArrayList&lt;&gt;());
+            } else {
+                cur = cur.childs[index];
+                List&lt;String&gt; item = new ArrayList&lt;&gt;();
+                int cnt = 3;
+                while(!cur.words.isEmpty() &amp;&amp; cnt-- &gt; 0){
+                    item.add(cur.words.poll());
+                }
+                res.add(item);
+            }
+        }
+        return res;
+    }
+    
+    private void addTrie(Node node, String s, int sIndex){
+        if(sIndex &gt;= s.length()){
+            return;
+        }
+        int index = s.charAt(sIndex) - 'a';
+        if(node.childs[index] == null){
+            node.childs[index] = new Node();
+        }
+        node = node.childs[index];
+        node.words.add(s);
+        addTrie(node, s, sIndex + 1);
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

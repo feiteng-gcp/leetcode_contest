@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>170_zhuo1ang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>170_zhuo1ang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    struct T{
+        string s;
+        bool operator &lt; (const T &amp;temp) const{
+            for (int i = 0; i &lt; s.size() &amp;&amp; i &lt; temp.s.size(); i++){
+                if (s[i] &gt; temp.s[i]) return false;
+                else if (s[i] &lt; temp.s[i]) return true;
+            }
+            return s.size() &lt; temp.s.size();
+        }
+        T(string str){
+            s = str;
+        }
+    };
+<A NAME="0"></A>    
+
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match40-0.html#0',2,'match40-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    vector&lt;vector&lt;string&gt;&gt; suggestedProducts(vector&lt;string&gt;&amp; products, string searchWord) {
+        vector&lt;vector&lt;string&gt;&gt; ret;
+        for (int i = 1; i &lt;= searchWord.size(); i++){
+            string cur = searchWord.substr(0, i);
+            vector&lt;T&gt; vec;
+            for (int j = 0; j &lt; products.size(); j++){
+                if (products[j].substr(0, i) == cur){</B></FONT>
+                    vec.push_back(T(products[j]));
+                }
+            }
+            sort(vec.begin(), vec.end());
+            while(vec.size() &gt; 3) vec.pop_back();
+            vector&lt;string&gt; v;
+            for (int i = 0; i &lt; vec.size(); i++){
+                v.push_back(vec[i].s);
+            }
+            ret.push_back(v);
+        }
+        return ret;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

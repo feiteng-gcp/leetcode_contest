@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>297_nyaruko.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>297_nyaruko.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int numWays(int steps, int arrLen) {
+<A NAME="0"></A>        arrLen=min(arrLen,steps+10);
+        vector&lt;vector&lt;int&gt;&gt; dp(2,vector&lt;int&gt;(arrLen,0));
+        int last=0,cur=1;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#0',2,'match29-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int mod=(1e9)+7;
+        dp[cur][0]=1;
+<A NAME="1"></A>        for(int i=0;i&lt;steps;i++){
+            swap(cur,last);
+            for(int i=0;i&lt;arrLen;i++){</B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match29-0.html#1',2,'match29-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                dp[cur][i]=dp[last][i];
+                if(i-1&gt;=0){
+                    dp[cur][i]+=dp[last][i-1];
+                    dp[cur][i]%=mod;
+                }
+                if(i+1&lt;arrLen){
+                    dp[cur][i]+=dp[last][i+1];
+                    dp[cur][i]%=mod;
+                }
+            }
+        }
+        return dp[cur][0];
+    }
+};</B></FONT>
+
+//f(p,num)=f(p-1,num-1)+f(p-1,num)+f(p-1,num+1)
+//p:0-&gt;steps
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>437_Charlesna.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>437_Charlesna.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    
+//     class TrieNode {
+//         TrieNode[] children;
+//         boolean isWord;
+//         public TriedNode() {
+//             children = new TrieNode[26];
+//             isWord = false;
+//         }
+//     }
+    
+//     private void insert(TrieNode root, String product) {
+//         TrieNode cur = root;
+//         for (char c : product.toCharArrayList()) {
+//             if (cur.children[c - 'a'] == null) {
+//                 cur.children[c - 'a'] = new TrieNode();
+//             }
+//             cur = cur.children[c - 'a'];
+//         }
+//         cur.isWord = true;
+//     }
+    
+    
+    
+//     public List&lt;List&lt;String&gt;&gt; suggestedProducts(String[] products, String searchWord) {
+//         TrieNode root = new TrieNode();
+//         for (String product : products) {
+//             insert(root, product);
+//         }
+//         List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
+        
+//         for (char c : searchWord.toCharArray()) {
+//             root = root.children[c - 'a'];
+//             List&lt;String&gt; temp = new ArrayList&lt;&gt;();
+//             if (root == null) {
+//                 res.add(temp);
+//             }
+//             //do preorder for this node.
+            
+            
+//         }
+//     }
+    
+    public List&lt;List&lt;String&gt;&gt; suggestedProducts(String[] products, String searchWord) {
+        List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        for (String product : products) {
+            list.add(product);
+        }
+        Collections.sort</B></FONT>(list);
+        
+        StringBuilder sb = new StringBuilder();
+        for (char c : searchWord.toCharArray()) {
+            sb.append(c);
+            List&lt;String&gt; temp = new ArrayList&lt;&gt;();
+            for (String s : list) {
+                if (s.startsWith(sb.toString())) {
+                    temp.add(s);
+                }
+            }
+<A NAME="1"></A>            List&lt;String&gt; add = new ArrayList&lt;&gt;();
+            for (int i = 0; i &lt; 3 &amp;&amp; i &lt; temp.size(); i++) {
+                add.add(temp.get(i));
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            res.add(add);
+            list = temp;
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

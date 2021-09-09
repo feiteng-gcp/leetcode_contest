@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>262_u3434555.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>262_u3434555.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match37-0.html#0',2,'match37-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    vector&lt;vector&lt;string&gt;&gt; suggestedProducts(vector&lt;string&gt;&amp; products, string searchWord) {
+        int sz = searchWord.length();
+        int psz = products.size();
+        vector&lt;vector&lt;string&gt;&gt; result (sz, vector&lt;string&gt; ());
+        sort(products.begin(), products.end());
+        string tmpsub;
+        int j=0;
+        
+        for(int i=1; i&lt;=sz; i++)
+        {
+            tmpsub = searchWord.substr(0, i);</B></FONT>
+            for( ; j&lt;psz; j++)
+                if(myfind(products[j], tmpsub))
+                    break;
+            if(j==psz)
+                break;
+            result[i-1].push_back(products[j]);
+            if(j+1&lt;psz &amp;&amp; myfind(products[j+1], tmpsub))
+                result[i-1].push_back(products[j+1]);
+            if(j+2&lt;psz &amp;&amp; myfind(products[j+2], tmpsub))
+                result[i-1].push_back(products[j+2]);
+        }
+
+        return result;
+    }
+    
+    bool myfind(string a, string b)
+    {
+        int sza = a.size();
+        int szb = b.size();
+        if(szb&gt;sza)
+            return false;
+        for(int i=0; i&lt;szb; i++)
+            if(a[i]!=b[i])
+                return false;
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

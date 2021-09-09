@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>22_daltao.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>22_daltao.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public List&lt;List&lt;String&gt;&gt; suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>List&lt;List&lt;String&gt;&gt; ans = new ArrayList(searchWord.length());
+        for(int i = 1; i &lt;= searchWord.length(); i++){
+            int index = binarySearch</B></FONT>(products, searchWord, i);
+            if(index == -1){
+                ans.add(new ArrayList());
+                continue;
+            }
+            List&lt;String&gt; prefixes = new ArrayList();
+<A NAME="1"></A>            for(int j = 0; j &lt; 3 &amp;&amp; index + j &lt; products.length; j++){
+                if(compare(products[j + index], searchWord, i) == 0){
+                    prefixes.add(products[j + index]);
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#1',2,'match32-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            ans.add(prefixes);
+        }
+        return ans;
+    }</B></FONT>
+    
+    public int binarySearch(String[] p, String s, int len){
+        int l = 0;
+        int r = p.length - 1;
+        while(l &lt; r){
+            int m = (l + r) / 2;
+            if(compare(p[m], s, len) &lt; 0)
+            {
+                l = m + 1;
+            }else{
+                r = m;
+            }
+        }
+        if(compare(p[l], s, len) == 0){
+            return l;
+        }else{
+            return -1;
+        }
+    }
+    
+    public int compare(String a, String b, int prefix)
+    {
+        for(int i = 0; i &lt; prefix; i++){
+            if(a.length() == i){
+                return -1;
+            }
+            if(a.charAt(i) != b.charAt(i)){
+                return a.charAt(i) - b.charAt(i);
+            }
+        }
+        return 0;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

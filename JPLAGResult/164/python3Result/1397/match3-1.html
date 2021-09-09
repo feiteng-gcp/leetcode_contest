@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_joysword.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>196_joysword.py</CENTER></H3><HR>
+<PRE>
+class Node:
+<A NAME="0"></A>    def __init__(self):
+        self.children = {}
+        self.is_word = False
+        self<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>.words = []
+        
+class Trie:
+    def __init__(self):
+        self.root = Node()
+        
+    def add(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = Node()
+            node = node.children[c]
+            node.words.append(</B></FONT>word)
+        
+    def suggest(self, s):
+        node = self.root
+        res = []
+        for c in s:
+            if c not in node.children:
+                break
+            
+            res.append(sorted(node.children[c].words)[:3])
+            node = node.children[c]
+<A NAME="1"></A>
+        while len(res) &lt; len(s):
+            res.append([])
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#1',2,'match3-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return res
+        
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -&gt; List[List[str]]:
+        trie = Trie()
+        for word in products:
+            trie.add(word)
+        
+        return trie.suggest(s</B></FONT>earchWord)
+        
+</PRE>
+
+</BODY>
+</HTML>
