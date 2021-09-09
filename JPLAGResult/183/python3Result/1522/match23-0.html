@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_Sakata_Gintoki.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_Sakata_Gintoki.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def stoneGameIII(self, nums: List[int]) -&gt; str:
+        # m = [0] * (len(nums) ** 2)
+        m = {}
+        
+        def getScore(nums,l,r): #获得我和对手的最大分数差
+<A NAME="0"></A>            if l &gt; r: return 0
+            if l == r: return nums[l] #当数组只有一个数的时候，分数差为这个数
+            
+            if (l , r) in m: return m[(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>l, r)] #如果这个组合以及出现过的话，直接调用，剪枝
+            
+            first = nums[l] - getScore(nums,l + 1,r)
+            second = nums[l] + nums[l + 1] - getScore(nums, l + 2, r) if l + 1 &lt;= r else -float('inf')
+            third = nums[l] + nums[l + 1] + nums[l + 2] - getScore(nums, l + 3, r) if l + 2 &lt;= r else -float(</B></FONT>'inf')
+            
+            m[(l , r)] = max(first, second, third) #我所选的数减去对手所能选的最大数 中取最大值，在递归过程中会不断的换边
+            return m[(l ,r)]
+
+        if getScore(nums,0,len(nums)-1) &gt;0:
+            return &quot;Alice&quot;
+        elif getScore(nums,0,len(nums)-1) == 0:
+            return &quot;Tie&quot;
+        else:
+            return &quot;Bob&quot;
+            
+</PRE>
+
+</BODY>
+</HTML>

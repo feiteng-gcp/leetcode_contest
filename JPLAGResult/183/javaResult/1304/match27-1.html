@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>144_luo122174088.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>144_luo122174088.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String longestDiverseString(int a, int b, int c) {
+        StringBuilder sb = new StringBuilder();
+        
+        int[] counts = new</B></FONT> int[]{a,b,c};
+        
+        int prev = -1;
+        while(true){
+            // find max
+            int index = maxIndex(counts, prev);
+            if(counts[index] == 0){
+                break;
+            }
+            int count = 0;
+            if(counts[index] == max(counts)){
+                count = Math.min(2, counts[index]);
+            }else{
+                count = 1;
+            }
+            for(int i =0;i&lt;count;i++){
+                sb.append((char)('a'+index));
+            }
+            counts[index] -= count;
+            prev = index;
+        }
+        return sb.toString();
+<A NAME="1"></A>    }   
+    
+    private int max(int[] counts){
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int max = 0;
+        for(int i =1;i&lt;=2;i++){
+            if(counts[i] &gt; counts[max]){
+                max = i;
+            }
+        }</B></FONT>
+        return counts[max];
+    }
+<A NAME="2"></A>    
+    private int maxIndex(int[] counts, int exclude){
+        int max = -1;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#2',2,'match27-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for(int i =0;i&lt;=2;i++){
+            if(i != exclude &amp;&amp; (max == -1 || counts[max] &lt; counts[i])){
+                max = i;
+            }
+        }</B></FONT>
+        return max;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

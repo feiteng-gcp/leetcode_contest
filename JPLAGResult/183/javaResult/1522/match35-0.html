@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>457_z123k3.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>457_z123k3.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    Map&lt;Integer, Integer&gt; mem;
+    
+    public String stoneGameIII(int[] stoneValue) {
+        mem = new HashMap&lt;&gt;();
+        
+        int bestDiff = bestDifference(stoneValue, 0);
+
+<A NAME="0"></A>        //System.out.println(mem);
+        //System.out.println(bestDiff);
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if(bestDiff &gt; 0) {
+            return &quot;Alice&quot;;
+        }
+        
+        if(bestDiff &lt; 0) {
+            return &quot;Bob&quot;;
+        }
+        
+<A NAME="1"></A>        return &quot;Tie&quot;;
+    }</B></FONT>
+        
+    private int bestDifference(int[] stoneValue, int start) <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        if(start == stoneValue.length) {
+            return 0;
+        }
+        
+        if(start == stoneValue.length - 1) {
+            return stoneValue[start];
+        }</B></FONT>
+        
+        if(mem.containsKey(start)) {
+            return mem.get(start);
+        }
+        
+        int out = -2000;
+        
+        int sum = 0;
+        
+        for(int i = start; i &lt;= Math.min(start + 2, stoneValue.length - 1); i++) {
+            sum += stoneValue[i];
+            out = Math.max(out, sum - bestDifference(stoneValue, i+1));
+        }
+        
+        //System.out.println(start + &quot; &quot; + out);
+        
+        mem.put(start, out);
+        return out;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

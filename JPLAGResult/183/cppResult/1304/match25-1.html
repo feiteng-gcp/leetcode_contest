@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>151_nilomai.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>151_nilomai.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    
+    //return lognest string over alphabet (a,b,c) withuot &quot;aaa&quot; &quot;bbb&quot; or &quot;ccc&quot; and at most a a, b b, c c
+    string longestDiverseString(int a, int b, int c) {
+        string res = &quot;&quot;;
+        if (a &gt; b and a &gt; c) {
+            res.push_back('a');
+            a--;
+        } else if (b &gt; c) {
+            res.push_back('b');
+            b--;
+        } else {
+            res.push_back('c');
+            c--;
+        }
+        return aux(a,b,c,res);
+    }
+    
+    bool canAdd(const string&amp; res, char c) {
+        int n = res.size();
+        char l = res[n-1];
+        if (l != c) return true;
+        if (n == 1) return true;
+        if (res[n-2] != c) return true;
+        return false;
+    }
+
+    string aux(int a, int b, int c, string&amp; res) {
+        while (true) {
+<A NAME="0"></A>            // cout &lt;&lt; a &lt;&lt; b &lt;&lt; c &lt;&lt;endl;
+            while (true) {
+                // cout &lt;&lt; a &lt;&lt; b &lt;&lt; c &lt;&lt; &quot; 2&quot; &lt;&lt;endl;
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                while (true) {
+                    // cout &lt;&lt; a &lt;&lt; b &lt;&lt; c &lt;&lt; &quot; 3&quot; &lt;&lt;endl;
+                    if (a &gt; 0 and (a &gt;= b and a &gt;= c and canAdd(res, 'a'))) {
+                        res.push_back('a');
+                        a--;
+                    }
+                    else if (b &gt; 0 and (b &gt;= a and b &gt;= c and canAdd(res, 'b'))) {
+                        res.push_back('b');
+                        b--;
+                    }
+                    else if (c &gt; 0 and (c &gt;= b and c &gt;= a and canAdd(res, 'c'))) {
+                        res.push_back('c');
+                        c--;
+                    } else break;</B></FONT>
+                }
+                if (a &gt; 0 and ((a &gt;= b or a &gt;= c) and canAdd(res, 'a'))) {
+<A NAME="1"></A>                    res.push_back('a');
+                    a--;
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                else if (b &gt; 0 and ((b &gt;= a or b &gt;= c) and canAdd(res, 'b'))) {
+                    res.push_back('b');
+                    b--;
+                }
+                else if (c &gt; 0 and ((c &gt;= b or c &gt;= a) and canAdd(res, 'c'))) {
+                    res.push_back('c');
+                    c--;
+                } else break;
+            }</B></FONT>
+            if (a &gt; 0 and (canAdd(res, 'a'))) {
+<A NAME="2"></A>                res.push_back('a');
+                a--;
+            }
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            else if (b &gt; 0 and (canAdd(res, 'b'))) {
+                res.push_back('b');
+                b--;
+            }
+            else if (c &gt; 0 and (canAdd(res, 'c'))) {
+                res.push_back('c');
+                c--;
+            } else break;
+        }</B></FONT>
+        return res;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

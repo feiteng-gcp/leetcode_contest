@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_lizju.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_lizju.py</CENTER></H3><HR>
+<PRE>
+import functools
+class Solution:
+    '''
+    f(0,i) = max{
+      A[0], sum(A[1:]-f(1,i))  get 1
+      A[0,1], 
+      A[]
+    }
+    '''
+    
+    def stoneGameIII(self, A: [int]) -&gt; str:
+        n = len(A)
+        cum = []
+        for x in A[::-1]:
+            cum.append(x if not cum else x+cum[-1])
+        cum = cum[::-1]
+        @lru_cache
+        def g(x):
+            return cum[x]
+        @lru_cache
+        def f(x):
+            if x&gt;= n: return 0
+            if x == n-1: return A[-1]
+<A NAME="0"></A>            else:
+                return max(g(x)-f(x+1),
+                          g(x)-f(x+2),
+                           g(x)-f(x<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>+3),
+                          )
+        total = sum(A)
+        gain = f(0)
+        if gain == total / 2:
+            return &quot;Tie&quot;
+        if gain &gt; total /2:
+            return &quot;Alice&quot;
+        re</B></FONT>turn &quot;Bob&quot;
+                
+</PRE>
+
+</BODY>
+</HTML>

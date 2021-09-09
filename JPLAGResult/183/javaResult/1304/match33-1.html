@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_CHEN0426.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>231_CHEN0426.java</CENTER></H3><HR>
+<PRE>
+<A NAME="1"></A><FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String longestDiverseString(int a, int b, int c) {
+        Pair A = new Pair('a', a);
+        Pair B = new Pair('b', b)</B></FONT>;
+        Pair C = new Pair('c', c);
+        
+        PriorityQueue&lt;Pair&gt; pq = new PriorityQueue&lt;&gt;((x, y) -&gt; {
+           return y.num - x.num; 
+        });
+        if (A.num != 0) {
+            pq.offer(A);
+        }
+        if (B.num != 0) {
+            pq.offer(B);
+        }
+        if (C.num != 0) {
+            pq.offer(C);
+        }
+        // pq.offer(A);
+        // pq.offer(B);
+        // pq.offer(C);
+<A NAME="2"></A>        StringBuilder sb = new StringBuilder();
+        
+        char prev = 'x';
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#2',2,'match33-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while (pq.size() &gt; 0) {
+            Pair i = pq.poll();
+            
+            if (pq.size() == 0) {
+                if</B></FONT> (prev != i.c) {
+                    for (int j = 0; j &lt; Math.min(2, i.num); j++) {
+                        sb.append(i.c);
+                    }
+                    break;
+                    
+                } else {
+                    break;
+                }
+            } else {
+                if (prev == i.c) {
+                    Pair next = pq.poll();
+                    
+                    sb.append(next.c);
+                    prev = next.c;
+                    if (next.num == 1) {
+                        pq.offer(i);
+                    } else {
+                        pq.offer(i);
+                        next.num -= 1;
+                        pq.offer(next);
+                    }
+                } else {
+                    prev = i.c;
+                    for (int j = 0; j &lt; Math.min(2, i.num); j++) {
+                        sb.append(i.c);
+                    }
+                    
+                    if (i.num &gt; 2) {
+                        i.num -= 2;
+                        pq.offer(i);
+<A NAME="3"></A>                    } else {
+                        
+                    }
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#3',2,'match33-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+            //System.out.println(sb);
+        }
+        return sb.toString();
+        
+<A NAME="0"></A>    }</B></FONT>
+}
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public class Pair {
+    char c;
+    int num;
+    
+    public Pair(char c, int num) {
+        this.c = c;
+        this.num = num;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>
