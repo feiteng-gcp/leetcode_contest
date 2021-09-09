@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>43_HenryLee4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>43_HenryLee4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match1-0.html#0',2,'match1-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+    private int[][] dirs = {{}, {0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    
+    public int minCost(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] dis = new int[n][m];
+        for(int i = 0 ; i &lt; n ; i++){
+            Arrays.fill(dis[i], 100000);
+        }
+        PriorityQueue&lt;int[]&gt; queue = new PriorityQueue&lt;&gt;(new Comparator&lt;int[]&gt;(){
+            @Override
+            public int compare(int[] a, int[] b){
+                return a[0] - b[0];
+            }
+        });
+        queue.add(new int[]{0, 0, 0});
+        dis[0][0] = 0;
+        int res = 100000;
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
+            int r = cur[1], c = cur[2], d = cur[0];
+            if(r == n - 1 &amp;&amp; c == m - 1){
+                res = Math.min(res, d);
+            }
+            if(d &gt; res){
+                break;
+            }
+            if(d &gt; dis[r][c]){
+                continue;
+            }
+            for(int i = 1; i &lt; 5; i++){
+                int nr = r + dirs[i][0];
+                int nc = c + dirs[i][1];
+                if(nr &lt; 0 || nc &lt; 0 || nr &gt;= n || nc &gt;= m){
+                    continue;
+                }
+                int tmp = d;
+                if(grid[r][c] != i){
+                    tmp++;
+                }
+                if(dis[nr][nc] &gt; tmp){
+                    dis[nr][nc] = tmp;
+                    queue.add(new int[]{tmp, nr, nc});
+                }
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

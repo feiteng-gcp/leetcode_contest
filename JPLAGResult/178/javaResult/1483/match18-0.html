@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>169_GaleZhang.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>169_GaleZhang.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public String rankTeams(String[] votes) {
+        int n = votes[0].length();
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>HashMap&lt;Character, int[]&gt; map = new HashMap();
+        for(String s : votes) {
+            for(int i = 0; i &lt; s.length(); i++) {
+                char c = s.charAt</B></FONT>(i);
+                if(map.containsKey(c))
+                    map.get(c)[i]++;
+                else {
+                    int[] temp = new int[n];
+<A NAME="1"></A>                    temp[i]++;
+                    map.put(c, temp);
+                }
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>} 
+        }
+        List&lt;Character&gt; list = new ArrayList();
+<A NAME="2"></A>        for(char c : map.keySet())
+            list.add(c);
+        Collections.sort(list, new Comparator&lt;Character&gt;(){
+            public </B></FONT>int compare(<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Character a, Character b) {
+                int[] ar = map.get(a);
+<A NAME="3"></A>                int[] br = map.get(b);
+                for(int i = 0; i &lt; n; i++) {
+                    if(ar[i] != br[i])
+                        return</B></FONT> br[i] - ar[i]<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+                }
+                return a - b;
+            }
+        });
+        StringBuilder sb = new StringBuilder();
+        for(char c : list)
+            sb.append(c);
+        return</B></FONT> new String(sb);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

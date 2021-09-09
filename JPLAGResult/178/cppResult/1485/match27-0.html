@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>475_xjhz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>475_xjhz.cpp</CENTER></H3><HR>
+<PRE>
+struct is
+{
+    int x;
+    int y;
+    int step;
+    bool operator &lt; (const is&amp; A)const
+    {
+        return step &gt; A.step;
+    }
+};
+class Solution {
+public:
+    bool check(int x, int y, int n, int m)
+    {
+        if(x &lt; 0 || y &lt; 0 || x &gt;= n || y &gt;= m)
+            return false;
+        return true;
+    }
+    int minCost(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+<A NAME="0"></A>        priority_queue&lt;is&gt; Q;
+        int vis[110][110];
+        memset(vis, -1, sizeof(vis));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        Q.push(is{n - 1, m - 1, 0});
+        int dx[4] = {0, 0, -1, 1};
+<A NAME="1"></A>        int dy[4] = {-1, 1, 0, 0};
+        while(!Q.empty())
+        {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            is now = Q.top();
+            Q.pop();
+            if(now.x == 0 &amp;&amp; now.y == 0) return now.step;
+            if(vis[now.x][now.y] != -1)continue;
+            vis[now.x][now.y] = now.step;
+            cout&lt;&lt;now.x&lt;&lt;&quot; &quot; &lt;&lt;now.y &lt;&lt;&quot; &quot; &lt;&lt; now.step&lt;&lt;endl;
+            for(int i = 0; i &lt; 4; i++)
+            {
+                int nexx = now.x + dx[i];
+                int nexy = now.y + dy[i];
+                if(check(nexx, nexy, n, m))
+                {
+                    if(grid[nexx][nexy] == i + 1)
+                    {</B></FONT>
+                        if(vis[nexx][nexy] == -1)
+                        Q.push(is{nexx,nexy,now.step});
+                    }
+                    else
+                    {
+                        if(vis[nexx][nexy] == -1)
+                        Q.push(is{nexx,nexy,now.step + 1});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

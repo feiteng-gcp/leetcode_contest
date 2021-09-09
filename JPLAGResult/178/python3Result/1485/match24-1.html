@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>164_tommmyk253.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>164_tommmyk253.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minCost(self, grid: List[List[int]]) -&gt; int:
+        W, H = len(grid[0]), len(grid)
+        
+        seen = [[float('inf')] * W for _ in range(H)]
+        
+        prio = [(0, 0, 0)]
+        while prio:
+            cost, x, y = heapq.heappop(prio)
+            
+            if x == H - 1 and y == W - 1:
+                return cost
+            
+            if seen[x][y] &lt; cost:
+                continue
+            seen[x][y] = cost
+<A NAME="0"></A>            
+            for direction, (dx, dy) in enumerate([(0, 1), (0, -1), (1, 0), (-1, 0)]):
+                direction += 1
+                nx, ny <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= x + dx, y + dy
+                new_cost = cost + (direction != grid[x][y])
+                if 0 &lt;= nx &lt; H and 0 &lt;= ny &lt; W and seen[nx][ny] &gt; new_cost:
+                    seen[nx][ny] = new_cost
+                    heapq.heappush(prio, (new_cost, nx, ny))
+        return</B></FONT> -1
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>269_pitayapi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>269_pitayapi.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    string rankTeams(vector&lt;string&gt;&amp; votes) {
+        int m = votes.size(), n = votes[0].size();
+        unordered_map&lt;char, vector&lt;int&gt;&gt; cnt;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (string &amp;s : votes) {
+            for (int i = 0; i &lt; n; ++i) {
+                if (cnt.find(s[i]) == cnt.end()) {
+                    cnt[s[i]] = vector&lt;int&gt;(n, 0);
+                }
+<A NAME="1"></A>                cnt[s[i]][i]++;
+            }
+        }</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match24-1.html#1',3,'match24-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        auto cmp = [&amp;](char a, char b) -&gt; bool {
+            for (int i = 0; i &lt; n; ++i) {
+                if (cnt[a][i] &gt; cnt[b][i]) {
+                    return true;
+                }else if (cnt[a][i] &lt; cnt[b][i]) {
+                    return false;
+                }
+            }
+            return a &lt; b;
+        };</B></FONT>
+        string ans = votes[0];
+        sort(ans.begin(), ans.end(), cmp);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

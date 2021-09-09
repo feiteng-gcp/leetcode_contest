@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>314_jiaweil.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>314_jiaweil.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public String rankTeams(String[] votes) {
+        Candidate[] candidates = new Candidate[26];
+        for (String v : votes) {
+            for (int i = 0; i &lt; v.length(); i++) {
+                char c = v.charAt</B></FONT>(i);
+                if (candidates[c - 'A'] == null) candidates[c - 'A'] = new Candidate(c, v.length());
+                candidates[c - 'A'].rank[i]++;
+            }
+        }
+        
+<A NAME="1"></A>        List&lt;Candidate&gt; list = new ArrayList&lt;&gt;();
+        for (Candidate can : candidates) {
+            if (can == null) continue;
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>list.add(can);
+        }
+        
+        Collections.sort(list, new Comparator&lt;Candidate&gt;(){
+            @Override
+<A NAME="2"></A>            public int compare(Candidate a, Candidate b) {
+                int ret = compareRank(a.rank, b.rank)</B></FONT>;
+                if (ret == 0) return a.c - b.c;
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return ret;
+            }
+        });
+        
+        StringBuilder sb = new StringBuilder();
+        for (Candidate can : list) {
+            sb.append(can.c);
+        }
+        
+        return sb.toString();
+    }</B></FONT>
+    
+    private int compareRank(int[] a, int[] b) {
+        for (int i = 0; i &lt; a.length; i++) {
+            if (a[i] != b[i]) return b[i] - a[i];
+        }
+        return 0;
+<A NAME="3"></A>    }
+}
+
+<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match27-1.html#3',3,'match27-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Candidate{
+    char c;
+    int[] rank;
+    
+    Candidate(char c, int l) {
+        this.c = c;
+        r</B></FONT>ank = new int[l];
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

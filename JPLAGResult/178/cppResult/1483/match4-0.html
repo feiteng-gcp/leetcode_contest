@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>367_Itachi666.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>367_Itachi666.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string rankTeams(vector&lt;string&gt;&amp; votes) {
+        int n=votes[0].size();
+        map&lt;int, vector&lt;char&gt;&gt; m;
+        map&lt;char, vector&lt;int&gt;&gt; score;
+        for (int i=0;i&lt;n;i++)
+            score[votes[0][i]].resize(n, 0);
+        
+        for (auto&amp; s:votes) 
+            for (int i=0;i&lt;n;i++)
+                score[s[i]][i]++;
+        
+        // for (auto&amp; t:score) {
+        //     cout&lt;&lt;t.first&lt;&lt;' ';
+        //     for (int i=0;i&lt;n;i++)
+        //         cout&lt;&lt;t.second[i]&lt;&lt;' ';
+        //     cout&lt;&lt;endl;
+        // }
+        
+        vector&lt;bool&gt; used(26, true);
+        for (int i=0;i&lt;n;i++)
+            used[votes[0][i]-'A']=false;
+        
+        string ans;
+        
+        for (int i=0;i&lt;n;i++) {
+            char k='A';
+            while (k&lt;='Z' &amp;&amp; used[k-'A'])
+                k++;
+            // cout&lt;&lt;k&lt;&lt;endl;
+            
+            for (auto&amp; t:score)
+                if (!used[t.first-'A'] &amp;&amp; t.first!=k) {
+                    vector&lt;int&gt; &amp;a=score[k], &amp;b=t.second;
+                    int j=0;
+                    while (j&lt;n &amp;&amp; a[j]==b[j])
+                        j++;
+                    if (j!=n &amp;&amp; b[j]&gt;a[j])
+                        k=t.first;
+                    if (j==n &amp;&amp; t.first&lt;k)
+                        k=t.first;
+                 }
+            
+            used[k-'A']=true;
+            ans+=k;
+        }
+        
+        
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

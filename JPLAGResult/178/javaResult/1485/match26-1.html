@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>141_coder_amateur.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>141_coder_amateur.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private class State {
+        int i, j, cost;
+        public State(int i, int j, int cost) {
+            this.i = i;
+            this.j = j;
+            this.cost = cost;
+<A NAME="2"></A>        }
+    }</B></FONT>
+    
+    <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#2',2,'match26-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public int minCost(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int[][] costs = new int[m][n];
+        for (int[] arr : costs) Arrays.fill(arr, Integer.MAX_VALUE);
+        PriorityQueue&lt;State&gt; pq = new</B></FONT> PriorityQueue&lt;State&gt;(new Comparator&lt;State&gt;(){
+            @Override
+            public int compare(State s1, State s2) {
+                return s1.cost - s2.cost;
+            }
+        });
+<A NAME="1"></A>        
+        pq.offer(new State(0, 0, 0));
+        costs[0][0] = 0;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] dirs = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}</B></FONT>};
+        while (!pq.isEmpty()) {
+            State cur = pq.poll();
+            int i = cur.i, j = cur.j, c = cur.cost;
+            // System.out.println(i + &quot;,&quot; + j + &quot;,&quot; + c);
+            if (i == m - 1 &amp;&amp; j == n - 1) return c;
+            int[] dir = dirs[grid[i][j] - 1];
+            // do not change dir
+            int x = i + dir[0], y = j + dir[1];
+            if (x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n &amp;&amp; costs[x][y] &gt; c) {
+                costs[x][y] = c;
+                pq.offer(new State(x, y, c));
+            }
+            
+            // change dir
+            for (int k = 0; k &lt; dirs.length; k++) {
+                if (k == grid[i][j] - 1) continue;
+                int[] curDir = dirs[k];
+                int xx = i + curDir[0], yy = j + curDir[1];
+<A NAME="3"></A>                if (xx &gt;= 0 &amp;&amp; xx &lt; m &amp;&amp; yy &gt;= 0 &amp;&amp; yy &lt; n &amp;&amp; costs[xx][yy] &gt; c + 1) {
+                    costs[xx][yy] = c + 1;
+                    pq.offer(new State(xx, yy, c + 1));
+                <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#3',2,'match26-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            }
+        }
+        
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

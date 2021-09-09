@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>296_alanmiller.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>296_alanmiller.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minCost(self, grid: List[List[int]]) -&gt; int:
+        m, n = len(grid), len(grid[0])
+        temp = [[201]*n for _ in range<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(m)]
+        temp[-1][-1] = 0
+        di = [(0,1), (0,-1), (1,0), (-1,0)]
+        h = [(0, m- 1, n -1 )]
+        
+        while h:
+            d, i, j= heapq.heappop(</B></FONT>h)
+            if d &gt; temp[i][j]:
+                continue
+            #print(i, j, d)
+            if  (i, j) == (0, 0):
+                return d
+            for a, b in di:
+                if 0 &lt;= i + a &lt; m and 0 &lt;= j + b &lt; n:
+                    if di[grid[i+a][j+b] - 1] == (-a, -b) and d &lt; temp[i+a][j+b]:
+                        #print('case', i + a, j + b, (-a, -b))
+                        heapq.heappush(h, (d, i +a ,j +b))
+                        temp[i+a][j+b] = d
+                    elif d + 1 &lt; temp[i+a][j+b]:
+                        heapq.heappush(h, (d  +1, i + a, j + b))
+                        temp[i+a][j+b] = d + 1
+
+        for row in temp:
+            print(row)
+</PRE>
+
+</BODY>
+</HTML>

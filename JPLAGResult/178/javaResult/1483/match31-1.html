@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>227_hiepit.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>227_hiepit.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public String rankTeams(String[] votes) {
+        int[][] rank = new int[26][26];
+        for (String vote : votes) {
+            for (int i = 0; i &lt; vote.length(); i++) {</B></FONT>
+                char c = vote.charAt(i);
+                rank[c - 'A'][i]++;
+            }
+        }
+
+        List&lt;Node&gt; list = new ArrayList&lt;&gt;();
+<A NAME="1"></A>        for (char c : votes[0].toCharArray()) {
+            Node node = new Node(c, rank[c - 'A']);
+            list.add(node);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        Collections.sort(list, new Comparator&lt;Node&gt;() {
+            @Override
+<A NAME="2"></A>            public int compare(Node o1, Node o2) {</B></FONT>
+                int[] votes1 = o1.votes;
+                int[] votes2 = o2.votes;
+                <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#2',2,'match31-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; 26; i++) {
+                    if (votes1[i] != votes2[i])
+                        return votes2[i] - votes1[i];
+                }
+                return o1.letter - o2.letter;
+            }
+        });
+
+        StringBuilder sb = new StringBuilder();
+        for (Node node</B></FONT> : list) {
+            sb.append(node.letter);
+        }
+        return sb.toString();
+    }
+
+    class Node {
+        char letter;
+        int[] votes;
+
+        public Node(char letter, int[] votes) {
+            this.letter = letter;
+            this.votes = votes;
+        }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

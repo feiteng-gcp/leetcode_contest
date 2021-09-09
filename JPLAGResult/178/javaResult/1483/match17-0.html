@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>327_nettee.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>327_nettee.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String rankTeams(String[] votes) {
+        if (votes.length == 0) {
+<A NAME="0"></A>            return &quot;&quot;;
+        }
+
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match17-1.html#0',3,'match17-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>final int n = votes[0].length();
+
+        int[][] st = new int[26][n+1];
+        for (int i = 0; i &lt; 26; i++) {
+<A NAME="1"></A>            st[i][n] = i;
+        }</B></FONT>
+
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match17-1.html#1',3,'match17-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (String vote : votes) {
+            for (int r = 0; r &lt; n; r++) {
+                char c = vote.charAt(r);
+                st[c-'A'][r]++;
+            }
+        }
+
+        Arrays.sort(st, new Comparator&lt;int[]&gt;() {
+            public int compare(int[] s1, int[] s2) {
+                for (int r = 0; r &lt; n; r++) {</B></FONT>
+<A NAME="2"></A>                    int c = Integer.compare(s1[r], s2[r]);
+                    if (c != 0) {
+                        return -c;
+                    <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match17-1.html#2',3,'match17-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+                }
+                return 0;
+            }
+        });
+
+        char[] res = new char[n];
+        for (int r = 0</B></FONT>; r &lt; n; r++) {
+            res[r] = (char) ('A' + st[r][n]);
+        }
+        return String.valueOf(res);
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>
