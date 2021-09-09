@@ -166,6 +166,7 @@ def crawlSubmissions(contest, page_end):
 
                 coding_content =  submissionResponse['code']
                 coding_language = submissionResponse['lang']
+                if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
                 
                 fileLocation = outputLocation + coding_language + '/' + str(k)
                 # print(fileLocation)
