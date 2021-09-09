@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>142_love-algorithm.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>142_love-algorithm.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    
+  public boolean isSolvable(String[] words, String result) {
+    int maxLen = 0;
+    for (int i = 0; i &lt; words.length; i++) {
+      maxLen = Math.max(maxLen, words[i].length());
+    }
+    if (result.length() &lt; maxLen) {
+      return false;
+    }
+    return isSovable(words, result, new Integer[26], 0, 0, 0);
+  }
+
+  private boolean isSovable(String[] words, String result, Integer[] map, int indexNum,
+      int indexWord, int sum) {
+    if (indexNum &gt;= result.length()) {
+      return false;
+    }
+    if (indexWord &gt;= words.length) {
+      int carry = sum / 10;
+      sum %= 10;
+      int resIndex = result.length() - 1 - indexNum;
+      char c = result.charAt(resIndex);
+      if (map[c - 'A'] != null
+          &amp;&amp; map[c - 'A'] != sum) {
+        return false;
+      }
+      if (map[c - 'A'] == null) {
+        for (int i = 0; i &lt; 26; i++) {
+          if (map[i] != null &amp;&amp; map[i] == sum) {
+            return false;
+          }
+        }
+      }
+      Integer pre = map[c - 'A'];
+      map[c - 'A'] = sum;
+      indexNum++;
+      boolean longer = true;
+      for (int i = 0; i &lt; words.length; i++) {
+        if (indexNum &lt; words[i].length()) {
+          longer = false;
+          break;
+        }
+      }
+      boolean res;
+      if (longer) {
+        res = judgeValid(result, map, carry, indexNum);
+      } else {
+        res = isSovable(words, result, map, indexNum, 0, carry);
+      }
+      map[c - 'A'] = pre;
+      return res;
+    } else {
+      if (words[indexWord].length() &lt;= indexNum) {
+        return isSovable(words, result, map, indexNum, indexWord + 1, sum);
+      } else {
+        int wordIndex = words[indexWord].length() - 1 - indexNum;
+        char c = words[indexWord].charAt(wordIndex);
+        if (map[c - 'A'] != null) {
+          return isSovable(words, result, map, indexNum, indexWord + 1, sum + map[c - 'A']);
+        } else {
+          outer:
+          for (int i = 0; i &lt; 10; i++) {
+            for (int j = 0; j &lt; 26; j++) {
+              if (map[j] != null &amp;&amp; map[j] == i) {
+                continue outer;
+              }
+            }
+            map[c - 'A'] = i;
+            if (isSovable(words, result, map, indexNum, indexWord + 1, sum + i)) {
+              // for (int k = 0; k &lt; 26; k++) {
+              //   if (map[k] != null) {
+              //     System.out.println((char) ('A' + k) + &quot; &quot; + map[k]);
+              //   }
+              // }
+              return true;
+            }
+          }
+          map[c - 'A'] = null;
+          return false;
+        }
+      }
+    }
+  }
+
+  private boolean judgeValid(String result, Integer[] map, int carry, int indexNum) {
+    if (carry != 0) {
+      if (indexNum != result.length() - 1) {
+        return false;
+      }
+      int resultIndex = result.length() - 1 - indexNum;
+      char c = result.charAt(resultIndex);
+      if (map[c - 'A'] == null) {
+        for (int i = 0; i &lt; 26; i++) {
+          if (map[i] != null &amp;&amp; map[i] == carry) {
+            return false;
+          }
+        }
+      }
+      return map[c - 'A'] == null
+          || map[c - 'A'] == carry;
+    } else {
+      if (indexNum != result.length()) {
+        return false;
+      }
+      return map[result.charAt(result.length() - indexNum) - 'A'] != 0;
+    }
+  }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

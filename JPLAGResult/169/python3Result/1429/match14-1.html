@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>105_troychen777.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>105_troychen777.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isSolvable(self, words: List[str], result: str) -&gt; bool:
+        left = [True for i in range(10)]
+        chosen = {}
+        
+        def sub_choose(n, k, carry):
+            # print(chosen, n, k, carry)
+            SUM = 0
+            if k == len(words):
+                for word in words:
+                    if len(word) &gt;= n:
+                        SUM += chosen[word[-n]]
+                if (SUM + carry) % 10 == chosen[result[len(result)-n]]:
+<A NAME="0"></A>                    # print(chosen)
+                    return helper((len(result)-n)-1, (SUM + carry) // 10)
+                else:
+                    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match14-0.html#0',2,'match14-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return False
+
+            if len(words[k]) &lt; n:
+                return sub_choose(n,k+1,carry)
+            
+            char = words[k][-n]
+            # print(char)
+            if</B></FONT> char not in chosen:
+                for digit in range(len(left)):
+                    if left[digit]:
+                        left[digit] = False
+                        chosen[char] = digit
+                        if sub_choose(n, k+1, carry):
+                            return True
+                        left[digit] = True
+                        del chosen[char]
+            else:
+                return sub_choose(n, k+1, carry)
+                            
+                
+        def helper(n, carry):
+            # print(chosen, n)
+            if n == -1:
+                return carry == 0
+            char = result[n]
+            if char not in chosen:
+                for digit in range(len(left)):
+                    if left[digit]:
+                        chosen[char] = digit
+                        left[digit] = False
+                        if sub_choose(len(result) - n, 0, carry):
+                            return True
+                        else:
+                            del chosen[char]
+                            left[digit] = True
+            else:
+                if sub_choose(len(result) - n, 0, carry):
+                    return True
+                else:
+                    return False
+        
+        res = helper(len(result)-1, 0)
+        # print(chosen)
+        return res
+</PRE>
+
+</BODY>
+</HTML>

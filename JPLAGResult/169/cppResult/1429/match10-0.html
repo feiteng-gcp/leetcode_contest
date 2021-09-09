@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_someblue.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_someblue.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 10;
+vector&lt;char&gt; chars;
+map&lt;char, int&gt; charMap;
+bool numVisit[N];
+int tailNums[N];
+
+class Solution {
+public:
+    bool isSolvable(vector&lt;string&gt;&amp; words, string result) {
+        chars.clear();
+        for (char c = 'A'; c &lt;= 'Z'; c++) {
+            charMap[c] = -1;
+        }
+        memset(numVisit, 0, sizeof(numVisit));
+        
+        // construct chars
+        destructWords(words, result);
+        
+        return dfs(words, result, 0);
+    }
+    
+private:
+    void destructWords(vector&lt;string&gt;&amp; words, string&amp; result) {
+        int idx;
+        for (int i=0; i&lt;8; i++) {
+            for (int j = 0; j&lt;words.size(); j++) {
+                idx = words[j].size() - 1 - i;
+                if (idx &gt;= 0) tryPushChar(words[j][idx]);
+            }
+            idx = result.size() - 1 - i;
+            if (idx &gt;= 0) tryPushChar(result[idx]);
+        }
+    }
+    
+    void tryPushChar(char&amp; c) {
+        for (int i=0; i&lt;chars.size(); i++) {
+            if (chars[i] == c) {
+                return;
+            }
+        }
+        chars.push_back(c);
+    }
+<A NAME="0"></A>    
+    bool dfs(vector&lt;string&gt;&amp; words, string&amp; result, int depth) {
+        if (depth &gt;= chars.size()) {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match10-1.html#0',3,'match10-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return isExpValid(words, result);
+        }
+        
+        for (int i=0; i&lt;N; i++) {
+            if (numVisit[i]) continue;
+            
+            numVisit[i] = true;
+            
+            charMap[chars[depth]] = i;
+            if (isWordsValid(words, result, depth)) {</B></FONT>
+                if (dfs(words, result, depth+1)) {
+                    return true;
+                }
+            }
+            
+            numVisit[i] = false;
+        }
+        charMap[chars[depth]] = -1;
+        return false;
+    }
+    
+    bool isWordsValid(vector&lt;string&gt;&amp; words, string&amp; result, int depth) {
+        if (charMap[result[0]] == 0) {
+            // printf(&quot;result %s leading 0&quot;, result);
+            return false;
+        }
+        for (int i=0; i&lt;words.size(); i++) {
+            if (charMap[words[i][0]] == 0) {
+                // printf(&quot;word %s leading 0&quot;, word[i]);
+                return false;
+            }
+        }
+        
+        int x;
+        int minX = 1e9;
+        for (int i=0; i&lt;words.size(); i++) {
+            tailNums[i] = tailNum(words[i], x);
+            minX = min(minX, x);
+        }
+        int rightTail = tailNum(result, x);
+        minX = min(minX, x);
+        
+        int leftTailSum = 0;
+        for (int i=0; i&lt;words.size(); i++) {
+            leftTailSum += tailNums[i] % minX;
+        }
+        rightTail %= minX;
+        
+        return (leftTailSum % minX) == rightTail;
+    }
+    
+    int tailNum(string&amp; str, int &amp;x) {
+        int num = 0;
+        x = 1;
+        for (int i=str.size()-1; i&gt;=0; i--) {
+            const int m = charMap[str[i]];
+            if (m == -1) break;
+            num += x * m;
+            x *= 10;
+        }
+        return num;
+    }
+    
+    bool isSuffix(int a, int b) {
+        while(true) {
+            if (a == 0 || b == 0) return true;
+            if (a % 10 != b % 10) return false;
+            a /= 10; b /= 10;
+        }
+<A NAME="1"></A>        return false;
+    }
+    
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match10-1.html#1',3,'match10-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool isExpValid(vector&lt;string&gt;&amp; words, string&amp; result) {
+        int leftSum = 0;
+        for (int i=0; i&lt;words.size(); i++) {
+            leftSum += convert(words[i]);
+        }
+        return leftSum == convert(result);
+    }
+    
+    int convert(string&amp; str) {</B></FONT>
+        int num = 0;
+        for (int i=0; i&lt;str.size(); i++) {
+            num = num * 10 + charMap[str[i]];
+        }
+        return num;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

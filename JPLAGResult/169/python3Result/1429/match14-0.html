@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>49_wxy9018.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>49_wxy9018.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isSolvable(self, words: List[str], result: str) -&gt; bool:
+        
+        numbers = {0,1,2,3,4,5,6,7,8,9}
+        heads = set(word[0] for word in words)
+        heads.add(result[0])
+        
+        words = [word[::-1] for word in words]
+        result = result[::-1]
+        
+        lenn = len(result)
+        mapping = {}
+        
+        def dfs(pos, i, summ):
+            
+            if pos == lenn:
+                return summ == 0
+            
+            if i == len(words):
+                carry, remainder = summ // 10, summ % 10
+                if result[pos] in mapping:
+                    if mapping[result[pos]] == remainder:
+                        return dfs(pos + 1, 0, carry)
+                    else:
+                        return False
+                else:
+                    if remainder not in numbers or result[pos] in heads and remainder == 0:
+                        return False
+                    mapping[result[pos]] = remainder
+<A NAME="0"></A>                    if dfs(pos + 1, 0, carry):
+                        return True
+                    del mapping[result[pos]]
+                    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match14-1.html#0',3,'match14-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return False
+            
+            if pos &gt;= len(words[i]):
+                return dfs(pos, i+1, summ)
+                
+            c = words[i][pos]
+            if</B></FONT> c in mapping:
+                return dfs(pos, i+1, summ + mapping[c])
+            else:
+                for n in range(10):
+                    if n not in numbers:
+                        continue
+                    if pos == len(words[i]) - 1 and n == 0:
+                        continue
+                    numbers.remove(n)
+                    mapping[c] = n
+                    if dfs(pos, i+1, summ + n):
+                        return True
+                    del mapping[c]
+                    numbers.add(n)
+                return False
+            
+        res = dfs(0, 0, 0)
+        # print(mapping)
+        return res
+            
+
+        '''
+        letters = set()
+        
+        for word in words:
+            for c in word:
+                letters.add(c)
+        #for c in result:
+        #    letters.add(c)
+        mapping = {}
+        
+        letters = list(letters)
+        '''
+        
+
+        
+        '''
+        def translate(word):
+            res = 0
+            for c in word:
+                res = res * 10 + mapping[c]
+            return res
+            
+        
+        def dfs(i):
+            if i == len(letters):
+                summ = 0
+                for word in words:
+                    summ += translate(word)
+                return summ == translate(result)
+            
+            for n in numbers:
+                if letters[i] in heads and n == 0:
+                    continue
+                    
+                mapping[letters[i]] = n
+                numbers.remove(n)
+                if dfs(i+1):
+                    return True
+                numbers.add(n)
+                del mapping[letters[i]]
+                
+            return False
+        
+        return dfs(0)
+        '''
+</PRE>
+
+</BODY>
+</HTML>

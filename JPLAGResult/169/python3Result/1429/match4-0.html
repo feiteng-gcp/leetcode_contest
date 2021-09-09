@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>168_gregming.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>168_gregming.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match4-1.html#0',3,'match4-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def isSolvable(self, words: List[str], result: str) -&gt; bool:
+        cmap = {}
+        leading = set()
+        for w in words+[result]:
+            for i,c in enumerate(w):
+                cmap[c] = ''
+                if i == 0:
+                    leading.add(c)
+        lead = list(leading)
+        follow = []
+        for c in cmap.keys():
+            if c not in leading:
+                follow.append(c)
+
+        def replace(s):
+            ans = 0
+            for c in s:
+                ans = ans*10 + cmap[c]
+            return ans
+
+        def dfs(cur):
+            if cur == len(lead):
+                lmin, lmax = 0, 0
+                for w in words:
+                    l = len(w)
+                    lmin += int(cmap[w[0]])*(10**(l-1))
+                    lmax += int(cmap[w[0]]+1)*(10**(l-1))-1
+                l = len(result)
+                rmin = int(cmap[result[0]])*(10**(l-1))
+                rmax = int(cmap[result[0]] + 1) * (10 ** (l - 1)) - 1
+                if rmin &gt; lmax or lmin &gt; rmax:
+                    return False
+
+            if cur == len(clist):
+                return sum(replace(w) for w in words) == replace(result)
+
+            for i in range(10):
+                if i not in used and (i or clist[cur] not in leading):
+                    cmap[clist[cur]] = i
+                    used.add(i)
+                    if dfs(cur+1): return True
+                    cmap[clist[cur]] = ''
+                    used.remove(i)
+            return False
+
+        clist = lead + follow
+        used = set()
+        return dfs(0</B></FONT>)
+</PRE>
+
+</BODY>
+</HTML>

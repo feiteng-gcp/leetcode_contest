@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>180_nphamcs.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>180_nphamcs.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    private Set&lt;Character&gt; start;
+    public boolean isSolvable(String[] words, String result) {        
+        Set&lt;Character&gt; allChars = new HashSet&lt;&gt;();
+        start = new HashSet&lt;&gt;();
+        
+        for (String word : words) {
+            start.add(word.charAt(0));
+            for (int i = 0; i &lt; word.length(); i++) {
+                allChars.add(word.charAt(i));
+            }
+        }
+        start.add(result.charAt(0));
+        for (int i = 0; i &lt; result.length(); i++)
+            allChars.add(result.charAt(i));
+        
+        List&lt;Character&gt; charList = new ArrayList&lt;&gt;(allChars);
+                
+        // Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        int[] map = new int[26];
+        char[] reverse = new char[10];
+        Arrays.fill(reverse, '$');
+        Arrays.fill(map, -1);
+
+        
+        return backtrack(words, result, charList, 0, map, reverse);
+        // return checkLegit(words, result, map);
+    }
+<A NAME="0"></A>    
+    
+    private boolean backtrack(
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#0',2,'match23-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String[] words, String result, List&lt;Character&gt; charList, int ind, int[] map, char[] reverse
+    ) {
+        // System.out.println(map);
+        
+        if (ind == charList.size()) {
+            // System.out.println(map);
+            return checkLegit(words, result, map);
+        }
+        
+        Character next = charList.get(ind);
+        boolean ret = false;
+        
+        for (int i = 0; i &lt; 10; i++) {
+            if (reverse[i] == '$' &amp;&amp; !(i == 0 &amp;&amp; start.contains(next))) {</B></FONT>
+                // choose
+                map[(int) (next - 'A')] = i;
+                reverse[i] = next;
+                // check
+                ret = backtrack(words, result, charList, ind + 1, map, reverse);
+                // unchoose
+                map[(int) (next - 'A')] = -1;
+                reverse[i] = '$';
+                
+<A NAME="2"></A>                if (ret)
+                    break;
+            }
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#2',2,'match23-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        
+        return ret;
+    }
+    
+    
+    private boolean checkLegit(String[] words, String result, int[] map) {
+        int resultVal = decode(result, map)</B></FONT>;
+        
+        int lhs = 0;
+<A NAME="1"></A>        for (String word : words) {
+            lhs += decode(word, map);
+            if (lhs &gt; resultVal)
+                return false<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match23-0.html#1',2,'match23-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+        }
+        return lhs == resultVal;
+    }
+    
+    private int decode(String word, int[] map) {
+        int ret = 0;
+        for (int i = 0; i &lt; word.length(); i++) {</B></FONT>
+            ret = ret * 10 + map[(int) (word.charAt(i) - 'A')];
+        }
+        
+        return ret;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

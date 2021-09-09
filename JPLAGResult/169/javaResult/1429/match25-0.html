@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>205_yuanb10.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>205_yuanb10.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    
+    private boolean check(String[] words, String result, int[] map) <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match25-1.html#0',3,'match25-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+        // System.out.println(Arrays.toString(map));
+        // Integer res = Integer.parseInt(result);
+        int sum = 0;
+        for (String word : words) {
+<A NAME="1"></A>            int num = 0;
+            for (char c : word.toCharArray()) {
+                n</B></FONT>um = 10 * num + map[c - 'A'];
+            <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match25-1.html#1',3,'match25-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+            sum += num;
+        }
+        
+        int res = 0;
+        for (char c : result.toCharArray()) {
+            r</B></FONT>es = 10 * res + map[c - 'A'];
+        }
+        
+        return res == sum;
+    }
+    
+    private void add(int[] map, String word) {
+        for (char c : word.toCharArray()) {
+            map[c - 'A'] = -1;
+        }
+    }
+    
+    public boolean isSolvable(String[] words, String result) {
+        int[] map = new int[26];
+        boolean[] first = new boolean[26];
+        
+        Arrays.fill(map, Integer.MIN_VALUE);
+        for (String word : words) {
+            char f = word.charAt(0);
+            first[f - 'A'] = true;
+            add(map, word);
+        }
+        add(map, result);
+        first[result.charAt(0) - 'A'] = true;
+        
+        List&lt;Integer&gt; indexes = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 26; i++) {
+            if (map[i] == Integer.MIN_VALUE) {
+                continue;
+            }
+            indexes.add(i);
+        }
+        // System.out.println(Arrays.toString(map));
+        boolean[] used = new boolean[10];
+        
+        return solve(words, result, map, used, 0, indexes, first);
+<A NAME="2"></A>        
+    }
+    
+    private boolean solve(String[] words, String result, int[] map, boolean[] used, int start, List&lt;Integer&gt; indexes, <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match25-1.html#2',3,'match25-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean[] first) {
+        if (start == indexes.size()) {
+            return check(words, result, map);
+<A NAME="3"></A>        }
+        
+        int index = indexes.get</B></FONT>(start);
+        for (int i = first[index] ? 1 : 0; i &lt; 10; i++) <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match25-1.html#3',3,'match25-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>{
+            if (used[i]) {
+                continue;
+            }
+            
+            used[i] = true;
+            map[index] = i;
+            if (solve(words, result, map, used, start + 1, indexes, first)) {
+                return true;
+            }
+            // map[index] = -1;
+            used[i] = false;
+        }
+        
+        return false;
+    }</B></FONT>
+}
+</PRE>
+
+</BODY>
+</HTML>

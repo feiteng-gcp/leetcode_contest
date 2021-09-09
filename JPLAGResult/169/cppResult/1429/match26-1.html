@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>213_suzyzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>213_suzyzhang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public: 
+    vector&lt;char&gt; ch;
+    int n, tot, maxLen;
+    vector&lt;int&gt; v, idx, order, ok, sum;
+    vector&lt;bool&gt; notZero, vis;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    
+    bool isSolvable(vector&lt;string&gt;&amp; words, string result) {
+        v = vector&lt;int&gt;(26);
+        idx = vector&lt;int&gt;(26, -1);
+        notZero = vector&lt;bool&gt;(26);
+        vis = vector&lt;bool&gt;(12);
+        
+        words.push_back(result);
+        n = words.size();
+        tot = maxLen = 0;
+        g = vector&lt;vector&lt;int&gt;&gt;(n);
+        
+        for (int i = 0; i &lt; n; ++i) {
+            string w = words[i];
+            int m = w.length();
+            if (i &lt; n-1)
+                maxLen = max(maxLen, m);
+            for (int j = 0; j &lt; m; ++j) {
+                int cur = w[j] - 'A';
+                
+                if (idx[cur] == -1) {
+                    idx[cur] = tot++;
+                    ch.push_back(w[j]);
+                }
+                if (j == 0 &amp;&amp; w.length() &gt; 1)
+                    notZero[idx[cur]] = true;
+                
+                g[i].push_back(idx[cur]);
+            }
+            reverse(g[i].begin(), g[i].end());
+            // for (int j = 0; j &lt; m; ++j)
+            //     printf(&quot;%d %d %d\n&quot;, i, j, g[i][j]);
+        }
+        
+        // for (int i = 0; i &lt; tot; ++i) {
+        //     printf(&quot;%c&quot;, ch[i]);
+        // }
+        
+        if (maxLen &gt; result.length())
+            return false;
+        
+        maxLen = max(maxLen, (int)result.length());
+        
+        for (int d = 0; d &lt; maxLen; ++d) {
+            for (int i = 0; i &lt; n; ++i)
+                if (g[i].size() &gt; d) {
+                    int j = g[i][d];
+                    if (!vis[j]) {
+                        order.push_back(j);
+                        vis[j] = true;
+                    }
+                }
+            ok.push_back(order.size() - 1);
+            // printf(&quot;%d %d\n&quot;, d, ok[d]);
+        }
+        
+        sum = vector&lt;int&gt;(maxLen);
+        vis = vector&lt;bool&gt;(12);
+        
+        // printf(&quot;%d %d\n&quot;, tot, order.size());
+        return dfs(0, 0);
+        // return true;
+    }
+    bool check(int column) {
+        int tmp = 0;
+        if (column &gt; 0) 
+            tmp += sum[column-1] / 10;
+        for (int i = 0; i &lt; n-1; ++i)
+            if (g[i].size() &gt; column) {
+                tmp += v[g[i][column]];
+            }
+        
+        int r = g[n-1].size() &gt; column ? v[g[n-1][column]] : 0;
+        
+        if ((column == maxLen-1 &amp;&amp; tmp == r) || tmp % 10 == r) {
+            sum[column] = tmp;
+            return true;
+        }
+        return false;
+    }
+    
+    bool dfs(int cur, int column) {
+        
+        if (cur &gt; ok[column]) {
+            int j = column;
+            while (j &lt; maxLen &amp;&amp; cur &gt; ok[j] &amp;&amp; check(j)) {
+                ++j;
+            }
+            
+            // printf(&quot;%d %d %d\n&quot;, cur, column, j);
+    
+            if (j == maxLen)
+                return true;
+            if (j == column)
+                return false;
+            column = j-1;
+        }
+        
+        if (cur &gt;= tot)
+<A NAME="0"></A>            return false;
+        
+        int id = order[cur];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = notZero[id] ? 1 : 0; i &lt;= 9; ++i) {
+            if (!vis[i]) {
+                v[id] = i;
+                vis[i] = true;
+                
+                if (dfs(cur+1, column))
+                    return true;
+                
+                vis[i] = false;
+            }
+        }
+<A NAME="1"></A>        return false;
+    }</B></FONT>
+    
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#1',2,'match26-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int getVal(string &amp;s, vector&lt;int&gt; &amp;idx, vector&lt;int&gt; &amp;v) {
+        int sum = 0;
+        for (int i = 0; i &lt; s.length(); ++i) {
+            sum = sum * 10 + v[idx[s[i]-'A']];
+        }
+        return sum;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

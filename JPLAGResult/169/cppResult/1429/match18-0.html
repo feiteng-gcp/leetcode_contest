@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>37_ggardusi.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>37_ggardusi.cpp</CENTER></H3><HR>
+<PRE>
+class Solution
+{
+
+public:
+	bool alpha[26], digit[10];
+	std::vector&lt;std::string&gt; words;
+	int len[11234], x[11234];
+
+	bool DFS(int r, int c, int sum)
+	{
+		if (c == len[int(words.size()) - 1])
+		{
+			// int t[26], s = 0;
+			// for (int i = 0; i &lt; 26; i++)
+			// 	if (x[i] != -1)
+			// 	{
+			// 		t[s++] = i;
+			// 	}
+			// for (int i = 0; i &lt; s; i++)
+			// {
+			// 	if (i)
+			// 	{
+			// 		putchar(' ');
+			// 	}
+			// 	printf(&quot;%c=%d&quot;, t[i] + 'A', x[t[i]]);
+			// }
+			// printf(&quot;\n&quot;);
+
+			return true;
+		}
+		int index = words[r][c] - 'A';
+		if (r == int(words.size()) - 1)
+		{
+			if (x[index] != -1)
+			{
+				if (sum % 10 != x[index])
+				{
+					return false;
+				}
+				return DFS(0, c + 1, sum / 10);
+			}
+<A NAME="0"></A>			else
+			{
+				int t = sum % 10;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>				if (digit[t])
+				{
+					return false;
+				}
+				x[index] = sum % 10;
+				digit[t] = true;
+				if (DFS(0, c + 1, sum / 10))
+				{
+					return true;
+				}
+				digit[t] = false;
+				x[index] = -1;</B></FONT>
+				return false;
+			}
+		}
+		if (c &gt;= len[r])
+		{
+			return DFS(r + 1, c, sum);
+		}
+<A NAME="1"></A>		if (x[index] != -1)
+		{
+			return DFS(r + 1, c, sum + x[index]);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>		}
+		else
+		{
+			for (int i = 0; i &lt; 10; i++)
+			{
+				if (len[r] &gt; 1 &amp;&amp; c == len[r] - 1 &amp;&amp; i == 0)
+				{
+					continue;
+				}</B></FONT>
+				if (!digit[i])
+				{
+					digit[i] = true;
+					x[index] = i;
+					if (DFS(r + 1, c, sum + i))
+					{
+						return true;
+					}
+					x[index] = -1;
+					digit[i] = false;
+				}
+			}
+			return false;
+		}
+	}
+
+	bool isSolvable(vector&lt;string&gt; &amp;words, string result)
+	{
+		this-&gt;words = words;
+		this-&gt;words.push_back(result);
+		memset(alpha, false, sizeof(alpha));
+		memset(digit, false, sizeof(digit));
+		memset(len, 0, sizeof(len));
+		memset(x, -1, sizeof(x));
+
+		int idx = 0;
+		for (auto &amp;word : this-&gt;words) {
+			len[idx] = int(word.size());
+			idx += 1;
+			for (const auto &amp;c : word) {
+				alpha[c - 'A'] = true;
+			}
+			for (int j = 0, k = int(word.size()) - 1; j &lt; k; j++, k--)
+			{
+				swap(word[j], word[k]);
+			}
+		}
+		return DFS(0, 0, 0);
+	}
+};
+</PRE>
+</BODY>
+</HTML>

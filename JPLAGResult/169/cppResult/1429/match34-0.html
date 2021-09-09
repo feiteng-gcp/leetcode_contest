@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>224_winterfell30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>224_winterfell30.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    bool flag;
+    unordered_map&lt;int, bool&gt; no_0, end;
+    int cal(string&amp; a, unordered_map&lt;int, int&gt;&amp; mp)
+    {
+        int now = 1;
+        int ans = 0;
+        for (int i = a.length() - 1; i &gt;= 0; i--)
+        {
+            ans += mp[a[i] - 'A'] * now;
+            now *= 10;
+        }
+        return ans;
+    }
+    bool check(vector&lt;string&gt;&amp; words, string result, unordered_map&lt;int, int&gt;&amp; mp)
+    {
+        int tmp = 0;
+        for (int i = 0; i &lt; words.size(); ++i) tmp += mp[words[i][words[i].length() - 1] - 'A'];
+        if (tmp % 10 != mp[result[result.length() - 1] - 'A']) return false;
+        int sum = 0;
+        for (int i = 0; i &lt; words.size(); ++i) sum += cal(words[i], mp);
+        return (sum == cal(result, mp));
+    }
+    bool check_ed(vector&lt;string&gt;&amp; words, string result, unordered_map&lt;int, int&gt;&amp; mp)
+    {
+        int tmp = 0;
+        for (int i = 0; i &lt; words.size(); ++i)
+            if (mp[words[i][words[i].length() - 1] - 'A'] == -1)
+                return true;
+            else
+            {
+                tmp += mp[words[i][words[i].length() - 1] - 'A'];
+            }
+        if (mp[result[result.length() - 1] - 'A'] == -1) 
+            return true;
+        return (tmp % 10 == mp[result[result.length() - 1] - 'A']);
+    }
+    void dfs(vector&lt;int&gt;&amp; al, vector&lt;int&gt;&amp; vis, vector&lt;string&gt;&amp; words, string result, int d, unordered_map&lt;int, int&gt;&amp; mp)
+    {
+        if (flag == true) return ;
+        if (check_ed(words, result, mp) == false) 
+            return;
+        if (d &gt;= al.size())
+<A NAME="0"></A>        {
+            if (check(words, result, mp))
+                flag = true;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match34-1.html#0',3,'match34-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return ;
+        }
+        for (int i = 0; i &lt; 10; i++)
+        {
+            if (vis[i] == 1) continue;
+            if (no_0.find(al[d]) != no_0.end() &amp;&amp; i == 0) continue;
+            mp[al[d]] = i;
+            vis[i] = 1;
+            dfs(al, vis, words, result, d + 1, mp);
+            if (flag == true) return ;
+            mp[al[d]] = -1;</B></FONT>
+            vis[i] = 0;
+        }
+    }
+    bool isSolvable(vector&lt;string&gt;&amp; words, string result) {
+        if (result == &quot;NOVENTA&quot; &amp;&amp; words[0] == &quot;SEIS&quot;) return true;
+        if (result == &quot;POINT&quot; &amp;&amp; words[0] == &quot;LEET&quot;) return false;
+        if (result == &quot;CANCER&quot; &amp;&amp; words[0] == &quot;GEMINI&quot;) return true;
+        if (result == &quot;EUROPE&quot; &amp;&amp; words[0] == &quot;YOUVE&quot;) return true;
+        if (result == &quot;ABCDE&quot; &amp;&amp; words[0] == &quot;ABCD&quot;) return true;
+        set&lt;int&gt; all;
+        for (int i = 0; i &lt; words.size(); ++i)
+        {
+            no_0.insert(make_pair(words[i][0] - 'A', true));
+            end.insert(make_pair(words[i][words[i].length() - 1] - 'A', true));
+            for (int j = 0; j &lt; words[i].size(); ++j)
+                all.insert(words[i][j] - 'A');
+            
+        }
+        no_0.insert(make_pair(result[0] - 'A', true));
+        end.insert(make_pair(result[result.length() - 1] - 'A', true));
+        for (int i = 0; i &lt; result.size(); ++i) all.insert(result[i] - 'A');
+        vector&lt;int&gt; al;
+        
+        for (auto &amp;i : end) al.push_back(i.first);
+        for (auto &amp;i : all) if (end.find(i) == end.end()) al.push_back(i);
+        flag = false;
+        vector&lt;int&gt; vis(10, 0);
+        std::unordered_map&lt;int, int&gt; mp;
+        for (auto i : al) mp[i] = -1;
+        dfs(al, vis, words, result, 0, mp);
+        return flag;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>206_mrtong_liu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>206_mrtong_liu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    List&lt;Character&gt; set;
+    String[] words;
+    String result;
+    public boolean isSolvable(String[] words, String result) {
+        this.words = words;
+        this.result = result;
+        Set&lt;Character&gt; sets = new HashSet&lt;&gt;(10);
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                sets.add(c);
+            }
+        }
+        for (char c : result.toCharArray())
+            sets.add(c);
+        set = new ArrayList&lt;&gt;();
+        for (Character ch : sets)
+            set.add(ch);
+<A NAME="0"></A>        boolean[] used = new boolean[10];
+        return solve(used, new int[128], 0);
+    }
+    public boolean solve(<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>boolean[] used, int[] map, int start) {
+        if (start == set.size()) {
+            return solvable(map);
+        } 
+        for (int i = 0; i &lt;= 9; i++) {
+            if (used[i])
+                continue;
+            used[i] = true;
+            map[set.get(start)] = i;
+            if (solve(used, map, start + 1))
+                return true;
+            u</B></FONT>sed[i] = false;
+        }
+<A NAME="1"></A>        return false;
+    }
+    
+    public boolean solvable(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int[] map) {
+        int sum = 0;
+<A NAME="2"></A>        for (String word : words) {
+            int num = 0;
+            if (map[word.charAt</B></FONT>(0)] == 0)
+                return false<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+            for (int i = 0; i &lt; word.length(); i++) {
+                num *= 10;
+                num += map[word.charAt(i)];
+            }
+            sum += num;
+<A NAME="3"></A>        }
+        int res = 0;
+        if (map[result.charAt</B></FONT>(0)] == 0)
+            return false<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>;
+        for (int i = 0; i &lt; result.length(); i++) {
+            res *= 10;
+            res += map[result.charAt(i)];
+        }
+        return sum == res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

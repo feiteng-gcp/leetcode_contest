@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>21_superj.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>21_superj.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    vector&lt;char&gt; ans;
+    bool vis[10],v[305];
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int M[305],dp[305],res[305];
+    bool dfs(int idx,int w,int r) {
+        if (idx==ans.size()) {
+            return w==r;
+        }
+        for (int i=0; i&lt;=9; ++i) {
+            if (vis[i]) continue;
+            if (v[ans[idx]]&amp;&amp;i==0) continue;
+            M[ans[idx]]=i;
+            vis[i]=true;
+            if (dfs(idx+1,w+dp[ans[idx]]*i,r+res[ans[idx]]*i)) return true;
+            vis[i]=false;
+        }
+        return false;
+    }</B></FONT>
+    int ar[10]={1,10,100,1000,10000,100000,1000000,10000000,100000000};
+    bool isSolvable(vector&lt;string&gt;&amp; words, string result) {
+        set&lt;char&gt; S;
+        for (int i=0; i&lt;words.size(); ++i) {
+            if (words[i].length()&gt;1) v[words[i][0]]=true;
+            int len=words[i].size();
+            for (int j=0; j&lt;words[i].length(); ++j) {
+                S.insert(words[i][j]);
+                dp[words[i][j]]+=ar[len-j-1];
+            }
+        }
+        if (result.length()&gt;1) v[result[0]]=true;
+        for (int i=0; i&lt;result.size(); ++i) {
+            S.insert(result[i]);
+            res[result[i]]+=ar[result.size()-i-1];
+        }
+        for (auto p=S.begin(); p!=S.end(); ++p) ans.push_back(*p);
+        return dfs(0,0,0);
+    }
+};
+/*
+[&quot;SEND&quot;,&quot;MORE&quot;]
+&quot;MONEY&quot;
+[&quot;SIX&quot;,&quot;SEVEN&quot;,&quot;SEVEN&quot;]
+&quot;TWENTY&quot;
+[&quot;THIS&quot;,&quot;IS&quot;,&quot;TOO&quot;]
+&quot;FUNNY&quot;
+[&quot;LEET&quot;,&quot;CODE&quot;]
+&quot;POINT&quot;
+*/
+</PRE>
+</BODY>
+</HTML>

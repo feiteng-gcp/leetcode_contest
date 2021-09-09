@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>68_zacw.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>68_zacw.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match30-1.html#0',3,'match30-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public boolean isSolvable(String[] words, String result) {
+        Map&lt;Character, Integer&gt; map = new HashMap();
+<A NAME="1"></A>        boolean[] assigned = new</B></FONT> boolean[10];
+        boolean res = isSolvable(words, result, 0, 0, map, assigned);
+        return res;
+    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match30-1.html#1',3,'match30-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private boolean isSolvable(String[] words, String result, int i, int carry, Map&lt;Character, Integer&gt; map, boolean[] assigned) {
+        if</B></FONT> (i &gt;= result.length()) {
+            if (carry &gt; 0) {
+                return false;
+            }
+            if (map.get(result.charAt(0)) == 0) {
+<A NAME="2"></A>                return false;
+            }
+            for (String w : words) {
+                <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match30-1.html#2',3,'match30-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (i &lt; w.length() &amp;&amp; map.get(w.charAt(0)) == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }</B></FONT>
+        int sum = 0;
+        for (String w : words) {
+            if (i &gt;= w.length()) {
+                continue;
+            }
+            int idx = w.length() - i - 1;
+            char c = w.charAt(idx);
+            if (map.containsKey(c)) {
+                if (idx == 0 &amp;&amp; map.get(c) == 0) {
+                    return false;
+                }
+                sum += map.get(c);
+            } else {
+                // try
+                for (int n = 0; n &lt; 10; n++) {
+                    if (n == 0 &amp;&amp; idx == 0) {
+                        continue;
+                    }
+                    if (assigned[n]) {
+                        continue;
+<A NAME="3"></A>                    }
+                    assigned[n] = true;
+                    map.put(c, n);
+                    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match30-1.html#3',3,'match30-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (isSolvable(words, result, i, carry, map, assigned)) {
+                        return true;
+                    }
+                    map.remove(c);
+                    assigned[n] = false;
+                }
+                return false;
+            }
+        }</B></FONT>
+        sum += carry;
+        int digit = sum % 10;
+        char cr = result.charAt(result.length() - i - 1);
+        if (map.containsKey(cr)) {
+            int num = map.get(cr);
+            return digit == map.get(cr) &amp;&amp; isSolvable(words, result, i + 1, sum / 10, map, assigned);
+        } else {
+            if (assigned[digit]) {
+                return false;
+            } else {
+                assigned[digit] = true;
+                map.put(cr, digit);
+                if (isSolvable(words, result, i + 1, sum / 10, map, assigned)) {
+                    return true;
+                }
+                map.remove(cr);
+                assigned[digit] = false;
+            }
+        }
+        return false;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

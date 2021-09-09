@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>53_ykx_akks.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>53_ykx_akks.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    //map&lt;char, int&gt; mp;
+    int *mp;
+    vector&lt;int&gt; cha;
+    vector&lt;string&gt; w;
+    int endn;
+    string res;
+    bool flag;
+    bool used[10];
+    int fs[11];
+    int translate(string &amp;s) {
+        if (mp[s[0] - 'A'] == 0) {
+            return -1;
+        }
+        int x = 0;
+        for (int i = 0; i &lt; s.length(); ++i) {
+            x = x * 10 + mp[s[i] - 'A'];
+        }
+        return x;
+    }
+    bool check() {
+        int x = 0;
+        for (int i = 0; i &lt; w.size(); ++i) {
+            int tmp = translate(w[i]);
+            if (tmp == -1) {
+                return false;
+            }
+            x += tmp;
+        }
+        int y = translate(res);
+        if (y == -1) {
+            return false;
+        }
+        else {
+            return (x == y);
+        }
+    }
+   /* bool go_next() {
+        for (int i = cha.size() - 1; i &gt;= 0; --i) {
+            int vi = mp[cha[i]];
+            if (vi &lt; 9 &amp;&amp; ((i == cha.size() - 1) || (vi &lt; mp[cha[i + 1]]))) {
+                ++mp[cha[i]];
+                return true;
+            }
+        }
+    }*/
+    bool check_end() {
+        int le = 0, re = 0;
+        for (int i = 0; i &lt; w.size(); ++i) {
+            int ed = w[i][w[i].length() - 1] - 'A';
+            ed = mp[ed];
+            le = (le + ed) % 10;
+        }
+        re = mp[res[res.length() - 1] - 'A'];
+        return (le == re);
+    }
+    bool dfs(int x) {
+        if (x == endn) {
+            if (!check_end()) {
+                return false;
+            }
+        }
+        if (x &gt;= cha.size()) {
+            if (check()) {
+                flag = true;
+            }
+            return flag;
+        }
+        for (int i = 0; i &lt; 10; ++i) {
+            if (!used[i]) {
+                mp[cha[x]] = i;
+                used[i] = true;
+                dfs(x + 1);
+                used[i] = false;
+                mp[cha[x]] = -1;
+            }
+            if (flag) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /*void decode(int x) {
+        int n = cha.size();
+        for 
+    }*/
+    bool isSolvable(vector&lt;string&gt;&amp; words, string result) {
+        w = words;
+        res = result;
+        flag = false;
+        bool *a = new bool[26];
+        bool *ed = new bool[26];
+        fs[0] = 1;
+        for (int i = 1; i &lt;= 10; ++i) {
+            fs[i] = fs[i - 1] * i;
+<A NAME="0"></A>        }
+        memset(used, 0, sizeof(used));
+        mp = new int[26];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; 26; ++i) {
+            a[i] = false;
+            ed[i] = false;
+        }
+        for (int i = 0; i &lt; words.size(); ++i) {</B></FONT>
+            for (int j = 0; j &lt; words[i].length(); ++j) {
+                a[words[i][j] - 'A'] = true;
+            }
+            if (w[i].length() &gt; 0) {
+                ed[w[i][w[i].length() - 1] - 'A'] = true;
+            }
+        }
+        for (int i = 0; i &lt; result.length(); ++i) {
+            a[result[i] - 'A'] = true;
+        }
+        ed[res[res.length() - 1] - 'A'] = true;
+        endn = 0;
+        //cout &lt;&lt; &quot;here&quot; &lt;&lt; endl;
+        for (int i = 0; i &lt; 26; ++i) {
+            if (ed[i]) {
+<A NAME="1"></A>                ++endn;
+                cha.push_back(i);
+            }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        for (int i = 0; i &lt; 26; ++i) {
+            if (a[i] &amp;&amp; !ed[i]) {
+                cha.push_back(i);
+            }
+        }
+        /*for (int i = 0; i &lt; cha.size(); ++i) {
+            cout &lt;&lt; char(cha[i] + 'A');
+        }
+        cout &lt;&lt; endl;*/
+        //cout &lt;&lt; &quot;here&quot; &lt;&lt; endl;
+        /*for (int i = 0; i &lt; cha.size(); ++i) {
+            mp[cha[i]] = i;
+        }*/
+        return dfs(0);
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>

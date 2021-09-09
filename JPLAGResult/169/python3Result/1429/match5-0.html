@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_shiwt.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>210_shiwt.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isSolvable(self, words: List[str], result: str) -&gt; bool:
+        all_char, last_char, not_zeroes = set(), set(), set()
+        for word in words:
+            all_char.update(word)
+            last_char.add(word[-1])
+            not_zeroes.add(word[0])
+        all_char.update(result)
+        last_char.add(result[-1])
+        not_zeroes.add(result[0])
+        all_char_list = list(last_char)
+        for ch in all_char:
+            if ch not in all_char_list:
+                all_char_list.append(ch)
+        
+        def permute(idx, mapping, used):
+<A NAME="0"></A>            if idx == len(last_char) and not check_last_char(mapping):
+                return False
+            if idx == len(all_char_list):
+                return check<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(mapping)
+            for i in range(0, 10):
+                if (i &gt; 0 or all_char_list[idx] not in not_zeroes) and i not in used:
+                    mapping[all_char_list[idx]] = i
+                    used.add(i)
+                    if permute(idx + 1, mapping, used):
+                        r</B></FONT>eturn True
+                    del mapping[all_char_list[idx]]
+                    used.discard(i)
+            return False
+        
+        def check_last_char(mapping):
+            curr_sum = 0
+            for word in words:
+                curr_sum += mapping[word[-1]]
+            return curr_sum % 10 == mapping[result[-1]]
+        
+        def check(mapping):
+            curr_sum = 0
+            for word in words:
+                curr_sum += convert(word, mapping)
+            return curr_sum == convert(result, mapping)
+        
+        def convert(text, mapping):
+            val = 0
+            for ch in text:
+                val = val * 10 + mapping[ch]
+            return val
+        
+        return permute(0, {}, set())
+</PRE>
+
+</BODY>
+</HTML>

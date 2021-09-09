@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>106_kelvinchandra1024.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>106_kelvinchandra1024.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean isSolvable(String[] words, String result) {
+        List&lt;Character&gt; unique = uniqueCharacter(words, result);
+        int[] charInt = new int[26];
+        Arrays.fill(charInt, -1);
+        return solve(words, result, unique, 0, new boolean[10], charInt);
+    }
+
+    List&lt;Character&gt; uniqueCharacter(String[] words, String result) {
+        Set&lt;Character&gt; cs = new HashSet&lt;&gt;();
+        for (String w : words) for (int i = 0; i &lt; w.length(); i++) cs.add(w.charAt(i));
+        for (int i = 0; i &lt; result.length(); i++) cs.add(result.charAt(i));
+<A NAME="0"></A>        return new ArrayList&lt;&gt;(cs);
+    }
+
+    public boolean solve(String[] words, String result, List&lt;Character&gt; unique, <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int index, boolean[] used, int[] charInt) {
+        if (unique.size() == index) {
+            return calculate(words, result, charInt);
+        }
+        for (int i = 0; i &lt;= 9; i++) {
+            if (used[i]) continue;
+            used[i] = true;
+            charInt[unique.get(index) - 'A'] = i;
+            if (solve(words, result, unique, index + 1, used, charInt)) return true;
+            c</B></FONT>harInt[unique.get(index) - 'A'] = -1;
+            used[i] = false;
+        }
+        return false;
+<A NAME="1"></A>    }
+
+
+    public boolean calculate(String[] words, String result, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#1',2,'match18-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[] charInt) {
+        int sum = 0;
+        for (String word : words) {
+<A NAME="2"></A>            int curr = 0;
+            if (charInt[word.charAt</B></FONT>(0) - 'A'] == 0) {
+                return false;
+            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#2',2,'match18-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            for (int i = 0; i &lt; word.length(); i++) {
+                curr *= 10;
+                curr += charInt[word.charAt(i) - 'A'];
+            }
+            sum += curr;
+        }
+
+<A NAME="3"></A>        int curr = 0;
+        if (charInt[result.charAt</B></FONT>(0) - 'A'] == 0) {
+            return false;
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#3',2,'match18-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int i = 0; i &lt; result.length(); i++) {
+            curr *= 10;
+            curr += charInt[result.charAt(i) - 'A'];
+        }
+        return curr == sum;
+    }
+
+
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

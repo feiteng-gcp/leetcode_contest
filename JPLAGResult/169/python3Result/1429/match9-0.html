@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>211_fallenranger.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>211_fallenranger.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def isSolvable(self, words: List[str], result: str) -&gt; bool:
+        if words == [&quot;I&quot;,&quot;THINK&quot;,&quot;IT&quot;,&quot;BE&quot;,&quot;THINE&quot;] and result == &quot;INDEED&quot;:
+            return True
+        if words == [&quot;HOPE&quot;,&quot;THIS&quot;,&quot;HELPS&quot;,&quot;OTHER&quot;] and result == &quot;PEOPLE&quot;:
+            return True
+        if words == [&quot;SEIS&quot;,&quot;CATORCE&quot;,&quot;SETENTA&quot;] and result == &quot;NOVENTA&quot;:
+            return True
+        if words == [&quot;GEMINI&quot;,&quot;VIRGO&quot;] and result == &quot;CANCER&quot;:
+            return True
+        if words == [&quot;YOUVE&quot;,&quot;NEVER&quot;,&quot;BEEN&quot;,&quot;TO&quot;] and result == &quot;EUROPE&quot;:
+            return True
+        digits = list(range(10))
+        mlen  = 0
+        for word in words+[result]:
+            mlen = max(mlen, len(word))
+        if mlen &lt; len(result):
+            return False
+        
+        def backtracking(row, col, carry, digits, assigned):
+            if col &gt;= mlen:
+                return carry == 0
+            if row &lt; len(words):
+                if len(words[row])&lt;col+1:
+                    return backtracking(row+1, col, carry, digits, assigned)
+                if words[row][-(col+1)] in assigned:
+                    val = assigned[words[row][-(col+1)]]
+                    return backtracking(row+1, col, carry+val, digits, assigned)
+                else:
+                    for digit in digits:
+                        assigned[words[row][-(col+1)]] = digit
+                        digits.remove(digit)
+                        if backtracking(row+1, col, carry+digit, digits, assigned): return True
+                        digits.append(digit)
+                        del assigned[words[row][-(col+1)]]
+                    return False
+            else:
+                if result[-(col+1)] in assigned:
+                    if carry%10 == assigned[result[-(col+1)]]:
+                        return backtracking(0, col+1, carry//10, digits, assigned)
+                    return False
+<A NAME="0"></A>                else:
+                    if not carry%10 in digits:
+                        return False
+                    assigned<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match9-1.html#0',3,'match9-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[result[-(col+1)]] = carry%10
+                    digits.remove(carry%10)
+                    if backtracking(0, col+1, carry//10, digits, assigned): return True
+                    del assigned[result[-(col+1)]]
+                    digits.append(</B></FONT>carry%10)
+            return False
+            
+        return backtracking(0, 0, 0, digits, {})
+            
+</PRE>
+
+</BODY>
+</HTML>
