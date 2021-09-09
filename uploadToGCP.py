@@ -14,12 +14,14 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     # The ID of your GCS object
     # destination_blob_name = "storage-object-name"
 
-    # print("Uploading to Google Cloud Storage..." + source_file_name)
+    
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
-
+    curTime = datetime.now(pytz.timezone('America/New_York'))
+    cur_time = curTime.strftime('%Y %b %d %H:%M %p %z')
+    print("[%s] filename=%s is uploaded to Google Cloud Storage..." % (cur_time, source_file_name))
 
 
 def uploadFolder(folderName):
