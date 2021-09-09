@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>273_velocisloth.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>273_velocisloth.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
+        return !hasTwoParents(n, leftChild, rightChild) &amp;&amp; !hasLoop(n, leftChild, rightChild) &amp;&amp; allConnected(n, leftChild, rightChild);
+    }
+    private boolean hasTwoParents(int n, int[] leftChild, int[] rightChild) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            int left = leftChild[i];
+            int right = rightChild[i];
+            if (map.containsKey(left) || map.containsKey(right)) return true;
+            if (left != -1) {
+                map.put(left, i);
+            }
+            if (right != -1) {
+                map.put(right, i);
+            }
+        }
+        return false;
+<A NAME="3"></A>    }
+    private boolean hasLoop(int n, int[] leftChild, int[] rightChild) {
+        int[] state = new int[n];
+        <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#3',2,'match36-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; n; i++) {
+            if (state[i] == 0 &amp;&amp; dfs(n, leftChild, rightChild, state, i)) {
+                return true;
+            }
+        }    
+        return false;
+    }</B></FONT>
+    private boolean dfs(int n, int[] leftChild, int[] rightChild, int[] state, int curr) {
+        if (state[curr] == 2) return false;
+        if (state[curr] == 1) return true;
+        state[curr] = 1;
+        if (leftChild[curr] != -1) {
+            if (dfs(n, leftChild, rightChild, state, leftChild[curr])) {
+                return true;
+            }
+        }
+        if (rightChild[curr] != -1) {
+            if (dfs(n, leftChild, rightChild, state, rightChild[curr])) {
+                return true;
+            }
+        }
+<A NAME="0"></A>        state[curr] = 2;
+        return false;
+    }
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#0',2,'match36-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>private boolean allConnected(int n, int[] leftChild, int[] rightChild) {
+<A NAME="1"></A>        int[] parent = new int[n];
+        for (int i = 0;i &lt; n; i++) {
+            p</B></FONT>arent[i] = i;
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#1',2,'match36-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        for (int i = 0; i &lt; n; i++) {
+            if (leftChild[i] != -1) {
+                merge(leftChild[i], i, parent);
+            }
+            if (rightChild[i] != -1) {
+                merge(rightChild[i], i, parent);
+            }
+<A NAME="2"></A>        }   
+        int p = find(0, parent)</B></FONT>;
+        for (int i =1; i &lt; n; i++) {
+            if (find(i, parent) != p) <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match36-0.html#2',2,'match36-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+                return false;
+            }            
+        }
+        return true;
+    }
+    private void merge(int i, int j, int[] parent) {</B></FONT>
+        int p1 = find(i, parent);
+        int p2 = find(j, parent);
+        parent[p1] = p2;
+    }
+    private int find(int i, int[] parent) {
+        while (i != parent[i]) {
+            i = parent[i];
+        }
+        return i;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

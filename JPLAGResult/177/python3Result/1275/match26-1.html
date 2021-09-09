@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>214_Hexadecimal.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>214_Hexadecimal.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -&gt; bool:
+        b = collections.deque()
+        v = set()
+        a = set(range(n))
+        for i in range(n):
+            a.discard(leftChild[i])
+            a.discard(rightChild[i])
+        if len(a) != 1:
+<A NAME="0"></A>            return False
+        b.append(min(a))
+        v.add(b[0])
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while b:
+            p = b.popleft()
+            for i in [leftChild[p], rightChild[p]]:
+                if i == -1:
+                    continue
+                if i in v:
+                    return False
+                v.add(i)
+                b.append(i)
+        return len(v</B></FONT>) == n
+</PRE>
+
+</BODY>
+</HTML>

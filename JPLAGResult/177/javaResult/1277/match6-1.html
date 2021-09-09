@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_kobale.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_kobale.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public String largestMultipleOfThree(int[] digits) {
+        boolean allZero = false;
+        for (int i = 0; i &lt; digits.length; i++) {
+            if (digits[i] != 0) allZero = true;
+<A NAME="0"></A>        }
+        if (!allZero) return &quot;0&quot;;
+        // Step 1: sort the array in non-decreasing order  
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#0',2,'match6-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>Arrays.sort(digits); 
+        // Create 3 queues to store numbers with remainder 0, 1  
+        // and 2 respectively  
+        Queue&lt;Integer&gt; queue0 = new LinkedList&lt;&gt;(); 
+        Queue&lt;Integer&gt; queue1 = new LinkedList&lt;&gt;(); 
+        Queue&lt;Integer&gt; queue2 = new LinkedList&lt;&gt;(); 
+  
+        // Step 2 and 3 get the sum of numbers and place them in  
+        // corresponding queues  
+        int sum = 0; 
+        for (int i = 0; i &lt; digits.length; i++) {  
+            sum += digits[i];  
+            if</B></FONT> ((digits[i] % 3) == 0) {
+                queue0.add(digits[i]);
+            } else if ((digits[i] % 3) == 1) {
+<A NAME="1"></A>                queue1.add(digits[i]);  
+            } else {
+                queue2.add(digits[i]);
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#1',2,'match6-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+        } 
+  
+        // Step 4.2: The sum produces remainder 1  
+        if ((sum % 3) == 1)  {  
+            // either remove one item from queue1  
+            if (!queue1.isEmpty()) queue1.remove();  
+  
+            // or remove two items from queue2  
+            else {  
+                if (!queue2.isEmpty())  
+                    queue2.remove();  
+                else
+                    return &quot;&quot;;  
+  
+                if (!queue2.isEmpty())  
+                    queue2.remove();  
+                else
+                    return &quot;&quot;;  
+            }  
+        } 
+        // Step 4.3: The sum produces remainder 2  
+        else if ((sum % 3) == 2) {  
+            // either remove one item from queue2  
+            if (!queue2.isEmpty()) queue2.remove();  
+            // or remove two items from queue1  
+            else {  
+                if (!queue1.isEmpty())  
+                    queue1.remove();  
+                else
+                    return &quot;&quot;;  
+  
+                if (!queue1.isEmpty())  
+                    queue1.remove();  
+                else
+                    return &quot;&quot;;  
+            }  
+        } 
+          
+        int[] aux = new int[digits.length]; 
+        // Empty all the queues into an auxiliary array  
+        // and get the number of integers added to aux[] 
+        int top = populateAux(aux, queue0, queue1, queue2); 
+  
+        // sort the array in non-increasing order 
+        Arrays.sort(aux, 0, top); 
+        StringBuilder sb = new StringBuilder();
+        // print the result  
+        for (int i = top - 1</B></FONT>; i &gt;= 0; i--) {
+<A NAME="2"></A>            sb.append(aux[i]);
+        }  
+  
+        return <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match6-0.html#2',2,'match6-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>sb.length() == 0 ? &quot;&quot; : sb.toString(); 
+    }
+    
+    // This function puts all elements of 3 queues in the  
+    // array auxiliary 
+    public static int populateAux(int aux[], Queue&lt;Integer&gt; queue0, Queue&lt;Integer&gt; queue1, Queue&lt;Integer&gt; queue2) { 
+        int top = 0; 
+        // Put all items of first queue in aux[] 
+        while (!queue0.isEmpty()) { 
+            aux[top++] = queue0.remove(); 
+        } 
+  
+        // Put all items of second queue in aux[] 
+        while (!queue1.isEmpty()) { 
+            aux[top++] = queue1.remove(); 
+        } 
+  
+        // Put all items of third queue in aux[] 
+        while (!queue2.isEmpty()) { 
+            aux[top++] = queue2.remove(); 
+        } 
+  
+        //Return number of integer added to aux[] 
+        return top; 
+    } 
+  
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

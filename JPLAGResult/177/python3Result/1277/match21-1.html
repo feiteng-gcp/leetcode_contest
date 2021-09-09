@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>231_alanmiller.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>231_alanmiller.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def largestMultipleOfThree(self, digits: List[int]) -&gt; str:
+        count = collections.Counter(digits)
+        dic= {1: [1,4,7], 2: [2,5,8]}
+<A NAME="0"></A>        s = sum(digits)
+        s %= 3
+        if s == 1:
+            good <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#0',2,'match21-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= False
+            for x in dic[1]:
+                if count[x] &gt; 0:
+                    count[x] -= 1
+                    good = True
+                    break
+            if not good:
+                temp =</B></FONT> []
+                for x in (2, 5, 8):
+                    temp += [x]*min(2, count[x])
+                #temp.sort()
+<A NAME="1"></A>                for t in temp[:2]:
+                    count[t] -= 1
+        elif s == 2:
+            good <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match21-0.html#1',2,'match21-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>= False
+            for x in dic[2]:
+                if count[x] &gt; 0:
+                    count[x] -= 1
+                    good = True
+                    break
+            if not good:
+                temp =</B></FONT> []
+                for x in (1, 4, 7):
+                    temp += [x]*min(2, count[x])
+                #temp.sort()
+                for t in temp[:2]:
+                    count[t] -= 1
+        ans = ''
+        for x in sorted(count.keys(), reverse = True):
+            ans += str(x)*(count[x])
+        if set(ans) == set(['0']):
+            return '0'
+        return ans
+            
+</PRE>
+
+</BODY>
+</HTML>

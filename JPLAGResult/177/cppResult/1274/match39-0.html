@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>381_deltacancri.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>381_deltacancri.cpp</CENTER></H3><HR>
+<PRE>
+int leap_years(int y){
+    int res = 0;
+    y = y-1;
+    for(; y &gt;= 1970; y--){
+        if(y % 4 == 0){
+            if(y != 2100){
+                res++;
+            }
+        }
+    }
+    return res;
+}
+int days(int m, int d){
+    vector&lt;int&gt; ms = {31,28,31,30,31,30,31,31,30,31,30,31};
+    int res = 0;
+    for(int i = 0; i &lt; m-1; i++)res += ms[i];
+    return res + d;
+}
+int tdays(int y, int m, int d){
+    int thisleap = (y % 4 == 0 &amp;&amp; y != 2100)? 1 : 0;
+<A NAME="0"></A>    int give_leap = (m &gt;= 3) ? thisleap : 0;
+    return y * 365 + leap_years(y) + days(m, d) + give_leap;
+}
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match39-1.html#0',3,'match39-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int daysBetweenDates(string date1, string date2) {
+        int y1 = stoi(date1.substr(0,4));
+        int y2 = stoi(date2.substr(0,4));
+        int m1 = stoi(date1.substr(5,2));
+        int m2 = stoi(date2.substr(5,2));
+        int d1 = stoi(date1.substr(8,2));
+        int d2 = stoi(date2.substr(8,2));</B></FONT>
+        //cout &lt;&lt; days(12, 31);
+        //cout &lt;&lt; days(1, 1);
+        return abs(tdays(y1,m1,d1) - tdays(y2,m2,d2));
+    }
+};
+</PRE>
+</BODY>
+</HTML>

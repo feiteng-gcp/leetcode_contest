@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>389_Anksss3d.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>389_Anksss3d.py</CENTER></H3><HR>
+<PRE>
+from collections import Counter
+class Solution:
+    def largestMultipleOfThree(self, digits: List[int]) -&gt; str:
+        sumi= sum(digits)
+        if sumi %3 == 0:
+            cnt = Counter(digits)
+            if len(cnt.keys()) == 1 and list(cnt.keys())[0] == 0:
+                return &quot;0&quot;
+            digits.sort(reverse=True)
+            st = &quot;&quot;
+            for dig in digits:
+                st += str(dig)
+            return st
+        else:
+            rem = sumi % 3
+            cnt = Counter(digits)
+            flag = True
+            if rem == 2:
+                for key in sorted(cnt.keys()):
+                    if key%3 == 2:
+                        cnt[key] -= 1
+<A NAME="0"></A>                        flag = False
+                        break
+                if flag: 
+                    for key in sorted(cnt.keys<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match31-1.html#0',3,'match31-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>()):
+                        if key%3 == 1 and cnt[key]&gt;1:
+                            cnt[key] -= 2
+                            flag = False
+                            break
+                if flag:
+                    for key in sorted(</B></FONT>cnt.keys()):
+                        if key%3 == 1:
+                            cnt[key] -= 1
+                            break
+                    for key in sorted(cnt.keys()):
+                        if key%3 == 1 and cnt[key]&gt;0:
+                            cnt[key] -= 1
+                            break
+
+            else:
+                for key in sorted(cnt.keys()):
+                    if key%3 == 1:
+                        cnt[key] -= 1
+<A NAME="1"></A>                        flag = False
+                        break
+                if flag:
+                    for key in sorted(cnt.keys<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match31-1.html#1',3,'match31-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>()):
+                        if key%3 == 2 and cnt[key]&gt;1:
+                            cnt[key] -= 2
+                            flag = False
+                            break
+                if flag:
+                    for key in sorted(</B></FONT>cnt.keys()):
+                        if key%3 == 2:
+                            cnt[key] -= 1
+                            break
+                            
+                    for key in sorted(cnt.keys()):
+                        if key%3 == 2 and cnt[key]&gt;0:
+                            cnt[key] -= 1
+                            break
+            st = &quot;&quot;
+            lst = list(cnt.keys())
+            for key in lst:
+                if cnt[key] == 0:
+                    del cnt[key]
+            
+            if len(cnt.keys()) == 1 and list(cnt.keys())[0] == 0:
+                return &quot;0&quot;
+            for key in sorted(cnt.keys(), reverse=True):
+                for i in range(cnt[key]):
+                    st += str(key)
+            return st
+</PRE>
+
+</BODY>
+</HTML>

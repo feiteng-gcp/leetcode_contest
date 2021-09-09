@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>276_insane_reckless.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>276_insane_reckless.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string largestMultipleOfThree(vector&lt;int&gt;&amp; arr) {
+        // Step 1: sort the array in non-decreasing order
+        int size = arr.size();
+        sort(arr.begin(), arr.end(), less&lt;int&gt;()); 
+<A NAME="1"></A>
+        // Create 3 queues to store numbers with remainder 0, 1 
+        // and 2 respectively 
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        queue&lt;int&gt; queue0, queue1, queue2; 
+
+        // Step 2 and 3 get the sum of numbers and place them in 
+        // corresponding queues 
+        int i, sum; 
+        for (i = 0, sum = 0; i &lt; size; ++i) { 
+            sum += arr[i]; 
+            if ((arr[i] % 3) == 0) 
+                queue0.push(arr[i]); 
+            else if ((arr[i] % 3) == 1) 
+                queue1.push(arr[i]); 
+            else
+                queue2.push(arr[i]); 
+        } 
+
+        // Step 4.2: The sum produces remainder 1 
+        if ((sum % 3) == 1) { 
+            // either remove one item from queue1 
+            if (!queue1.empty()) 
+                queue1.pop(); 
+
+            // or remove two items from queue2 
+            else { 
+                if (!queue2.empty()) 
+                    queue2.pop(); 
+                else
+                    return 0; 
+
+                if (!queue2.empty()) 
+                    queue2.pop(); 
+                else
+                    return 0; 
+            } 
+        } 
+
+        // Step 4.3: The sum produces remainder 2 
+        else if ((sum % 3) == 2) { 
+            // either remove one item from queue2 
+            if (!queue2.empty()) 
+                queue2.pop(); 
+
+            // or remove two items from queue1 
+            else { 
+                if (!queue1.empty()) 
+                    queue1.pop(); 
+                else
+                    return 0; 
+
+                if (!queue1.empty()) 
+                    queue1.pop(); 
+                else
+                    return 0; 
+            } 
+        } 
+
+        int aux[size], top = 0; 
+
+        // Empty all the queues into an auxiliary array. 
+        populateAux(aux, queue0, queue1, queue2, &amp;top); 
+
+        // sort the array in non-increasing order 
+        sort(aux, aux + top, greater&lt;int&gt;()); </B></FONT>
+
+        // print the result
+        string res = &quot;&quot;;
+        for (int i = 0; i &lt; top; ++i) {
+            res += aux[i]+'0'; 
+        }
+        while (res.length() &gt; 1 &amp;&amp; res[0] == '0')
+            res = res.substr(1, res.length()-1);
+        return res; 
+<A NAME="0"></A>    }
+    
+    // This function puts all elements of 3 queues in the auxiliary array 
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    void populateAux(int aux[], queue&lt;int&gt; queue0, queue&lt;int&gt; queue1, 
+                     queue&lt;int&gt; queue2, int* top) 
+    { 
+        // Put all items of first queue in aux[] 
+        while (!queue0.empty()) { 
+            aux[(*top)++] = queue0.front(); 
+            queue0.pop(); 
+        } 
+
+        // Put all items of second queue in aux[] 
+        while (!queue1.empty()) { 
+            aux[(*top)++] = queue1.front(); 
+            queue1.pop(); 
+        } 
+
+        // Put all items of third queue in aux[] 
+        while (!queue2.empty()) { 
+            aux[(*top)++] = queue2.front(); 
+            queue2.pop(); 
+        } 
+    } </B></FONT>
+  
+// The main function that finds the largest possible multiple of 
+// 3 that can be formed by arr[] elements  
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>396_jianfeng4.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>396_jianfeng4.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+    int len[13] = {0, 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    bool isLeepYear(int y) {
+        if (y % 400 == 0) 
+            return true;
+        
+        if (y % 100 == 0)
+            return false;
+        
+        if (y % 4 == 0)
+            return true;
+        
+        return false;
+    }
+    
+    int getDay(int y, int m) {
+        if (m != 2) return len[m];
+        
+<A NAME="0"></A>        if (isLeepYear(y))
+            return 29;
+        else
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match36-1.html#0',3,'match36-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            return 28;
+    }
+    
+public:
+    int daysBetweenDates(string date1, string date2) {
+        int year1 = stoi(date1.substr(0, 4));
+        int month1 = stoi(date1.substr(5, 2));
+        int day1 = stoi(date1.substr(8));
+        int year2 = stoi(date2.substr(0, 4));
+        int month2 = stoi(date2.substr(5, 2));
+        int day2 = stoi(date2.substr(8));</B></FONT>
+        
+        
+        if (date1 &gt; date2) {
+            swap(year1, year2);
+            swap(month1, month2);
+            swap(day1, day2);
+        }
+        cout&lt;&lt;year1&lt;&lt;&quot;,&quot;&lt;&lt;month1&lt;&lt;&quot;,&quot;&lt;&lt;day1&lt;&lt;endl;
+        cout&lt;&lt;year2&lt;&lt;&quot;,&quot;&lt;&lt;month2&lt;&lt;&quot;,&quot;&lt;&lt;day2&lt;&lt;endl;
+        
+        int ans = 0;
+        while (1) {
+            if (year1 == year2 &amp;&amp; month1 == month2) break;
+            
+            ans += getDay(year1, month1);
+            month1++;
+            if (month1 == 13) {
+                year1++;
+                month1 = 1;
+            }
+        }
+        ans += day2 - day1;
+        
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

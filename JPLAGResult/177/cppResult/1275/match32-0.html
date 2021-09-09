@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_vipjml.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>55_vipjml.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match32-1.html#0',3,'match32-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool validateBinaryTreeNodes(int n, vector&lt;int&gt;&amp; leftChild, vector&lt;int&gt;&amp; rightChild) {
+<A NAME="1"></A>        vector&lt;int&gt; p(n,-1);
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            int c=leftChild[i];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match32-1.html#1',3,'match32-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(c&gt;=0){
+                if(p[c]!=-1) return false;
+                p[c]=i;
+            }
+        }
+<A NAME="2"></A>        
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            int c=rightChild[i];
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match32-1.html#2',3,'match32-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            if(c&gt;=0){
+                if(p[c]!=-1) return false;
+                p[c]=i;
+            }
+        }
+        
+        int root=-1;
+        for(int i=0;i&lt;n;i++){</B></FONT>
+            if(p[i]==-1){
+                if(root==-1){
+                    root=i;
+                }else return false;
+            }
+        }
+        if(root==-1) return false;
+        vector&lt;bool&gt; seen(n,false);
+        queue&lt;int&gt; qq;
+        qq.push(root);
+        seen[root]=true;
+        while(!qq.empty()){
+            int c=qq.front();
+            qq.pop();
+            int l=leftChild[c];
+            int r=rightChild[c];
+            if(l&gt;=0&amp;&amp;!seen[l]){
+                qq.push(l);
+                seen[l]=true;
+            }
+            if(r&gt;=0&amp;&amp;!seen[r]){
+                qq.push(r);
+                seen[r]=true;
+            }
+        }
+        for(int i=0;i&lt;n;i++){
+            if(!seen[i]) return false;
+        }
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>307_improvingzero.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>307_improvingzero.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int daysBetweenDates(string date1, string date2) {
+        stringstream Sin,Sin2;
+        Sin&lt;&lt;date1;
+        int y1, m1,d1,y2,m2,d2;
+        char c;
+        Sin&gt;&gt;y1&gt;&gt;c&gt;&gt;m1&gt;&gt;c&gt;&gt;d1;
+        Sin2&lt;&lt;date2;
+        Sin2&gt;&gt;y2&gt;&gt;c&gt;&gt;m2&gt;&gt;c&gt;&gt;d2;
+
+        //cout&lt;&lt;y1&lt;&lt;' '&lt;&lt;m1&lt;&lt;' '&lt;&lt;d1&lt;&lt;' '&lt;&lt;y2&lt;&lt;' '&lt;&lt;m2&lt;&lt;' '&lt;&lt;d2&lt;&lt;endl;
+        
+        int sum[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+        int A,B;
+        A = y1*365;
+        for (int i=1;i&lt;m1;i++) A+=sum[i];
+        A+=d1;
+        
+        B=y2*365;
+        for (int i=1;i&lt;m2;i++) B+=sum[i];
+        B+=d2;
+        
+        for (int i=min(y1,y2);i&lt;=max(y1,y2);i++)
+        {
+            if (i%4!=0) continue;
+            if (i%100==0 &amp;&amp; i%400!=0) continue;
+            if (i&lt;y1 || (i==y1&amp;&amp;m1&gt;2)) A++;
+            if (i&lt;y2 || (i==y2&amp;&amp;m2&gt;2)) B++;
+        }
+        return abs(A-B);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

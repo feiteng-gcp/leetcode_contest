@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>346_jasonshieh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>346_jasonshieh.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    string largestMultipleOfThree(vector&lt;int&gt;&amp; digits) {
+        int n = digits.size();
+        sort(digits.begin(), digits.end());
+        queue&lt;int&gt; qR0;
+        queue&lt;int&gt; qR1;
+        queue&lt;int&gt; qR2;
+        int sum = 0;
+        for(int i = 0; i &lt; n; ++i){ 
+            sum += digits[i]; 
+            if((digits[i] % 3) == 0){
+                qR0.push(digits[i]);
+            }else if((digits[i] % 3) == 1) {
+                qR1.push(digits[i]); 
+            }else{
+                qR2.push(digits[i]); 
+            }
+        }
+        if(sum%3==1){
+            if(!qR1.empty()){
+                qR1.pop();
+            }else{
+                //2+2 = 4 % 3 .... 1
+                if(!qR2.empty()){
+                    qR2.pop();
+                }else{
+                    return &quot;&quot;;
+                }
+                if(!qR2.empty()){
+                    qR2.pop();
+                }else{
+                    return &quot;&quot;;
+                }
+            }
+        }else if(sum%3 == 2){
+            if(!qR2.empty()){
+                qR2.pop();
+            }else{
+                if(!qR1.empty()){
+                    qR1.pop(); 
+                }else{
+                    return &quot;&quot;;
+                }
+                if(!qR1.empty()){
+                    qR1.pop();
+                }else{
+                    return &quot;&quot;; 
+                }
+            }
+        }
+  
+        vector&lt;int&gt; res;
+        while(!qR0.empty()){
+            res.emplace_back(qR0.front());
+            qR0.pop();
+        }
+        while(!qR1.empty()){
+            res.emplace_back(qR1.front());
+            qR1.pop();
+        }
+        while(!qR2.empty()){
+            res.emplace_back(qR2.front());
+            qR2.pop();
+        }
+        if(res.empty()) return &quot;&quot;;
+        sort(res.rbegin(), res.rend());
+        string s = &quot;&quot;;
+        for(int i = 0; i &lt; res.size(); ++i){
+            s += to_string(res[i]);
+        }
+        int i = 0;
+        while(i &lt; s.size() &amp;&amp; s[i] == '0'){
+            i++;
+        }
+        s = s.substr(i);
+        if(s.empty()) s = &quot;0&quot;;
+        return s;</B></FONT>
+        int val = stoi(s);
+        return val%3 == 0 ? s : &quot;&quot;;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

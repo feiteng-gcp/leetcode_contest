@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>395_comonad.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>395_comonad.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match24-1.html#0',3,'match24-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    bool validateBinaryTreeNodes(int n, vector&lt;int&gt;&amp; leftChild, vector&lt;int&gt;&amp; rightChild) {
+        vector&lt;int&gt; parent(n, -1);
+        for (int i = 0; i &lt; n; i++) {
+            if (leftChild[i] != -1) {
+                if (parent[leftChild[i]] != -1) {
+                    return false;
+                }
+                parent[leftChild[i]] = i;
+            }
+            if (rightChild[i] != -1) {
+                if (parent[rightChild[i]] != -1) {
+                    return false;
+                }
+                parent[rightChild[i]] = i;
+            }
+        }
+        int cnt = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (parent[i] == -1) {</B></FONT>
+                cnt++;
+                if (cnt &gt; 1) {
+                    return false;
+                }
+            }
+        }
+        if (cnt == 0) return false;
+        return true;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

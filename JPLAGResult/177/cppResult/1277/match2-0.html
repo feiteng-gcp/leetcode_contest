@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>88_ydxu16.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>88_ydxu16.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    string largestMultipleOfThree(vector&lt;int&gt;&amp; digits) {
+        sort(begin(digits), end(digits));
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        queue&lt;int&gt; q0, q1, q2;
+        int sum = 0;
+        for (int i = 0; i &lt; digits.size(); i++) { 
+            sum += digits[i];
+            if (digits[i] % 3 == 0) { 
+                q0.push(digits[i]);
+            }
+            else if (digits[i] % 3 == 1) { 
+                q1.push(digits[i]);
+            }
+            else { 
+                q2.push(digits[i]);
+            }
+            
+        }
+        
+        if (sum % 3 == 1) { 
+            if (!q1.empty()) { 
+                q1.pop();
+            }
+            else { 
+                if (!q2.empty()) { 
+                    q2.pop();
+                }
+                else { 
+                    return &quot;&quot;;
+                }
+                
+                if (!q2.empty()) { 
+                    q2.pop();
+                }
+                else { 
+                    return &quot;&quot;;
+                }
+<A NAME="1"></A>            }
+        }</B></FONT>
+        
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match2-1.html#1',3,'match2-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        if (sum % 3 == 2) { 
+            if (!q2.empty()) { 
+                q2.pop();
+            }
+            else { 
+                if (!q1.empty()) { 
+                    q1.pop();
+                }
+                else { 
+                    return &quot;&quot;;
+                }
+                if (!q1.empty()) { 
+                    q1.pop();
+                }
+                else { 
+                    return &quot;&quot;;
+                }
+            }
+        }</B></FONT>
+        
+        string ans = &quot;&quot;;
+        while (!q0.empty()) { 
+            ans.push_back(q0.front() + '0');
+            q0.pop();
+        }
+        while (!q1.empty()) { 
+            ans.push_back(q1.front() + '0');
+            q1.pop();
+        }
+        while (!q2.empty()) { 
+            ans.push_back(q2.front() + '0');
+            q2.pop();
+        }
+        sort(begin(ans), end(ans));
+        reverse(begin(ans), end(ans));
+        if (ans.size() &gt; 0 &amp;&amp; ans[0] == '0') { 
+            return &quot;0&quot;;
+        }
+        return ans;
+    } 
+  
+};
+</PRE>
+</BODY>
+</HTML>
