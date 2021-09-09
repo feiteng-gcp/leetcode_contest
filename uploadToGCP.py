@@ -14,7 +14,7 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     # The ID of your GCS object
     # destination_blob_name = "storage-object-name"
 
-    print("Uploading to Google Cloud Storage..." + source_file_name)
+    # print("Uploading to Google Cloud Storage..." + source_file_name)
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
@@ -25,6 +25,7 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
 def uploadFolder(folderName):
     bucket_name = 'jplagresult'
+    print("Uploading to Google Cloud Storage.." + folderName)
     for path, subdirs, files in os.walk(folderName):
         for name in files:
             filePath = os.path.join(path, name)
