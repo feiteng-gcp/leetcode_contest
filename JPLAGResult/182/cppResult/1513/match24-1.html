@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>51_zqy1018.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>51_zqy1018.cpp</CENTER></H3><HR>
+<PRE>
+const int M = 1000000007;
+class Solution {
+    int nxt[55];
+    int f[505][55][2];
+<A NAME="0"></A>    int fd[55][27];
+    int subp(int n, string&amp; s, string&amp; e){
+        memset(f, 0, sizeof(f));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int l = e.length();
+        f[0][0][1] = 1;
+        for (int i = 1; i &lt;= n; ++i){
+            for (int j = 0; j &lt; 26; ++j){
+                for (int t = 0; t &lt; l; ++t){</B></FONT>
+                    f[i][fd[t][j]][0] = (f[i][fd[t][j]][0] + f[i - 1][t][0]) % M;
+<A NAME="1"></A>                    if (j &lt; s[i - 1] - 'a')
+                        f[i][fd[t][j]][0] = (f[i][fd[t][j]][0] + f[i - 1][t][1]) % M;
+                    else if (j == s[i - 1] - 'a')
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                        f[i][fd[t][j]][1] = (f[i][fd[t][j]][1] + f[i - 1][t][1]) % M;
+                }
+            }
+        }
+        int res = 0;
+        for (int j = 0; j &lt; l; ++j){
+            res = (res + f[n][j][0]) % M;
+            res = (res + f[n][j][1]) % M;
+        }
+        return res;
+    }</B></FONT>
+public:
+    int findGoodStrings(int n, string s1, string s2, string evil) {
+        nxt[0] = -1;
+        int l = evil.size();
+        for (int j = -1, i = 1; i &lt; l; ++i){
+            while (j &gt; -1 &amp;&amp; evil[i] != evil[j + 1])
+                j = nxt[j];
+            if (evil[i] == evil[j + 1])
+                nxt[i] = ++j;
+            else nxt[i] = -1;
+        }
+        for (int i = -1; i &lt; l - 1; ++i){
+            for (int j = 0; j &lt; 26; ++j){
+                if (evil[i + 1] - 'a' == j)
+                    fd[i + 1][j] = i + 1 + 1;
+                else {
+                    if (i == -1) fd[0][j] = 0;
+                    else fd[i + 1][j] = fd[nxt[i] + 1][j];
+                }
+            }
+        }
+        int res1 = subp(n, s2, evil), res2 = subp(n, s1, evil);
+        int ans = (res1 + M - res2) % M;
+        if (s1.find(evil) == string::npos) 
+            ans = (ans + 1) % M;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>
