@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>69_nevergiveup.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>69_nevergiveup.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match18-1.html#0',3,'match18-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+
+	private boolean validate(int color1 , int color2 , int color3) {
+		return color1 != color2 &amp;&amp; color2 != color3;		
+	}
+	
+	private boolean validate(int color11 , int color12 , int color13 , 
+			int color21 , int color22 , int color23) {</B></FONT>
+		if (validate(color11 , color12 , color13) &amp;&amp; validate(color21 , color22 , color23)) {
+			return color11 != color21 &amp;&amp; color12 != color22 &amp;&amp; color13 != color23;			
+		} else {
+			return false;
+		}
+	}
+	
+	private long MOD = 1000_000_007;
+	private long[][][][] dp;	
+	
+    public int numOfWays(int n) {
+<A NAME="1"></A>    	dp = new long[n][3][3][3];    	
+    	for (int i = 0;i &lt; n;i ++) {
+    		if (i == 0) {
+    			for (int color1 =<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match18-1.html#1',3,'match18-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> 0;color1 &lt; 3;color1 ++) {
+    				for (int color2 = 0;color2 &lt; 3;color2 ++) {
+    					for (int color3 = 0;color3 &lt; 3;color3 ++) {
+    	    				if (validate(color1 , color2 , color3)) {</B></FONT>
+    	    					dp[0][color1][color2][color3] ++;    	    					
+    	    				}
+    	    			}	
+<A NAME="2"></A>        			}	
+    			}
+    		} else {
+    			for (int color11 <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match18-1.html#2',3,'match18-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>= 0;color11 &lt; 3;color11 ++) {
+    				for (int color12 = 0;color12 &lt; 3;color12 ++) {
+    					for (int color13 = 0;color13 &lt; 3;color13 ++) {
+	    					for (int color21 = 0;color21 &lt; 3;color21 ++) {</B></FONT>
+	    	    				for (int color22 = 0;color22 &lt; 3;color22 ++) {
+	    	    					for (int color23 = 0;color23 &lt; 3;color23 ++) {
+	    	    	    				if (validate(color11 , color12 , color13 , 
+	    	    	    						color21 , color22 , color23)) {
+<A NAME="3"></A>	    	    	    					dp[i][color21][color22][color23] = 
+	    	    	    							(dp[i][color21][color22][color23] + 
+	    	    	    									dp[i - 1][color11][color12][color13]) % MOD;
+	    	    	    				}<FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match18-1.html#3',3,'match18-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	    	    	    			}	
+	    	        			}	
+	    	    			}				
+    	    			}	
+<A NAME="4"></A>        			}	
+    			}
+    		}</B></FONT>
+    	}<FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match18-1.html#4',3,'match18-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+    	long ans = 0;
+    	for (int color1 = 0;color1 &lt; 3;color1 ++) {
+<A NAME="5"></A>    		for (int color2 = 0;color2 &lt; 3;color2 ++) {
+    			for (int color3 = 0;color3 &lt; 3;color3 ++) {</B></FONT>
+    	    		ans = (ans + dp[n - 1][color1][color2][color3]) % MOD;
+    	    	}	<FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match18-1.html#5',3,'match18-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+        	}	
+    	}
+    	return (int) ans;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

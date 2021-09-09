@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>99_suzyzhang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>99_suzyzhang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    string entityParser(string s) {
+        /*&amp;quot;
+        &amp;apos;
+        &amp;amp;
+        &amp;gt;
+        &amp;lt;
+        &amp;frasl;
+        
+    */
+        int n = s.length(), i = 0;
+        string t;
+        
+        while (i &lt; n) {
+<A NAME="0"></A>            if (s[i] != '&amp;') {
+                t += s[i];
+                ++i;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            } else {
+                if (s.substr(i, 6) == &quot;&amp;quot;&quot;) {
+                    t += '&quot;';
+                    i += 6;
+                } else if (s.substr(i, 6) == &quot;&amp;apos;&quot;) {
+                    t += '\'';
+                    i += 6;
+                } else if (s.substr(i, 5) == &quot;&amp;amp;&quot;) {
+                    t += '&amp;';
+                    i += 5;
+                } else if (s.substr(i, 4) == &quot;&amp;gt;&quot;) {
+                    t += '&gt;';
+                    i += 4;
+                } else if (s.substr(i, 4) == &quot;&amp;lt;&quot;) {
+                    t += '&lt;';
+                    i += 4;
+                }else if (s.substr(i, 7) == &quot;&amp;frasl;&quot;) {
+                    t += '/';
+                    i += 7;
+                }else {
+                    t += s[i];
+                    ++i;
+                }
+            }</B></FONT>
+        }
+        return t;
+    }
+};
+/*
+&quot;&amp; is an HTML entity but &amp;ambassador; is not.&quot;
+&quot;and I quote: \&quot;...\&quot;&quot;
+&quot;Stay home! Practice on Leetcode :)&quot;
+&quot;x &gt; y &amp;&amp; x &lt; y is always false&quot;
+&quot;leetcode.com/problemset/all&quot;
+
+&quot;&amp; is an HTML entity but &amp;ambassador; is not.&quot;
+&quot;and I quote: \&quot;...\&quot;&quot;
+&quot;Stay home! Practice on Leetcode :)&quot;
+&quot;x &gt; y &amp;&amp; x &lt; y is always false&quot;
+&quot;leetcode.com/problemset/all&quot;
+*/
+</PRE>
+</BODY>
+</HTML>
