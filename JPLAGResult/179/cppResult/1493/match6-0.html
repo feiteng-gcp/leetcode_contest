@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>76_mihaild.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>76_mihaild.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match6-1.html#0',3,'match6-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int target) {
+        if (edges.size() == 1) {
+            return 1.0;
+        }
+        vector&lt;vector&lt;int&gt;&gt; nns(n);
+        for (auto e : edges) {
+            nns[e[0] - 1].push_back(e[1] - 1);
+            nns[e[1] - 1].push_back(e[0] - 1);
+        }
+        vector&lt;vector&lt;int&gt;&gt; children(n);
+        vector&lt;int&gt; parents(n, -1);</B></FONT>
+        {
+<A NAME="1"></A>            vector&lt;int&gt; q;
+            q.push_back(0);
+            vector&lt;bool&gt; used(n, false);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match6-1.html#1',3,'match6-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int pos = 0;
+            while (pos &lt; q.size()) {
+                int x = q[pos];
+                used[q[pos]] = true;
+                for (auto y : nns[q[pos]]) {
+                    if (!used[y]) {
+                        children[x].push_back(y);
+                        parents[y] = x;</B></FONT>
+                        q.push_back(y);
+                        //cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; endl;
+                    }
+                }
+                ++pos;
+            }
+        }
+        vector&lt;double&gt; probs(n, 0);
+        probs[0] = 1.0;
+        for (int i = 0; i &lt; t; ++i) {
+            vector&lt;double&gt; next_probs(n, 0);
+            for (int x = 0; x &lt; n; ++x) {
+                if (children[x].empty()) {
+                    next_probs[x] += probs[x];
+                } else {
+                    for (auto y : children[x]) {
+                        next_probs[y] += probs[x] / children[x].size();
+                    }
+                }
+            }
+            probs = next_probs;
+            /*for (auto x : probs) {
+                cout &lt;&lt; x &lt;&lt; ' ';
+            }
+            cout &lt;&lt; endl;*/
+        }
+        return probs[target - 1];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

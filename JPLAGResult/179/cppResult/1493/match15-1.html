@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>196_qb_2008.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>196_qb_2008.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int target) {
+        vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+        for (auto&amp; e : edges) {
+            g[e[0]].push_back(e[1]);
+            g[e[1]].push_back(e[0]);
+        }
+        return dfs(t, 1, g, target, -1);
+    }
+    
+    double dfs(int left_time, int cur, vector&lt;vector&lt;int&gt;&gt;&amp; g, int target, int from) {</B></FONT>
+        if (left_time == 0) {
+            if (cur == target) {
+                return 1.0;
+            }
+            return 0.0;
+        }
+        int next_count = 0;
+        double prob = 0.0;
+        for (int next : g[cur]) {
+            if (next == from) continue;
+            next_count++;
+            prob += dfs(left_time - 1, next, g, target, cur);
+        }
+        if (next_count == 0) {
+            return cur == target ? 1.0 : 0.0;
+        }
+        return prob / next_count;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

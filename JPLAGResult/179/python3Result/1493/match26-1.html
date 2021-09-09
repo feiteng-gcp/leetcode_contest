@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>210_jjti.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>210_jjti.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match26-0.html#0',2,'match26-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -&gt; float:
+        
+        adj = collections.defaultdict(list)
+        for start, end in edges:
+            adj[start].append(end)
+            adj[end].append(start)
+        
+        odds = [0.0] * (n + 1)  # becomes zero if we never see target
+        odds[1] = 1.0
+        
+        # BFS on all the options on each step
+        cur_on =</B></FONT> [1]
+        seen = set([1])
+        while t and cur_on:
+            new_opts = []
+            for opt in cur_on:
+                next_opts = [n for n in adj[opt] if n not in seen]
+                if not next_opts:
+                    continue  # stuck on this vertex
+                
+                cur_odds = odds[opt]
+                next_odds = cur_odds / len(next_opts)
+                for nv in next_opts:
+                    new_opts.append(nv)
+                    odds[nv] = next_odds
+                    seen.add(nv)
+                    
+                odds[opt] = 0.0  # jumped off current vertex
+                    
+            cur_on = new_opts
+            
+            t -= 1
+            
+        print(odds)
+        
+        return odds[target]
+        
+</PRE>
+
+</BODY>
+</HTML>

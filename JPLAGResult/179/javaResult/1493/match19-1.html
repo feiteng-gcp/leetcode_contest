@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>189_Gaaakki.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>189_Gaaakki.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    boolean[] visited;
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>double ans = 0;
+    public double frogPosition(int n, int[][] edges, int t, int target) {
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;();
+        for(int i = 1; i &lt;= n; i++)
+            map.put(i, new ArrayList&lt;&gt;());
+        for(int[] e: edges) {
+            map.get(e[0]).add(e[1]);
+<A NAME="1"></A>            map.get(e[1]).add(e[0]);
+        }
+        v</B></FONT>isited = new boolean[n + 1];
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>dfs(map, 1, 1, 0, t, target, -1);
+        return ans;
+//         double[][] dp = new double[t][n + 1];
+//         dp[0][1] = 1;
+        
+    }
+    public void dfs(Map&lt;Integer, List&lt;Integer&gt;&gt; map, int cur, double p, int step, int t</B></FONT>, int target, int par) {
+        if(step == t) {
+            if(cur == target)
+                ans += p;
+            return;
+        }
+        List&lt;Integer&gt; nexts = map.get(cur);
+        int N = nexts.size();
+        if(N == 0)
+            dfs(map, cur, p, step + 1, t, target, par);
+        else if(N == 1) {
+            if(par == -1)
+                dfs(map, nexts.get(0), p, step + 1, t, target, cur);
+            else 
+                dfs(map, cur, p, step + 1, t, target, par);
+        } else
+            for(int next: nexts)
+                if(next != par) {
+                    if(par == -1)
+                        dfs(map, next, p * 1 / N, step + 1, t, target, cur);
+                    else
+                        dfs(map, next, p * 1 / (N - 1), step + 1, t, target, cur);
+                }
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

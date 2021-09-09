@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>456_rakib2.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>456_rakib2.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    double ans=0.0;
+    unordered_set &lt;int&gt; adj[111];
+    unordered_set &lt;int&gt; visited;
+    int target=-1;
+    int timelimit=0;
+    
+    void dfs(int node, double prob=1.0, int time=0){
+<A NAME="0"></A>        if(time&gt;timelimit)
+            return;
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match7-1.html#0',3,'match7-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int children=0;
+        for(auto c: adj[node])
+            if(visited.find(c)==visited.end())
+                children++;
+        
+        if(node==target){
+            if(children==0 || time==timelimit)
+              ans=prob;
+            return;
+        }</B></FONT>
+        
+        
+        if(!children)
+            return;
+        for(auto c: adj[node]){
+            if(visited.find(c)==visited.end()){
+                visited.insert(c);
+                dfs(c, prob*1.0/(double)children, time+1);
+<A NAME="1"></A>                visited.erase(visited.find(c));
+            }
+        }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match7-1.html#1',3,'match7-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    }
+    
+    double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int targ) {
+        target=targ;
+        timelimit=t;
+        for(auto edge: edges){
+            adj[edge[0]].insert(edge[1]);
+            adj[edge[1]].insert(edge[0]);
+        }</B></FONT>
+        visited.insert(1);
+        dfs(1);
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

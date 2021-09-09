@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>398_ngoc_lam.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>398_ngoc_lam.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -&gt; float:
+        gr = collections.defaultdict(list)
+        for u, v in edges:
+            gr[u].append(v)
+            gr[v].append(u)
+      #  print(gr)
+        self.aa = []
+        def</B></FONT> helper(cur, aa, par=None, se=t):
+            if se &lt; 0:
+                return
+            if cur == target:
+                self.aa = list(aa)
+                return
+            for v in gr[cur]:
+                if v != par:
+                    aa.append((v, (len(gr[v]) - 1) or 1))
+                    helper(v, aa, cur,se - 1)
+                    aa.pop()
+        helper(1, [(1, len(gr[1]))], None, t)
+        if not self.aa: return 0.0
+        if len(self.aa) != t + 1:
+            last = self.aa[-1]
+            if (len(gr[last[0]]) &gt; 1 and last[0] != 1) or (last[0] == 1 and len(gr[last[0]]) &gt;= 1):
+                return 0.0
+        ans = 1.0
+        for (u, length) in self.aa:
+            ans *= 1.0 / (length or 1)
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

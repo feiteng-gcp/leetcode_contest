@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>475_d1nesh.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>475_d1nesh.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int target) {
+        
+        vector&lt;vector&lt;int&gt;&gt;graph(n);
+        
+        for(int i=0;i&lt;edges.size();i++)
+        {
+            graph[edges[i][0] - 1].push_back( edges[i][1] -1);
+            graph[edges[i][1] - 1].push_back( edges[i][0] -1);
+        }</B></FONT>
+        
+        vector&lt;bool&gt; isVisited(n,false);
+        vector&lt;bool&gt; isParent(n,false);
+        vector&lt;pair&lt;int,double&gt;&gt; prob(n);
+        
+        findProb(graph, isParent, isVisited, prob,0,0,1);
+        
+        if( isParent[target-1])
+        {
+            if(prob[target-1].first == t)
+                return prob[target-1].second;
+            else
+                return 0;
+        }
+        else
+        {
+            if(prob[target-1].first &lt;=t)
+                return prob[target-1].second;
+            else
+                return 0;
+        }
+        
+        return 0;
+    }
+    
+    void findProb(vector&lt;vector&lt;int&gt;&gt; &amp;graph, vector&lt;bool&gt; &amp;isParent, vector&lt;bool&gt; &amp;isVisited, vector&lt;pair&lt;int,double&gt;&gt; &amp;prob, int src, int time, double pb)
+    {
+        isVisited[src] = true;
+        prob[src] = make_pair(time,pb);
+        
+        int child = 0;
+        for(int i=0;i&lt;graph[src].size();i++)
+        {
+            if(!isVisited[graph[src][i]])
+                child++;
+        }
+        
+        if(child &gt; 0)
+            isParent[src] = true;
+        
+        for(int i = 0; i&lt; graph[src].size();i++)
+        {
+            if(!isVisited[graph[src][i]])
+                findProb(graph, isParent,isVisited, prob, graph[src][i], time+1, pb/child);
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>

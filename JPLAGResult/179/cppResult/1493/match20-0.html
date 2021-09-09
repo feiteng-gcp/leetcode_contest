@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>87_x____x.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>87_x____x.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+  double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int target) {
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (const auto&amp; e : edges) {
+      g[e[0]].push_back(e[1]);
+      g[e[1]].push_back(e[0]);
+    }
+    vector&lt;int&gt; d(n + 1);</B></FONT>
+    vector&lt;double&gt; f(n + 1);
+    vector&lt;bool&gt; leaf(n + 1, true);
+    d[1] = 0;
+    f[1] = 1.0;
+    function&lt;void(int, int)&gt; go = [&amp;](int x, int fr) {
+      int sz = g[x].size();
+      if (x != 1) --sz;
+      for (const auto y : g[x]) {
+        if (y != fr) {
+          d[y] = d[x] + 1;
+          f[y] = f[x] / sz;
+          leaf[x] = false;
+          go(y, x);
+        }
+      }
+    };
+    go(1, 0);
+    if (leaf[target]) return t &gt;= d[target] ? f[target] : 0.0;
+    return t == d[target] ? f[target] : 0.0;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

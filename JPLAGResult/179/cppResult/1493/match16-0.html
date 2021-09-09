@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>401_newhar.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>401_newhar.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    double frogPosition(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges, int t, int target) {
+        vector&lt;vector&lt;int&gt;&gt; nexts(n + 1);
+        for(auto&amp; v : edges)
+        {
+            nexts[v[0]].push_back(v[1]);
+            nexts[v[1]].push_back(v[0]);
+        }
+        vector&lt;double&gt; gailv(n + 1, 0.0);
+        vector&lt;int&gt; vis(n + 1, 0);
+        gailv[1] = 1.0;
+        vector&lt;int&gt; v1, v2;</B></FONT>
+        v1.push_back(1);
+        while(t--)
+        {
+            for(int node : v1)
+            {
+                vis[node] = 1;
+                double childs = 0.0;
+                for(int ne : nexts[node]) if(!vis[ne]) childs += 1.0;
+                if(childs &lt; 1e-5) continue;
+                double nextp = gailv[node]/childs;
+                gailv[node] = 0.0;
+                for(int ne : nexts[node])
+                {
+                    if(!vis[ne])
+                    {
+                        gailv[ne] = nextp;
+                        v2.push_back(ne);
+                    }
+                }
+            }
+            swap(v1, v2);
+            v2.clear();
+        }
+        return gailv[target];
+    }
+};
+</PRE>
+</BODY>
+</HTML>
