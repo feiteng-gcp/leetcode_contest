@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>50_NEU20133823.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>50_NEU20133823.cpp</CENTER></H3><HR>
+<PRE>
+int dp[27][27][301];
+class Solution {
+public:
+    int abs(int x)
+    {
+        return x&gt;0?x:-x;
+    }
+    int dis(int x,int y)
+    {
+        if(x==26||y==26)return 0;
+        int xc=x%6,xr=x/6,yc=y%6,yr=y/6;
+        return abs(xr-yr)+abs(xc-yc);
+    }
+    int minimumDistance(string word) {
+<A NAME="0"></A>        memset(dp,1,sizeof(dp));
+        dp[26][26][0]=0;
+        int n=word.size();
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for(int i=1;i&lt;=n;i++)
+        {
+            int tg=word[i-1]-'A';
+            for(int j=0;j&lt;=26;j++)
+<A NAME="1"></A>            {
+                for(int k=0;k&lt;=26;k++)
+                {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    dp[tg][k][i]=min(dp[tg][k][i],dp[j][k][i-1]+dis(j,tg));
+                    dp[j][tg][i]=min(dp[j][tg][i],dp[j][k][i-1]+dis(k,tg));
+                }
+            }
+        }
+        int ans=9999999999;
+        for(int i=0;i&lt;=26;i++)
+        {
+            for(int j=0;j&lt;=26;j++)
+            {
+                ans=min(ans,dp[i][j][n]);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

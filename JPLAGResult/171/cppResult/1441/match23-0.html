@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>388_wisdompeak.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>388_wisdompeak.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match23-1.html#0',3,'match23-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minFlips(int a, int b, int c) 
+    {
+        vector&lt;int&gt;A = convert(a);
+        vector&lt;int&gt;B = convert(b);
+        vector&lt;int&gt;C = convert(c);
+        int len = max(A.size(), max(B.size(), C.size()));
+        while (A.size()&lt;len)
+            A.push_back(0);
+        while (B.size()&lt;len)
+            B.push_back(0);
+        while (C.size()&lt;len)
+            C.push_back(0);
+        
+ 
+        
+        int cost = 0;
+        for (int i=0; i&lt;len; i++)
+        {
+            // cout&lt;&lt;A[i]&lt;&lt;&quot; &quot;&lt;&lt;B[i]&lt;&lt;&quot; &quot;&lt;&lt;C[i]&lt;&lt;&quot; &quot;&lt;&lt;A[i]||B[i]==C[i]&lt;&lt;endl;
+            if ((A[i]||B[i])==C[i])
+                continue;
+            if (C[i]==0)
+            {
+                cost+= (A[i]!=0);
+                cost+= (B[i]!=0);
+            }
+            else
+            {
+                cost+=1;
+            }        
+            
+        }
+        return cost;        
+    }
+    
+    vector&lt;int&gt; convert(int x)
+    {
+        vector&lt;int&gt;ret;
+        while (x&gt;0)
+        {
+            ret.push_back(x%2);
+            x = x/2;
+        }
+        return ret;
+            
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

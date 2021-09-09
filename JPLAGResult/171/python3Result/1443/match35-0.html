@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>249_WhyAmISoStupid.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>249_WhyAmISoStupid.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minimumDistance(self, word: str) -&gt; int:
+        visited = {}
+        def dp(i,j,k):
+            if (i,j,k) in visited:
+                return visited[(i,j,k)]
+            if k == len(word)-1:
+                return min(self.distance(i,word[k]),self.distance(j,word[k]))
+            visited[(i,j,k)] = min(self.distance(i,word[k])+dp(word[k],j,k+1),self.distance(j,word[k])+dp(i,word[k],k+1))
+            return visited[(i,j,k)]
+        res = float('inf')
+        for i in range(26):
+            for j in range(26):
+                res = min(res,dp(chr(ord('A')+i),chr(ord('A')+j), 0))
+<A NAME="0"></A>        return res
+                
+    
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>def distance(self,c1,c2):
+        o1 = ord(c1) - ord('A')
+        o2 = ord(c2) - ord('A')
+        dy = abs(o1%6 - o2%6)
+        dx = abs(o1//6 - o2//6)
+        return</B></FONT> dx + dy
+        
+</PRE>
+
+</BODY>
+</HTML>

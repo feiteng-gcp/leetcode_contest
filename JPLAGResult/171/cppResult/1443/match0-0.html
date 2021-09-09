@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>378_Henry_cc.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>378_Henry_cc.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>struct cmp {
+    bool operator()(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) {
+        return a[2] &gt; b[2];
+    }
+};
+
+class Solution {
+public:
+    int minimumDistance(string word) {
+        int n = word.length();
+        
+        vector&lt;int&gt; arr;
+        for (char c : word) {
+            arr.push_back(c - 'A');
+        }
+        int na = arr.size();
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; memo(na, vector&lt;vector&lt;int&gt;&gt;(27, vector&lt;int&gt;(27, 0)));
+        return dfs(arr, 1, arr[0], 26, memo);
+    }
+    
+private:
+    int dfs(vector&lt;int&gt;&amp; arr, int s, int pa, int pb, vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;&amp; memo) {
+        // cout&lt;&lt;s&lt;&lt;&quot; &quot;&lt;&lt;pa&lt;&lt;&quot; &quot;&lt;&lt;pb&lt;&lt;endl;
+        if (s == arr.size())    return 0;
+        
+        if (memo[s][pa][pb] != 0)    return memo[s][pa][pb];
+        int dis = INT_MAX;
+        if (pb == 26)    dis = min(dis, dfs(arr, s + 1, pa, arr[s], memo));
+        else    dis = min(dis, dfs(arr, s + 1, pa, arr[s], memo) + getDis(pb, arr[s]));
+        dis = min(dis, dfs(arr, s + 1, arr[s], pb, memo) + getDis(pa, arr[s]));
+        
+        // cout&lt;&lt;s&lt;&lt;&quot; &quot;&lt;&lt;dis&lt;&lt;endl;
+        memo[s][pa][pb] = dis;
+        return dis;
+    }
+    
+    vector&lt;int&gt; getCor(int i) {
+        return {i / 6, i % 6};
+    }
+    
+    int getDis(int A, int B) {
+        vector&lt;int&gt; a = getCor(A), b = getCor(B);
+        int x1 = a[0], x2 = b[0], y1 = a[1], y2 = b[1];
+        return abs(x1 - x2) + abs(y1 - y2);
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

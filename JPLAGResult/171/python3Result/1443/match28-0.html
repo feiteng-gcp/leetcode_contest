@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>301_jonnymcgow7.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>301_jonnymcgow7.py</CENTER></H3><HR>
+<PRE>
+from math import inf
+
+class Solution:
+    def minimumDistance(self, word: str) -&gt; int:
+        dp = {((-1, -1),(-1, -1)): 0}
+        
+        def distance(p1, p2):
+            return abs(p2[1]-p1[1]) + abs(p2[0]-p1[0])
+        
+        def position(c):
+            return  divmod(ord(c) - ord('A'), 6)
+        
+        for c in word:
+            new_dp = {}
+            pos = position(c)
+            for k, v in dp.items():
+                l, r = k
+                o1 = tuple(sorted((pos, r)))
+                o2 = tuple(sorted((pos, l)))
+                if l[0] == -1:
+                    v1 = v
+                else:
+                    v1 = v+distance(l, pos)
+                if r[0] == -1:
+<A NAME="0"></A>                    v2 = v
+                else:
+                    v2 = v+distance(r, pos)
+                new_dp<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>.setdefault(o1, v1)
+                new_dp[o1] = min(new_dp[o1], v1)
+                new_dp.setdefault(o2, v2)
+                new_dp[o2] = min(new_dp[</B></FONT>o2], v2)
+            dp = new_dp
+        return min(dp.values())
+</PRE>
+
+</BODY>
+</HTML>

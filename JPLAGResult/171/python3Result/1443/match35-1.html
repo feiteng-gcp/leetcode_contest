@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_hanhsienhuang.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_hanhsienhuang.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution:
+    def minimumDistance(self, word: str) -&gt; int:
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>def dist(a, b):
+            na = ord(a)-ord(&quot;A&quot;)
+            nb = ord(b)-ord(&quot;A&quot;)
+            nax, nay = divmod(na, 6)
+            nbx, nby = divmod(nb, 6)
+            return</B></FONT> abs(nax-nbx)+abs(nay-nby)
+        
+        tot_dist = {(word[0], None):0}
+        for c in word[1:]:
+            new_tot_dist = collections.defaultdict(list)
+            for finger in tot_dist:
+                l, r = finger
+                d = tot_dist[finger]
+                new_tot_dist[(c,r)].append(d + dist(l, c))
+                new_tot_dist[(l,c)].append(d + (dist(r, c) if r else 0))
+            tot_dist = {k:min(new_tot_dist[k]) for k in new_tot_dist}
+        return min(tot_dist.values())
+</PRE>
+
+</BODY>
+</HTML>

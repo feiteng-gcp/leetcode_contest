@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>7_huangyuyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>7_huangyuyang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int x[105], y[105], dis[105][105];
+    int f[305][55][55];
+    
+    int minimumDistance(string s) {
+        int n = s.size();
+        int curx = 0, cury = 0;
+        for (int i = 0; i &lt; 26; i++) {
+            x[i] = curx, y[i] = cury;
+            cury++;
+            if (cury &gt; 5) {
+                cury = 0;
+                curx++;
+            }
+        }
+        for (int i = 0; i &lt; 27; i++) {
+            for (int j = 0; j &lt; 27; j++) {
+                if (i == 26 || j == 26) {
+                    dis[i][j] = 0;
+                } else {
+                    dis[i][j] = abs(x[i] - x[j]) + abs(y[i] - y[j]);
+                }
+<A NAME="0"></A>            }
+        }
+        
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt;= n; i++) {
+            for (int j = 0; j &lt; 27; j++) {
+                for (int k = 0; k &lt; 27; k++) {
+                    f[i][j][k] = 1e9 + 1;
+                }
+            }
+<A NAME="1"></A>        }</B></FONT>
+        f[0][26][26] = 0;
+        for (int i = 0; i &lt; n; i++) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            for (int j = 0; j &lt; 27; j++) {
+<A NAME="2"></A>                for (int k = 0; k &lt; 27; k++) {
+                    int cur = f[i][j][k];</B></FONT>
+                    int c = s[i] - 'A';
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match16-1.html#2',3,'match16-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    f[i + 1][c][k] = min(f[i + 1][c][k], cur + dis[j][c]);
+                    f[i + 1][j][c] = min(f[i + 1][j][c], cur + dis[k][c]);
+                }
+            }
+        }
+        int ans = f[n][0][0];
+        for (int i = 0; i &lt; 27; i++) {
+            for (int j = 0; j &lt; 27; j++) {
+                ans = min(ans, f[n][i][j]);
+            }
+        }
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

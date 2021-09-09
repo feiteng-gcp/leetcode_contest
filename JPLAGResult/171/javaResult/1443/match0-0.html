@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_jason_wong1.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>200_jason_wong1.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public int minimumDistance(String str) {        
+        char[] S = str.toCharArray();
+        int len = S.length;
+        int res = Integer.MAX_VALUE;
+        int dp[][][] = new int[26][26][len + 1];
+        for(int fir = len - 1; fir &gt;= 0; fir--){
+            for(int x = 0; x &lt; 26; x++){
+                for(int y = 0; y &lt; 26; y++){
+                    dp[x][y][fir] = Math.min(cost(x,S[fir]-'A') + dp[S[fir]-'A'][y][fir+1], cost(y, S[fir]-'A')+dp[x][S[fir]-'A'][fir+1]);
+                    if (fir == 0) {
+                        res = Math.min(res, dp[x][y][fir]);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public int cost(int x, int y){
+        return Math.abs(x / 6-y/6) + Math.abs(x % 6-y%6);
+    }    
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

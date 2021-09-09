@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>335_kaiwensun.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>335_kaiwensun.py</CENTER></H3><HR>
+<PRE>
+import functools
+class Solution(object):
+    keyboard = []
+    key2cord = {}
+    
+    def initKeyboard(self):
+        if self.keyboard:
+            return
+        self.keyboard = [
+            &quot;ABCDEF&quot;,
+            &quot;GHIJKL&quot;,
+            &quot;MNOPQR&quot;,
+            &quot;STUVWX&quot;,
+            &quot;YZ&quot;
+        ]
+        for i in range(len(self.keyboard)):
+            for j in range(len(self.keyboard[i])):
+                self.key2cord[self.keyboard[i][j]] = (i, j)
+
+    def minimumDistance(self, word):
+<A NAME="0"></A>        def dist(a, b):
+            ax, ay = self.key2cord[a]
+            bx, by = self.key2cord[b]
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match32-0.html#0',2,'match32-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>return abs(ax - bx) + abs(ay - by)
+        
+        @functools.lru_cache(None)
+        def oneFingerStrike(start, end):
+            if start &gt;= end:
+                return 0
+            return oneFingerStrike(start, end - 1) + dist(word[</B></FONT>end - 1], word[end])
+        @functools.lru_cache(None)
+        def dp(left, right):
+            if left &gt;= right:
+                assert(False)
+            if left == 0:
+                res = oneFingerStrike(1, right)
+            elif right &lt; 2:
+                res = 0
+            elif left == right - 1:
+                #print(&quot;HUHU&quot; + str(dp(i, left)) + str(dist(word[i], word[right])))
+                res = min(dp(i, left) + dist(word[i], word[right]) for i in range(left))
+                res = min(res, oneFingerStrike(0, left))
+            else:
+                res = dp(left, left + 1) + oneFingerStrike(left + 1, right)       
+            #print(left, right, res)
+            return res
+        
+        self.initKeyboard()
+        return min(dp(left, len(word) - 1) for left in range(len(word) - 1))
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>
