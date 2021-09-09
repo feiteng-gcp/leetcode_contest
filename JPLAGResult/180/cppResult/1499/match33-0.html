@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_kinssang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_kinssang.cpp</CENTER></H3><HR>
+<PRE>
+typedef long long ll;
+
+struct engineer
+{
+    int speed;
+    int efficiency;
+};
+
+<A NAME="0"></A>bool operator&lt;(const engineer &amp;lhs, const engineer &amp;rhs)
+{
+    if(lhs.efficiency != rhs.efficiency) return lhs.efficiency &lt; rhs.efficiency;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match33-1.html#0',3,'match33-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    return lhs.speed &lt; rhs.speed;
+}
+
+class Solution {
+public:
+    engineer engineers[100000+5];
+    ll max_selected_sum[100000+5];
+    
+    int maxPerformance(int n, vector&lt;int&gt;&amp; speed, vector&lt;int&gt;&amp; efficiency, int k) {
+        for(int i=0;i&lt;n;++i)</B></FONT>
+         {
+            engineers[i].speed = speed[i];
+            engineers[i].efficiency = efficiency[i];
+        }
+<A NAME="1"></A>        sort(engineers, engineers + n);
+        
+        priority_queue&lt;int&gt; pq;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match33-1.html#1',3,'match33-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        ll cur_sum = 0LL;
+        ll ans = 0LL;
+
+        for(int i=n-1;i&gt;=0;--i)
+        {
+            pq.push(-engineers[i].speed);
+            cur_sum += engineers[i].speed;
+            if(pq.size() == k)
+            {
+                cur_sum += pq.top();
+                pq.pop();
+            }
+            max_selected_sum[i] = cur_sum;</B></FONT>
+        }
+
+        for(int i=0;i&lt;n;++i)
+        {
+            ll temp = 1LL * (engineers[i].speed + max_selected_sum[i+1]) * engineers[i].efficiency;
+            if(temp &gt; ans) ans = temp;
+        }
+
+        return ans%(1000000000+7);
+    }
+};
+</PRE>
+</BODY>
+</HTML>

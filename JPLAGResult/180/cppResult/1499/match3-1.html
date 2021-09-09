@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>325_A_good_loser.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>325_A_good_loser.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match3-0.html#0',2,'match3-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int maxPerformance(int n, vector&lt;int&gt;&amp; speed, vector&lt;int&gt;&amp; efficiency, int k) {
+        vector&lt;node&gt; v;
+        for (int i = 0; i &lt; n; ++i) {
+           v.emplace_back(speed[i], efficiency[i]);    
+        }
+        sort(v.begin(), v.end());
+        long long res = 0, sum = 0;
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;
+        for (int i = 0; i &lt; n; ++i) {
+            sum += v[i].s;
+            pq.push(v[i].s);
+           // cout &lt;&lt; sum &lt;&lt; &quot; &quot; &lt;&lt; v[i].e &lt;&lt; &quot;\n&quot;;
+            res = max(res, sum * v[i].e);
+            if (pq.size() == k) {
+                sum -= pq.top();
+                pq.pop();
+            }
+        }
+        return res % (int)(1e9 + 7);
+    }
+    struct node{
+        node(int s, int e) : s(s), e(e){}
+        int s, e;
+        bool operator &lt; (const node &amp;rhs) {
+            if (e != rhs.e) return e &gt; rhs.e;
+            else return s &gt; rhs.e;
+        }
+    };
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
