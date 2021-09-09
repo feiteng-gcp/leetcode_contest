@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>217_immo2300576.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>217_immo2300576.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int m;
+    int n;
+    public int minFlips(int[][] mat) {
+        m = mat.length;
+        n = mat[0].length;
+        HashSet&lt;Integer&gt; set = new</B></FONT> HashSet&lt;&gt;();
+        Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+        int d = convert(mat);
+        queue.add(d);
+        set.add(d);
+        int ncnt = 1;
+        int steps = 0;
+        while (!queue.isEmpty()) {
+            int nxt_ncnt = 0;
+<A NAME="1"></A>            for (int cnt = 0; cnt &lt; ncnt; cnt++) {
+                int cur = queue.poll();
+                if (cur == 0) return steps;
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match29-1.html#1',3,'match29-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; m; i++) {
+                    for (int j = 0; j &lt; n; j++) {
+                        int nxt = flip(cur, i, j);
+                        if (!set.contains(nxt)) {</B></FONT>
+                            set.add(nxt);
+                            queue.add(nxt);
+                            nxt_ncnt++;
+                        }
+                    }
+                }
+<A NAME="2"></A>            }
+            ncnt = nxt_ncnt;
+            steps++;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match29-1.html#2',3,'match29-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return -1;
+    }
+    private int flip(int value, int i, int j) {
+        int[][] mat = revert(value);
+        m</B></FONT>at[i][j] = 1- mat[i][j];
+        if (i &gt; 0) mat[i-1][j] = 1 - mat[i-1][j];
+        if (j &gt; 0) mat[i][j-1] = 1 - mat[i][j-1];
+        if (i+1 &lt; m) mat[i+1][j] = 1 - mat[i+1][j];
+<A NAME="3"></A>        if (j+1 &lt; n) mat[i][j+1] = 1 - mat[i][j+1];
+        
+        return convert(mat);
+    <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match29-1.html#3',3,'match29-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    private int[][] revert(int value) {
+        int[][] res = new int[m][n];
+        for (int i = 0; i &lt; m; i++) {
+<A NAME="4"></A>            for (int j = 0; j &lt; n; j++) {
+                r</B></FONT>es[i][j] = value%2;
+                value = value/2;
+            <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match29-1.html#4',3,'match29-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return res;
+<A NAME="5"></A>    }
+    private int convert(int[][] mat) {</B></FONT>
+        int c = 1;
+        <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match29-1.html#5',3,'match29-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>int value = 0;
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                value+=mat[i][j]*c;
+                c*=2;
+            }
+        }
+        return</B></FONT> value;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

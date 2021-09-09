@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>234_qpwoeirut.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>234_qpwoeirut.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        set&lt;string&gt; state;
+        state.insert(&quot;000000000&quot;);
+        queue&lt;pair&lt;string, vector&lt;vector&lt;int&gt;&gt;&gt;&gt; q;
+        q.push(make_pair(&quot;000000000&quot;, mat));
+        while (q.size() &gt; 0) {
+<A NAME="1"></A>            pair&lt;string, vector&lt;vector&lt;int&gt;&gt;&gt; cur = q.front();
+            q.pop();
+            
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#1',2,'match4-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            bool done = true;
+            for (int i=0; i&lt;cur.second.size(); i++) {
+                for (int j=0; j&lt;cur.second[i].size(); j++) {
+                    if (cur.second[i][j] == 1) {
+                        done = false;
+                    }
+                }
+            }</B></FONT>
+
+            // cout &lt;&lt; cur.first &lt;&lt; endl;
+            // for (int i=0; i&lt;cur.second.size(); i++) {
+            //     for (int j=0; j&lt;cur.second[i].size(); j++) {
+            //         cout &lt;&lt;cur.second[i][j] &lt;&lt; &quot; &quot;;
+<A NAME="0"></A>            //     }
+            //     cout &lt;&lt; endl;
+            // }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (done) {
+                return count(cur.first.begin(), cur.first.end(), '1');
+            }
+            
+            for (int i=0; i&lt;mat.size(); i++) {
+<A NAME="2"></A>                for (int j=0; j&lt;mat[i].size(); j++) {</B></FONT>
+                    if (cur.first[i*3 + j] == '1') continue;
+                    
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#2',2,'match4-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                    vector&lt;vector&lt;int&gt;&gt; cmat(cur.second.begin(), cur.second.end());
+                    cmat[i][j] = (cmat[i][j] + 1) % 2;
+                    if (i-1 &gt;= 0) {
+                        cmat[i-1][j] = (cmat[i-1][j] + 1) % 2;
+                    }
+                    if (j-1 &gt;= 0) {
+                        cmat[i][j-1] = (cmat[i][j-1] + 1) % 2;
+                    }
+                    if (i+1 &lt; cmat.size()) {
+                        cmat[i+1][j] = (cmat[i+1][j] + 1) % 2;
+                    }
+                    if (j+1 &lt; cmat[i].size()) {
+                        cmat[i][j+1] = (cmat[i][j+1] + 1) % 2;
+                    }</B></FONT>
+                    
+                    string nxt = cur.first;
+                    nxt[i*3 + j] = '1';
+                    q.push(make_pair(nxt, cmat));
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

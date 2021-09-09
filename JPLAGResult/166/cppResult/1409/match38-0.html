@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>200_byphoenix.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>200_byphoenix.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match38-1.html#0',3,'match38-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int code = 0;
+        int n = mat.size();
+        int m = mat[0].size();
+        int dir[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};</B></FONT>
+        for (int i = 0; i&lt;n; i++)
+            for (int j = 0; j&lt;m; j++)
+                code = code * 2 + mat[i][j];
+        if (code == 0)
+            return 0;
+        int vis[1024];
+        for (int i = 0; i&lt;1024; i++)
+            vis[i] = 10000;
+        vis[code] = 0;
+        
+        queue&lt;pair&lt;int, vector&lt;vector&lt;int&gt;&gt;&gt;&gt; Q;
+        Q.push(pair&lt;int, vector&lt;vector&lt;int&gt;&gt;&gt;(code, mat));
+<A NAME="1"></A>        while (!Q.empty())
+        {
+            int cur = Q.front().first;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match38-1.html#1',3,'match38-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            vector&lt;vector&lt;int&gt;&gt; curmat = Q.front().second;
+            Q.pop();
+            
+            for (int i = 0; i&lt;n; i++)
+                for (int j = 0; j&lt;m; j++)
+                {
+                    vector&lt;vector&lt;int&gt;&gt; tempmat = curmat;</B></FONT>
+                    tempmat[i][j] = 1-tempmat[i][j];
+                    for (int k = 0; k&lt;4; k++)
+                    {
+                        int tempx = i + dir[k][0];
+                        int tempy = j + dir[k][1];
+<A NAME="2"></A>                        if ((tempx&gt;=0) &amp;&amp; (tempy&gt;=0) &amp;&amp; (tempx&lt;n) &amp;&amp; (tempy&lt;m))
+                            tempmat[tempx][tempy] = 1-tempmat[tempx][tempy];                        
+                    }
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match38-1.html#2',3,'match38-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    int tempcode = 0;
+                    for (int tempi = 0; tempi&lt;n; tempi++)
+                        for (int tempj =0; tempj&lt;m; tempj++)
+                            tempcode = tempcode * 2 + tempmat[tempi][tempj];
+                    if (vis[tempcode] == 10000)
+                    {</B></FONT>
+                        vis[tempcode] = vis[cur] + 1;
+                        if (tempcode == 0)
+                            return (vis[cur] + 1);
+                        Q.push(pair&lt;int, vector&lt;vector&lt;int&gt;&gt;&gt;(tempcode, tempmat));
+                    }
+                }
+            
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

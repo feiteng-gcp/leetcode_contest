@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>238_panpeng.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>238_panpeng.cpp</CENTER></H3><HR>
+<PRE>
+class Node{
+public:
+    vector&lt;vector&lt;int&gt;&gt; mat;
+    int op;
+    Node(vector&lt;vector&lt;int&gt;&gt; &amp;m,int o){
+        op=o;
+        mat=m;
+    }
+    
+};
+
+int vX[]={1,-1,0,0};
+int vY[]={0,0,1,-1};
+class Solution {
+<A NAME="0"></A>public:
+    int N,M;
+    int getStatus(vector&lt;vector&lt;int&gt;&gt;&amp; mat){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#0',2,'match28-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int res=0;
+        for(int i=0;i&lt;N;i++){
+            for(int j=0;j&lt;M;j++){
+                if(mat[i][j]==1){</B></FONT>
+                    res|=(1&lt;&lt;(i*M+j));
+                }
+            }
+        }
+        return res;
+    }
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        N=mat.size();
+        M=mat[0].size();
+        unordered_set&lt;int&gt; sHave;
+        Node tmp(mat,0);
+<A NAME="1"></A>        queue&lt;Node&gt; qNode;
+        qNode.push(tmp);
+        sHave.insert(getStatus(mat));
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match28-0.html#1',2,'match28-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        while(!qNode.empty()){
+            Node nt=qNode.front();
+            qNode.pop();
+            if(getStatus(nt.mat)==0){
+                return nt.op;
+            }
+            for(int i=0;i&lt;N;i++){
+                for(int j=0;j&lt;M;j++){
+                    vector&lt;vector&lt;int&gt;&gt; vT=nt.mat;
+                    vT[i][j]^=1;
+                    for(int k=0;k&lt;4;k++){
+                        int x=i+vX[k];
+                        int y=j+vY[k];
+                        if(x&lt;0||x&gt;=N||y&lt;0||y&gt;=M)continue;</B></FONT>
+                        vT[x][y]^=1;
+                    }
+                    int s=getStatus(vT);
+                    if(sHave.find(s)!=sHave.end()){
+                        continue;
+                    }
+                    sHave.insert(s);
+                    Node n1(vT,nt.op+1);
+                    qNode.push(n1);
+                }
+            }
+        }
+        return -1;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

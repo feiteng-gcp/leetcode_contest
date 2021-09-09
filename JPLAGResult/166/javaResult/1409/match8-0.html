@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>137_CRunner.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>137_CRunner.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match8-1.html#0',3,'match8-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public int minFlips(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        Queue&lt;int[][]&gt; q = new LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; his = new HashSet&lt;&gt;();
+        q.offer</B></FONT>(mat);
+        his.add(encode(mat));
+        int step = 0;
+        while (!q.isEmpty()) {
+<A NAME="1"></A>            int size = q.size();
+            while (size &gt; 0) {
+                int[][] cur = q.poll();
+                <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match8-1.html#1',3,'match8-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>if (solved(cur)) {
+                    return step;
+                }
+                for (int i = 0; i &lt; m; i++) {
+                    for (int j = 0; j &lt; n; j++) {
+                        int[][] tmp = flip</B></FONT>(cur, i, j);
+                        if (his.add(encode(tmp))) {
+                            q.offer(tmp);
+                        }
+                    }
+                }
+<A NAME="2"></A>                size--;
+            }
+            step++;
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match8-1.html#2',3,'match8-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        return -1;
+    }
+    
+    private int encode(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int result = 0;
+        for (int i = 0; i &lt; m; i++) {
+<A NAME="3"></A>            for (int j = 0; j &lt; n; j++) {</B></FONT>
+                result &lt;&lt;= 1;
+                result |= mat[i][j];
+            <FONT color="#6cc417"><A HREF="javascript:ZweiFrames('match8-1.html#3',3,'match8-top.html#3',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        return result;
+<A NAME="4"></A>    }
+    
+    int[] rm = new int[]{1,-1,0,0}</B></FONT>;
+    int[] cm = <FONT color="#151b8d"><A HREF="javascript:ZweiFrames('match8-1.html#4',3,'match8-top.html#4',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>new int[]{0,0,1,-1};
+    private int[][] flip(int[][] mat, int r, int c) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int[][] result = new int[m][n];
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                result[i][j] = mat[i][j];
+            }
+        }</B></FONT>
+        result[r][c] = mat[r][c] == 0 ? 1 : 0;
+        for (int k = 0; k &lt; 4; k++) {
+            int nr = r + rm[k];
+            int nc = c + cm[k];
+            if (nr &gt;= 0 &amp;&amp; nc &gt;= 0 &amp;&amp; nr &lt; m &amp;&amp; nc &lt; n) {
+                result[nr][nc] = mat[nr][nc] == 0 ? 1 : 0;
+<A NAME="5"></A>            }
+        }
+        return result;
+    <FONT color="#c8c2a7"><A HREF="javascript:ZweiFrames('match8-1.html#5',3,'match8-top.html#5',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+    
+    private boolean solved(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (mat[i][j] == 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

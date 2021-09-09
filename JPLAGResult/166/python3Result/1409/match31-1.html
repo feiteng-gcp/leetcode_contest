@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>182_sam997.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>182_sam997.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minFlips(self, mat: List[List[int]]) -&gt; int:
+        def check(i,j,n,m):
+            if 0&lt;=i&lt;n and 0&lt;=j&lt;m:
+                return True
+<A NAME="0"></A>            return False
+        def check_mat(mat):
+            n,m=len(mat),len(mat[0])
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(n):
+                for j in range(m):
+                    if mat[i][j]==1:
+                        return False
+            r</B></FONT>eturn True
+        def flip(mat,i,j):
+            if mat[i][j]==1:
+                mat[i][j]=0
+            else:
+                mat[i][j]=1
+        def convert(mat):
+            s=''
+            n,m=len(mat),len(mat[0])
+            for i in range(n):
+                for j in range(m):
+                    s=s+str(mat[i][j])
+            return s
+        def get(mat):
+            if check_mat(mat):
+                return 0
+            dirs=[[0,0],[0,1],[0,-1],[1,0],[-1,0]]
+<A NAME="1"></A>            q=[[mat,0]]
+            n,m=len(mat),len(mat[0])
+            vis=collections.defaultdict(int)
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>while q:
+                #print(q,'q')
+                grid,steps=q.pop(0)
+                if check_mat(grid):
+                    return steps
+                for i in range(n):
+                    for j in range(m):
+                        temp=</B></FONT>[]
+                        for _ in range(n):
+                            temp.append([k for k in grid[_]])
+                        for a,b in dirs:
+                            if check(a+i,b+j,n,m):
+                                flip(temp,a+i,b+j)
+                        y=convert(temp)
+                        if y not in vis:
+                            q.append([temp,steps+1])
+                            vis[y]=1
+            return -1
+        return get(mat)
+                            
+                
+</PRE>
+
+</BODY>
+</HTML>

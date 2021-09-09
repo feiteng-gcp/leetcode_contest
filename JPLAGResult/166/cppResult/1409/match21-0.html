@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>8_sheepforever.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>8_sheepforever.cpp</CENTER></H3><HR>
+<PRE>
+#include &lt;functional&gt;
+#include &lt;algorithm&gt;
+#include &lt;stdexcept&gt;
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;fstream&gt;
+#include &lt;numeric&gt;
+#include &lt;iomanip&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;utility&gt;
+#include &lt;cctype&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;bitset&gt;
+#include &lt;cmath&gt;
+#include &lt;queue&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stack&gt;
+#include &lt;ctime&gt;
+#include &lt;list&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;assert.h&gt;
+#define REP(i,n) for(int i=0;i&lt;n;i++)
+#define TR(i,x) for(__typeof(x.begin()) i=x.begin();i!=x.end();i++)
+#define ALL(x) x.begin(),x.end()
+#define SORT(x) sort(ALL(x))
+#define CLEAR(x) memset(x,0,sizeof(x))
+#define FILL(x,c) memset(x,c,sizeof(x))
+
+#include &lt;unordered_map&gt;
+
+using namespace std;
+
+const double eps = 1e-8;
+
+#define PB push_back
+#define MP make_pair
+
+typedef map&lt;int,int&gt; MII;
+typedef map&lt;string,int&gt; MSI;
+typedef vector&lt;int&gt; VI;
+typedef vector&lt;string&gt; VS;
+typedef vector&lt;long double&gt; VD;
+typedef pair&lt;int,int&gt; PII;
+typedef long long int64;
+typedef long long LL;
+typedef unsigned int UI;
+typedef long double LD;
+
+int dx[] = {-1, 1, 0, 0};
+int dy[] = {0, 0, -1, 1};
+
+void flip(vector&lt;vector&lt;int&gt;&gt;&amp; m, int i, int j) {
+    m[i][j] ^= 1;
+    for (int x = 0; x &lt; 4; ++x) {
+        int ni = i + dx[x];
+        int nj = j + dy[x];
+        if (ni &gt;= 0 &amp;&amp; nj &gt;= 0 &amp;&amp; ni &lt; m.size() &amp;&amp; nj &lt; m[0].size()) {
+            m[ni][nj] ^= 1;
+        }
+<A NAME="0"></A>    }
+}
+
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int ans = 100;
+<A NAME="1"></A>        int n = mat.size();
+        int m = mat[0].size();</B></FONT>
+        REP(mask, (1 &lt;&lt; (n * m))) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            auto cur = mat;
+            int sc = 0;
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; m; ++j) {
+<A NAME="2"></A>                    if ((mask &gt;&gt; (i * m + j)) % 2 == 1) {
+                        flip(cur, i, j);
+                        ++sc;</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                    }
+                }
+            }
+            bool good = true;
+            for (int i = 0; i &lt; n; ++i) {
+                for (int j = 0; j &lt; m; ++j) {
+                    if (cur[i][j]) {
+                        good = false;
+                    }
+                }
+            }
+            if (good) {</B></FONT>
+                ans = min(ans, sc);
+            }
+        }
+        if (ans == 100) ans = -1;
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

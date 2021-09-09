@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>31_didgogns.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>31_didgogns.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>public:
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, -1, 1};
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match27-1.html#0',3,'match27-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int N = mat.size();
+        int M = mat[0].size();
+        int ans = 100;
+        for (int i = 0; i &lt; (1 &lt;&lt; (N * M)); i++)
+        {</B></FONT>
+            auto temp = mat;
+            for (int j = 0; j &lt; N * M; j++)
+            {
+                if ((i &amp; (1 &lt;&lt; j)) == 0) continue;
+<A NAME="1"></A>                int x = j / M;
+                int y = j % M;
+                temp[x][y] = 1 - temp[x][y];
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match27-1.html#1',3,'match27-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int k = 0; k &lt; 4; k++)
+                {
+                    int nx = x + dx[k];
+                    int ny = y + dy[k];
+                    if (nx &lt; 0 || nx &gt;= N || ny &lt; 0 || ny &gt;= M) continue;
+<A NAME="2"></A>                    temp[nx][ny] = 1 - temp[nx][ny];
+                }
+            }</B></FONT>
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match27-1.html#2',3,'match27-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            int flag = 1;
+            for (int j = 0; j &lt; N; j++)
+            {
+                for (int k = 0; k &lt; M; k++)
+                {
+                    if (temp[j][k]) flag = 0;</B></FONT>
+                }
+            }
+            if (flag) ans = min(ans, __builtin_popcount(i));
+        }
+        if (ans &lt; 100) return ans;
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

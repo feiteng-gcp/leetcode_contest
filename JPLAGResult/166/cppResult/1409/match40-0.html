@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>320_songsari.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>320_songsari.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+void flip(int i, int j, vector&lt;vector&lt;int&gt;&gt; &amp; mat) {
+<A NAME="0"></A>    vector&lt;int&gt; dirX = {1, 0, -1, 0};
+    vector&lt;int&gt; dirY = {0, -1, 0, 1};
+    
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match40-1.html#0',3,'match40-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    mat[i][j] = 1 - mat[i][j];
+    
+    for (int k = 0; k &lt; 4; k++) {
+        int newY = i + dirY[k];
+        int newX = j + dirX[k];
+        
+         if (newY &gt;= 0 &amp;&amp; newY &lt; mat.size() &amp;&amp; newX &gt;= 0 &amp;&amp; newX &lt; mat[0].size()) {
+            mat[newY][newX] = 1 - mat[newY][newX];
+        }
+    }
+    
+<A NAME="1"></A>}
+    
+bool zero(vector&lt;vector&lt;int&gt;&gt; &amp; mat) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match40-1.html#1',3,'match40-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>	bool z = true;
+
+	for (int i = 0; i &lt; mat.size(); i++) {
+		for (int j = 0; j &lt; mat[0].size(); j++) {
+			if (mat[i][j]) z = false;
+		}
+	}
+
+	return z;
+
+}</B></FONT>
+    
+    
+public:
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; vc;
+        int cnt = 0;
+        
+        map&lt;vector&lt;vector&lt;int&gt;&gt;, int&gt; visited;
+        vc.push_back(mat);
+        visited[mat] = 1;
+        
+        while(!vc.empty()) {
+            vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; new_vc;
+            
+<A NAME="2"></A>            for (vector&lt;vector&lt;int&gt;&gt; v: vc) {
+            
+                if(zero(v)) return cnt;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match40-1.html#2',3,'match40-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int i = 0; i &lt; v.size(); i++) {
+                    for (int j = 0; j &lt; v[0].size(); j++) {
+                        flip(i, j, v);
+                        
+              
+
+                        if (visited[v] == 0) {</B></FONT>
+                            vector&lt;vector&lt;int&gt;&gt; vv = v;
+                            new_vc.push_back(vv);
+                            visited[vv] = 1;
+                        }
+
+                        flip(i, j, v);
+                    }
+                }
+            }
+            
+            vc = new_vc;
+            cnt++;
+        }
+        
+        return -1;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

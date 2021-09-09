@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>223_zac4.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>223_zac4.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; groupThePeople(int[] groupSizes) {
+        int N = groupSizes.length;
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap();
+        for (int i = 0; i &lt; N; i++) {
+            int sz = groupSizes[i];
+            List&lt;Integer&gt; list = map.getOrDefault(sz, new ArrayList());
+            list.add(i);
+            map.put(sz, list);
+        }
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList();
+        for (Map.Entry&lt;Integer, List&lt;Integer&gt;&gt; entry : map.entrySet()) {
+            int sz = entry.getKey();
+            List&lt;Integer&gt; ids = entry.getValue();
+            List&lt;Integer&gt; list = new ArrayList();
+            for (int i = 0; i &lt; ids.size(); i++) {
+                if (i % sz == 0) {
+                    list = new ArrayList();
+                    res.add(list);
+                }
+                list.add(ids.get(i));
+            }
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

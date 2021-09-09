@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>240_mahi_kaushal007.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>240_mahi_kaushal007.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minFlips(self, mat: List[List[int]]) -&gt; int:
+        seen = {}
+        q = [(mat, 0)]
+        def invert(mat, i, j):
+            nmat= []
+            for r in range(len(mat)):
+                tmp = []
+                for c in  range(len(mat[r])):
+<A NAME="0"></A>                    tmp.append(mat[r][c])
+                nmat.append(tmp)
+            
+            nmat<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match30-0.html#0',2,'match30-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[i][j] ^= 1
+            if i &gt; 0:
+                nmat[i-1][j] ^= 1
+            if j &gt; 0:
+                nmat[i][j-1] ^= 1
+            if</B></FONT> i+1 &lt; len(mat):
+                nmat[i+1][j] ^= 1
+            if j+1&lt;len(mat[i]):
+                nmat[i][j+1] ^= 1
+            return nmat
+        cnt = 1
+        while q:
+            if cnt &gt; 10**6:
+                break
+            cnt += 1
+            cur = q.pop(0)
+            cur, steps = cur[0], cur[1]
+            # print(cur, steps, seen)
+            sm = sum(sum(row) for row in cur)
+            if sm == 0:
+                return steps
+            tpcur = tuple(tuple(row) for row in cur)
+            if tpcur in seen:
+                continue
+            seen[tpcur] = True
+            for i in range(len(cur)):
+                for j in range(len(cur[i])):
+                    nmat = invert(cur, i, j)
+                    q.append((nmat, steps+1))
+        return -1
+                    
+            
+</PRE>
+
+</BODY>
+</HTML>

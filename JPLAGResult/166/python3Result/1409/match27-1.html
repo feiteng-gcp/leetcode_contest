@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>235_FrankYao.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>235_FrankYao.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minFlips(self, mat: List[List[int]]) -&gt; int:
+        m, n = len(mat), len(mat[0])
+        state = [0] * (m * n)
+        for i in range(m):
+            for j in range(</B></FONT>n):
+                state[i * n + j] = mat[i][j]
+        if sum(state) == 0:
+            return 0
+        
+        memo = set([tuple(state)])
+        q = collections.deque([(tuple(state), 0)])
+<A NAME="1"></A>        while q:
+            state, step = q.popleft()
+            for i in range(m):
+                for j in range<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>(n):
+                    nextState = list(state)
+                    nextState[i * n + j] = 1 - nextState[i * n + j]
+                    for di, dj in ((0, 1), (0, -1), (1, 0), (-</B></FONT>1, 0)):
+                        ni, nj = i + di, j + dj
+                        if ni &gt;= 0 and ni &lt; m and nj &gt;= 0 and nj &lt; n:
+                            nextState[ni * n + nj] = 1 - nextState[ni * n + nj]
+                            
+                    if sum(nextState) == 0:
+                        return step + 1
+                    nextStateTuple = tuple(nextState)
+                    if nextStateTuple in memo:
+                        continue
+                    memo.add(nextStateTuple)
+                    q.append((nextStateTuple, step + 1))
+        
+        return -1
+</PRE>
+
+</BODY>
+</HTML>

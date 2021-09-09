@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>227_ssigurdsson.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>227_ssigurdsson.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def minFlips(self, mat: List[List[int]]) -&gt; int:
+
+        
+        seen = set()
+        count = 0
+        curr = {tuple(tuple(row) for row in mat)}
+        while curr:
+            new_curr = set()
+            
+            for grid in curr:
+                if grid in seen: continue
+                if all(all(r == 0 for r in row) for row in grid): return count
+                seen.add(grid)
+
+<A NAME="0"></A>                out = float('Inf')
+                for i in range(len(grid)):
+                    for j in range(len(grid[0])):
+                        temp = [list<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>(row) for row in grid]
+                        temp[i][j] = (temp[i][j] +1)%2
+<A NAME="1"></A>                        if i &gt;= 1:
+                            temp[i-1][j] = (temp[i-1][j] +1)%2
+                        if</B></FONT> i &lt; len(grid)-1:
+                            temp<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>[i+1][j] = (temp[i+1][j] +1)%2
+                        if j &gt;= 1:
+                            temp[i][j-1] = (temp[i][j-1] +1)%2
+                        if</B></FONT> j &lt; len(grid[0])-1:
+                            temp[i][j+1] = (temp[i][j+1] +1)%2
+                        new_curr.add(tuple(tuple(row) for row in temp))
+            count += 1
+            curr = new_curr
+
+            
+        return -1
+        
+</PRE>
+
+</BODY>
+</HTML>

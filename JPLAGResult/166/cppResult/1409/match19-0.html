@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>29_cf_newbie.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>29_cf_newbie.cpp</CENTER></H3><HR>
+<PRE>
+typedef vector&lt;vector&lt;int&gt;&gt; board;
+<A NAME="0"></A>
+class Solution {
+public:
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match19-1.html#0',3,'match19-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    bool zero(board mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+        for (int i=0; i&lt;n; i++) {
+            for (int j=0; j&lt;m; j++) {
+                if (mat[i][j]==1) return false;
+            }
+        }
+        return true;
+    }</B></FONT>
+<A NAME="1"></A>    void f(int&amp; x) {
+        x=1-x;
+    }
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match19-1.html#1',3,'match19-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;board&gt; make_flips(board mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+        vector&lt;board&gt; res;
+        for (int i=0; i&lt;n; i++) {
+            for (int j=0; j&lt;m; j++) {
+                board cur = mat;</B></FONT>
+                f(cur[i][j]);
+                if (i-1&gt;=0) f(cur[i-1][j]);
+                if (j-1&gt;=0) f(cur[i][j-1]);
+<A NAME="2"></A>                if (i+1&lt;n) f(cur[i+1][j]);
+                if (j+1&lt;m) f(cur[i][j+1]);
+                res.push_back(cur);
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match19-1.html#2',3,'match19-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        }
+        return res;
+    }
+    int minFlips(vector&lt;vector&lt;int&gt;&gt;&amp; mat) {
+        int n = mat.size(); int m = mat[0].size();
+        map&lt;board,int&gt; mp;
+        queue&lt;pair&lt;board,int&gt;&gt; q;</B></FONT>
+        q.push({mat, 0});
+        while (!q.empty()) {
+            pair&lt;board,int&gt; cur = q.front(); q.pop();
+            if (zero(cur.first)) return cur.second;
+            if (mp.count(cur.first)) continue;
+            mp[cur.first] = cur.second;
+            int flips = cur.second;
+            vector&lt;board&gt; v = make_flips(cur.first);
+            for (auto x: v) {
+                if (mp.count(x)) continue;
+                q.push({x, flips+1});
+            }
+        }
+        return -1;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>304_WindfuryBulb.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>304_WindfuryBulb.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minFlips(int[][] mat) {
+<A NAME="0"></A>        HashSet&lt;String&gt; visited = new HashSet&lt;String&gt;();
+        Queue&lt;int[][]&gt; q = new LinkedList&lt;int[][]&gt;();
+        int layers = 0;
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(mat);
+        while(q.size() &gt; 0) {
+            int size = q.size();
+<A NAME="1"></A>            while(size &gt; 0) {
+                int[][] top = q.poll</B></FONT>();
+                visited.add(arrToString(top));
+                if(checkGoalState(top)) return layers<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+                for(int i = 0; i &lt; top.length; i++) {
+                    for(int j = 0; j &lt; top[i].length; j++) {
+                        int[][] newArr = copyArray</B></FONT>(top);
+                        newArr[i][j] = (newArr[i][j]+1) % 2;
+                        for(int k = 0; k &lt; 4; k++) {
+                            int nx = i + dx[k];
+                            int ny = j + dy[k];
+                            if(nx &gt;= 0 &amp;&amp; nx &lt; mat.length &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; mat[0].length) {
+                                newArr[nx][ny] = (newArr[nx][ny] + 1) % 2;
+                            }
+<A NAME="2"></A>                        }
+                        String arrStr = arrToString(newArr);
+                        if(!visited.contains(arrStr)) {
+                            <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>q.add(newArr);
+                        }
+                    }
+                }
+                size--;
+            }
+            layers++;
+        }
+        return -1;
+    }
+    
+<A NAME="3"></A>    private boolean checkGoalState(int[][] mat) {
+        for(int i = 0; i &lt; mat.length; i++) {
+            for(int j = 0; j &lt; mat[i].length; j++) {
+                if</B></FONT> (mat[i][j] == 1) return false<FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#3',2,'match19-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>;
+            }
+        }
+<A NAME="4"></A>        return true;
+    }
+    
+    private i</B></FONT>nt[][] copyArray(<FONT color="#151b8d"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#4',2,'match19-top.html#4',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int[][] mat) {
+        int[][] res = new int[mat.length][mat[0].length];
+        for(int i = 0; i &lt; mat.length; i++) {
+            for(int j = 0; j &lt; mat[i].length; j++) {
+                res[i][j] = mat[i][j];
+            }
+        }</B></FONT>
+        return res;
+    }
+    
+    private String arrToString(int[][] mat) {
+        String[] res = new String[mat.length * mat[0].length];
+<A NAME="5"></A>        int cnt = 0;
+        for(int i = 0; i &lt; mat.length; i++) {
+            for(int j = 0; j &lt; mat[i].length; j++) {
+                res[cnt++] = <FONT color="#c8c2a7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#5',2,'match19-top.html#5',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>String.valueOf(mat[i][j]);
+            }
+        }
+        return String.join(&quot;,&quot;,res);
+    }</B></FONT>
+    
+    private int[] dx = new int[] {1,0,-1,0};
+    private int[] dy = new int[] {0,1,0,-1};
+}
+</PRE>
+
+</BODY>
+</HTML>
