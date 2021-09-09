@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>278_haitao7.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>278_haitao7.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
+    int minTaps(int n, vector&lt;int&gt;&amp; ranges) {
+        vector&lt;int&gt; dp(n + 1, -1);
+        dp[0] = 0;
+        for (int i = 0; i &lt;= n; ++i) {
+            if (ranges[i] == 0)
+                continue;
+            int x = max(0, i - ranges[i]);</B></FONT>
+            // if (dp[x] == -1)
+            //     break;
+            int pre = x == 0 ? 0 : dp[x];
+            if (pre == -1)
+                continue;
+            for (int j = x + 1; j &lt;= min(n, i + ranges[i]); ++j) {
+                // printf(&quot;%d %d\n&quot;, j, dp[j]);
+                dp[j] = dp[j] == -1 ? pre + 1 : min(dp[j], pre + 1);
+                // if (j &gt; 9990)
+                //     printf(&quot;%d %d\n&quot;, j, dp[j]);
+            }
+        }
+        return dp[n];
+    }
+};
+</PRE>
+</BODY>
+</HTML>

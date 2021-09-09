@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>112_smartjinyu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>112_smartjinyu.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+public:
+    int minTaps(int n, vector&lt;int&gt;&amp; ranges) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match18-0.html#0',2,'match18-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int curMin = 0;
+        int ans = 0;
+        while(curMin &lt; n){
+            int nextMin = curMin, idx = -1;
+            for(int i = 0; i &lt; ranges.size(); i++){
+                if(ranges[i] &gt;= 0 &amp;&amp; curMin &gt;= i - ranges[i] &amp;&amp; curMin &lt;= i + ranges[i] &amp;&amp; i + ranges[i] &gt;= nextMin){
+                    nextMin = i + ranges[i];
+                    idx = i;
+                }
+            }
+            if(nextMin == curMin){</B></FONT>
+                return -1;
+            }else{
+                // cout &lt;&lt; &quot;idx = &quot; &lt;&lt; idx &lt;&lt; &quot;, range[i] = &quot; &lt;&lt; ranges[idx] &lt;&lt;  endl;
+                curMin = nextMin;
+                ranges[idx] = -1;
+                ans++;
+            }
+        }
+        return ans;
+        
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>220_zhawa.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>220_zhawa.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    static bool cmp(vector&lt;int&gt;&amp; vec1,vector&lt;int&gt;&amp; vec2){
+        return vec1[0]&lt;vec2[0];
+    }
+    
+    int minTaps(int n, vector&lt;int&gt;&amp; ranges) {
+        vector&lt;vector&lt;int&gt;&gt; tmp;
+        for(int i=0;i&lt;ranges.size();i++){
+            tmp.push_back({i-ranges[i],i+ranges[i]});
+        }
+        sort(tmp.begin(),tmp.end(),cmp);
+        for(int i=0;i&lt;tmp.size();i++){
+            cout&lt;&lt;tmp[i][0]&lt;&lt;&quot; &quot;&lt;&lt;tmp[i][1]&lt;&lt;endl;
+        }
+        int prev=0;
+        int cur=0;
+        int count=0;
+        while(cur&lt;tmp.size()){
+            int maxL=0;
+            int flag=0;
+            while(cur&lt;tmp.size()&amp;&amp;tmp[cur][0]&lt;=prev){
+                flag=1;
+                if(tmp[cur][1]&gt;maxL){
+                    maxL=tmp[cur][1];
+                }
+                cur++;
+            }
+            count++;
+            cout&lt;&lt;count&lt;&lt;endl;
+            prev=maxL;
+            if(prev&gt;=n){
+                return count;
+            }
+            if(flag==0){
+                cur++;
+            }
+        }
+        return -1;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

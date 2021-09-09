@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>195_amir-6.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>195_amir-6.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minTaps(self, n: int, ranges: List[int]) -&gt; int:
+        seg = []
+        for i in range(n+1):
+            if ranges[i] &gt; 0:
+                seg.append((max(0, i - ranges[i]), min(n, i + ranges[i])))
+        s2 =</B></FONT> {}
+        for s in seg:
+            if s[0] not in s2:
+                s2[s[0]] = []
+            s2[s[0]].append(s)
+        seg = []
+        for k in s2:
+            t = s2[k][0]
+            for xx in s2[k]:
+                if xx[1] &gt; t[1]:
+                    t = xx
+            seg.append(t)
+            
+        s2 = {}
+        for s in seg:
+            if s[1] not in s2:
+                s2[s[1]] = []
+            s2[s[1]].append(s)
+        seg = []
+        for k in s2:
+            t = s2[k][0]
+            for xx in s2[k]:
+                if xx[0] &lt; t[0]:
+                    t = xx
+            seg.append(t)
+            
+            
+        seg.sort(key=lambda x: x[0])
+        #print(seg)
+        cnt = 0
+        
+        if not seg or seg[0][0] != 0: 
+            return -1
+        
+        i = 0
+        ans = 1
+        while seg[i][1] != n:
+            nx = i
+            j = 1 + i
+            while j &lt; len(seg) and seg[j][0] &lt;= seg[i][1]:
+                if seg[nx][1] &lt; seg[j][1]:
+                    nx = j
+                j += 1
+            if nx == i:
+                return -1
+            ans += 1
+            i = nx
+        return ans
+</PRE>
+
+</BODY>
+</HTML>

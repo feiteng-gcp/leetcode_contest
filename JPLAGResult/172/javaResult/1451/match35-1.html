@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>382_solved.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>382_solved.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minTaps(int n, int[] ranges) {
+        List&lt;List&lt;Integer&gt;&gt; rangeCalculations = new ArrayList&lt;&gt;();
+        
+        for (int i = 0; i &lt; ranges.length; i++) {
+            List&lt;Integer&gt; specRange = new ArrayList&lt;&gt;();
+            specRange.add(i - ranges[i]);
+            specRange.add(i + ranges[i]);
+            rangeCalculations.add(specRange);
+        }
+        List&lt;Integer&gt; specInterval = new ArrayList&lt;&gt;();
+        specInterval.add(0);
+        specInterval.add(n);
+        int result = leastMerge(rangeCalculations, specInterval);
+        
+        if (result == 0) {
+            return -1;
+        } else {
+            return result;
+<A NAME="0"></A>        }
+    }
+    
+    <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#0',2,'match35-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>public static class Interval {
+        public int start;
+        public int end;
+        
+        public Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+public int leastMerge(List&lt;List&lt;Integer&gt;&gt; intervals, List&lt;Integer&gt; interval) {</B></FONT>
+    if (intervals == null || intervals.size() == 0) {
+        return 0;
+    } 
+    
+    int targetStart = interval.get(0), targetEnd = interval.get(1);
+    int count = 0;
+
+    intervals.sort((c1, c2) -&gt; {
+        if (c1.get(0) == c2.get(0)) {
+            return c1.get(1) - c2.get(1);
+        }  else {
+            return c1.get(0) - c2.get(0);
+        }
+    });
+
+    int i = 0, start = targetStart, end = targetStart;
+<A NAME="1"></A>
+    while (start &lt; targetEnd) {
+        while (i &lt; intervals.size() &amp;&amp; intervals.get(i).get(0) &lt;= start) {
+            end = Math.max(end, <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match35-0.html#1',2,'match35-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>intervals.get(i).get(1));
+            i++;
+        }
+
+        if (start == end) {
+            return 0;
+        }
+
+        start = end;
+        count++;
+    }
+
+    return count;
+}
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

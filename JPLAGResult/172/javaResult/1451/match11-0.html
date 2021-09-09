@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>472_ZaZahui528.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>472_ZaZahui528.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int minTaps(int n, int[] ranges) {
+        List&lt;Interval&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; ranges.length; i++) {
+            Interval interval = new Interval(i - ranges[i], i + ranges[i]);
+            list.add(interval);
+        }
+        Interval target = new Interval(0, n);
+        return leastMerge(list, target);
+<A NAME="0"></A>    }
+
+
+    <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match11-1.html#0',3,'match11-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Interval {
+        int start;
+        int end;
+
+        public Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }</B></FONT>
+<A NAME="1"></A>
+    public static int leastMerge(List&lt;Interval&gt; list, Interval interval) {
+        //0. sort by start
+        Collections.sort(list, Comparator.comparingInt(<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match11-1.html#1',3,'match11-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>o -&gt; o.start));
+        int i = 0;
+        int start = interval.start;
+        int count = 0;
+        while (i &lt; list.size()) {
+            //special case, no way to cover
+            if (list.get(i).start &gt; start) {
+                break;
+            }
+            int furthest = Integer.MIN_VALUE;
+            //1. find eligible intervals
+            while (i &lt; list.size() &amp;&amp; list.get(i).start &lt;= start) {
+                if (list.get(i).end &gt; start) { //eligible
+                    //2. choose the one that has the furthest range
+                    if (list.get(i).end &gt; furthest) {
+                        furthest = list.get(i).end;
+                    }
+                }
+                i++;
+            }
+            count++;
+
+            if (furthest &gt;= interval.end) return count;
+            //3. update start to furthest range
+            start = furthest;
+        }
+        return -1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

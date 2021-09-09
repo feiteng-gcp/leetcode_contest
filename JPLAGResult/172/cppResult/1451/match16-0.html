@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>342_MacUser.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>342_MacUser.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match16-1.html#0',3,'match16-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int minTaps(int n, vector&lt;int&gt;&amp; ranges) {
+        vector&lt;vector&lt;int&gt;&gt; intervals;
+        intervals.reserve(n + 1);
+        for (int i = 0; i &lt;= n; i++) {</B></FONT>
+            intervals.push_back({ i - ranges[i], i + ranges[i] });
+        }
+        sort(intervals.begin(), intervals.end());
+        vector&lt;int&gt; dp(n + 1, INT_MAX);
+        for (int i = 0; i &lt;= n; i++) {
+            int start = intervals[i][0];
+            int end = intervals[i][1];
+            if (intervals[i][1] &gt; n) {
+                end = n;
+            }
+            if (start &lt;= 0) {
+                for (int j = 1; j &lt;= end; j++) {
+                    dp[j] = 1;
+                }
+                continue;
+            }
+            for (int j = start; j &lt;= end; j++) {
+                if (dp[j] &lt; INT_MAX) {
+                    dp[end] = min(dp[end], dp[j] + 1);
+<A NAME="1"></A>                }
+            }
+            if (dp[end] &lt; INT_MIN) {
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match16-1.html#1',3,'match16-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>                for (int j = 0; j &lt;= end; j++) {
+                    dp[j] = min(dp[j], dp[end]);
+                }
+            }
+        }
+        return dp[n] == INT_MAX ? -1 : dp[n];
+    }
+};</B></FONT>
+
+/*
+5
+[3,4,1,1,0,0]
+3
+[0,0,0,0]
+7
+[1,2,1,0,2,1,0,1]
+8
+[4,0,0,0,0,0,0,0,4]
+8
+[4,0,0,0,4,0,0,0,4]
+
+
+*/
+</PRE>
+</BODY>
+</HTML>

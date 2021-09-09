@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>443_leaven12.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>443_leaven12.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match15-1.html#0',3,'match15-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def minTaps(self, n: int, ranges: List[int]) -&gt; int:
+        # sort by starting, cut interval left to 0
+        # use heap to keep the longest interval (reach farest)
+        intl = []
+        for i in range(n+1):
+            if ranges[i] == 0:
+                continue
+            left = max(i - ranges[i], 0)
+            right = i + ranges[i]
+            intl.append([left,right])
+        intl.sort()
+       
+        cnt =</B></FONT> 0
+        if not intl or intl[0][0] != 0:
+            return -1
+        #if intl[-1][1] &lt; n:
+        #    return -1
+        #print(intl)
+        heap = []
+        currLeft = 0
+        #heapq.heappush(heap, -intl[i][1])
+        i = 0
+        while i &lt; len(intl):
+            found= False
+            while i &lt; len(intl) and intl[i][0] &lt;= currLeft:
+                found = True
+                heapq.heappush(heap, -intl[i][1])
+                i += 1
+            if not found:
+                return -1
+            cnt += 1
+            currLeft = -heap[0]
+            if currLeft &gt;= n:
+                return cnt
+            heap = []
+        return -1
+            
+            
+            
+            
+            
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

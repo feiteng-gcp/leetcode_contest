@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>289_katryo.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>289_katryo.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>from typing import List
+
+
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def minTaps(self, n: int, ranges: List[int]) -&gt; int:
+        lr = []
+        for i in range(n+1):
+            if ranges[i] == 0:
+                continue
+            l = max(0, i - ranges[i])
+            r = i + ranges[i]
+            lr.append((l, r))
+
+        lr.sort()
+
+        lenlr =</B></FONT> len(lr)
+
+        cover = -1
+        cur = 0
+        ans = 0
+        for i in range(n+1):
+            if i == n and i == cover:
+                continue
+            if i &lt; cover:
+                continue
+            rightmost = -1
+            while cur &lt; lenlr and lr[cur][0] &lt;= i:
+                rightmost = max(rightmost, lr[cur][1])
+                cur += 1
+            if rightmost == -1:
+                return -1
+            ans += 1
+            cover = rightmost
+        return ans
+
+
+# s = Solution()
+# print(s.minTaps(35, [1,0,4,0,4,1,4,3,1,1,1,2,1,4,0,3,0,3,0,3,0,5,3,0,0,1,2,1,2,4,3,0,1,0,5,2]))
+# print(s.minTaps(5, [3,4,1,1,0,0]))
+# print(s.minTaps(3, [0,0,0,0]))
+# print(s.minTaps(7,  [1,2,1,0,2,1,0,1]))
+# print(s.minTaps( 8,  [4,0,0,0,0,0,0,0,4]))
+# print(s.minTaps(8,  [4,0,0,0,4,0,0,0,4]))
+</PRE>
+
+</BODY>
+</HTML>

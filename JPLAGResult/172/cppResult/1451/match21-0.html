@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>246_ac130h.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>246_ac130h.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+<A NAME="0"></A>    static bool cmp(pair&lt;int, int&gt;&amp; x, pair&lt;int, int&gt;&amp; y) {
+        return x.first == y.first ? x.second &gt; y.second : x.first &lt; y.first;
+    }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>public:
+<A NAME="1"></A>    int minTaps(int n, vector&lt;int&gt;&amp; ranges) {
+        vector&lt;pair&lt;int, int&gt;&gt; intervals;
+        for (int i = 0; i &lt;= n; i++) {</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            intervals.push_back({i - ranges[i], i + ranges[i]});
+        }
+        sort(intervals.begin(), intervals.end(), cmp);
+        int result = 0;
+        int maxRight = -1;
+        int maxPos = -1;
+        int i = 0;
+        while (i &lt;= n &amp;&amp; intervals[i].first &lt;= 0) {
+            if (intervals[i].second &gt; maxRight) {
+                maxRight = intervals[i].second;
+                maxPos = i;
+            }</B></FONT>
+            i++;
+        }
+        if (maxRight &lt; 0) {
+            return -1;
+        }
+        result++;
+        i = maxPos + 1;
+        while (i &lt;= n &amp;&amp; maxRight &lt; n) {
+            if (intervals[i].first &gt; maxRight) {
+                return -1;
+            }
+            int curMaxRight = -1;
+            while (i &lt;= n &amp;&amp; intervals[i].first &lt;= maxRight) {
+                curMaxRight = max(curMaxRight, intervals[i].second);
+                i++;
+            }
+            if (curMaxRight &lt;= maxRight) {
+                return -1;
+            }
+            result++;
+            maxRight = curMaxRight;
+        }
+        if (maxRight &lt; n) {
+            return -1;
+        } else {
+            return result;
+        }
+    }
+};
+</PRE>
+</BODY>
+</HTML>
