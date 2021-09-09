@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>433_ycui11.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>433_ycui11.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def numOfArrays(self, n: int, m: int, k: int) -&gt; int:
+        @lru_cache(None)
+        def dp(k, m, n, pre_m):
+            if  k&lt;0 :
+                return 0
+<A NAME="0"></A>            if n == 0 and k == 0:
+                return 1
+            elif n == 0 and k&gt;0:
+                <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match28-1.html#0',3,'match28-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>return 0
+            cur_ans = 0
+            for i in range(1, m+1):
+                if i&lt;= pre_m:
+                    cur_ans += dp(k, m, n-1, pre_m) % (10**9+7)
+                else:
+                    cur_ans += dp(k-1, m, n-1, i) % (10**9+7)
+            return cur_ans  % (10**9+7)
+        return dp(</B></FONT>k, m, n, -1)
+</PRE>
+
+</BODY>
+</HTML>

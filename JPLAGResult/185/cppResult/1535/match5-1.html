@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>300_xjhz.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>300_xjhz.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#0',2,'match5-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int numOfArrays(int n, int m, int k) {
+        const int mod = 1e9 + 7;
+        vector&lt;vector&lt;vector&lt;int&gt; &gt; &gt;dp(n + 1, vector&lt;vector&lt;int&gt; &gt;(m + 1, vector&lt;int&gt;(k + 1)));
+        dp[0][0][0] = 1;
+        for(int i = 1; i &lt;= n; i++)
+        {
+            for(int j = 1; j &lt;= m; j++)
+            {
+                for(int pk = 1; pk &lt;= k; pk++)
+                {
+                    for(int prej = 0; prej &lt; j; prej++)</B></FONT>
+<A NAME="1"></A>                    dp[i][j][pk] += dp[i - 1][prej][pk - 1], dp[i][j][pk] %= mod;
+                    for(int prej = 1; prej &lt;= j; prej++)
+                    dp[i][j][pk] += dp[i - 1][j][pk], dp[i][j][pk] %= mod;
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match5-0.html#1',2,'match5-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>                }
+            }
+        }
+        int ans = 0;
+        for(int i = 0; i &lt;= m ;i++)
+            ans += dp[n][i][k], ans %= mod;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

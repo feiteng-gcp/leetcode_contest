@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>211_raynor30.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>211_raynor30.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+  int dp[51][101][51];
+public:
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#0',2,'match7-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>  int numOfArrays(int n, int M, int k) {
+    memset(dp, 0, sizeof(dp));
+    for (int x = 0; x &lt; M; ++x) {
+      dp[0][x][0] = 1;
+<A NAME="1"></A>    }</B></FONT>
+    int mod = 1e9 + 7;
+    
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#1',2,'match7-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    for (int i = 1; i &lt; n; ++i) {
+      for (int c = 0; c &lt;= k; ++c) {
+<A NAME="2"></A>        for (int x = 0; x &lt; M; ++x) {       
+          for (int x2 = 0; x2 &lt; M; ++x2) {</B></FONT>
+            dp[i][x][c] = (dp[i][x][c] + (x &gt; x2 ? (c ? dp[i-1][x2][c-1]:0) : dp[i-1][x][c])) % mod;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match7-0.html#2',2,'match7-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>          }
+        }
+      }
+    }
+
+    int ans = 0;
+    for (int x = k-1; x &lt; M; ++x) {
+      ans = (ans + dp[n-1][x][k-1]) % mod;</B></FONT>
+    }
+    return ans;
+  }
+};
+</PRE>
+</BODY>
+</HTML>

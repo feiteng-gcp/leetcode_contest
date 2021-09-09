@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>366_huangyuyang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>366_huangyuyang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int f[105][105][105];
+    int numOfArrays(int n, int m, int k) {
+        int mo = 1000000007;
+        for (int i = 0; i &lt;= 100; i++) {
+            for (int j = 0; j &lt;= 100; j++) {
+                for (int l = 0; l &lt;= 100; l++) {
+                    f[i][j][l] = 0;
+<A NAME="0"></A>                }
+            }
+        }
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match2-1.html#0',3,'match2-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        f[0][0][0] = 1;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt;= m; j++) {
+                for (int l = 0; l &lt;= k; l++) {
+                    for (int nxt = 1; nxt &lt;= m; nxt++) {
+                        if (nxt &lt;= j) {
+                            (f[i + 1][j][l] += f[i][j][l]) %= mo;
+                        } else {
+                            (f[i + 1][nxt][l + 1] += f[i][j][l]) %= mo;
+                        }
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int j = 0; j &lt;= m; j++) {
+            (ans += f[n][j][k]) %= mo;
+        }
+        printf(&quot;\n&quot;);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

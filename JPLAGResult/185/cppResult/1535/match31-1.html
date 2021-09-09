@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>239_ryanwang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>239_ryanwang.cpp</CENTER></H3><HR>
+<PRE>
+const int mod=1e9+7;
+int dp[52][102][52];
+class Solution {
+public:
+<A NAME="0"></A>    int numOfArrays(int n, int m, int k) {
+        //dp[i][max][cost]
+        memset(dp, 0, sizeof(dp));
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        dp[0][0][0]=1;
+        for(int i=0; i&lt;n; i++) {
+            for(int nxt=1; nxt&lt;=m; nxt++) {
+                for(int cur=0; cur&lt;=m; cur++) {
+                    for(int cost=0; cost&lt;=k; cost++) {
+                        if (nxt&gt;cur) {
+                            dp[i+1][nxt][cost+1]+=dp[i][cur][cost];
+                            dp[i+1][nxt][cost+1]%=mod;
+                        }
+                        else {
+                            dp[i+1][cur][cost]+=dp[i][cur][cost];
+                            dp[i+1][cur][cost]%=mod;
+                        }
+                        //printf(&quot;dp[%d][%d][%d]=%d\n&quot;, i, cur, cost, dp[i][cur][cost]);
+                    }
+<A NAME="1"></A>                }
+            }
+        } </B></FONT>
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int ans=0;
+        for(int i=1; i&lt;=m; i++) {
+            //cout&lt;&lt;dp[n][i][k]&lt;&lt;' ';
+            ans+=dp[n][i][k];
+            ans%=mod;
+        }
+        //cout&lt;&lt;endl;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>
