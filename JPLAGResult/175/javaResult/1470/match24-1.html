@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>341_KurosuHa.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>341_KurosuHa.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TweetCounts {
+
+    Map&lt;String, List&lt;Integer&gt;&gt; map; 
+    public TweetCounts() {
+        map = new HashMap&lt;&gt;();
+    }
+    
+    public void recordTweet(String tweetName, int time) {</B></FONT>
+<A NAME="1"></A>        List&lt;Integer&gt; list = new ArrayList&lt;&gt;(); 
+        if(map.containsKey(tweetName)) 
+            list = map.get(tweetName);
+        <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#1',2,'match24-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>list.add(time);  
+        map.put(tweetName, list); 
+    }
+<A NAME="2"></A>    
+    public List&lt;Integer&gt; getTweetCountsPerFrequency(String freq, String tweetName, int startTime, int endTime) {</B></FONT>
+        
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#2',2,'match24-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>int inv = 0;
+        if(freq.equals(&quot;minute&quot;)) {
+            inv = 60;
+        } else if (freq.equals(&quot;hour&quot;)) {
+            inv = 60 * 60;
+        } else {</B></FONT>
+            inv = 60 * 60 * 24; 
+        }
+        
+        int bucket = (endTime - startTime) / inv;
+        int[] res = new int[bucket + 1];
+        
+        
+        if(!map.containsKey(tweetName)) {
+            List&lt;Integer&gt; r = new ArrayList&lt;&gt;();
+            for(int x : res) 
+                r.add(x);
+
+            return r; 
+<A NAME="3"></A>        }
+        
+        
+        for(int t : map.get(tweetName)) <FONT color="#6cc417"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#3',2,'match24-top.html#3',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            if(t &gt;= startTime &amp;&amp; t &lt;= endTime) {
+                int idx = (t - startTime) / inv;
+                res[idx]++; 
+            }
+        }
+        
+    
+        List&lt;Integer&gt; r = new ArrayList&lt;&gt;();
+        for(int x</B></FONT> : res) 
+            r.add(x);
+        
+        return r; 
+    }
+}
+
+/**
+ * Your TweetCounts object will be instantiated and called as such:
+ * TweetCounts obj = new TweetCounts();
+ * obj.recordTweet(tweetName,time);
+ * List&lt;Integer&gt; param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime);
+ */
+</PRE>
+
+</BODY>
+</HTML>

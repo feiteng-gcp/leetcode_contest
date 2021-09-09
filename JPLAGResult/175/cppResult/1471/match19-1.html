@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>208_byene.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>208_byene.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+    
+public:
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+        int n = seats[ 0 ].size();
+        int m = seats.size();
+        vector&lt; vector&lt; int &gt; &gt; dp( m, vector&lt; int &gt;( 1 &lt;&lt; n, 0 ) );
+        for( int i = 0; i &lt; ( 1 &lt;&lt; n ); i ++ )
+        {
+<A NAME="2"></A>            if( Check( 0, i, seats ) ) dp[ 0 ][ i ] = getnum( i );
+        }
+        int result = 0;
+<FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#2',2,'match19-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for( int i = 1; i &lt; m; i ++ )
+        {
+            for( int j = 0; j &lt; ( 1 &lt;&lt; n ); j ++ )
+            {
+                if( Check( i, j, seats ) == false ) continue;</B></FONT>
+                for( int k = 0; k &lt; ( 1 &lt;&lt; n ); k ++ )
+                {
+                    if( Check( i - 1, k, seats ) == false ) continue;
+                    if( Judge( j, k ) == false ) continue;
+                    dp[ i ][ j ] = max( dp[ i ][ j ], dp[ i - 1 ][ k ] + getnum( j ) ); 
+                }
+                if( i == m - 1 ) result = max( result, dp[ i ][ j ] );
+            }
+        }
+        return result;
+    }
+    
+<A NAME="1"></A>    
+    int getnum( int num )
+    {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#1',2,'match19-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        int cnt = 0;
+        for( int i = 9; i &gt;= 0; i -- )
+        {
+            if( ( num &gt;&gt; i ) &amp; 1 ) cnt ++;
+        }
+        return cnt;
+<A NAME="0"></A>    }
+    
+    bool Check( int dep, int val, vector&lt;vector&lt;char&gt;&gt;&amp; seats )</B></FONT>
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    {
+        for( int i = 9; i &gt;= 0; i -- )
+        {
+            if( ( val &gt;&gt; i ) &amp; 1 )
+            {
+                if( seats[ dep ][ i ] == '#' ) return false;
+                if( ( val &gt;&gt; ( i + 1 ) ) &amp; 1 ) return false;
+            }
+        }
+        return true;
+    }
+    
+    bool Judge( int j, int k )
+    {
+        vector&lt; int &gt; v;</B></FONT>
+        for( int i = 9; i &gt;= 0; i -- )
+        {
+            if( ( k &gt;&gt; i ) &amp; 1 ) v.push_back( i );
+        }
+        for( auto x: v )
+        {
+            int l = x - 1;
+            if( l &gt;= 0 &amp;&amp; ( ( j &gt;&gt; l ) &amp; 1 ) ) return false;
+            int r = x + 1;
+            if( ( j &gt;&gt; r ) &amp; 1 ) return false;
+        }
+        return true;
+    }
+    
+};
+</PRE>
+</BODY>
+</HTML>

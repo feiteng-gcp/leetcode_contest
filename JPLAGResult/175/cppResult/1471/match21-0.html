@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>30_qb_2008.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>30_qb_2008.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match21-1.html#0',3,'match21-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution {
+public:
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+        int m = seats.size();
+        int n = seats[0].size();
+        int mask = (1 &lt;&lt; n) - 1;
+<A NAME="1"></A>        vector&lt;int&gt; dp(mask + 1, -1);</B></FONT>
+        dp[0] = 0;
+        vector&lt;int&gt; next_dp(mask + 1, -1);
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match21-1.html#1',3,'match21-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int r = 0; r &lt; m; r++) {
+            for (int i = 0; i &lt;= mask; i++) {
+                next_dp[i] = -1;
+                int new_seat;</B></FONT>
+                if (!check_valid(i, seats[r], &amp;new_seat)) {
+                    continue;
+                }
+                for (int j = 0; j &lt;= mask; j++) {
+                    if (dp[j] == -1) continue;
+                    if (can_cheat(i, j, n)) continue;
+                    int tmp = new_seat + dp[j];
+                    next_dp[i] = max(next_dp[i], tmp);
+                    //printf(&quot;row %d, i = 0x%x, try j 0x%x, tmp = %d\n&quot;, r, i, j, tmp);
+                }
+<A NAME="2"></A>                //printf(&quot;row %d, dp[0x%0x] = %d\n&quot;, r, i, next_dp[i]);
+            }
+            dp = next_dp;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match21-1.html#2',3,'match21-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        }
+        int res = 0;
+        for (int i = 0; i &lt;= mask; i++) {
+            res = max(res, dp[i]);
+        }
+        return res;
+    }</B></FONT>
+    
+    bool check_valid(int mask, vector&lt;char&gt;&amp; seats, int* new_seat) {
+        *new_seat = 0;
+        for (int i = 0; i &lt; seats.size(); i++) {
+            if (mask &amp; (1 &lt;&lt; i)) {
+                if (seats[i] != '.') return false;
+                if (i + 1 &lt; seats.size() &amp;&amp; (mask &amp; (1 &lt;&lt; (i + 1))))
+                    return false;
+                ++*new_seat;
+            }
+        }
+        return true;
+    }
+    
+    bool can_cheat(int mask, int prev_mask, int n) {
+        for (int i = 0; i &lt; n; i++) {
+            if (mask &amp; (1 &lt;&lt; i)) {
+                if (i &gt; 0 &amp;&amp; (prev_mask &amp; (1 &lt;&lt; (i - 1)))) return true;
+                if (i + 1 &lt; n &amp;&amp; (prev_mask &amp; (1 &lt;&lt; (i + 1)))) return true;
+            }
+        }
+        return false;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>60_volodymyr_k.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>60_volodymyr_k.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A>class Solution {
+    public int maxStudents(char[][] seats) {
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match13-1.html#0',3,'match13-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>Map&lt;String, Integer&gt; memo = new HashMap&lt;&gt;();
+        return calc(seats, 0, &quot;&quot;, memo);
+    }
+    
+    private int calc(char[][] seats, int row, String prev, Map&lt;String, Integer&gt; memo</B></FONT>) {
+        if (row &gt;= seats.length) return 0;
+        
+        String key = row + prev;
+        
+        if (memo.containsKey(key)) return memo.get(key);
+<A NAME="1"></A>        
+        int max = backtrack(seats, row, 0, memo);
+        
+        <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match13-1.html#1',3,'match13-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>memo.put(key, max);
+        return max;
+    }
+    
+    private int backtrack(char[][] seats, int row, int start, Map&lt;String, Integer&gt; memo) {</B></FONT>
+        if (start == seats[0].length) {
+            return calc(seats, row + 1, new String(seats[row]), memo);
+<A NAME="2"></A>        }
+        
+        int max = 0;
+        if (<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match13-1.html#2',3,'match13-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>canSeat(seats, row, start)) {
+            seats[row][start] = 's';
+            max = Math.max(max, backtrack(seats, row, start + 1, memo) + 1);
+            seats[row][start] = '.';
+        }</B></FONT>
+        
+        max = Math.max(max, backtrack(seats, row, start + 1, memo));
+        return max;
+    }
+    
+    private boolean canSeat(char[][] seats, int r, int c) {
+        return seats[r][c] == '.' &amp;&amp; ok(seats, r, c - 1) &amp;&amp; ok(seats, r, c + 1)
+            &amp;&amp; ok(seats, r - 1, c - 1) &amp;&amp; ok(seats, r - 1, c + 1);
+    }
+    
+    private boolean ok(char[][] seats, int r, int c) {
+        int rows = seats.length, cols = seats[0].length;
+        if (r &lt; 0 || c &lt; 0 || r &gt;= rows || c &gt;= cols) return true;
+        return seats[r][c] != 's';
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

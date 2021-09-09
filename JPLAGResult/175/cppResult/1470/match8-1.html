@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>100_arjitkansal.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>100_arjitkansal.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match8-0.html#0',2,'match8-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class TweetCounts {
+private:
+    unordered_map&lt;string, vector&lt;int&gt; &gt; mp;
+public:
+    TweetCounts() {
+    }
+    
+    void recordTweet(string tweetName, int time) {
+        mp[tweetName].push_back(time);
+    }
+    
+    vector&lt;int&gt; getTweetCountsPerFrequency(string freq, string tweetName, int startTime, int endTime) {
+        int delta;
+        if (freq==&quot;minute&quot;) delta = 60;
+        else if (freq==&quot;hour&quot;) delta = 60*60;
+        else delta = 60*60*12;
+        vector&lt;int&gt; ans((endTime-startTime+delta)/delta);</B></FONT>
+        for (auto it:mp[tweetName]) {
+            if (it&gt;=startTime &amp;&amp; it&lt;=endTime) {
+                ans[(it-startTime)/delta]++;
+            }
+        }
+        return ans;
+    }
+};
+
+/**
+ * Your TweetCounts object will be instantiated and called as such:
+ * TweetCounts* obj = new TweetCounts();
+ * obj-&gt;recordTweet(tweetName,time);
+ * vector&lt;int&gt; param_2 = obj-&gt;getTweetCountsPerFrequency(freq,tweetName,startTime,endTime);
+ */
+</PRE>
+</BODY>
+</HTML>

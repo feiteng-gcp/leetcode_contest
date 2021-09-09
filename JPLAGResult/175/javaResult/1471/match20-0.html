@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>226_songrenchu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>226_songrenchu.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxStudents(char[][] seats) {
+        boolean[][] validCross = new boolean[256][256];
+        boolean[] valid = new boolean[256];
+        int[] num = new int[256];
+        for (int i = 0; i &lt; 256; i++) {
+            num[i] = numOfOne(i);
+            valid[i] = canCheatSame(i);
+            for (int j = 0; j &lt; 256; j++) {
+                validCross[i][j] = canCheat(i, j);
+            }
+        }
+        int n = seats.length;
+        int m = seats[0].length;
+        int[] rows = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            int r = 0;
+            for (int j = 0; j &lt; m; j++) {
+                r = r * 2 + (seats[i][j] == '#' ? 1 : 0);
+            }
+            rows[i] = r;
+        }
+        int mm = 1 &lt;&lt; m;
+        // System.out.println(mm);
+        int[][] dp = new int[n][mm];
+<A NAME="0"></A>        for (int i = 0; i &lt; mm; i++) {
+            if (valid[i] &amp;&amp; ((i &amp; rows[0]) == 0)) {
+                dp[0][i] = num[i];
+            <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match20-1.html#0',3,'match20-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>}
+        }
+        // System.out.println(&quot;here&quot;);
+        for (int i = 1; i &lt; n; i++) {
+            for (int j = 0; j &lt; mm; j++) {
+                if (!valid[j] || ((j &amp; rows[i]) != 0)) {
+                    continue;
+                }</B></FONT>
+                for (int k = 0; k &lt; mm; k++) {
+<A NAME="1"></A>                    if (!valid[k] || ((k &amp; rows[i - 1]) != 0) || !validCross[j][k]) {
+                        continue;
+                    }
+                    <FONT color="#f63526"><A HREF="javascript:ZweiFrames('match20-1.html#1',3,'match20-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>dp[i][j] = Math.max(dp[i][j], dp[i - 1][k] + num[j]);
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; mm; i++) {
+            ans = Math.max(ans, dp[n - 1][i]);
+        }
+        return ans;
+    }</B></FONT>
+    
+    public boolean canCheat(int x, int y) {
+        int[] sx = new int[8];
+        int[] sy = new int[8];
+        for (int i = 0; i &lt; 8; i++) {
+            sx[i] = x % 2;
+            sy[i] = y % 2;
+            x /= 2;
+            y /= 2;
+        }
+        for (int i = 0; i &lt; 8; i++) {
+            if (sx[i] == 1) {
+                if (i &gt; 0 &amp;&amp; sy[i - 1] == 1) {
+                    return false;
+                }
+                if (i &lt; 7 &amp;&amp; sy[i + 1] == 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+<A NAME="2"></A>    
+    public boolean canCheatSame(int x) {
+        int[] sx = new int[8];
+        <FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match20-1.html#2',3,'match20-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 0; i &lt; 8; i++) {
+            sx[i] = x % 2;
+            x /= 2;
+        }
+        for (int i = 1; i &lt; 8; i++) {</B></FONT>
+            if (sx[i] == 1 &amp;&amp; sx[i - 1] == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public int numOfOne(int x) {
+        int ans = 0;
+        while (x &gt; 0) {
+            ans += x % 2;
+            x /= 2;
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

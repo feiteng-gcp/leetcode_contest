@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>241_qzane.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>241_qzane.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match24-0.html#0',2,'match24-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution:
+    def maxStudents(self, seats: List[List[str]]) -&gt; int:
+        m = len(seats)
+        n = len(seats[0])
+        status = (1&lt;&lt;n)-1
+        code_seat = [0]*m
+        for</B></FONT> i in range(m):
+            for j in range(n):
+                code_seat[i] = (code_seat[i]&lt;&lt;1) + int(seats[i][j]=='.')
+        
+        dp = [[0]*status for i in range(m)]
+        one_count = [0] * status
+        for i in range(1, status):
+            one_count[i] = one_count[i - (i&amp;(-i))]+1
+            
+        for i in range(m):
+            for j in range(status):
+                if j &amp; (j&gt;&gt;1):
+                    continue
+                if (j | code_seat[i])^code_seat[i]:
+                    continue
+                maxn = 0
+                ct = one_count[j]
+                if i == 0:
+                    dp[0][j]=ct
+                    continue                
+                for k in range(status):
+                    if dp[i-1][k] &gt; maxn and (k&lt;&lt;1)&amp;j==0 and (k&gt;&gt;1)&amp;j==0:
+                        maxn = dp[i-1][k]
+                dp[i][j]=maxn+ct
+   
+        return max(dp[-1])
+                        
+        
+</PRE>
+
+</BODY>
+</HTML>

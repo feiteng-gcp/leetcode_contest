@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>260_zhuo1ang.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>260_zhuo1ang.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int n, m;
+    int dp[8][1 &lt;&lt; 8][1 &lt;&lt; 8];
+    int f[8][1 &lt;&lt; 8];
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+        n = seats.size();
+        m = seats[0].size();
+        memset(dp, 0, sizeof dp);
+        memset(f, 0,sizeof f);
+        for (int i = 0; i &lt; (1 &lt;&lt; m); i++){
+            bool ok = true;
+            int cnt = 0;
+            for (int j = 0; j &lt; m; j++){
+                if (i &amp; (1 &lt;&lt; j)){
+                    cnt++;
+                    if (seats[0][j] == '#'){
+                        ok = false;
+                        break;
+                    }
+                    if (j &gt; 0){
+                        if (i &amp; (1 &lt;&lt; (j - 1))){
+                            ok = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (ok){
+                dp[0][0][i] = cnt;
+                f[0][i] = cnt;
+<A NAME="0"></A>                cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; cnt &lt;&lt; endl;
+            }
+        }
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#0',2,'match31-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 1; i &lt; n; i++){
+            for (int j = 0; j &lt; (1 &lt;&lt; m); j++){
+                
+                
+              //  cout &lt;&lt; i - 1 &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; f[i - 1][j] &lt;&lt; endl;
+                
+                bool ok = true;
+                int cnt = 0;
+                for (int k = 0; k &lt; m; k++){</B></FONT>
+                    if (j &amp; (1 &lt;&lt; k)){
+                        cnt++;
+                        if (seats[i][k] == '#'){
+                            ok = false;
+                            break;
+                        }
+                        if (k &gt; 0){
+                            if (j &amp; (1 &lt;&lt; (k - 1))){
+                                ok = false;
+                                break;
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                if (ok){
+                    cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; endl;
+                    for (int k = 0; k &lt; (1 &lt;&lt; m); k++){
+                        //dp[k][j];
+                        
+                        bool ok1 = true;
+                        for (int l = 0; l &lt; m; l++){
+                            if (k &amp; (1 &lt;&lt; l)){
+                                if (l &gt; 0){
+                                    if (j &amp; (1 &lt;&lt; (l - 1))){
+                                        ok1 = false;
+                                        break;
+                                    }
+                                }
+                                if (l &lt; m - 1){
+                                    if (j &amp; (1 &lt;&lt; (l + 1))){
+                                        ok1 = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (ok1){
+                            dp[i][k][j] = max(dp[i][k][j], f[i - 1][k] + cnt);
+                            f[i][j] = max(f[i][j], dp[i][k][j]);
+                            //cout &lt;&lt; &quot;## &quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; f[i][j] &lt;&lt; endl;
+<A NAME="1"></A>                        }
+                    }
+                }
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match31-0.html#1',2,'match31-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; (1 &lt;&lt; m); i++)
+            ans = max(ans, f[n-1][i]);
+        //for (int i = 0; i &lt; (1 &lt;&lt; m); i++)
+           // cout &lt;&lt; &quot;!:&quot; &lt;&lt; f[n][i] &lt;&lt; endl;
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>191_ghouyl-2.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>191_ghouyl-2.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def maxStudents(self, seats: 'List[List[str]]') -&gt; int:
+        dp={}
+        m,n=len(seats),len(seats[0])
+        def toarr(num,n):
+            arr=[0]*n
+            k=num;i=0
+            while k&gt;0:
+                arr[i]=k%2
+                k//=2
+                i+=1
+            arr.reverse()
+            return tuple(arr)
+        
+        dp[toarr(0,n)]=0
+        def valid1(a1,seat1):
+            l=len(a1)
+            for i in range(1,l):
+                if a1[i]==1 and a1[i-1]==1:
+                    return False 
+            for i in range(l):
+                if a1[i]==1 and seat1[i]=='#':
+                    return False 
+<A NAME="0"></A>            return True
+        def valid2(a1,a2):
+            l=len(a1)
+            <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match4-0.html#0',2,'match4-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for i in range(l):
+                if a1[i]==1 and i&gt;=1 and a2[i-1]==1:
+                    return False
+                if a1[i]==1 and i+1&lt;l and a2[i+1]==1:
+                    return False 
+            r</B></FONT>eturn True
+        for idx in range(m):
+            newdp={}
+            for i in range(2**n):
+                cur=toarr(i,n)
+                if not valid1(cur,seats[idx]):
+                    continue
+                for prev in dp:
+                    if valid2(cur,prev):
+                        if cur not in newdp:
+                            newdp[cur]=0
+                        newdp[cur]=max(newdp[cur],dp[prev]+sum(cur))
+            dp=newdp
+        ans=[dp[k] for k in dp]
+        return max(ans)
+</PRE>
+
+</BODY>
+</HTML>

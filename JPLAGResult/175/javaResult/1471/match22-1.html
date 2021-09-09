@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>306_shabes.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>306_shabes.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int maxStudents(char[][] seats) {
+        int m = seats.length;
+<A NAME="0"></A>        int n = seats[0].length;
+        int limit = 1 &lt;&lt; n;
+        int[] prevRow = new int[limit];
+        <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#0',2,'match22-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>prevRow[0] = 1;
+        for (int i = 0; i &lt; m; i++) {
+            int[] newRow = new int[limit];
+            for (int mask = 0; mask &lt; limit; mask++) {
+                int added = 0</B></FONT>;
+                boolean valid = true;
+                for (int j = 0; j &lt; n; j++) {
+                    if ((mask &amp; (1 &lt;&lt; j)) == 0) continue;
+                    added++;
+                    if (seats[i][j] == '#' || (mask &amp; (1 &lt;&lt; (j + 1))) != 0) {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    for (int k = 0; k &lt; limit; k++) if (prevRow[k] &gt; 0 &amp;&amp; prevRow[k] + added &gt; newRow[mask]) {
+                        boolean valid2 = true;
+                        for (int j = 0; j &lt; n; j++) {
+                            if ((k &amp; (1 &lt;&lt; j)) == 0) continue;
+                            if (j &gt; 0 &amp;&amp; (mask &amp; (1 &lt;&lt; (j - 1))) != 0 || (mask &amp; (1 &lt;&lt; (j + 1))) != 0) {
+                                valid2 = false;
+                                break;
+                            }
+                        }
+<A NAME="1"></A>                        if (valid2) newRow[mask] = prevRow[k] + added;
+                    }
+                }
+            <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match22-0.html#1',2,'match22-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+            prevRow = newRow;
+        }
+        int result = 0;
+        for (int i = 0; i &lt; limit; i++) result = Math.max(result, prevRow[i]);
+        return result - 1;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

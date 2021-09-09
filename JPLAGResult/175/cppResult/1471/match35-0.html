@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>302_FLAGS.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>302_FLAGS.cpp</CENTER></H3><HR>
+<PRE>
+const int N = 8;
+int dp[1 &lt;&lt; N][N];
+<A NAME="0"></A>class Solution {
+    int m,n;
+    vector&lt;vector&lt;int&gt; &gt; b;
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match35-1.html#0',3,'match35-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    vector&lt;vector&lt;int&gt; &gt; t;
+    bool legal(int all) {
+        for (int i = 1; i &lt; n; ++i) {
+            if (((all &gt;&gt; i) &amp; 1) &amp;&amp; (all &gt;&gt; i - 1 &amp; 1)) { return false;}</B></FONT>
+        }
+        return true;
+    }
+    int init(int all) {
+        int ret = 0;
+        for (int i = 0; i &lt; n; ++i) {
+<A NAME="1"></A>            if (all &gt;&gt; i &amp; 1) {
+                ++ret;
+                t[0][i] = 2;
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match35-1.html#1',3,'match35-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>            }
+        } 
+        return ret;
+    }
+    
+    int cal(int n) {
+        int ret = 0;
+        while(0 != n) {
+            ++ret;
+            n = n &amp; n - 1;
+        }
+        return ret;
+    }</B></FONT>
+    
+    bool conflict(int prev, int cur) {
+        if ((cur &gt;&gt; 1 &amp; prev) || (cur &lt;&lt; 1 &amp; prev)) { return true; }
+        return false;
+    }
+    
+    bool ok(int r, int c) {
+        if (0 != t[r][c]) { return false; }
+        if (c &gt; 0) {
+            if (t[r][c - 1] == 2 || 2 == t[r - 1][c - 1]) { return false; }
+        }
+        if (c &lt; n - 1) {
+            if (2 == t[r][c + 1] || 2 == t[r - 1][c + 1]) { return false;}
+        }
+        return true;
+    }
+    
+    bool isok(int s, int r) {
+        for (int i = 0; i &lt; n; ++i) {
+            if (b[r][i] == 1 &amp;&amp; (1 == (s &gt;&gt; i &amp; 1))) { return false;}
+        }
+        return true;
+    }
+    
+    // int solve(int all) {
+    //     t = vector&lt;vector&lt;int&gt; &gt;(b);
+    //     int ret = 0;
+    //     if (legal(all)) {
+    //         ret = init(all);
+    //         for (int i = 1; i &lt; m; ++i) {
+    //             for (int j = 0; j &lt; n; ++j) {
+    //                 if(ok(i, j)) { 
+    //                     t[i][j] = 2;
+    //                     ++ret; 
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return ret;
+    // }
+public:
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+<A NAME="2"></A>        m = seats.size();
+        n = seats[0].size();
+        b = vector&lt;vector&lt;int&gt; &gt;(m, vector&lt;int&gt;(n, 0));
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match35-1.html#2',3,'match35-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if ('.' == seats[i][j]) {
+                    b[i][j] = 0;</B></FONT>
+                }
+                else { b[i][j] = 1; }
+            }
+        }
+        // int first = 0;
+        // for (int j = 0; j &lt; n; ++j) {
+        //     if (b[0][j] == 1) { first = first | (1 &lt;&lt; j); }
+        // }
+        // int all = ((1 &lt;&lt; n) - 1) ^ first;
+        // // cout &lt;&lt; &quot;first: &quot; &lt;&lt; first &lt;&lt;  &quot; all: &quot; &lt;&lt; all &lt;&lt; endl;
+        // int mask = all;
+        // int sub = mask;
+        // int ans = 0;
+        // do {
+        //     ans = max(ans, solve(sub));
+        //     sub = (sub - 1) &amp; mask;
+        //     // cout &lt;&lt; sub &lt;&lt; &quot;: &quot; &lt;&lt; solve(sub) &lt;&lt; endl;
+        // }while(0 != sub);
+        
+        int all = (1 &lt;&lt; n);
+        memset(dp, 0, sizeof(dp));
+        for (int r = 0; r &lt; m; ++r) {
+            for (int i = 0; i &lt; all; ++i) {
+                if (isok(i, r) &amp;&amp; legal(i)) {
+                    if (0 != r) {
+                        for (int j = 0; j &lt; all; ++j) {
+                            if ( legal(j) &amp;&amp; isok(j, r - 1) &amp;&amp; !conflict(i, j)) {
+                                dp[i][r] = max(dp[i][r], cal(i) + dp[j][r - 1]);
+                            }
+                        }
+                    }
+                    else {
+                        dp[i][r] = cal(i);
+                    }
+                }
+            }
+        }
+        
+        int ans = 0;
+        for (int i = 0; i &lt; all; ++i) {
+            ans = max(ans, dp[i][m - 1]);
+        }
+        return ans;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

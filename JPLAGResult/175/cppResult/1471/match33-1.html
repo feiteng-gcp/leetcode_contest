@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>122_zzq-_-.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>122_zzq-_-.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int f[10][(1&lt;&lt;8)]={0};
+    int is1(int n,int k){
+        return ((n&gt;&gt;k)&amp;1);
+    }
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+        int m=seats.size(),n=seats[0].size(),all=(1&lt;&lt;n);
+        //init first line
+        for(int i=0;i&lt;all;++i){
+            int ok=1,stu=0;
+            for(int j=0;j&lt;n;++j){
+                if(is1(i,j)){
+                    stu++;
+                    if(seats[0][j]=='#' || (j-1&gt;=0&amp;&amp;is1(i,j-1)) ||(j+1&lt;n&amp;&amp;is1(i,j+1)) ) {ok=0;break;}
+                }
+            }
+            if(ok) f[0][i]=stu;
+
+<A NAME="0"></A>        }
+        
+        for(int i=0;i&lt;m-1;++i){
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#0',2,'match33-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            for(int j=0;j&lt;all;++j){
+               // if(f[i][j]){
+                    for(int jj=0;jj&lt;all;++jj){
+                        bool ok=1;
+                        int stu=0;
+                        for(int k=0;k&lt;n;++k){</B></FONT>
+                            if(is1(jj,k)){
+                                stu++;
+                                if(seats[i+1][k]=='#' ||   (k-1&gt;=0&amp;&amp;is1(jj,k-1)) ||(k+1&lt;n&amp;&amp;is1(jj,k+1))||
+                                  (k-1&gt;=0&amp;&amp;is1(j,k-1)) || (k+1&lt;n&amp;&amp;is1(j,k+1))  )
+                                {ok=0;break;}
+                            }
+                        }
+                        if(ok){
+<A NAME="1"></A>                               f[i+1][jj]=max(f[i+1][jj],f[i][j]+stu);}
+                    }
+                //}
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match33-0.html#1',2,'match33-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            }
+        }
+        
+        int ans=0;
+        for(int i=0;i&lt;all;++i) 
+            ans=max(ans,f[m-1][i]);
+        return ans;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

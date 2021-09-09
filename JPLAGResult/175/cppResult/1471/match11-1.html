@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>137_NerdyCoder.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>137_NerdyCoder.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int maxStudents(vector&lt;vector&lt;char&gt;&gt;&amp; seats) {
+        const int m = seats.size();
+<A NAME="1"></A>        const int n = seats[0].size();
+        
+        vector&lt;int&gt; forbids(m);
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#1',2,'match11-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>        for (int i = 0; i &lt; m; ++i) {
+            for (int j = 0; j &lt; n; ++j) {
+                if (seats[i][j] == '#') {</B></FONT>
+                    forbids[i] |= (1 &lt;&lt; j);
+                }
+            }
+        }
+        
+        vector&lt;int&gt; layer(1 &lt;&lt; n, -1);
+        layer[0] = 0;
+        for (int state = 1; state &lt; layer.size(); ++state) {
+            int bit = (state &amp; (-state));
+            if (!(state &amp; (bit &lt;&lt; 1)) &amp;&amp; layer[state &amp; ~bit] &gt;= 0) {
+                layer[state] = layer[state &amp; ~bit] + 1;
+            }
+        }
+        
+<A NAME="0"></A>        vector&lt;int&gt; last_dp(1 &lt;&lt; n, -1);
+        vector&lt;int&gt; cur_dp(1 &lt;&lt; n, -1);
+        for (int state = 0; state &lt; cur_dp.size(); ++state) {
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match11-0.html#0',2,'match11-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            if (!(forbids[0] &amp; state)) {
+                cur_dp[state] = layer[state];
+            }
+        }
+        for (int i = 1; i &lt; m; ++i) {
+            swap(cur_dp, last_dp);
+            for (int state = 0; state &lt; cur_dp.size(); ++state) {
+                if (forbids[i] &amp; state) {</B></FONT>
+                    cur_dp[state] = -1;
+                    continue;
+                }
+                cur_dp[state] = 0;
+                for (int last_state = 0; last_state &lt; last_dp.size(); ++last_state) {
+                    if (last_dp[last_state] &gt;= 0 &amp;&amp; layer[last_state | state] &gt;= 0) {
+                        cur_dp[state] = max(cur_dp[state], last_dp[last_state] + layer[state]);
+                    }
+                }
+            }
+        }
+        return *max_element(cur_dp.begin(), cur_dp.end());
+    }
+};
+</PRE>
+</BODY>
+</HTML>

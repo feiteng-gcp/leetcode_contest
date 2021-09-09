@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>55_leoGW.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>55_leoGW.py</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match29-1.html#0',3,'match29-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class Solution:
+    def maxStudents(self, seats: List[List[str]]) -&gt; int:
+        m = len(seats)
+        n = len(seats[0])
+        dp = [[-1 for j in range(2**n)] for i in range(</B></FONT>m)]
+        condition = [0] * m
+        for i in range(m):
+            s = seats[i]
+            for ch in s:
+                if ch == &quot;.&quot;:
+                    condition[i] = condition[i] * 2 + 1
+                else:
+                    condition[i] = condition[i] * 2 + 0
+        
+        goodLine = [True for i in range(2**n)]
+        num = [0 for i in range(2**n)]
+        for i in range(2**n):
+            pattern = 3
+            for j in range(max(n-1, 1)):
+                if i &amp; pattern == pattern:
+                    goodLine[i] = False
+                pattern *= 2
+            num[i] = str(bin(i)).count(&quot;1&quot;)
+            if goodLine[i] == True:
+                if i &amp; condition[0] == i:
+                    dp[0][i] = num[i]
+                    
+        for i in range(1, m, 1):
+            for j in range(2**n):
+                if (j &amp; condition[i] == j) and (goodLine[j] == True):
+                    for k in range(2**n):
+                            if ((j * 2) &amp; k ==0 ) and ((j // 2) &amp; k == 0):
+                                dp[i][j] = max(dp[i-1][k] + num[j], dp[i][j])
+        ans = max(dp[m-1])
+        return ans
+        
+</PRE>
+
+</BODY>
+</HTML>

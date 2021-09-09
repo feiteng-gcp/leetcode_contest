@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>139_sythello.py</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>139_sythello.py</CENTER></H3><HR>
+<PRE>
+class Solution:
+    def _plan2idx(self, plan: List[bool]):
+        idx = 0
+        for i in range(len(plan)):
+            if plan[i]:
+                idx += (2 ** i)
+        return idx
+    
+    def _idx2plan(self, idx: int, N: int):
+        plan = []
+        for i in range(N):
+            if idx &amp; (2 ** i) &gt; 0:
+                plan.append(True)
+            else:
+                plan.append(False)
+        return plan
+    
+    def maxStudents(self, seats: List[List[str]]) -&gt; int:
+        M = len(seats)
+        N = len(seats[0])
+        
+        avb_map = [[True if c == '.' else False for c in row] for row in seats]
+        # print(avb_map)
+        
+        IMP = -9999
+        mx = [IMP for _ in range(2 ** N)]
+        
+        # row 0
+        for idx in range(2 ** N):
+            plan = self._idx2plan(idx, N)
+            avb = True
+            for j in range(N):
+                if plan[j] and not avb_map[0][j]:
+                    avb = False
+                    break
+                if j &gt; 0 and (plan[j] and plan[j-1]):
+                    avb = False
+                    break
+            if avb:
+                mx[idx] = sum(plan)
+                # print(plan)
+        
+        # row 1 ~ M-1
+        for i in range(1, M):
+            nmx = [IMP for _ in range(2 ** N)]
+            for idx in range(2 ** N):
+                # check avb
+                plan = self._idx2plan(idx, N)
+                avb = True
+                for j in range(N):
+                    if plan[j] and not avb_map[i][j]:
+                        # broke
+                        avb = False
+                        break
+                    if j &gt; 0 and (plan[j] and plan[j-1]):
+                        # cheat
+                        avb = False
+                        break
+                if not avb:
+                    continue
+                    
+                sum_plan = sum(plan)
+                
+                # Find avb prev plan
+                for pidx in range(2 ** N):
+                    if mx[pidx] == IMP:
+                        continue
+                        
+                    pplan = self._idx2plan(pidx, N)
+                    # print(pidx, pplan)
+                    avb = True
+                    for j in range(N):
+                        if plan[j] and ((j &gt; 0 and pplan[j-1]) or (j &lt; N-1 and pplan[j+1])):
+                            # cheat
+                            avb = False
+<A NAME="0"></A>                            break
+                    if avb:
+                        # print(i, plan, pplan, sum_plan + mx[pidx])
+                        nmx<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match10-0.html#0',2,'match10-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>[idx] = max(nmx[idx], sum_plan + mx[pidx])
+            
+            mx = nmx
+        
+        return max(m</B></FONT>x)
+        
+        
+        
+        
+        
+        
+</PRE>
+
+</BODY>
+</HTML>

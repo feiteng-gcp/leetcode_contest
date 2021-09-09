@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>5_uwi.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>5_uwi.java</CENTER></H3><HR>
+<PRE>
+	class Solution {
+	    public int maxStudents(char[][] map) {
+<A NAME="0"></A>	        int n = map.length, m = map[0].length;
+	        int[] dp = new int[1&lt;&lt;m];
+	        Arrays.fill(dp, -9999999);
+	        dp[0] =<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match22-1.html#0',3,'match22-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B> 0;
+	        for(int i = n-1;i &gt;= 0;i--){
+	        	int[] ndp = new int[1&lt;&lt;m];
+	        	inner:
+	        	for(int j = 0;j &lt; 1&lt;&lt;m;j++){
+	        		int b = j&gt;&gt;&gt;1|j&lt;&lt;1;</B></FONT>
+	        		if((b&amp;j) != 0)continue;
+	        		for(int k = 0;k &lt; m;k++){
+	        			if(j&lt;&lt;~k&lt;0){
+	        				if(map[i][k] == '#')continue inner;
+	        			}
+	        		}
+	        		int val = -9999999;
+		        	for(int f = 0;f &lt; 1&lt;&lt;m;f++){
+		        		int ng = f&lt;&lt;1|f&gt;&gt;&gt;1;
+		        		if((ng&amp;j) == 0){
+		        			val = Math.max(val, dp[f]);
+		        		}
+<A NAME="1"></A>		        	}
+		        	val += Integer.bitCount(j);
+		        	ndp[j] = val;
+	        	}<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match22-1.html#1',3,'match22-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>
+	        	dp = ndp;
+	        }
+	        int ans = 0;
+	        for(int v : dp)ans = Math.max(ans, v);
+	        return ans;
+	    }
+	}	</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

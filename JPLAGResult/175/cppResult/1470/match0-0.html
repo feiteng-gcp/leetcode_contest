@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>378_ImprovingZero.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>378_ImprovingZero.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match0-1.html#0',3,'match0-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>class TweetCounts {
+private:
+    unordered_map&lt;string, vector&lt;int&gt;&gt; data;
+public:
+    TweetCounts() {
+        data.clear();
+        //cout&lt;&lt;&quot;counts&quot;&lt;&lt;endl;
+    }
+    
+    void recordTweet(string tweetName, int time) {
+        //cout&lt;&lt;&quot;record &quot;&lt;&lt;tweetName&lt;&lt;' '&lt;&lt;time&lt;&lt;endl;
+        if (data.find(tweetName) == data.end())
+        {
+            data[tweetName]=vector&lt;int&gt;(0);
+            //data.insert(std::pair&lt;tweetName,vector&lt;int&gt;(0));
+            data[tweetName].push_back(time);
+            return;
+        }
+        auto&amp; temp=data[tweetName];
+        temp.push_back(time);
+        //sort(temp.begin(),temp.end());
+    }
+    
+    vector&lt;int&gt; getTweetCountsPerFrequency(string freq, string tweetName, int startTime, int endTime) {
+        //cout&lt;&lt;&quot;fre &quot;&lt;&lt;freq&lt;&lt;' '&lt;&lt;tweetName&lt;&lt;' '&lt;&lt;startTime&lt;&lt;' '&lt;&lt;endTime&lt;&lt;endl;
+        auto&amp; temp=data[tweetName];
+        
+        int unit = 0;
+        if (freq==&quot;minute&quot;) unit=60;
+        else if(freq == &quot;hour&quot;) unit = 3600;
+        else unit = 3600*24;
+        int num=(endTime-startTime)/unit+1;
+        vector&lt;int&gt; ret(0);
+        for (int i=0;i&lt;num;i++) ret.push_back(0);
+        
+        for (auto a:temp)
+        {
+            if (a&gt;=startTime &amp;&amp; a&lt;=endTime)
+                ret[(a-startTime)/unit]++;
+        }
+        //for (auto a:ret) cout&lt;&lt;a&lt;&lt;' ';
+        //cout&lt;&lt;endl;
+        return ret;
+    }
+};</B></FONT>
+
+/**
+ * Your TweetCounts object will be instantiated and called as such:
+ * TweetCounts* obj = new TweetCounts();
+ * obj-&gt;recordTweet(tweetName,time);
+ * vector&lt;int&gt; param_2 = obj-&gt;getTweetCountsPerFrequency(freq,tweetName,startTime,endTime);
+ */
+</PRE>
+</BODY>
+</HTML>
