@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>430_mrtong_liu.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>430_mrtong_liu.java</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#0',2,'match25-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        return divide(0, mat.length - 1, mat, k)[k - 1];
+    }
+    public int[] divide(int start, int end, int[][] mat, int k) {</B></FONT>
+        int[] res;
+        if (start == end) {
+            return mat[start];
+        } else if (start + 1 == end) {
+            res = merge2(mat[start], mat[end], k);
+        } else {
+            int mid = (start + end) / 2;
+            int[] arr1 = divide(start, mid, mat, k);
+            int[] arr2 = divide(mid + 1, end, mat, k);
+<A NAME="1"></A>            res = merge2(arr1, arr2, k);
+        }
+        return res;
+    <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#1',2,'match25-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>}
+    public int[] merge2(int[] arr1, int[] arr2, int k) {
+<A NAME="2"></A>        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[0]</B></FONT>+a[1]-b[0]-b[1]);
+        int len = Math.min(arr1.length * arr2.length, k);
+        int[] res = new int[len];
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match25-0.html#2',2,'match25-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; arr1.length &amp;&amp; i &lt; k; i++) {
+            pq.offer(new int[]{arr1[i], arr2[0], 0});
+        }</B></FONT>
+        for (int i = 0; i &lt; len; i++) {
+            int[] cur = pq.poll();
+            res[i] = cur[0] + cur[1];
+            if (cur[2] == arr2.length - 1)
+                continue;
+            pq.offer(new int[]{cur[0], arr2[cur[2] + 1], cur[2] + 1});
+        }
+        return res;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>344_jiahao1992.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>344_jiahao1992.java</CENTER></H3><HR>
+<PRE>
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int l = 0, ans = 1;
+<A NAME="0"></A>        Deque&lt;Integer&gt; subMax = new ArrayDeque&lt;&gt;(), subMin = new ArrayDeque&lt;&gt;();
+        subMax.addFirst(0);
+        subMin.addFirst(0);
+        <FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match3-1.html#0',3,'match3-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>for (int i = 1; i &lt; nums.length; ++i) {
+            while (!subMax.isEmpty() &amp;&amp; nums[i] &gt; nums[subMax.peekLast()]) {
+                subMax.pollLast();
+            }
+            subMax.offerLast(i);
+            while (!subMin.isEmpty() &amp;&amp; nums[i] &lt; nums[subMin.peekLast()]) {
+                subMin.pollLast();
+            }
+            subMin.offerLast</B></FONT>(i);
+<A NAME="1"></A>            if (nums[subMax.peekFirst()] - nums[subMin.peekFirst()] &lt;= limit) {
+                ans = Math.max(i - l + 1, ans);
+            } else {
+                while (!subMax.isEmpty() &amp;&amp; !subMin.isEmpty() &amp;&amp; nums[<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match3-1.html#1',3,'match3-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>subMax.peekFirst()] - nums[subMin.peekFirst()] &gt; limit) {
+                    if (subMax.peekFirst() &lt; subMin.peekFirst()) {
+                        l = 1 + subMax.pollFirst();
+                    } else {
+                        l = 1 + subMin.pollFirst();
+                    }
+                }</B></FONT>
+            }
+        }
+        return ans;
+    }
+}
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>127_EUqr2c2cjD8nuX5K.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>127_EUqr2c2cjD8nuX5K.cpp</CENTER></H3><HR>
+<PRE>
+<A NAME="0"></A><FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match19-0.html#0',2,'match19-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        int m = mat.size(), n = mat[0].size();
+        
+        vector&lt;int&gt; ps(m, 0);
+        int sum = 0;
+        for (int i = 0; i &lt; m; ++i) sum += mat[i][0];
+        
+        priority_queue&lt;pair&lt;int, vector&lt;int&gt;&gt;&gt; pq;
+        pq.emplace(-sum, ps);
+        
+        set&lt;vector&lt;int&gt;&gt; seen;</B></FONT>
+        int last = -1;
+        
+        while (seen.size() != k) {
+            auto [s, is] = pq.top();
+            pq.pop();
+            
+            last = s;
+            
+            for (int r = 0; r &lt; m; ++r) {
+                if (is[r] + 1 &lt; n) {
+                    auto bak = s;
+                    
+                    s -= mat[r][is[r] + 1] - mat[r][is[r]];
+                    ++is[r];
+                    pq.emplace(s, is);
+                    --is[r];
+                    s = bak;
+
+                }
+            }
+            
+            seen.emplace(is);
+        }
+        
+        return -last;
+    }
+};
+</PRE>
+</BODY>
+</HTML>

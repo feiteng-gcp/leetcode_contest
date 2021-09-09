@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>64_minhquanym.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR>
+<H3><CENTER>64_minhquanym.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+<A NAME="0"></A>    int n;
+    int Mn[20][100005];
+    int Mx[20][100005];
+<FONT color="#0000ff"><A HREF="javascript:ZweiFrames('match5-1.html#0',3,'match5-top.html#0',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>    int getMin(int u, int v) {
+        int k = log2(v-u+1);
+        return min(Mn[k][u], Mn[k][v-(1&lt;&lt;k)+1]);
+    }
+    int getMax(int u, int v) {
+        int k = log2(v-u+1);
+        return max(Mx[k][u], Mx[k][v-(1&lt;&lt;k)+1]);
+<A NAME="1"></A>    }
+    int longestSubarray(vector&lt;int&gt;&amp; nums, int limit) {
+        n = nums.size();</B></FONT>
+<FONT color="#f63526"><A HREF="javascript:ZweiFrames('match5-1.html#1',3,'match5-top.html#1',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        for (int i = 1; i &lt;= n; i++) Mn[0][i] = Mx[0][i] = nums[i-1];
+        for (int k = 1; (1 &lt;&lt; k) &lt;= n; k++)
+            for (int i = 1; i + (1 &lt;&lt; k) - 1 &lt;= n; i++) {
+                Mx[k][i] = max(Mx[k-1][i], Mx[k-1][i+(1 &lt;&lt; (k-1))]);
+<A NAME="2"></A>                Mn[k][i] = min(Mn[k-1][i], Mn[k-1][i+(1 &lt;&lt; (k-1))]);   
+            }</B></FONT>
+        int pointer = 1;
+<FONT color="#77bfc7"><A HREF="javascript:ZweiFrames('match5-1.html#2',3,'match5-top.html#2',1)"><IMG SRC="forward.gif" ALT="other" BORDER="0" ALIGN="right"></A><B>        int res = 0;
+        for (int i = 1; i &lt;= n; i++) {
+            while (pointer &lt;= i &amp;&amp; (getMax(pointer, i) - getMin(pointer, i) &gt; limit)) 
+                pointer++;
+            res = max(res, i - pointer+1);
+        }
+        return res;
+    }
+};</B></FONT>
+</PRE>
+</BODY>
+</HTML>

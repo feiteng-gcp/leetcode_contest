@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>244_MMMMMMoSky.java</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>244_MMMMMMoSky.java</CENTER></H3><HR>
+<PRE>
+class Arr {
+    public static int len = 0;
+    public int[] arr;
+    public Arr() {
+        arr = new int[len];
+    }
+    public Arr(Arr a) {
+        arr = Arrays.copyOf(a.arr, len);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Arr arr1 = (Arr) o;
+        return Arrays.equals(arr, arr1.arr);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(arr);
+    }
+}
+
+class Solution {
+    public int kthSmallest(int[][] mat, int k) {
+        PriorityQueue&lt;Arr&gt; heap = new PriorityQueue&lt;&gt;(Comparator.comparingInt(a -&gt; arraySum(a.arr, mat)));
+        Set&lt;Arr&gt; set = new HashSet&lt;&gt;();
+        int n = mat.length, m = mat[0].length;
+        Arr.len = n;
+<A NAME="0"></A>        Arr start = new Arr();
+        heap.add(start);
+        set.add(start);
+        for (int i = 1; i &lt; k; i++) <FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#0',2,'match15-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>{
+            Arr a = heap.poll();
+            // System.out.println(arraySum(a.arr, mat));
+            for (int j = 0; j &lt; n; j++) {
+<A NAME="1"></A>                if (a.arr[j] + 1 == m) continue;
+                Arr newArr = new Arr(a)</B></FONT>;
+                newArr.arr[j]++;
+                <FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#1',2,'match15-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>if (!set.contains(newArr)) {
+                    heap.add(newArr);
+                    set.add(newArr);
+                }
+            }
+        }</B></FONT>
+        return arraySum(heap.peek().arr, mat);
+    }
+<A NAME="2"></A>
+    public static int arraySum(int[] arr, int[][] mat) {
+        int res = 0;
+        <FONT color="#77bfc7"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match15-0.html#2',2,'match15-top.html#2',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>for (int i = 0; i &lt; mat.length; i++) {
+            res += mat[i][arr[i]];
+        }
+        return res;
+    }
+}</B></FONT>
+</PRE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <TITLE>396_minhaoxu.cpp</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript">
+  <!--
+   function ZweiFrames(URL1,F1,URL2,F2)
+   {
+    parent.frames[F1].location.href=URL1;
+    parent.frames[F2].location.href=URL2;
+   }
+  //-->
+  </script>
+</HEAD>
+<BODY BGCOLOR="#ffffff" style="margin-left:25">
+<HR>
+<H3><CENTER>396_minhaoxu.cpp</CENTER></H3><HR>
+<PRE>
+class Solution {
+public:
+    int kthSmallest(vector&lt;vector&lt;int&gt;&gt;&amp; mat, int k) {
+        int m = mat.size();
+        int n = mat[0].size();
+        unordered_set&lt;string&gt; searched;
+        auto comp = [](pair&lt;int,vector&lt;int&gt;&gt;&amp; a, pair&lt;int,vector&lt;int&gt;&gt;&amp; b) {
+            return a.first &gt; b.first;
+        };
+        priority_queue&lt;pair&lt;int,vector&lt;int&gt;&gt;, vector&lt;pair&lt;int,vector&lt;int&gt;&gt;&gt;, decltype(comp)&gt; pq(comp);
+        vector&lt;int&gt; curr(m, 0);
+        int s = getSum(mat, curr);
+        pq.push(make_pair(s, curr));
+<A NAME="1"></A>        searched.insert(encodeVector(curr));
+        int id = 1;
+        while (pq.size() &amp;&amp; id &lt; k) {
+<FONT color="#f63526"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#1',2,'match27-top.html#1',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>            curr = pq.top().second;
+            pq.pop();
+            // for (int i = 0; i &lt; m; i++)
+            //     cout &lt;&lt; curr[i] &lt;&lt; &quot; &quot;;
+            // cout &lt;&lt; endl;
+            for (int i = 0; i &lt; m; i++) {
+                if (curr[i] &lt; n-1) {
+                    vector&lt;int&gt; nbr(curr);
+                    nbr[i]++;
+                    string enc = encodeVector(nbr);
+                    if (!searched.count(enc)) {
+                        searched.insert(enc);
+                        pq.push(make_pair(getSum(mat, nbr), nbr));
+                    }
+                }
+            }</B></FONT>
+            id++;
+        }
+        return pq.top().first;
+    }
+    
+    string encodeVector(vector&lt;int&gt;&amp; choose) {
+        string res;
+        for (int i : choose) {
+            res += to_string(i);
+            res += ',';
+        }
+<A NAME="0"></A>        return res;
+    }
+    
+<FONT color="#0000ff"><div style="position:absolute;left:0"><A HREF="javascript:ZweiFrames('match27-0.html#0',2,'match27-top.html#0',1)"><IMG SRC="back.gif" ALT="other" BORDER="0" ALIGN="left"></A></div><B>    int getSum(vector&lt;vector&lt;int&gt;&gt;&amp; mat, vector&lt;int&gt;&amp; idx) {
+        int sum = 0;
+        for (int i = 0; i &lt; idx.size(); i++) {
+            sum += mat[i][idx[i]];
+        }
+        return sum;
+    }</B></FONT>
+};
+</PRE>
+</BODY>
+</HTML>
