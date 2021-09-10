@@ -1,5 +1,6 @@
 import os, requests, json, pathlib, subprocess, pytz, time, stat
 from datetime import datetime
+import logging
 
 def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = False):
 
@@ -85,7 +86,15 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         
 def crawlSubmissions(contest, page_end):
 
-    # print('parsing..')
+    # logging.info('parsing..')
+    logging.basicConfig(
+        level=logging.DEBUG,
+        handlers=
+        [
+            logging.FileHandler('logging/' + contest + '.log'),
+            logging.StreamHandler()
+        ]
+    )
 
     codingSuffix = {"cpp":"cpp",
                     "java":"java",
@@ -104,7 +113,7 @@ def crawlSubmissions(contest, page_end):
     submissionURL = "https://leetcode.com/api/submissions/%d"
     submissionURLCN = "https://leetcode-cn.com/api/submissions/%d"
 
-    print("Crawling submitted codes... %s " % contestName)
+    logging.info("Crawling submitted codes... %s " % contestName)
 
     # JSON_Location = 'C:/Users/lifeiteng/projects/visualizer/getRank/Contest JSON/' + contestName + '/'
     Ranking_Folder = cur_folder + '/Contest_Ranking/' + contestName + '/'
@@ -121,14 +130,14 @@ def crawlSubmissions(contest, page_end):
         processedID = json.load(file)
     # assuming 500 pages, usually around 200
     for i in range(1, page_end):
-        try:
-            Ranking_Page = Ranking_Folder + str(i) + '.json'
-            Ranking_Page_JSON = {}
-            with open(Ranking_Page) as file:
-                Ranking_Page_JSON = json.load(file)
-        except Exception as err:
-            print(err)
-            break
+        # try:
+        Ranking_Page = Ranking_Folder + str(i) + '.json'
+        Ranking_Page_JSON = {}
+        with open(Ranking_Page) as file:
+            Ranking_Page_JSON = json.load(file)
+        # except Exception as err:
+        #     logging.info(err)
+        #     break
 
         submissions = Ranking_Page_JSON['submissions']
         total_rank = Ranking_Page_JSON['total_rank']
@@ -143,44 +152,58 @@ def crawlSubmissions(contest, page_end):
             userrank = line['rank']
             for k in submission:
                 # if i % 20 == 0: 
-                print("[Contest=%s] Crawling page.. %d user.. %d question num.. %s"  % (contestName, i, user, k))
-                try:
-                    uniqueID = str(userrank) +  '_' + username + '_' + str(k)
-                    if uniqueID in processedID: 
-                        print("..Submission exists")
-                        continue
-                    processedID[uniqueID] = 1
-                    kth_submission = submission[k]
-                    submission_id = kth_submission['submission_id']
-                    
-                    submissionRequestURL = submissionURL
+                logging.info("[%s][Contest=%s] Crawling page.. %d user.. %d question num.. %s"  % (datetime.now(pytz.timezone('America/New_York')), contestName, i, user, k))
+                # try:
+                uniqueID = str(userrank) +  '_' + username + '_' + str(k)
+                if uniqueID in processedID: 
+                    logging.info(".......Submission exists")
+                    continue
+                processedID[uniqueID] = 1
+                kth_submission = submission[k]
+                submission_id = kth_submission['submission_id']
+                
+                submissionRequestURL = submissionURL
 
-                    if data_region == 'CN': submissionRequestURL = submissionURLCN
+                if data_region == 'CN': submissionRequestURL = submissionURLCN
 
-                    submissionRequestURL = submissionRequestURL % submission_id
+                submissionRequestURL = submissionRequestURL % submission_id
 
+                sleep_time = 1
+                while True:
                     submissionResponse = requests.get(submissionRequestURL)
+                    # logging.info(submissionResponse.status_code)
+                    if submissionResponse.status_code == 200: 
+                        submissionResponse = submissionResponse.json()
+                        break
+                    else:
+                        logging.info(submissionResponse.text)
+                        print('next wait time..' + sleep_time)
+                        time.sleep(sleep_time)
+                        sleep_time *= 2
 
-                    submissionResponse = submissionResponse.json()
-                    # print(submissionResponse)
-
-                    coding_content =  submissionResponse['code']
-                    coding_language = submissionResponse['lang']
-                    if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
                     
-                    fileLocation = outputLocation + coding_language + '/' + str(k)
-                    # print(fileLocation)
-                    if not os.path.exists(fileLocation):
-                        os.makedirs(fileLocation)
+                # logging.info(submissionResponse)
 
-                    # save as contest - code language - [username][code content]
-                    filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
-                    if os.path.exists(filename): continue
-                    file = open(filename, 'w', encoding='utf-8')
-                    file.write(coding_content)
-                    file.close()
-                except Exception as err:
-                    print(err)
-                    pass
-        with open(processedJSON, 'w') as outputFile:
-            json.dump(processedID, outputFile)        
+                # logging.info('Response = ')
+                # logging.info(submissionResponse)
+                coding_content =  submissionResponse['code']
+                coding_language = submissionResponse['lang']
+
+                if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
+                
+                fileLocation = outputLocation + coding_language + '/' + str(k)
+                # logging.info(fileLocation)
+                if not os.path.exists(fileLocation):
+                    os.makedirs(fileLocation)
+
+                # save as contest - code language - [username][code content]
+                filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
+                if os.path.exists(filename): continue
+                file = open(filename, 'w', encoding='utf-8')
+                file.write(coding_content)
+                file.close()
+                # except Exception as err:
+                #     print(err)
+                #     pass
+            with open(processedJSON, 'w') as outputFile:
+                json.dump(processedID, outputFile)        
