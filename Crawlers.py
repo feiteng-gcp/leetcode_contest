@@ -1,4 +1,4 @@
-import os, requests, json, pathlib, subprocess, pytz, time, stat
+import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
 import logging
 
@@ -96,6 +96,8 @@ def crawlSubmissions(contest, page_end):
         ]
     )
 
+    record_content = collections.defaultdict(dict)
+
     codingSuffix = {"cpp":"cpp",
                     "java":"java",
                     "python3":"py",
@@ -151,16 +153,20 @@ def crawlSubmissions(contest, page_end):
             data_region = line['data_region']
             username = line['username']
             userrank = line['rank']
-            for k in submission:
-                # if i % 20 == 0: 
-                logging.info("[%s][Contest=%s] Crawling page.. %d user.. %d question num.. %s"  % (datetime.now(pytz.timezone('America/New_York')), contestName, i, user, k))
+            for question_num in submission:
                 # try:
-                uniqueID = str(userrank) +  '_' + username + '_' + str(k)
+                record_content[str(question_num)] = {}
+                uniqueID = str(userrank) +  '_' + username + '_' + str(question_num)
+                cur_time = datetime.now(pytz.timezone('America/New_York'))
                 if uniqueID in processedID: 
-                    logging.info(".......Submission exists")
+                    logging.info("[%s][Contest=%s][page=%d][question=%s] submission exists" % (cur_time, contestName, i, question_num))
+                    
                     continue
+                # if i % 20 == 0: 
+                logging.info("[%s][Contest=%s][Crawling page=%d][user=%d] question num.. %s"  % (cur_time, contestName, i, user, question_num))
+                
                 processedID[uniqueID] = 1
-                kth_submission = submission[k]
+                kth_submission = submission[question_num]
                 submission_id = kth_submission['submission_id']
                 
                 submissionRequestURL = submissionURL
@@ -189,10 +195,16 @@ def crawlSubmissions(contest, page_end):
                 # logging.info(submissionResponse)
                 coding_content =  submissionResponse['code']
                 coding_language = submissionResponse['lang']
+                
 
                 if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
-                
-                fileLocation = outputLocation + coding_language + '/' + str(k)
+                if coding_language not in record_content[str(question_num)]:
+                    record_content[str(question_num)][coding_language] = 0
+
+
+                record_content[str(question_num)][coding_language] += 1
+                print(record_content)
+                fileLocation = outputLocation + coding_language + '/' + str(question_num)
                 # logging.info(fileLocation)
                 if not os.path.exists(fileLocation):
                     os.makedirs(fileLocation)
@@ -208,6 +220,21 @@ def crawlSubmissions(contest, page_end):
                 #     pass
             with open(processedJSON, 'w') as outputFile:
                 json.dump(processedID, outputFile)        
+            
 
 
     logging.shutdown()
+    # writeFile(contest, record_content)
+
+def writeFile(contest, submission_record):
+    print('writing submission record to file..')
+    print(submission_record)
+    file = open('Contest_Submission/' + contest + '/record.md', 'w')
+    file.write('Contest %s' % (str(contest)))
+    # file.write('|Question_Num| Coding_language |||| Count |')
+    for question_name in submission_record:
+        file.write('|%s|' % question_name)
+        for coding_language in submission_record[question_name]:
+            count = submission_record[question_name][coding_language]
+            file.write('%s %d|' % (coding_language, count))
+    file.close()
