@@ -88,7 +88,7 @@ def crawlSubmissions(contest, page_end):
 
     # logging.info('parsing..')
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=logging.INFO,
         handlers=
         [
             logging.FileHandler('logging/' + contest + '.log'),
@@ -130,6 +130,7 @@ def crawlSubmissions(contest, page_end):
         processedID = json.load(file)
     # assuming 500 pages, usually around 200
     for i in range(1, page_end):
+        time.sleep(1)
         # try:
         Ranking_Page = Ranking_Folder + str(i) + '.json'
         Ranking_Page_JSON = {}
@@ -177,7 +178,7 @@ def crawlSubmissions(contest, page_end):
                         break
                     else:
                         logging.info(submissionResponse.text)
-                        print('next wait time..' + sleep_time)
+                        print('next wait time..' + str(sleep_time))
                         time.sleep(sleep_time)
                         sleep_time *= 2
 
@@ -207,3 +208,6 @@ def crawlSubmissions(contest, page_end):
                 #     pass
             with open(processedJSON, 'w') as outputFile:
                 json.dump(processedID, outputFile)        
+
+
+    logging.shutdown()
