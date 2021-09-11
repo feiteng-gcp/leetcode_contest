@@ -72,7 +72,9 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         while True:
             submissionResponse = requests.get(requestURL)
             # logging.info(submissionResponse.status_code)
-            if submissionResponse.status_code == 200: 
+            if sleep_time > 100:
+                break
+            elif submissionResponse.status_code == 200:
                 submissionResponse = submissionResponse.json()
                 break
             else:
@@ -82,17 +84,16 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
                 sleep_time *= 2
 
 
-        
-        user_num = submissionResponse['user_num']
-
-        if page_num > user_num / 25 + 1: break
-        if(len(submissionResponse) < 1): break
-
+        try:
+            if page_num > user_num / 25 + 1: break
+            if(len(submissionResponse) < 1): break
+            user_num = submissionResponse['user_num']
+        except Exception as err:
+            print(err)
+            break
         with open(target_file, 'a') as outputFile_:
             json.dump(submissionResponse, outputFile_)
-        # except Exception as err:
-        #     print(err)
-        #     break
+    
         
 def crawlSubmissions(contest, page_end, record_content):
 
@@ -100,7 +101,7 @@ def crawlSubmissions(contest, page_end, record_content):
     record_content[contest] = collections.defaultdict(dict)
     # logging.info('parsing..')
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         handlers=
         [
             logging.FileHandler('logging/' + contest + '.log'),
@@ -194,42 +195,40 @@ def crawlSubmissions(contest, page_end, record_content):
                 while True:
                     submissionResponse = requests.get(submissionRequestURL)
                     # logging.info(submissionResponse.status_code)
-                    if submissionResponse.status_code == 200: 
+                    if sleep_time > 100:
+                        break
+                    elif submissionResponse.status_code == 200: 
                         submissionResponse = submissionResponse.json()
                         break
                     else:
                         logging.info(submissionResponse.text)
+                        print(submissionResponse)
                         print('next wait time..' + str(sleep_time))
                         time.sleep(sleep_time)
                         sleep_time *= 2
+                try:
+                    coding_content =  submissionResponse['code']
+                    coding_language = submissionResponse['lang']
+                    
+
+                    if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
 
                     
-                # logging.info(submissionResponse)
+                    # print(record_content)
+                    fileLocation = outputLocation + coding_language + '/' + str(question_num)
+                    # logging.info(fileLocation)
+                    if not os.path.exists(fileLocation):
+                        os.makedirs(fileLocation)
 
-                # logging.info('Response = ')
-                # logging.info(submissionResponse)
-                coding_content =  submissionResponse['code']
-                coding_language = submissionResponse['lang']
-                
-
-                if coding_language not in codingSuffix: codingSuffix[coding_language] = coding_language
-
-                
-                # print(record_content)
-                fileLocation = outputLocation + coding_language + '/' + str(question_num)
-                # logging.info(fileLocation)
-                if not os.path.exists(fileLocation):
-                    os.makedirs(fileLocation)
-
-                # save as contest - code language - [username][code content]
-                filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
-                if os.path.exists(filename): continue
-                file = open(filename, 'w', encoding='utf-8')
-                file.write(coding_content)
-                file.close()
-                # except Exception as err:
-                #     print(err)
-                #     pass
+                    # save as contest - code language - [username][code content]
+                    filename = fileLocation + '/' + str(userrank) + '_' + username + '.' + codingSuffix[coding_language]
+                    if os.path.exists(filename): continue
+                    file = open(filename, 'w', encoding='utf-8')
+                    file.write(coding_content)
+                    file.close()
+                except Exception as err:
+                    print(err)
+                    pass
             with open(processedJSON, 'w') as outputFile:
                 json.dump(processedID, outputFile)        
             
