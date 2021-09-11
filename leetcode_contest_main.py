@@ -5,8 +5,10 @@ import Crawlers, IO_Helper, uploadToGCP
 
 if __name__ == '__main__':
 
-    debug = False
+    debug = True
     page_end = 20   # check for top 500 people
+    submission_record_file = 'submission_record'
+    submission_record = IO_Helper.loadSubmissionRecord(submission_record_file, {})
     while True:
         # try:
         contest = IO_Helper.loadContest().strip()
@@ -18,28 +20,34 @@ if __name__ == '__main__':
         # if not debug: 
         Crawlers.fetchContestRankingPage(contest)
         # if not debug: 
-        Crawlers.crawlSubmissions(contest, page_end)
+        Crawlers.crawlSubmissions(contest, page_end, submission_record)
         
-        if not debug: IO_Helper.jplag(contest)
+        # if not debug: IO_Helper.jplag(contest)
 
         # if not debug: update_indexMD()
-        IO_Helper.writeToHTML()
+        # IO_Helper.writeToHTML()
         
 
 
         # if not debug: commit_and_pushtoGithub('JPLAGResult/' + contest)
         # if not debug: 
-        uploadToGCP.uploadFolder('JPLAGResult/' + contest)
+        # uploadToGCP.uploadFolder('JPLAGResult/' + contest)
         if debug: 
             print('finished..')
-            break
+            # break
 
-        if not debug: IO_Helper.commit_and_pushtoGithub('index.html')
+        # if not debug: IO_Helper.commit_and_pushtoGithub('index.html')
 
-        if not debug: contest_int = contest_int + 1
+        # if not debug: 
+        
 
+        print(submission_record)
 
+        contest_int = contest_int + 1
         IO_Helper.writeContest(contest_int)
+        IO_Helper.writeRecord(submission_record, submission_record_file)
+        
+        
         # except Exception as err:
         #     print(err)
         #     pass

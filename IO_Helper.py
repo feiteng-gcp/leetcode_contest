@@ -183,3 +183,34 @@ def commit_and_pushtoGithub(file):
 
     if push_successful:
         print("Successful..")    
+
+def loadSubmissionRecord(fileName, defaultOutput):
+    json_load = defaultOutput
+    try:
+        f = open(fileName, 'r')
+        json_load = json.load(f)
+        f.close()
+    except Exception:
+        print(Exception)
+        pass
+    return json_load
+
+def writeRecord(submission_record, submission_record_file):
+    print(submission_record)
+    print('writing submission record to file..')
+    file = open(submission_record_file, 'w')
+    json.dump(submission_record, file)
+    file.close()
+    file = open('Submission_record.md', 'w')
+    banner = "|"
+    file.write('|Contest|Q1|Q2|Q3|Q4|Total|\n|-|-|-|-|-|-|\n')    
+    for contest in submission_record:
+        total_count = 0
+        banner += '%s|' % (contest)
+        for question_num in submission_record[contest]:
+            count = submission_record[contest][question_num]
+            total_count += count
+            banner += '%d|' % (count)
+        banner += str(total_count) + '|\n'
+    file.write(banner)
+    file.close()
