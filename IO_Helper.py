@@ -196,7 +196,7 @@ def loadSubmissionRecord(fileName, defaultOutput):
     return json_load
 
 def writeRecord(submission_record, submission_record_file):
-    print(submission_record)
+    # print(submission_record)
     print('writing submission record to file..')
     file = open(submission_record_file, 'w')
     json.dump(submission_record, file)

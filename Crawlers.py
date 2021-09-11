@@ -56,8 +56,8 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
     for page_num in range(start, end + 1):
 
         if(page_num % 10 == 0): print('on page %d' % page_num)
-        if contest_str == '1' or contest_str == '62': curURL = url % page_num
-        else: curURL = url % (contest_str, page_num)
+        if contest_str == '1' or contest_str == '62': requestURL = url % page_num
+        else: requestURL = url % (contest_str, page_num)
 
         # try:
         # if file exists pass
@@ -68,24 +68,35 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
             print("Has record of.." + target_file)
             continue
 
-        # print(curURL)
-        resp = requests.get(curURL)
-        # print(resp)
-        str_response = resp.json()
+        sleep_time = 1
+        while True:
+            submissionResponse = requests.get(requestURL)
+            # logging.info(submissionResponse.status_code)
+            if submissionResponse.status_code == 200: 
+                submissionResponse = submissionResponse.json()
+                break
+            else:
+                logging.info(submissionResponse.text)
+                print('next wait time..' + str(sleep_time))
+                time.sleep(sleep_time)
+                sleep_time *= 2
+
+
         
-        user_num = str_response['user_num']
+        user_num = submissionResponse['user_num']
 
         if page_num > user_num / 25 + 1: break
-        if(len(str_response) < 1): break
+        if(len(submissionResponse) < 1): break
 
         with open(target_file, 'a') as outputFile_:
-            json.dump(str_response, outputFile_)
+            json.dump(submissionResponse, outputFile_)
         # except Exception as err:
         #     print(err)
         #     break
         
 def crawlSubmissions(contest, page_end, record_content):
 
+    found_new_record = False
     record_content[contest] = collections.defaultdict(dict)
     # logging.info('parsing..')
     logging.basicConfig(
@@ -168,7 +179,7 @@ def crawlSubmissions(contest, page_end, record_content):
                     continue
                 # if i % 20 == 0: 
                 logging.info("[%s][Contest=%s][Crawling page=%d][user=%d] question num.. %s"  % (cur_time, contestName, page, user, question_num))
-                
+                found_new_record = True
                 processedID[uniqueID] = 1
                 kth_submission = submission[question_num]
                 submission_id = kth_submission['submission_id']
@@ -222,8 +233,5 @@ def crawlSubmissions(contest, page_end, record_content):
             with open(processedJSON, 'w') as outputFile:
                 json.dump(processedID, outputFile)        
             
-
-
     logging.shutdown()
-    # writeFile(contest, record_content)
-
+    return found_new_record
