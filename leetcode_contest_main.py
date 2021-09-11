@@ -25,13 +25,13 @@ if __name__ == '__main__':
         # if not debug: IO_Helper.jplag(contest)
 
         # if not debug: update_indexMD()
-        # IO_Helper.writeToHTML()
+        IO_Helper.writeToHTML()
         
 
 
         # if not debug: commit_and_pushtoGithub('JPLAGResult/' + contest)
         # if not debug: 
-        # uploadToGCP.uploadFolder('JPLAGResult/' + contest)
+        uploadToGCP.uploadFolder('JPLAGResult/' + contest)
         if debug: 
             print('finished..')
             # break
