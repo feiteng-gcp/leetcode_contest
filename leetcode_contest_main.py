@@ -20,28 +20,25 @@ if __name__ == '__main__':
         # if not debug: 
         Crawlers.fetchContestRankingPage(contest)
         # if not debug: 
-        Crawlers.crawlSubmissions(contest, page_end, submission_record)
+        found_new_crawl = Crawlers.crawlSubmissions(contest, page_end, submission_record)
         
-        # if not debug: IO_Helper.jplag(contest)
-
-        # if not debug: update_indexMD()
-        IO_Helper.writeToHTML()
-        
-
-
-        # if not debug: commit_and_pushtoGithub('JPLAGResult/' + contest)
-        # if not debug: 
-        uploadToGCP.uploadFolder('JPLAGResult/' + contest)
+        if found_new_crawl:
+            IO_Helper.jplag(contest)
+            uploadToGCP.uploadFolder('JPLAGResult/' + contest)
+            IO_Helper.writeToHTML()
+            IO_Helper.commit_and_pushtoGithub('index.html')
+            
         if debug: 
             print('finished..')
             # break
 
-        # if not debug: IO_Helper.commit_and_pushtoGithub('index.html')
+        # if not debug: 
+        
 
         # if not debug: 
         
 
-        print(submission_record)
+        # print(submission_record)
 
         contest_int = contest_int + 1
         IO_Helper.writeContest(contest_int)
