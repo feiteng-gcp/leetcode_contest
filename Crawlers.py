@@ -1,20 +1,22 @@
 import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
-import logging, IO_Helper
+import logging, IO_Helper, traceback
 import logging.config
 from os import path
 
 def getLogger(contest_str):
+    # print("getting logger.." + contest_str)
     try:    
         log_path = "logging/crawling_raw/{0}.log".format(contest_str)
         logging_file_path = 'logging.conf'
         logging.config.fileConfig(logging_file_path, defaults={'log_file_name':log_path})
         logger = logging.getLogger(log_path)
-        # val = 1 / 0
+        val = 1 / 0
     except Exception as err:
-        print(err)
+        traceback.print_exc()
         print('Swithching to root logger')
-        logger = logging.getLogger('logging/rootlog.log')
+        logger = logging.getLogger('logging/' + contest_str+ '.log')
+        # logger = logging.getLogger()
         logger.setLevel(logging.DEBUG)
         consoleHandler = logging.StreamHandler()
         consoleHandler.setLevel(logging.DEBUG)
@@ -52,7 +54,7 @@ def rankingURL(contest):
 def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = False):
 
     contest_str = str(contest)
-    logger = getLogger(contest_str)
+    logger = getLogger(contest_str + "_ranking")
     
     data = {}
     
@@ -86,7 +88,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         sleep_time = 1
         while True:
             submissionResponse = requests.get(requestURL)
-            # logging.info(submissionResponse.status_code)
+            # print(submissionResponse.text)
             if sleep_time > 100:
                 break
             elif submissionResponse.status_code == 200:
@@ -99,17 +101,113 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
                 sleep_time *= 2
 
 
-        try:
-            if(len(submissionResponse) < 1): break
-            user_num = submissionResponse['user_num']
-            if page_num > user_num / 25 + 1: break
-        except Exception as err:
-            logger.debug(err)
-            break
+        if(len(submissionResponse) < 1): break
+        user_num = submissionResponse['user_num']
+        if page_num > user_num / 25 + 1: break
         with open(target_file, 'w') as outputFile:
             json.dump(submissionResponse, outputFile)
     
+    logger.info("Finished crawling json files..")
+    # logging.shutdown()    
+
+def crawlSubmission_raw(contest, page_end):
+
+
+    contest_str = str(contest)
+    # print('Now crawling raw files for contest..%s' % (contest_str))
+    logger = getLogger(contest_str + "_submission")
+    # print(logger)
+
+    logger.info('Now crawling raw files for contest..%s' % (contest_str))
+    logger.debug('Now crawling raw files for contest..%s' % (contest_str))
+    
+    found_new_record = False
+    
+    # record_content[contest] = collections.defaultdict(dict)
+
+    cur_folder = str(pathlib.Path().resolve())
+
+    submissionURL = "https://leetcode.com/api/submissions/%s"
+    submissionURLCN = "https://leetcode-cn.com/api/submissions/%s"
+
+    logger.info("Crawling raw files... %s " % contest_str)
+
+    
+    Ranking_Folder = 'Contest_Ranking/' + contest_str + '/'
+    outputLocation = 'Contest_Submission/' + contest_str + '/raw/'
+    if not os.path.exists(outputLocation): os.makedirs(outputLocation)
+    
+    file_name_crawled_raw = outputLocation + 'crawled_rawfiles.json'
+
+    # JSON record indicating whether file is crawled or not
+    
+    raw_files_crawled_JSON = IO_Helper.loadJSON(file_name_crawled_raw)
+    # print(raw_files_crawled_JSON)
+
+    # crawling up to 20 page
+
+    for page in range(1, page_end):
+        page_str = str(page)
+        time.sleep(1)
+        # try:
+        Ranking_Page_file = Ranking_Folder + page_str + '.json'
+        Ranking_Page_JSON = {}
+        Ranking_Page_JSON = IO_Helper.loadJSON(Ranking_Page_file)
         
+        submissions = Ranking_Page_JSON['submissions']
+        total_rank = Ranking_Page_JSON['total_rank']
+        questions = Ranking_Page_JSON['questions']
+        questions_filename = 'Contest_Submission/' + contest_str + '/questions.json'
+        
+        IO_Helper.writeJSON(questions_filename, questions)
+
+        size = len(submissions)
+        submissionCounter = 0
+        # print('size=' + str(size))
+        for submission in submissions:
+            submissionCounter += 1
+            for question_id in submission:
+                submission_id = str(submission[question_id]['submission_id'])
+                data_region = str(submission[question_id]['data_region'])
+
+                
+                submissionRequestURL = submissionURL
+                if data_region == 'CN': submissionRequestURL = submissionURLCN
+                submissionRequestURL = submissionRequestURL % submission_id
+
+                logger.info("Crawling raw file [contest %s][page %s][counter %d][raw file %s][%.2f]" % (contest_str, page, submissionCounter, 
+                    submission_id, (submissionCounter / size) * 100))
+
+                # print(submission_id)
+                if submission_id in raw_files_crawled_JSON: 
+                    logger.info("[filename=%s] exists in system" % submission_id) 
+                    continue
+        
+                raw_file_name = submission_id
+
+
+                sleep_time = 1
+                # logger.info(submissionRequestURL)
+                
+                while True:
+                    submissionResponse = requests.get(submissionRequestURL)
+                    if sleep_time > 100:
+                        break
+                    elif submissionResponse.status_code == 200: 
+                        submissionResponse = submissionResponse.json()
+                        break
+                    else:
+                        logger.info('Next wait time..' + str(sleep_time))
+                        time.sleep(sleep_time)
+                        sleep_time *= 2
+                    
+                submission_raw_filename = outputLocation + str(submission_id) + '.json'
+                raw_files_crawled_JSON[raw_file_name] = '1'
+                
+                IO_Helper.writeJSON(submission_raw_filename, submissionResponse)
+                IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
+    
+
 # def crawlSubmissions(contest, page_end, record_content):
 
 #     found_new_record = False
@@ -250,98 +348,3 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 #     # logging.shutdown()
 #     print(record_content)
 #     return found_new_record
-
-
-def crawlSubmission_raw(contest, page_end):
-
-    contest_str = str(contest)
-    logger = getLogger(contest_str)
-
-    logger.info('Now crawling raw files for contest..%s' % (contest_str))
-    
-    found_new_record = False
-    
-    # record_content[contest] = collections.defaultdict(dict)
-
-    cur_folder = str(pathlib.Path().resolve())
-
-    submissionURL = "https://leetcode.com/api/submissions/%s"
-    submissionURLCN = "https://leetcode-cn.com/api/submissions/%s"
-
-    logger.info("Crawling raw files... %s " % contest_str)
-
-    
-    Ranking_Folder = 'Contest_Ranking/' + contest_str + '/'
-    outputLocation = 'Contest_Submission/' + contest_str + '/raw/'
-    if not os.path.exists(outputLocation): os.makedirs(outputLocation)
-    
-    file_name_crawled_raw = outputLocation + 'crawled_rawfiles.json'
-
-    # JSON record indicating whether file is crawled or not
-    
-    raw_files_crawled_JSON = IO_Helper.loadJSON(file_name_crawled_raw)
-    # print(raw_files_crawled_JSON)
-
-    # crawling up to 20 page
-
-    for page in range(1, page_end):
-        page_str = str(page)
-        time.sleep(1)
-        # try:
-        Ranking_Page_file = Ranking_Folder + page_str + '.json'
-        Ranking_Page_JSON = {}
-        Ranking_Page_JSON = IO_Helper.loadJSON(Ranking_Page_file)
-        
-        submissions = Ranking_Page_JSON['submissions']
-        total_rank = Ranking_Page_JSON['total_rank']
-        questions = Ranking_Page_JSON['questions']
-        questions_filename = 'Contest_Submission/' + contest_str + '/questions.json'
-        
-        IO_Helper.writeJSON(questions_filename, questions)
-
-        size = len(submissions)
-        submissionCounter = 0
-        # print('size=' + str(size))
-        for submission in submissions:
-            submissionCounter += 1
-            for question_id in submission:
-                submission_id = str(submission[question_id]['submission_id'])
-                data_region = str(submission[question_id]['data_region'])
-
-                
-                submissionRequestURL = submissionURL
-                if data_region == 'CN': submissionRequestURL = submissionURLCN
-                submissionRequestURL = submissionRequestURL % submission_id
-
-                logger.info("Crawling raw file [contest %s][page %s][counter %d][raw file %s][%.2f]" % (contest_str, page, submissionCounter, 
-                    submission_id, (submissionCounter / size) * 100))
-
-                # print(submission_id)
-                if submission_id in raw_files_crawled_JSON: 
-                    logger.info("[filename=%s] exists in system" % submission_id) 
-                    continue
-        
-                raw_file_name = submission_id
-
-
-                sleep_time = 1
-                # logger.info(submissionRequestURL)
-                
-                while True:
-                    submissionResponse = requests.get(submissionRequestURL)
-                    if sleep_time > 100:
-                        break
-                    elif submissionResponse.status_code == 200: 
-                        submissionResponse = submissionResponse.json()
-                        break
-                    else:
-                        logger.info('Next wait time..' + str(sleep_time))
-                        time.sleep(sleep_time)
-                        sleep_time *= 2
-                    
-                submission_raw_filename = outputLocation + str(submission_id) + '.json'
-                raw_files_crawled_JSON[raw_file_name] = '1'
-                
-                IO_Helper.writeJSON(submission_raw_filename, submissionResponse)
-                IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
-    
