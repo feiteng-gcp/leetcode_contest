@@ -22,16 +22,15 @@ def loadJSON(file_name):
     # rootLogger = logging.getLogger()
     # rootLogger.info(file_name)
     
-    # try:
-    # return json.loads(file_name)
-    f = open(file_name, 'r')
-    content = json.load(f)
-    return content
+    try:
+        f = open(file_name, 'r')
+        content = json.load(f)
+        return content
 
-    # except Exception as err:
-    #     print(err)
-    #     pass
-    # return {}
+    except Exception as err:
+        print(err)
+        pass
+    return {}
 
 def writeJSON(file_name, file_content):
     # rootLogger = logging.getLogger()

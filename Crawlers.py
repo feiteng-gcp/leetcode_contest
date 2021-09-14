@@ -241,10 +241,10 @@ def crawlSubmission_raw(contest, page_end):
     # dirpath = dirpath.replace('\\', '/')
     # logging_file_path = dirpath + '/logging.config'
     
-    #logging_file_path = 'logging.conf'
+    logging_file_path = 'logging.conf'
     #print(logging_file_path)
 
-    #logging.config.fileConfig(logging_file_path)#, defaults={'logfilename':log_path})
+    logging.config.fileConfig(logging_file_path)
 
     logger = logging.getLogger()
     logger.info('Now crawling raw files for contest..%s' % (contest_str))
@@ -291,7 +291,7 @@ def crawlSubmission_raw(contest, page_end):
 
         size = len(submissions)
         submissionCounter = 0
-        print('size=' + str(size))
+        # print('size=' + str(size))
         for submission in submissions:
             submissionCounter += 1
             for question_id in submission:
