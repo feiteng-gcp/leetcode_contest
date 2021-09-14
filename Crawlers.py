@@ -233,7 +233,10 @@ def crawlSubmission_raw(contest, page_end):
 
     contest_str = str(contest)
     log_path = "logging/crawling_raw/{0}.log".format(contest_str)
-    logging.config.fileConfig('logging.conf', defaults={'logfilename':log_path})
+    relativePath = str(pathlib.Path().resolve())
+    logging_file_path = relativePath + "/logging.conf"
+    
+    logging.config.fileConfig(logging_file_path, defaults={'logfilename':log_path})
     logger = logging.getLogger(log_path)
 
     logger.info('Now crawling raw files for contest..%s' % (contest_str))
