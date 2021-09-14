@@ -2,6 +2,8 @@ import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
 import logging, IO_Helper
 import logging.config
+from os import path
+
 
 def rankingURL(contest):
     urlOne = "https://leetcode.com/contest/api/ranking/warm-up-contest/?pagination=%d"
@@ -235,13 +237,13 @@ def crawlSubmission_raw(contest, page_end):
 
     contest_str = str(contest)
     log_path = "logging/crawling_raw/{0}.log".format(contest_str)
-from os import path
-log_file_path = path.join(path.dirname(path.abspath(__file__)), 'log.config')
-logging.config.fileConfig(log_file_path)    
-relativePath = str(pathlib.Path().resolve())
-    logging_file_path = relativePath + "/logging.conf"
-    print(logging_file_path) 
+
+    logging_file_path = path.join(path.dirname(path.abspath(__file__)), 'logging.config')
+    
+    print(logging_file_path)
+
     logging.config.fileConfig(logging_file_path, defaults={'logfilename':log_path})
+
     logger = logging.getLogger(log_path)
 
     logger.info('Now crawling raw files for contest..%s' % (contest_str))
