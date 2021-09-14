@@ -231,11 +231,16 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 
 def crawlSubmission_raw(contest, page_end):
 
+
+
     contest_str = str(contest)
     log_path = "logging/crawling_raw/{0}.log".format(contest_str)
-    relativePath = str(pathlib.Path().resolve())
+from os import path
+log_file_path = path.join(path.dirname(path.abspath(__file__)), 'log.config')
+logging.config.fileConfig(log_file_path)    
+relativePath = str(pathlib.Path().resolve())
     logging_file_path = relativePath + "/logging.conf"
-    
+    print(logging_file_path) 
     logging.config.fileConfig(logging_file_path, defaults={'logfilename':log_path})
     logger = logging.getLogger(log_path)
 
