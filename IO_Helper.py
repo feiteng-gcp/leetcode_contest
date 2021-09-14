@@ -1,15 +1,43 @@
-import os, requests, json, pathlib, subprocess, pytz, time, stat
+import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
+import logging
 
-def loadContest():
-    f = open('contest', 'r')
-    contest = f.readline()
+def loadFile(file_name, default_content):
+    content = default_content
+    try:
+        f = open(file_name, 'r')
+        content = f.readline()
+        f.close()
+    except Exception as err:
+        print(err)
+        pass
+    return content
+
+def writeFile(file_name, file_content):
+    f = open(file_name, 'w')
+    f.write(file_content)
     f.close()
-    return contest
 
-def writeContest(content):
-    f = open('contest', 'w')
-    f.write(str(content))
+def loadJSON(file_name):
+    # rootLogger = logging.getLogger()
+    # rootLogger.info(file_name)
+    
+    # try:
+    # return json.loads(file_name)
+    f = open(file_name, 'r')
+    content = json.load(f)
+    return content
+
+    # except Exception as err:
+    #     print(err)
+    #     pass
+    # return {}
+
+def writeJSON(file_name, file_content):
+    # rootLogger = logging.getLogger()
+    # rootLogger.info('Writing to json..[filename=%s]' % file_name)
+    with open(file_name, 'w') as f:
+        json.dump(file_content, f)
     f.close()
 
 
@@ -212,5 +240,41 @@ def writeRecord(submission_record, submission_record_file):
             total_count += count
             banner += '%d|' % (count)
         banner += str(total_count) + '|\n'
+    file.write(banner)
+    file.close()
+
+def countAllSubmissions():
+    folderName = "Contest_Submission/"
+    record = collections.defaultdict(dict)
+    for path, subdirs, files in os.walk(folderName):
+        for name in files:
+            filePath = os.path.join(path, name)
+            filePath = filePath.replace("\\", "/")
+            print(filePath)
+            split = filePath.split("/")
+            print(split)
+            if len(split) > 3:
+                contest = split[1]
+                coding_language = split[2]
+                question_num = split[3]
+                if contest not in record: record[contest] = {}
+                if question_num not in record[contest]:
+                    record[contest][question_num] = {}
+                if coding_language not in record[contest]:
+                    record[contest][question_num][coding_language] = 0
+                record[contest][question_num][coding_language] += 1
+            # print(split)
+    banner = '|Contest|Question Num|Coding Language|Count|\n|-|-|-|-|\n'
+    for contest in record:
+        for question_num in record[contest]:
+            total = 0
+            for coding_language in record[contest][question_num]:
+                count = record[contest][question_num][coding_language]
+                total += count
+                banner += '|%s|%s|%s|%s|\n' % (str(contest), str(question_num), coding_language, str(count))
+            banner += '|%s|Total|#|%s|\n' % (str(contest),str(total))
+
+
+    file = open('submission_record.md', 'w')
     file.write(banner)
     file.close()
