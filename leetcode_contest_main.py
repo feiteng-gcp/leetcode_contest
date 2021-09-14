@@ -17,12 +17,13 @@ if __name__ == '__main__':
     while True:
         
         contest = IO_Helper.loadFile('contest', '65').strip()
+        print('contest=' + contest)
         contest_int = (int)(contest)
 
 
     #     # if not debug: 
-        Crawlers.fetchContestRankingPage(contest)
-        Crawlers.crawlSubmission_raw(contest, page_end)
+        Crawlers.fetchContestRankingPage(contest_int)
+        Crawlers.crawlSubmission_raw(contest_int, page_end)
 
     #     # if not debug: 
     #     found_new_crawl = Crawlers.crawlSubmissions(contest, page_end, submission_record)
@@ -34,6 +35,6 @@ if __name__ == '__main__':
     #         IO_Helper.commit_and_pushtoGithub('index.html')
 
         contest_int = contest_int + 1
-        IO_Helper.writeContest(contest_int)
+        IO_Helper.writeFile('contest', str(contest_int))
         # IO_Helper.writeRecord(submission_record, submission_record_file)
     # IO_Helper.countAllSubmissions()

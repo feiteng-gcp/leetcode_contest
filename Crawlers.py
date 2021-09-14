@@ -37,16 +37,16 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
     data = {}
     
     start_page = 1
-    end_page = 1000   # default to 500 pages
+    end_page = 1000   # default to 1000 pages
 
-    logger.info("Start crawling for contest.. %s " % (contest_str))
+    
     
     cur_folder = str(pathlib.Path().resolve())
     target_folder = cur_folder + '/Contest_Ranking/' + contest_str + '/'
 
     user_num = 0
 
-    url = rankingURL(contest)
+    url = rankingURL(contest_str)
 
     for page_num in range(start_page, end_page + 1):
 
@@ -58,6 +58,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
             os.makedirs(target_folder)
         target_file = target_folder + str(page_num) + '.json'
 
+        logger.info("Crawling [contest.. %s] [page %s] json" % (contest_str, str(page_num)))
         if os.path.exists(target_file): 
             logger.info("Has record of.." + target_file)
             continue
@@ -85,8 +86,8 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         except Exception as err:
             logger.debug(err)
             break
-        with open(target_file, 'a') as outputFile_:
-            json.dump(submissionResponse, outputFile_)
+        with open(target_file, 'w') as outputFile:
+            json.dump(submissionResponse, outputFile)
     
         
 # def crawlSubmissions(contest, page_end, record_content):
@@ -309,7 +310,7 @@ def crawlSubmission_raw(contest, page_end):
                 if data_region == 'CN': submissionRequestURL = submissionURLCN
                 submissionRequestURL = submissionRequestURL % submission_id
 
-                logger.info("Crawling..[page %s][question %s][raw file %s][complete level %.2f]" % (page, question_id, 
+                logger.info("Crawling[contest %s][page %s][counter %d][raw file %s][complete level %.2f]" % (contest_str, page, submissionCounter, 
                     submission_id, (submissionCounter / size) * 100))
 
                 # print(submission_id)

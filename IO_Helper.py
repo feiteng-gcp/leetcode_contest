@@ -3,13 +3,14 @@ from datetime import datetime
 import logging
 
 def loadFile(file_name, default_content):
-    content = default_content
     try:
         f = open(file_name, 'r')
         content = f.readline()
         f.close()
     except Exception as err:
+        print('ERRRRRR')
         print(err)
+        content = default_content
         pass
     return content
 
