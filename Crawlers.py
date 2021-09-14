@@ -4,6 +4,27 @@ import logging, IO_Helper
 import logging.config
 from os import path
 
+def getLogger(contest_str):
+    try:    
+        log_path = "logging/crawling_raw/{0}.log".format(contest_str)
+        logging_file_path = 'logging.conf'
+        logging.config.fileConfig(logging_file_path, defaults={'log_file_name':log_path})
+        logger = logging.getLogger(log_path)
+        # val = 1 / 0
+    except Exception as err:
+        print(err)
+        print('Swithching to root logger')
+        logger = logging.getLogger('logging/rootlog.log')
+        logger.setLevel(logging.DEBUG)
+        consoleHandler = logging.StreamHandler()
+        consoleHandler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        # add formatter to ch
+        consoleHandler.setFormatter(formatter)
+        # add ch to logger
+        logger.addHandler(consoleHandler)
+        pass
+    return logger
 
 def rankingURL(contest):
     urlOne = "https://leetcode.com/contest/api/ranking/warm-up-contest/?pagination=%d"
@@ -30,10 +51,9 @@ def rankingURL(contest):
 
 def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = False):
 
-    logger = logging.getLogger("Crawl Log")
-
     contest_str = str(contest)
-
+    logger = getLogger(contest_str)
+    
     data = {}
     
     start_page = 1
@@ -58,7 +78,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
             os.makedirs(target_folder)
         target_file = target_folder + str(page_num) + '.json'
 
-        logger.info("Crawling [contest.. %s] [page %s] json" % (contest_str, str(page_num)))
+        logger.info("Crawling ranking [contest.. %s] [page %s] json" % (contest_str, str(page_num)))
         if os.path.exists(target_file): 
             logger.info("Has record of.." + target_file)
             continue
@@ -235,24 +255,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 def crawlSubmission_raw(contest, page_end):
 
     contest_str = str(contest)
-    try:
-        log_path = "logging/crawling_raw/{0}.log".format(contest_str)
-        logging_file_path = 'logging.conf'
-        logging.config.fileConfig(logging_file_path, default=log_path)
-        logger = logging.getLogger(log_path)
-        val = 1 / 0
-    except Exception as err:
-        print('Swithching to root logger')
-        logger = logging.getLogger('logging/rootlog.log')
-        logger.setLevel(logging.DEBUG)
-        consoleHandler = logging.StreamHandler()
-        consoleHandler.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        # add formatter to ch
-        consoleHandler.setFormatter(formatter)
-        # add ch to logger
-        logger.addHandler(consoleHandler)
-        pass
+    logger = getLogger(contest_str)
 
     logger.info('Now crawling raw files for contest..%s' % (contest_str))
     
@@ -310,7 +313,7 @@ def crawlSubmission_raw(contest, page_end):
                 if data_region == 'CN': submissionRequestURL = submissionURLCN
                 submissionRequestURL = submissionRequestURL % submission_id
 
-                logger.info("Crawling[contest %s][page %s][counter %d][raw file %s][complete level %.2f]" % (contest_str, page, submissionCounter, 
+                logger.info("Crawling raw file [contest %s][page %s][counter %d][raw file %s][%.2f]" % (contest_str, page, submissionCounter, 
                     submission_id, (submissionCounter / size) * 100))
 
                 # print(submission_id)
