@@ -234,19 +234,25 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 def crawlSubmission_raw(contest, page_end):
 
     contest_str = str(contest)
-    #log_path = "logging/crawling_raw/{0}.log".format(contest_str)
+    try:
+        log_path = "logging/crawling_raw/{0}.log".format(contest_str)
+        logging_file_path = 'logging.conf'
+        logging.config.fileConfig(logging_file_path, default=log_path)
+        logger = logging.getLogger(log_path)
+        val = 1 / 0
+    except Exception as err:
+        print('Swithching to root logger')
+        logger = logging.getLogger('logging/rootlog.log')
+        logger.setLevel(logging.DEBUG)
+        consoleHandler = logging.StreamHandler()
+        consoleHandler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        # add formatter to ch
+        consoleHandler.setFormatter(formatter)
+        # add ch to logger
+        logger.addHandler(consoleHandler)
+        pass
 
-    #logging_file_path = path.join(path.dirname(path.abspath(__file__)), 'logging.conf')
-    # dirpath = str(pathlib.Path().resolve())
-    # dirpath = dirpath.replace('\\', '/')
-    # logging_file_path = dirpath + '/logging.config'
-    
-    logging_file_path = 'logging.conf'
-    #print(logging_file_path)
-
-    logging.config.fileConfig(logging_file_path)
-
-    logger = logging.getLogger()
     logger.info('Now crawling raw files for contest..%s' % (contest_str))
     
     found_new_record = False
@@ -303,7 +309,7 @@ def crawlSubmission_raw(contest, page_end):
                 if data_region == 'CN': submissionRequestURL = submissionURLCN
                 submissionRequestURL = submissionRequestURL % submission_id
 
-                logger.info("Crawling..[page %s][question %s][raw file %s][%.2f]" % (page, question_id, 
+                logger.info("Crawling..[page %s][question %s][raw file %s][complete level %.2f]" % (page, question_id, 
                     submission_id, (submissionCounter / size) * 100))
 
                 # print(submission_id)
