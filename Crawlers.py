@@ -70,7 +70,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 
     for page_num in range(start_page, end_page + 1):
 
-        if(page_num % 10 == 0): logger.info('on page %d' % page_num)
+        # if(page_num % 10 == 0): logger.info('on page %d' % page_num)
         if contest_str == '1' or contest_str == '62': requestURL = url % page_num
         else: requestURL = url % (contest_str, page_num)
 
@@ -100,9 +100,9 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 
 
         try:
-            if page_num > user_num / 25 + 1: break
             if(len(submissionResponse) < 1): break
             user_num = submissionResponse['user_num']
+            if page_num > user_num / 25 + 1: break
         except Exception as err:
             logger.debug(err)
             break
