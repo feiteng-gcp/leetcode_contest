@@ -6,7 +6,7 @@ import Crawlers, IO_Helper, uploadToGCP
 
 if __name__ == '__main__':
     # relativePath = str(pathlib.Path().resolve())
-    # # print(relativePath)
+    # print(relativePath)
     # local = False
     page_end = 21  # check for top 500 people
     # if relativePath.startswith('C:'):
