@@ -278,7 +278,11 @@ def crawlSubmission_raw(contest, page_end):
         
         IO_Helper.writeJSON(questions_filename, questions)
 
+        size = len(submissions)
+        submissionCounter = 0
+        print('size=' + str(size))
         for submission in submissions:
+            submissionCounter += 1
             for question_id in submission:
                 submission_id = str(submission[question_id]['submission_id'])
                 data_region = str(submission[question_id]['data_region'])
@@ -288,7 +292,8 @@ def crawlSubmission_raw(contest, page_end):
                 if data_region == 'CN': submissionRequestURL = submissionURLCN
                 submissionRequestURL = submissionRequestURL % submission_id
 
-                logger.info("Crawling..[page %s][question %s][raw file %s]" % (page, question_id, submission_id))
+                logger.info("Crawling..[page %s][question %s][raw file %s][%.2f]" % (page, question_id, 
+                    submission_id, (submissionCounter / size) * 100))
 
                 # print(submission_id)
                 if submission_id in raw_files_crawled_JSON: 

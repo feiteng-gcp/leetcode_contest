@@ -34,6 +34,6 @@ if __name__ == '__main__':
     #         IO_Helper.commit_and_pushtoGithub('index.html')
 
         contest_int = contest_int + 1
-        # IO_Helper.writeContest(contest_int)
+        IO_Helper.writeContest(contest_int)
         # IO_Helper.writeRecord(submission_record, submission_record_file)
     # IO_Helper.countAllSubmissions()
