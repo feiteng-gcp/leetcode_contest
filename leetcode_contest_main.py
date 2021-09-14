@@ -23,6 +23,7 @@ if __name__ == '__main__':
 
     #     # if not debug: 
         Crawlers.fetchContestRankingPage(contest_int)
+        print("raw file done!")
         Crawlers.crawlSubmission_raw(contest_int, page_end)
 
     #     # if not debug: 
