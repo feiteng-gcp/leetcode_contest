@@ -8,7 +8,7 @@ if __name__ == '__main__':
     # relativePath = str(pathlib.Path().resolve())
     # print(relativePath)
     # local = False
-    page_end = 21  # check for top 500 people
+    # page_end = 21  # check for top 500 people
     # if relativePath.startswith('C:'):
     #     local = True
     
@@ -17,23 +17,16 @@ if __name__ == '__main__':
     while True:
         
         contest = IO_Helper.loadFile('contest', '65').strip()
-        print('contest=' + contest)
+    
         contest_int = (int)(contest)
 
+        Crawlers.fetch_rank_and_crawl_submission(contest_int)
 
-    #     # if not debug: 
-        Crawlers.fetchContestRankingPage(contest_int)
-        print("raw file done!")
-        Crawlers.crawlSubmission_raw(contest_int, page_end)
+        IO_Helper.parse_and_runJPLag(contest_int)
 
-    #     # if not debug: 
-    #     found_new_crawl = Crawlers.crawlSubmissions(contest, page_end, submission_record)
-        
-    #     if found_new_crawl and not local:
-    #         IO_Helper.jplag(contest)
-    #         uploadToGCP.uploadFolder('JPLAGResult/' + contest)
-    #         IO_Helper.writeToHTML()
-    #         IO_Helper.commit_and_pushtoGithub('index.html')
+        uploadToGCP.uploadFolder('JPLAGResult/' + contest)
+
+        IO_Helper.commit_and_pushtoGithub('compare_record.json')
 
         contest_int = contest_int + 1
         IO_Helper.writeFile('contest', str(contest_int))
