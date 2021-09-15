@@ -387,10 +387,44 @@ def getLastCrawledTime(contest):
     lastModified_info  = os.path.getmtime(crawled_ranking_file)
     return datetime.fromtimestamp(lastModified_info, pytz.timezone('America/New_York')).strftime('%Y %b %d %H:%M %p %z')
 
+# def writeRecord():
+#     jplag_folder = "JPLAGResult/"
+#     finished_contests = os.listdir(jplag_folder)
+#     record = []
+#     languagedict = {
+#             'cpp': 'c/c++',
+#             'csharp': 'c#-1.2',
+#             'java': 'java19',
+#             'python': 'python3',
+#             }
+
+#     for contest_str in sorted(finished_contests, key = lambda x : (int(x)), reverse = True):
+#         last_crawled_time = getLastCrawledTime(contest_str)
+#         question_dict = load_question_info(contest_str)
+#         for question_num in question_dict:
+#             title = question_dict[question_num]['title']
+#             title_slug = question_dict[question_num]['title_slug']
+#             for coding_language in languagedict:
+#                 local_dir = "JPLAGResult/%s/%s/%s/" % (contest_str, coding_language, title_slug)
+#                 if not os.path.exists(local_dir): continue
+#                 contest_line_item = []
+#                 contest_line_item.append(contest_str)
+#                 link = 'https://storage.googleapis.com/jplagresult/JPLAGResult/%s/%s/%s/index.html' % (contest_str, coding_language, title_slug)
+#                 leetcode_link = 'https://leetcode.com/problems/%s' % (title_slug)
+#                 text = title
+#                 contest_line_item.append('<a href="%s">%s</a>' % (leetcode_link, title))
+#                 contest_line_item.append('<a href="%s">%s</a>' % (link, coding_language))
+#                 contest_line_item.append(last_crawled_time)
+#                 record.append(contest_line_item)
+
+#     writeJSON('compare_record.json', record)
+    # print(record)
+
 def writeRecord():
     jplag_folder = "JPLAGResult/"
     finished_contests = os.listdir(jplag_folder)
-    record = []
+    record = {}
+    record['data'] = []
     languagedict = {
             'cpp': 'c/c++',
             'csharp': 'c#-1.2',
@@ -407,19 +441,17 @@ def writeRecord():
             for coding_language in languagedict:
                 local_dir = "JPLAGResult/%s/%s/%s/" % (contest_str, coding_language, title_slug)
                 if not os.path.exists(local_dir): continue
-                contest_line_item = []
-                contest_line_item.append(contest_str)
+                contest_line_item = {}
+                contest_line_item['contest']=contest_str
                 link = 'https://storage.googleapis.com/jplagresult/JPLAGResult/%s/%s/%s/index.html' % (contest_str, coding_language, title_slug)
                 leetcode_link = 'https://leetcode.com/problems/%s' % (title_slug)
                 text = title
-                contest_line_item.append('<a href="%s">%s</a>' % (leetcode_link, title))
-                contest_line_item.append('<a href="%s">%s</a>' % (link, coding_language))
-                contest_line_item.append(last_crawled_time)
-                record.append(contest_line_item)
+                contest_line_item['title']='<a href="%s">%s</a>' % (leetcode_link, title)
+                contest_line_item['coding_language']='<a href="%s">%s</a>' % (link, coding_language)
+                contest_line_item['last_modified']=last_crawled_time
+                record['data'].append(contest_line_item)
 
-    writeJSON('compare_record.json', record)
-    # print(record)
-
+    writeJSON('compare_record_.json', record)
 
 def parse_and_runJPLag(contest):
     parseContest(contest)
@@ -428,7 +460,7 @@ def parse_and_runJPLag(contest):
 
 
 if __name__ == '__main__':
-    writeRecord()
+    writeRecord_()
     # parseContest(65)
     # jplag(65)
 

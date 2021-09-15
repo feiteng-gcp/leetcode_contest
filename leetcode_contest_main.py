@@ -26,9 +26,10 @@ if __name__ == '__main__':
 
         uploadToGCP.uploadFolder('JPLAGResult/' + contest)
 
-        IO_Helper.commit_and_pushtoGithub('compare_record.json')
+        IO_Helper.commit_and_pushtoGithub('compare_record_.json')
 
         contest_int = contest_int + 1
+
         IO_Helper.writeFile('contest', str(contest_int))
         # IO_Helper.writeRecord(submission_record, submission_record_file)
     # IO_Helper.countAllSubmissions()
