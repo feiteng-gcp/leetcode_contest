@@ -201,14 +201,10 @@ def crawlSubmission_raw(contest, page_end):
                 while True:
                     submissionResponse = requests.get(submissionRequestURL)
                     if sleep_time > 100:
+                        flag = False
                         break
                     elif submissionResponse.status_code == 200: 
-                        try:
-                            submissionResponse = submissionResponse.json()
-                        except Exception:
-                            traceback.print_exc()
-                            flag = False
-                        break
+                        submissionResponse = submissionResponse.json()
                     else:
                         logger.info('Next wait time..' + str(sleep_time))
                         time.sleep(sleep_time)
