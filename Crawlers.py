@@ -200,7 +200,7 @@ def crawlSubmission_raw(contest, page_end):
                 flag = True
                 while True:
                     submissionResponse = requests.get(submissionRequestURL)
-                    if sleep_time > 100:
+                    if sleep_time > 50: # waited over 32 seconds
                         flag = False
                         break
                     elif submissionResponse.status_code == 200: 
@@ -210,7 +210,9 @@ def crawlSubmission_raw(contest, page_end):
                         time.sleep(sleep_time)
                         sleep_time *= 2
                 
-                if not flag: continue
+                if not flag: 
+                    logger.info("[raw file %s] not available" % submission_id)
+                    continue
                 submission_raw_filename = outputLocation + str(submission_id) + '.json'
                 raw_files_crawled_JSON[raw_file_name] = '1'
                 
