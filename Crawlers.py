@@ -212,12 +212,14 @@ def crawlSubmission_raw(contest, page_end):
                 
                 if not flag: 
                     logger.info("[raw file %s] not available" % submission_id)
+                    raw_files_crawled_JSON[raw_file_name] = '1'
+                    IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
                     continue
+                
                 submission_raw_filename = outputLocation + str(submission_id) + '.json'
                 raw_files_crawled_JSON[raw_file_name] = '1'
-                
                 IO_Helper.writeJSON(submission_raw_filename, submissionResponse)
-                IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
+                IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)  
     
 
 # def crawlSubmissions(contest, page_end, record_content):
