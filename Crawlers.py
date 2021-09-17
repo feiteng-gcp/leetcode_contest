@@ -95,8 +95,8 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
 
         sleep_time = 1
         while True:
-            submissionResponse = requests.get(requestURL)
-            # print(submissionResponse.text)
+            submissionResponse = requests.get(requestURL, headers = {'User-agent':'robot 0.0'})
+            print(submissionResponse.text)
             if sleep_time > 100:
                 break
             elif submissionResponse.status_code == 200:
@@ -199,13 +199,15 @@ def crawlSubmission_raw(contest, page_end):
                 
                 flag = True
                 while True:
-                    submissionResponse = requests.get(submissionRequestURL)
-                    if sleep_time > 50: # waited over 32 seconds
+                    submissionResponse = requests.get(submissionRequestURL, headers = {'User-agent':'your bot 0.1'})
+                    if sleep_time > 5000: # waited over 32 seconds
                         flag = False
                         break
                     elif submissionResponse.status_code == 200: 
                         submissionResponse = submissionResponse.json()
                     else:
+                        logger.info(submissionResponse)
+                        logger.info(submissionResponse.text)
                         logger.info('Next wait time..' + str(sleep_time))
                         time.sleep(sleep_time)
                         sleep_time *= 2
