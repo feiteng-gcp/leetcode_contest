@@ -200,23 +200,23 @@ def crawlSubmission_raw(contest, page_end):
                 flag = True
                 while True:
                     submissionResponse = requests.get(submissionRequestURL)
-                    if sleep_time > 50000: 
+                    if sleep_time > 32: 
+                        logger.info('Request URL= ' + str(submissionRequestURL))
+                        logger.info('Response Text= ' + str(submissionResponse.text))
                         flag = False
                         break
                     elif submissionResponse.status_code == 200: 
                         submissionResponse = submissionResponse.json()
                         break
                     else:
-                        logger.info('Request URL=' + str(submissionRequestURL))
-                        logger.info('Response Code=' + str(submissionResponse))
-                        logger.info('Response Text=' + str(submissionResponse.text))
+                        logger.info('Satus Code= ' + str(submissionResponse.status_code))
                         logger.info('Next wait time..' + str(sleep_time))
                         time.sleep(sleep_time)
                         sleep_time *= 2
                 
                 if not flag: 
                     logger.info("[raw file %s] not available" % submission_id)
-                    raw_files_crawled_JSON[raw_file_name] = '1'
+                    raw_files_crawled_JSON[raw_file_name] = '0'
                     IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
                     continue
                 
