@@ -222,7 +222,7 @@ def crawlSubmission_raw(contest, page_end):
                     logger.info("[raw file %s] not available" % submission_id)
                     if submissionResponse.status_code == 401:
                         raw_files_crawled_JSON[raw_file_name] = 'file not found'
-                    else 
+                    else: 
                         raw_files_crawled_JSON[raw_file_name] = 'error'
                     IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
                     continue
