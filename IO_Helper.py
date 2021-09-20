@@ -1,6 +1,6 @@
 import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
-import logging, Logger
+import logging, Logger, traceback
 
 def loadFile(file_name, default_content):
     try:
@@ -29,7 +29,7 @@ def loadJSON(file_name):
         return content
 
     except Exception as err:
-        print(err)
+        traceback.print_exc()
         pass
     return {}
 
@@ -346,6 +346,8 @@ def parseContest(contest):
         #         'title_slug': each_question['title_slug']
         #     }
         # print(question_dict)
+
+
         user_ranking_info = rank_info['total_rank']
         size = len(submission)
         # size = 1
@@ -359,27 +361,32 @@ def parseContest(contest):
                 submission_detail = submission[idx][each_submission]
                 question_id = str(submission_detail['question_id'])
                 submission_id = str(submission_detail['submission_id'])
-                submission_content = loadJSON(raw_submissionFolder + submission_id + '.json')
-                submitted_code_content = submission_content['code']
-                # print(submitted_code_content)
-                coding_language = submission_content['lang']
-                if coding_language == 'python3': coding_language = 'python'
-                if coding_language == 'c': coding_language = 'cpp'
-                language_suffix = coding_language
-                if coding_language in suffix: language_suffix = suffix[coding_language]
+                try:
+                    # not all files are crawled, handle them
+                    submission_content = loadJSON(raw_submissionFolder + submission_id + '.json')
+                    submitted_code_content = submission_content['code']
+                    # print(submitted_code_content)
+                    coding_language = submission_content['lang']
+                    if coding_language == 'python3': coding_language = 'python'
+                    if coding_language == 'c': coding_language = 'cpp'
+                    language_suffix = coding_language
+                    if coding_language in suffix: language_suffix = suffix[coding_language]
 
-                user_file = '[%s][%s][submission-id=%s].%s' % (userrank ,username, submission_id, language_suffix)
-                # print(user_file)
-                # group by same coding language
-                # print('question_id=' + str(question_id))
-                target_folder = submissionFolder + '/parsed-by-language/' + coding_language + '/' + question_dict[question_id]['title_slug']
-                # print('target_folder=' + target_folder)
-                if not os.path.exists(target_folder):
-                    os.makedirs(target_folder)
-                
-                user_file_path = target_folder + '/' + user_file
-                # print('user_file_path=' + user_file_path)
-                writeFile(user_file_path, submitted_code_content)
+                    user_file = '[%s][%s][submission-id=%s].%s' % (userrank ,username, submission_id, language_suffix)
+                    # print(user_file)
+                    # group by same coding language
+                    # print('question_id=' + str(question_id))
+                    target_folder = submissionFolder + '/parsed-by-language/' + coding_language + '/' + question_dict[question_id]['title_slug']
+                    # print('target_folder=' + target_folder)
+                    if not os.path.exists(target_folder):
+                        os.makedirs(target_folder)
+                    
+                    user_file_path = target_folder + '/' + user_file
+                    # print('user_file_path=' + user_file_path)
+                    writeFile(user_file_path, submitted_code_content)
+                except Exception as err:
+                    traceback.print_exc()
+                    pass
 
 def getLastCrawledTime(contest):
     contest_str = str(contest)
