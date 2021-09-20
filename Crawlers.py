@@ -188,7 +188,7 @@ def crawlSubmission_raw(contest, page_end):
 
                 # print(submission_id)
                 if submission_id in raw_files_crawled_JSON: 
-                    logger.info("[filename=%s] exists in system" % submission_id) 
+                    logger.info("Already crawled file [filename=%s].. [status=%s]" % (submission_id, raw_files_crawled_JSON[submission_id]))
                     continue
         
                 raw_file_name = submission_id
@@ -208,6 +208,10 @@ def crawlSubmission_raw(contest, page_end):
                     elif submissionResponse.status_code == 200: 
                         submissionResponse = submissionResponse.json()
                         break
+                    elif submissionResponse.status_code == 401:
+                        logger.info('Satus Code= ' + str(submissionResponse.status_code))
+                        logger.info('Target does not exist')
+                        break
                     else:
                         logger.info('Satus Code= ' + str(submissionResponse.status_code))
                         logger.info('Next wait time..' + str(sleep_time))
@@ -216,12 +220,15 @@ def crawlSubmission_raw(contest, page_end):
                 
                 if not flag: 
                     logger.info("[raw file %s] not available" % submission_id)
-                    raw_files_crawled_JSON[raw_file_name] = '0'
+                    if submissionResponse.status_code == 401:
+                        raw_files_crawled_JSON[raw_file_name] = 'file not found'
+                    else 
+                        raw_files_crawled_JSON[raw_file_name] = 'error'
                     IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)
                     continue
                 
                 submission_raw_filename = outputLocation + str(submission_id) + '.json'
-                raw_files_crawled_JSON[raw_file_name] = '1'
+                raw_files_crawled_JSON[raw_file_name] = 'successfully crawled'
                 IO_Helper.writeJSON(submission_raw_filename, submissionResponse)
                 IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)  
     
