@@ -96,7 +96,7 @@ def fetchContestRankingPage(contest):#, CNRegion = False, biweeklyContest = Fals
         sleep_time = 1
         while True:
             submissionResponse = requests.get(requestURL, headers = {'User-agent':'robot 0.0'})
-            print(submissionResponse.text)
+            # print(submissionResponse.text)
             if sleep_time > 100:
                 break
             elif submissionResponse.status_code == 200:
@@ -137,7 +137,7 @@ def crawlSubmission_raw(contest, page_end):
 
     submissionURL = "https://leetcode.com/api/submissions/%s"
     submissionURLCN = "https://leetcode-cn.com/api/submissions/%s"
-
+    
     logger.info("Crawling raw files... %s " % contest_str)
 
     
