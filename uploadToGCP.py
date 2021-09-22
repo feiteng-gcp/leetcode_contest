@@ -40,3 +40,14 @@ def uploadFile(filename):
     bucket_name = 'jplagresult'
     logger = Logger.getLogger("GCP_Upload")
     upload_blob(bucket_name, filename, filename, logger)
+
+
+def test_upload(file):
+    logger = Logger.getRootLogger()
+    logger.info("[Upload to GCP] Testing.. start")
+    upload_blob('jplagresult', file, file, logger)
+    logger.info("[Upload to GCP] Testing.. end")
+
+if __name__=='__main__':
+    test_file = 'upload_test_file.txt'
+    test_upload(test_file)

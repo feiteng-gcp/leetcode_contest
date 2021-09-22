@@ -137,7 +137,7 @@ def crawlSubmission_raw(contest, page_end):
 
     submissionURL = "https://leetcode.com/api/submissions/%s"
     submissionURLCN = "https://leetcode-cn.com/api/submissions/%s"
-    
+
     logger.info("Crawling raw files... %s " % contest_str)
 
     
@@ -183,8 +183,8 @@ def crawlSubmission_raw(contest, page_end):
                 if data_region == 'CN': submissionRequestURL = submissionURLCN
                 submissionRequestURL = submissionRequestURL % submission_id
 
-                logger.info("Crawling raw file [contest %s][page %s][counter %d][raw file %s][region %s][%.0f%%]" % (contest_str, page, submissionCounter, 
-                    submission_id, data_region, (submissionCounter / size) * 100))
+                logger.info("Crawling raw file [contest %s][page %s][counter %d][raw file %s][region %s][%.1f%%]" % (contest_str, page, submissionCounter, 
+                    submission_id, data_region, (page + submissionCounter / size) / 21 * 100))
 
                 # print(submission_id)
                 if submission_id in raw_files_crawled_JSON: 

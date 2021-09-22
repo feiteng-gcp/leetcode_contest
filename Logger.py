@@ -28,3 +28,15 @@ def getLogger(logger_name):
     logger.addHandler(fileHandler)
     # pass
     return logger
+
+def getRootLogger():
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    consoleHandler = logging.StreamHandler()
+    consoleHandler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    consoleHandler.setFormatter(formatter)
+    # add ch to logger
+    logger.addHandler(consoleHandler)
+    # pass
+    return logger
