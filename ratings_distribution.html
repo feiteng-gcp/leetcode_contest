@@ -1,0 +1,116 @@
+    <!DOCTYPE html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+
+</head>
+<body>
+    <div>
+        <a style='font-size:80%' href='https://github.com/feiteng-gcp/leetcode_contest'>Github Link</a>
+    </div>
+    <div style='font-size:80%;'>
+        <p>Ratings are collected for users who submitted this question successfully during contest</p>
+        <p>Ratings are after contest data</p>
+    </div>
+    
+    <div id="chartContainer" style="height: 600px; width: 90%;"></div>
+
+
+    
+    </div>
+    
+
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var dataPoints = [];
+            var buckets_formatted = [];
+            var avg_score = 0;
+            var count = 0;
+            var buckets = new Map();
+            question_title_slug = document.URL.split("?")[1]; // get params (key val pairs) as string
+            
+            for(let i = 1000; i <= 3200; i += 200)
+            {
+                let j = i + 199;
+                let description = `${i}-${j}`;
+                if(i == 3200)
+                {
+                    description = `${i} and above`;
+                }
+
+                buckets[description] = 0;
+            }
+            // buckets.set('1000-1199', 0);
+            var chart = new CanvasJS.Chart("chartContainer",{
+                title:{
+                    text:"Rating distribution for question: " + question_title_slug
+                },
+                data: [{
+                    type: "column",
+                    dataPoints : buckets_formatted,
+                }]
+            });
+
+            url = "https://raw.githubusercontent.com/feiteng-gcp/leetcode_contest/master/ratings/" + question_title_slug + ".json";
+            $.getJSON(url, function(data) {  
+                $.each(data['data'], function(key, value){
+
+                    for(let i = 1000; i <= 3200; i += 200)
+                    {
+                        let j = i + 199;
+                        if(i == 3200) j = 5000;
+                        if(i <= value && value <= j)
+                        {
+                            let description = `${i}-${j}`;
+                            if(i == 3200)
+                            {
+                                description = `${i} and above`;
+                            }
+                            buckets[description] += 1;
+                            avg_score += value;
+                            count += 1;
+                        }
+                        
+                    }
+
+                }); 
+
+                for(key in buckets)
+                {
+                    buckets_formatted.push({label:key, y:buckets[key], color:getColor(key)});
+                }
+
+                chart.render();
+            });
+        }
+
+        function getColor(data){
+            var map = new Map();
+            color = ['darkgray', 'mediumseagreen', 'royalblue', 'orange', 'red'];
+            for(let i = 1000, idx = 0; i <= 3200; i += 200, idx += 1)
+            {
+                let j = i + 199;
+                let description = `${i}-${j}`;
+                if(i == 3200)
+                {
+                    description = `${i} and above`;
+                }
+
+                map[description] = color[Math.floor(idx / 3)];
+            }
+            return map[data];
+        };
+    </script>
+</body>
+</html>
