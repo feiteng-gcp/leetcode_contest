@@ -35,9 +35,11 @@
         window.onload = function () {
             var dataPoints = [];
             var buckets_formatted = [];
+            var ratings = [];
             var avg_score = 0;
             var count = 0;
             var buckets = new Map();
+            // var usercount = 0
             question_title_slug = document.URL.split("?")[1]; // get params (key val pairs) as string
             
             for(let i = 1000; i <= 3200; i += 200)
@@ -51,16 +53,7 @@
 
                 buckets[description] = 0;
             }
-            // buckets.set('1000-1199', 0);
-            var chart = new CanvasJS.Chart("chartContainer",{
-                title:{
-                    text:"Rating distribution for question: " + question_title_slug
-                },
-                data: [{
-                    type: "column",
-                    dataPoints : buckets_formatted,
-                }]
-            });
+
 
             url = "https://raw.githubusercontent.com/feiteng-gcp/leetcode_contest/master/Question_Ratings_raw/" + question_title_slug + ".json";
             $.getJSON(url, function(data) {  
@@ -78,8 +71,9 @@
                                 description = `${i} and above`;
                             }
                             buckets[description] += 1;
-                            avg_score += value;
-                            count += 1;
+                            // avg_score += value;
+                            // count += 1;
+                            ratings.push(value);
                         }
                         
                     }
@@ -91,7 +85,23 @@
                     buckets_formatted.push({label:key, y:buckets[key], color:getColor(key)});
                 }
 
+                avg_score = avg_score / count;
+
                 chart.render();
+            });
+
+            // buckets.set('1000-1199', 0);
+            var chart = new CanvasJS.Chart("chartContainer",{
+                title:{
+                    text:"Rating distribution for question: " + question_title_slug
+                },
+                data: [{
+                    type: "column",
+                    indexLabel: "count={y}",
+                    // name : "Average Rating =" + getAvg(ratings),
+                    // showInLegend: true,
+                    dataPoints : buckets_formatted,
+                }]
             });
         }
 
@@ -111,6 +121,32 @@
             }
             return map[data];
         };
+
+        function getAvg(ratings)
+        {
+            var avg_score = 0;
+            var count = 0;
+            for(rating in ratings)
+            {
+                avg_score += rating;
+                count++;
+            }
+            return avg_score / count;
+        }
+
+        function getCount(ratings)
+        {
+            var avg_score = 0;
+            var count = 0;
+            for(rating in ratings)
+            {
+                avg_score += rating;
+                count++;
+            }
+            return count;
+        }
+
+
     </script>
 </body>
 </html>
