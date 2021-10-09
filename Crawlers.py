@@ -5,6 +5,85 @@ import logging.config
 import Logger
 from os import path
 
+
+def query_graphql(data, url = 'https://leetcode.com/graphql'):
+    CSRF_Token = '77HhPMor1cJWx7fEIZCrUkYvODrQCEf3QdcHUKSexKhpbRayWMtrREWiAsviKHls'
+
+    COOKIE = 'csrftoken=' + CSRF_Token
+    X_CSRFTOKEN = CSRF_Token
+    
+    headers = {
+            'referer': 'https://leetcode.com/accounts/login/',
+            'cookie' : COOKIE,
+            'x-csrftoken' : X_CSRFTOKEN
+    }
+
+    resp = requests.post(url, headers = headers, data = data).json()
+    
+    return resp
+    
+def crawl_user_info_raw_CN(USERNAME):
+    target_file = 'User_Rating/' + USERNAME + '.json'
+    if os.path.exists(target_file): return
+    data = {
+        'operationName': "userContest",
+        'query': "query userContest($userSlug: String!) {\n  userContestRanking(userSlug: $userSlug) {\n    ratingHistory\n contestHistory\n} }",
+        'variables': '{"userSlug":"' + USERNAME + '"}'
+    }
+
+    url = 'https://leetcode-cn.com/graphql'
+    graphql_result = query_graphql(data, url)
+    
+    # print(graphql_result)
+    IO_Helper.writeJSON(target_file, graphql_result)
+
+def crawl_user_info_raw_US(USERNAME):
+    target_file = 'User_Rating/' + USERNAME + '.json'
+    # if os.path.exists(target_file): return
+    data = {
+        'operationName': 'getContestRankingData',
+        'query': "query getContestRankingData($username: String!) {\n  userContestRankingHistory(username: $username) {\n contest {\n titleSlug\n  }\n    rating\n   }\n}\n",
+        'variables': '{"username":"' + USERNAME + '"}'
+    }
+
+    # print(data)
+    graphql_result = query_graphql(data)
+    print(graphql_result)
+    
+    # IO_Helper.writeJSON(target_file, graphql_result)
+
+def crawl_user_info_raw(CONTEST_METADATA, CRAWLED_QUESTION_RECORD_FILNAME, CRAWLED_QUESTION_RECORD, logger):
+    Passed_User_Folder = 'Passed_User/'
+    for contest_title_slug in CONTEST_METADATA:
+            
+            target_file = 'Contest_Ranking/' + contest_title_slug + '/1.json'
+            # print(target_file)
+            submission_page = IO_Helper.loadJSON(target_file)
+            # print(submission_page)
+            for questions in submission_page['questions']:
+                question_title_slug = questions['title_slug']
+                Passed_User_File = Passed_User_Folder + question_title_slug + '.json'
+                Passed_Users = IO_Helper.loadJSON(Passed_User_File)
+                for user_info in Passed_Users:
+                    user_slug = user_info['user_slug']
+                    user_region = user_info['user_region']
+                    if user_region == 'US': crawl_user_info_raw_US(user_slug)
+                    else: crawl_user_info_raw_CN(user_slug)
+
+
+
+    
+
+    user_folder = 'User_Rating/'
+
+
+
+
+
+
+
+
+
 def fetch_rank_and_crawl_submission(contest):
     fetchContestRankingPage(contest)
     crawlSubmission_raw(contest, 21)
@@ -234,4 +313,5 @@ def crawlSubmission_raw(contest, page_end):
                 IO_Helper.writeJSON(file_name_crawled_raw, raw_files_crawled_JSON)  
     
 if __name__ == '__main__':
-    crawlSubmission_raw(89, 21)
+    crawl_user_info_raw_US('xianglaniunan')
+    # crawl_user_info_raw_CN('zerotrac2')
