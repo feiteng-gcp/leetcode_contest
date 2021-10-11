@@ -87,6 +87,12 @@ def jplag(contest):
                 sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
             os.system(eachCommand)    
 
+# def jplag_():
+#     title_slug = question_dict[question_num]['title_slug']
+#     eachCommand = command1 + jplag_language + \
+#         resultFolder + coding_language  + '/' + title_slug + '/' + \
+#         sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
+#     os.system(eachCommand)    
 
 
 
@@ -448,7 +454,9 @@ def writeRecord():
             'python': 'python3',
             }
 
-    for contest_str in sorted(finished_contests, key = lambda x : (int(x)), reverse = True):
+    Contest_Metadata = loadContestMetaData()
+
+    for contest_str in sorted(finished_contests, key = lambda x : (Contest_Metadata[x]['startTime']), reverse = True):
         last_crawled_time = getLastCrawledTime(contest_str)
         question_dict = load_question_info(contest_str)
         for question_num in question_dict:
@@ -470,9 +478,9 @@ def writeRecord():
     writeJSON('compare_record_.json', record)
 
 def parse_and_runJPLag(contest):
-    parseContest(contest)
-    jplag(contest)
-    # writeRecord()
+    # parseContest(contest)
+    # jplag(contest)
+    writeRecord()
 
 
 if __name__ == '__main__':

@@ -37,7 +37,7 @@ if __name__ == '__main__':
         # Crawlers.fetch_rank_and_crawl_submission(contest_title_slug)
         # break
 
-        # IO_Helper.parse_and_runJPLag(contest_title_slug)
+        IO_Helper.parse_and_runJPLag(contest_title_slug)
         # break
 
         # Upload.uploadFolder(contest_title_slug, [])
