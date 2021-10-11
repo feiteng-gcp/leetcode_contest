@@ -1,6 +1,18 @@
 import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
-import logging, Logger, traceback
+import logging, Logger, traceback, configparser, Crawlers
+
+
+def loadConfig():
+    config = configparser.ConfigParser()
+    config.read('assets/config.ini')
+    return config
+
+def loadContestMetaData(flag=False):
+    config = loadConfig()
+    filename = config['FILES']['CONTEST_METADATA_FILENAME'].strip()
+    if flag: Crawlers.updateMetaData(filename)
+    return loadJSON(filename)
 
 def loadFile(file_name, default_content):
     try:
@@ -23,15 +35,12 @@ def loadJSON(file_name):
     # rootLogger = logging.getLogger()
     # rootLogger.info(file_name)
     
-    try:
+    if os.path.exists(file_name):
         f = open(file_name, 'r', encoding='utf-8')
         content = json.load(f)
+        f.close()
         return content
-
-    except Exception as err:
-        traceback.print_exc()
-        pass
-    return {}
+    else: return {}
 
 def writeJSON(file_name, file_content):
     # rootLogger = logging.getLogger()
@@ -333,7 +342,7 @@ def parseContest(contest):
             }
 
     for page in range(1, page_end):
-        logger.info('Parsing[Contest=%s][page=%s]' %(contest_str, str(page)))
+        print('Parsing[Contest=%s][page=%s]' % (contest_str, str(page)))
         rank_file = rankingFolder + str(page) + ".json"
         rank_info = loadJSON(rank_file)
         # print(rank_info)
@@ -463,7 +472,7 @@ def writeRecord():
 def parse_and_runJPLag(contest):
     parseContest(contest)
     jplag(contest)
-    writeRecord()
+    # writeRecord()
 
 
 if __name__ == '__main__':

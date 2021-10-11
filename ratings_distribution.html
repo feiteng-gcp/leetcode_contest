@@ -71,8 +71,8 @@
                                 description = `${i} and above`;
                             }
                             buckets[description] += 1;
-                            // avg_score += value;
-                            // count += 1;
+                            avg_score += value;
+                            count += 1;
                             ratings.push(value);
                         }
                         
@@ -98,54 +98,54 @@
                 data: [{
                     type: "column",
                     indexLabel: "count={y}",
-                    // name : "Average Rating =" + getAvg(ratings),
-                    // showInLegend: true,
+                    name : "Average Rating = " + avg_score, //getAvg(ratings),
+                    showInLegend: true,
                     dataPoints : buckets_formatted,
                 }]
             });
-        }
+        
 
-        function getColor(data){
-            var map = new Map();
-            color = ['darkgray', 'mediumseagreen', 'royalblue', 'orange', 'red'];
-            for(let i = 1000, idx = 0; i <= 3200; i += 200, idx += 1)
-            {
-                let j = i + 199;
-                let description = `${i}-${j}`;
-                if(i == 3200)
+            function getColor(data){
+                var map = new Map();
+                color = ['darkgray', 'mediumseagreen', 'royalblue', 'orange', 'red'];
+                for(let i = 1000, idx = 0; i <= 3200; i += 200, idx += 1)
                 {
-                    description = `${i} and above`;
+                    let j = i + 199;
+                    let description = `${i}-${j}`;
+                    if(i == 3200)
+                    {
+                        description = `${i} and above`;
+                    }
+
+                    map[description] = color[Math.floor(idx / 3)];
                 }
+                return map[data];
+            };
 
-                map[description] = color[Math.floor(idx / 3)];
-            }
-            return map[data];
-        };
-
-        function getAvg(ratings)
-        {
-            var avg_score = 0;
-            var count = 0;
-            for(rating in ratings)
+            function getAvg(ratings)
             {
-                avg_score += rating;
-                count++;
+                var avg_score = 0;
+                var count = 0;
+                for(rating in ratings)
+                {
+                    avg_score += rating;
+                    count++;
+                }
+                return avg_score / count;
             }
-            return avg_score / count;
-        }
 
-        function getCount(ratings)
-        {
-            var avg_score = 0;
-            var count = 0;
-            for(rating in ratings)
+            function getCount(ratings)
             {
-                avg_score += rating;
-                count++;
+                var avg_score = 0;
+                var count = 0;
+                for(rating in ratings)
+                {
+                    avg_score += rating;
+                    count++;
+                }
+                return count;
             }
-            return count;
         }
-
 
     </script>
 </body>
