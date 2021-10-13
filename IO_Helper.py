@@ -1,6 +1,7 @@
 import os, requests, json, pathlib, subprocess, pytz, time, stat, collections
 from datetime import datetime
 import logging, Logger, traceback, configparser, Crawlers
+import concurrent.futures
 
 
 def loadConfig():
@@ -60,7 +61,7 @@ def jplag(contest):
 
     languageFolder = "Contest_Submission/" + contest_str + "/parsed-by-language/"
     languageList = os.listdir(languageFolder)
-    print(languageList)
+    # print(languageList)
     
     
     languagedict = {
@@ -82,17 +83,29 @@ def jplag(contest):
         else: continue
         for question_num in question_dict:
             title_slug = question_dict[question_num]['title_slug']
-            eachCommand = command1 + jplag_language + \
-                resultFolder + coding_language  + '/' + title_slug + '/' + \
-                sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
-            os.system(eachCommand)    
+            # eachCommand = command1 + jplag_language + \
+            #     resultFolder + coding_language  + '/' + title_slug + '/' + \
+            #     sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
+            # os.system(eachCommand)
+            with concurrent.futures.ProcessPoolExecutor() as executor:
+                try:
+                    future_submit = executor.submit(jplag_command, contest_str, jplag_language, coding_language, title_slug)
+                    print(future_submit.result())
+                except Exception as err:
+                    print(err)
+                    traceback.print_exc()
+                    break
 
-# def jplag_():
-#     title_slug = question_dict[question_num]['title_slug']
-#     eachCommand = command1 + jplag_language + \
-#         resultFolder + coding_language  + '/' + title_slug + '/' + \
-#         sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
-#     os.system(eachCommand)    
+def jplag_command(contest_str, jplag_language, coding_language, title_slug):
+    command1 = 'java -jar jplag-2.12.1-SNAPSHOT-jar-with-dependencies.jar -l '
+    resultFolder = ' -r ./JPLAGResult/' + contest_str + '/'
+    sourceFolder = ' -s "Contest_Submission/'
+    eachCommand = command1 + jplag_language + \
+        resultFolder + coding_language  + '/' + title_slug + '/' + \
+        sourceFolder + contest_str + '/parsed-by-language/' + coding_language + '/' + title_slug + '/"'
+    print(eachCommand)
+    os.system(eachCommand)
+    return True
 
 
 
@@ -470,6 +483,8 @@ def writeRecord():
                 link = 'https://storage.googleapis.com/jplagresult/JPLAGResult/%s/%s/%s/index.html' % (contest_str, coding_language, title_slug)
                 leetcode_link = 'https://leetcode.com/problems/%s' % (title_slug)
                 text = title
+                startTime = Contest_Metadata[contest_str]['startTime']
+                contest_line_item['contest_time'] = datetime.fromtimestamp(startTime).strftime('%Y-%m-%d')
                 contest_line_item['title']='<a href="%s">%s</a>' % (leetcode_link, title)
                 contest_line_item['coding_language']='<a href="%s">%s</a>' % (link, coding_language)
                 contest_line_item['last_modified']=last_crawled_time
@@ -478,8 +493,8 @@ def writeRecord():
     writeJSON('compare_record_.json', record)
 
 def parse_and_runJPLag(contest):
-    # parseContest(contest)
-    # jplag(contest)
+    parseContest(contest)
+    jplag(contest)
     writeRecord()
 
 
@@ -487,7 +502,3 @@ if __name__ == '__main__':
     writeRecord_()
     # parseContest(65)
     # jplag(65)
-
-
-
-

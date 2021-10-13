@@ -41,59 +41,115 @@ def query_graphql(data, url = 'https://leetcode.com/graphql'):
             'x-csrftoken' : X_CSRFTOKEN
     }
 
-    resp = requests.post(url, headers = headers, data = data).json()
+    sleep_time = 1
+    while True:
+        resp = requests.post(url, headers = headers, data = data)
+        if sleep_time > 100:
+                break
+        elif resp.status_code == 200:
+            resp = resp.json()
+            break
+        elif resp.status_code == 429:
+            print('Next wait time..' + str(sleep_time))
+            time.sleep(sleep_time)
+            sleep_time *= 2
+        else:
+            print('Error Code=%s' % (resp.status_code))
+            break
     
     return resp
     
-def crawl_user_info_raw_CN(USERNAME):
-    target_file = 'User_Rating/' + USERNAME + '.json'
-    if os.path.exists(target_file): return
-    data = {
-        'operationName': "userContest",
-        'query': "query userContest($userSlug: String!) {\n  userContestRanking(userSlug: $userSlug) {\n    ratingHistory\n contestHistory\n} }",
-        'variables': '{"userSlug":"' + USERNAME + '"}'
-    }
+def crawl_user_info_raw_CN(USERNAME, contest_title_slug):
+    # print('Processing user rating [user=%s][region=CN]' % USERNAME)
+    try:
+        parsed_file = 'User_Rating_Parsed/' + USERNAME + '.json'
+        if os.path.exists(parsed_file):
+            user_rating = IO_Helper.loadJSON(parsed_file)
+            if contest_title_slug in user_rating:
+                return
+        target_file = 'User_Rating_Raw/' + USERNAME + '.json'
 
-    url = 'https://leetcode-cn.com/graphql'
-    graphql_result = query_graphql(data, url)
-    
-    # print(graphql_result)
-    IO_Helper.writeJSON(target_file, graphql_result)
+        print('Crawling user rating raw file [user=%s][region=CN]' % USERNAME)
 
-def crawl_user_info_raw_US(USERNAME):
-    target_file = 'User_Rating/' + USERNAME + '.json'
-    # if os.path.exists(target_file): return
-    data = {
-        'operationName': 'getContestRankingData',
-        'query': "query getContestRankingData($username: String!) {\n  userContestRankingHistory(username: $username) {\n contest {\n titleSlug\n  }\n    rating\n   }\n}\n",
-        'variables': '{"username":"' + USERNAME + '"}'
-    }
+        data = {
+            'operationName': "userContest",
+            'query': "query userContest($userSlug: String!) {\n  userContestRanking(userSlug: $userSlug) {\n    ratingHistory\n contestHistory\n} }",
+            'variables': '{"userSlug":"' + USERNAME + '"}'
+        }
 
-    # print(data)
-    graphql_result = query_graphql(data)
-    print(graphql_result)
-    
-    # IO_Helper.writeJSON(target_file, graphql_result)
+        url = 'https://leetcode-cn.com/graphql'
+        graphql_result = query_graphql(data, url)
+        
+        # print(graphql_result)
+        IO_Helper.writeJSON(target_file, graphql_result)
+        
+        Processing.parse_user_rating(USERNAME, 'CN', parsed_file)
+    except Exception as err:
+        traceback.print_exc()
+
+def crawl_user_info_raw_US(USERNAME, contest_title_slug):
+    # print('Processing user rating [user=%s][region=US]' % USERNAME)
+    try:        
+        parsed_file = 'User_Rating_Parsed/' + USERNAME + '.json'
+        if os.path.exists(parsed_file):
+            user_rating = IO_Helper.loadJSON(parsed_file)
+            if contest_title_slug in user_rating:
+                print('[Contest=%s] in user rating [user=%s]' % (contest_title_slug,USERNAME))
+                return
+        target_file = 'User_Rating_Raw/' + USERNAME + '.json'
+        
+        print('Crawling user rating raw file [user=%s][region=US]' % USERNAME)
+        
+        data = {
+            'operationName': 'getContestRankingData',
+            'query': "query getContestRankingData($username: String!) {\n  userContestRankingHistory(username: $username) {\n contest {\n titleSlug\n  }\n    rating\n   }\n}\n",
+            'variables': '{"username":"' + USERNAME + '"}'
+        }
+
+        # print(data)
+        graphql_result = query_graphql(data)
+        # print(graphql_result)
+        
+        IO_Helper.writeJSON(target_file, graphql_result)
+        Processing.parse_user_rating(USERNAME, 'US', parsed_file)
+    except Exception as err:
+        traceback.print_exc()
 
 def crawl_user_info_raw(CONTEST_METADATA, CRAWLED_QUESTION_RECORD_FILNAME, CRAWLED_QUESTION_RECORD, logger):
     Passed_User_Folder = 'Passed_User/'
-    for contest_title_slug in CONTEST_METADATA:            
+    print('crawl user info raw')
+    try:
+        
+        for contest_title_slug in CONTEST_METADATA:
+            if contest_title_slug in CRAWLED_QUESTION_RECORD: continue
             target_file = 'Contest_Ranking/' + contest_title_slug + '/1.json'
-            # print(target_file)
-            if not os.path.exists(target_file): return
+            # print('Target file = %s' % target_file)
+            if not os.path.exists(target_file): continue
             submission_page = IO_Helper.loadJSON(target_file)
             # print(submission_page)
-            for questions in submission_page['questions']:
-                question_title_slug = questions['title_slug']
-                Passed_User_File = Passed_User_Folder + question_title_slug + '.json'
-                Passed_Users = IO_Helper.loadJSON(Passed_User_File)
-                for user_info in Passed_Users:
-                    user_slug = user_info['user_slug']
-                    user_region = user_info['user_region']
-                    if user_region == 'US': crawl_user_info_raw_US(user_slug)
-                    else: crawl_user_info_raw_CN(user_slug)
+            questions_list = submission_page['questions']
+            for questions in questions_list:
+                with concurrent.futures.ProcessPoolExecutor() as executor:
+                    question_title_slug = questions['title_slug']
+                    Passed_User_File = Passed_User_Folder + question_title_slug + '.json'
+                    Passed_Users = IO_Helper.loadJSON(Passed_User_File)
+                    # print('Now crawling [Contest=%s][Question=%s]' % (contest_title_slug, question_title_slug))
+                    print('Now processing [userfile=%s]' % (Passed_User_File))
+                    for user_info in Passed_Users:
+                        user_slug = user_info['user_slug']
+                        user_region = user_info['user_region']
+
+                        if user_region == 'US': 
+                            executor.submit(crawl_user_info_raw_US, user_slug, contest_title_slug)
+                        else: 
+                            executor.submit(crawl_user_info_raw_CN, user_slug, contest_title_slug)
+
+            CRAWLED_QUESTION_RECORD[contest_title_slug] = 1
 
     # user_folder = 'User_Rating/'
+        IO_Helper.writeJSON(CRAWLED_QUESTION_RECORD_FILNAME, CRAWLED_QUESTION_RECORD)
+    except:
+        traceback.print_exc()
 
 
 def fetch_rank_and_crawl_submission(contest):

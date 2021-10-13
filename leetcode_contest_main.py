@@ -20,13 +20,12 @@ if __name__ == '__main__':
     rootLogger = Logger.getRootLogger()
 
     for contest_title_slug in Contest_Metadata:
-    # while True:
-        
+
         startTime = Contest_Metadata[contest_title_slug]['startTime']
         
         currTime = time.time()
 
-        if startTime > currTime: continue
+        if startTime > currTime: continue   # case where next contest info is in meta data
 
         print('Processing now [Contest=%s]' % contest_title_slug)
 
@@ -41,8 +40,9 @@ if __name__ == '__main__':
         # break
 
         # Upload.uploadFolder(contest_title_slug, [])
+        Upload.upload(rootLogger)
 
-        IO_Helper.commit_and_pushtoGithub('compare_record_.json')
+        # IO_Helper.commit_and_pushtoGithub('compare_record_.json')
 
         # contest_int = contest_int + 1
 
